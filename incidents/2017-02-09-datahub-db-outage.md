@@ -150,17 +150,17 @@ Accidental overwriting of the sqlite file during routine debugging operation led
 
 ### Upstream bug reports for JupyterHub ###
 
-1. JupyterHub only uses a certain length of the cookie secret, and discards the rest. This causes confusion when trying to change it to log people out.
-2. The cookie_id column in the users table should have UNIQUE and NOT NULL constraints
+1. JupyterHub only uses a certain length of the cookie secret, and discards the rest. This causes confusion when trying to change it to log people out. [Issue](https://github.com/jupyterhub/jupyterhub/issues/986)
+2. The cookie_id column in the users table should have UNIQUE and NOT NULL constraints. [Issue](https://github.com/jupyterhub/jupyterhub/issues/985)
 
 
 ### Upstream bug reports for KubeSpawner ###
 
-1. Support using username hashes in PVC and Pod Names rather than user ids, so that pod and PVC names remain constant even when DB is deleted.
+1. Support using username hashes in PVC and Pod Names rather than user ids, so that pod and PVC names remain constant even when DB is deleted. [Issue](https://github.com/jupyterhub/kubespawner/issues/21)
 
 
 ### Upstream bug reports for OAuthenticator ###
-1. Support setting id of user in user table to be same as ‘id’ provided by Google authenticator, thus providing a stable userid regardless of when the user first logged in.
+1. Support setting id of user in user table to be same as ‘id’ provided by Google authenticator, thus providing a stable userid regardless of when the user first logged in. [Issue](https://github.com/jupyterhub/oauthenticator/issues/65)
 
 
 ### DataHub deployment changes ###
