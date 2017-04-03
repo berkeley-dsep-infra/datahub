@@ -48,6 +48,8 @@ https://github.com/data-8/jupyterhub-k8s/pull/152 is also merged, and deployed s
 
 Insufficient testing procedures caused a new kind of outage (kernel dying) that we had not seen before. However, since our infrastructure was immutable & reproducible, our outage really only lasted about 40 minutes (from start of lab when students were starting containers until the revert). Deeper debugging produced a fix, but attempts to understand why the fix works are ongoing.
 
+**Update**: We have found and fixed the [underlying issue](https://github.com/ipython/ipykernel/pull/233)
+
 ## Action items ##
 
 ### Process ###
