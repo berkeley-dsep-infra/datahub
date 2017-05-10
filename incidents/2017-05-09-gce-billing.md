@@ -22,15 +22,19 @@ Google Compute Engine: Project data-8 cannot accept requests to setMetadata whil
 
 ### 17:09
 
-provisioner-01 is manually started. All clusters are still present but the containers are in a ContainerCreating state.
+provisioner-01 is manually started. All pods in the datahub namespace are deleted.
 
 ### 17:15
 
-datahub is back online. stat28 and prob140 are stuck in the ContainerCreating state so their hub pods are manually killed. After a few moments the hubs are back online.
+datahub is back online. stat28 and prob140 hub pods are manually killed. After a few moments the hubs are back online. The autoscaler is started.
+
+### 17:19
+
+The slack duplicator is started.
 
 ## Conclusion
 
-There was not sufficient visibility into the billing alerts.
+There was not sufficient monitoring of the billing status.
 
 ## Action items
 
