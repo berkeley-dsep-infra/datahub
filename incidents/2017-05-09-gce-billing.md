@@ -32,6 +32,10 @@ datahub is back online. stat28 and prob140 hub pods are manually killed. After a
 
 The slack duplicator is started.
 
+### 2017-05-10 10:48
+
+A report in uc-jupyter #jupyterhub says that try.datahub is down. This is confirmed and the hub in the tmp namespace is killed. The hub comes online a couple of minutes later.
+
 ## Conclusion
 
 There was insufficient monitoring of the billing status.
