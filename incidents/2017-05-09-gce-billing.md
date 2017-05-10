@@ -46,7 +46,11 @@ There was insufficient monitoring of the billing status.
 
 1. Identify channels for billing alerts.
 1. Identify billing threshold functions that predict when funds will run out.
+1. Establish off-cloud backups. The plan is to do this via nbgdrive.
+1. Start autoscaler automatically. It is manually started at the moment.
 
 ### Monitoring
 
 1. Setup scheduled billing reports and threshold alarms.
+1. Setup hub monitoring!
+1. The slack duplicator runs in one of the GCP clusters. When the clusters go down, slack messages aren't forwarded from the data8-sp17-staff slack to uc-jupyter.
