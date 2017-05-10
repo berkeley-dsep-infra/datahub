@@ -34,7 +34,7 @@ The slack duplicator is started.
 
 ## Conclusion
 
-There was not sufficient monitoring of the billing status.
+There was insufficient monitoring of the billing status.
 
 ## Action items
 
