@@ -1,0 +1,4 @@
+apiVersion: v1
+description: data100 fully reproducible config
+name: data100
+version: 0.1.0

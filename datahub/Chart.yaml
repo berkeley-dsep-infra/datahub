@@ -1,0 +1,4 @@
+apiVersion: v1
+description: datahub.berkeley.edu fully reproducible config
+name: datahub
+version: 0.1.0
