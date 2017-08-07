@@ -5,9 +5,13 @@ pandas==0.19.2
 scipy==0.19.0
 statsmodels==0.8.0
 okpy==1.12.5
-# neuro
+#
+# ls 88-3; neuro
 nbserverproxy==0.2.0
 lxml==3.8.0
 tqdm==4.15.0
 mne==0.14.1
 nibabel==2.1.0
+#
+# cogsci88; 
+ggplot==0.11.5
