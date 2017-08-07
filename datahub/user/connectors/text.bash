@@ -4,7 +4,7 @@
 # environment variable appropriately. For more info see
 # http://www.nltk.org/data.html#command-line-installation
 ## tbd: Dockerfile: ENV NLTK_DATA /usr/share/nltk_data
-mkdir /usr/share/nltk_data
+mkdir /srv/app/nltk_data
 
 # MODEL_____________________  TERMS____
 # averaged_perceptron_tagger: 17sp 16fa
@@ -14,7 +14,7 @@ mkdir /usr/share/nltk_data
 #                  stopwords: 17sp
 #                    wordnet: 17sp 16fa
 #                      words: 17sp 16fa
-python -m nltk.downloader -d /usr/share/nltk_data \
+python -m nltk.downloader -d /srv/app/nltk_data \
     averaged_perceptron_tagger \
     cmudict \
     maxent_ne_chunker \

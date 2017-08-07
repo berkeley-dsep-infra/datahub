@@ -57,6 +57,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 ADD connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
 
+ENV NLTK_DATA ${APP_DIR}/nltk_data
 ADD connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
