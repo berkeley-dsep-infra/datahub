@@ -38,11 +38,21 @@ RUN pip install --no-cache-dir notebook==5.0.0 jupyterhub==0.7.2 ipywidgets==6.0
 ADD requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+# package for instructors and gsis; requirements.txt would need an egg
+RUN pip install --no-cache-dir \
+	git+https://github.com/data-8/connector-instructors.git@e7bd553
+
 # interact notebook extension
 RUN pip install git+https://github.com/data-8/nbpuller.git@8142e3c && \
-	jupyter serverextension enable --sys-prefix --py nbpuller && \
-	jupyter nbextension install --sys-prefix --py nbpuller && \
-	jupyter nbextension enable --sys-prefix --py nbpuller
+	jupyter serverextension enable  --sys-prefix --py nbpuller && \
+	jupyter nbextension     install --sys-prefix --py nbpuller && \
+	jupyter nbextension     enable  --sys-prefix --py nbpuller
+
+# nbresuse to show users memory usage
+RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
+	jupyter serverextension enable  --sys-prefix --py nbresuse && \
+	jupyter nbextension     install --sys-prefix --py nbresuse && \
+	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 ADD connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
