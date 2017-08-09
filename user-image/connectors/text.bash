@@ -1,10 +1,8 @@
 #!/bin/bash
+set -euo pipefail
 
-# We put NLTK data under /opt/conda, and then set the NLTK_DATA
-# environment variable appropriately. For more info see
-# http://www.nltk.org/data.html#command-line-installation
 ## tbd: Dockerfile: ENV NLTK_DATA /usr/share/nltk_data
-mkdir /srv/app/nltk_data
+mkdir ${APP_DIR}/nltk_data
 
 # MODEL_____________________  TERMS____
 # averaged_perceptron_tagger: 17sp 16fa
