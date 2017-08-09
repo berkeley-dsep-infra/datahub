@@ -45,13 +45,15 @@ RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
 ADD requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+ADD connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
+RUN /usr/local/sbin/connector-neuro.bash
+
+ADD connectors/text.bash /usr/local/sbin/connector-text.bash
+RUN /usr/local/sbin/connector-text.bash
+
 # package for instructors and gsis; requirements.txt would need an egg
 RUN pip install --no-cache-dir \
 	git+https://github.com/data-8/connector-instructors.git@e7bd553
-
-# interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@f98399c && \
-	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
 # nbresuse to show users memory usage
 RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
@@ -59,10 +61,8 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     install --sys-prefix --py nbresuse && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
-ADD connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
-RUN /usr/local/sbin/connector-neuro.bash
-
-ADD connectors/text.bash /usr/local/sbin/connector-text.bash
-RUN /usr/local/sbin/connector-text.bash
+# interact notebook extension
+RUN pip install git+https://github.com/data-8/gitautosync@f98399c && \
+	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
 EXPOSE 8888
