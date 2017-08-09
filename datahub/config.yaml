@@ -5,6 +5,11 @@ hub:
     type: sqlite-memory
 
 singleuser:
+  memory:
+    guarantee: 1G
+    limit: 1G
+  image:
+    name: berkeleydsep/datahub-user
   storage:
     type: hostPath
     extraVolumes:
