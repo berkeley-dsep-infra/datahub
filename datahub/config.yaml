@@ -1,1 +1,12 @@
 version: dafe857
+
+singleuser:
+  storage:
+    type: hostPath
+    extraVolumes:
+      - name: home
+        hostPath:
+          path: /data/homes/{username}
+    extraVolumeMounts:
+      - name: home
+        mountPath: /home/jovyan
