@@ -21,6 +21,7 @@ def build_user_image(image_name, commit_range=None, push=False):
         ]).decode('utf-8').strip() != ''
         if not image_touched:
             print("user-image not touched, not building")
+            return
 
     tag = last_git_modified('user-image')
     image_spec = image_name + ':' + tag
