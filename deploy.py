@@ -2,6 +2,7 @@
 import os
 import argparse
 import subprocess
+import yaml
 
 
 def last_git_modified(path):
@@ -14,7 +15,7 @@ def last_git_modified(path):
     ]).decode('utf-8')
 
 
-def build_user_image(image_spec, commit_range=None, push=False):
+def build_user_image(image_name, commit_range=None, push=False):
     if commit_range:
         image_touched = subprocess.check_output([
             'git', 'diff', '--name-only', commit_range, os.path.join('images', image)
@@ -23,6 +24,7 @@ def build_user_image(image_spec, commit_range=None, push=False):
             print("user-image not touched, not building")
 
     tag = last_git_modified('user-image')
+    image_spec = image_name + ':' + tag
 
     subprocess.check_call([
         'docker', 'build', '-t', image_spec, 'user-image'
@@ -31,6 +33,7 @@ def build_user_image(image_spec, commit_range=None, push=False):
         subprocess.check_call([
             'docker', 'push', image_spec
         ])
+    print('build completed for image', image_spec)
 
 def deploy(release, install):
     # Set up helm!
@@ -62,7 +65,7 @@ def deploy(release, install):
             '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
         ]
 
-    subprocess.check_call(helm + args)
+    subprocess.check_call(helm)
 
 
 def main():
