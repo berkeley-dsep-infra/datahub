@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import os
 import argparse
 import subprocess
 import yaml
@@ -18,7 +17,7 @@ def last_git_modified(path):
 def build_user_image(image_name, commit_range=None, push=False):
     if commit_range:
         image_touched = subprocess.check_output([
-            'git', 'diff', '--name-only', commit_range, os.path.join('images', image)
+            'git', 'diff', '--name-only', commit_range, 'user-image',
         ]).decode('utf-8').strip() != ''
         if not image_touched:
             print("user-image not touched, not building")
