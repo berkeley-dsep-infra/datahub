@@ -4,6 +4,8 @@ services:
 - docker
 python:
 - 3.6
+install:
+- pip install pyyaml
 script:
 - "./travis-script.bash build"
 branches:

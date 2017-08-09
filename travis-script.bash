@@ -12,7 +12,7 @@ if [[ ${ACTION} == 'build' ]]; then
         docker login -u $DOCKER_USERNAME -p "$DOCKER_PASSWORD"
     fi
 
-    ./build.py build --commit-range ${TRAVIS_COMMIT_RANGE} ${PUSH}
+    ./deploy.py build --commit-range ${TRAVIS_COMMIT_RANGE} ${PUSH}
 elif [[ ${ACTION} == 'deploy' ]]; then
     echo 'Deploying...'
     curl \
