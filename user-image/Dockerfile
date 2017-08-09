@@ -50,7 +50,7 @@ RUN pip install --no-cache-dir \
 	git+https://github.com/data-8/connector-instructors.git@e7bd553
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@master && \
+RUN pip install git+https://github.com/data-8/gitautosync@f98399c && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
 # nbresuse to show users memory usage
