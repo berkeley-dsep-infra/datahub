@@ -9,7 +9,7 @@ if [[ ${ACTION} == 'build' ]]; then
     if [[ ${TRAVIS_PULL_REQUEST} == 'false' ]]; then
         PUSH='--push'
         # Assume we're in master and have secrets!
-        docker login -u $DOCKER_USERNAME -p "$DOCKER_PASSWORD" quay.io
+        docker login -u $DOCKER_USERNAME -p "$DOCKER_PASSWORD"
     fi
 
     ./build.py build --commit-range ${TRAVIS_COMMIT_RANGE} ${PUSH}
