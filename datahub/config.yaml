@@ -1,5 +1,9 @@
 version: dafe857
 
+hub:
+  db:
+    type: sqlite-memory
+
 singleuser:
   storage:
     type: hostPath
