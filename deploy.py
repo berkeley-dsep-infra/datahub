@@ -37,7 +37,7 @@ def build_user_image(image_name, commit_range=None, push=False):
     image_spec = image_name + ':' + tag
 
     subprocess.check_call([
-        'docker', 'build', '-t', image_spec, '--cache-from', last_image_spec
+        'docker', 'build', '--cache-from', last_image_spec, '-t', image_spec, 'user-image'
     ])
     if push:
         subprocess.check_call([
