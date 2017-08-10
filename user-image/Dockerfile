@@ -37,7 +37,7 @@ RUN pip install --no-cache-dir \
       notebook==5.0.0 \
       git+https://github.com/jupyterhub/jupyterhub@master \
       ipywidgets==6.0.0 \
-      jupyterlab==0.23.2
+      jupyterlab==0.26.5
 
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter serverextension enable --py jupyterlab --sys-prefix
