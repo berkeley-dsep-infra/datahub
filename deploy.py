@@ -4,14 +4,14 @@ import subprocess
 import yaml
 
 
-def last_git_modified(path):
+def last_git_modified(path, n=1):
     return subprocess.check_output([
         'git',
         'log',
-        '-n', '1',
+        '-n', str(1),
         '--pretty=format:%h',
         path
-    ]).decode('utf-8')
+    ]).decode('utf-8').split('\n')[-1]
 
 
 def build_user_image(image_name, commit_range=None, push=False):
@@ -22,6 +22,10 @@ def build_user_image(image_name, commit_range=None, push=False):
         if not image_touched:
             print("user-image not touched, not building")
             return
+
+    # Pull last version of image to maximize cache use
+    last_image_tag = last_git_modified('user-image', 2)
+    subprocess.check_call(['docker', 'pull', image_name + ':' + last_image_tag])
 
     tag = last_git_modified('user-image')
     image_spec = image_name + ':' + tag
