@@ -31,5 +31,5 @@ elif [[ ${ACTION} == 'deploy' ]]; then
         datahub@${MASTER_HOST} \
         "git clone ${REPO} ${CHECKOUT_DIR} && cd ${CHECKOUT_DIR} && git checkout ${COMMIT} && git crypt unlock /etc/deploy-secret-keyfile && ./deploy.py deploy datahub; rm -rf ${CHECKOUT_DIR}"
     rm -rf sshkey
-    echo "Done!
+    echo "Done!"
 fi
