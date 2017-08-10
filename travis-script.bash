@@ -14,16 +14,10 @@ if [[ ${ACTION} == 'build' ]]; then
 
     ./deploy.py build --commit-range ${TRAVIS_COMMIT_RANGE} ${PUSH}
 elif [[ ${ACTION} == 'deploy' ]]; then
-    echo 'Deploying...'
-    curl \
-        --no-buffer \
-        --show-error \
-        --silent \
-        --fail \
-        -d crypt-key="${GIT_CRYPT_KEY}" \
-        -d release=prod \
-        -d commit=${TRAVIS_COMMIT} \
-        -d repo=https://github.com/yuvipanda/paws \
-        -H "Authorization: Bearer ${DEPLOY_HOOK_KEY}" \
-        https://paws-deploy-hook.tools.wmflabs.org/deploy
+    REPO="https://github.com/${TRAVIS_REPO_SLUG}"
+    CHECKOUT_DIR="/tmp/${TRAVIS_BUILD_NUMBER}"
+    COMMIT="${TRAVIS_COMMIT}"
+    MASTER_HOST="datahub-fa17-${TRAVIS_BRANCH}.westus2.cloudapp.azure.com"
+    ssh -i sshkey datahub@${MASTER_HOST} \
+        "git clone ${REPO} ${CHECKOUT_DIR} && cd ${CHECKOUT_DIR} && git checkout ${COMMIT} && ./deploy.py deploy datahub"
 fi
