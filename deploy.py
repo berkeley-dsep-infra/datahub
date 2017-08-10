@@ -25,17 +25,19 @@ def build_user_image(image_name, commit_range=None, push=False):
 
     # Pull last version of image to maximize cache use
     last_image_tag = last_git_modified('user-image', 2)
+    last_image_spec = image_name + ':' + last_image_tag
     try:
-        subprocess.check_call(['docker', 'pull', image_name + ':' + last_image_tag])
+        subprocess.check_call([
+            'docker', 'pull', last_image_spec
+        ])
     except subprocess.CalledProcessError:
-        # is ok if this fails!
         pass
 
     tag = last_git_modified('user-image')
     image_spec = image_name + ':' + tag
 
     subprocess.check_call([
-        'docker', 'build', '-t', image_spec, 'user-image'
+        'docker', 'build', '--cache-from', last_image_spec, '-t', image_spec, 'user-image'
     ])
     if push:
         subprocess.check_call([
