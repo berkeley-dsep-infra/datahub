@@ -42,14 +42,14 @@ RUN pip install --no-cache-dir \
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter serverextension enable --py jupyterlab --sys-prefix
 
-ADD requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+COPY requirements.txt /etc/requirements.txt
+RUN pip install --no-cache-dir -r /etc/requirements.txt
 
-ADD connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
+COPY connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
 
 ENV NLTK_DATA ${APP_DIR}/nltk_data
-ADD connectors/text.bash /usr/local/sbin/connector-text.bash
+COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
 # package for instructors and gsis; requirements.txt would need an egg
