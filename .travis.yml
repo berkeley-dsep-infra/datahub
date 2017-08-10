@@ -5,7 +5,7 @@ services:
 python:
 - 3.6
 install:
-- pip install pyyaml
+- pip install --no-cache-dir pyyaml
 script:
 - "./travis-script.bash build"
 branches:
