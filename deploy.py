@@ -8,7 +8,7 @@ def last_git_modified(path, n=1):
     return subprocess.check_output([
         'git',
         'log',
-        '-n', str(1),
+        '-n', str(n),
         '--pretty=format:%h',
         path
     ]).decode('utf-8').split('\n')[-1]
