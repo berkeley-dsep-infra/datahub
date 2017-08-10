@@ -18,5 +18,4 @@ python -m nltk.downloader -d /srv/app/nltk_data \
     punkt \
     stopwords \
     wordnet \
-    words \
-    ;
+    words
