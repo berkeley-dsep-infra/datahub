@@ -1,8 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-## tbd: Dockerfile: ENV NLTK_DATA /usr/share/nltk_data
-mkdir ${APP_DIR}/nltk_data
+mkdir ${NLTK_DATA}
 
 # MODEL_____________________  TERMS____
 # averaged_perceptron_tagger: 17sp 16fa

@@ -48,6 +48,7 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 ADD connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
 
+ENV NLTK_DATA ${APP_DIR}/nltk_data
 ADD connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
