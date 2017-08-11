@@ -4,6 +4,9 @@ hub:
   db:
     type: sqlite-memory
 
+auth:
+  type: google
+
 singleuser:
   memory:
     guarantee: 1G
