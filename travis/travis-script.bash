@@ -23,7 +23,7 @@ elif [[ ${ACTION} == 'deploy' ]]; then
     SSHKEY="travis/sshkey-${TRAVIS_BRANCH}"
 
     echo "Fetching ssh key..."
-    openssl aes-256-cbc -K $encrypted_0f80927fa736_key -iv $encrypted_0f80927fa736_key -in "${SSHKEY}.enc" -out "${SSHKEY}" -d
+    openssl aes-256-cbc -K $encrypted_0f80927fa736_key -iv $encrypted_0f80927fa736_iv -in "${SSHKEY}.enc" -out "${SSHKEY}" -d
 
     chmod 0400 "${SSHKEY}"
 
