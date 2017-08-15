@@ -7,14 +7,14 @@ python:
 install:
 - pip install --no-cache-dir pyyaml
 script:
-- "./travis-script.bash build"
+- "./travis/travis-script.bash build"
 branches:
   only:
   - staging
   - prod
 deploy:
   provider: script
-  script: ./travis-script.bash deploy
+  script: ./travis/travis-script.bash deploy
   on:
     branch: staging
 env:

@@ -2,6 +2,7 @@
 import argparse
 import subprocess
 import yaml
+import os
 
 
 def last_git_modified(path, n=1):
@@ -62,7 +63,7 @@ def deploy(release, install):
             'jupyterhub/jupyterhub',
             '--version', config['version'],
             '-f', 'datahub/config.yaml',
-            '-f', 'datahub/secrets.yaml',
+            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
             '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
         ]
     else:
@@ -71,7 +72,7 @@ def deploy(release, install):
             'jupyterhub/jupyterhub',
             '--version', config['version'],
             '-f', 'datahub/config.yaml',
-            '-f', 'datahub/secrets.yaml',
+            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
             '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
         ]
 
