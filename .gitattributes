@@ -1,1 +1,2 @@
 datahub/secrets/staging.yaml filter=git-crypt diff=git-crypt
+datahub/secrets/prod.yaml filter=git-crypt diff=git-crypt
