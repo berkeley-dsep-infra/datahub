@@ -30,7 +30,7 @@ elif [[ ${ACTION} == 'deploy' ]]; then
     ssh -i "${SSHKEY}"\
         -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
         datahub@${MASTER_HOST} \
-        "git clone ${REPO} ${CHECKOUT_DIR} && cd ${CHECKOUT_DIR} && git checkout ${COMMIT} && git crypt unlock /etc/deploy-secret-keyfile && ./deploy.py deploy datahub; rm -rf ${CHECKOUT_DIR}"
+        "git clone ${REPO} ${CHECKOUT_DIR} && cd ${CHECKOUT_DIR} && git checkout ${COMMIT} && git crypt unlock /etc/deploy-secret-keyfile && ./deploy.py deploy ${TRAVIS_BRANCH}; rm -rf ${CHECKOUT_DIR}"
     rm -rf sshkey
     echo "Done!"
 fi

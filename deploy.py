@@ -62,7 +62,7 @@ def deploy(release, install):
             'jupyterhub/jupyterhub',
             '--version', config['version'],
             '-f', 'datahub/config.yaml',
-            '-f', 'datahub/secrets.yaml',
+            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
             '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
         ]
     else:
@@ -71,7 +71,7 @@ def deploy(release, install):
             'jupyterhub/jupyterhub',
             '--version', config['version'],
             '-f', 'datahub/config.yaml',
-            '-f', 'datahub/secrets.yaml',
+            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
             '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
         ]
 
