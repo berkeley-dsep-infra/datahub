@@ -20,10 +20,12 @@ elif [[ ${ACTION} == 'deploy' ]]; then
     COMMIT="${TRAVIS_COMMIT}"
     MASTER_HOST="datahub-fa17-${TRAVIS_BRANCH}.westus2.cloudapp.azure.com"
     MASTER_HOST="datahub-fa17-${TRAVIS_BRANCH}.westus2.cloudapp.azure.com"
-    SSHKEY="travis/sshkey-${TRAVIS_BRANCH}"
+    SSHKEY="sshkey-${TRAVIS_BRANCH}"
 
     echo "Fetching ssh key..."
-    openssl aes-256-cbc -K $encrypted_0f80927fa736_key -iv $encrypted_0f80927fa736_iv -in "${SSHKEY}.enc" -out "${SSHKEY}" -d
+    # Travis only allows encrypting one file per repo. LAME
+    openssl aes-256-cbc -K $encrypted_0f80927fa736_key-iv $encrypted_0f80927fa736_iv -in travis/ssh-keys.tar.gz.enc -out travis/ssh-keys.tar.gz -d
+    tar xvf travis/ssh-keys.tar.gz
 
     chmod 0400 "${SSHKEY}"
 
@@ -32,6 +34,7 @@ elif [[ ${ACTION} == 'deploy' ]]; then
         -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
         datahub@${MASTER_HOST} \
         "git clone ${REPO} ${CHECKOUT_DIR} && cd ${CHECKOUT_DIR} && git checkout ${COMMIT} && git crypt unlock /etc/deploy-secret-keyfile && ./deploy.py deploy ${TRAVIS_BRANCH}; rm -rf ${CHECKOUT_DIR}"
-    rm -rf "${SSHKEY}"
+    rm -rf "sshkey-*"
+
     echo "Done!"
 fi
