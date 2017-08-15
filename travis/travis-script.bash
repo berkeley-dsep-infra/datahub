@@ -24,7 +24,7 @@ elif [[ ${ACTION} == 'deploy' ]]; then
 
     echo "Fetching ssh key..."
     # Travis only allows encrypting one file per repo. LAME
-    openssl aes-256-cbc -K $encrypted_0f80927fa736_key-iv $encrypted_0f80927fa736_iv -in travis/ssh-keys.tar.gz.enc -out travis/ssh-keys.tar.gz -d
+    openssl aes-256-cbc -K $encrypted_0f80927fa736_key -iv $encrypted_0f80927fa736_iv -in travis/ssh-keys.tar.gz.enc -out travis/ssh-keys.tar.gz -d
     tar xvf travis/ssh-keys.tar.gz
 
     chmod 0400 "${SSHKEY}"
