@@ -23,3 +23,8 @@ singleuser:
     extraVolumeMounts:
       - name: home
         mountPath: /home/jovyan
+        
+admin:
+  users:
+    # infrastructure
+      - 'gunjanbaid'
