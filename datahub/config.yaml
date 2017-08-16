@@ -26,42 +26,42 @@ singleuser:
 
 admin:
   users:
-    # infrastructure
-      - rylo
-      - yuvipanda
-      - vinitra
-      - gunjan_baid
-    # fa17 data 8 Professors
-      - denero
-      - daw
-    # fa17 data 8 GSIs
-      - alexku
-      - fhdkmrn
-      - wumadeline
-      - arvindiyengar
-      - chenge
-      - huangjiayi0922
-      - jwhughes
-      - katherine.yen
-      - namushegian
-      - nskh
-      - suraj.rampure
-      - v.oikonomou
-      - emmajaeger
-      - inan.husain
-      - j.hu
-      - niraj.a.rao
-      - priyanka.bhoj
-      - ronald.walker
-      - supadhyay
-      - vienannguyen
-      - wiltonwu
-      - naltieri
-      - juitungkuo
-      - nwang97
-      - acheema
-      - michelleyang
-      - satish.vinay
-      - abalamurugan112
-      - tanaynathan18
-      - zdehkord
+  # infrastructure
+    - rylo
+    - yuvipanda
+    - vinitra
+    - gunjan_baid
+  # fa17 data 8 Professors
+    - denero
+    - daw
+  # fa17 data 8 GSIs
+    - alexku
+    - fhdkmrn
+    - wumadeline
+    - arvindiyengar
+    - chenge
+    - huangjiayi0922
+    - jwhughes
+    - katherine.yen
+    - namushegian
+    - nskh
+    - suraj.rampure
+    - v.oikonomou
+    - emmajaeger
+    - inan.husain
+    - j.hu
+    - niraj.a.rao
+    - priyanka.bhoj
+    - ronald.walker
+    - supadhyay
+    - vienannguyen
+    - wiltonwu
+    - naltieri
+    - juitungkuo
+    - nwang97
+    - acheema
+    - michelleyang
+    - satish.vinay
+    - abalamurugan112
+    - tanaynathan18
+    - zdehkord
