@@ -26,15 +26,15 @@ singleuser:
 
 admin:
   users:
-  # infrastructure
+    # infrastructure
     - rylo
     - yuvipanda
     - vinitra
     - gunjan_baid
-  # fa17 data 8 Professors
+    # fa17 data 8 Professors
     - denero
     - daw
-  # fa17 data 8 GSIs
+    # fa17 data 8 GSIs
     - alexku
     - fhdkmrn
     - wumadeline
