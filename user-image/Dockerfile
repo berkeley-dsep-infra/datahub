@@ -63,7 +63,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@48033a0 && \
+RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
 EXPOSE 8888
