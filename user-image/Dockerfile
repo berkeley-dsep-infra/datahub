@@ -66,4 +66,10 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
+# disable history.sqlite
+ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
+RUN mkdir -p ${IPYTHONDIR}/profile_default && \
+	echo "c.HistoryManager.enabled = False" > \
+	${IPYTHONDIR}/profile_default/ipython_config.py
+
 EXPOSE 8888
