@@ -23,6 +23,8 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
+# Set this to be on container storage, rather than under $HOME
+ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 
@@ -65,5 +67,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 # interact notebook extension
 RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
+
+ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 EXPOSE 8888
