@@ -75,6 +75,6 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 # FIXME: Move the token to travis encrypted secrets
 ENV NETRC /srv/app/.netrc
 COPY netrc-gen /tmp/netrc-gen
-RUN /tmp/netrc-gen ${NETRC} && rm /tmp/netrc-gen
+RUN /tmp/netrc-gen ${NETRC}
 
 EXPOSE 8888
