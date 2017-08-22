@@ -74,6 +74,7 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 # So we just put in a Personal Access Token for a dummy here.
 # FIXME: Move the token to travis encrypted secrets
 ENV NETRC /srv/app/.netrc
-COPY netrc /srv/app/.netrc
+COPY netrc-gen /tmp/netrc-gen
+RUN /tmp/netrc-gen ${NETRC} && rm /tmp/netrc-gen
 
 EXPOSE 8888
