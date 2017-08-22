@@ -70,4 +70,11 @@ RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
+# HACK: We wanna make sure students don't hit the 60/hr/IP limit for github
+# So we just put in a Personal Access Token for a dummy here.
+# FIXME: Move the token to travis encrypted secrets
+ENV NETRC /srv/app/.netrc
+COPY netrc-gen /tmp/netrc-gen
+RUN /tmp/netrc-gen ${NETRC}
+
 EXPOSE 8888
