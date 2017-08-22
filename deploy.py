@@ -24,15 +24,19 @@ def build_user_image(image_name, commit_range=None, push=False):
             print("user-image not touched, not building")
             return
 
-    # Pull last version of image to maximize cache use
-    last_image_tag = last_git_modified('user-image', 2)
-    last_image_spec = image_name + ':' + last_image_tag
-    try:
-        subprocess.check_call([
-            'docker', 'pull', last_image_spec
-        ])
-    except subprocess.CalledProcessError:
-        pass
+    # Pull last available version of image to maximize cache use
+    try_count = 0
+    while try_count < 50:
+        last_image_tag = last_git_modified('user-image', try_count + 2)
+        last_image_spec = image_name + ':' + last_image_tag
+        try:
+            subprocess.check_call([
+                'docker', 'pull', last_image_spec
+            ])
+            break
+        except subprocess.CalledProcessError:
+            try_count += 1
+            pass
 
     tag = last_git_modified('user-image')
     image_spec = image_name + ':' + tag
