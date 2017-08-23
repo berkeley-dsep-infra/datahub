@@ -14,7 +14,11 @@ RUN apt-get update && \
             wget \
             npm \
             nodejs-legacy \
-            locales && \
+            locales \
+            nano \
+            vim \
+            # for phys 151
+            gfortran && \
     apt-get purge && apt-get clean
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
