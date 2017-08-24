@@ -70,7 +70,7 @@ RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
 
 # gmaps notebook extension 
 # for ls 88-4, economic development connector
-RUN pip install gmaps && \
+RUN pip install --no-cache-dir gmaps && \
   jupyter nbextension enable --py --sys-prefix gmaps
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
