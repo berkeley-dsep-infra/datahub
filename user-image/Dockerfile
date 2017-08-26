@@ -72,6 +72,11 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
+# gmaps notebook extension 
+# for ls 88-4, economic development connector
+RUN pip install --no-cache-dir gmaps && \
+  jupyter nbextension enable --py --sys-prefix gmaps
+
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 # HACK: We wanna make sure students don't hit the 60/hr/IP limit for github
