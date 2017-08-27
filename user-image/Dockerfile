@@ -41,7 +41,7 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 
 RUN pip install --no-cache-dir \
       notebook==5.0.0 \
-      git+https://github.com/jupyterhub/jupyterhub@master \
+      git+https://github.com/jupyterhub/jupyterhub@e1531ec2 \
       ipywidgets==6.0.0 \
       jupyterlab==0.26.5
 
