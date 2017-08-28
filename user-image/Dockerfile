@@ -19,7 +19,6 @@ RUN apt-get update && \
             vim \
             # for nbconvert
             texlive-xetex \
-            texlive-fonts \
             texlive-fonts-recommended \
             texlive-generic-recommended \
             # for phys 151
