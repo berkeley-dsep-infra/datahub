@@ -18,6 +18,7 @@ RUN apt-get update && \
             nano \
             vim \
             # for nbconvert
+            pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended \
