@@ -17,6 +17,11 @@ RUN apt-get update && \
             locales \
             nano \
             vim \
+            # for nbconvert
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-generic-recommended \
             # for phys 151
             gfortran && \
     apt-get purge && apt-get clean
