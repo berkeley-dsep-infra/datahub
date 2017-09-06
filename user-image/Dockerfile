@@ -14,7 +14,16 @@ RUN apt-get update && \
             wget \
             npm \
             nodejs-legacy \
-            locales && \
+            locales \
+            nano \
+            vim \
+            # for nbconvert
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-generic-recommended \
+            # for phys 151
+            gfortran && \
     apt-get purge && apt-get clean
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -37,7 +46,7 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 
 RUN pip install --no-cache-dir \
       notebook==5.0.0 \
-      git+https://github.com/jupyterhub/jupyterhub@master \
+      git+https://github.com/jupyterhub/jupyterhub@e1531ec2 \
       ipywidgets==6.0.0 \
       jupyterlab==0.26.5
 
@@ -65,8 +74,13 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@b32a087 && \
+RUN pip install git+https://github.com/data-8/gitautosync@ef77091 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
+
+# gmaps notebook extension 
+# for ls 88-4, economic development connector
+RUN pip install --no-cache-dir gmaps && \
+  jupyter nbextension enable --py --sys-prefix gmaps
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
