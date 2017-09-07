@@ -53,6 +53,9 @@ RUN pip install --no-cache-dir \
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter serverextension enable --py jupyterlab --sys-prefix
 
+# adding cogneuro data
+COPY data/cogneuro/s01_categories_01.npy /data/cogneuro/s01_categories_01.npy
+
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
