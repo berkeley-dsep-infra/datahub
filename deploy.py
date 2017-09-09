@@ -27,7 +27,7 @@ def build_user_image(image_name, commit_range=None, push=False):
     # Attempt to improve relability of pip installs:
     # https://github.com/travis-ci/travis-ci/issues/2389'''
     subprocess.check_call([
-        'sysctl', 'net.ipv4.tcp_ecn=0'
+        'sudo', 'sysctl', 'net.ipv4.tcp_ecn=0'
     ])
 
     # Pull last available version of image to maximize cache use
