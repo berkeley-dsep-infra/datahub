@@ -77,7 +77,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@ef77091 && \
+RUN pip install git+https://github.com/data-8/gitautosync@28897b8 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
 # gmaps notebook extension 
