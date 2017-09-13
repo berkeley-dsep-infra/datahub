@@ -12,6 +12,10 @@ if [[ ${ACTION} == 'build' ]]; then
         docker login -u $DOCKER_USERNAME -p "$DOCKER_PASSWORD"
     fi
 
+    # Attempt to improve relability of pip installs:
+    # https://github.com/travis-ci/travis-ci/issues/2389
+    sudo sysctl net.ipv4.tcp_ecn=0
+
     ./deploy.py build --commit-range ${TRAVIS_COMMIT_RANGE} ${PUSH}
 elif [[ ${ACTION} == 'deploy' ]]; then
     echo "Starting deploy..."
