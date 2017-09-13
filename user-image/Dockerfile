@@ -77,7 +77,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@ef77091 && \
+RUN pip install git+https://github.com/data-8/gitautosync@28897b8 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitautosync
 
 # gmaps notebook extension 
@@ -93,5 +93,10 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 ENV NETRC /srv/app/.netrc
 COPY netrc-gen /tmp/netrc-gen
 RUN /tmp/netrc-gen ${NETRC}
+
+# Install and enable nbdime! This should help with merge conflicts
+RUN pip install --no-cache-dir nbdime
+COPY gitconfig /etc/gitconfig
+COPY gitattributes /etc/gitattributes
 
 EXPOSE 8888
