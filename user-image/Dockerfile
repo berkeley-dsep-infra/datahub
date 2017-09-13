@@ -94,4 +94,10 @@ ENV NETRC /srv/app/.netrc
 COPY netrc-gen /tmp/netrc-gen
 RUN /tmp/netrc-gen ${NETRC}
 
+# Install and enable nbdime! This should help with merge conflicts
+RUN pip install --no-cache-dir nbdime
+USER root
+RUN nbdime config-git --enable --system
+USER jovyan
+
 EXPOSE 8888
