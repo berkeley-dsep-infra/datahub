@@ -77,8 +77,8 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@28897b8 && \
-	jupyter serverextension enable  --sys-prefix --py nbgitautosync
+RUN pip install git+https://github.com/data-8/nbgitpuller@d55440e && \
+	jupyter serverextension enable  --sys-prefix --py nbgitpuller
 
 # gmaps notebook extension 
 # for ls 88-4, economic development connector
