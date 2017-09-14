@@ -46,7 +46,7 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 
 RUN pip install --no-cache-dir \
       notebook==5.0.0 \
-      git+https://github.com/jupyterhub/jupyterhub@0.8.0b5 \
+      git+https://github.com/jupyterhub/jupyterhub@ceec84d \
       ipywidgets==6.0.0 \
       jupyterlab==0.26.5
 
@@ -77,8 +77,8 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # interact notebook extension
-RUN pip install git+https://github.com/data-8/gitautosync@28897b8 && \
-	jupyter serverextension enable  --sys-prefix --py nbgitautosync
+RUN pip install git+https://github.com/data-8/nbgitpuller@d55440e && \
+	jupyter serverextension enable  --sys-prefix --py nbgitpuller
 
 # gmaps notebook extension 
 # for ls 88-4, economic development connector
