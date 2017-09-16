@@ -19,7 +19,7 @@ hub:
             self.mem_limit = mem
             self.mem_guarantee = mem
             break
-        super().start()
+        yield super().start()
 
 auth:
   type: google
