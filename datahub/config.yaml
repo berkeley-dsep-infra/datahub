@@ -20,6 +20,7 @@ hub:
             self.mem_guarantee = mem
             break
         yield super().start()
+    c.JupyterHub.spawner_class = CustomMemorySpawner
 
 auth:
   type: google
