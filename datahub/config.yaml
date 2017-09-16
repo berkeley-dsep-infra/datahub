@@ -19,7 +19,7 @@ hub:
             self.mem_limit = mem
             self.mem_guarantee = mem
             break
-        yield super().start()
+        return (yield super().start())
     c.JupyterHub.spawner_class = CustomMemorySpawner
 
 auth:
