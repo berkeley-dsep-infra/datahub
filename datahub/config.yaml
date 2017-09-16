@@ -14,7 +14,7 @@ hub:
       def start(self):
         with open('/etc/jupyterhub/config/custom.memory-customization') as f:
           custom_memory_lists = yaml.safe_load(f)
-        for mem, users in custom_memory_lists:
+        for mem, users in custom_memory_lists.items():
           if self.user.name in users:
             self.mem_limit = mem
             self.mem_guarantee = mem
