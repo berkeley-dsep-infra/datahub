@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="781.250367794" height="1024.0"
+   id="svg2" version="1.1">
+  <defs id="defs4">
+    <clipPath id='edgeclip'>
+      <path id='clippath' d='' />
+    </clipPath>
+    <filter id="dropshadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/> 
+        <feMerge> 
+          <feMergeNode/>
+          <feMergeNode in="SourceGraphic"/>
+       </feMerge>
+    </filter>
+  </defs>
+  <g inkscape:label="data" inkscape:groupmode="layer"
+     id="datalayer" transform="translate(0,0)"
+     style="display:inline">
+  </g>
+  <g inkscape:label="rois" inkscape:groupmode="layer"
+     id="roilayer" transform="translate(0,0)"
+     style="display:inline;" clip-path="url(#edgeclip)" />
+  <g inkscape:label="roilabels" inkscape:groupmode="layer"
+     id="roilabels" transform="translate(0,0)"
+     style="display:inline;">
+  </g>
+</svg>
