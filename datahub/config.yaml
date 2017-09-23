@@ -37,9 +37,15 @@ singleuser:
       - name: home
         hostPath:
           path: /data/homes/{username}
+      - name: cogneuro
+        hostPath:
+          path: /data/homes/_cogneuro          
     extraVolumeMounts:
       - name: home
         mountPath: /home/jovyan
+      - name: cogneuro
+        mountPath: /data/cogneuro
+        readOnly: True 
 
 admin:
   users:
