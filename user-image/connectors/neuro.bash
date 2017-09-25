@@ -11,9 +11,9 @@ pip install --no-cache-dir cython==0.26
 # ${CONDA_DIR}/bin/pip install git+https://github.com/gallantlab/pycortex@data8
 
 # Installs the cortex library
-git clone https://github.com/gallantlab/pycortex
+git clone https://github.com/eickenberg/pycortex.git
 cd pycortex
 # commit on data8 branch
-git checkout d570713
+git checkout data8
 python setup.py install
 cd .. && rm -rf pycortex
