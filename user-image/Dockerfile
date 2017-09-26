@@ -23,8 +23,7 @@ RUN apt-get update && \
             texlive-fonts-recommended \
             texlive-generic-recommended \
 	    # for LS88-5 and modules basemap
-	    libgeos-3.3.3 \
-	    libgeos-c1 \
+	    libspatialindex-dev \
 	    libgeos-dev \
             # for phys 151
             gfortran && \
