@@ -27,6 +27,7 @@ nltk==3.2.4
 beautifulsoup4==4.6.0
 spacy==1.9.0
 geopy==1.11.0
+https://github.com/matplotlib/basemap/archive/v1.1.0.tar.gz
 #
 # Modules
 scikit-learn==0.19.0
