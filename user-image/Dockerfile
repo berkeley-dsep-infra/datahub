@@ -22,6 +22,10 @@ RUN apt-get update && \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended \
+	    # for LS88-5 and modules basemap
+	    libgeos-3.3.3 \
+	    libgeos-c1 \
+	    libgeos-dev \
             # for phys 151
             gfortran && \
     apt-get purge && apt-get clean
