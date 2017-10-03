@@ -36,6 +36,7 @@ seaborn==0.8.0
 bokeh==0.12.6
 decorator==4.1.2
 networkx==1.11
+folium==0.5.0
 #
 # phys 151;
 emcee==2.2.1
