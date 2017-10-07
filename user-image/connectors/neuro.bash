@@ -14,7 +14,7 @@ pip install --no-cache-dir cython==0.26
 git clone https://github.com/eickenberg/pycortex.git
 cd pycortex
 # commit on data8 branch
-git checkout f4e5fd4f94570c1195fcf4616c7783740e34adb6
+git checkout b4dd6d860d7c27a846a5445b0df2824429084b44
 python setup.py install
 cd .. && rm -rf pycortex
 rm -rf ~/.config/pycortex

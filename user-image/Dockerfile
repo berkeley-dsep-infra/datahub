@@ -25,6 +25,8 @@ RUN apt-get update && \
 	    # for LS88-5 and modules basemap
 	    libspatialindex-dev \
 	    libgeos-dev \
+	    # for soc-130ac mapping module
+	    curl \
             # for phys 151
             gfortran && \
     apt-get purge && apt-get clean
