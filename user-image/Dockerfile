@@ -3,10 +3,6 @@ FROM ubuntu:17.04
 ENV APP_DIR /srv/app
 ENV PATH ${APP_DIR}/venv/bin:$PATH
 
-# for cogneuro connector, adding NeuroDebian repo
-wget -O- http://neuro.debian.net/lists/zesty.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
-
 RUN apt-get update && \
     apt-get install --yes \
             python3.6 \
@@ -32,12 +28,18 @@ RUN apt-get update && \
 	    # for soc-130ac mapping module
 	    curl \
             # for phys 151
-            gfortran \
+            gfortran
+
+# for cogneuro connector, adding NeuroDebian repo
+RUN wget -O- http://neuro.debian.net/lists/zesty.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+
+RUN apt-get install --yes
 	    # for cogneuro connector
 	    fsl-complete \
 	    python-nipype && \
     apt-get purge && apt-get clean
-
+    
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
