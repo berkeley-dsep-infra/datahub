@@ -28,9 +28,20 @@ RUN apt-get update && \
 	    # for soc-130ac mapping module
 	    curl \
             # for phys 151
-            gfortran && \
-    apt-get purge && apt-get clean
+            gfortran \
+	    # for cogneuro
+	    dirmngr
 
+# for cogneuro connector, adding NeuroDebian repo
+RUN wget http://neuro.debian.net/lists/zesty.us-ca.full  -O /etc/apt/sources.list.d/neurodebian.sources.list
+RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+
+RUN apt-get update && \
+    apt-get install --yes \
+	    # for cogneuro connector
+	    fsl-complete && \
+    apt-get purge && apt-get clean
+    
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
