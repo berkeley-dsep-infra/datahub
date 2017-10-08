@@ -33,7 +33,7 @@ RUN apt-get update && \
 	    dirmngr
 
 # for cogneuro connector, adding NeuroDebian repo
-RUN wget http://neuro.debian.net/lists/zesty.us-ca.libre  -O /etc/apt/sources.list.d/neurodebian.sources.list
+RUN wget http://neuro.debian.net/lists/zesty.us-ca.full  -O /etc/apt/sources.list.d/neurodebian.sources.list
 RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 
 RUN apt-get update && \
