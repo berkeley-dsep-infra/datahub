@@ -31,10 +31,11 @@ RUN apt-get update && \
             gfortran
 
 # for cogneuro connector, adding NeuroDebian repo
-RUN wget -O- http://neuro.debian.net/lists/zesty.us-ca.libre | tee /etc/apt/sources.list.d/neurodebian.sources.list
+RUN wget http://neuro.debian.net/lists/zesty.us-ca.libre  -O /etc/apt/sources.list.d/neurodebian.sources.list
 RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 
-RUN apt-get install --yes
+RUN apt-get update && \
+    apt-get install --yes \
 	    # for cogneuro connector
 	    fsl-complete \
 	    python-nipype && \
