@@ -28,7 +28,9 @@ RUN apt-get update && \
 	    # for soc-130ac mapping module
 	    curl \
             # for phys 151
-            gfortran
+            gfortran \
+	    # for cogneuro
+	    dirmngr
 
 # for cogneuro connector, adding NeuroDebian repo
 RUN wget http://neuro.debian.net/lists/zesty.us-ca.libre  -O /etc/apt/sources.list.d/neurodebian.sources.list
