@@ -63,6 +63,10 @@ pool2-...-9 was manually stopped in the Azure portal.
 
 pool2-...-9 completed stopping and was manually started in the Azure portal.
 
+### 17:25
+
+It was observed that /var/lib/docker on pool1-19522833-13/10.240.0.7 was on / (sda) and not on /mnt (sdb).
+
 ## Conclusion
 
 Docker was hung on two nodes, preventing pods from starting or stopping correctly.
@@ -72,6 +76,7 @@ Docker was hung on two nodes, preventing pods from starting or stopping correctl
 ### Process
 
 1. When there are multiple reports of student servers not starting or stopping correctly, check to see if the user pods were run on the same node(s).
+1. Determine how many nodes are not mounting /var/lib/docker on sdb1.
 
 ### Monitoring
 
