@@ -8,19 +8,6 @@ scipy==0.19.1
 statsmodels==0.8.0
 okpy==1.12.5
 #
-# ls 88-3; neuro
-nbserverproxy==0.2.0
-lxml==3.8.0
-tqdm==4.15.0
-mne==0.14.1
-nibabel==2.1.0
-h5py==2.7.0
-pillow==4.2.1
-numexpr==2.6.4
-openpyxl==2.4.8
-nipype==0.13.1
-nilearn==0.3.1
-#
 # cogsci88; 
 ggplot==0.11.5
 #
@@ -39,6 +26,19 @@ bokeh==0.12.6
 decorator==4.1.2
 networkx==1.11
 pygame==1.9.3
+#
+# ls 88-3; neuro
+nbserverproxy==0.2.0
+lxml==3.8.0
+tqdm==4.15.0
+mne==0.14.1
+nibabel==2.1.0
+h5py==2.7.0
+pillow==4.2.1
+numexpr==2.6.4
+openpyxl==2.4.8
+nipype==0.13.1
+nilearn==0.3.1
 #
 # phys 151;
 emcee==2.2.1
