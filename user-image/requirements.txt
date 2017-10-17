@@ -42,4 +42,6 @@ nilearn==0.3.1
 #
 # phys 151;
 emcee==2.2.1
+pymc3==3.2
+daft==0.0.4
 #
