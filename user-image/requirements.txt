@@ -44,4 +44,5 @@ nilearn==0.3.1
 emcee==2.2.1
 pymc3==3.2
 daft==0.0.4
+corner==2.0.1
 #
