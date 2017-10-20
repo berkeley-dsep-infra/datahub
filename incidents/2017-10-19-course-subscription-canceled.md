@@ -15,7 +15,7 @@ ds-instr received an email from the cloud vendor:
 
 | Subscription Name | Subscription Id | Canceled Reason       |
 | ----------------- | --------------- | --------------------- |
-| data8r-17s        | <snip>          | Subscription End Date |
+| data8r-17s        | *omitted here*  | Subscription End Date |
 
 ### 9:30
 
