@@ -14,7 +14,7 @@ ds-instr received an email from the cloud vendor:
 > Because these subscription(s) are canceled, all services have been suspended but no data has been lost. You have 90 days from the date of cancellation before [the cloud vendor] will delete the subscription and all attached data. Please use the Educator Portal to reactivate the subscription(s).
 
 | Subscription Name | Subscription Id | Canceled Reason       |
-| ----------------------------------------------------------- |
+| ----------------- | --------------- | --------------------- |
 | data8r-17s        | <snip>          | Subscription End Date |
 
 ### 9:30
