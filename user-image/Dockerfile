@@ -78,6 +78,11 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 COPY connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
 
+# for ce 88; needs to be installed after cython,
+# which is installed in neuro.bash
+RUN pip install --no-cache-dir \
+      hmms==0.1
+
 ENV NLTK_DATA ${APP_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
