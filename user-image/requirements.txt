@@ -46,6 +46,10 @@ pymc3==3.2
 daft==0.0.4
 corner==2.0.1
 #
-# ce 88;
+# ce 88 and ls 88-3;
+cython==0.25.2
+#
+# ce88;
 pymdptoolbox==4.0b3
+hmms==0.1
 #
