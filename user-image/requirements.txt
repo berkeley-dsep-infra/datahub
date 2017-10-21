@@ -47,7 +47,7 @@ daft==0.0.4
 corner==2.0.1
 #
 # ce 88;
-cython==0.27.1
+Cython==0.27.1
 hmms==0.1
 pymdptoolbox==4.0b3
 #
