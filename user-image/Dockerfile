@@ -72,6 +72,10 @@ RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
 # adding cogneuro data
 COPY data/cogneuro/s01_categories_01.npy /data/cogneuro/s01_categories_01.npy
 
+# for ce88 and ls 88-3;
+RUN pip install --no-cache-dir \
+      cython==0.25.2
+
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
