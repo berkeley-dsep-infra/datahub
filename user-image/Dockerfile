@@ -73,7 +73,7 @@ RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
 COPY data/cogneuro/s01_categories_01.npy /data/cogneuro/s01_categories_01.npy
 
 RUN pip install --no-cache-dir \
-      # numpy needs to be installed before hmms, for ce88
+      # cython needs to be installed before hmms, for ce88
       # also for ls88-3
       cython==0.25.2 \
       # numpy needs to be installed before hmms, for ce88
