@@ -46,3 +46,18 @@ pymc3==3.2
 daft==0.0.4
 corner==2.0.1
 #
+#
+# data-x DL
+#
+# TensorFlow
+tensorflow>=1.3.0
+# Image
+pillow
+scikit-image
+# Keras-related
+theano
+Keras
+keras-vis
+# HDF5
+tables
+h5py
