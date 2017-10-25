@@ -58,5 +58,4 @@ Keras==2.0.8
 keras-vis==0.4.1
 # HDF5
 tables==3.4.2
-h5py==2.7.1
 #
