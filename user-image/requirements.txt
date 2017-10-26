@@ -46,16 +46,15 @@ pymc3==3.2
 daft==0.0.4
 corner==2.0.1
 #
-#
-# data-x DL;
-# TensorFlow
+# data-x; DL
 tensorflow==1.3.0
-# Image processing
 scikit-image==0.13.1
-# Keras-related
 Theano==0.9.0
 Keras==2.0.8
 keras-vis==0.4.1
-# HDF5
 tables==3.4.2
+#
+# ce88;
+pymdptoolbox==4.0b3
+hmms==0.1
 #
