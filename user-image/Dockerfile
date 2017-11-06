@@ -39,7 +39,10 @@ RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32
 RUN apt-get update && \
     apt-get install --yes \
 	    # for cogneuro connector
-	    fsl-complete && \
+	    fsl-complete \
+	    # for data100
+	    openjdk-8-jdk-headless \
+	    && \
     apt-get purge && apt-get clean
     
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
