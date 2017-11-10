@@ -15,3 +15,11 @@ git checkout b4dd6d860d7c27a846a5445b0df2824429084b44
 python setup.py install
 cd .. && rm -rf pycortex
 rm -rf ~/.config/pycortex
+
+# Install the package nistats (currently not on pypi yet)
+cd ~ && git clone https://github.com/nistats/nistats.git
+cd ~/nistats && git checkout 5a3a3ed2cbbb088e558838ea7f2a3b9e7735050a
+cd ~/nistats && python setup.py install
+cd ~ && rm nistats -rf
+
+
