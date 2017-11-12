@@ -50,6 +50,9 @@ corner==2.0.1
 pymdptoolbox==4.0b3
 hmms==0.1
 #
+# ds100;
+gs100==0.0.4
+#
 # data-x; DL
 tensorflow==1.3.0
 scikit-image==0.13.1
@@ -58,4 +61,3 @@ Keras==2.0.8
 keras-vis==0.4.1
 tables==3.4.2
 opencv-python==3.3.0.10
-#
