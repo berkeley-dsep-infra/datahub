@@ -8,6 +8,6 @@ cd /tmp
 
 curl -L -O ${URL}
 tar xaf ${ARCHIVE}
-cp -p wkhtmltox/bin/wkhtmltopdf /usr/local/bin/
+cp -p wkhtmltox/bin/wkhtmltopdf /srv/app/venv/bin/
 
 rm -rf wkhtmltox ${ARCHIVE}
