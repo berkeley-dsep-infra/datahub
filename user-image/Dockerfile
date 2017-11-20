@@ -22,6 +22,7 @@ RUN apt-get update && \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended \
+      # for geog187 r and r packages
             libcurl4-openssl-dev \
             libssl-dev \
             r-base \
@@ -36,7 +37,7 @@ RUN apt-get update && \
 	    # for cogneuro
 	    dirmngr
 
-# Set up R Kernel for Jupyter
+# for geog187 set up R Kernel for Jupyter
 RUN R --quiet -e "install.packages('devtools',dependencies = TRUE,repos = 'http://cran.us.r-project.org')" \
                 "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'uuid', 'digest', 'ggplot2','shiny','sp','Matrix','spdep','leaflet','RColorBrewer','spatstat','nlme','rpart','spatstat.data'),repos = 'http://cran.us.r-project.org')" \
                 "devtools::install_github('IRkernel/IRkernel')" \
