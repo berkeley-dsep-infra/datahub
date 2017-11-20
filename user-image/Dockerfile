@@ -22,6 +22,10 @@ RUN apt-get update && \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            r-base \
+            r-base-dev \
 	    # for LS88-5 and modules basemap
 	    libspatialindex-dev \
 	    libgeos-dev \
@@ -31,6 +35,12 @@ RUN apt-get update && \
             gfortran \
 	    # for cogneuro
 	    dirmngr
+
+# Set up R Kernel for Jupyter
+RUN R --quiet -e "install.packages('devtools',dependencies = TRUE,repos = 'http://cran.us.r-project.org')" \
+                "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'uuid', 'digest', 'ggplot2','shiny','sp','Matrix','spdep','leaflet','RColorBrewer','spatstat','nlme','rpart','spatstat.data'),repos = 'http://cran.us.r-project.org')" \
+                "devtools::install_github('IRkernel/IRkernel')" \
+                "IRkernel::installspec(user=FALSE)"
 
 # for cogneuro connector, adding NeuroDebian repo
 RUN wget http://neuro.debian.net/lists/zesty.us-ca.full  -O /etc/apt/sources.list.d/neurodebian.sources.list
@@ -44,7 +54,7 @@ RUN apt-get update && \
 	    openjdk-8-jdk-headless \
 	    && \
     apt-get purge && apt-get clean
-    
+
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
@@ -109,7 +119,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 RUN pip install --no-cache-dir nbgitpuller==0.3 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitpuller
 
-# gmaps notebook extension 
+# gmaps notebook extension
 # for ls 88-4, economic development connector
 RUN pip install --no-cache-dir gmaps && \
   jupyter nbextension enable --py --sys-prefix gmaps
