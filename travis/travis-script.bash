@@ -23,7 +23,6 @@ elif [[ ${ACTION} == 'deploy' ]]; then
     CHECKOUT_DIR="/tmp/${TRAVIS_BUILD_NUMBER}"
     COMMIT="${TRAVIS_COMMIT}"
     MASTER_HOST="datahub-fa17-${TRAVIS_BRANCH}.westus2.cloudapp.azure.com"
-    MASTER_HOST="datahub-fa17-${TRAVIS_BRANCH}.westus2.cloudapp.azure.com"
     SSHKEY="sshkey-${TRAVIS_BRANCH}"
 
     echo "Fetching ssh key..."
