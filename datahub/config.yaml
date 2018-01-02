@@ -22,6 +22,9 @@ hub:
         return (yield super().start())
     c.JupyterHub.spawner_class = CustomMemorySpawner
 
+rbac:
+    enabled: false
+
 auth:
   type: google
   admin:
