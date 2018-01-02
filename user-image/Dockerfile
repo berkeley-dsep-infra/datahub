@@ -44,7 +44,7 @@ RUN apt-get update && \
 	    openjdk-8-jdk-headless \
 	    && \
     apt-get purge && apt-get clean
-    
+
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
@@ -65,7 +65,7 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 
 RUN pip install --no-cache-dir \
       notebook==5.1.0 \
-      git+https://github.com/jupyterhub/jupyterhub@0.8.0rc2 \
+      jupyterhub==0.8.1 \
       ipywidgets==6.0.0 \
       jupyterlab==0.26.5
 
@@ -109,7 +109,7 @@ RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
 RUN pip install --no-cache-dir nbgitpuller==0.3 && \
 	jupyter serverextension enable  --sys-prefix --py nbgitpuller
 
-# gmaps notebook extension 
+# gmaps notebook extension
 # for ls 88-4, economic development connector
 RUN pip install --no-cache-dir gmaps && \
   jupyter nbextension enable --py --sys-prefix gmaps
