@@ -1,0 +1,52 @@
+USER root
+
+RUN apt-get install --yes \
+	apt-transport-https \
+	libcurl4-openssl-dev
+
+ENV MRAN_KEY="51716619E084DAB9"
+ENV GPG_KEY_SERVER="keyserver.ubuntu.com"
+
+# MRAN snapshot repo
+RUN echo "deb http://mran.revolutionanalytics.com/snapshot/2018-01-01/bin/linux/ubuntu zesty/" > /etc/apt/sources.list.d/mran.list
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys ${MRAN_KEY}
+RUN gpg -a --export ${MRAN_KEY} | apt-key add -
+
+RUN apt-get update && \
+    apt-get install --yes \
+            r-base \
+            r-base-dev \
+            r-cran-base64enc \
+            r-cran-crayon \
+            r-cran-curl \
+            r-cran-digest \
+            r-cran-evaluate \
+            r-cran-ggplot2 \
+            r-cran-htmlwidgets \
+            r-cran-httr \
+            r-cran-markdown \
+            r-cran-matrix \
+            r-cran-memoise \
+            r-cran-nlme \
+            r-cran-openssl \
+            r-cran-pbdzmq \
+            r-cran-png \
+            r-cran-raster \
+            r-cran-rcolorbrewer \
+            r-cran-repr \
+            r-cran-rpart \
+            r-cran-shiny \
+            r-cran-sp \
+            r-cran-spatstat \
+            r-cran-spdep \
+            r-cran-uuid \
+            r-cran-viridis \
+            r-cran-withr
+
+RUN Rscript -e "install.packages(c('devtools', 'IRdisplay', 'leaflet', 'spatstat.data'), repo = 'https://mran.revolutionanalytics.com/snapshot/2018-01-01')"
+
+# Set up R Kernel for Jupyter
+RUN Rscript -e "devtools::install_github('IRkernel/IRkernel', ref = 'dfa7f4e', upgrade_dependencies = FALSE)"
+RUN Rscript -e "IRkernel::installspec(user=FALSE)"
+
+RUN apt-get clean
