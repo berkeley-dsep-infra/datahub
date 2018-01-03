@@ -1,5 +1,3 @@
-FROM berkeleydsep/datahub-user:0edddad
-
 USER root
 
 RUN apt-get install --yes \
