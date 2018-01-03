@@ -14,20 +14,29 @@ def last_git_modified(path, n=1):
         path
     ]).decode('utf-8').split('\n')[-1]
 
+def assemble_child_dockerfile(child_dir, image_spec):
+    '''Given {child_dir} and {image_spec}, creates {child_dir}/Dockerfile
+    using 'FROM {image_spec}' and {child_dir}/Dockerfile.tail.'''
+    header = "FROM {}\n\n".format(image_spec)
+    tail = open(os.path.join(child_dir, "Dockerfile.tail")).read()
+    f = open(os.path.join(child_dir, "Dockerfile"), 'w')
+    f.write(header)
+    f.write(tail)
+    f.close()
 
-def build_user_image(image_name, commit_range=None, push=False):
+def build_user_image(image_name, commit_range=None, push=False, image_dir='user-image'):
     if commit_range:
         image_touched = subprocess.check_output([
-            'git', 'diff', '--name-only', commit_range, 'user-image',
+            'git', 'diff', '--name-only', commit_range, image_dir,
         ]).decode('utf-8').strip() != ''
         if not image_touched:
-            print("user-image not touched, not building")
+            print("{} not touched, not building".format(image_dir))
             return
 
     # Pull last available version of image to maximize cache use
     try_count = 0
     while try_count < 50:
-        last_image_tag = last_git_modified('user-image', try_count + 1)
+        last_image_tag = last_git_modified(image_dir, try_count + 1)
         last_image_spec = image_name + ':' + last_image_tag
         try:
             subprocess.check_call([
@@ -38,17 +47,18 @@ def build_user_image(image_name, commit_range=None, push=False):
             try_count += 1
             pass
 
-    tag = last_git_modified('user-image')
+    tag = last_git_modified(image_dir)
     image_spec = image_name + ':' + tag
 
     subprocess.check_call([
-        'docker', 'build', '--cache-from', last_image_spec, '-t', image_spec, 'user-image'
+        'docker', 'build', '--cache-from', last_image_spec, '-t', image_spec, image_dir
     ])
     if push:
         subprocess.check_call([
             'docker', 'push', image_spec
         ])
     print('build completed for image', image_spec)
+    return image_spec
 
 def deploy(release, install):
     # Set up helm!
@@ -103,7 +113,13 @@ def main():
     args = argparser.parse_args()
 
     if args.action == 'build':
-        build_user_image(args.user_image_spec, args.commit_range, args.push)
+        image_spec = build_user_image(args.user_image_spec, args.commit_range, args.push, 'user-image')
+
+        # child is built from updated parent
+        child = 'geog187'
+        assemble_child_dockerfile(child + '-image', image_spec)
+        build_user_image(args.user_image_spec + '-' + child,
+            args.commit_range, args.push, child + '-image')
     else:
         deploy(args.release, args.install)
 

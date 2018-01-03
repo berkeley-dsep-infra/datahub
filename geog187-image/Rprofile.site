@@ -1,0 +1,14 @@
+local({
+  # set a CRAN mirror
+  r <- getOption("repos")
+  r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2018-01-01"
+  options(repos = r, download.file.method = 'wget')
+})
+
+local_install <- function(x) {
+  x <- as.character(match.call()[[2]])
+  if (!require(x, character.only=TRUE)) {
+    install.packages(pkgs=x)
+    require(x, character.only=TRUE)
+  }
+}
