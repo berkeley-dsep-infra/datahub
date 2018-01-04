@@ -22,6 +22,11 @@ RUN apt-get update && \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended \
+      # for geog187 r and r packages
+            libcurl4-openssl-dev \
+            libssl-dev \
+            r-base \
+            r-base-dev \
 	    # for LS88-5 and modules basemap
 	    libspatialindex-dev \
 	    libgeos-dev \
@@ -31,6 +36,12 @@ RUN apt-get update && \
             gfortran \
 	    # for cogneuro
 	    dirmngr
+
+# for geog187 set up R Kernel for Jupyter
+RUN R --quiet -e "install.packages('devtools',dependencies = TRUE,repos = 'http://cran.us.r-project.org')" \
+                "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'uuid', 'digest', 'ggplot2','shiny','sp','Matrix','spdep','leaflet','RColorBrewer','spatstat','nlme','rpart','spatstat.data'),repos = 'http://cran.us.r-project.org')" \
+                "devtools::install_github('IRkernel/IRkernel')" \
+                "IRkernel::installspec(user=FALSE)"
 
 # for cogneuro connector, adding NeuroDebian repo
 RUN wget http://neuro.debian.net/lists/zesty.us-ca.full  -O /etc/apt/sources.list.d/neurodebian.sources.list
