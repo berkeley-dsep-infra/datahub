@@ -22,8 +22,11 @@ function prepare_azure {
         echo find ${TRAVIS_BUILD_DIR}
         find ${TRAVIS_BUILD_DIR}
         exit 1
+    else
+        echo "Found service principal file: ${SP}"
     fi
 
+    echo service principal user: $(jq -r .name ${SP})
     az login --service-principal \
               -u $(jq -r .name     ${SP}) \
               -p $(jq -r .password ${SP}) \
@@ -35,8 +38,9 @@ ACTION="${1}"
 PUSH=''
 if [[ ${ACTION} == 'build' ]]; then
     if [[ ${TRAVIS_PULL_REQUEST} == 'false' ]]; then
+        # In this context we have travis secrets!
         PUSH='--push'
-        # Assume we're in master and have secrets!
+        echo "Logging in to docker hub"
         docker login -u $DOCKER_USERNAME -p "$DOCKER_PASSWORD"
 
         ## This is all just so that we can run kubectl to deploy a daemonset.
