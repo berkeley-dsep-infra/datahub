@@ -141,13 +141,19 @@ def main():
     args = argparser.parse_args()
 
     if args.action == 'build':
-        image_spec = build_user_image(args.user_image_spec, args.commit_range, args.push, 'user-image')
+        user_image_spec = build_user_image(args.user_image_root,
+            args.commit_range, args.push, 'user-image')
 
-        # child is built from updated parent
-        child = 'geog187'
-        assemble_child_dockerfile(child + '-image', image_spec)
-        build_user_image(args.user_image_spec + '-' + child,
-            args.commit_range, args.push, child + '-image')
+        for child in args.children:
+            child_dir = child + '-image'
+            child_image_root = args.user_image_root + '-' + child
+            # child is built FROM user_image_spec
+            assemble_child_dockerfile(child_dir, user_image_spec)
+            child_image_spec = build_user_image(child_user_image_root,
+                args.commit_range, args.push, child_dir)
+            if args.push:
+                # Since we pushed a new image, we should pull it too
+                create_puller_daemonset(child_image_spec)
     else:
         deploy(args.release, args.install)
 
