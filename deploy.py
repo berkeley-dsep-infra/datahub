@@ -1,9 +1,46 @@
 #!/usr/bin/env python3
+# vim: set et sw=4 ts=4 nonumber:
+
 import argparse
 import subprocess
 import yaml
 import os
 
+
+def tag_fragment_file(tag):
+    tag_fragment = yaml.dump({'singleuser': {'image': {'tag': tag}}})
+    filename = '/tmp/tag-{}.yaml'.format(tag)
+    with open(filename, 'w') as f:
+        f.write(tag_fragment)
+    return filename
+
+def helm(*args, **kwargs):
+    arg0 = 'helm'
+    return subprocess.check_call([arg0] + list(args), **kwargs)
+
+def kubectl(*args, **kwargs):
+    arg0 = 'kubectl'
+    return subprocess.check_call([arg0] + list(args), **kwargs)
+
+def docker(*args, **kwargs):
+    arg0 = 'docker'
+    return subprocess.check_call([arg0] + list(args), **kwargs)
+
+def gen_puller_daemonset(image, tag):
+    '''Generates a puller daemonset yaml from our template.'''
+    image_flt = image.replace('/', '--')
+    buf = open('ds-puller.yaml.tmpl').read()
+    buf = buf.replace('DOCKER_TAG', tag)
+    buf = buf.replace('DOCKER_IMAGE', image)
+    buf = buf.replace('DOCKER_SANITIZED_IMAGE', image_flt)
+    return buf
+
+def create_puller_daemonset(image_spec):
+    '''Creates a daemonset to pull a docker image via kubectl.'''
+    image, tag = image_spec.split(':')
+    buf = gen_puller_daemonset(image, tag)
+    subprocess.run(['kubectl', 'create', '-f', '-'], input=buf.encode(),
+        check=True)
 
 def last_git_modified(path, n=1):
     return subprocess.check_output([
@@ -40,9 +77,7 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
         last_image_tag = last_git_modified(image_dir, try_count + 1)
         last_image_spec = image_name + ':' + last_image_tag
         try:
-            subprocess.check_call([
-                'docker', 'pull', last_image_spec
-            ])
+            docker('pull', last_image_spec)
             break
         except subprocess.CalledProcessError:
             try_count += 1
@@ -51,62 +86,54 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
     tag = last_git_modified(image_dir)
     image_spec = image_name + ':' + tag
 
-    subprocess.check_call([
-        'docker', 'build', '--cache-from', last_image_spec, '-t', image_spec, image_dir
-    ])
+    docker('build', '--cache-from', last_image_spec, '-t', image_spec,
+        image_dir)
     if push:
-        subprocess.check_call([
-            'docker', 'push', image_spec
-        ])
+        docker('push', image_spec)
     print('build completed for image', image_spec)
     return image_spec
 
 def deploy(release, install):
     # Set up helm!
-    subprocess.check_call(['helm', 'repo', 'update'])
+    helm('repo', 'update')
 
     singleuser_tag = last_git_modified('user-image')
+
+    # We shouldn't use --set because helm converts numeric values to float64
+    # https://github.com/kubernetes/helm/issues/1707
+    tagfilename = tag_fragment_file(singleuser_tag)
 
     with open('datahub/config.yaml') as f:
         config = yaml.safe_load(f)
 
-    if install:
-        helm = [
-            'helm', 'install',
-            '--name', release,
-            '--namespace', release,
-            'jupyterhub/jupyterhub',
-            '--version', config['version'],
-            '-f', 'datahub/config.yaml',
-            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
-            '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
-        ]
-    else:
-        helm = [
-            'helm', 'upgrade', release,
-            'jupyterhub/jupyterhub',
-            '--version', config['version'],
-            '-f', 'datahub/config.yaml',
-            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
-            '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
-        ]
-
-    subprocess.check_call(helm)
+    helm('upgrade', '--install', '--wait',
+        release, 'jupyterhub/jupyterhub',
+        '--version', config['version'],
+        '-f', 'datahub/config.yaml',
+        '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
+        '-f', tagfilename,
+        '--timeout', '3600',
+        #'--set', 'singleuser.image.tag={}'.format(singleuser_tag)
+    )
 
 
 def main():
     argparser = argparse.ArgumentParser()
-    argparser.add_argument(
-        '--user-image-spec',
+    argparser.add_argument('--user-image-root',
         default='berkeleydsep/datahub-user'
     )
     subparsers = argparser.add_subparsers(dest='action')
 
-    build_parser = subparsers.add_parser('build', description='Build & Push images')
-    build_parser.add_argument('--commit-range', help='Range of commits to consider when building images')
+    build_parser = subparsers.add_parser('build',
+        description='Build & Push images')
+    build_parser.add_argument('--commit-range',
+        help='Range of commits to consider when building images')
     build_parser.add_argument('--push', action='store_true')
+    build_parser.add_argument('--children', action='append',
+        default=['geog187'])
 
-    deploy_parser = subparsers.add_parser('deploy', description='Deploy with helm')
+    deploy_parser = subparsers.add_parser('deploy',
+        description='Deploy with helm')
     deploy_parser.add_argument('release', default='prod')
     deploy_parser.add_argument('--install', action='store_true')
 
@@ -114,13 +141,19 @@ def main():
     args = argparser.parse_args()
 
     if args.action == 'build':
-        image_spec = build_user_image(args.user_image_spec, args.commit_range, args.push, 'user-image')
+        user_image_spec = build_user_image(args.user_image_root,
+            args.commit_range, args.push, 'user-image')
 
-        # child is built from updated parent
-        child = 'geog187'
-        assemble_child_dockerfile(child + '-image', image_spec)
-        build_user_image(args.user_image_spec + '-' + child,
-            args.commit_range, args.push, child + '-image')
+        for child in args.children:
+            child_dir = child + '-image'
+            child_image_root = args.user_image_root + '-' + child
+            # child is built FROM user_image_spec
+            assemble_child_dockerfile(child_dir, user_image_spec)
+            child_image_spec = build_user_image(child_image_root,
+                args.commit_range, args.push, child_dir)
+            #if args.push:
+            #    # Since we pushed a new image, we should pull it too
+            #    create_puller_daemonset(child_image_spec)
     else:
         deploy(args.release, args.install)
 
