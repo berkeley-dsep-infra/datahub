@@ -151,9 +151,9 @@ def main():
             assemble_child_dockerfile(child_dir, user_image_spec)
             child_image_spec = build_user_image(child_image_root,
                 args.commit_range, args.push, child_dir)
-            if args.push:
-                # Since we pushed a new image, we should pull it too
-                create_puller_daemonset(child_image_spec)
+            #if args.push:
+            #    # Since we pushed a new image, we should pull it too
+            #    create_puller_daemonset(child_image_spec)
     else:
         deploy(args.release, args.install)
 
