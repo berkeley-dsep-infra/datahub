@@ -1,9 +1,46 @@
 #!/usr/bin/env python3
+# vim: set et sw=4 ts=4 nonumber:
+
 import argparse
 import subprocess
 import yaml
 import os
 
+
+def tag_fragment_file(tag):
+    tag_fragment = yaml.dump({'singleuser': {'image': {'tag': tag}}})
+    filename = '/tmp/tag-{}.yaml'.format(tag)
+    with open(filename, 'w') as f:
+        f.write(tag_fragment)
+    return filename
+
+def helm(*args, **kwargs):
+    arg0 = 'helm'
+    return subprocess.check_call([arg0] + list(args), **kwargs)
+
+def kubectl(*args, **kwargs):
+    arg0 = 'kubectl'
+    return subprocess.check_call([arg0] + list(args), **kwargs)
+
+def docker(*args, **kwargs):
+    arg0 = 'docker'
+    return subprocess.check_call([arg0] + list(args), **kwargs)
+
+def gen_puller_daemonset(image, tag):
+    '''Generates a puller daemonset yaml from our template.'''
+    image_flt = image.replace('/', '--')
+    buf = open('ds-puller.yaml.tmpl').read()
+    buf = buf.replace('DOCKER_TAG', tag)
+    buf = buf.replace('DOCKER_IMAGE', image)
+    buf = buf.replace('DOCKER_SANITIZED_IMAGE', image_flt)
+    return buf
+
+def create_puller_daemonset(image_spec):
+    '''Creates a daemonset to pull a docker image via kubectl.'''
+    image, tag = image_spec.split(':')
+    buf = gen_puller_daemonset(image, tag)
+    subprocess.run(['kubectl', 'create', '-f', '-'], input=buf.encode(),
+        check=True)
 
 def last_git_modified(path, n=1):
     return subprocess.check_output([
@@ -40,9 +77,7 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
         last_image_tag = last_git_modified(image_dir, try_count + 1)
         last_image_spec = image_name + ':' + last_image_tag
         try:
-            subprocess.check_call([
-                'docker', 'pull', last_image_spec
-            ])
+            docker('pull', last_image_spec)
             break
         except subprocess.CalledProcessError:
             try_count += 1
