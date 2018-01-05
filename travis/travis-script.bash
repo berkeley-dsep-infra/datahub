@@ -45,11 +45,12 @@ if [[ ${ACTION} == 'build' ]]; then
 
         ## This is all just so that we can run kubectl to deploy a daemonset.
         ## Later we can run helm during deploy rather than ssh.
-        prepare_azure
         export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}.${AZ_LOCATION}.json"
         echo ${GIT_CRYPT_KEY_64} | base64 -d > ./git-crypt.key
         chmod 0400 git-crypt.key
         git-crypt unlock git-crypt.key
+
+        prepare_azure
     fi
 
     # Attempt to improve relability of pip installs:
