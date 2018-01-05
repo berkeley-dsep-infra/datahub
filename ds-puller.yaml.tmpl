@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: prepull-DOCKER_SANITIZED_IMAGE-DOCKER_TAG
+spec:
+  selector:
+    matchLabels:
+      name: prepull-DOCKER_SANITIZED_IMAGE-DOCKER_TAG
+  template:
+    metadata:
+      labels:
+        name: prepull-DOCKER_SANITIZED_IMAGE-DOCKER_TAG
+    spec:
+      initContainers:
+      - name: prepull
+        image: docker
+        command: ["docker", "pull", "DOCKER_IMAGE:DOCKER_TAG"]
+        volumeMounts:
+        - name: docker
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker
+        hostPath:
+          path: /var/run/docker.sock
+      containers:
+      - name: pause
+        image: gcr.io/google_containers/pause

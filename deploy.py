@@ -86,62 +86,54 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
     tag = last_git_modified(image_dir)
     image_spec = image_name + ':' + tag
 
-    subprocess.check_call([
-        'docker', 'build', '--cache-from', last_image_spec, '-t', image_spec, image_dir
-    ])
+    docker('build', '--cache-from', last_image_spec, '-t', image_spec,
+        image_dir)
     if push:
-        subprocess.check_call([
-            'docker', 'push', image_spec
-        ])
+        docker('push', image_spec)
     print('build completed for image', image_spec)
     return image_spec
 
 def deploy(release, install):
     # Set up helm!
-    subprocess.check_call(['helm', 'repo', 'update'])
+    helm('repo', 'update')
 
     singleuser_tag = last_git_modified('user-image')
+
+    # We shouldn't use --set because helm converts numeric values to float64
+    # https://github.com/kubernetes/helm/issues/1707
+    tagfilename = tag_fragment_file(singleuser_tag)
 
     with open('datahub/config.yaml') as f:
         config = yaml.safe_load(f)
 
-    if install:
-        helm = [
-            'helm', 'install',
-            '--name', release,
-            '--namespace', release,
-            'jupyterhub/jupyterhub',
-            '--version', config['version'],
-            '-f', 'datahub/config.yaml',
-            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
-            '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
-        ]
-    else:
-        helm = [
-            'helm', 'upgrade', release,
-            'jupyterhub/jupyterhub',
-            '--version', config['version'],
-            '-f', 'datahub/config.yaml',
-            '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
-            '--set', 'singleuser.image.tag={}'.format(singleuser_tag)
-        ]
-
-    subprocess.check_call(helm)
+    helm('upgrade', '--install', '--wait',
+        release, 'jupyterhub/jupyterhub',
+        '--version', config['version'],
+        '-f', 'datahub/config.yaml',
+        '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
+        '-f', tagfilename,
+        '--timeout', '3600',
+        #'--set', 'singleuser.image.tag={}'.format(singleuser_tag)
+    )
 
 
 def main():
     argparser = argparse.ArgumentParser()
-    argparser.add_argument(
-        '--user-image-spec',
+    argparser.add_argument('--user-image-root',
         default='berkeleydsep/datahub-user'
     )
     subparsers = argparser.add_subparsers(dest='action')
 
-    build_parser = subparsers.add_parser('build', description='Build & Push images')
-    build_parser.add_argument('--commit-range', help='Range of commits to consider when building images')
+    build_parser = subparsers.add_parser('build',
+        description='Build & Push images')
+    build_parser.add_argument('--commit-range',
+        help='Range of commits to consider when building images')
     build_parser.add_argument('--push', action='store_true')
+    build_parser.add_argument('--children', action='append',
+        default=['geog187'])
 
-    deploy_parser = subparsers.add_parser('deploy', description='Deploy with helm')
+    deploy_parser = subparsers.add_parser('deploy',
+        description='Deploy with helm')
     deploy_parser.add_argument('release', default='prod')
     deploy_parser.add_argument('--install', action='store_true')
 
