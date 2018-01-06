@@ -39,7 +39,8 @@ def create_puller_daemonset(image_spec):
     '''Creates a daemonset to pull a docker image via kubectl.'''
     image, tag = image_spec.split(':')
     buf = gen_puller_daemonset(image, tag)
-    out = subprocess.run(['kubectl', 'create', '-f', '-'], input=buf.encode())
+    out = subprocess.run(['kubectl', 'create', '-f', '-'], input=buf.encode(),
+        stderr=subprocess.PIPE)
     try:
         out.check_returncode()
     except subprocess.CalledProcessError as e:
