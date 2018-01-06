@@ -39,8 +39,18 @@ def create_puller_daemonset(image_spec):
     '''Creates a daemonset to pull a docker image via kubectl.'''
     image, tag = image_spec.split(':')
     buf = gen_puller_daemonset(image, tag)
-    subprocess.run(['kubectl', 'create', '-f', '-'], input=buf.encode(),
-        check=True)
+    try:
+        out = subprocess.run(['kubectl', 'create', '-f', '-'], check=True,
+            input=buf.encode())
+    except subprocess.CalledProcessError as e:
+        print("kubectl exited with an error.")
+        print(out.stderr)
+        print()
+        print("image: {}, tag: {}".format(image, tag))
+        print()
+        print("DAEMONSET:")
+        print(buf)
+        raise
 
 def last_git_modified(path, n=1):
     return subprocess.check_output([
@@ -151,9 +161,9 @@ def main():
             assemble_child_dockerfile(child_dir, user_image_spec)
             child_image_spec = build_user_image(child_image_root,
                 args.commit_range, args.push, child_dir)
-            #if args.push:
-            #    # Since we pushed a new image, we should pull it too
-            #    create_puller_daemonset(child_image_spec)
+            if args.push:
+                # Since we pushed a new image, we should pull it too
+                create_puller_daemonset(child_image_spec)
     else:
         deploy(args.release, args.install)
 
