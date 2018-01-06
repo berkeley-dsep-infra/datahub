@@ -32,6 +32,7 @@ function prepare_azure {
               -p $(jq -r .password ${SP}) \
         --tenant $(jq -r .tenant   ${SP}) > /dev/null
     az account set -s ${SUBSCRIPTION_PREFIX}-${TRAVIS_BRANCH} > /dev/null
+    az account show --query=name
 }
 
 ACTION="${1}"
@@ -45,11 +46,14 @@ if [[ ${ACTION} == 'build' ]]; then
 
         ## This is all just so that we can run kubectl to deploy a daemonset.
         ## Later we can run helm during deploy rather than ssh.
-        export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}.${AZ_LOCATION}.json"
         echo ${GIT_CRYPT_KEY_64} | base64 -d > ./git-crypt.key
         chmod 0400 git-crypt.key
         git-crypt unlock git-crypt.key
 
+        export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}-${AZ_LOCATION}.json"
+        echo KUBECONFIG="${KUBECONFIG}" md5sum=$(md5sum ${KUBECONFIG})
+        echo /usr/local/bin/kubectl get nodes
+        /usr/local/bin/kubectl get nodes
         prepare_azure
     fi
 
