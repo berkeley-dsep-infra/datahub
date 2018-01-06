@@ -51,9 +51,9 @@ if [[ ${ACTION} == 'build' ]]; then
         git-crypt unlock git-crypt.key
 
         export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}.${AZ_LOCATION}.json"
-        echo KUBECONFIG="${KUBECONFIG}"
-        echo kubectl get nodes
-        kubectl get nodes
+        echo KUBECONFIG="${KUBECONFIG}" md5sum=$(md5sum ${KUBECONFIG})
+        echo /usr/local/bin/kubectl get nodes
+        /usr/local/bin/kubectl get nodes
         prepare_azure
     fi
 
