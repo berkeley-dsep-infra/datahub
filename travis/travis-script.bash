@@ -50,7 +50,7 @@ if [[ ${ACTION} == 'build' ]]; then
         chmod 0400 git-crypt.key
         git-crypt unlock git-crypt.key
 
-        export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}.${AZ_LOCATION}.json"
+        export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}-${AZ_LOCATION}.json"
         echo KUBECONFIG="${KUBECONFIG}" md5sum=$(md5sum ${KUBECONFIG})
         echo /usr/local/bin/kubectl get nodes
         /usr/local/bin/kubectl get nodes
