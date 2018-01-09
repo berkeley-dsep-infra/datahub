@@ -86,11 +86,11 @@ auth:
         - michael.eickenberg
         - ericvd
         - shobhana
-        # LING 243
+        # LING 243 Spring 2018
         - terry.regier
-        # COGSCI 131
+        # COGSCI 131 Spring 2018
         - ddbourgin
-        # ECON 101B
+        # ECON 101B Spring 2018
         - jbdelong
 
 singleuser:
