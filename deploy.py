@@ -35,6 +35,14 @@ def gen_puller_daemonset(image, tag):
     buf = buf.replace('DOCKER_SANITIZED_IMAGE', image_flt)
     return buf
 
+def daemonset_exists(image_spec):
+    image, tag = image_spec.split(':')
+    image_flt = image.replace('/', '--')
+    name = 'prepull-{}-{}'.format(image_flt, tag)
+    out = subprocess.run(['kubectl', 'get', 'ds', '-o',
+        'jsonpath="{.items[0].metadata.labels.name}"'], stdout=subprocess.PIPE)
+    return name in out.stdout.decode()
+
 def create_puller_daemonset(image_spec):
     '''Creates a daemonset to pull a docker image via kubectl.'''
     image, tag = image_spec.split(':')
@@ -162,7 +170,7 @@ def main():
             assemble_child_dockerfile(child_dir, user_image_spec)
             child_image_spec = build_user_image(child_image_root,
                 args.commit_range, args.push, child_dir)
-            if args.push:
+            if args.push and not daemonset_exists(child_image_spec):
                 # Since we pushed a new image, we should pull it too
                 create_puller_daemonset(child_image_spec)
     else:

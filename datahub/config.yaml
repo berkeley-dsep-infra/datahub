@@ -40,6 +40,7 @@ auth:
         # infrastructure
         - rylo
         - yuvipanda
+        - chench
         - vinitra
         - gunjan_baid
         # fa17 data 8 Professors
@@ -84,9 +85,13 @@ auth:
         - samyag1
         - michael.eickenberg
         - ericvd
-        - chench
-        - cvacano
         - shobhana
+        # LING 243 Spring 2018
+        - terry.regier
+        # COGSCI 131 Spring 2018
+        - ddbourgin
+        # ECON 101B Spring 2018
+        - jbdelong
 
 singleuser:
   memory:
