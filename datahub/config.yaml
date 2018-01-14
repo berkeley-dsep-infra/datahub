@@ -43,40 +43,48 @@ auth:
         - chench
         - vinitra
         - gunjan_baid
-        # fa17 data 8 Professors
-        - denero
-        - daw
-        # fa17 data 8 GSIs
-        - alexku
+        - acheema
+        # sp18 data 8 Professors
+        - adhikari
+        # sp18 data 8 GSIs
         - fhdkmrn
         - wumadeline
-        - arvindiyengar
+        - austenzhu
+        - supadhyay
+        - v.oikonomou
+        - scott.lee.3898
+        - abala
+        - adnan.h
+        - akritisingh
+        - amrosenthal
+        - ashahatit
+        - alinxie
+        - averyyip
+        - clairezhang
+        - dcroce
+        - echang7
+        - emmajaeger
         - chenge
+        - fmcquarrie3
+        - hsubbaraj
+        - howardki888
+        - jwarnagieris
+        - j.hu
         - huangjiayi0922
         - jwhughes
-        - katherine.yen
-        - namushegian
-        - nskh
-        - suraj.rampure
-        - v.oikonomou
-        - emmajaeger
-        - inan.husain
-        - j.hu
-        - niraj.a.rao
-        - priyanka.bhoj
-        - ronald.walker
-        - supadhyay
-        - vienannguyen
-        - wiltonwu
-        - naltieri
-        - juitungkuo
-        - nwang97
-        - acheema
         - michelleyang
-        - satish.vinay
-        - abalamurugan112
+        - nwang97
+        - namushegian
+        - niraj.a.rao
+        - nskh
+        - ravi.singhal
+        - narain.rohan
+        - ronald.walker
+        - rjoshi
+        - rroggenkemper
+        - s.mani
         - tanaynathan18
-        - zdehkord
+        - vienannguyen
         # connector instructors
         - miladm
         - cmason
