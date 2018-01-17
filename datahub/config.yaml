@@ -30,6 +30,9 @@ hub:
 
     c.JupyterHub.spawner_class = CustomAttrSpawner
 
+    # HACK: manually edited deployment to add volume to /srv/log
+    c.JupyterHub.extra_log_file = '/srv/log/jupyterhub.log'
+
 rbac:
     enabled: false
 
