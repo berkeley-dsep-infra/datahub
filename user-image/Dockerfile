@@ -3,6 +3,11 @@ FROM ubuntu:17.04
 ENV APP_DIR /srv/app
 ENV PATH ${APP_DIR}/venv/bin:$PATH
 
+RUN sed -i \
+	-e 's/archive.ubuntu/old-releases.ubuntu/' \
+	-e 's/security.ubuntu/old-releases.ubuntu/' \
+	/etc/apt/sources.list
+
 RUN apt-get update && \
     apt-get install --yes \
             python3.6 \

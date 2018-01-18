@@ -15,6 +15,7 @@ ggplot==0.11.5
 mplleaflet==0.0.5
 geopandas==0.3.0
 geopy==1.11.0
+pysal==1.14.3
 https://github.com/matplotlib/basemap/archive/v1.1.0.tar.gz
 #
 # cogsci131; spring 2018
@@ -65,3 +66,6 @@ Keras==2.0.8
 keras-vis==0.4.1
 tables==3.4.2
 opencv-python==3.3.0.10
+#
+# don't merge this
+there==0.0.7
