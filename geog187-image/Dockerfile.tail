@@ -14,16 +14,20 @@ RUN gpg -a --export ${MRAN_KEY} | apt-key add -
 
 RUN apt-get update && \
     apt-get install --yes \
+            libgdal-dev \
+            libproj-dev \
             r-base \
             r-base-dev \
             r-cran-base64enc \
             r-cran-crayon \
             r-cran-curl \
             r-cran-digest \
+            r-cran-dplyr \
             r-cran-evaluate \
             r-cran-ggplot2 \
             r-cran-htmlwidgets \
             r-cran-httr \
+            r-cran-mapproj \
             r-cran-markdown \
             r-cran-matrix \
             r-cran-memoise \
@@ -34,19 +38,25 @@ RUN apt-get update && \
             r-cran-raster \
             r-cran-rcolorbrewer \
             r-cran-repr \
+            r-cran-rjson \
             r-cran-rpart \
             r-cran-shiny \
             r-cran-sp \
             r-cran-spatstat \
             r-cran-spdep \
+            r-cran-tibble \
+            r-cran-tidyr \
             r-cran-uuid \
             r-cran-viridis \
             r-cran-withr
 
-RUN Rscript -e "install.packages(c('devtools', 'IRdisplay', 'leaflet', 'spatstat.data'), repo = 'https://mran.revolutionanalytics.com/snapshot/2018-01-01')"
+RUN Rscript -e "install.packages(c('devtools', 'IRdisplay', 'leaflet', 'spatstat.data', 'broom', 'classInt', 'ggmap'), repo = 'https://mran.revolutionanalytics.com/snapshot/2018-01-01')"
 
 # Set up R Kernel for Jupyter
 RUN Rscript -e "devtools::install_github('IRkernel/IRkernel', ref = 'dfa7f4e', upgrade_dependencies = FALSE)"
 RUN Rscript -e "IRkernel::installspec(user=FALSE)"
+
+# 1.2-16
+RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '61306d9', upgrade_dependencies = FALSE)"
 
 RUN apt-get clean
