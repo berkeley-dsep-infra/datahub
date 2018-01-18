@@ -8,6 +8,7 @@ hub:
     from kubespawner import KubeSpawner
     from tornado import gen
     import yaml
+    import os
 
     class CustomAttrSpawner(KubeSpawner):
       @gen.coroutine
@@ -32,6 +33,15 @@ hub:
 
     # HACK: manually edited deployment to add volume to /srv/log
     c.JupyterHub.extra_log_file = '/srv/log/jupyterhub.log'
+
+    # HACK: this is temporary and will go away soon (~0.6)
+    if 'HUB_USERNAME_MAP' in os.environ:
+        # expect badname1=goodname1:badname2=goodname2
+        c.Authenticator.username_map = {}
+        keyvals = os.environ['HUB_USERNAME_MAP']
+        for keyval in keyvals.split(':'):
+            key, val = keyval.split('=')
+            c.Authenticator.username_map[key] = val
 
 rbac:
     enabled: false
