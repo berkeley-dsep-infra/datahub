@@ -14,14 +14,20 @@ RUN gpg -a --export ${MRAN_KEY} | apt-key add -
 
 RUN apt-get update && \
     apt-get install --yes \
+            libgdal-dev \
+            libproj-dev \
             r-base \
             r-base-dev \
             r-cran-base64enc \
+            r-cran-broom \
+            r-cran-classInt \
             r-cran-crayon \
             r-cran-curl \
             r-cran-digest \
+            r-cran-dplyr \
             r-cran-evaluate \
             r-cran-ggplot2 \
+            r-cran-ggmap \
             r-cran-htmlwidgets \
             r-cran-httr \
             r-cran-markdown \
@@ -34,6 +40,7 @@ RUN apt-get update && \
             r-cran-raster \
             r-cran-rcolorbrewer \
             r-cran-repr \
+            r-cran-rgdal \
             r-cran-rpart \
             r-cran-shiny \
             r-cran-sp \
