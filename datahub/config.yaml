@@ -10,6 +10,16 @@ hub:
     import yaml
 
     class CustomAttrSpawner(KubeSpawner):
+      # TEMP Hack to work around users with leading _ in names
+      @gen.coroutine
+      def get_pod_manifest(self):
+        pod = yield super().get_pod_manifest()
+
+        if pod.metadata.labels['hub.jupyter.org/username'].startswith('_'):
+          pod.metadata.labels['hub.jupyter.org/username'] = 'user' + pod.metadata.labels['hub.jupyter.org/username']
+
+        return pod
+
       @gen.coroutine
       def start(self):
         with open('/etc/jupyterhub/config/custom.memory') as f:
