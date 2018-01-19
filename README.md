@@ -10,9 +10,12 @@ and the `prod` branch reflects the state of the [production JupyterHub](http://d
 
 ## Procedure
 
-To make changes, fork this repo and [create a pull
-request](https://help.github.com/articles/about-pull-requests/). The
-choice for `base` in the GitHub PR user interface should be the staging
+When developing for this deployment, always work in a fork of this repo.
+You should also make sure that your repo is up-to-date with this one prior
+to making changes. This is because other contributors may have pushed changes
+after you last synced with this repo but before you upstreamed your changes.
+When you are ready, [create a pull request](https://help.github.com/articles/about-pull-requests/).
+The choice for `base` in the GitHub PR user interface should be the staging
 branch of this repo while the choice for `head` is your fork. The pull
 request will trigger a [Travis CI](https://travis-ci.org/) process and
 potentially a rebuild of docker images depending on what modifications
