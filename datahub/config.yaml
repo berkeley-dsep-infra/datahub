@@ -1,6 +1,4 @@
-#version: "v0.6.0-845fe29"
-version: "v0.5.0"
-
+version: "v0.6.0-a3007b2"
 
 hub:
   db:
@@ -13,14 +11,16 @@ hub:
 
     class CustomAttrSpawner(KubeSpawner):
       # TEMP Hack to work around users with leading _ in names
-      @gen.coroutine
-      def get_pod_manifest(self):
-        pod = yield super().get_pod_manifest()
-
-        if pod.metadata.labels['hub.jupyter.org/username'].startswith('_'):
-          pod.metadata.labels['hub.jupyter.org/username'] = 'user' + pod.metadata.labels['hub.jupyter.org/username']
-
-        return pod
+      #@gen.coroutine
+      #def get_pod_manifest(self):
+      #  pod = yield super().get_pod_manifest()
+      #
+      #  label = 'hub.jupyter.org/username'
+      #  if label in pod.metadata.labels and \
+      #    pod.metadata.labels[label].startswith('_'):
+      #    pod.metadata.labels[label] = 'user' + pod.metadata.labels[label]
+      #
+      #  return pod
 
       @gen.coroutine
       def start(self):
