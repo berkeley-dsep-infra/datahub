@@ -1,4 +1,5 @@
-version: "v0.6.0-845fe29"
+#version: "v0.6.0-845fe29"
+version: "v0.5.0"
 
 
 hub:
@@ -53,8 +54,13 @@ hub:
             key, val = keyval.split('=')
             c.Authenticator.username_map[key] = val
 
+#prePuller:
+#  extraImages:
+#    - name: "berkeleydsep/datahub-user-geog187"
+#      tag: "698a2a1"
+
 rbac:
-    enabled: false
+  enabled: false
 
 auth:
   type: google
