@@ -18,7 +18,7 @@ taints:
     key: node-role.kubernetes.io/master
     timeAdded: null
     value: "true"
-``
+```
 
 The master is cordoned on prod and a new build is started in CI.
 
