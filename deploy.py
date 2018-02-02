@@ -112,6 +112,14 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
     print('build completed for image', image_spec)
     return image_spec
 
+def get_objects(ko, release):
+    return subprocess.check_output([
+        'kubectl',
+        '--namespace', release,
+        'get', ko,
+        '-o', 'name'
+    ]).decode().strip().split('\n')
+
 def deploy(release, install):
     # Set up helm!
     helm('repo', 'update')
@@ -135,6 +143,15 @@ def deploy(release, install):
         #'--set', 'singleuser.image.tag={}'.format(singleuser_tag)
     )
 
+    # Explicitly wait for all deployments and daemonsets to be fully rolled out
+    deployments = get_objects('deployments', release)
+    daemonsets  = get_objects('daemonsets',  release)
+    for d in deployments + daemonsets:
+        subprocess.check_call([
+            'kubectl', 'rollout', 'status',
+            '--namespace', release,
+            '--watch', d
+        ])
 
 def main():
     argparser = argparse.ArgumentParser()
