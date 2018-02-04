@@ -73,6 +73,7 @@ auth:
         - vinitra
         - gunjan_baid
         - acheema
+        - zdehkordi
         # sp18 data 8 Professors
         - adhikari
         # sp18 data 8 GSIs
@@ -123,6 +124,12 @@ auth:
         - michael.eickenberg
         - ericvd
         - shobhana
+        #DSEP Staff
+        - ryanedw
+        - ericvd
+        # Physics 77/88
+        - ryansmith63
+        - ygkolomensky
         # LING 243 Spring 2018
         - terry.regier
         # COGSCI 131 Spring 2018
