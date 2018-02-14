@@ -158,3 +158,8 @@ singleuser:
       - name: cogneuro
         mountPath: /data/cogneuro
         readOnly: True
+
+prePuller:
+   extraImages:
+     geog187-image:
+       name: "berkeleydsep/datahub-user-geog187"
