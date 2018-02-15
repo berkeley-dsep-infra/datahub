@@ -3,15 +3,51 @@
 
 import argparse
 import subprocess
-import yaml
+import tempfile
 import os
 
+import yaml
 
 def tag_fragment_file(tag):
-    tag_fragment = yaml.dump({'singleuser': {'image': {'tag': tag}}})
+    '''We can't use --set because helm converts numeric values to float64
+       https://github.com/kubernetes/helm/issues/1707
+       so we use a fragment file.
+    '''
+    buf = yaml.dump({'singleuser': {'image': {'tag': tag}}})
     filename = '/tmp/tag-{}.yaml'.format(tag)
     with open(filename, 'w') as f:
-        f.write(tag_fragment)
+        f.write(buf)
+    return filename
+
+def extra_image_file(key, tag):
+    filename = '/tmp/tag-{}-{}.yaml'.format(key, tag)
+    buf = yaml.dump({
+        'prePuller': { 'extraImages': {
+            key+'-image': {
+                'name': 'berkeleydsep/datahub-user-'+key,
+                'tag': tag
+            }
+        }}
+    })
+    with open(filename, 'w') as f:
+        f.write(buf)
+    return filename
+
+def configmap_image_users(key, tag):
+    '''Return yaml representing the configmap for applying a docker
+       image to a user list.'''
+    # Load the image's users
+    users_filename = os.path.join('datahub', 'secrets',
+        'configmap-image-{}.yaml'.format(key))
+    users = yaml.load(open(users_filename).read())
+
+    image_spec = 'berkeleydsep/datahub-user-{}:{}'.format(key, tag)
+    buf = yaml.dump({
+        'hub': { 'extraConfigMap': { 'image': { image_spec: users } } }
+    })
+    fd, filename = tempfile.mkstemp(text=True)
+    with os.fdopen(fd, 'w') as f:
+        f.write(buf)
     return filename
 
 def helm(*args, **kwargs):
@@ -43,6 +79,7 @@ def daemonset_exists(image_spec):
         'jsonpath="{.items[0].metadata.labels.name}"'], stdout=subprocess.PIPE)
     return name in out.stdout.decode()
 
+
 def create_puller_daemonset(image_spec):
     '''Creates a daemonset to pull a docker image via kubectl.'''
     image, tag = image_spec.split(':')
@@ -61,6 +98,7 @@ def create_puller_daemonset(image_spec):
         print(buf)
         raise
 
+
 def last_git_modified(path, n=1):
     return subprocess.check_output([
         'git',
@@ -69,6 +107,7 @@ def last_git_modified(path, n=1):
         '--pretty=format:%h',
         path
     ]).decode('utf-8').split('\n')[-1]
+
 
 def assemble_child_dockerfile(child_dir, image_spec):
     '''Given {child_dir} and {image_spec}, creates {child_dir}/Dockerfile
@@ -79,6 +118,7 @@ def assemble_child_dockerfile(child_dir, image_spec):
     f.write(header)
     f.write(tail)
     f.close()
+
 
 def build_user_image(image_name, commit_range=None, push=False, image_dir='user-image'):
     if commit_range:
@@ -112,29 +152,74 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
     print('build completed for image', image_spec)
     return image_spec
 
+def get_object_names(ko, release):
+    output = subprocess.check_output([
+        'kubectl',
+        '--namespace', release,
+        'get', ko,
+        '-o', 'name'
+    ]).decode().strip()
+    if output == '': return []
+    return output.split('\n')
+
+def test_hub(release):
+    ip = subprocess.check_output([
+        'kubectl', '--namespace', release,
+        'get', 'svc', 'proxy-public',
+        '-o', 'jsonpath="{.status.loadBalancer.ingress[*].ip}"'
+    ]).decode().strip()
+
+def wait_for_deploy(release):
+    # Explicitly wait for all deployments and daemonsets to be fully rolled out
+    deployments = get_object_names('deployments', release)
+    daemonsets  = get_object_names('daemonsets',  release)
+    for d in deployments + daemonsets:
+        subprocess.check_call([
+            'kubectl', 'rollout', 'status',
+            '--namespace', release,
+            '--watch', d
+        ])
+
+def hub_ip(release):
+    return subprocess.check_output([
+        'kubectl', '--namespace', release, 'get', 'svc', 'proxy-public',
+        '-o', 'jsonpath={.status.loadBalancer.ingress[*].ip}'
+    ]).decode().strip()
+
 def deploy(release, install):
     # Set up helm!
     helm('repo', 'update')
 
     singleuser_tag = last_git_modified('user-image')
-
-    # We shouldn't use --set because helm converts numeric values to float64
-    # https://github.com/kubernetes/helm/issues/1707
     tagfilename = tag_fragment_file(singleuser_tag)
 
-    with open('datahub/config.yaml') as f:
+    key = 'geog187'
+    tag = last_git_modified(key + '-image')
+    # specify image for prepuller
+    prepuller_extra = extra_image_file(key, tag)
+    # specify users who get assigned the image
+    configmap_user_file = configmap_image_users(key, tag)
+
+    config_filename = os.path.join('datahub', 'config.yaml')
+    with open(config_filename) as f:
         config = yaml.safe_load(f)
+
+    release_filename = os.path.join('datahub', 'secrets', release + '.yaml')
+    with open(release_filename) as f:
+        release_config = yaml.safe_load(f)
 
     helm('upgrade', '--install', '--wait',
         release, 'jupyterhub/jupyterhub',
         '--version', config['version'],
-        '-f', 'datahub/config.yaml',
-        '-f', os.path.join('datahub', 'secrets', release + '.yaml'),
-        '-f', tagfilename,
         '--timeout', '3600',
-        #'--set', 'singleuser.image.tag={}'.format(singleuser_tag)
+        '-f', config_filename,
+        '-f', release_filename,
+        '-f', tagfilename,
+        '-f', prepuller_extra,
+        '-f', configmap_user_file,
     )
 
+    wait_for_deploy(release)
 
 def main():
     argparser = argparse.ArgumentParser()
@@ -170,9 +255,6 @@ def main():
             assemble_child_dockerfile(child_dir, user_image_spec)
             child_image_spec = build_user_image(child_image_root,
                 args.commit_range, args.push, child_dir)
-            if args.push and not daemonset_exists(child_image_spec):
-                # Since we pushed a new image, we should pull it too
-                create_puller_daemonset(child_image_spec)
     else:
         deploy(args.release, args.install)
 
