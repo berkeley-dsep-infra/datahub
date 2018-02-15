@@ -12,10 +12,10 @@ def tag_fragment_file(tag):
        https://github.com/kubernetes/helm/issues/1707
        so we use a fragment file.
     '''
-    tag_fragment = yaml.dump({'singleuser': {'image': {'tag': tag}}})
+    buf = yaml.dump({'singleuser': {'image': {'tag': tag}}})
     filename = '/tmp/tag-{}.yaml'.format(tag)
     with open(filename, 'w') as f:
-        f.write(tag_fragment)
+        f.write(buf)
     return filename
 
 def extra_image_file(key, tag):
@@ -29,7 +29,7 @@ def extra_image_file(key, tag):
         }}
     })
     with open(filename, 'w') as f:
-        f.write(tag_fragment)
+        f.write(buf)
     return filename
 
 def configmap_image_users(key, tag):
