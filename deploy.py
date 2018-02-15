@@ -3,9 +3,10 @@
 
 import argparse
 import subprocess
-import yaml
+import tempfile
 import os
 
+import yaml
 
 def tag_fragment_file(tag):
     '''We can't use --set because helm converts numeric values to float64
@@ -33,16 +34,19 @@ def extra_image_file(key, tag):
     return filename
 
 def configmap_image_users(key, tag):
-    filename = os.path.join('datahub', 'secrets',
+    '''Return yaml representing the configmap for applying a docker
+       image to a user list.'''
+    # Load the image's users
+    users_filename = os.path.join('datahub', 'secrets',
         'configmap-image-{}.yaml'.format(key))
+    users = yaml.load(open(users_filename).read())
 
-    users = yaml.load(open(filename).read())
     image_spec = 'berkeleydsep/datahub-user-{}:{}'.format(key, tag)
     buf = yaml.dump({
         'hub': { 'extraConfigMap': { 'image': { image_spec: users } } }
     })
-    with open(filename, 'w') as f:
-        f.write(buf)
+    f, filename = tempfile.mkstemp(text=True)
+    f.write(buf)
     return filename
 
 def helm(*args, **kwargs):
