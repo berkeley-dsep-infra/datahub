@@ -28,6 +28,7 @@ RUN apt-get update && \
             r-cran-htmlwidgets \
             r-cran-httr \
             r-cran-mapproj \
+	    r-cran-maptools \
             r-cran-markdown \
             r-cran-matrix \
             r-cran-memoise \
