@@ -45,8 +45,9 @@ def configmap_image_users(key, tag):
     buf = yaml.dump({
         'hub': { 'extraConfigMap': { 'image': { image_spec: users } } }
     })
-    f, filename = tempfile.mkstemp(text=True)
-    f.write(buf)
+    fd, filename = tempfile.mkstemp(text=True)
+    with os.fdopen(fd, 'w') as f:
+        f.write(buf)
     return filename
 
 def helm(*args, **kwargs):
