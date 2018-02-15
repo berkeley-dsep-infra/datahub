@@ -153,12 +153,14 @@ def build_user_image(image_name, commit_range=None, push=False, image_dir='user-
     return image_spec
 
 def get_object_names(ko, release):
-    return subprocess.check_output([
+    output = subprocess.check_output([
         'kubectl',
         '--namespace', release,
         'get', ko,
         '-o', 'name'
-    ]).decode().strip().split('\n')
+    ]).decode().strip()
+    if output == '': return []
+    return output.split('\n')
 
 def test_hub(release):
     ip = subprocess.check_output([
