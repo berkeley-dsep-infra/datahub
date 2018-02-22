@@ -119,17 +119,17 @@ def assemble_child_dockerfile(child_dir, image_spec):
     f.write(tail)
     f.close()
 
+def image_requires_build(image_name, commit_range=None, image_dir='user-image'):
+    '''If git reports differences wrt/ a commit, we require a new build.'''
+    if not commit_range:
+        return False
+    image_touched = subprocess.check_output([
+        'git', 'diff', '--name-only', commit_range, image_dir,
+    ]).decode('utf-8').strip() != ''
+    print("{} touched: {}".format(image_dir, image_touched))
+    return image_touched
 
-def build_user_image(image_name, commit_range=None, push=False, image_dir='user-image'):
-    if commit_range:
-        image_touched = subprocess.check_output([
-            'git', 'diff', '--name-only', commit_range, image_dir,
-        ]).decode('utf-8').strip() != ''
-        if not image_touched:
-            print("{} not touched, not building".format(image_dir))
-            last_image_tag = last_git_modified(image_dir)
-            return image_name + ':' + last_image_tag
-
+def build_user_image(image_name, push=False, image_dir='user-image'):
     # Pull last available version of image to maximize cache use
     try_count = 0
     while try_count < 50:
@@ -245,16 +245,20 @@ def main():
     args = argparser.parse_args()
 
     if args.action == 'build':
-        user_image_spec = build_user_image(args.user_image_root,
-            args.commit_range, args.push, 'user-image')
+        if not image_requires_build(args.user_image_root, args.commit_range,
+            'user-image'):
+            return
 
+        user_image_spec = build_user_image(args.user_image_root, args.push)
+
+        # We build the child images if user-image requires build
         for child in args.children:
             child_dir = child + '-image'
             child_image_root = args.user_image_root + '-' + child
             # child is built FROM user_image_spec
             assemble_child_dockerfile(child_dir, user_image_spec)
-            child_image_spec = build_user_image(child_image_root,
-                args.commit_range, args.push, child_dir)
+            child_image_spec = build_user_image(child_image_root, args.push,
+                child_dir)
     else:
         deploy(args.release, args.install)
 
