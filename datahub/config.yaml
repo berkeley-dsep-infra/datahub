@@ -1,5 +1,4 @@
-version: "v0.5.0"
-
+version: "v0.6.0-7dcc6aa"
 
 hub:
   db:
@@ -8,8 +7,21 @@ hub:
     from kubespawner import KubeSpawner
     from tornado import gen
     import yaml
+    import os
 
     class CustomAttrSpawner(KubeSpawner):
+      # TEMP Hack to work around users with leading _ in names
+      #@gen.coroutine
+      #def get_pod_manifest(self):
+      #  pod = yield super().get_pod_manifest()
+      #
+      #  label = 'hub.jupyter.org/username'
+      #  if label in pod.metadata.labels and \
+      #    pod.metadata.labels[label].startswith('_'):
+      #    pod.metadata.labels[label] = 'user' + pod.metadata.labels[label]
+      #
+      #  return pod
+
       @gen.coroutine
       def start(self):
         with open('/etc/jupyterhub/config/custom.memory') as f:
@@ -33,8 +45,22 @@ hub:
     # HACK: manually edited deployment to add volume to /srv/log
     c.JupyterHub.extra_log_file = '/srv/log/jupyterhub.log'
 
+    # HACK: this is temporary and will go away soon (~0.6)
+    if 'HUB_USERNAME_MAP' in os.environ:
+        # expect badname1=goodname1:badname2=goodname2
+        c.Authenticator.username_map = {}
+        keyvals = os.environ['HUB_USERNAME_MAP']
+        for keyval in keyvals.split(':'):
+            key, val = keyval.split('=')
+            c.Authenticator.username_map[key] = val
+
+#prePuller:
+#  extraImages:
+#    - name: "berkeleydsep/datahub-user-geog187"
+#      tag: "698a2a1"
+
 rbac:
-    enabled: false
+  enabled: false
 
 auth:
   type: google
@@ -47,6 +73,7 @@ auth:
         - vinitra
         - gunjan_baid
         - acheema
+        - zdehkordi
         # sp18 data 8 Professors
         - adhikari
         # sp18 data 8 GSIs
@@ -97,6 +124,12 @@ auth:
         - michael.eickenberg
         - ericvd
         - shobhana
+        #DSEP Staff
+        - ryanedw
+        - ericvd
+        # Physics 77/88 Spring 2018
+        - ryansmith63
+        - ygkolomensky
         # LING 243 Spring 2018
         - terry.regier
         # COGSCI 131 Spring 2018
@@ -125,3 +158,8 @@ singleuser:
       - name: cogneuro
         mountPath: /data/cogneuro
         readOnly: True
+
+prePuller:
+   extraImages:
+     geog187-image:
+       name: "berkeleydsep/datahub-user-geog187"
