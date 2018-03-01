@@ -77,9 +77,6 @@ RUN pip install --no-cache-dir \
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter serverextension enable --py jupyterlab --sys-prefix
 
-# adding cogneuro data
-COPY data/cogneuro/s01_categories_01.npy /data/cogneuro/s01_categories_01.npy
-
 RUN pip install --no-cache-dir \
       # cython needs to be installed before hmms, for ce88
       # also for ls88-3
