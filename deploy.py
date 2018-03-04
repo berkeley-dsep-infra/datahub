@@ -129,8 +129,8 @@ def image_requires_build(image_name, commit_range=None, image_dir='user-image'):
     print("{} touched: {}".format(image_dir, image_touched))
     return image_touched
 
-def build_user_image(image_name, push=False, image_dir='user-image'):
-    # Pull last available version of image to maximize cache use
+def get_last_image_spec(image_name, image_dir):
+    '''Pull last available version of image to maximize cache use.'''
     try_count = 0
     while try_count < 50:
         last_image_tag = last_git_modified(image_dir, try_count + 1)
@@ -141,7 +141,9 @@ def build_user_image(image_name, push=False, image_dir='user-image'):
         except subprocess.CalledProcessError:
             try_count += 1
             pass
+    return last_image_spec
 
+def build_user_image(image_name, last_image_spec, image_dir='user-image', push=False):
     tag = last_git_modified(image_dir)
     image_spec = image_name + ':' + tag
 
@@ -245,20 +247,30 @@ def main():
     args = argparser.parse_args()
 
     if args.action == 'build':
-        if not image_requires_build(args.user_image_root, args.commit_range,
-            'user-image'):
-            return
+        rebuild_user = image_requires_build(args.user_image_root,
+            args.commit_range, 'user-image')
 
-        user_image_spec = build_user_image(args.user_image_root, args.push)
+        last_user_image_spec = get_last_image_spec(args.user_image_root,
+                'user-image')
 
-        # We build the child images if user-image requires build
+        # we need to get the last user spec for the children
+        if rebuild_user:
+            user_image_spec = build_user_image(args.user_image_root,
+                last_user_image_spec, 'user-image', args.push)
+        else:
+            user_image_spec = last_user_image_spec
+
         for child in args.children:
             child_dir = child + '-image'
             child_image_root = args.user_image_root + '-' + child
+            last_child_image_spec = get_last_image_spec(child_image_root, child_dir)
+            rebuild_child = image_requires_build(child_image_root,
+                args.commit_range, child_dir)
             # child is built FROM user_image_spec
-            assemble_child_dockerfile(child_dir, user_image_spec)
-            child_image_spec = build_user_image(child_image_root, args.push,
-                child_dir)
+            if rebuild_user or rebuild_child:
+                assemble_child_dockerfile(child_dir, user_image_spec)
+                child_image_spec = build_user_image(child_image_root,
+                    last_child_image_spec, child_dir, args.push)
     else:
         deploy(args.release, args.install)
 

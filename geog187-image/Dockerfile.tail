@@ -28,7 +28,7 @@ RUN apt-get update && \
             r-cran-htmlwidgets \
             r-cran-httr \
             r-cran-mapproj \
-	    r-cran-maptools \
+            r-cran-maptools \
             r-cran-markdown \
             r-cran-matrix \
             r-cran-memoise \
@@ -51,6 +51,8 @@ RUN apt-get update && \
             r-cran-viridis \
             r-cran-withr
 
+RUN apt-get clean
+
 RUN Rscript -e "install.packages(c('devtools', 'IRdisplay', 'leaflet', 'spatstat.data', 'broom', 'classInt', 'ggmap'), repo = 'https://mran.revolutionanalytics.com/snapshot/2018-01-01')"
 
 # Set up R Kernel for Jupyter
@@ -59,5 +61,3 @@ RUN Rscript -e "IRkernel::installspec(user=FALSE)"
 
 # 1.2-16
 RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '61306d9', upgrade_dependencies = FALSE)"
-
-RUN apt-get clean
