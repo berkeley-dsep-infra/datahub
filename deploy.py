@@ -245,20 +245,22 @@ def main():
     args = argparser.parse_args()
 
     if args.action == 'build':
-        if not image_requires_build(args.user_image_root, args.commit_range,
-            'user-image'):
-            return
+        rebuild_user = image_requires_build(args.user_image_root,
+            args.commit_range, 'user-image')
 
-        user_image_spec = build_user_image(args.user_image_root, args.push)
+        if rebuild_user:
+            user_image_spec = build_user_image(args.user_image_root, args.push)
 
-        # We build the child images if user-image requires build
         for child in args.children:
             child_dir = child + '-image'
             child_image_root = args.user_image_root + '-' + child
+            rebuild_child = image_requires_build(child_image_root,
+                args.commit_range, child_dir)
             # child is built FROM user_image_spec
-            assemble_child_dockerfile(child_dir, user_image_spec)
-            child_image_spec = build_user_image(child_image_root, args.push,
-                child_dir)
+            if rebuild_user or rebuild_child:
+                assemble_child_dockerfile(child_dir, user_image_spec)
+                child_image_spec = build_user_image(child_image_root, args.push,
+                    child_dir)
     else:
         deploy(args.release, args.install)
 
