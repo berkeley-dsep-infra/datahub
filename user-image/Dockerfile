@@ -93,6 +93,9 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 COPY connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
 
+COPY d8extension.bash /usr/local/sbin/d8extension.bash
+RUN /usr/local/sbin/d8extension.bash.bash
+
 ENV NLTK_DATA ${APP_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
