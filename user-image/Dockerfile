@@ -35,7 +35,7 @@ RUN apt-get update && \
             # for phys 151
             gfortran \
 	    # for cogneuro
-	    dirmngr
+	    dirmngr \
 	    imagemagick
 
 # for cogneuro connector, adding NeuroDebian repo
