@@ -35,7 +35,8 @@ RUN apt-get update && \
             # for phys 151
             gfortran \
 	    # for cogneuro
-	    dirmngr
+	    dirmngr \
+	    imagemagick
 
 # for cogneuro connector, adding NeuroDebian repo
 RUN wget http://neuro.debian.net/lists/zesty.us-ca.full  -O /etc/apt/sources.list.d/neurodebian.sources.list
