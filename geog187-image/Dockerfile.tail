@@ -61,3 +61,5 @@ RUN Rscript -e "IRkernel::installspec(user=FALSE)"
 
 # 1.2-16
 RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '61306d9', upgrade_dependencies = FALSE)"
+
+RUN true
