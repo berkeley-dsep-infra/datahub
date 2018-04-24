@@ -1,5 +1,6 @@
 #
 # data8; foundation
+tornado==4.5.3
 datascience==0.10.4
 matplotlib==2.0.0
 numpy==1.12.1
