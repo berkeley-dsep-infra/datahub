@@ -121,7 +121,7 @@ RUN pip install --no-cache-dir gmaps && \
   jupyter nbextension enable --py --sys-prefix gmaps
 
 # Install nbzip
-RUN pip install git+https://github.com/data-8/nbzip.git@e41e156 && \
+RUN pip install nbzip==0.0.4 && \
     jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
