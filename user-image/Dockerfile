@@ -1,15 +1,21 @@
-FROM ubuntu:17.04
+FROM ubuntu:18.04
 
 ENV APP_DIR /srv/app
 ENV PATH ${APP_DIR}/venv/bin:$PATH
 
-RUN sed -i \
-	-e 's/archive.ubuntu/old-releases.ubuntu/' \
-	-e 's/security.ubuntu/old-releases.ubuntu/' \
-	/etc/apt/sources.list
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && \
-    apt-get install --yes \
+RUN apt-get update
+
+RUN apt-get install --yes locales
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
+RUN apt-get install --yes \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
@@ -17,76 +23,58 @@ RUN apt-get update && \
             tar \
             git \
             wget \
-            npm \
-            nodejs-legacy \
-            locales \
-            nano \
+            npm 
+
+RUN apt-get install --yes \
             vim \
             # for nbconvert
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
-            texlive-generic-recommended \
-	    # for LS88-5 and modules basemap
-	    libspatialindex-dev \
-	    libgeos-dev \
-	    # for soc-130ac mapping module
-	    curl \
+            texlive-generic-recommended
+
+RUN apt-get install --yes \
+	        # for data100
+	        openjdk-8-jdk-headless \
+            # for LS88-5 and modules basemap
+            libspatialindex-dev \
+            libgeos-dev \
+            # for soc-130ac mapping module
+            curl \
             # for phys 151
             gfortran \
-	    # for cogneuro
-	    dirmngr \
-	    imagemagick
+            # for cogneuro
+            dirmngr \
+            imagemagick-6.q16
+
+RUN apt-get install --yes debconf-utils python3-venv
 
 # for cogneuro connector, adding NeuroDebian repo
-RUN wget http://neuro.debian.net/lists/zesty.us-ca.full  -O /etc/apt/sources.list.d/neurodebian.sources.list
-RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+RUN echo "neurodebian neurodebian/enable boolean true" | debconf-set-selections
+RUN apt-get install --yes neurodebian
+RUN apt-get update && apt-get install --yes fsl-complete
 
-RUN apt-get update && \
-    apt-get install --yes \
-	    # for cogneuro connector
-	    fsl-complete \
-	    # for data100
-	    openjdk-8-jdk-headless \
-	    && \
-    apt-get purge && apt-get clean
+RUN apt-get purge && apt-get clean
 
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    locale-gen
-
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
 # Set this to be on container storage, rather than under $HOME
 ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 
-RUN mkdir -p ${APP_DIR} && chown -R jovyan:jovyan ${APP_DIR}
+RUN install -d -o jovyan -g jovyan ${APP_DIR}
 
 WORKDIR /home/jovyan
 
 USER jovyan
 RUN python3.6 -m venv ${APP_DIR}/venv
 
-RUN pip install --no-cache-dir \
-      notebook==5.1.0 \
-      jupyterhub==0.8.1 \
-      ipywidgets==6.0.0 \
-      jupyterlab==0.26.5
-
-RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
-    jupyter serverextension enable --py jupyterlab --sys-prefix
-
-RUN pip install --no-cache-dir \
-      # cython needs to be installed before hmms, for ce88
-      # also for ls88-3
-      cython==0.25.2 \
-      # numpy needs to be installed before hmms, for ce88
-      numpy==1.12.1
-
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+RUN pip install --no-cache-dir jupyterhub==0.8.1
+
+# hmms needs to be installed after cython, for ce88 and ls88-3
+RUN pip install --no-cache-dir hmms==0.1
 
 COPY connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
 RUN /usr/local/sbin/connector-neuro.bash
@@ -102,27 +90,33 @@ COPY connectors/ds100.bash /usr/local/sbin/connector-ds100.bash
 RUN /usr/local/sbin/connector-ds100.bash
 
 # package for instructors and gsis; requirements.txt would need an egg
-RUN pip install --no-cache-dir \
-	git+https://github.com/data-8/connector-instructors.git@e7bd553
+#RUN pip install --no-cache-dir \
+#	git+https://github.com/data-8/connector-instructors.git@e7bd553
 
-# nbresuse to show users memory usage
-RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f && \
-	jupyter serverextension enable  --sys-prefix --py nbresuse && \
+# install jupyterlab
+RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter serverextension enable --py jupyterlab --sys-prefix
+
+# install nbresuse to show users memory usage
+RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f
+RUN jupyter serverextension enable  --sys-prefix --py nbresuse && \
 	jupyter nbextension     install --sys-prefix --py nbresuse && \
 	jupyter nbextension     enable  --sys-prefix --py nbresuse
 
-# interact notebook extension
-RUN pip install --no-cache-dir nbgitpuller==0.3 && \
-	jupyter serverextension enable  --sys-prefix --py nbgitpuller
+# install nbgitpuller
+RUN jupyter serverextension enable  --sys-prefix --py nbgitpuller
 
-# gmaps notebook extension
-# for ls 88-4, economic development connector
-RUN pip install --no-cache-dir gmaps && \
-  jupyter nbextension enable --py --sys-prefix gmaps
+# install gmaps notebook extension
+RUN jupyter nbextension enable --py --sys-prefix gmaps
+
+# Install nbserverproxy
+RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
+
+# Install nbrsessionproxy
+RUN jupyter serverextension enable  --sys-prefix --py nbrsessionproxy
 
 # Install nbzip
-RUN pip install nbzip==0.0.4 && \
-    jupyter serverextension enable  --sys-prefix --py nbzip && \
+RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 

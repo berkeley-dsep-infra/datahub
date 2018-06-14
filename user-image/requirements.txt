@@ -1,13 +1,23 @@
 #
 # data8; foundation
 tornado==4.5.3
+notebook==5.4.1
 datascience==0.10.4
 matplotlib==2.0.0
-numpy==1.12.1
+numpy==1.14.5
 pandas==0.19.2
 scipy==0.19.1
 statsmodels==0.8.0
 okpy==1.12.5
+nbgitpuller==0.3
+nbzip==0.0.4
+jupyterlab==0.32.1
+ipywidgets==7.2.1
+jupyterhub==0.8.1
+#
+# r
+nbserverproxy==0.8.3
+nbrsessionproxy==0.7.0
 #
 # cogsci88; 
 ggplot==0.11.5
@@ -36,7 +46,6 @@ beautifulsoup4==4.6.0
 spacy==1.9.0
 #
 # ls 88-3; neuro
-nbserverproxy==0.3.1
 lxml==3.8.0
 tqdm==4.15.0
 mne==0.14.1
@@ -48,6 +57,9 @@ openpyxl==2.4.8
 nipype==0.13.1
 nilearn==0.3.1
 #
+# ls 88-4, economic development connector
+gmaps==0.8.0
+#
 # phys 151;
 emcee==2.2.1
 pymc3==3.2
@@ -55,8 +67,8 @@ daft==0.0.4
 corner==2.0.1
 #
 # ce88;
+cython==0.25.2
 pymdptoolbox==4.0b3
-hmms==0.1
 #
 # ds100;
 gs100==0.0.4
@@ -69,6 +81,3 @@ Keras==2.0.8
 keras-vis==0.4.1
 tables==3.4.2
 opencv-python==3.3.0.10
-#
-# don't merge this
-there==0.0.7
