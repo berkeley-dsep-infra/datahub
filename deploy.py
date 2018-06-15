@@ -195,12 +195,12 @@ def deploy(release, install):
     singleuser_tag = last_git_modified('user-image')
     tagfilename = tag_fragment_file(singleuser_tag)
 
-    key = 'geog187'
-    tag = last_git_modified(key + '-image')
+    #key = 'geog187'
+    #tag = last_git_modified(key + '-image')
     # specify image for prepuller
-    prepuller_extra = extra_image_file(key, tag)
+    #prepuller_extra = extra_image_file(key, tag)
     # specify users who get assigned the image
-    configmap_user_file = configmap_image_users(key, tag)
+    #configmap_user_file = configmap_image_users(key, tag)
 
     config_filename = os.path.join('datahub', 'config.yaml')
     with open(config_filename) as f:
@@ -218,7 +218,7 @@ def deploy(release, install):
         '-f', release_filename,
         '-f', tagfilename,
         '-f', prepuller_extra,
-        '-f', configmap_user_file,
+        #'-f', configmap_user_file,
     )
 
     wait_for_deploy(release)
