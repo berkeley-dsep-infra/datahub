@@ -21,12 +21,12 @@ hub:
               self.mem_guarantee = attr
               break
 
-        with open('/etc/jupyterhub/config/custom.image') as f:
-          custom_attr_lists = yaml.safe_load(f)
-          for attr, users in custom_attr_lists.items():
-            if self.user.name in users:
-              self.singleuser_image_spec = attr
-              break
+        #with open('/etc/jupyterhub/config/custom.image') as f:
+        #  custom_attr_lists = yaml.safe_load(f)
+        #  for attr, users in custom_attr_lists.items():
+        #    if self.user.name in users:
+        #      self.singleuser_image_spec = attr
+        #      break
         return (yield super().start())
 
     c.JupyterHub.spawner_class = CustomAttrSpawner
