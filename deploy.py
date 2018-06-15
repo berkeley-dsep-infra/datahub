@@ -37,7 +37,7 @@ def configmap_image_users(key, tag):
     '''Return yaml representing the configmap for applying a docker
        image to a user list.'''
     # Load the image's users
-    users_filename = os.path.join('datahub', 'secrets',
+    users_filename = os.path.join('hub', 'secrets',
         'configmap-image-{}.yaml'.format(key))
     users = yaml.load(open(users_filename).read())
 
@@ -195,18 +195,18 @@ def deploy(release, install):
     singleuser_tag = last_git_modified('user-image')
     tagfilename = tag_fragment_file(singleuser_tag)
 
-    key = 'geog187'
-    tag = last_git_modified(key + '-image')
+    #key = 'geog187'
+    #tag = last_git_modified(key + '-image')
     # specify image for prepuller
-    prepuller_extra = extra_image_file(key, tag)
+    #prepuller_extra = extra_image_file(key, tag)
     # specify users who get assigned the image
-    configmap_user_file = configmap_image_users(key, tag)
+    #configmap_user_file = configmap_image_users(key, tag)
 
-    config_filename = os.path.join('datahub', 'config.yaml')
+    config_filename = os.path.join('hub', 'config.yaml')
     with open(config_filename) as f:
         config = yaml.safe_load(f)
 
-    release_filename = os.path.join('datahub', 'secrets', release + '.yaml')
+    release_filename = os.path.join('hub', 'secrets', release + '.yaml')
     with open(release_filename) as f:
         release_config = yaml.safe_load(f)
 
@@ -217,8 +217,8 @@ def deploy(release, install):
         '-f', config_filename,
         '-f', release_filename,
         '-f', tagfilename,
-        '-f', prepuller_extra,
-        '-f', configmap_user_file,
+        #'-f', prepuller_extra,
+        #'-f', configmap_user_file,
     )
 
     wait_for_deploy(release)
@@ -236,7 +236,7 @@ def main():
         help='Range of commits to consider when building images')
     build_parser.add_argument('--push', action='store_true')
     build_parser.add_argument('--children', action='append',
-        default=['geog187'])
+        default=[])
 
     deploy_parser = subparsers.add_parser('deploy',
         description='Deploy with helm')

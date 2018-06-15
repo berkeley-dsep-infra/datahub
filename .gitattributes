@@ -1,3 +1,6 @@
 datahub/secrets/staging.yaml filter=git-crypt diff=git-crypt
 datahub/secrets/prod.yaml filter=git-crypt diff=git-crypt
 datahub/secrets/* filter=git-crypt diff=git-crypt
+hub/secrets/staging.yaml filter=git-crypt diff=git-crypt
+hub/secrets/prod.yaml filter=git-crypt diff=git-crypt
+hub/secrets/* filter=git-crypt diff=git-crypt

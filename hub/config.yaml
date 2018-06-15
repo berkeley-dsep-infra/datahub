@@ -10,17 +10,6 @@ hub:
     import os
 
     class CustomAttrSpawner(KubeSpawner):
-      # TEMP Hack to work around users with leading _ in names
-      #@gen.coroutine
-      #def get_pod_manifest(self):
-      #  pod = yield super().get_pod_manifest()
-      #
-      #  label = 'hub.jupyter.org/username'
-      #  if label in pod.metadata.labels and \
-      #    pod.metadata.labels[label].startswith('_'):
-      #    pod.metadata.labels[label] = 'user' + pod.metadata.labels[label]
-      #
-      #  return pod
 
       @gen.coroutine
       def start(self):
@@ -32,12 +21,12 @@ hub:
               self.mem_guarantee = attr
               break
 
-        with open('/etc/jupyterhub/config/custom.image') as f:
-          custom_attr_lists = yaml.safe_load(f)
-          for attr, users in custom_attr_lists.items():
-            if self.user.name in users:
-              self.singleuser_image_spec = attr
-              break
+        #with open('/etc/jupyterhub/config/custom.image') as f:
+        #  custom_attr_lists = yaml.safe_load(f)
+        #  for attr, users in custom_attr_lists.items():
+        #    if self.user.name in users:
+        #      self.singleuser_image_spec = attr
+        #      break
         return (yield super().start())
 
     c.JupyterHub.spawner_class = CustomAttrSpawner
@@ -53,11 +42,6 @@ hub:
         for keyval in keyvals.split(':'):
             key, val = keyval.split('=')
             c.Authenticator.username_map[key] = val
-
-#prePuller:
-#  extraImages:
-#    - name: "berkeleydsep/datahub-user-geog187"
-#      tag: "698a2a1"
 
 rbac:
   enabled: false
@@ -158,8 +142,3 @@ singleuser:
       - name: cogneuro
         mountPath: /data/cogneuro
         readOnly: True
-
-prePuller:
-   extraImages:
-     geog187-image:
-       name: "berkeleydsep/datahub-user-geog187"

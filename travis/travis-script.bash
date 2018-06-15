@@ -16,7 +16,7 @@ set -euo pipefail
 # - encrypted_0f80927fa736_iv  (created by 'travis encrypt-file')
 
 function prepare_azure {
-    SP="${TRAVIS_BUILD_DIR}/datahub/secrets/sp-${TRAVIS_BRANCH}.json"
+    SP="${TRAVIS_BUILD_DIR}/hub/secrets/sp-${TRAVIS_BRANCH}.json"
     if [ ! -f ${SP} ]; then
         echo "Could not find service principal file: ${SP}"
         echo find ${TRAVIS_BUILD_DIR}
@@ -50,7 +50,7 @@ if [[ ${ACTION} == 'build' ]]; then
         chmod 0400 git-crypt.key
         git-crypt unlock git-crypt.key
 
-        export KUBECONFIG="${TRAVIS_BUILD_DIR}/datahub/secrets/kc-${TRAVIS_BRANCH}-${AZ_LOCATION}.json"
+        export KUBECONFIG="${TRAVIS_BUILD_DIR}/hub/secrets/kc-${TRAVIS_BRANCH}-${AZ_LOCATION}.json"
         echo KUBECONFIG="${KUBECONFIG}" md5sum=$(md5sum ${KUBECONFIG})
         echo /usr/local/bin/kubectl get nodes
         /usr/local/bin/kubectl get nodes
