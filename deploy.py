@@ -37,7 +37,7 @@ def configmap_image_users(key, tag):
     '''Return yaml representing the configmap for applying a docker
        image to a user list.'''
     # Load the image's users
-    users_filename = os.path.join('datahub', 'secrets',
+    users_filename = os.path.join('hub', 'secrets',
         'configmap-image-{}.yaml'.format(key))
     users = yaml.load(open(users_filename).read())
 
@@ -202,11 +202,11 @@ def deploy(release, install):
     # specify users who get assigned the image
     #configmap_user_file = configmap_image_users(key, tag)
 
-    config_filename = os.path.join('datahub', 'config.yaml')
+    config_filename = os.path.join('hub', 'config.yaml')
     with open(config_filename) as f:
         config = yaml.safe_load(f)
 
-    release_filename = os.path.join('datahub', 'secrets', release + '.yaml')
+    release_filename = os.path.join('hub', 'secrets', release + '.yaml')
     with open(release_filename) as f:
         release_config = yaml.safe_load(f)
 
