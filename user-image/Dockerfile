@@ -1,7 +1,6 @@
 FROM ubuntu:18.04
 
 ENV APP_DIR /srv/app
-ENV PATH ${APP_DIR}/venv/bin:$PATH
 
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -131,10 +130,9 @@ RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-RUN echo 'PATH=${PATH}:/usr/lib/rstudio-server/bin' > \
-	/etc/profile.d/site-rstudio.sh
-
 RUN apt-get purge && apt-get clean
+
+ENV PATH ${APP_DIR}/venv/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME
 ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
