@@ -22,12 +22,12 @@ RUN apt-get install --yes \
             build-essential \
             tar \
             git \
+            vim \
             wget \
             npm 
 
+# for nbconvert
 RUN apt-get install --yes \
-            vim \
-            # for nbconvert
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
@@ -53,6 +53,64 @@ RUN apt-get install --yes debconf-utils python3-venv
 RUN echo "neurodebian neurodebian/enable boolean true" | debconf-set-selections
 RUN apt-get install --yes neurodebian
 RUN apt-get update && apt-get install --yes fsl-complete
+
+# install R
+RUN apt-get install --yes \
+            libgdal-dev \
+            libproj-dev \
+            r-base \
+            r-base-dev \
+            r-cran-base64enc \
+            r-cran-broom \
+            r-cran-crayon \
+            r-cran-curl \
+            r-cran-devtools \
+            r-cran-digest \
+            r-cran-dplyr \
+            r-cran-evaluate \
+            r-cran-ggplot2 \
+            r-cran-htmlwidgets \
+            r-cran-httr \
+            r-cran-mapproj \
+            r-cran-maptools \
+            r-cran-markdown \
+            r-cran-matrix \
+            r-cran-memoise \
+            r-cran-nlme \
+            r-cran-openssl \
+            r-cran-pbdzmq \
+            r-cran-png \
+            r-cran-raster \
+            r-cran-rcolorbrewer \
+            r-cran-repr \
+            r-cran-rjson \
+            r-cran-rpart \
+            r-cran-shiny \
+            r-cran-sp \
+            r-cran-spatstat \
+            r-cran-spdep \
+            r-cran-tibble \
+            r-cran-tidyr \
+            r-cran-uuid \
+            r-cran-viridis \
+            r-cran-withr
+
+# these are not packaged in ubuntu bionic yet
+
+# github ref is version 2.0.1
+RUN Rscript -e "devtools::install_github('cran/leaflet', ref = 'e0019db', upgrade_dependencies = FALSE)"
+
+# github ref is version 1.3-1
+RUN Rscript -e "devtools::install_github('cran/spatstat.data', ref = '2e6fa70', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.2-3
+RUN Rscript -e "devtools::install_github('cran/classint', ref = '9bc40fc', upgrade_dependencies = FALSE)"
+
+# github ref is version 2.6.1
+RUN Rscript -e "devtools::install_github('cran/ggmap', ref = '24118b4', upgrade_dependencies = FALSE)"
+
+# github ref is version 1.3-2
+RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '8ae242d', upgrade_dependencies = FALSE)"
 
 RUN apt-get purge && apt-get clean
 
