@@ -34,8 +34,8 @@ RUN apt-get install --yes \
             texlive-generic-recommended
 
 RUN apt-get install --yes \
-	        # for data100
-	        openjdk-8-jdk-headless \
+            # for data100
+            openjdk-8-jdk-headless \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             libgeos-dev \
@@ -54,22 +54,28 @@ RUN echo "neurodebian neurodebian/enable boolean true" | debconf-set-selections
 RUN apt-get install --yes neurodebian
 RUN apt-get update && apt-get install --yes fsl-complete
 
-# install R
+# install R, packages, and RStudio dependencies
 RUN apt-get install --yes \
+            libapparmor1 \
             libgdal-dev \
             libproj-dev \
+            psmisc \
+            sudo \
             r-base \
             r-base-dev \
             r-cran-base64enc \
             r-cran-broom \
             r-cran-crayon \
+            r-cran-crosstalk \
             r-cran-curl \
             r-cran-devtools \
             r-cran-digest \
             r-cran-dplyr \
+            r-cran-e1071 \
             r-cran-evaluate \
             r-cran-ggplot2 \
             r-cran-htmlwidgets \
+            r-cran-httpuv \
             r-cran-httr \
             r-cran-mapproj \
             r-cran-maptools \
@@ -80,10 +86,13 @@ RUN apt-get install --yes \
             r-cran-openssl \
             r-cran-pbdzmq \
             r-cran-png \
+            r-cran-proto \
             r-cran-raster \
             r-cran-rcolorbrewer \
+            r-cran-rcpp \
             r-cran-repr \
             r-cran-rjson \
+            r-cran-rlang \
             r-cran-rpart \
             r-cran-shiny \
             r-cran-sp \
@@ -93,9 +102,10 @@ RUN apt-get install --yes \
             r-cran-tidyr \
             r-cran-uuid \
             r-cran-viridis \
-            r-cran-withr
+            r-cran-withr \
+            lsb-release
 
-# these are not packaged in ubuntu bionic yet
+# these are not in ubuntu bionic so we install from versioned sources
 
 # github ref is version 2.0.1
 RUN Rscript -e "devtools::install_github('cran/leaflet', ref = 'e0019db', upgrade_dependencies = FALSE)"
@@ -111,6 +121,18 @@ RUN Rscript -e "devtools::install_github('cran/ggmap', ref = '24118b4', upgrade_
 
 # github ref is version 1.3-2
 RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '8ae242d', upgrade_dependencies = FALSE)"
+
+ENV RSTUDIO_URL https://download2.rstudio.org/rstudio-server-1.1.453-amd64.deb
+ENV RSTUDIO_CHECKSUM 3c546fa9067f48ed1a342f810fca8be6
+
+# install rstudio
+RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
+    echo "${RSTUDIO_CHECKSUM} /tmp/rstudio.deb" | md5sum -c - && \
+    dpkg -i /tmp/rstudio.deb && \
+    rm /tmp/rstudio.deb
+
+RUN echo 'PATH=${PATH}:/usr/lib/rstudio-server/bin' > \
+	/etc/profile.d/site-rstudio.sh
 
 RUN apt-get purge && apt-get clean
 
@@ -147,10 +169,6 @@ RUN /usr/local/sbin/connector-text.bash
 COPY connectors/ds100.bash /usr/local/sbin/connector-ds100.bash
 RUN /usr/local/sbin/connector-ds100.bash
 
-# package for instructors and gsis; requirements.txt would need an egg
-#RUN pip install --no-cache-dir \
-#	git+https://github.com/data-8/connector-instructors.git@e7bd553
-
 # install jupyterlab
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter serverextension enable --py jupyterlab --sys-prefix
@@ -158,8 +176,8 @@ RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
 # install nbresuse to show users memory usage
 RUN pip install git+https://github.com/data-8/nbresuse.git@2f9144f
 RUN jupyter serverextension enable  --sys-prefix --py nbresuse && \
-	jupyter nbextension     install --sys-prefix --py nbresuse && \
-	jupyter nbextension     enable  --sys-prefix --py nbresuse
+    jupyter nbextension     install --sys-prefix --py nbresuse && \
+    jupyter nbextension     enable  --sys-prefix --py nbresuse
 
 # install nbgitpuller
 RUN jupyter serverextension enable  --sys-prefix --py nbgitpuller
