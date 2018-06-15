@@ -236,7 +236,7 @@ def main():
         help='Range of commits to consider when building images')
     build_parser.add_argument('--push', action='store_true')
     build_parser.add_argument('--children', action='append',
-        default=['geog187'])
+        default=[])
 
     deploy_parser = subparsers.add_parser('deploy',
         description='Deploy with helm')
