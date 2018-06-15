@@ -217,7 +217,7 @@ def deploy(release, install):
         '-f', config_filename,
         '-f', release_filename,
         '-f', tagfilename,
-        '-f', prepuller_extra,
+        #'-f', prepuller_extra,
         #'-f', configmap_user_file,
     )
 
