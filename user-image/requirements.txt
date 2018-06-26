@@ -9,7 +9,7 @@ pandas==0.19.2
 scipy==0.19.1
 statsmodels==0.8.0
 okpy==1.12.5
-nbgitpuller==0.3
+nbgitpuller==0.5.0
 nbzip==0.0.4
 jupyterlab==0.32.1
 ipywidgets==7.2.1
