@@ -4,7 +4,8 @@
 
 set -euo pipefail
 
-RELEASE=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+# RELEASE=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+RELEASE=v1.7.2
 URL="https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/kubectl"
 
 cd /tmp/
