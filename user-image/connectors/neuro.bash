@@ -1,9 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-# nbserver; installed via requirements.txt
-jupyter serverextension enable  --sys-prefix --py nbserverproxy
-
 # pycortex can't be installed from the repository at the moment
 # ${CONDA_DIR}/bin/pip install git+https://github.com/gallantlab/pycortex@data8
 
