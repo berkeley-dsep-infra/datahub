@@ -177,9 +177,6 @@ RUN jupyter serverextension enable  --sys-prefix --py nbresuse && \
     jupyter nbextension     install --sys-prefix --py nbresuse && \
     jupyter nbextension     enable  --sys-prefix --py nbresuse
 
-# install nbgitpuller
-RUN jupyter serverextension enable  --sys-prefix --py nbgitpuller
-
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
