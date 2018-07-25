@@ -62,20 +62,29 @@ RUN apt-get install --yes \
             sudo \
             r-base \
             r-base-dev \
+            r-cran-backports \
             r-cran-base64enc \
             r-cran-broom \
             r-cran-crayon \
             r-cran-crosstalk \
             r-cran-curl \
+            r-cran-dbi \
             r-cran-devtools \
             r-cran-digest \
             r-cran-dplyr \
             r-cran-e1071 \
             r-cran-evaluate \
+            r-cran-forcats \
             r-cran-ggplot2 \
+            r-cran-glue \
+            r-cran-haven \
+            r-cran-highr \
+            r-cran-hms \
             r-cran-htmlwidgets \
             r-cran-httpuv \
             r-cran-httr \
+            r-cran-knitr \
+            r-cran-lubridate \
             r-cran-mapproj \
             r-cran-maptools \
             r-cran-markdown \
@@ -84,24 +93,36 @@ RUN apt-get install --yes \
             r-cran-nlme \
             r-cran-openssl \
             r-cran-pbdzmq \
+            r-cran-pillar \
             r-cran-png \
+            r-cran-praise \
             r-cran-proto \
             r-cran-raster \
             r-cran-rcolorbrewer \
             r-cran-rcpp \
+            r-cran-readr \
+            r-cran-readxl \
+            r-cran-rematch \
             r-cran-repr \
             r-cran-rjson \
             r-cran-rlang \
             r-cran-rpart \
+            r-cran-rprojroot \
             r-cran-shiny \
             r-cran-sp \
             r-cran-spatstat \
             r-cran-spdep \
+            r-cran-stringr \
+            r-cran-stringi \
+            r-cran-testthat \
             r-cran-tibble \
             r-cran-tidyr \
+            r-cran-utf8 \
             r-cran-uuid \
             r-cran-viridis \
             r-cran-withr \
+            r-cran-xml2 \
+            r-cran-yaml \
             lsb-release
 
 # these are not in ubuntu bionic so we install from versioned sources
@@ -120,6 +141,34 @@ RUN Rscript -e "devtools::install_github('cran/ggmap', ref = '24118b4', upgrade_
 
 # github ref is version 1.3-2
 RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '8ae242d', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.2
+RUN Rscript -e "devtools::install_github('cran/xfun', ref = '10a9629', upgrade_dependencies = FALSE)"
+
+# github ref is version 1.10
+RUN Rscript -e "devtools::install_github('cran/rmarkdown', ref = 'a2e7feb', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.4-1
+RUN Rscript -e "devtools::install_github('cran/selectr', ref = '7c8ee27', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.1.2
+RUN Rscript -e "devtools::install_github('cran/modelr', ref = 'f4e2b61', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.1.1
+RUN Rscript -e "devtools::install_github('cran/reprex', ref = '25a43c4', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.3.2
+RUN Rscript -e "devtools::install_github('hadley/revest', ref = '15f265b', upgrade_dependencies = FALSE)"
+
+# github ref is version 1.66.0-1
+RUN Rscript -e "devtools::install_github('cran/bh', ref = 'bb41077', upgrade_dependencies = FALSE)"
+
+# github ref is version 0.4.1
+RUN Rscript -e "devtools::install_github('cran/clipr', ref = 'b95bcb1', upgrade_dependencies = FALSE)"
+
+# github ref is version 1.2.1
+RUN Rscript -e "devtools::install_github('cran/tidyverse', ref = 'bd9ff0b', upgrade_dependencies = FALSE)"
+
 
 ENV RSTUDIO_URL https://download2.rstudio.org/rstudio-server-1.1.453-amd64.deb
 ENV RSTUDIO_CHECKSUM 3c546fa9067f48ed1a342f810fca8be6
