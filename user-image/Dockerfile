@@ -64,6 +64,7 @@ RUN apt-get install --yes \
             r-base-dev \
             r-cran-backports \
             r-cran-base64enc \
+            r-cran-bindrcpp \
             r-cran-broom \
             r-cran-crayon \
             r-cran-crosstalk \
@@ -145,8 +146,11 @@ RUN Rscript -e "devtools::install_github('cran/rgdal', ref = '8ae242d', upgrade_
 # github ref is version 0.2
 RUN Rscript -e "devtools::install_github('cran/xfun', ref = '10a9629', upgrade_dependencies = FALSE)"
 
-# github ref is version 1.10
-RUN Rscript -e "devtools::install_github('cran/rmarkdown', ref = 'a2e7feb', upgrade_dependencies = FALSE)"
+# github ref is version 0.5
+RUN Rscript -e "devtools::install_github('cran/tinytex', ref = 'a350d5c', upgrade_dependencies = FALSE)"
+
+# github ref is version 1.9
+RUN Rscript -e "devtools::install_github('cran/rmarkdown', ref = '9e5496f', upgrade_dependencies = FALSE)"
 
 # github ref is version 0.4-1
 RUN Rscript -e "devtools::install_github('cran/selectr', ref = '7c8ee27', upgrade_dependencies = FALSE)"
