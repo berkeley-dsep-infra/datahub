@@ -1,4 +1,4 @@
-FROM buildpack-deps:bionic-curl
+FROM buildpack-deps:bionic-scm
 
 ENV APP_DIR /srv/app
 
@@ -29,7 +29,6 @@ RUN apt-get install --yes \
             python3.6-venv \
             python3.6-dev \
             tar \
-            git \
             vim \
             nodejs \
             locales
