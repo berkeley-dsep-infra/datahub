@@ -9,6 +9,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 RUN install -d -o jovyan -g jovyan ${APP_DIR}
