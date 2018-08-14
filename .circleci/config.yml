@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: python:3.7-stretch
+      
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+
+      - setup_remote_docker
+        
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+      - run:
+          name: build-image
+          command: |
+            source venv/bin/activate
+            hubploy-image-builder user-image/ gcr.io/ucb-datahub-2018/primary-user-image
+            
