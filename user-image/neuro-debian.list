@@ -1,0 +1,4 @@
+deb http://neuro.debian.net/debian data main contrib non-free
+#deb-src http://neuro.debian.net/debian data main contrib non-free
+deb http://neuro.debian.net/debian bionic main contrib non-free
+#deb-src http://neuro.debian.net/debian bionic main contrib non-free
