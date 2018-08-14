@@ -42,8 +42,6 @@ RUN apt-get install --yes \
             texlive-generic-recommended
 
 RUN apt-get install --yes \
-            # for data100
-            openjdk-8-jdk-headless \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             libgeos-dev \
