@@ -17,6 +17,8 @@ RUN install -d -o jovyan -g jovyan ${APP_DIR}
 # Set up extra debian repositories we want
 COPY neuro-debian.list /etc/apt/sources.list.d/neuro-debian.list
 RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
+RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+RUN echo "deb https://deb.nodesource.com/node_8.x bionic main" > /etc/apt/sources.list.d/nodesource.list
 
 RUN apt-get update --yes
 RUN apt-get install --yes \
@@ -26,7 +28,7 @@ RUN apt-get install --yes \
             tar \
             git \
             vim \
-            npm  \
+            nodejs \
             locales
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
