@@ -130,7 +130,12 @@ RUN apt-get install --yes \
 
 # Install some R libraries that aren't in the debs
 COPY install.R  /tmp/install.R
-RUN Rscript /tmp/install.R
+# CircleCI stops printing output at 40k chars.
+# We send stdout to a log file, and tail it a bit
+# FIXME: Find something less sucky
+RUN Rscript /tmp/install.R > /tmp/r-custom-packages.log
+RUN tail /tmp/r-custom-packages.log
+RUN rm /tmp/r-custom-packages.log
 
 ENV RSTUDIO_URL https://download2.rstudio.org/rstudio-server-1.1.453-amd64.deb
 ENV RSTUDIO_CHECKSUM 3c546fa9067f48ed1a342f810fca8be6
