@@ -33,7 +33,10 @@ jobs:
       - run:
           name: build-image
           command: |
-            echo ${GCR_READONLY_KEY} | docker login -u _json_key --password-stdin https://gcr.io
             source venv/bin/activate
-            hubploy-image-builder user-image/ gcr.io/ucb-datahub-2018/primary-user-image
+            hubploy-image-builder \
+              --registry-url https://gcr.io \
+              --registry-username _json_key \
+              --registry-password ${GCR_READONLY_KEY} \
+              user-image/ gcr.io/ucb-datahub-2018/primary-user-image
             
