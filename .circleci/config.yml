@@ -31,12 +31,13 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
+          # GCR_READONLY_KEY is ok to leak publicly
           name: build-image
           command: |
             source venv/bin/activate
             hubploy-image-builder \
               --registry-url https://gcr.io \
               --registry-username _json_key \
-              --registry-password ${GCR_READONLY_KEY} \
+              --registry-password "${GCR_READONLY_KEY}" \
               user-image/ gcr.io/ucb-datahub-2018/primary-user-image
             
