@@ -15,6 +15,7 @@ RUN install -d -o jovyan -g jovyan ${APP_DIR}
 
 # Set up extra debian repositories we want
 COPY neuro-debian.list /etc/apt/sources.list.d/neuro-debian.list
+RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 
 RUN apt-get update --yes
 RUN apt-get install --yes \
