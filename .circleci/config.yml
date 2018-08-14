@@ -6,6 +6,12 @@ jobs:
       
     working_directory: ~/repo
 
+    # Only run this post merge
+    branches:
+      only:
+        - staging
+        - prod
+
     steps:
       - checkout
 
@@ -36,8 +42,9 @@ jobs:
           command: |
             source venv/bin/activate
             hubploy-image-builder \
+              --push \
               --registry-url https://gcr.io \
               --registry-username _json_key \
-              --registry-password "${GCR_READONLY_KEY}" \
+              --registry-password "${GCR_READWRITE_KEY}" \
               user-image/ gcr.io/ucb-datahub-2018/primary-user-image
             
