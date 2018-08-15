@@ -54,11 +54,6 @@ jobs:
               deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
 
       - run:
-          name: Install git-crypt
-          command: |
-            apt-get install --yes git-crypt
-
-      - run:
           name: Unlock our secrets
           command: |
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
