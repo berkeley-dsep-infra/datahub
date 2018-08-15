@@ -53,52 +53,17 @@ auth:
         # infrastructure
         - rylo
         - yuvipanda
-        - chench
-        - vinitra
-        - gunjan_baid
-        - acheema
-        - zdehkordi
-        # sp18 data 8 Professors
+        # dsep instructors
         - adhikari
-        # sp18 data 8 GSIs
-        - fhdkmrn
-        - wumadeline
-        - austenzhu
-        - supadhyay
-        - v.oikonomou
-        - scott.lee.3898
-        - abala
-        - adnan.h
-        - akritisingh
-        - amrosenthal
-        - ashahatit
-        - alinxie
-        - averyyip
-        - clairezhang
-        - dcroce
-        - echang7
-        - emmajaeger
-        - chenge
-        - fmcquarrie3
-        - hsubbaraj
-        - howardki888
-        - jwarnagieris
-        - j.hu
-        - huangjiayi0922
-        - jwhughes
-        - michelleyang
-        - nwang97
-        - namushegian
+        - daw
+        - denero
+        - vinitra
+        # dsep staff
+        - ryanedw
+        - ericvd
+        # f18 data 8 GSIs
+        - acheema
         - niraj.a.rao
-        - nskh
-        - ravi.singhal
-        - narain.rohan
-        - ronald.walker
-        - rjoshi
-        - rroggenkemper
-        - s.mani
-        - tanaynathan18
-        - vienannguyen
         # connector instructors
         - miladm
         - cmason
@@ -106,20 +71,16 @@ auth:
         - yasminal
         - samyag1
         - michael.eickenberg
-        - ericvd
         - shobhana
-        #DSEP Staff
-        - ryanedw
-        - ericvd
         # Physics 77/88 Spring 2018
-        - ryansmith63
-        - ygkolomensky
+        #- ryansmith63
+        #- ygkolomensky
         # LING 243 Spring 2018
-        - terry.regier
+        #- terry.regier
         # COGSCI 131 Spring 2018
-        - ddbourgin
+        #- ddbourgin
         # ECON 101B Spring 2018
-        - jbdelong
+        #- jbdelong
 
 singleuser:
   memory:
