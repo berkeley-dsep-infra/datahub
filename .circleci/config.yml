@@ -46,5 +46,5 @@ jobs:
               --registry-url https://gcr.io \
               --registry-username _json_key \
               --registry-password "${GCR_READWRITE_KEY}" \
-              user-image/ gcr.io/ucb-datahub-2018/primary-user-image
+              deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
             
