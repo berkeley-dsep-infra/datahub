@@ -37,8 +37,7 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
-          # GCR_READONLY_KEY is ok to leak publicly
-          name: build-image
+          name: Build image if needed
           command: |
             source venv/bin/activate
             hubploy-image-builder \
@@ -47,4 +46,19 @@ jobs:
               --registry-username _json_key \
               --registry-password "${GCR_READWRITE_KEY}" \
               deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
-            
+
+      - run:
+          name: Install git-crypt
+          # FIXME: Cache this somehow?
+          command: |
+            curl -L https://github.com/minrk/git-crypt-bin/releases/download/0.6.0/git-crypt > git-crypt
+            echo "128817a63de17a5af03fe69241e453436c6c286c86dd37fb70ed9b3bf7171d7d  git-crypt" | shasum -a 256 -c -
+            chmod +x git-crypt
+            cp git-crypt /usr/local/bin/
+
+      - run:
+          name: Unlock our secrets
+          command: |
+            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+            git crypt unlock ~/repo/key
+            rm ~/repo/key
