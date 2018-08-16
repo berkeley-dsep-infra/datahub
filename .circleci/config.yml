@@ -36,7 +36,7 @@ jobs:
             pip install --upgrade -r requirements.txt
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-212.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
             # Be careful with quote ordering here. ${PATH} must not be expanded
-            echo 'export PATH="~/repo/venv/bin:~/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ~/.bash_profile
+            echo 'export PATH="~/repo/venv/bin:~/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - setup_remote_docker
         
