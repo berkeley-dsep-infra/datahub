@@ -61,3 +61,13 @@ jobs:
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
             git crypt unlock ~/repo/key
             rm ~/repo/key
+
+      - run:
+          name: Authenticate to Google
+          command: |
+            echo ${GKE_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            rm ${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ucb-datahub-2018
+            gcloud --quiet config set compute/zone us-central1-b
+            gcloud --quiet container clusters get-credentials prod
