@@ -3,19 +3,15 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes=/data/homes/staging
 
 jupyterhub:
-  proxy:
-    https:
-      hosts:
-        - staging.datahub.berkeley.edu
   singleuser:
     storage:
       extraVolumes:
         - name: home
           hostPath:
-            path: /data/homes/staging/{username}
+            path: /data/homes/prod/{username}
         - name: cogneuro
           hostPath:
-            path: /data/homes/staging/_cogneuro
+            path: /data/homes/prod/_cogneuro
       extraVolumeMounts:
         - name: home
           mountPath: /home/jovyan
