@@ -77,6 +77,8 @@ jobs:
           command: |
             curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
             helm init --client-only
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
 
       - run:
           name: Deploy hub
