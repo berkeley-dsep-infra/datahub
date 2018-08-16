@@ -118,18 +118,5 @@ jupyterhub:
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
-    commentedstorage:
+    storage:
       type: hostPath
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/{username}
-        - name: cogneuro
-          hostPath:
-            path: /data/homes/_cogneuro
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-        - name: cogneuro
-          mountPath: /data/cogneuro
-          readOnly: True
