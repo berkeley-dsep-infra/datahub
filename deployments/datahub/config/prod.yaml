@@ -4,7 +4,7 @@ nfsMounter:
 
 jupyterhub:
   singleuser:
-    storage:
+    noStorage:
       extraVolumes:
         - name: home
           hostPath:
