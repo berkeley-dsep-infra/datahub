@@ -24,7 +24,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -34,18 +34,19 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-212.0.0-linux-x86_64.tar.gz | tar -C venv/ -xvzf -
+            echo "PATH='~/repo/venv/bin:~/repo/venv/google-cloud-sdk/bin:${PATH}'" >> ~/.bash_profile
 
       - setup_remote_docker
         
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
 
       - run:
           name: Build image if needed
           command: |
-            source venv/bin/activate
             hubploy-image-builder \
               --push \
               --registry-url https://gcr.io \
