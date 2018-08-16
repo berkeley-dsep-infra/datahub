@@ -1,0 +1,20 @@
+jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/staging/{username}
+        - name: cogneuro
+          hostPath:
+            path: /data/homes/staging/_cogneuro
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+        - name: cogneuro
+          mountPath: /data/cogneuro
+          readOnly: True
