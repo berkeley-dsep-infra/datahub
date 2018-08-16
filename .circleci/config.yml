@@ -70,4 +70,4 @@ jobs:
             rm ${HOME}/gcloud-service-key.json
             gcloud --quiet config set project ucb-datahub-2018
             gcloud --quiet config set compute/zone us-central1-b
-            gcloud --quiet container clusters get-credentials prod
+            gcloud --quiet beta container clusters get-credentials prod --region=us-central1
