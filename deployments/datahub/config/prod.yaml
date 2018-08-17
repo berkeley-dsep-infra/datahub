@@ -3,6 +3,10 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes=/data/homes/prod
 
 jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - main.datahub.berkeley.edu
   hub:
     db:
       pvc:
