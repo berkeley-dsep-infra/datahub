@@ -9,7 +9,8 @@ git clone https://github.com/eickenberg/pycortex.git
 cd pycortex
 # commit on data8 branch
 git checkout b4dd6d860d7c27a846a5445b0df2824429084b44
-python setup.py install
+python setup.py install > /tmp/pycortex.$$ 2>&1 && \
+	true || ( echo FAIL ; cat /tmp/pycortex.$$ )
 cd .. && rm -rf pycortex
 rm -rf ~/.config/pycortex
 
