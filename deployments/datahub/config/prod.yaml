@@ -3,8 +3,13 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes=/data/homes/prod
 
 jupyterhub:
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 40Gi
   singleuser:
-    noStorage:
+    storage:
       extraVolumes:
         - name: home
           hostPath:
