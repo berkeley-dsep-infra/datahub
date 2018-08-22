@@ -133,7 +133,9 @@ COPY install.R  /tmp/install.R
 # CircleCI stops printing output at 40k chars.
 # We send stdout to a log file, and tail it a bit
 # FIXME: Find something less sucky
-RUN Rscript /tmp/install.R > /tmp/r-custom-packages.log
+# another hubploy #1
+RUN Rscript /tmp/install.R > /tmp/r-custom-packages.log 2>&1 && \
+	true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
 
