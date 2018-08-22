@@ -54,6 +54,8 @@ jobs:
               --registry-username _json_key \
               --registry-password "${GCR_READWRITE_KEY}" \
               deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
+          environment:
+            PYTHONIOENCODING: utf-8
 
       - run:
           name: Unlock our secrets
