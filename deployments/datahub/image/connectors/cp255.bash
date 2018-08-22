@@ -18,7 +18,7 @@ cd ~ && rm -rf datashader
 
 # urbanism templates fails on osmnet
 # https://circleci.com/gh/berkeley-dsep-infra/datahub/88
-return 0
+exit 0
 
 git clone https://github.com/udst/urbansim_templates.git
 cd urbansim_templates && python setup.py develop
