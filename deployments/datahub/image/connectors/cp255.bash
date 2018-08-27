@@ -18,7 +18,6 @@ cd ~ && rm -rf datashader
 
 # GSI asked for specific versions of these
 pip install geojson==2.4.0
-pip install geoviews==1.4.3
 pip install holoviews==1.10.7
 pip install ipyleaflet==0.9.0
 pip install OSMnx==0.8.1
@@ -34,6 +33,8 @@ pip install urbansim==3.1.1
 
 # this fails: https://circleci.com/gh/berkeley-dsep-infra/datahub/95
 #pip install gdal==2.2.4
+# this fails; wants 1.5.{0,1,2,3}
+#pip install geoviews==1.4.3
 
 # GSI asked for urbansim_templates but this causes problems
 # urbanism templates fails on osmnet
