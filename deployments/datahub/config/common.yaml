@@ -58,6 +58,7 @@ jupyterhub:
           - acheema
           - niraj.a.rao
           - ramesh_s
+          - rishab.s
           # 2018 data8x gsis
           - rroggenkemper
           # f18 prob140 gsis
