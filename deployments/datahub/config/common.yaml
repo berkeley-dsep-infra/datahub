@@ -50,15 +50,50 @@ jupyterhub:
           - daw
           - denero
           - vinitra
+          - ramesh_s
           # dsep staff
           - bacon
           - ericvd
           - ryanedw
           # f18 data8 gsis
           - acheema
+          - adnan.h
+          - austenzhu
+          - emmajaeger
+          - howardki888
+          - huangjiayi0922
           - niraj.a.rao
-          - ramesh_s
+          - nskh
+          - vienannguyen
+          - akritisingh
+          - amrosenthal
+          - alinxie
+          - anna-nguyen
+          - averyyip
+          - clairezhang
+          - colbylewis2020
+          - dchotai
+          - echang7
+          - fmcquarrie3
+          - jwarnagieris
+          - jamiegerman
+          - j.hu
+          - keh7
+          - loischang
+          - makenaschwinn
+          - mayarao
+          - mayashen
+          - nwang97
+          - namushegian
+          - ravi.singhal
+          - rwoolf
           - rishab.s
+          - roberts97
+          - narain.rohan
+          - rroggenkemper
+          - liusabrina
+          - sidney.h.le
+          - s.mani
           # 2018 data8x gsis
           - rroggenkemper
           # f18 prob140 gsis
