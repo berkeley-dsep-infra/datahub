@@ -1,0 +1,23 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prod
+
+jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - prob140.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 40Gi
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/prod/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
