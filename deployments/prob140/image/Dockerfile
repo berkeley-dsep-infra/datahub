@@ -14,10 +14,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 RUN install -d -o jovyan -g jovyan ${APP_DIR}
 
-COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
-COPY nodesource-key.asc /tmp/nodesource-key.asc
-RUN apt-key add /tmp/nodesource-key.asc
-
 RUN apt-get update --yes
 RUN apt-get install --yes \
             python3.6 \
