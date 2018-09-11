@@ -8,13 +8,13 @@ function safe_pip_install {
 }
 
 # GSI asked to always install latest version from source
-git clone https://github.com/UDST/choicemodels
-cd ~/choicemodels && python setup.py install
-cd ~ && rm -rf choicemodels
+#git clone https://github.com/UDST/choicemodels
+#cd ~/choicemodels && python setup.py install
+#cd ~ && rm -rf choicemodels
 
-git clone https://github.com/bokeh/datashader
-cd ~/datashader && pip install -e .
-cd ~ && rm -rf datashader
+#git clone https://github.com/bokeh/datashader
+#cd ~/datashader && pip install -e .
+#cd ~ && rm -rf datashader
 
 # GSI asked for specific versions of these
 pip install geojson==2.4.0
