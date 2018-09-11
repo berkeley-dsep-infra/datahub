@@ -3,6 +3,9 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes=/data/homes/prod
 
 jupyterhub:
+  scheduling:
+    userScheduler:
+      enabled: true
   proxy:
     https:
       hosts:

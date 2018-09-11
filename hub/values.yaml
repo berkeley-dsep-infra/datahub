@@ -1,7 +1,4 @@
 jupyterhub:
-  scheduling:
-    userScheduler:
-      enabled: true
   proxy:
     https:
       letsencrypt:
