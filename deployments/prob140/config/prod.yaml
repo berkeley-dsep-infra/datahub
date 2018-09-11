@@ -6,7 +6,7 @@ jupyterhub:
   proxy:
     https:
       hosts:
-        - prob140.berkeley.edu
+        - prob140.datahub.berkeley.edu
   hub:
     db:
       pvc:
