@@ -1,6 +1,6 @@
 nfsMounter:
   mounts:
-    - nfsserver1:/export/pool0/homes=/data/homes/prod
+    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prod
 
 jupyterhub:
   scheduling:
@@ -9,7 +9,7 @@ jupyterhub:
   proxy:
     https:
       hosts:
-        - datahub.berkeley.edu
+        - prob140.berkeley.edu
   hub:
     db:
       pvc:
@@ -21,12 +21,6 @@ jupyterhub:
         - name: home
           hostPath:
             path: /data/homes/prod/{username}
-        - name: cogneuro
-          hostPath:
-            path: /data/homes/prod/_cogneuro
       extraVolumeMounts:
         - name: home
           mountPath: /home/jovyan
-        - name: cogneuro
-          mountPath: /data/cogneuro
-          readOnly: True

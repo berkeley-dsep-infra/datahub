@@ -46,7 +46,7 @@ jobs:
           key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
 
       - run:
-          name: Build image if needed
+          name: Build primary image if needed
           command: |
             hubploy-image-builder \
               --push \
@@ -54,6 +54,18 @@ jobs:
               --registry-username _json_key \
               --registry-password "${GCR_READWRITE_KEY}" \
               deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      - run:
+          name: Build prob140 image if needed
+          command: |
+            hubploy-image-builder \
+              --push \
+              --registry-url https://gcr.io \
+              --registry-username _json_key \
+              --registry-password "${GCR_READWRITE_KEY}" \
+              deployments/prob140/image/ gcr.io/ucb-datahub-2018/prob140-user-image
           environment:
             PYTHONIOENCODING: utf-8
 
