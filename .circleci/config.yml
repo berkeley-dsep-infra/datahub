@@ -46,7 +46,7 @@ jobs:
           key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
 
       - run:
-          name: Build primary image if needed
+          name: Build datahub image if needed
           command: |
             hubploy-image-builder \
               --push \
@@ -97,6 +97,11 @@ jobs:
             helm repo update
 
       - run:
-          name: Deploy hub
+          name: Deploy datahub
           command: |
             hubploy-helm-deploy datahub hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy prob140
+          command: |
+            hubploy-helm-deploy prob140 hub ${CIRCLE_BRANCH}
