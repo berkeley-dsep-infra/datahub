@@ -16,7 +16,7 @@ RUN install -d -o jovyan -g jovyan ${APP_DIR}
 
 RUN apt-get update --yes
 RUN apt-get install --yes \
-            libdpkg-perl
+            libdpkg-perl \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
