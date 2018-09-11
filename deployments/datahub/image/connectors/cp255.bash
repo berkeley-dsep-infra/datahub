@@ -29,7 +29,7 @@ pip install urbanaccess==0.1.0
 
 git clone --branch v3.1.1 https://github.com/UDST/urbansim.git
 cd ~/urbanism && python setup.py install
-rm -rf choicemodels
+rm -rf ~/urbanism
 
 # GSI asked for these but we need different versions for other courses
 # pip install folium==0.6.0
