@@ -19,6 +19,7 @@ RUN apt-get install --yes \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
+            python3-venv \
             tar \
             vim \
             nodejs \
