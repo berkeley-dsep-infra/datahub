@@ -1,15 +1,12 @@
 nfsMounter:
   mounts:
-    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prod
+    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prob140-prod
 
 jupyterhub:
-  scheduling:
-    userScheduler:
-      enabled: true
   proxy:
     https:
       hosts:
-        - prob140.berkeley.edu
+        - prob140.datahub.berkeley.edu
   hub:
     db:
       pvc:
@@ -20,7 +17,7 @@ jupyterhub:
       extraVolumes:
         - name: home
           hostPath:
-            path: /data/homes/prod/{username}
+            path: /data/homes/prob140-prod/{username}
       extraVolumeMounts:
         - name: home
           mountPath: /home/jovyan

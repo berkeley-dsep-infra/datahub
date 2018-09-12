@@ -1,6 +1,6 @@
 nfsMounter:
   mounts:
-    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/staging
+    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prob140-staging
 
 jupyterhub:
   proxy:
@@ -12,7 +12,7 @@ jupyterhub:
       extraVolumes:
         - name: home
           hostPath:
-            path: /data/homes/staging/{username}
+            path: /data/homes/prob140-staging/{username}
       extraVolumeMounts:
         - name: home
           mountPath: /home/jovyan
