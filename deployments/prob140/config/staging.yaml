@@ -1,6 +1,6 @@
 nfsMounter:
   mounts:
-    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/staging
+    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prob140-staging
 
 jupyterhub:
   proxy:
