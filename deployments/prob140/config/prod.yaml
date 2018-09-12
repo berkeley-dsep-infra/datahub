@@ -17,7 +17,7 @@ jupyterhub:
       extraVolumes:
         - name: home
           hostPath:
-            path: /data/homes/prod/{username}
+            path: /data/homes/prob140-prod/{username}
       extraVolumeMounts:
         - name: home
           mountPath: /home/jovyan
