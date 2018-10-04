@@ -78,7 +78,7 @@ jupyterhub:
 
   singleuser:
     memory:
-      guarantee: 1G
+      guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
