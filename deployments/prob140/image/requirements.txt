@@ -3,7 +3,7 @@
 tornado==4.5.3
 notebook==5.6.0
 datascience==0.10.4
-matplotlib==2.0.0
+matplotlib==2.2.3
 numpy==1.14.5
 pandas==0.19.2
 scipy==0.19.1
