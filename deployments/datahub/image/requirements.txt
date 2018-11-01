@@ -94,6 +94,6 @@ git+git://github.com/statlab/permute.git@e2b13ed
 git+git://github.com/statlab/cryptorandom.git@0721472
 #
 # eep 153; spring 19
-requests == 2.18.4
+requests >= 2.20.0
 Pint == 0.8.1
 
