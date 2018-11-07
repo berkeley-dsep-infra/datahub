@@ -70,6 +70,18 @@ jobs:
             PYTHONIOENCODING: utf-8
 
       - run:
+          name: Build data100 image if needed
+          command: |
+            hubploy-image-builder \
+              --push \
+              --registry-url https://gcr.io \
+              --registry-username _json_key \
+              --registry-password "${GCR_READWRITE_KEY}" \
+              deployments/data100/image/ gcr.io/ucb-datahub-2018/data100-user-image
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      - run:
           name: Unlock our secrets
           command: |
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
@@ -105,3 +117,8 @@ jobs:
           name: Deploy prob140
           command: |
             hubploy-helm-deploy prob140 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data100
+          command: |
+            hubploy-helm-deploy data100 hub ${CIRCLE_BRANCH}
