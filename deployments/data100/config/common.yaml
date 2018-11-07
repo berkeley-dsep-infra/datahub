@@ -1,0 +1,45 @@
+jupyterhub:
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - ds-instr
+          # sp18 data100 nbgrader
+          - data100.instructors
+          # sp18 data100 Professors
+          - fernando.perez
+          - h___
+          #- jegonzal
+          # sp18 data100 GSIs
+          - aakash.bhalothia
+          - allenshen5
+          - amandhar
+          - ananth.agarwal
+          - calebs11
+          - daniel.zhu
+          - do
+          - edward.fang
+          - junseopark
+          - lhtonywei
+          - manana.hakobyan
+          - mian.zhong
+          - neilshah430
+          - schaganty
+          - scott.lee.3898
+          - sona.jeswani
+          - suraj.rampure
+          - tiffanyjann
+          - xmo
+
+
+  singleuser:
+    memory:
+      guarantee: 1G
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/data100-user-image
+    storage:
+      type: hostPath
