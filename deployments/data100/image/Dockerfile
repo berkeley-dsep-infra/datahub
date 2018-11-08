@@ -115,14 +115,14 @@ RUN pip install jupyter_contrib_nbextensions
 # Install nbgitpuller
 RUN pip install --no-cache-dir nbgitpuller==0.6.1
 
+RUN pip install ray==0.5.3
+
 # Install nbzip
 RUN pip install --no-cache-dir nbzip==0.1.0
 
 RUN jupyter serverextension enable  --sys-prefix --py nbzip
 RUN jupyter nbextension install     --sys-prefix --py nbzip
 RUN jupyter nbextension enable      --sys-prefix --py nbzip
-
-RUN pip install ray==0.5.3
 
 # Useful for debugging any issues with conda
 RUN conda info -a
