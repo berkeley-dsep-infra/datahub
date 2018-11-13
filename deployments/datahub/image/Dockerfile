@@ -200,6 +200,12 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib
+
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 EXPOSE 8888

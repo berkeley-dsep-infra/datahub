@@ -11,7 +11,8 @@ statsmodels==0.8.0
 okpy==1.12.5
 nbgitpuller==0.6.1
 nbzip==0.0.4
-jupyterlab==0.33.11
+jupyterlab==0.35.4
+ipympl==0.2.1
 ipywidgets==7.2.1
 jupyterhub==0.8.1
 appmode==0.4.0
