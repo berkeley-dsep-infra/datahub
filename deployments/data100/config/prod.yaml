@@ -1,0 +1,34 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_data100=/data/homes/data100-prod
+
+jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - data100-prod.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 40Gi
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/data100-prod/{username}
+        - name: nbgrader
+          hostPath:
+            path: /data/homes/data100-prod/_nbgrader
+        - name: taxidb
+          hostPath:
+            path: /mnt/db
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+        - name: nbgrader
+          mountPath: /srv/nbgrader
+        - name: taxidb
+          mountPath: /srv/db
+
