@@ -1,0 +1,29 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_data100=/data/homes/data100-staging
+
+jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - data100-staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/data100-staging/{username}
+        - name: nbgrader
+          hostPath:
+            path: /data/homes/data100-staging/_nbgrader
+        - name: taxidb
+          hostPath:
+            path: /mnt/db
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+        - name: nbgrader
+          mountPath: /srv/nbgrader
+        - name: taxidb
+          mountPath: /srv/db
+
