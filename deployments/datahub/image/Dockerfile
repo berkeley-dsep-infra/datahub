@@ -200,17 +200,11 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
-# Upgrade yarn -- lab build fails otherwise
-npm install -g yarn@1.12.3
-
 # Install JupyterLab extensions
 RUN jupyter labextension install \
             @jupyterlab/hub-extension \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib
-
-# per https://github.com/pbugnion/gmaps
-RUN jupyter lab build
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
