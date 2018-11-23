@@ -204,7 +204,7 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
 RUN jupyter labextension install \
             @jupyterlab/hub-extension \
             @jupyter-widgets/jupyterlab-manager \
-            @jupyter-matplotlib \
+            jupyter-matplotlib \
             @jupyterlab/plotly-extension \
             @jupyterlab/geojson-extension
 
