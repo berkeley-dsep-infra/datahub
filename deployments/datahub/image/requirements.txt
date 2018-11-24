@@ -94,3 +94,7 @@ sympy==1.1.1
 git+git://github.com/statlab/permute.git@e2b13ed
 git+git://github.com/statlab/cryptorandom.git@0721472
 
+# data 100
+plotly==3.4.0
+cufflinks==0.14.6
+
