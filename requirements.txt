@@ -1,1 +1,2 @@
 git+https://github.com/yuvipanda/hubploy.git
+git+https://github.com/jupyter/repo2docker.git
