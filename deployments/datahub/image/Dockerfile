@@ -24,7 +24,7 @@ COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
 
 RUN apt-get update --yes
-RUN apt-get install --yes \
+RUN apt-get install --yes -qq \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
@@ -37,13 +37,13 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
 # for nbconvert
-RUN apt-get install --yes \
+RUN apt-get install --yes -qq \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended
 
-RUN apt-get install --yes \
+RUN apt-get install --yes -qq \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             libgeos-dev \
@@ -56,7 +56,7 @@ RUN apt-get install --yes \
             fsl-complete
 
 # install R, packages, and RStudio dependencies
-RUN apt-get install --yes \
+RUN apt-get install --yes -qq \
             libapparmor1 \
             libgdal-dev \
             libproj-dev \
