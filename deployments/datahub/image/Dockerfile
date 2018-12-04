@@ -36,17 +36,14 @@ RUN apt-get install --yes -qq \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
-# Try to avoid stale security.ubuntu.com
-RUN sed -i '1s/^/nameserver 8.8.8.8\n/' /etc/resolv.conf
-
 # for nbconvert
-RUN apt-get install --yes -qq \
+RUN apt-get install --yes -qq --fix-missing \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended
 
-RUN apt-get install --yes -qq \
+RUN apt-get install --yes -qq --fix-missing \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             libgeos-dev \
@@ -59,7 +56,7 @@ RUN apt-get install --yes -qq \
             fsl-complete
 
 # install R, packages, and RStudio dependencies
-RUN apt-get install --yes -qq \
+RUN apt-get install --yes -qq --fix-missing \
             libapparmor1 \
             libgdal-dev \
             libproj-dev \
