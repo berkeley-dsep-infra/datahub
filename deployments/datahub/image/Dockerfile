@@ -36,6 +36,9 @@ RUN apt-get install --yes -qq \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
+# Try to avoid stale security.ubuntu.com
+RUN sed -i '1s/^/nameserver 8.8.8.8\n/' /etc/resolv.conf
+
 # for nbconvert
 RUN apt-get install --yes -qq \
             pandoc \
