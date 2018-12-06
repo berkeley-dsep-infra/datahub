@@ -26,8 +26,8 @@ RUN apt-key add /tmp/nodesource-key.asc
 # TODO: remove me when apt can find our packages
 RUN echo 91.189.91.26 security.ubuntu.com >> /etc/hosts
 
-RUN apt-get update --yes
-RUN apt-get install --yes -qq \
+RUN apt-get -qq update --yes
+RUN apt-get -qq install --yes \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
@@ -40,13 +40,13 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
 # for nbconvert
-RUN apt-get install --yes -qq \
+RUN apt-get -qq install --yes \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended
 
-RUN apt-get install --yes -qq \
+RUN apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             libgeos-dev \
@@ -59,7 +59,7 @@ RUN apt-get install --yes -qq \
             fsl-complete
 
 # install R, packages, and RStudio dependencies
-RUN apt-get install --yes -qq \
+RUN apt-get -qq install --yes \
             libapparmor1 \
             libgdal-dev \
             libproj-dev \
