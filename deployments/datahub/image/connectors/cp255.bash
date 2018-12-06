@@ -17,7 +17,7 @@ function safe_pip_install {
 #cd ~ && rm -rf datashader
 
 # GSI asked for specific versions of these
-pip install --no-cache-dir geojson==2.4.0 \
+pip install --no-cache-dir geojson==2.4.0
 pip install --no-cache-dir holoviews==1.10.7
 pip install --no-cache-dir ipyleaflet==0.9.0
 # osmnx bumps matplotlib 2.0.0 > 2.2.3; networkx 1.11 > 2.1
