@@ -9,8 +9,8 @@ jobs:
       - run:
           name: Install base apt packages
           command: |
-            apt-get update --yes
-            apt-get install --yes python3 python3-venv git-crypt
+            apt-get update --yes -qq
+            apt-get install --yes -qq python3 python3-venv git-crypt
       - checkout
       - restore_cache:
           keys:
@@ -80,8 +80,8 @@ jobs:
       - run:
           name: Install base apt packages
           command: |
-            apt-get update --yes
-            apt-get install --yes python3 python3-venv git-crypt
+            apt-get update -qq --yes
+            apt-get install -qq --yes python3 python3-venv git-crypt
       - checkout
       # Download and cache dependencies
       - restore_cache:
