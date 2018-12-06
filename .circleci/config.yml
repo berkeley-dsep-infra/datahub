@@ -25,7 +25,7 @@ jobs:
             pip install --upgrade -r requirements.txt
             # FIXME: Until a release happens
             pip install --upgrade git+https://github.com/jupyter/repo2docker@master
-            echo 'export PATH="~/repo/venv/bin:$PATH"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
       - setup_remote_docker
       - save_cache:
           paths:
@@ -82,9 +82,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
+          - v1-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-gcloud-212-
+          - v1-dependencies-gcloud-226-
 
       - run:
           name: install dependencies
@@ -95,16 +95,18 @@ jobs:
             # FIXME: Until a release happens
             pip install --upgrade git+https://github.com/jupyter/repo2docker@master
 
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-212.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
             # Be careful with quote ordering here. ${PATH} must not be expanded
-            echo 'export PATH="~/repo/venv/bin:~/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+            # Always use full PATHs in PATH!
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - setup_remote_docker
         
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
 
       - run:
           name: Determine range of commits we are building
