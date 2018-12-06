@@ -34,7 +34,7 @@ RUN apt-get -qq install --yes \
             tar \
             vim \
             nodejs \
-            locales
+            locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -44,7 +44,7 @@ RUN apt-get -qq install --yes \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
-            texlive-generic-recommended
+            texlive-generic-recommended > /dev/null
 
 RUN apt-get -qq install --yes \
             # for LS88-5 and modules basemap
@@ -56,7 +56,7 @@ RUN apt-get -qq install --yes \
             dirmngr \
             imagemagick-6.q16 \
             neurodebian \
-            fsl-complete
+            fsl-complete > /dev/null
 
 # install R, packages, and RStudio dependencies
 RUN apt-get -qq install --yes \
@@ -129,7 +129,7 @@ RUN apt-get -qq install --yes \
             r-cran-withr \
             r-cran-xml2 \
             r-cran-yaml \
-            lsb-release
+            lsb-release > /dev/null
 
 # Install some R libraries that aren't in the debs
 COPY install.R  /tmp/install.R
