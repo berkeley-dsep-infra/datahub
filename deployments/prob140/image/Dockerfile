@@ -1,8 +1,8 @@
 FROM buildpack-deps:bionic-scm
 
+# Set up common env variables
 ENV APP_DIR /srv/app
 
-# Set up common env variables
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
