@@ -167,6 +167,14 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 RUN pip install --no-cache-dir jupyterhub==0.9.4
 
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            @jupyterlab/plotly-extension \
+            @jupyterlab/geojson-extension
+
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
 
@@ -202,14 +210,6 @@ RUN jupyter serverextension enable  --sys-prefix --py nbrsessionproxy
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
-
-# Install JupyterLab extensions
-RUN jupyter labextension install \
-            @jupyterlab/hub-extension \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
-            @jupyterlab/plotly-extension \
-            @jupyterlab/geojson-extension
 
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
