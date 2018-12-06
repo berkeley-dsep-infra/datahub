@@ -5,22 +5,83 @@ jobs:
       - image: buildpack-deps:bionic-scm
       
     working_directory: ~/repo
-
-    # Only run this post merge
-    branches:
-      only:
-        - staging
-        - prod
-
     steps:
       - run:
           name: Install base apt packages
           command: |
             apt-get update --yes
             apt-get install --yes python3 python3-venv git-crypt
-
       - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install --upgrade -r requirements.txt
+      - setup_remote_docker
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Determine range of commits we are building
+          command: |
+              # Stolen from https://discuss.circleci.com/t/get-list-of-commits-in-build/15725
+              # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
+              # Extract commit range (or single commit)
+              COMMIT_RANGE=$(echo "${CIRCLE_COMPARE_URL}" | cut -d/ -f7)
 
+              # Fix single commit, unfortunately we don't always get a commit range from Circle CI
+              if [[ $COMMIT_RANGE != *"..."* ]]; then
+                COMMIT_RANGE="${COMMIT_RANGE}...${COMMIT_RANGE}"
+              fi
+
+              echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
+      - run:
+          name: Test building datahub image if needed
+          command: |
+            hubploy build \
+              deployments/datahub/image \
+              gcr.io/ucb-datahub-2018/primary-user-image \
+              --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      - run:
+          name: Test building prob140 image if needed
+          command: |
+            hubploy build \
+              deployments/prob140/image \
+              gcr.io/ucb-datahub-2018/prob140-user-image \
+              --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+      - run:
+          name: Test building data100 image if needed
+          command: |
+            hubploy build \
+              deployments/data100/image \
+              gcr.io/ucb-datahub-2018/data100-user-image \
+              --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
+  deploy:
+    docker:
+      - image: buildpack-deps:bionic-scm
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: Install base apt packages
+          command: |
+            apt-get update --yes
+            apt-get install --yes python3 python3-venv git-crypt
+      - checkout
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -46,13 +107,26 @@ jobs:
           key: v1-dependencies-gcloud-212-{{ checksum "requirements.txt" }}
 
       - run:
+          name: Determine range of commits we are building
+          command: |
+              # Stolen from https://discuss.circleci.com/t/get-list-of-commits-in-build/15725
+              # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
+              # Extract commit range (or single commit)
+              COMMIT_RANGE=$(echo "${CIRCLE_COMPARE_URL}" | cut -d/ -f7)
+
+              # Fix single commit, unfortunately we don't always get a commit range from Circle CI
+              if [[ $COMMIT_RANGE != *"..."* ]]; then
+                COMMIT_RANGE="${COMMIT_RANGE}...${COMMIT_RANGE}"
+              fi
+
+              echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
+
+      - run:
           name: Build datahub image if needed
           command: |
-            hubploy-image-builder \
+            hubploy build \
               --push \
-              --registry-url https://gcr.io \
-              --registry-username _json_key \
-              --registry-password "${GCR_READWRITE_KEY}" \
+              --commit-range ${COMMIT_RANGE} \
               deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
           environment:
             PYTHONIOENCODING: utf-8
@@ -60,11 +134,9 @@ jobs:
       - run:
           name: Build prob140 image if needed
           command: |
-            hubploy-image-builder \
+            hubploy build \
               --push \
-              --registry-url https://gcr.io \
-              --registry-username _json_key \
-              --registry-password "${GCR_READWRITE_KEY}" \
+              --commit-range ${COMMIT_RANGE} \
               deployments/prob140/image/ gcr.io/ucb-datahub-2018/prob140-user-image
           environment:
             PYTHONIOENCODING: utf-8
@@ -72,11 +144,9 @@ jobs:
       - run:
           name: Build data100 image if needed
           command: |
-            hubploy-image-builder \
+            hubploy build \
               --push \
-              --registry-url https://gcr.io \
-              --registry-username _json_key \
-              --registry-password "${GCR_READWRITE_KEY}" \
+              --commit-range ${COMMIT_RANGE} \
               deployments/data100/image/ gcr.io/ucb-datahub-2018/data100-user-image
           environment:
             PYTHONIOENCODING: utf-8
@@ -111,14 +181,31 @@ jobs:
       - run:
           name: Deploy datahub
           command: |
-            hubploy-helm-deploy datahub hub ${CIRCLE_BRANCH}
+            hubploy deploy datahub hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy prob140
           command: |
-            hubploy-helm-deploy prob140 hub ${CIRCLE_BRANCH}
+            hubploy deploy prob140 hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data100
           command: |
-            hubploy-helm-deploy data100 hub ${CIRCLE_BRANCH}
+            hubploy deploy data100 hub ${CIRCLE_BRANCH}
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - staging
+                - prod
+      - deploy:
+          filters:
+            branches:
+              only:
+                - staging
+                - prod
