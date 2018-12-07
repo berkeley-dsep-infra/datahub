@@ -7,9 +7,9 @@ from github import Github
 def from_pr(project, repo, pr_number):
     gh = Github()
     pr = gh.get_repo(f'{project}/{repo}').get_pull(pr_number)
-    base = pr.base.ref
-    head = pr.head.ref
-    return f'origin/{base}...{head}'
+    base = pr.base.sha
+    head = pr.base.sha
+    return f'{base}...{head}'
 
 
 def main():
