@@ -35,8 +35,7 @@ jobs:
           name: Determine range of commits we are building
           command: |
               # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
-              BASE_REF=$(curl -L https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${CIRCLE_PR_NUMBER} | jq -r '.base.ref')
-              COMMIT_RANGE="origin/${BASE_REF}...HEAD"
+              COMMIT_RANGE=$(./.circleci/get-commit-range.py)
               echo ${COMMIT_RANGE}
               echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
       - run:
