@@ -110,16 +110,9 @@ jobs:
       - run:
           name: Determine range of commits we are building
           command: |
-              # Stolen from https://discuss.circleci.com/t/get-list-of-commits-in-build/15725
               # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
-              # Extract commit range (or single commit)
-              COMMIT_RANGE=$(echo "${CIRCLE_COMPARE_URL}" | cut -d/ -f7)
-
-              # Fix single commit, unfortunately we don't always get a commit range from Circle CI
-              if [[ $COMMIT_RANGE != *"..."* ]]; then
-                COMMIT_RANGE="${COMMIT_RANGE}...${COMMIT_RANGE}"
-              fi
-
+              COMMIT_RANGE=$(./.circleci/get-commit-range.py)
+              echo ${COMMIT_RANGE}
               echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
 
       - run:
