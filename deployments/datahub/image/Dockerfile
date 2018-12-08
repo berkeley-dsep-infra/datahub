@@ -74,7 +74,7 @@ RUN apt-get -qq install --yes \
             r-cran-crayon \
             r-cran-crosstalk \
             r-cran-curl \
-            r-data.table \
+            r-cran-data.table \
             r-cran-dbi \
             r-cran-devtools \
             r-cran-digest \
