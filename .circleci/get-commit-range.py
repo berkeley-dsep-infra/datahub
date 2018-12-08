@@ -60,11 +60,17 @@ def main():
         pr_number = args.pr_number
     else:
         if 'CIRCLE_PR_NUMBER' in os.environ:
+            # When PR is from a fork
             pr_number = int(os.environ['CIRCLE_PR_NUMBER'])
         else:
             if args.branch_name:
                 branch_name = args.branch_name
             else:
+                if 'CIRCLE_COMPARE_URL' in os.environ:
+                    # Post merge, where we must have CIRCLE_COMPARE_URL override CIRCLE_BRANCH
+                    if '...' in os.environ['CIRCLE_COMPARE_URL']:
+                        print(os.environ['CIRCLE_COMPARE_URL'].split('/')[-1])
+                        return
                 if 'CIRCLE_BRANCH' in os.environ:
                     branch_name = os.environ['CIRCLE_BRANCH']
                 else:
