@@ -24,7 +24,7 @@ jobs:
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
             # FIXME: Until a release happens
-            pip install --upgrade git+https://github.com/jupyter/repo2docker@master
+            pip install --upgrade git+https://github.com/jupyter/repo2docker.git@master
             echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
       - setup_remote_docker
       - save_cache:
