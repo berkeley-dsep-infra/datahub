@@ -4,6 +4,8 @@ nfsMounter:
 
 jupyterhub:
   proxy:
+    service:
+      loadBalancerIP: 35.184.101.216
     https:
       hosts:
         - prob140.datahub.berkeley.edu
