@@ -98,3 +98,5 @@ git+git://github.com/statlab/cryptorandom.git@0721472
 plotly==3.4.0
 cufflinks==0.14.6
 
+djang
+
