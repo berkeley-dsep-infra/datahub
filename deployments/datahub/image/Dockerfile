@@ -201,11 +201,11 @@ RUN /usr/local/sbin/connector-cp255.bash
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
-# Install nbserverproxy
-RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
-
 # Install nbrsessionproxy
 RUN jupyter serverextension enable  --sys-prefix --py nbrsessionproxy
+
+# Install nbserverproxy
+RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
 
 # Install nbzip
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
