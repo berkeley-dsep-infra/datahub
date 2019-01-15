@@ -17,47 +17,50 @@ jupyterhub:
           - bacon
           - ericvd
           - ryanedw
-          # f18 data8 gsis
+          # s19 data8 gsis
           - acheema
-          - adnan.h
-          - austenzhu
-          - emmajaeger
-          - howardki888
-          - huangjiayi0922
-          - niraj.a.rao
-          - nskh
-          - vienannguyen
+          - aidandeangelis
           - akritisingh
-          - amrosenthal
           - alinxie
+          - ananya.krishnan
           - anna-nguyen
           - averyyip
+          - castro.ian
           - clairezhang
           - colbylewis2020
           - dchotai
           - echang7
+          - emmajaeger
           - fmcquarrie3
-          - jwarnagieris
-          - jamiegerman
+          - howardki888
+          - hsubbaraj
+          - huangjiayi0922
+          - jadeyen
           - j.hu
+          - juliannnguyen
+          - jwarnagieris
+          - katherine.yen
           - keh7
+          - lillianlouie
+          - liusabrina
           - loischang
           - makenaschwinn
-          - mayarao
-          - mayashen
-          - nwang97
           - namushegian
-          - ravi.singhal
-          - rwoolf
-          - rishab.s
-          - roberts97
           - narain.rohan
-          - rroggenkemper
-          - liusabrina
-          - sidney.h.le
+          - niraj.a.rao
+          - nwang97
+          - olivialewke
+          - oscar.syu
+          - ravi.singhal
+          - rishab.s
+          - rwoolf
+          - sathviknair
+          - scott.lee.3898
+          - sjamil
           - s.mani
-          # 2018 data8x gsis
-          - rroggenkemper
+          - tvilayth
+          - vienannguyen
+          - youmnarabie
           # connector instructors
           - miladm
           - cmason
@@ -66,15 +69,6 @@ jupyterhub:
           - samyag1
           - michael.eickenberg
           - shobhana
-          # sp18 Physics 77/88
-          - ryansmith63
-          - ygkolomensky
-          # sp18 LING 243 Spring 2018
-          - terry.regier
-          # sp18 COGSCI 131 Spring 2018
-          - ddbourgin
-          # sp18 ECON 101B Spring 2018
-          - jbdelong
 
   singleuser:
     memory:
