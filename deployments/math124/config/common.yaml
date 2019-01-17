@@ -6,27 +6,12 @@ jupyterhub:
           # infrastructure
           - rylo
           - yuvipanda
-          # instructors
-          - adhikari
-          - culler
-          - daw
-          - denero
-          - vinitra
-          - ramesh_s
-          # dsep staff
-          - bacon
-          - ericvd
-          - ryanedw
-          # f18 prob140 gsis
-          - dcroce
-          - hsubbaraj
-          - zhang.j
 
   singleuser:
     memory:
-      guarantee: 1G
+      guarantee: 256Mi
       limit: 1G
     image:
-      name: gcr.io/ucb-datahub-2018/prob140-user-image
+      name: gcr.io/ucb-datahub-2018/math124-user-image
     storage:
       type: hostPath
