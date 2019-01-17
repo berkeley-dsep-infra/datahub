@@ -13,22 +13,18 @@ jupyterhub:
       01-custom-attr-spawner: |
         from kubespawner import KubeSpawner
         from tornado import gen
-        import yaml
-        import os
+        import z2jh
 
         class CustomAttrSpawner(KubeSpawner):
 
           @gen.coroutine
           def start(self):
-            custom_memory_path = '/etc/jupyterhub/config/custom.memory'
-            if os.path.exists(custom_memory_path):
-              with open(custom_memory_path) as f:
-                custom_attr_lists = yaml.safe_load(f)
-                for attr, users in custom_attr_lists.items():
-                  if self.user.name in users:
-                    self.mem_limit = attr
-                    self.mem_guarantee = attr
-                    break
+            custom_memory = z2jh.get_config('custom.memory', {})
+            for attr, users in custom_memory.items():
+              if self.user.name in users:
+                self.mem_limit = attr
+                self.mem_guarantee = attr
+                break
 
             return (yield super().start())
 
@@ -36,13 +32,5 @@ jupyterhub:
 
         c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
 
-        # HACK: this is temporary and will go away soon (~0.6)
-        if 'HUB_USERNAME_MAP' in os.environ:
-            # expect badname1=goodname1:badname2=goodname2
-            c.Authenticator.username_map = {}
-            keyvals = os.environ['HUB_USERNAME_MAP']
-            for keyval in keyvals.split(':'):
-                key, val = keyval.split('=')
-                c.Authenticator.username_map[key] = val
       02-lab-availability: |
         c.Spawner.cmd = ['jupyter-labhub']
