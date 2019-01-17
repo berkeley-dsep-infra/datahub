@@ -8,6 +8,12 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 4Gi
+  proxy:
+    service:
+      loadBalancerIP: 35.239.224.44
+    https:
+      hosts:
+        - math124.datahub.berkeley.edu
   singleuser:
     storage:
       extraVolumes:
