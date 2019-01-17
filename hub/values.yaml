@@ -20,13 +20,15 @@ jupyterhub:
 
           @gen.coroutine
           def start(self):
-            with open('/etc/jupyterhub/config/custom.memory') as f:
-              custom_attr_lists = yaml.safe_load(f)
-              for attr, users in custom_attr_lists.items():
-                if self.user.name in users:
-                  self.mem_limit = attr
-                  self.mem_guarantee = attr
-                  break
+            custom_memory_path = '/etc/jupyterhub/config/custom.memory'
+            if os.path.exists(custom_memory_path):
+              with open(custom_memory_path) as f:
+                custom_attr_lists = yaml.safe_load(f)
+                for attr, users in custom_attr_lists.items():
+                  if self.user.name in users:
+                    self.mem_limit = attr
+                    self.mem_guarantee = attr
+                    break
 
             return (yield super().start())
 
