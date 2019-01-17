@@ -1,3 +1,4 @@
 #!/bin/bash
 set -euo pipefail
+mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
