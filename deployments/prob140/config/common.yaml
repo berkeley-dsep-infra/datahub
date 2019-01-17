@@ -8,23 +8,17 @@ jupyterhub:
           - yuvipanda
           # instructors
           - adhikari
-          - culler
-          - daw
-          - denero
-          - vinitra
-          - ramesh_s
           # dsep staff
           - bacon
           - ericvd
           - ryanedw
-          # f18 prob140 gsis
-          - dcroce
-          - hsubbaraj
-          - zhang.j
+          # s19 prob140 gsis
+          - alanchuang
+          - dibya.ghosh
 
   singleuser:
     memory:
-      guarantee: 1G
+      guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/prob140-user-image
