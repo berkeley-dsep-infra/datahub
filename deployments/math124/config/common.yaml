@@ -9,8 +9,8 @@ jupyterhub:
 
   singleuser:
     memory:
-      guarantee: 256M
-      limit: 1G
+      guarantee: 512M
+      limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/math124-user-image
     storage:
