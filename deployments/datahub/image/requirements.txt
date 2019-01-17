@@ -97,3 +97,10 @@ git+git://github.com/statlab/cryptorandom.git@0721472
 # data 100
 plotly==3.4.0
 cufflinks==0.14.6
+
+# astr 128/256; spring 2019
+scipy==0.19.1
+astroquery==0.3.9
+astropy==3.1.1
+dustmaps==1.0.3
+pystan==2.18.1.0
