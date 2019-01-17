@@ -146,7 +146,7 @@ jobs:
             hubploy build \
               --push \
               --commit-range ${COMMIT_RANGE} \
-              deployments/prob140/image/ gcr.io/ucb-datahub-2018/math124-user-image
+              deployments/math124/image/ gcr.io/ucb-datahub-2018/math124-user-image
           environment:
             PYTHONIOENCODING: utf-8
 
