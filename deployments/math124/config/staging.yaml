@@ -3,6 +3,12 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes/_math124=/data/homes/math124-staging
 
 jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 35.224.153.125
+    https:
+      hosts:
+        - math124-staging.datahub.berkeley.edu
   singleuser:
     storage:
       extraVolumes:
