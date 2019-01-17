@@ -1,0 +1,3 @@
+#!/bin/bash
+set -euo pipefail
+cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
