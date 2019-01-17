@@ -56,6 +56,16 @@ jobs:
           environment:
             PYTHONIOENCODING: utf-8
 
+      - run:
+          name: Test building math124 image if needed
+          command: |
+            hubploy build \
+              deployments/math124/image \
+              gcr.io/ucb-datahub-2018/math124-user-image \
+              --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
+
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -131,6 +141,16 @@ jobs:
             PYTHONIOENCODING: utf-8
 
       - run:
+          name: Build math124 image if needed
+          command: |
+            hubploy build \
+              --push \
+              --commit-range ${COMMIT_RANGE} \
+              deployments/math124/image/ gcr.io/ucb-datahub-2018/math124-user-image
+          environment:
+            PYTHONIOENCODING: utf-8
+
+      - run:
           name: Unlock our secrets
           command: |
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
@@ -166,6 +186,11 @@ jobs:
           name: Deploy prob140
           command: |
             hubploy deploy prob140 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy math124
+          command: |
+            hubploy deploy math124 hub ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
