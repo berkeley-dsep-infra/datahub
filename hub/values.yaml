@@ -32,13 +32,5 @@ jupyterhub:
 
         c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
 
-        # HACK: this is temporary and will go away soon (~0.6)
-        if 'HUB_USERNAME_MAP' in os.environ:
-            # expect badname1=goodname1:badname2=goodname2
-            c.Authenticator.username_map = {}
-            keyvals = os.environ['HUB_USERNAME_MAP']
-            for keyval in keyvals.split(':'):
-                key, val = keyval.split('=')
-                c.Authenticator.username_map[key] = val
       02-lab-availability: |
         c.Spawner.cmd = ['jupyter-labhub']
