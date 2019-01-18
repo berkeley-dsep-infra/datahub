@@ -23,6 +23,9 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
+            # Install repo2docker explicitly since we want a higher version than the released
+            # Can't put this in requirements.txt since pip doesn't seem to realize this is a newer version
+            pip install git+https://github.com/jupyter/repo2docker@5385b712759fb2c08015f03774712731f60cb787
             echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
       - setup_remote_docker
       - save_cache:
