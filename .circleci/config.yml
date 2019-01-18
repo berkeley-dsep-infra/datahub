@@ -23,6 +23,9 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
+            # Install repo2docker explicitly since we want a higher version than the released
+            # Can't put this in requirements.txt since pip doesn't seem to realize this is a newer version
+            pip install git+https://github.com/yuvipanda/repo2docker@julia-requirements-no-verseioneer
             echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
       - setup_remote_docker
       - save_cache:
@@ -90,6 +93,10 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
+
+            # Install repo2docker explicitly since we want a higher version than the released
+            # Can't put this in requirements.txt since pip doesn't seem to realize this is a newer version
+            pip install git+https://github.com/yuvipanda/repo2docker@julia-requirements-no-verseioneer
 
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
             # Be careful with quote ordering here. ${PATH} must not be expanded

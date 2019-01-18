@@ -1,4 +1,7 @@
 julia 1
 
-
+PyPlot
+PyCall
+Roots
+Polynomials
 DifferentialEquations
