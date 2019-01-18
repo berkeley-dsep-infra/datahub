@@ -24,7 +24,8 @@ COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
 
 # TODO: remove me when apt can find our packages
-RUN echo 91.189.91.26 security.ubuntu.com >> /etc/hosts
+RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
+RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
 
 RUN apt-get -qq update --yes
 RUN apt-get -qq install --yes \
