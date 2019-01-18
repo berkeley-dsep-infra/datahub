@@ -43,3 +43,18 @@ devtools::install_github('cran/clipr', ref = 'b95bcb1', upgrade_dependencies = F
 
 # github ref is version 1.2.1
 devtools::install_github('cran/tidyverse', ref = 'bd9ff0b', upgrade_dependencies = FALSE)
+
+# github ref is version 0.6.3
+devtools::install_github('cran/pander', ref = '06d1de8', upgrade_dependencies = FALSE)
+
+# github ref is version 0.1.3
+devtools::install_github('cran/pryr', ref = '69edc8d', upgrade_dependencies = FALSE)
+
+# github ref is version 1.0
+devtools::install_github('cran/rapportools', ref = '6da2f4a', upgrade_dependencies = FALSE)
+
+# github ref is version 0.8.8
+devtools::install_github('cran/summarytools', ref = '8eeb20a', upgrade_dependencies = FALSE)
+
+# github ref is version 5.2.2
+devtools::install_github('cran/stargazer', ref = '736d303', upgrade_dependencies = FALSE)

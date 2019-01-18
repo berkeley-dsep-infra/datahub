@@ -96,6 +96,7 @@ RUN apt-get -qq install --yes \
             r-cran-maptools \
             r-cran-markdown \
             r-cran-matrix \
+            r-cran-matrixstats \
             r-cran-memoise \
             r-cran-nlme \
             r-cran-openssl \
@@ -107,10 +108,12 @@ RUN apt-get -qq install --yes \
             r-cran-raster \
             r-cran-rcolorbrewer \
             r-cran-rcpp \
+            r-cran-rcurl \
             r-cran-readr \
             r-cran-readxl \
             r-cran-rematch \
             r-cran-repr \
+            r-cran-reshape \
             r-cran-rjson \
             r-cran-rlang \
             r-cran-rpart \
