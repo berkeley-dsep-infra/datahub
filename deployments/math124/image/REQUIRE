@@ -1,7 +1,7 @@
 julia 1
 
+DifferentialEquations
 PyPlot
 PyCall
 Roots
 Polynomials
-DifferentialEquations
