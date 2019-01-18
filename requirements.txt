@@ -1,2 +1,2 @@
-git+https://github.com/yuvipanda/hubploy.git@repo2docker
+git+https://github.com/yuvipanda/hubploy.git@7327a8f9756b36fd3e7dbc91280b2c33d5ad5f1d
 pygithub
