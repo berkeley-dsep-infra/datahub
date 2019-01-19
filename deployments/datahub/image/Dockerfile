@@ -24,7 +24,8 @@ COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
 
 # TODO: remove me when apt can find our packages
-RUN echo 91.189.91.26 security.ubuntu.com >> /etc/hosts
+RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
+RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
 
 RUN apt-get -qq update --yes
 RUN apt-get -qq install --yes \
@@ -96,6 +97,7 @@ RUN apt-get -qq install --yes \
             r-cran-maptools \
             r-cran-markdown \
             r-cran-matrix \
+            r-cran-matrixstats \
             r-cran-memoise \
             r-cran-nlme \
             r-cran-openssl \
@@ -107,10 +109,12 @@ RUN apt-get -qq install --yes \
             r-cran-raster \
             r-cran-rcolorbrewer \
             r-cran-rcpp \
+            r-cran-rcurl \
             r-cran-readr \
             r-cran-readxl \
             r-cran-rematch \
             r-cran-repr \
+            r-cran-reshape \
             r-cran-rjson \
             r-cran-rlang \
             r-cran-rpart \
