@@ -1,3 +1,5 @@
+nfsMounter:
+  enabled: true
 jupyterhub:
   scheduling:
     userScheduler:

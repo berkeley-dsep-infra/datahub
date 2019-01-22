@@ -1,0 +1,15 @@
+nfsMounter:
+  enabled: false
+
+jupyterhub:
+  auth:
+    type: dummy
+
+  singleuser:
+    memory:
+      guarantee: 256M
+      limit: 1G
+    image:
+      name: gcr.io/data8x-scratch/data8x-user-image
+    storage:
+      type: none
