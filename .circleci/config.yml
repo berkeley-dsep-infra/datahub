@@ -69,6 +69,15 @@ jobs:
           environment:
             PYTHONIOENCODING: utf-8
 
+      - run:
+          name: Test building data8x image if needed
+          command: |
+            hubploy build \
+              deployments/data8x/image \
+              gcr.io/data8x-scratch/data8x-user-image \
+              --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm

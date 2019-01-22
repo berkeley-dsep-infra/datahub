@@ -1,0 +1,14 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_math124=/data/homes/math124-staging
+
+jupyterhub:
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/math124-staging/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
