@@ -176,7 +176,7 @@ jobs:
       - run:
           name: Set up GCR service account (for data8x-scratch)
           command: |
-            gcloud auth activate-service-account --key-file=deployments/secrets/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=deployments/data8x/secrets/gcloud-service-key.json
             gcloud auth configure-docker
 
       - run:
