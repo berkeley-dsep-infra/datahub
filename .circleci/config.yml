@@ -207,7 +207,7 @@ jobs:
             rm ${HOME}/gcloud-service-key.json
             gcloud --quiet config set project ucb-datahub-2018
             gcloud --quiet config set compute/zone us-central1-b
-            gcloud --quiet beta container clusters get-credentials spring-2019 --region=us-central1
+            gcloud --quiet beta container clusters get-credentials --region=us-central1 spring-2019
 
       - run:
           name: Deploy datahub
@@ -223,6 +223,19 @@ jobs:
           name: Deploy math124
           command: |
             hubploy deploy math124 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Authenticate to GKE (data8x-scratch)
+          command: |
+            gcloud auth activate-service-account --key-file=deployments/data8x/secrets/gcloud-service-key.json
+            gcloud --quiet config set project data8x-scratch
+            gcloud --quiet config set compute/zone us-central1-c
+            gcloud --quiet beta container clusters get-credentials --region=us-central1 data8x-2019
+
+      - run:
+          name: Deploy data8x
+          command: |
+            hubploy deploy data8x hub ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
