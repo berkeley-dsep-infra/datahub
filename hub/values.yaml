@@ -1,0 +1,41 @@
+nfsMounter:
+  enabled: true
+
+nfsPVC:
+  enabled: false
+jupyterhub:
+  scheduling:
+    userScheduler:
+      enabled: true
+  proxy:
+    https:
+      letsencrypt:
+        contactEmail: yuvipanda@berkeley.edu
+  singleuser:
+    defaultUrl: "/tree"
+  hub:
+    extraConfig:
+      01-custom-attr-spawner: |
+        from kubespawner import KubeSpawner
+        from tornado import gen
+        import z2jh
+
+        class CustomAttrSpawner(KubeSpawner):
+
+          @gen.coroutine
+          def start(self):
+            custom_memory = z2jh.get_config('custom.memory', {})
+            for attr, users in custom_memory.items():
+              if self.user.name in users:
+                self.mem_limit = attr
+                self.mem_guarantee = attr
+                break
+
+            return (yield super().start())
+
+        c.JupyterHub.spawner_class = CustomAttrSpawner
+
+        c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
+
+      02-lab-availability: |
+        c.Spawner.cmd = ['jupyter-labhub']

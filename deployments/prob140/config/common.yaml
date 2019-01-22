@@ -1,0 +1,26 @@
+jupyterhub:
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          # instructors
+          - adhikari
+          # dsep staff
+          - bacon
+          - ericvd
+          - ryanedw
+          # s19 prob140 gsis
+          - alanchuang
+          - dibya.ghosh
+
+  singleuser:
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/prob140-user-image
+    storage:
+      type: hostPath

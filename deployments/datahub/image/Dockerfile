@@ -23,27 +23,31 @@ COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
 COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
 
-RUN apt-get update --yes
-RUN apt-get install --yes \
+# TODO: remove me when apt can find our packages
+RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
+RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
+
+RUN apt-get -qq update --yes
+RUN apt-get -qq install --yes \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
             tar \
             vim \
             nodejs \
-            locales
+            locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
 # for nbconvert
-RUN apt-get install --yes \
+RUN apt-get -qq install --yes \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
-            texlive-generic-recommended
+            texlive-generic-recommended > /dev/null
 
-RUN apt-get install --yes \
+RUN apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             libgeos-dev \
@@ -53,10 +57,10 @@ RUN apt-get install --yes \
             dirmngr \
             imagemagick-6.q16 \
             neurodebian \
-            fsl-complete
+            fsl-complete > /dev/null
 
 # install R, packages, and RStudio dependencies
-RUN apt-get install --yes \
+RUN apt-get -qq install --yes \
             libapparmor1 \
             libgdal-dev \
             libproj-dev \
@@ -71,6 +75,7 @@ RUN apt-get install --yes \
             r-cran-crayon \
             r-cran-crosstalk \
             r-cran-curl \
+            r-cran-data.table \
             r-cran-dbi \
             r-cran-devtools \
             r-cran-digest \
@@ -92,6 +97,7 @@ RUN apt-get install --yes \
             r-cran-maptools \
             r-cran-markdown \
             r-cran-matrix \
+            r-cran-matrixstats \
             r-cran-memoise \
             r-cran-nlme \
             r-cran-openssl \
@@ -103,10 +109,12 @@ RUN apt-get install --yes \
             r-cran-raster \
             r-cran-rcolorbrewer \
             r-cran-rcpp \
+            r-cran-rcurl \
             r-cran-readr \
             r-cran-readxl \
             r-cran-rematch \
             r-cran-repr \
+            r-cran-reshape \
             r-cran-rjson \
             r-cran-rlang \
             r-cran-rpart \
@@ -126,7 +134,7 @@ RUN apt-get install --yes \
             r-cran-withr \
             r-cran-xml2 \
             r-cran-yaml \
-            lsb-release
+            lsb-release > /dev/null
 
 # Install some R libraries that aren't in the debs
 COPY install.R  /tmp/install.R
@@ -162,7 +170,15 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-RUN pip install --no-cache-dir jupyterhub==0.9.2
+RUN pip install --no-cache-dir jupyterhub==0.9.4
+
+# Install JupyterLab extensions
+RUN jupyter labextension install \
+            @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            @jupyterlab/plotly-extension \
+            @jupyterlab/geojson-extension
 
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
@@ -183,14 +199,17 @@ RUN /usr/local/sbin/connector-ds100.bash
 COPY connectors/cp255.bash /usr/local/sbin/connector-cp255.bash
 RUN /usr/local/sbin/connector-cp255.bash
 
+#COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
+#RUN /usr/local/sbin/connector-eps88.bash
+
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
-# Install nbserverproxy
-RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
-
 # Install nbrsessionproxy
 RUN jupyter serverextension enable  --sys-prefix --py nbrsessionproxy
+
+# Install nbserverproxy
+RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
 
 # Install nbzip
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
@@ -198,5 +217,6 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+
 
 EXPOSE 8888

@@ -16,22 +16,16 @@ to making changes. This is because other contributors may have pushed changes
 after you last synced with this repo but before you upstreamed your changes.
 When you are ready, [create a pull request](https://help.github.com/articles/about-pull-requests/).
 The choice for `base` in the GitHub PR user interface should be the staging
-branch of this repo while the choice for `head` is your fork. The pull
-request will trigger a [Travis CI](https://travis-ci.org/) process and
-potentially a rebuild of docker images depending on what modifications
-have been proposed. You can observe the status of the CI process by
-visiting its link on the page for your PR, or by finding it on 
-[Travis' build list](https://travis-ci.org/berkeley-dsep-infra/datahub/builds).
+branch of this repo while the choice for `head` is your fork.
 
 Once this is complete and if there are no problems, you can request that
-someone review the PR before merging, or you can merge yourself if you
-are confident. This merge will trigger another Travis step which
-upgrades the helm deployment on the staging site. When this is complete,
-test your changes there. For example if you updated a library, make sure
-that a new user server instance has the new version. If you spot any
-problems you can revert your change. You should test the changes soon
-after the merge since we do not want unverified changes to linger in
-staging.
+someone review the PR before merging, or you can merge yourself if you are
+confident. This merge will trigger a CircleCI process which upgrades the
+helm deployment on the staging site. When this is complete, test your
+changes there. For example if you updated a library, make sure that a new
+user server instance has the new version. If you spot any problems you can
+revert your change. You should test the changes soon after the merge since
+we do not want unverified changes to linger in staging.
 
 If staging fails, *never* update production. Revert your change or 
 call in help if necessary. If your change is successful, you will need

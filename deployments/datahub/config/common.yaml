@@ -1,42 +1,4 @@
 jupyterhub:
-  proxy:
-    https:
-      letsencrypt:
-        contactEmail: yuvipanda@berkeley.edu
-  hub:
-    extraConfig: |
-      from kubespawner import KubeSpawner
-      from tornado import gen
-      import yaml
-      import os
-
-      class CustomAttrSpawner(KubeSpawner):
-
-        @gen.coroutine
-        def start(self):
-          with open('/etc/jupyterhub/config/custom.memory') as f:
-            custom_attr_lists = yaml.safe_load(f)
-            for attr, users in custom_attr_lists.items():
-              if self.user.name in users:
-                self.mem_limit = attr
-                self.mem_guarantee = attr
-                break
-
-          return (yield super().start())
-
-      c.JupyterHub.spawner_class = CustomAttrSpawner
-
-      c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
-
-      # HACK: this is temporary and will go away soon (~0.6)
-      if 'HUB_USERNAME_MAP' in os.environ:
-          # expect badname1=goodname1:badname2=goodname2
-          c.Authenticator.username_map = {}
-          keyvals = os.environ['HUB_USERNAME_MAP']
-          for keyval in keyvals.split(':'):
-              key, val = keyval.split('=')
-              c.Authenticator.username_map[key] = val
-
   auth:
     type: google
     admin:
@@ -50,56 +12,55 @@ jupyterhub:
           - daw
           - denero
           - vinitra
+          - ramesh_s
           # dsep staff
           - bacon
           - ericvd
           - ryanedw
-          # f18 data8 gsis
+          # s19 data8 gsis
           - acheema
-          - niraj.a.rao
-          - ramesh_s
-          - rishab.s
-          # 2018 data8x gsis
-          - rroggenkemper
-          # f18 prob140 gsis
-          - dcroce
+          - aidandeangelis
+          - akritisingh
+          - alinxie
+          - ananya.krishnan
+          - anna-nguyen
+          - averyyip
+          - castro.ian
+          - clairezhang
+          - colbylewis2020
+          - dchotai
+          - echang7
+          - emmajaeger
+          - fmcquarrie3
+          - howardki888
           - hsubbaraj
-          - zhang.j
-          # sp18 data 8 GSIs
-          # - fhdkmrn
-          # - wumadeline
-          # - austenzhu
-          # - supadhyay
-          # - v.oikonomou
-          # - scott.lee.3898
-          # - abala
-          # - adnan.h
-          # - akritisingh
-          # - amrosenthal
-          # - ashahatit
-          # - alinxie
-          # - averyyip
-          # - clairezhang
-          # - echang7
-          # - emmajaeger
-          # - chenge
-          # - fmcquarrie3
-          # - howardki888
-          # - jwarnagieris
-          # - j.hu
-          # - huangjiayi0922
-          # - jwhughes
-          # - michelleyang
-          # - nwang97
-          # - namushegian
-          # - nskh
-          # - ravi.singhal
-          # - narain.rohan
-          # - ronald.walker
-          # - rjoshi
-          # - s.mani
-          # - tanaynathan18
-          # - vienannguyen
+          - huangjiayi0922
+          - jadeyen
+          - j.hu
+          - juliannnguyen
+          - jwarnagieris
+          - katherine.yen
+          - keh7
+          - lillianlouie
+          - liusabrina
+          - loischang
+          - makenaschwinn
+          - namushegian
+          - narain.rohan
+          - niraj.a.rao
+          - nwang97
+          - olivialewke
+          - oscar.syu
+          - ravi.singhal
+          - rishab.s
+          - rwoolf
+          - sathviknair
+          - scott.lee.3898
+          - sjamil
+          - s.mani
+          - tvilayth
+          - vienannguyen
+          - youmnarabie
           # connector instructors
           - miladm
           - cmason
@@ -108,19 +69,10 @@ jupyterhub:
           - samyag1
           - michael.eickenberg
           - shobhana
-          # sp18 Physics 77/88
-          - ryansmith63
-          - ygkolomensky
-          # sp18 LING 243 Spring 2018
-          - terry.regier
-          # sp18 COGSCI 131 Spring 2018
-          - ddbourgin
-          # sp18 ECON 101B Spring 2018
-          - jbdelong
 
   singleuser:
     memory:
-      guarantee: 1G
+      guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
