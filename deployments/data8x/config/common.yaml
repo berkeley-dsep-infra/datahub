@@ -9,7 +9,7 @@ nfsPVC:
 
 jupyterhub:
   auth:
-    type: dummy
+    type: lti
 
   singleuser:
     initContainers:
