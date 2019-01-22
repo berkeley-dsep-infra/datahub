@@ -8,7 +8,7 @@ jupyterhub:
   singleuser:
     memory:
       guarantee: 256M
-      limit: 1M
+      limit: 1G
     image:
       name: gcr.io/data8x-scratch/data8x-user-image
     storage:
