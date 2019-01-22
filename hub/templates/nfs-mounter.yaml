@@ -1,3 +1,4 @@
+{{ if .Values.nfsMounter.enabled }}
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
@@ -27,3 +28,4 @@ spec:
           workingDir: /srv/script
           securityContext:
               privileged: true
+{{- end }}
