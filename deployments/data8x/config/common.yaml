@@ -1,6 +1,9 @@
+nfsMounter:
+  enabled: false
+
 jupyterhub:
   auth:
-    type: lti
+    type: dummy
 
   singleuser:
     memory:
@@ -9,4 +12,4 @@ jupyterhub:
     image:
       name: gcr.io/data8x-scratch/data8x-user-image
     storage:
-      type: hostPath
+      type: none
