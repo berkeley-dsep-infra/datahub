@@ -26,10 +26,9 @@ jupyterhub:
       type: static
       static:
         pvcName: home-nfs
+        subPath: "home/{username}"
     memory:
       guarantee: 256M
       limit: 1G
     image:
       name: gcr.io/data8x-scratch/data8x-user-image
-    storage:
-      type: none
