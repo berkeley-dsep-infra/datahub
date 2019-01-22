@@ -185,7 +185,7 @@ jobs:
             hubploy build \
               --push \
               --commit-range ${COMMIT_RANGE} \
-              deployments/data8x-scratch/image/ gcr.io/data8x-scratch/data8x-user-image
+              deployments/data8x/image/ gcr.io/data8x-scratch/data8x-user-image
           environment:
             PYTHONIOENCODING: utf-8
 
