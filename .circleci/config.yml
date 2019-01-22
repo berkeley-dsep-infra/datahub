@@ -129,7 +129,14 @@ jobs:
               echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
 
       - run:
-          name: Set up GCR service account
+          name: Unlock our secrets
+          command: |
+            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+            git crypt unlock ~/repo/key
+            rm ~/repo/key
+
+      - run:
+          name: Set up GCR service account (for ucb-datahub-2018)
           command: |
             echo ${GCR_READWRITE_KEY} > ${HOME}/gcr-readwrite-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcr-readwrite-key.json
@@ -167,21 +174,20 @@ jobs:
             PYTHONIOENCODING: utf-8
 
       - run:
-          name: Unlock our secrets
+          name: Set up GCR service account (for data8x-scratch)
           command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
+            gcloud auth activate-service-account --key-file=deployments/secrets/gcloud-service-key.json
+            gcloud auth configure-docker
 
       - run:
-          name: Authenticate to Google
+          name: Build data8x image if needed
           command: |
-            echo ${GKE_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            rm ${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ucb-datahub-2018
-            gcloud --quiet config set compute/zone us-central1-b
-            gcloud --quiet beta container clusters get-credentials spring-2019 --region=us-central1
+            hubploy build \
+              --push \
+              --commit-range ${COMMIT_RANGE} \
+              deployments/data8x-scratch/image/ gcr.io/data8x-scratch/data8x-user-image
+          environment:
+            PYTHONIOENCODING: utf-8
 
       - run:
           name: Install helm
@@ -192,6 +198,16 @@ jobs:
             helm init --client-only
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
+
+      - run:
+          name: Authenticate to GKE (ucb-datahub-2018)
+          command: |
+            echo ${GKE_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            rm ${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ucb-datahub-2018
+            gcloud --quiet config set compute/zone us-central1-b
+            gcloud --quiet beta container clusters get-credentials spring-2019 --region=us-central1
 
       - run:
           name: Deploy datahub
