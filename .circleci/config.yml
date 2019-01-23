@@ -42,40 +42,28 @@ jobs:
       - run:
           name: Test building datahub image if needed
           command: |
-            hubploy build \
-              deployments/datahub/image \
-              gcr.io/ucb-datahub-2018/primary-user-image \
-              --commit-range ${COMMIT_RANGE}
+            hubploy build datahub --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building prob140 image if needed
           command: |
-            hubploy build \
-              deployments/prob140/image \
-              gcr.io/ucb-datahub-2018/prob140-user-image \
-              --commit-range ${COMMIT_RANGE}
+            hubploy build prob140 --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building math124 image if needed
           command: |
-            hubploy build \
-              deployments/math124/image \
-              gcr.io/ucb-datahub-2018/math124-user-image \
-              --commit-range ${COMMIT_RANGE}
+            hubploy build math124 --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building data8x image if needed
           command: |
-            hubploy build \
-              deployments/data8x/image \
-              gcr.io/data8x-scratch/data8x-user-image \
-              --commit-range ${COMMIT_RANGE}
+            hubploy build data8x --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
   deploy:
@@ -146,46 +134,28 @@ jobs:
       - run:
           name: Build datahub image if needed
           command: |
-            hubploy build \
-              --push \
-              --commit-range ${COMMIT_RANGE} \
-              deployments/datahub/image/ gcr.io/ucb-datahub-2018/primary-user-image
+            hubploy build datahub --commit-range ${COMMIT_RANGE} --push
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Build prob140 image if needed
           command: |
-            hubploy build \
-              --push \
-              --commit-range ${COMMIT_RANGE} \
-              deployments/prob140/image/ gcr.io/ucb-datahub-2018/prob140-user-image
+            hubploy build prob140 --commit-range ${COMMIT_RANGE} --push
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
           name: Build math124 image if needed
           command: |
-            hubploy build \
-              --push \
-              --commit-range ${COMMIT_RANGE} \
-              deployments/math124/image/ gcr.io/ucb-datahub-2018/math124-user-image
+            hubploy build math124 --commit-range ${COMMIT_RANGE} --push
           environment:
             PYTHONIOENCODING: utf-8
 
       - run:
-          name: Set up GCR service account (for data8x-scratch)
-          command: |
-            gcloud auth activate-service-account --key-file=deployments/data8x/secrets/gcloud-service-key.json
-            gcloud auth configure-docker
-
-      - run:
           name: Build data8x image if needed
           command: |
-            hubploy build \
-              --push \
-              --commit-range ${COMMIT_RANGE} \
-              deployments/data8x/image/ gcr.io/data8x-scratch/data8x-user-image
+            hubploy build data8x --commit-range ${COMMIT_RANGE} --push
           environment:
             PYTHONIOENCODING: utf-8
 
