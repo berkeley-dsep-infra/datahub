@@ -1,2 +1,2 @@
-git+https://github.com/yuvipanda/hubploy.git@0b2ea6c8bc48f23945ca656450544b91025b095f
+git+https://github.com/yuvipanda/hubploy.git@50a9e27f4f498ec96728c3517656f41313d58961
 pygithub
