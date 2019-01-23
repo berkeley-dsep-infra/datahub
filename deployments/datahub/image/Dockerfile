@@ -202,6 +202,8 @@ RUN /usr/local/sbin/connector-cp255.bash
 #COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
 #RUN /usr/local/sbin/connector-eps88.bash
 
+ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
@@ -216,7 +218,6 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 
 EXPOSE 8888
