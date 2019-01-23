@@ -10,6 +10,8 @@ cluster:
   provider: gcloud
   gcloud:
     project: data8x-scratch
-    service_key_path: secrets/gcloud-service-key.json
+    service_key: gcloud-service-key.json
+    cluster: data8x-2019
+    zone: us-central1
 
 
