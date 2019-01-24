@@ -1,4 +1,7 @@
 # R packages to be installed that aren't from apt
+# github ref is version 1.21 ; we need a version >= 1.18
+devtools::install_github('cran/knitr', ref = '7cfb9ac', upgrade_dependencies = FALSE)
+
 # github ref is version 2.0.1
 devtools::install_github('cran/leaflet', ref = 'e0019db', upgrade_dependencies = FALSE)
 
