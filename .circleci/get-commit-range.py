@@ -21,7 +21,7 @@ def from_branch(project, repo, branch_name):
     gh = Github()
     prs = gh.get_repo(f'{project}/{repo}').get_pulls(state='all', sort='updated')
     for pr in prs:
-        if pr.base.ref == branch_name:
+        if pr.head.ref == branch_name:
             return f'{pr.base.sha}...{pr.head.sha}'
 
     raise ValueError(f'No PR from branch {branch_name} in upstream repo found')
@@ -32,12 +32,12 @@ def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
         'project',
-        default=os.environ['CIRCLE_PROJECT_USERNAME'],
+        default=os.environ.get('CIRCLE_PROJECT_USERNAME'),
         nargs='?'
     )
     argparser.add_argument(
         'repo',
-        default=os.environ['CIRCLE_PROJECT_REPONAME'],
+        default=os.environ.get('CIRCLE_PROJECT_REPONAME'),
         nargs='?'
     )
 
