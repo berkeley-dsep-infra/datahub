@@ -91,7 +91,6 @@ RUN apt-get -qq install --yes \
             r-cran-htmlwidgets \
             r-cran-httpuv \
             r-cran-httr \
-            r-cran-knitr \
             r-cran-lubridate \
             r-cran-mapproj \
             r-cran-maptools \
