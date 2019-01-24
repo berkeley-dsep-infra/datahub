@@ -4,3 +4,7 @@ set -euo pipefail
 # Create ipython config directory if it doesn't exist
 mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
+
+# install and enable gofer-grader notebook extension
+jupyter nbextension install --symlink --sys-prefix ${CONDA_DIR}/Gofer-Grader/submit_extension
+jupyter nbextension enable --sys-prefix ${CONDA_DIR}/Gofer-Grader/submit_extension/submit_extension
