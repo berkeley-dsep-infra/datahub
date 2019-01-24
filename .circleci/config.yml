@@ -124,14 +124,6 @@ jobs:
             rm ~/repo/key
 
       - run:
-          name: Set up GCR service account (for ucb-datahub-2018)
-          command: |
-            echo ${GCR_READWRITE_KEY} > ${HOME}/gcr-readwrite-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcr-readwrite-key.json
-            rm ${HOME}/gcr-readwrite-key.json
-            gcloud auth configure-docker
-
-      - run:
           name: Build datahub image if needed
           command: |
             hubploy build datahub --commit-range ${COMMIT_RANGE} --push
@@ -168,16 +160,6 @@ jobs:
             helm init --client-only
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
-
-      - run:
-          name: Authenticate to GKE (ucb-datahub-2018)
-          command: |
-            echo ${GKE_READWRITE_KEY} > ${HOME}/gcloud-service-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            rm ${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ucb-datahub-2018
-            gcloud --quiet config set compute/zone us-central1-b
-            gcloud --quiet beta container clusters get-credentials --region=us-central1 spring-2019
 
       - run:
           name: Deploy datahub
