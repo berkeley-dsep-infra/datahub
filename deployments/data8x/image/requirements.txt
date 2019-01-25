@@ -5,3 +5,4 @@ pandas==0.23.4
 scipy==1.2.0
 # For grading
 gofer-grader==1.0.3
+gofer-submit==0.1
