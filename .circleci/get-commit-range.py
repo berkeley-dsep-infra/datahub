@@ -22,7 +22,7 @@ def from_branch(project, repo, branch_name):
     prs = gh.get_repo(f'{project}/{repo}').get_pulls(state='all', sort='updated')
     for pr in prs:
         if pr.head.ref == branch_name:
-            return f'{pr.base.ref}...{pr.head.ref}'
+            return f'origin/{pr.base.ref}...{pr.head.ref}'
 
     raise ValueError(f'No PR from branch {branch_name} in upstream repo found')
 
