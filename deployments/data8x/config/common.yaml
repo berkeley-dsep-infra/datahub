@@ -8,6 +8,10 @@ nfsPVC:
     shareName: userhomes
 
 jupyterhub:
+  hub:
+    services:
+      gofer:
+        url: http://grader:8080
   auth:
     type: lti
 
