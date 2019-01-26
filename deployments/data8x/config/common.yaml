@@ -10,8 +10,8 @@ nfsPVC:
 jupyterhub:
   hub:
     services:
-      gofer:
-        url: http://grader:8080
+      gofer_nb:
+        url: http://grader:10101
   auth:
     type: lti
 
