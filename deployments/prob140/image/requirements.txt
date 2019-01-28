@@ -19,3 +19,4 @@ nbresuse==0.3.0
 prob140==0.4.1.2
 gsExport==0.19.1.1
 sympy==1.1.1
+nbconvert==4.3.0
