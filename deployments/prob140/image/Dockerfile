@@ -57,7 +57,7 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 ADD jupyter_nbconvert_config.py ${APP_DIR}/venv/etc/jupyter/
+ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 EXPOSE 8888
