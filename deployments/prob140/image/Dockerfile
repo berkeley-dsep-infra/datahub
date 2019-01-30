@@ -57,7 +57,9 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
-ADD jupyter_nbconvert_config.py ${APP_DIR}/venv/etc/jupyter/
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+
+# prevent bibtex from interupting nbconvert
+RUN update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
 
 EXPOSE 8888
