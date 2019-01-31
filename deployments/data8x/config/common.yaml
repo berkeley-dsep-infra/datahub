@@ -15,7 +15,7 @@ jupyterhub:
   auth:
     type: lti
     admin:
-      user:
+      users:
         - 6f3e32e2b27f0fa7c7bfd6e6c5fc9073
 
   singleuser:
