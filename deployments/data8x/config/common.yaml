@@ -17,6 +17,13 @@ jupyterhub:
     admin:
       users:
         - 6f3e32e2b27f0fa7c7bfd6e6c5fc9073
+        - 574b83d902c693a3ebe45fac88e498e8
+        - dab2902831a95eb786a1f52b14717b38
+        - 2003753d84d84db85790fa8de0739eb4
+        - a7b92e1bffedf669c8301f76e617f255
+        - 86ee7c6a0956500bcd6ef979adb19a59
+        - ba2c4ab02e0a25755ce903d5c376b7e2
+        - 64b9b0b2fde14942b20fe960002b38d9
 
   singleuser:
     initContainers:
