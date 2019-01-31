@@ -13,3 +13,12 @@ Contents
 
    structure
    hubs
+
+
+How to
+======
+
+.. toctree::
+   :maxdepth: 1
+
+   howto/admin

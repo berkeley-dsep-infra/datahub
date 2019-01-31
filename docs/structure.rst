@@ -27,6 +27,8 @@ build the actual user image, so you can use any of the `supported config files
 <https://repo2docker.readthedocs.io/en/latest/config_files.html>`_ to customize
 the image as you wish.
 
+.. _structure/config:
+
 Hub Config (``config/`` and ``secrets/``)
 -----------------------------------------
 
