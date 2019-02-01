@@ -24,6 +24,9 @@ jupyterhub:
         - 86ee7c6a0956500bcd6ef979adb19a59
         - ba2c4ab02e0a25755ce903d5c376b7e2
         - 64b9b0b2fde14942b20fe960002b38d9
+        - 9cb1fbfa7af6472dc8d8dddc28b905be
+        - e39a60f081cdfd06347d83df61af4c38
+        - 5eac02c99456373adc10942c9e9adaf1
 
   singleuser:
     initContainers:
