@@ -23,3 +23,4 @@ How to
    :maxdepth: 1
 
    howto/admin
+   howto/dns
