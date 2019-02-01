@@ -1,4 +1,4 @@
-.. _howto/admin:
+.. _howto/dns:
 
 =================
 Update DNS
