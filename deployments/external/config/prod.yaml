@@ -1,4 +1,8 @@
 jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - external.data8x.berkeley.edu
   hub:
     db:
       pvc:
