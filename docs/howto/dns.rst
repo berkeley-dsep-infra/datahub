@@ -22,7 +22,10 @@ Making Changes
 #. Navigate to Data Management > DNS > Zones and click ``berkeley.edu``.
 #. Navigate to Subzones and choose data8x or datahub, then click ``Records``.
 
-.. tip:: For quicker access, click the star next to the zone name to make a bookmark in the ``Finder`` pane on the left side.
+.. tip:: 
+
+   For quicker access, click the star next to the zone name to make a bookmark in 
+   the ``Finder`` pane on the left side.
 
 Create a new record
 -------------------
