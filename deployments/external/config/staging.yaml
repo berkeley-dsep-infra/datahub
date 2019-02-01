@@ -1,4 +1,5 @@
 jupyterhub:
   proxy:
     https:
-      hosts: []
+      hosts:
+        - external-staging.data8x.berkeley.edu
