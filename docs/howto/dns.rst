@@ -2,7 +2,7 @@
 
 ==========
 Update DNS
-=================
+==========
 
 Some staff have access to make and update DNS entries in the .datahub.berkeley.edu and .data8x.berkeley.edu subdomains.
 
