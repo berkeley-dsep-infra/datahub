@@ -1,0 +1,37 @@
+nfsMounter:
+  enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.94.73.146
+    shareName: userhomes
+
+jupyterhub:
+  auth:
+    type: dummy
+    admin:
+      users:
+        - yuvipanda
+
+  singleuser:
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "external/home/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "external/home/{username}"
+    memory:
+      guarantee: 256M
+      limit: 1G
+    image:
+      name: gcr.io/data8x-scratch/external-user-image

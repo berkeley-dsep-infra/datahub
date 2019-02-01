@@ -1,0 +1,6 @@
+jupyterhub:
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 2Gi

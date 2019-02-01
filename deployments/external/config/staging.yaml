@@ -1,0 +1,4 @@
+jupyterhub:
+  proxy:
+    https:
+      hosts: []

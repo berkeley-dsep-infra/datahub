@@ -66,6 +66,12 @@ jobs:
             hubploy build data8x --commit-range ${COMMIT_RANGE}
           environment:
             PYTHONIOENCODING: utf-8
+      - run:
+          name: Test building external image if needed
+          command: |
+            hubploy build external --commit-range ${COMMIT_RANGE}
+          environment:
+            PYTHONIOENCODING: utf-8
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -152,6 +158,14 @@ jobs:
             PYTHONIOENCODING: utf-8
 
       - run:
+          name: Build external image if needed
+          command: |
+            hubploy build external --commit-range ${COMMIT_RANGE} --push
+          environment:
+            PYTHONIOENCODING: utf-8
+
+
+      - run:
           name: Install helm
           command: |
             curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz | \
@@ -180,6 +194,11 @@ jobs:
           name: Deploy data8x
           command: |
             hubploy deploy data8x hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy external
+          command: |
+            hubploy deploy external hub ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
