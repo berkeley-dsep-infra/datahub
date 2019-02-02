@@ -9,7 +9,7 @@ nfsPVC:
 
 jupyterhub:
   auth:
-    type: dummy
+    type: google
     admin:
       users:
         - yuvipanda

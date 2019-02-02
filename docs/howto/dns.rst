@@ -12,20 +12,22 @@ Authorization
 
 Request access to make changes by creating an issue in this repository.
 
-Authorization is given through membership in the edu:berkeley:org:nos:DDI:datahub CalGroup. @yuvipanda and @ryanlovett are group admins and can update membership.
+Authorization is granted via membership in the edu:berkeley:org:nos:DDI:datahub CalGroup. @yuvipanda and @ryanlovett are group admins and can update membership.
 
 Making Changes
 ==============
 
-#. Log into https://infoblox.berkeley.edu from a campus network or through 
-   the `campus VPN <https://software.berkeley.edu/cisco-vpn>`_. Use your CalNet credentials.
+#. Log into `Infoblox <https://infoblox.net.berkeley.edu>` from a campus network
+   or through the `campus VPN <https://software.berkeley.edu/cisco-vpn>`_. Use
+   your CalNet credentials.
 #. Navigate to Data Management > DNS > Zones and click ``berkeley.edu``.
-#. Navigate to Subzones and choose data8x or datahub, then click ``Records``.
+#. Navigate to Subzones and choose either data8x or datahub, then click
+   ``Records``.
 
 .. tip:: 
 
-   For quicker access, click the star next to the zone name to make a bookmark in 
-   the ``Finder`` pane on the left side.
+   For quicker access, click the star next to the zone name to make a bookmark
+   in the ``Finder`` pane on the left side.
 
 Create a new record
 -------------------
