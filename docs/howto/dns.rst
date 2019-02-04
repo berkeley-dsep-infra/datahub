@@ -17,7 +17,7 @@ Authorization is granted via membership in the edu:berkeley:org:nos:DDI:datahub 
 Making Changes
 ==============
 
-#. Log into `Infoblox <https://infoblox.net.berkeley.edu>` from a campus network
+#. Log into `Infoblox <https://infoblox.net.berkeley.edu>`_ from a campus network
    or through the `campus VPN <https://software.berkeley.edu/cisco-vpn>`_. Use
    your CalNet credentials.
 #. Navigate to Data Management > DNS > Zones and click ``berkeley.edu``.
