@@ -14,6 +14,7 @@ Contents
    pre-reqs
    structure
    hubs
+   topic/storage
 
 
 How to
