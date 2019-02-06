@@ -25,3 +25,14 @@ How to
 
    howto/admin
    howto/dns
+
+Services
+========
+
+Some of our hubs provide extra services to make common pedagogical tasks easier.
+They might not be available on all hubs.
+
+.. toctree::
+   :maxdepth: 1
+
+   services/google-sheets
