@@ -95,3 +95,6 @@ pystan==2.18.1.0
 # eep 153; spring 2019
 requests==2.21.0
 Pint==0.9
+# Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
+gspread-pandas==1.2.1
+gspread==3.1.0
