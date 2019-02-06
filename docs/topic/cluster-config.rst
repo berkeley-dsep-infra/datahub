@@ -18,7 +18,7 @@ Google Kubernetes Engine
 ========================
 
 In our experience, Google Kubernetes Engine (GKE) has been the most stable,
-performant & reliable managed kubernetes service. We prefer running on this
+performant, and reliable managed kubernetes service. We prefer running on this
 when possible.
 
 A ``gcloud container clusters create`` command can succintly express the
@@ -38,7 +38,7 @@ the currently favored configuration.
         --cluster-version latest \
         <cluster-name>
 
-We will try explain the various arguments to this
+We will try explain the various arguments to this command line invocation.
 
 IP Aliasing
 -----------
@@ -91,6 +91,10 @@ Region / Zone selection
 We generally use the ``us-central1`` region and a zone in it for our clusters -
 simply because that is where we have asked for `quota <https://cloud.google.com/compute/quotas>`_.
 
+There are regions closer to us, but latency hasn't really mattered so we are
+currently still in us-central1. There are also unsubstantiated rumors that us-central1 is their
+biggest data center and hence less likely to run out of quota.
+
 Ubuntu operating system
 -----------------------
 
@@ -104,7 +108,7 @@ Disk Size
 ``--disk-size`` sets the size of the root disk on all the kubernetes nodes. This
 isn't used for any persistent storage such as user home directories. It is only
 used ephemerally for the operations of the cluster - primarily storing docker
-images & other temporary storage. We can make this larger if we use a large number
+images and other temporary storage. We can make this larger if we use a large number
 of big images, or if we want our image pulls to be faster (since disk performance
 `increases with disk size <https://cloud.google.com/compute/docs/disks/performance>`_
 ).
