@@ -15,6 +15,7 @@ Contents
    structure
    hubs
    topic/storage
+   topic/cluster-config
 
 
 How to
