@@ -149,7 +149,7 @@ jobs:
       - run:
           name: Install helm
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz | \
+            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm init --client-only
