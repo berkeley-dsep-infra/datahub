@@ -43,35 +43,27 @@ jobs:
           name: Test building datahub image if needed
           command: |
             hubploy build datahub --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building prob140 image if needed
           command: |
             hubploy build prob140 --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building math124 image if needed
           command: |
             hubploy build math124 --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Test building data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
+
       - run:
           name: Test building external image if needed
           command: |
             hubploy build external --commit-range ${COMMIT_RANGE}
-          environment:
-            PYTHONIOENCODING: utf-8
+
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -133,37 +125,26 @@ jobs:
           name: Build datahub image if needed
           command: |
             hubploy build datahub --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build prob140 image if needed
           command: |
             hubploy build prob140 --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build math124 image if needed
           command: |
             hubploy build math124 --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
 
       - run:
           name: Build external image if needed
           command: |
             hubploy build external --commit-range ${COMMIT_RANGE} --push
-          environment:
-            PYTHONIOENCODING: utf-8
-
 
       - run:
           name: Install helm
