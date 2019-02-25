@@ -13,6 +13,9 @@ jupyterhub:
     admin:
       users:
         - yuvipanda
+  proxy:
+    https:
+      enabled: false
 
   singleuser:
     initContainers:
