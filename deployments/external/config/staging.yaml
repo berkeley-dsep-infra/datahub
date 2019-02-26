@@ -1,5 +1,7 @@
 jupyterhub:
   proxy:
+    service:
+      loadBalancerIP: 35.225.68.82
     https:
       hosts:
         - external-staging.data8x.berkeley.edu
