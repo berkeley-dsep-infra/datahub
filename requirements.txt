@@ -1,2 +1,4 @@
-git+https://github.com/yuvipanda/hubploy.git@f3e26f1409d94320d1cc7690daacc23a6a465c06
+git+https://github.com/yuvipanda/hubploy.git@8705e58f46622d6ede96029da81c09fd807fdd36
+# Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
+git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
 pygithub
