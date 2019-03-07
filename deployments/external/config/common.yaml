@@ -12,7 +12,14 @@ jupyterhub:
     type: google
     admin:
       users:
-        - yuvipanda
+        - shailender.s
+        - aakanksha_chouhan
+        - tuhin_sarkar
+        - aayusi_biswas
+        - khushboo_maheshwari
+        - saikrishna_rohith
+        - vatsal_rathod
+        - sajan_kumar
   singleuser:
     initContainers:
       - name: volume-mount-hack
