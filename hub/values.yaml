@@ -31,6 +31,11 @@ jupyterhub:
                 self.mem_guarantee = attr
                 break
 
+            admin_customizations = z2jh.get_config('custom.admin', {})
+            if admin_customizations and self.user.admin:
+              self.init_containers += admin_customizations.get('initContainers', [])
+              self.volume_mounts += admin_customizations.get('extraVolumeMounts', [])
+
             return (yield super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
