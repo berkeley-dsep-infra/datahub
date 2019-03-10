@@ -1,6 +1,6 @@
 #
 # data8; foundation
-notebook==5.7.4
+notebook==5.7.6
 datascience==0.10.6
 matplotlib==2.2.3
 numpy==1.14.5
