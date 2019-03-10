@@ -1,1 +1,3 @@
-openjdk-11-jdk
+rsync
+vim
+util-linux
