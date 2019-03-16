@@ -21,3 +21,5 @@ sympy==1.1.1
 #
 # nbconvert 5.4.0 with pdf export patch
 git+https://github.com/ryanlovett/nbconvert.git@16fe302
+#
+jupyter-server-proxy==1.0.0
