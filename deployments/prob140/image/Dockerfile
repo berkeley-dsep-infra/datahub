@@ -39,9 +39,6 @@ RUN apt-get install --yes \
 
 ENV PATH ${APP_DIR}/venv/bin:$PATH
 
-# Set this to be on container storage, rather than under $HOME
-ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
-
 WORKDIR /home/jovyan
 
 # prevent bibtex from interupting nbconvert
@@ -60,6 +57,7 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+ADD ipython_config.py ${APP_DIR}/venv/etc/ipython/ipython_config.py
+ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
 
 EXPOSE 8888
