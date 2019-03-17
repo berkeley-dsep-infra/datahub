@@ -206,12 +206,6 @@ ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_conf
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
-# Install nbrsessionproxy
-RUN jupyter serverextension enable  --sys-prefix --py nbrsessionproxy
-
-# Install nbserverproxy
-RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
-
 # Install nbzip
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
