@@ -160,7 +160,6 @@ ENV PATH ${APP_DIR}/venv/bin:$PATH:/usr/lib/rstudio-server/bin
 # Set this to be on container storage, rather than under $HOME
 ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
 
-
 WORKDIR /home/jovyan
 
 USER jovyan
@@ -202,6 +201,7 @@ RUN /usr/local/sbin/connector-cp255.bash
 #RUN /usr/local/sbin/connector-eps88.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
 
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
@@ -216,7 +216,5 @@ RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
-
-
 
 EXPOSE 8888
