@@ -19,8 +19,8 @@ appmode==0.4.0
 nbresuse==0.3.0
 #
 # r
-nbserverproxy==0.8.8
-nbrsessionproxy==0.8.0
+jupyter-server-proxy==1.0.0
+jupyter-rsession-proxy==1.0b6
 #
 # cogsci88; 
 ggplot==0.11.5
