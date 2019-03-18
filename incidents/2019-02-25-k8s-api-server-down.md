@@ -65,3 +65,15 @@ The managed kubernetes service went down for as yet unknown reasons. A new clust
 ### Monitoring
 
 1. Remotely monitor the API server endpoint and send an alert when it is down.
+
+## Update
+
+Cloud provider's response on 3/15/2019:
+
+> After reviewing all the logs we have, our backend advised below.
+>
+> > We’ve identified that there were problems with the infrastructure hosting your cluster which caused the kubelet on the master stopped responding. There were alerts regarding this issue which were addressed by our teams. We’re working to reduce the impact of these events as much as possible.
+>
+> Please be advised this is not related with region stability
+>
+> Feel free to let me know if any further questions and thanks for your patience.
