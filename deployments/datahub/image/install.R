@@ -64,4 +64,3 @@ devtools::install_github('cran/stargazer', ref = '736d303', upgrade_dependencies
 
 # github ref is version 0.8.15
 devtools::install_github('cran/irkernel', ref = '238b691', upgrade_dependencies = FALSE)
-IRkernel::installspec(user = FALSE, prefix='/srv/app/venv')
