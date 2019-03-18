@@ -178,6 +178,9 @@ RUN jupyter labextension install \
             @jupyterlab/plotly-extension \
             @jupyterlab/geojson-extension
 
+# Install IR kernelspec
+RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${APP_DIR}/venv')"
+
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
 
