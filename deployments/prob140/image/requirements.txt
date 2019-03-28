@@ -11,7 +11,7 @@ nbgitpuller==0.6.1
 nbzip==0.0.4
 jupyterlab==0.33.11
 ipywidgets==7.2.1
-jupyterhub==0.8.1
+jupyterhub==0.9.5
 appmode==0.4.0
 nbresuse==0.3.0
 #
