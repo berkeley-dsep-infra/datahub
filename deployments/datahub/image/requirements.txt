@@ -14,7 +14,7 @@ nbzip==0.0.4
 jupyterlab==0.35.4
 ipympl==0.2.1
 ipywidgets==7.2.1
-jupyterhub==0.9.4
+jupyterhub==0.9.5
 appmode==0.4.0
 nbresuse==0.3.0
 #
@@ -22,7 +22,7 @@ nbresuse==0.3.0
 jupyter-server-proxy==1.0.0
 jupyter-rsession-proxy==1.0b6
 #
-# cogsci88; 
+# cogsci88;
 ggplot==0.11.5
 #
 # geog88; spring 2018
@@ -47,6 +47,7 @@ pygame==1.9.3
 nltk==3.2.4
 beautifulsoup4==4.6.0
 spacy==1.9.0
+qgrid==1.1.1
 #
 # ls 88-3; neuro
 lxml==3.8.0
