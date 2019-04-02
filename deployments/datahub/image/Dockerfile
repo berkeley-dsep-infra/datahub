@@ -154,7 +154,6 @@ RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     echo "${RSTUDIO_CHECKSUM} /tmp/rstudio.deb" | md5sum -c - && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
-COPY rserver.conf /etc/rstudio/rserver.conf
 
 ENV PATH ${APP_DIR}/venv/bin:$PATH:/usr/lib/rstudio-server/bin
 
