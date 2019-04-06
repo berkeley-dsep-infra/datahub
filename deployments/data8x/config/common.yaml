@@ -11,7 +11,7 @@ jupyterhub:
   hub:
     services:
       gofer_nb:
-        url: http://grader:10101
+        url: http://35.239.20.122:10101
   auth:
     type: lti
     admin:
