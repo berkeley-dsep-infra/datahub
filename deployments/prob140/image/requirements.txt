@@ -13,7 +13,7 @@ jupyterlab==0.33.11
 ipywidgets==7.2.1
 jupyterhub==0.9.4
 appmode==0.4.0
-nbresuse==0.3.0
+nbresuse==0.3.1
 #
 prob140==0.4.1.2
 gsExport==0.19.1.1
