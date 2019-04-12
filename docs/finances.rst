@@ -29,13 +29,13 @@ Active Usage Start Date  Expiration Date  Account Name
 Azure
 =====
 
-Azure resources are affiliated with "subscriptions" that are backed by "sponsorship". The latter are managed at `a sponsorship portal <https://www.microsoftazuresponsorships.com>`_.
+Azure resources are affiliated with "subscriptions" that are backed by "sponsorships". The latter are managed at `a sponsorship portal <https://www.microsoftazuresponsorships.com>`_.
 
 Datahub Spend Waterfall
 =======================
 
 We track week-to-week spending in a Google Sheet owned by ds-instr@berkeley.edu. Each sheet in the document represents the finances for one of our cloud providers for a given term. Each week's spend is from Wed. through Tue. and we log the previous week every Wed.
 
-In the Google billing console, go to Reports. Make sure to enable "Discounts" beneath the Credits heading, but disable "Promotions". The latter represents our grants. Set a custom date range for the prior week.
+In the Google cloud console, visit Billing > Reports. Choose the current billing account when prompted. Make sure to enable "Discounts" beneath the Credits heading, but disable "Promotions". The latter represents our grants. Set a custom date range for the prior week.
 
 In the Azure sponsorship portal, login as the ds-instr@berkeley.edu account and visit Usage. Here too one must also set a custom date range for the prior week.
