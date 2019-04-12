@@ -17,13 +17,13 @@ We configure the billing accounts to export billing JSON to cloud buckets. These
 Billing Accounts
 ----------------
 
-=======================  ====================  =================================
-Active Usage Start Date  Billing Expiry Ddate  Billing Account Name
-=======================  ====================  =================================
-?                        2019-08-15            $15k Datahub 2019 Spring
-?                        2019-08-15            $25k Data8 + connectors Fall 2018
-2019-04-12               2020-01-22            $25k Datahub 4/2019 to 1/2020
-=======================  ====================  =================================
+=======================  ===============  =================================
+Active Usage Start Date  Expiration Date  Account Name
+=======================  ===============  =================================
+?                        2019-08-15       $15k Datahub 2019 Spring
+?                        2019-08-15       $25k Data8 + connectors Fall 2018
+2019-04-12               2020-01-22       $25k Datahub 4/2019 to 1/2020
+=======================  ===============  =================================
 
 
 Azure
