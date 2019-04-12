@@ -10,7 +10,7 @@ providers and we log this usage in a Google doc.
 Google Cloud
 ============
 
-Deployment assets are organized into projects and those projects have linked billing accounts. A project can be linked to only one billing account, however a billing account can be linked to more than one project. The accounts may be backed by grants or credit cards and can be switched out when needed. The current billing account runs through 1/2020.
+Deployment assets are organized into projects and those projects have linked billing accounts. A project can be linked to only one billing account, however a billing account can be linked to more than one project. The accounts may be backed by grants or credit cards and can be switched out when needed.
 
 We configure the billing accounts to export billing JSON to cloud buckets. These may be consumed by tools such as notebooks for later analysis.
 
