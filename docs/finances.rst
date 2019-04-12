@@ -14,6 +14,18 @@ Deployment assets are organized into projects and those projects have linked bil
 
 We configure the billing accounts to export billing JSON to cloud buckets. These may be consumed by tools such as notebooks for later analysis.
 
+Billing Accounts
+----------------
+
+=======================  ====================  =================================
+Active Usage Start Date  Billing Expiry Ddate  Billing Account Name
+=======================  ====================  =================================
+?                        2019-08-15            $15k Datahub 2019 Spring
+?                        2019-08-15            $25k Data8 + connectors Fall 2018
+2019-04-12               2020-01-22            $25k Datahub 4/2019 to 1/2020
+=======================  ====================  =================================
+
+
 Azure
 =====
 
