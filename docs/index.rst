@@ -14,6 +14,7 @@ Contents
    pre-reqs
    structure
    hubs
+   finances
    topic/storage
    topic/cluster-config
 
