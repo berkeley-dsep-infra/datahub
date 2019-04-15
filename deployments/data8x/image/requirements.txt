@@ -6,4 +6,4 @@ scipy==1.2.0
 nbresuse==0.3.1
 # For grading
 gofer-grader==1.0.9
-gofer-submit==0.1
+gofer-submit==0.2
