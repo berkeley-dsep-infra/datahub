@@ -1,0 +1,20 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_w261=/data/homes/w261-staging
+
+jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 35.202.124.242
+    https:
+      hosts:
+        - w261-staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/w261-staging/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
