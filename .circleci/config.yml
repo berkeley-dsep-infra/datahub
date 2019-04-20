@@ -52,6 +52,11 @@ jobs:
             hubploy build math124 --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building w261 image if needed
+          command: |
+            hubploy build w261 --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE}
@@ -125,6 +130,11 @@ jobs:
             hubploy build math124 --check-registry --push
 
       - run:
+          name: Build w261 image if needed
+          command: |
+            hubploy build w261 --check-registry --push
+
+      - run:
           name: Build data8x image if needed
           command: |
             hubploy build data8x --check-registry --push
@@ -170,6 +180,11 @@ jobs:
           name: Deploy math124
           command: |
             hubploy deploy math124 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy w261
+          command: |
+            hubploy deploy w261 hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data8x
