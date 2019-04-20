@@ -1,0 +1,25 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_w261=/data/homes/w261-prod
+
+jupyterhub:
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
+  proxy:
+    service:
+      loadBalancerIP: 35.202.51.47
+    https:
+      hosts:
+        - w261.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/w261-prod/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
