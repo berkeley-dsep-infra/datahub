@@ -68,6 +68,7 @@ RUN apt-get -qq install --yes \
             sudo \
             r-base \
             r-base-dev \
+            r-cran-aer \
             r-cran-backports \
             r-cran-base64enc \
             r-cran-bindrcpp \
