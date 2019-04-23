@@ -24,11 +24,11 @@ COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
 
 # TODO: remove me when apt can find our packages
-RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
-RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
+#RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
+#RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
 
-RUN apt-get -qq update --yes
-RUN apt-get -qq install --yes \
+RUN apt-get -qq update --yes && \
+    apt-get -qq install --yes \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
@@ -68,6 +68,7 @@ RUN apt-get -qq install --yes \
             sudo \
             r-base \
             r-base-dev \
+            r-cran-aer \
             r-cran-backports \
             r-cran-base64enc \
             r-cran-bindrcpp \
