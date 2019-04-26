@@ -3,3 +3,5 @@ nbgitpuller==0.6.1
 nbresuse==0.3.1
 # For spark
 pyspark==2.4.1
+jupyter-server-proxy==1.0.1
+jupyter-sparkui-proxy==1.0.2b2
