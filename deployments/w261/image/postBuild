@@ -9,22 +9,56 @@ cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 # Allow users to stop / start servers from JupyterLab
 jupyter labextension install @jupyterlab/hub-extension
 
-# Install Spark
-SPARK_HOME=/home/jovyan/spark
+# Download Spark
+SPARK_HOME=${HOME}/spark
 SPARK_VERSION=2.4.2
-HADOOP_VERSION=2.7
-wget -q https://www-us.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -O spark.tgz
+wget -q https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz -O spark.tgz
 tar -xzf spark.tgz
 rm spark.tgz
-mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} ${SPARK_HOME}-${SPARK_VERSION}
+mv spark-${SPARK_VERSION}-bin-without-hadoop/ ${SPARK_HOME}-${SPARK_VERSION}
 ln -s ${SPARK_HOME}-${SPARK_VERSION} ${SPARK_HOME}
 
-cd $SPARK_HOME/python
+echo "Installing Spark into Python"
+# Install Spark into Python
+cd ${SPARK_HOME}/python
 python setup.py install
 
-
+echo "Downloading Guava and GCS connector"
 # install Spark GCS connector
-#rm $SPARK_HOME/jars/guava-*.jar
-#wget --quiet http://central.maven.org/maven2/com/google/guava/guava/23.0/guava-23.0.jar $SPARK_HOME/jars
-#wget --quiet https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar $SPARK_HOME/jars
+cd ${SPARK_HOME}/jars
+GUAVA_VERSION=23.0
+echo "Download Guava"
+wget -q http://central.maven.org/maven2/com/google/guava/guava/${GUAVA_VERSION}/guava-${GUAVA_VERSION}.jar
+echo "Download GCS connector"
+wget -q https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar
 
+echo "Installing Hadoop"
+# install hdfs
+HADOOP_HOME=${HOME}/hadoop
+HADOOP_VERSION=2.7.7
+echo "cd to HOME"
+cd ${HOME}
+wget -q http://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+tar -xzf hadoop-${HADOOP_VERSION}.tar.gz
+ln -s ${HADOOP_HOME}-${HADOOP_VERSION} ${HADOOP_HOME}
+
+# Create a bunch of varialbes for testing in Hadoop and setting up GCP/GCS configs
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export PATH=${HADOOP_HOME}/bin/:$PATH
+HADOOP_CLASSPATH=$(hadoop classpath)
+echo 'export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")' >> ~/.bashrc
+echo 'export PATH=${HADOOP_HOME}/bin/:$PATH' >> ~/.bashrc
+echo "export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar" >> ~/.bashrc
+echo "export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json" >> ~/.bashrc
+echo "export GS_PROJECT_ID=ucb-datahub-2018" >> ~/.bashrc
+echo "export SPARK_DIST_CLASSPATH=$(${HADOOP_HOME}/bin/hadoop classpath)" >> ~/.bashrc
+
+# Add GS as a filesystem to HDFS
+cp core-site.xml ${HADOOP_HOME}/etc/hadoop/core-site.xml
+
+# Add HDFS configs to Spark
+cp spark-env.sh ${SPARK_HOME}/conf/spark-env.sh
+
+# cating the secret is bad, also breaks
+# How to fix?
+# workaround is to copy manually for now
