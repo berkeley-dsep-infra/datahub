@@ -45,13 +45,13 @@ ln -s ${HADOOP_HOME}-${HADOOP_VERSION} ${HADOOP_HOME}
 # Create a bunch of varialbes for testing in Hadoop and setting up GCP/GCS configs
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 export PATH=${HADOOP_HOME}/bin/:$PATH
-HADOOP_CLASSPATH=$(hadoop classpath)
+HADOOP_CLASSPATH="$(hadoop classpath):${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar"
 echo 'export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")' >> ~/.bashrc
 echo 'export PATH=${HADOOP_HOME}/bin/:$PATH' >> ~/.bashrc
-echo "export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar" >> ~/.bashrc
+echo "export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}" >> ~/.bashrc
 echo "export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json" >> ~/.bashrc
 echo "export GS_PROJECT_ID=ucb-datahub-2018" >> ~/.bashrc
-echo "export SPARK_DIST_CLASSPATH=$(${HADOOP_HOME}/bin/hadoop classpath)" >> ~/.bashrc
+echo "export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}" >> ~/.bashrc
 
 # Add GS as a filesystem to HDFS
 cp core-site.xml ${HADOOP_HOME}/etc/hadoop/core-site.xml
