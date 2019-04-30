@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export HADOOP_HOME=${CONDA_DIR}/hadoop
+export SPARK_HOME=${CONDA_DIR}/spark
+
+# Create a bunch of varialbes for testing in Hadoop and setting up GCP/GCS configs
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export PATH=${HADOOP_HOME}/bin/:$PATH
+export HADOOP_CLASSPATH="$(hadoop classpath):${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar"
+
+export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json
+export GS_PROJECT_ID=ucb-datahub-2018
+export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}"
+
+exec "$@"
