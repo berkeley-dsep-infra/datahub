@@ -29,7 +29,7 @@ GUAVA_VERSION=23.0
 wget -q http://central.maven.org/maven2/com/google/guava/guava/${GUAVA_VERSION}/guava-${GUAVA_VERSION}.jar
 echo "Download GCS connector"
 # FIXME: Put a version here?
-curl -q https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar
+wget -q https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar
 
 echo "Installing Hadoop"
 # install hdfs
