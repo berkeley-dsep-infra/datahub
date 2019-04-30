@@ -12,6 +12,6 @@ export HADOOP_CLASSPATH="$(hadoop classpath):${SPARK_HOME}/jars/gcs-connector-la
 
 export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json
 export GS_PROJECT_ID=ucb-datahub-2018
-export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}"
+export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}
 
 exec "$@"
