@@ -28,11 +28,11 @@ echo "Downloading Guava and GCS connector"
 echo "Downloading Guava"
 GUAVA_VERSION=23.0 
 wget -q http://central.maven.org/maven2/com/google/guava/guava/${GUAVA_VERSION}/guava-${GUAVA_VERSION}.jar \
-    -o ${SPARK_HOME}/jars
+    -P ${SPARK_HOME}/jars
 echo "Download GCS connector"
 # FIXME: Put a version here?
 wget -q https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar \
-    -o ${SPARK_HOME}/jars
+    -P ${SPARK_HOME}/jars
 
 echo "Installing Hadoop"
 # install hdfs
