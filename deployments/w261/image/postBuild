@@ -42,7 +42,7 @@ wget -q http://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hado
     tar -xz --strip 1
 
 # Add GS as a filesystem to HDFS
-cp core-site.xml ${HADOOP_HOME}/etc/hadoop/core-site.xml
+cp ${REPO_DIR}/core-site.xml ${HADOOP_HOME}/etc/hadoop/core-site.xml
 
 # Add HDFS configs to Spark
-cp spark-env.sh ${SPARK_HOME}/conf/spark-env.sh
+cp ${REPO_DIR}/spark-env.sh ${SPARK_HOME}/conf/spark-env.sh
