@@ -14,23 +14,25 @@ SPARK_HOME=${CONDA_DIR}/spark
 SPARK_VERSION=2.4.2
 
 mkdir -p ${SPARK_HOME}
-cd ${SPARK_HOME}
 wget -q https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz -O - | \
-    tar -xz --strip 1
+    tar -xz --strip 1 -C ${SPARK_HOME}
 
 echo "Installing Spark into Python"
-cd ${SPARK_HOME}/python
 # must cd into ${SPARK_HOME}/python before running setup.py. Sigh.
+pushd .
+cd ${SPARK_HOME}/python
 python setup.py install
+popd
 
 echo "Downloading Guava and GCS connector"
-cd ${SPARK_HOME}/jars
 echo "Downloading Guava"
-GUAVA_VERSION=23.0
-wget -q http://central.maven.org/maven2/com/google/guava/guava/${GUAVA_VERSION}/guava-${GUAVA_VERSION}.jar
+GUAVA_VERSION=23.0 
+wget -q http://central.maven.org/maven2/com/google/guava/guava/${GUAVA_VERSION}/guava-${GUAVA_VERSION}.jar \
+    -o ${SPARK_HOME}/jars
 echo "Download GCS connector"
 # FIXME: Put a version here?
-wget -q https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar
+wget -q https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop2.jar \
+    -o ${SPARK_HOME}/jars
 
 echo "Installing Hadoop"
 # install hdfs
@@ -38,9 +40,8 @@ HADOOP_HOME=${CONDA_DIR}/hadoop
 HADOOP_VERSION=2.7.7
 
 mkdir -p ${HADOOP_HOME}
-cd ${HADOOP_HOME}
 wget -q http://archive.apache.org/dist/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz -O - | \
-    tar -xz --strip 1
+    tar -xz --strip 1 -C ${HADOOP_HOME}
 
 # Add GS as a filesystem to HDFS
 cp ${REPO_DIR}/core-site.xml ${HADOOP_HOME}/etc/hadoop/core-site.xml
