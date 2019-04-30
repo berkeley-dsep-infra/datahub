@@ -23,6 +23,8 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
+            # Install latest repo2docker to https://github.com/jupyter/repo2docker/pull/657
+            pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
             echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
       - setup_remote_docker
       - save_cache:
@@ -90,6 +92,8 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
+            # Install latest repo2docker to https://github.com/jupyter/repo2docker/pull/657
+            pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
 
             # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
             pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
