@@ -20,6 +20,7 @@ wget -q https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPA
 
 echo "Installing Spark into Python"
 cd ${SPARK_HOME}/python
+# must cd into ${SPARK_HOME}/python before running setup.py. Sigh.
 python setup.py install
 
 echo "Downloading Guava and GCS connector"
