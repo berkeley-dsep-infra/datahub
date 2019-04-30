@@ -8,6 +8,9 @@ jupyterhub:
           - yuvipanda
 
   singleuser:
+    # HACK: Temporarily give user pods lots of k8s access in their
+    # own namespace. We will lock this down later before productionizing.
+    serviceAccountName: default
     memory:
       guarantee: 512M
       limit: 2G
