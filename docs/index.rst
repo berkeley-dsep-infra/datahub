@@ -27,6 +27,7 @@ How to
 
    howto/admin
    howto/dns
+   howto/new-hub
 
 Services
 ========

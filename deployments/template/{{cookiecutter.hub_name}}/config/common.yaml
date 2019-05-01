@@ -1,0 +1,18 @@
+jupyterhub:
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          # List of other admin users
+
+  singleuser:
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/{{cookiecutter.project_name}}/{{cookiecutter.hub_name}}-user-image
+    storage:
+      type: hostPath
