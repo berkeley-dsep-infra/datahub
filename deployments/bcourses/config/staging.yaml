@@ -1,0 +1,22 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_bcourses=/data/homes/bcourses-staging
+
+jupyterhub:
+  proxy:
+    service:
+      # make the IP static in google cloud console so we won't lose it
+      # then specify it here so if we redeploy we get the same stuff
+      loadBalancerIP: 35.225.96.130
+    https:
+      hosts:
+        - bcourses-staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/bcourses-staging/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan

@@ -47,6 +47,16 @@ An experimental hub set up with the `Julia <https://julialang.org/>`_ language.
 It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018``
 project. You can see :ref:`all config <structure>` for it under ``deployments/math124``.
 
+bcourses Hub
+============
+
+A hub for use with UC Berkeley's `Canvas <https://www.canvaslms.com/>`_ system
+(called `bcourses <http://bcourses.berkeley.edu>`_). Not explicitly used by any
+class yet.
+
+It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018``
+project. You can see :ref:`all config <structure>` for it under ``deployments/bcourses``.
+
 Data8X Hub
 ==========
 
