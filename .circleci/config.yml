@@ -54,6 +54,11 @@ jobs:
             hubploy build math124 --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building bcourses image if needed
+          command: |
+            hubploy build bcourses --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building w261 image if needed
           command: |
             hubploy build w261 --commit-range ${COMMIT_RANGE}
@@ -134,6 +139,11 @@ jobs:
             hubploy build math124 --check-registry --push
 
       - run:
+          name: Build bcourses image if needed
+          command: |
+            hubploy build bcourses --check-registry --push
+
+      - run:
           name: Build w261 image if needed
           command: |
             hubploy build w261 --check-registry --push
@@ -184,6 +194,11 @@ jobs:
           name: Deploy math124
           command: |
             hubploy deploy math124 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy bcourses
+          command: |
+            hubploy deploy bcourses hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy w261
