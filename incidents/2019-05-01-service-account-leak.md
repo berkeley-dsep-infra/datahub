@@ -24,6 +24,11 @@ clusters.
 Google immediately notified us via email within seconds
 that this might be a breach.
 
+### 3:19 PM
+
+Discussion and notification starts in slack about dealing with
+the issue.
+
 ### 3:27 PM
 
 Both keys are revoked so they are no longer valid credentials.
@@ -32,6 +37,11 @@ Both keys are revoked so they are no longer valid credentials.
 
 All in-use resources are checked, and verified to not be
 compromised by automated bots looking for leaked accounts.
+
+### 3:40 PM
+
+An email is sent out to all owners of the compromised project
+(ucb-datahub-2018) giving an all-clear.
 
 ## Action items
 
