@@ -24,3 +24,18 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/prob140-user-image
     storage:
       type: hostPath
+
+  hub:
+    extraContainers:
+      - name: fetch-course-emails
+        image:
+          name: berkeleydsep/fetch-course-emails
+          tag: v1
+          volumeMounts:
+           - mountPath: /srv/jupyterhub
+             name: hub-db-dir
+
+custom:
+  profiles:
+    2019-spring-25622:
+      placeholder: waves
