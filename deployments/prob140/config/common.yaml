@@ -27,9 +27,9 @@ jupyterhub:
 
   hub:
     extraContainers:
-      - name: fetch-course-emails
-        image: berkeleydsep/fetch-course-emails:v1
-        volumeMounts:
+    - name: fetch-course-emails
+      image: berkeleydsep/fetch-course-emails:v1
+      volumeMounts:
         - name: hub-db-dir
           mountPath: /srv/jupyterhub
 
