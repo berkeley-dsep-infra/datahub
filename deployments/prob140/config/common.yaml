@@ -16,6 +16,12 @@ jupyterhub:
           - alanchuang
           - dibya.ghosh
 
+  hub:
+    extraConfigMap:
+      profiles:
+        2019-spring-25622:
+          placeholder: waves
+
   singleuser:
     memory:
       guarantee: 512M
@@ -25,7 +31,8 @@ jupyterhub:
     storage:
       type: hostPath
 
-custom:
-  profiles:
-    2019-spring-25622:
-      placeholder: waves
+# this will be supported later
+#custom:
+#  profiles:
+#    2019-spring-25622:
+#      placeholder: waves
