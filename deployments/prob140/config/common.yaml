@@ -28,12 +28,10 @@ jupyterhub:
   hub:
     extraContainers:
       - name: fetch-course-emails
-        image:
-          name: berkeleydsep/fetch-course-emails
-          tag: v1
-          volumeMounts:
-           - mountPath: /srv/jupyterhub
-             name: hub-db-dir
+        image: berkeleydsep/fetch-course-emails:v1
+        volumeMounts:
+        - name: hub-db-dir
+          mountPath: /srv/jupyterhub
 
 custom:
   profiles:
