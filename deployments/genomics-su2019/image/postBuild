@@ -13,4 +13,6 @@ mkdir -p ${LOCAL_BIN}
 # minibar - https://github.com/calacademy-research/minibar
 pip install --no-cache-dir edlib==1.2.4.post1
 git clone https://github.com/calacademy-research/minibar.git ${REPO_DIR}/minibar
+chmod +x ${REPO_DIR}/minibar/minibar.py
+
 ln -s ${REPO_DIR}/minibar/minibar.py ${LOCAL_BIN}/minibar.py
