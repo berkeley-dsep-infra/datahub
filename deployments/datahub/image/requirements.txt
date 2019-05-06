@@ -19,7 +19,7 @@ appmode==0.4.0
 nbresuse==0.3.1
 #
 # r
-jupyter-server-proxy==1.0.0
+jupyter-server-proxy==1.0.1
 jupyter-rsession-proxy==1.0b6
 #
 # cogsci88;
