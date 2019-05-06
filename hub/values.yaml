@@ -11,9 +11,29 @@ jupyterhub:
     https:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
+    networkPolicy:
+      enabled: true
   singleuser:
     defaultUrl: "/tree"
+    networkPolicy:
+      # In clusters with NetworkPolicy enabled, do not
+      # allow outbound internet access that's not DNS, HTTP or HTTPS
+      # We can override this on a case to case basesi where
+      # required.
+      enabled: true
+      egress:
+        - ports:
+            - port: 53
+              protocol: UDP
+        - ports:
+            - port: 80
+              protocol: TCP
+        - ports:
+            - port: 443
+              protocol: TCP
   hub:
+    networkPolicy:
+      enabled: true
     extraConfig:
       01-custom-attr-spawner: |
         from kubespawner import KubeSpawner
