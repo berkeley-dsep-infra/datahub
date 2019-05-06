@@ -27,7 +27,7 @@ the currently favored configuration.
 
 .. code:: bash
 
-   gcloud container clusters create
+   gcloud container clusters create \
         --enable-ip-alias \
         --enable-autoscaling \
         --max-nodes=20 --min-nodes=2 \
@@ -36,7 +36,17 @@ the currently favored configuration.
         --disk-size=100 --disk-type=pd-standard \
         --machine-type=n1-highmem-8 \
         --cluster-version latest \
+        --no-enable-autoupgrade \
+        --enable-network-policy \
+        --create-subnetwork="" \
         <cluster-name>
+
+.. note::
+
+   The following flags have been recently added for additional security.
+   All new clusters created should have them, but older clusters might not.
+
+     #. ``--enable-network-policy``
 
 We will try explain the various arguments to this command line invocation.
 
@@ -143,6 +153,25 @@ Cluster version
 
 GKE automatically upgrades cluster masters, so there is generally no harm in being
 on the latest version available.
+
+Node autoupgrades
+-----------------
+
+When node autoupgrades are enabled, GKE will automatically try to
+upgrade our nodes whenever needed (our GKE version falling off the
+support window, security issues, etc). However, since we run stateful
+workloads, we *disable* this right now so we can do the upgrades
+manually.
+
+Network Policy
+--------------
+
+Kubernetes `Network Policy <https://kubernetes.io/docs/concepts/services-networking/network-policies/>`_
+lets you firewall internal access inside a kubernetes cluster, whitelisting
+only the flows you want. The JupyterHub chart we use supports setting up
+appropriate NetworkPolicy objects it needs, so we should turn it on for
+additional security depth. Note that any extra in-cluster services we run
+*must* have a NetworkPolicy set up for them to work reliabliy.
 
 Cluster name
 ------------
