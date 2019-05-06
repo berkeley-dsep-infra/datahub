@@ -4,14 +4,13 @@ nfsMounter:
 
 jupyterhub:
   proxy:
-    # service:
+    service:
       # make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of genomics-su2019.datahub.berkeley.edu
-    # uncomment once DNS entry has been made
-    # https:
-      # hosts:
-        # - genomics-su2019-staging.datahub.berkeley.edu
+      # then specify it here so if we redeploy we get the same IP
+      loadBalancerIP: 35.238.159.3
+    https:
+      hosts:
+        - genomics-su2019-staging.datahub.berkeley.edu
   singleuser:
     storage:
       extraVolumes:
