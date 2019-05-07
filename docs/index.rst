@@ -28,6 +28,7 @@ How to
 
    howto/admin
    howto/dns
+   howto/rebuild-hub-image.rst
 
 Services
 ========
