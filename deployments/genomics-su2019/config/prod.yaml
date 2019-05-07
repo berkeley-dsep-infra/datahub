@@ -5,14 +5,11 @@ nfsMounter:
 
 jupyterhub:
   proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of genomics-su2019.datahub.berkeley.edu
-    # https:
-      # hosts:
-        # FIXME: Make a DNS entry for the service IP first before uncommenting it
-        # - genomics-su2019.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 35.238.169.234
+    https:
+      hosts:
+        - genomics-su2019.datahub.berkeley.edu
   hub:
     db:
       pvc:
