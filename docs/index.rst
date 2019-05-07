@@ -17,6 +17,7 @@ Contents
    finances
    topic/storage
    topic/cluster-config
+   topic/credentials
 
 
 How to
