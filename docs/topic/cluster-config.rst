@@ -178,31 +178,3 @@ Cluster name
 
 We try use a descriptive name as much as possible.
 
-
-Service Accounts
-----------------
-
-Our CI process needs to authenticate to, and be authorized for, various gcloud API endpoints. As a sufficiently privileged project user, create a service account. This example names the account for where we intend to use it (hubploy):
-
-```
-gcloud iam service-accounts create --display-name hubploy hubploy
-```
-
-Then generate a JSON file used for authentication. This file is typically saved as a deployment secret.
-
-```
-PROJECT=our-datahub-project
-
-gcloud iam service-accounts keys create gke-key.json --iam-account=hubploy@${PROJECT}.iam.gserviceaccount.com
-```
-
-Finally, add roles to the service account. hubploy needs access to:
- - container.clusters.get
- - container.pods.list
- - container.pods.portForward
-
-and possibly others. The `Creating Cloud IAM policies <https://cloud.google.com/kubernetes-engine/docs/how-to/iam>`_ documents that these are granted via the `container.developer` role:
-
-```
-gcloud projects add-iam-policy-binding ${PROJECT} --role=roles/container.developer --member=serviceAccount:hubploy@${PROJECT}.iam.gserviceaccount.com
-```
