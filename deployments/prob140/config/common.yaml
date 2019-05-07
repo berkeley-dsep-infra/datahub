@@ -20,7 +20,92 @@ jupyterhub:
     extraConfigMap:
       profiles:
         2019-spring-25622:
-          placeholder: waves
+          mem_guarantee: 576M
+          mem_limit: 1088M
+
+    extraConfig:
+      01-custom-attr-spawner: |
+        import os
+        from kubespawner import KubeSpawner
+        from tornado import gen
+        import z2jh
+
+        hosted_domain = 'berkeley.edu'
+        course_profile_tmpl = '/srv/jupyterhub/profiles.d/{}-{}.txt'
+
+        def memparse(val):
+          '''Parse memory for relative comparisons.'''
+          if len(val) == 0 or type(val) != str: return val
+          mem = int(val.upper()[0:-1])
+          unit = val[-1]
+          n = {'B':0, 'K':1, 'M':2, 'G':3}[unit]
+          return mem * 1024**n
+
+        def mem_cmp(a, b):
+          '''Compare memory values.'''
+          x = memparse(a) ; y = memparse(b)
+          return (x > y) - (x < y)
+
+        def course_profile_filename(course, constituent):
+          return course_profile_tmpl.format(course, constituent)
+
+        def course_members(course, constituent, hd=None):
+          '''Extracts usernames from files containing email addresses.'''
+          members = []
+          filename = course_profile_filename(course, constituent)
+          if not os.path.exists(filename): return members
+          with open(filename) as f:
+            line = f.readline()
+            while line != '':
+              email = line.strip()
+              if hd and email.endswith('@' + hd):
+                members.append(email.split('@')[0])
+              elif not hd:
+                members.append(email)
+              line = f.readline()
+          return members
+
+        class CustomAttrSpawner(KubeSpawner):
+
+          @gen.coroutine
+          def start(self):
+            # custom.memory
+            custom_memory = z2jh.get_config('custom.memory', {})
+            for attr, users in custom_memory.items():
+              if self.user.name in users:
+                self.mem_limit = attr
+                self.mem_guarantee = attr
+                break
+
+            # custom.profiles
+            custom_profiles = z2jh.get_config('custom.profiles', {})
+            is_student = False ; is_instructor = False
+            for course, profile_data in custom_profiles.items():
+              students    = course_members(course, 'students',    hosted_domain)
+              instructors = course_members(course, 'instructors', hosted_domain)
+              is_student    |= (self.user.name in students)
+              is_instructor |= (self.user.name in instructors)
+              if is_student or is_instructor:
+                self.log.warning(f'using profile {course}')
+                # set new mem thresholds if specified are bigger than current
+                if 'mem_limit' in profile_data:
+                  if mem_cmp(profile_data['mem_limit'], self.mem_limit) == 1:
+                    self.mem_limit = profile_data['mem_limit']
+                if 'mem_guarantee' in profile_data:
+                  if mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
+                    self.mem_guarantee = profile_data['mem_guarantee']
+
+            # if user is a student in any course, they never get to be an admin
+            #if is_instructor and not is_student:
+            #   self.user.admin = False
+
+            # custom.admin
+            custom_admin = z2jh.get_config('custom.admin', {})
+            if custom_admin and self.user.admin:
+              self.init_containers += custom_admin.get('initContainers', [])
+              self.volume_mounts += custom_admin.get('extraVolumeMounts', [])
+
+            return (yield super().start())
 
   singleuser:
     memory:
