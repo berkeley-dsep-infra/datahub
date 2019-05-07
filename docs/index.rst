@@ -17,6 +17,7 @@ Contents
    finances
    topic/storage
    topic/cluster-config
+   topic/credentials
 
 
 How to
@@ -27,6 +28,7 @@ How to
 
    howto/admin
    howto/dns
+   howto/rebuild-hub-image.rst
 
 Services
 ========
