@@ -2,8 +2,19 @@
 UC Berkeley's JupyterHubs
 =========================
 
-This repository contains configuration for the many JupyterHubs used by
-various organizations in UC Berkeley.
+This repository contains configuration and documentation for the many
+JupyterHubs used by various organizations in UC Berkeley.
+
+Instructor documentation
+========================
+
+Documentation useful for instructors trying to use JupyterHub in
+their classes.
+
+.. toctree::
+   :maxdepth: 1
+
+   instructor/howto/bcourses
 
 Contents
 ========
