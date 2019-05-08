@@ -50,7 +50,7 @@ jupyterhub:
     
         def memparse(val):
           '''Parse memory for relative comparisons.'''
-          if len(val) == 0 or type(val) != str: return val 
+          if type(val) != str or len(val) == 0: return val
           mem = int(val.upper()[0:-1])
           unit = val[-1]
           n = {'B':0, 'K':1, 'M':2, 'G':3}[unit]
