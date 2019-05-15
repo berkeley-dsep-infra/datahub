@@ -83,3 +83,12 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 mv bin/racon ${LOCAL_BIN}
 popd
+
+# mafft
+mkdir ${REPO_DIR}/mafft
+curl -sSL https://mafft.cbrc.jp/alignment/software/mafft-7.427-with-extensions-src.tgz | tar -xz --strip 1 -C ${REPO_DIR}/mafft
+pushd .
+cd ${REPO_DIR}/mafft/core
+make
+mv ${REPO_DIR}/mafft/binaries/* ${LOCAL_BIN}
+popd
