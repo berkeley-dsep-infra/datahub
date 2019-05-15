@@ -69,6 +69,7 @@ cd ${REPO_DIR}/wtdbg2
 git checkout v2.4
 make
 mv wtdbg2 ${LOCAL_BIN}
+mv wtpoa-cns ${LOCAL_BIN}
 popd
 
 # racon - https://github.com/isovic/racon
