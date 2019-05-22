@@ -183,9 +183,6 @@ RUN /usr/local/sbin/connector-text.bash
 COPY connectors/ds100.bash /usr/local/sbin/connector-ds100.bash
 RUN /usr/local/sbin/connector-ds100.bash
 
-COPY connectors/cp255.bash /usr/local/sbin/connector-cp255.bash
-RUN /usr/local/sbin/connector-cp255.bash
-
 #COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
 #RUN /usr/local/sbin/connector-eps88.bash
 
