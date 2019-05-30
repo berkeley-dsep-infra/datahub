@@ -47,7 +47,9 @@ RUN apt-get -qq install --yes \
             libspatialindex-dev \
             libgeos-dev \
             # for phys 151
-            gfortran > /dev/null
+            gfortran \
+            # for eps 109; fall 2019
+            ffmpeg > /dev/null
 
 # install R, packages, and RStudio dependencies
 RUN apt-get -qq install --yes \
