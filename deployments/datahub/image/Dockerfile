@@ -175,6 +175,9 @@ RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${APP_DIR}/venv')"
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
 
+# Cartopy needs to be installed after cython, for eps 88
+RUN pip install --no-cache-dir Cartopy==0.17.0
+
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
 
