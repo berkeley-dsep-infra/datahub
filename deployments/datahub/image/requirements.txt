@@ -100,7 +100,3 @@ Theano==1.0.4
 
 # eps 109; fall 2019
 ffmpeg-python==0.1.17
-
-# eps 88; fall 2019
-Cartopy==0.17.0
-Cython==0.29.9
