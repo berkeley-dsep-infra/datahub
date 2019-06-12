@@ -178,9 +178,6 @@ RUN pip install --no-cache-dir hmms==0.1
 # Cartopy needs to be installed after cython, for eps 88
 RUN pip install --no-cache-dir Cartopy==0.17.0
 
-# SymPy needs to be installed after mpmath, for data 88
-RUN pip install --no-cache-dir sympy==1.4
-
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
 

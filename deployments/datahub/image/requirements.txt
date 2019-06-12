@@ -103,3 +103,4 @@ ffmpeg-python==0.1.17
 
 # data 88; fall 2019
 mpmath==1.1.0
+sympy==1.4
