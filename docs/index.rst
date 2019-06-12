@@ -39,6 +39,7 @@ How to
 
    howto/admin
    howto/dns
+   howto/new-hub
    howto/rebuild-hub-image.rst
 
 Services

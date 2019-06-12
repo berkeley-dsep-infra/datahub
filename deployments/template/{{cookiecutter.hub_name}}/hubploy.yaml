@@ -1,0 +1,15 @@
+images:
+  image_name: gcr.io/{{cookiecutter.project_name}}/{{cookiecutter.hub_name}}-user-image
+  registry:
+    provider: gcloud
+    gcloud:
+      project: {{cookiecutter.project_name}}
+      service_key: gcr-key.json
+
+cluster:
+  provider: gcloud
+  gcloud:
+    project: {{cookiecutter.project_name}}
+    service_key: gke-key.json
+    cluster: {{cookiecutter.cluster_name}}
+    zone: us-central1
