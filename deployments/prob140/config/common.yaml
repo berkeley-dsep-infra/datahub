@@ -16,6 +16,13 @@ jupyterhub:
           - alanchuang
           - dibya.ghosh
 
+  hub:
+    extraConfigMap:
+      profiles:
+        2019-spring-25622:
+          mem_guarantee: 576M
+          mem_limit: 1088M
+
   singleuser:
     memory:
       guarantee: 512M
@@ -24,3 +31,9 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/prob140-user-image
     storage:
       type: hostPath
+
+# this will be supported later
+#custom:
+#  profiles:
+#    2019-spring-25622:
+#      placeholder: waves

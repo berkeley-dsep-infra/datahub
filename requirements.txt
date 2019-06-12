@@ -1,2 +1,3 @@
-git+https://github.com/yuvipanda/hubploy.git@8b37dbb4d255c2f225894dd2ddef9cbc188e9d8b
+git+https://github.com/yuvipanda/hubploy.git@7015b4db0da8c04cdbe5edaeecf9d74ae0d45e66
 pygithub
+chartpress

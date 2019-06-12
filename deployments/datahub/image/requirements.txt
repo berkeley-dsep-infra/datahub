@@ -3,7 +3,7 @@
 tornado==5.1.1
 notebook==5.7.8
 datascience==0.10.6
-matplotlib==2.0.0
+matplotlib==3.1.0
 numpy==1.16.0
 pandas==0.23.4
 scipy==1.2.0
@@ -19,7 +19,7 @@ appmode==0.4.0
 nbresuse==0.3.1
 #
 # r
-jupyter-server-proxy==1.0.0
+jupyter-server-proxy==1.0.1
 jupyter-rsession-proxy==1.0b6
 #
 # cogsci88;
@@ -80,10 +80,6 @@ Keras==2.0.8
 keras-vis==0.4.1
 tables==3.4.2
 opencv-python==3.3.0.10
-#
-# stat 159/259; fall 18
-git+git://github.com/statlab/permute.git@e2b13ed
-git+git://github.com/statlab/cryptorandom.git@0721472
 
 # astr 128/256; spring 2019
 astroquery==0.3.9
@@ -101,3 +97,6 @@ gspread==3.1.0
 # psych101d; fall 2019; cfrye
 pymc3==3.6
 Theano==1.0.4
+
+# eps 109; fall 2019
+ffmpeg-python==0.1.17

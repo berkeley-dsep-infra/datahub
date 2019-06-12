@@ -14,11 +14,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 RUN install -d -o jovyan -g jovyan ${APP_DIR}
 
-# Set up extra debian repositories we want
-COPY neuro-debian.list /etc/apt/sources.list.d/neuro-debian.list
-COPY neurodebian-key.asc /tmp/neurodebian-key.asc
-RUN apt-key add /tmp/neurodebian-key.asc
-
 COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
 COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
@@ -53,11 +48,8 @@ RUN apt-get -qq install --yes \
             libgeos-dev \
             # for phys 151
             gfortran \
-            # for cogneuro
-            dirmngr \
-            imagemagick-6.q16 \
-            neurodebian \
-            fsl-complete > /dev/null
+            # for eps 109; fall 2019
+            ffmpeg > /dev/null
 
 # install R, packages, and RStudio dependencies
 RUN apt-get -qq install --yes \
@@ -183,8 +175,8 @@ RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${APP_DIR}/venv')"
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
 
-COPY connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
-RUN /usr/local/sbin/connector-neuro.bash
+# Cartopy needs to be installed after cython, for eps 88
+RUN pip install --no-cache-dir Cartopy==0.17.0
 
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
@@ -192,12 +184,6 @@ RUN /usr/local/sbin/d8extension.bash
 ENV NLTK_DATA ${APP_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
-
-COPY connectors/ds100.bash /usr/local/sbin/connector-ds100.bash
-RUN /usr/local/sbin/connector-ds100.bash
-
-COPY connectors/cp255.bash /usr/local/sbin/connector-cp255.bash
-RUN /usr/local/sbin/connector-cp255.bash
 
 #COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
 #RUN /usr/local/sbin/connector-eps88.bash

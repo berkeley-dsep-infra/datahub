@@ -27,7 +27,7 @@ the currently favored configuration.
 
 .. code:: bash
 
-   gcloud container clusters create
+   gcloud container clusters create \
         --enable-ip-alias \
         --enable-autoscaling \
         --max-nodes=20 --min-nodes=2 \
@@ -36,7 +36,17 @@ the currently favored configuration.
         --disk-size=100 --disk-type=pd-standard \
         --machine-type=n1-highmem-8 \
         --cluster-version latest \
+        --no-enable-autoupgrade \
+        --enable-network-policy \
+        --create-subnetwork="" \
         <cluster-name>
+
+.. note::
+
+   The following flags have been recently added for additional security.
+   All new clusters created should have them, but older clusters might not.
+
+     #. ``--enable-network-policy``
 
 We will try explain the various arguments to this command line invocation.
 
@@ -144,7 +154,77 @@ Cluster version
 GKE automatically upgrades cluster masters, so there is generally no harm in being
 on the latest version available.
 
+Node autoupgrades
+-----------------
+
+When node autoupgrades are enabled, GKE will automatically try to
+upgrade our nodes whenever needed (our GKE version falling off the
+support window, security issues, etc). However, since we run stateful
+workloads, we *disable* this right now so we can do the upgrades
+manually.
+
+Network Policy
+--------------
+
+Kubernetes `Network Policy <https://kubernetes.io/docs/concepts/services-networking/network-policies/>`_
+lets you firewall internal access inside a kubernetes cluster, whitelisting
+only the flows you want. The JupyterHub chart we use supports setting up
+appropriate NetworkPolicy objects it needs, so we should turn it on for
+additional security depth. Note that any extra in-cluster services we run
+*must* have a NetworkPolicy set up for them to work reliabliy.
+
 Cluster name
 ------------
 
 We try use a descriptive name as much as possible.
+
+
+Azure Kubernetes Service
+========================
+
+Microsoft Azure also provides a managed kubernetes service and we have run
+at least one large course on it each semester. The following commands will
+create a suitable cluster on AKS:
+
+.. code:: bash
+
+    az group create --name <group-name> --location=westus2
+
+    az aks create \
+        --name <cluster-name> \
+        --resource-group <group-name> \
+        --ssh-key-value /path/to/ssh-key.pub \
+        --node-count 3 \
+        --node-vm-size Standard_E16s_v3 \
+        --node-osdisk-size 100 \
+        --kubernetes-version 1.11.5 \
+        --output table
+
+The first command creates a `resource group <https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest>`_ in a local region and the second
+creates the `cluster <https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest>`_. The options are fairly self explanatory.
+
+.. note::
+
+    Make sure to specify a VM type that supports premium storage disks.
+    For example "E2s-64 v3" does, but "E2-64 v3" does not.
+
+AKS and SSH
+-----------
+
+`Connecting to Azure nodes by ssh
+<https://docs.microsoft.com/en-us/azure/aks/ssh#create-the-ssh-connection>`_ is
+not as simple as ``gcloud compute ssh``. One must run a vanilla Linux pod
+in-cluster, add an ssh client, copy an ssh key to it, then exec into the pod.
+
+.. code:: bash
+    # start a Linux pod
+    computer$ kubectl run -it --rm aks-ssh --image=debian
+    pod# apt-get update && apt-get install openssh-client -y
+
+    # determine the name of the ssh pod
+    computer$ kubectl get pods
+    computer$ kubectl cp /path/to/ssh-key aks-ssh-<rest-of-pod-name>:/id_rsa
+
+    # ssh to one of the cluster nodes
+    pod# chmod 0600 id_rsa
+    pod# ssh -i /id_rsa azureuser@<node-ip>
