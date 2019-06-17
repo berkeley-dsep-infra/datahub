@@ -194,6 +194,9 @@ ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_conf
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
+# install QGrid notebook extension
+RUN jupyter nbextension enable --py --sys-prefix qgrid
+
 # Install nbzip
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
