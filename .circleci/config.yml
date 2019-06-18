@@ -59,6 +59,11 @@ jobs:
             hubploy build bcourses --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building julia image if needed
+          command: |
+            hubploy build julia --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE}
@@ -139,6 +144,11 @@ jobs:
             hubploy build bcourses --check-registry --push
 
       - run:
+          name: Build julia image if needed
+          command: |
+            hubploy build julia --check-registry --push
+
+      - run:
           name: Build data8x image if needed
           command: |
             hubploy build data8x --check-registry --push
@@ -189,6 +199,11 @@ jobs:
           name: Deploy bcourses
           command: |
             hubploy deploy bcourses hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy julia
+          command: |
+            hubploy deploy julia hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data8x
