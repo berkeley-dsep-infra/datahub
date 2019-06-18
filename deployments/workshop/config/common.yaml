@@ -1,0 +1,12 @@
+jupyterhub:
+  auth:
+    type: dummy
+
+  singleuser:
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/workshop-user-image
+    storage:
+      type: hostPath
