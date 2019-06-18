@@ -38,7 +38,8 @@ RUN ${VENV_DIR}/bin/pip3 install --no-cache-dir \
 RUN ${VENV_DIR}/bin/pip3 install --no-cache-dir \
                          jupyter-rsession-proxy==1.0b6 \
                          jupyterhub==1.0.0 \
-                         jupyterlab==0.35.6
+                         jupyterlab==0.35.6 \
+                         notebook==5.7.8
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel')" && \
@@ -46,4 +47,9 @@ RUN R --quiet -e "install.packages('IRkernel')" && \
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
-RUN ${VENV_DIR}/bin/pip3 install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+# Install requirements.txt if it exists
+RUN [ -f ${REPO_DIR}/requirements.txt ] && \
+    ${VENV_DIR}/bin/pip3 install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+
+# Execute PostBuild if it exists
+RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
