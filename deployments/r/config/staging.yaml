@@ -16,4 +16,4 @@ jupyterhub:
             path: /data/homes/staging/{username}
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan
+          mountPath: /home/rstudio

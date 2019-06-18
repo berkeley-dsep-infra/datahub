@@ -20,4 +20,4 @@ jupyterhub:
             path: /data/homes/prod/{username}
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan
+          mountPath: /home/rstudio
