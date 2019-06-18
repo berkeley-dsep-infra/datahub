@@ -64,6 +64,11 @@ jobs:
             hubploy build julia --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building R image if needed
+          command: |
+            hubploy build r --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE}
@@ -149,6 +154,10 @@ jobs:
             hubploy build julia --check-registry --push
 
       - run:
+          name: Build R image if needed
+          command: |
+            hubploy build r --check-registry --push
+      - run:
           name: Build data8x image if needed
           command: |
             hubploy build data8x --check-registry --push
@@ -204,6 +213,11 @@ jobs:
           name: Deploy julia
           command: |
             hubploy deploy julia hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy R
+          command: |
+            hubploy deploy r hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data8x
