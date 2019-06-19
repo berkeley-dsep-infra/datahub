@@ -1,0 +1,23 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_workshop=/data/homes/workshop-staging
+
+jupyterhub:
+  proxy:
+    # service:
+      # make the IP static in google cloud console so we won't lose it
+      # then specify it here so if we redeploy we get the same stuff
+      # loadBalancerIP: <IP of workshop.datahub.berkeley.edu
+    # uncomment once DNS entry has been made
+    # https:
+      # hosts:
+        # - workshop-staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/workshop-staging/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
