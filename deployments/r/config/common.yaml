@@ -3,6 +3,12 @@ nfsMounter:
   enabled: false
 
 jupyterhub:
+  hub:
+    extraConfig:
+      # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
+      04-rstudio-home: |
+        c.KubeSpawner.working_dir = '/home/rstudio'
+
   auth:
     type: google
     admin:
