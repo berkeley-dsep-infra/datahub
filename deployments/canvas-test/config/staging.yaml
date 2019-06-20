@@ -1,0 +1,23 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_canvas-test=/data/homes/canvas-test-staging
+
+jupyterhub:
+  proxy:
+    # service:
+      # make the IP static in google cloud console so we won't lose it
+      # then specify it here so if we redeploy we get the same stuff
+      # loadBalancerIP: <IP of canvas-test.datahub.berkeley.edu
+    # uncomment once DNS entry has been made
+    https:
+      hosts:
+        - canvas-test-staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/canvas-test-staging/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
