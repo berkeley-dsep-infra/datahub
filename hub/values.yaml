@@ -136,3 +136,7 @@ jupyterhub:
         # Make sure working directory is ${HOME}
         # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
         c.KubeSpawner.working_dir = '/home/jovyan'
+      05-prometheus: |
+        # Allow unauthenticated prometheus requests
+        # Otherwise our prometheus server can't get to these
+        c.JupyterHub.authenticate_prometheus = False
