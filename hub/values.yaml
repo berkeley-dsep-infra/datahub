@@ -4,6 +4,9 @@ nfsMounter:
 nfsPVC:
   enabled: false
 jupyterhub:
+  auth:
+    google:
+      hostedDomain: ['berkeley.edu']
   scheduling:
     userScheduler:
       enabled: true
