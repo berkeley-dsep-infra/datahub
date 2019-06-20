@@ -38,15 +38,6 @@ gains features around restricting admin use.
 It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018``
 project. You can see :ref:`all config <structure>` for it under ``deployments/prob140``.
 
-Math124 Hub
-===========
-
-A hub specifically for `math124 <https://math.berkeley.edu/courses/spring-2019-math-124-001-lec>`_.
-An experimental hub set up with the `Julia <https://julialang.org/>`_ language.
-
-It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018``
-project. You can see :ref:`all config <structure>` for it under ``deployments/math124``.
-
 bcourses Hub
 ============
 
