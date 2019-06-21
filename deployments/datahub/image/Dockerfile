@@ -72,7 +72,6 @@ RUN apt-get -qq install --yes \
             r-cran-dbi \
             r-cran-devtools \
             r-cran-digest \
-            r-cran-dplyr \
             r-cran-e1071 \
             r-cran-evaluate \
             r-cran-forcats \
