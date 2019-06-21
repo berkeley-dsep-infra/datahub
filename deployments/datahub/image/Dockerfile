@@ -52,7 +52,7 @@ RUN apt-get -qq install --yes \
             ffmpeg > /dev/null
 
 # install R, packages, and RStudio dependencies
-RUN apt-get -qq update --yes \
+RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
             libapparmor1 \
             libgdal-dev \
