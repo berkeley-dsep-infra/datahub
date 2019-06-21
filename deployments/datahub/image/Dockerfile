@@ -52,7 +52,8 @@ RUN apt-get -qq install --yes \
             ffmpeg > /dev/null
 
 # install R, packages, and RStudio dependencies
-RUN apt-get -qq install --yes \
+RUN apt-get -qq update --yes \
+    apt-get -qq install --yes \
             libapparmor1 \
             libgdal-dev \
             libproj-dev \
@@ -134,7 +135,7 @@ COPY install.R  /tmp/install.R
 # FIXME: Find something less sucky
 # another hubploy #1
 RUN Rscript /tmp/install.R > /tmp/r-custom-packages.log 2>&1 && \
-	true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
+    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
 
