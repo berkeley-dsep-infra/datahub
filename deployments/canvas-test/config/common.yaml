@@ -1,0 +1,62 @@
+jupyterhub:
+  auth:
+    state:
+      enabled: true
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+
+  hub:
+    extraEnv:
+      OAUTH2_AUTHORIZE_URL: 'https://ucberkeley.test.instructure.com/login/oauth2/auth'
+    extraConfig:
+      010-auth: |
+        import os
+        import z2jh
+        from oauthenticator.generic import GenericOAuthenticator
+        from tornado import gen
+
+        canvas_site = 'https://ucberkeley.test.instructure.com/'
+
+        class NormAuth(GenericOAuthenticator):
+                def normalize_username(self,username):
+                        username = username.lower()
+                        # FIXME: Only allow berkeley.edu accounts
+                        username = username.split('@')[0]
+                        return username
+
+                @gen.coroutine
+                def pre_spawn_start(self, user, spawner):
+                    auth_state = yield user.get_auth_state()
+                    if not auth_state:
+                        self.log.info('no auth state found')
+                        return
+                    spawner.environment['CANVAS_ACCESS_TOKEN'] = auth_state['access_token']
+                    spawner.environment['CANVAS_REFRESH_TOKEN'] = auth_state['refresh_token']
+                    spawner.environment['CANVAS_URL'] = canvas_site
+
+        c.JupyterHub.authenticator_class = NormAuth
+
+        canvas_creds = z2jh.get_config('custom.canvas_creds')
+
+        c.GenericOAuthenticator.client_id = canvas_creds['client_id']
+        c.GenericOAuthenticator.client_secret = canvas_creds['client_secret']
+        c.GenericOAuthenticator.oauth_callback_url = canvas_creds['oauth_callback_url']
+        c.GenericOAuthenticator.token_url = f'{canvas_site}login/oauth2/token'
+        c.GenericOAuthenticator.extra_params = canvas_creds
+        c.GenericOAuthenticator.userdata_url = f'{canvas_site}api/v1/users/self/profile'
+        c.GenericOAuthenticator.username_key = 'primary_email'
+        c.GenericOAuthenticator.login_service = 'Canvas'
+
+  singleuser:
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/canvas-test-user-image
+    storage:
+      type: hostPath
