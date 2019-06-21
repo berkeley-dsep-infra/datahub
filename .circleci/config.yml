@@ -64,6 +64,11 @@ jobs:
             hubploy build r --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building canvas-test image if needed
+          command: |
+            hubploy build canvas-test --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE}
@@ -152,6 +157,12 @@ jobs:
           name: Build R image if needed
           command: |
             hubploy build r --check-registry --push
+
+      - run:
+          name: Build Canvas image if needed
+          command: |
+            hubploy build canvas-test --check-registry --push
+
       - run:
           name: Build data8x image if needed
           command: |
@@ -213,6 +224,11 @@ jobs:
           name: Deploy R
           command: |
             hubploy deploy r hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy Canvas
+          command: |
+            hubploy deploy canvas-test hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data8x
