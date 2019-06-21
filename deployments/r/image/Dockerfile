@@ -31,12 +31,13 @@ RUN mkdir -p ${REPO_DIR} && chown -R ${NB_USER} ${REPO_DIR}
 USER ${NB_USER}
 
 # Install some R libraries that aren't in the base image
-COPY extras.d  /tmp/
+COPY --chown=rstudio extras.d  /tmp/extras.d
 # CircleCI stops printing output at 40k chars.
 # We send stdout to a log file, and tail it a bit
 # FIXME: Find something less sucky
 # another hubploy #1
-RUN run-parts /tmp/extras.d > /tmp/r-custom-packages.log 2>&1 && \
+RUN chmod -R +x /tmp/extras.d && \
+	run-parts /tmp/extras.d > /tmp/r-custom-packages.log 2>&1 && \
     true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
