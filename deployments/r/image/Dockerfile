@@ -36,8 +36,8 @@ COPY extras.d  /tmp/extras.d
 # We send stdout to a log file, and tail it a bit
 # FIXME: Find something less sucky
 # another hubploy #1
-RUN run-parts --list --regex '^.*.r$' /tmp/extras.d | \
-	xargs Rscript > /tmp/r-custom-packages.log 2>&1 && \
+RUN chmod /tmp/extras.d/* && \
+	run-parts /tmp/extras.d > /tmp/r-custom-packages.log 2>&1 && \
     true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
