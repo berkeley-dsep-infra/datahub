@@ -29,6 +29,19 @@ RUN mkdir -p ${VENV_DIR} && chown -R ${NB_USER} ${VENV_DIR}
 RUN mkdir -p ${REPO_DIR} && chown -R ${NB_USER} ${REPO_DIR}
 
 USER ${NB_USER}
+
+# Install some R libraries that aren't in the base image
+COPY extras.d  /tmp/extras.d
+# CircleCI stops printing output at 40k chars.
+# We send stdout to a log file, and tail it a bit
+# FIXME: Find something less sucky
+# another hubploy #1
+RUN run-parts --list --regex '^.*.r$' /tmp/extras.d | \
+	xargs Rscript > /tmp/r-custom-packages.log 2>&1 && \
+    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
+RUN tail /tmp/r-custom-packages.log
+RUN rm /tmp/r-custom-packages.log
+
 RUN python3 -m venv ${VENV_DIR}
 
 # Explicitly install a new enough version of pip
