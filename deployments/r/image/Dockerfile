@@ -17,10 +17,18 @@ ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
 ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
+# Setup a LaTeX that notebook can use
+# texlive-local seems to be installed by rocker, and isn't enough
 RUN apt-get update && \
-    apt-get install --yes --install-recommends \
-        python3-venv python3-dev texlive-full && \
-    apt-get purge && \
+    apt-get purge --yes texlive-local && \
+    apt-get install --yes texlive-xetex texlive-fonts-recommended texlive-generic-recommended && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
+RUN apt-get update && \
+    apt-get install --yes \
+        python3-venv python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
