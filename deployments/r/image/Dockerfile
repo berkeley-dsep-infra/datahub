@@ -18,7 +18,8 @@ ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
 RUN apt-get update && \
-    apt-get -y install python3-venv python3-dev texlive-full && \
+    apt-get install --yes --install-recommends \
+        python3-venv python3-dev texlive-full && \
     apt-get purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
