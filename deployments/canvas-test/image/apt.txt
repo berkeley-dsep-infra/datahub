@@ -1,0 +1,3 @@
+texlive-xetex
+texlive-fonts-recommended
+texlive-full
