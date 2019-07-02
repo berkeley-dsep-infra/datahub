@@ -2,11 +2,10 @@ FROM rocker/geospatial:3.6.0
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
-ENV VENV_DIR /srv/venv
-ENV REPO_DIR /srv/repo
+ENV CONDA_DIR /srv/conda
 
 # Set ENV for all programs...
-ENV PATH ${VENV_DIR}/bin:$PATH
+ENV PATH ${CONDA_DIR}/bin:$PATH
 # And set ENV for R! It doesn't read from the environment...
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
 
@@ -33,32 +32,17 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \
-    apt-get install --yes \
-        python3-venv python3-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Create a venv dir owned by unprivileged user & set up notebook in it
-# This allows non-root to install python libraries if required
-RUN mkdir -p ${VENV_DIR} && chown -R ${NB_USER} ${VENV_DIR}
-RUN mkdir -p ${REPO_DIR} && chown -R ${NB_USER} ${REPO_DIR}
+COPY install-miniconda.bash /tmp/install-miniconda.bash
+RUN /tmp/install-miniconda.bash
 
 USER ${NB_USER}
 
-
-RUN python3 -m venv ${VENV_DIR}
-
-# Explicitly install a new enough version of pip
-RUN ${VENV_DIR}/bin/pip3 install --no-cache-dir \
-                         pip==19.1.1
-
-RUN ${VENV_DIR}/bin/pip3 install --no-cache-dir \
-                         jupyter-rsession-proxy==1.0b6 \
-                         jupyterhub==1.0.0 \
-                         jupyterlab==0.35.6 \
-                         notebook==5.7.8 \
-                         nbpdfexport==0.1
+RUN pip install --no-cache-dir \
+                jupyter-rsession-proxy==1.0b6 \
+                jupyterhub==1.0.0 \
+                jupyterlab==0.35.6 \
+                notebook==5.7.8 \
+                nbpdfexport==0.1
 
 # Ship headless chrome in the image
 RUN pyppeteer-install
@@ -84,7 +68,7 @@ RUN rm /tmp/r-custom-packages.log
 
 # Install requirements.txt if it exists
 RUN [ -f ${REPO_DIR}/requirements.txt ] && \
-    ${VENV_DIR}/bin/pip3 install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+    pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
