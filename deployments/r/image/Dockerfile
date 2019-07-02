@@ -17,14 +17,21 @@ ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
 ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
-# Setup a LaTeX that notebook can use
-# texlive-local seems to be installed by rocker, and isn't enough
+# Install packages needed by nbpdfexport
 RUN apt-get update && \
-    apt-get purge --yes texlive-local && \
-    apt-get install --yes texlive-xetex texlive-fonts-recommended texlive-generic-recommended && \
+    apt-get install --yes \
+            libx11-xcb1 \
+            libxtst6 \
+            libxrandr2 \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libnss3 \
+            libxss1 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
 
 RUN apt-get update && \
     apt-get install --yes \
@@ -39,17 +46,6 @@ RUN mkdir -p ${REPO_DIR} && chown -R ${NB_USER} ${REPO_DIR}
 
 USER ${NB_USER}
 
-# Install some R libraries that aren't in the base image
-COPY --chown=rstudio extras.d  /tmp/extras.d
-# CircleCI stops printing output at 40k chars.
-# We send stdout to a log file, and tail it a bit
-# FIXME: Find something less sucky
-# another hubploy #1
-RUN chmod -R +x /tmp/extras.d && \
-	run-parts /tmp/extras.d > /tmp/r-custom-packages.log 2>&1 && \
-    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
-RUN tail /tmp/r-custom-packages.log
-RUN rm /tmp/r-custom-packages.log
 
 RUN python3 -m venv ${VENV_DIR}
 
@@ -61,13 +57,30 @@ RUN ${VENV_DIR}/bin/pip3 install --no-cache-dir \
                          jupyter-rsession-proxy==1.0b6 \
                          jupyterhub==1.0.0 \
                          jupyterlab==0.35.6 \
-                         notebook==5.7.8
+                         notebook==5.7.8 \
+                         nbpdfexport==0.1
+
+# Ship headless chrome in the image
+RUN pyppeteer-install
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel')" && \
     R --quiet -e "IRkernel::installspec(prefix='${VENV_DIR}')"
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
+
+# Install some R libraries that aren't in the base image
+COPY --chown=rstudio extras.d  /tmp/extras.d
+# CircleCI stops printing output at 40k chars.
+# We send stdout to a log file, and tail it a bit
+# FIXME: Find something less sucky
+# another hubploy #1
+RUN chmod -R +x /tmp/extras.d && \
+	run-parts /tmp/extras.d > /tmp/r-custom-packages.log 2>&1 && \
+    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
+
+RUN tail /tmp/r-custom-packages.log
+RUN rm /tmp/r-custom-packages.log
 
 # Install requirements.txt if it exists
 RUN [ -f ${REPO_DIR}/requirements.txt ] && \
