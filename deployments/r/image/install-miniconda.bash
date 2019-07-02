@@ -47,7 +47,7 @@ fi
 # which seems to result in some effective pinning of packages in the initial env,
 # which we don't intend.
 # this file must not be *removed*, however
-echo '' > ${NB_PYTHON_PREFIX}/conda-meta/history
+echo '' > ${CONDA_DIR}/conda-meta/history
 
 # Clean things out!
 conda clean --all -f -y
@@ -61,4 +61,3 @@ rm -rf /root/.cache
 chown -R $NB_USER:$NB_USER ${CONDA_DIR}
 
 conda list -n root
-conda list -p ${NB_PYTHON_PREFIX}
