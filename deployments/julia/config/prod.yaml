@@ -1,9 +1,7 @@
 jupyterhub:
   proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of julia.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 35.238.4.152
     https:
       hosts:
         - julia.datahub.berkeley.edu
@@ -12,12 +10,3 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 4Gi
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/prod/{username}
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
