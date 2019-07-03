@@ -153,6 +153,25 @@ ENV PATH ${APP_DIR}/venv/bin:$PATH:/usr/lib/rstudio-server/bin
 # Set this to be on container storage, rather than under $HOME
 ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
 
+# FIXME: Move this elsewhere in the dockerfile?
+# Install packages needed by nbpdfexport
+# Default fonts seem ok, we just install an emoji font
+RUN apt-get update && \
+    apt-get install --yes \
+            libx11-xcb1 \
+            libxtst6 \
+            libxrandr2 \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libnss3 \
+            libxss1 \
+            fonts-noto-color-emoji && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /home/jovyan
 
 USER jovyan
@@ -160,6 +179,11 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/app
+RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install JupyterLab extensions
 RUN jupyter labextension install \
