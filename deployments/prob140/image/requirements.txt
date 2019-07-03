@@ -8,8 +8,9 @@ pandas==0.19.2
 scipy==0.19.1
 statsmodels==0.8.0
 nbgitpuller==0.6.1
+nbpdfexport==0.2.1
 nbzip==0.0.4
-jupyterlab==0.33.11
+jupyterlab==0.35.4
 ipywidgets==7.2.1
 jupyterhub==1.0.0
 appmode==0.4.0

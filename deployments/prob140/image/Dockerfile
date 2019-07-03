@@ -37,6 +37,23 @@ RUN apt-get install --yes \
             texlive-fonts-recommended \
             texlive-generic-recommended
 
+# for nbpdfexport
+RUN apt-get update && \
+    apt-get install --yes \
+            libx11-xcb1 \
+            libxtst6 \
+            libxrandr2 \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libnss3 \
+            libxss1 \
+            fonts-noto-color-emoji && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 ENV PATH ${APP_DIR}/venv/bin:$PATH
 
 WORKDIR /home/jovyan
@@ -49,6 +66,11 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/app
+RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install nbzip
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
