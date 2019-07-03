@@ -1,14 +1,7 @@
-nfsMounter:
-  mounts:
-    # FIXME: You need to create this manually on the NFS server
-    - nfsserver1:/export/pool0/homes/_workshop=/data/homes/workshop-prod
-
 jupyterhub:
   proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of workshop.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 104.197.52.242
     https:
       hosts:
         - workshop-2019.datahub.berkeley.edu
@@ -17,12 +10,3 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 4Gi
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/workshop-prod/{username}
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan

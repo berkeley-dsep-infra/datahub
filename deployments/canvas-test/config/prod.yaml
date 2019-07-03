@@ -1,14 +1,7 @@
-nfsMounter:
-  mounts:
-    # FIXME: You need to create this manually on the NFS server
-    - nfsserver1:/export/pool0/homes/_canvas-test=/data/homes/canvas-test-prod
-
 jupyterhub:
   proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of canvas-test.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 34.67.132.203
     https:
       hosts:
         - canvas-test.datahub.berkeley.edu
@@ -17,12 +10,3 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 4Gi
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/canvas-test-prod/{username}
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
