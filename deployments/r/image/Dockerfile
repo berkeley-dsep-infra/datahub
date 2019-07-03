@@ -3,6 +3,8 @@ FROM rocker/geospatial:3.6.0
 ENV NB_USER rstudio
 ENV NB_UID 1000
 ENV CONDA_DIR /srv/conda
+# FIXME: Why do I need to set this here manually?
+ENV REPO_DIR /srv/repo
 
 # Set ENV for all programs...
 ENV PATH ${CONDA_DIR}/bin:$PATH
@@ -45,13 +47,12 @@ RUN pip install --no-cache-dir \
                 nbpdfexport==0.1
 
 # Ship headless chrome in the image
+# FIXME: This should install into /srv/conda, not $HOME
 RUN pyppeteer-install
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel')" && \
-    R --quiet -e "IRkernel::installspec(prefix='${VENV_DIR}')"
-
-COPY --chown=rstudio:rstudio . ${REPO_DIR}
+    R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install some R libraries that aren't in the base image
 COPY --chown=rstudio extras.d  /tmp/extras.d
@@ -66,9 +67,9 @@ RUN chmod -R +x /tmp/extras.d && \
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
 
-# Install requirements.txt if it exists
-RUN [ -f ${REPO_DIR}/requirements.txt ] && \
-    pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+COPY --chown=rstudio:rstudio . ${REPO_DIR}
+
+RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
