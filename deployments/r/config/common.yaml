@@ -1,6 +1,12 @@
 nfsMounter:
-  # Re-use datahub's mount
   enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
 
 jupyterhub:
   hub:
@@ -20,11 +26,25 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/rstudio && ls -lhd /home/rstudio"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/rstudio
+          subPath: "{username}"
+    storage:
+      type: static
+      homeMountPath: /home/rstudio
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
     defaultUrl: "/rstudio"
     memory:
       guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/r-user-image
-    storage:
-      type: hostPath
