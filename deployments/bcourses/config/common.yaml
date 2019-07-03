@@ -1,3 +1,12 @@
+nfsMounter:
+  enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
 jupyterhub:
   auth:
     type: lti
@@ -9,6 +18,21 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_bcourses/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_bcourses/{username}"
     memory:
       guarantee: 512M
       limit: 1G
