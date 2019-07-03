@@ -20,6 +20,8 @@ WORKDIR ${HOME}
 
 # Install packages needed by nbpdfexport
 # Default fonts seem ok, we just install an emoji font
+# Can't use fonts-noto-color-emoji since this is based
+# on debian stretch
 RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -32,7 +34,7 @@ RUN apt-get update && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            fonts-noto-color-emoji && \
+            fonts-symbola && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
