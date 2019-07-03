@@ -1,7 +1,16 @@
+# Base
+notebook==5.7.8
+jupyterlab==0.35.4
+nbgitpuller==0.6.1
+nbpdfexport==0.2.1
+nbzip==0.0.4
+jupyterhub==1.0.0
+appmode==0.4.0
+nbresuse==0.3.1
+ipywidgets==7.2.1
 #
 # data8; foundation
 tornado==5.1.1
-notebook==5.7.8
 datascience==0.11.4
 matplotlib==3.1.0
 numpy==1.16.0
@@ -9,14 +18,7 @@ pandas==0.23.4
 scipy==1.2.0
 statsmodels==0.8.0
 okpy==1.12.5
-nbgitpuller==0.6.1
-nbzip==0.0.4
-jupyterlab==0.35.4
 ipympl==0.2.1
-ipywidgets==7.2.1
-jupyterhub==1.0.0
-appmode==0.4.0
-nbresuse==0.3.1
 #
 # r
 jupyter-server-proxy==1.0.1
