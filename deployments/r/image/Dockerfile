@@ -46,9 +46,10 @@ RUN pip install --no-cache-dir \
                 notebook==5.7.8 \
                 nbpdfexport==0.1
 
-# Ship headless chrome in the image
+# Set up nbpdf dependencies
 ENV PYPPETEER_HOME /srv/conda
 RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel')" && \
