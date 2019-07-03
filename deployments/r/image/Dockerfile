@@ -47,7 +47,7 @@ RUN pip install --no-cache-dir \
                 nbpdfexport==0.1
 
 # Ship headless chrome in the image
-# FIXME: This should install into /srv/conda, not $HOME
+ENV PYPPETEER_HOME /srv/conda
 RUN pyppeteer-install
 
 # Install IRKernel
