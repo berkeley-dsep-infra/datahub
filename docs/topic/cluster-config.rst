@@ -182,22 +182,81 @@ We try use a descriptive name as much as possible.
 Azure Kubernetes Service
 ========================
 
+Subscription owner access
+-------------------------
+
+Use 'role', not cluster. Global administrator on the directory service.
+
+SPA / Account access clusterfuck
+--------------------------------
+
+Options: Use your gmail.com address, or use ds-instr SPA. Using berkeley.edu
+account with azure without the SPA might make you want to tear your
+hair out.
+
 Microsoft Azure also provides a managed kubernetes service and we have run
 at least one large course on it each semester. The following commands will
 create a suitable cluster on AKS:
 
 .. code:: bash
 
-    az group create --name <group-name> --location=westus2
+   az group create --name <group-name> --location=westus2
+
+Make a new SSH Key
+------------------
+
+Put it in secrets folder
+
+.. code:: bash
+
+   ssh-keygen -f deployments/<deployment-name>/secrets/aks_ssh_key
+
+Create service principal
+------------------------
+
+You should create a new service principal for this cluster. We should
+probably scope this a bit more, otherwise I think this gives it too
+many privileges.
+
+.. code:: bash
+
+   az ad sp create-for-rbac \
+      --role=Contributor \
+      --scopes=/subscriptions/<uuid-of-active subscription> \
+      -o json > deployments/<deployment-name>/secrets/serviceprincipal.json
+
+Kubernetes Version
+------------------
+
+Find out latest version of Kubernetes supported by AKS and use it.
+Move forward if possible, not backwards. 'Stability' is a myth and does
+not exist in this world we have now.
+
+.. code:: bash
+
+   az aks get-versions -l westus2
+
+Create cluster
+--------------
+.. code:: bash
+
+   export AZURE_CLUSTER_NAME=data100-fall-2019
+   export AZURE_DEPLOYMENT=data100
+
+Pick the latest version at this time. You *might* need to update your local
+version of az to get this more accurate.
 
     az aks create \
-        --name <cluster-name> \
-        --resource-group <group-name> \
-        --ssh-key-value /path/to/ssh-key.pub \
-        --node-count 3 \
+        --name $AZURE_CLUSTER_NAME \
+        --resource-group $AZURE_CLUSTER_NAME \
+        --ssh-key-value deployments/$AZURE_DEPLOYMENT/secrets/aks_ssh_key.pub \
+        --node-count 1 \
         --node-vm-size Standard_E16s_v3 \
         --node-osdisk-size 100 \
-        --kubernetes-version 1.11.5 \
+        --kubernetes-version 1.14.0 \
+        --nodepool-name default \
+        --service-principal $(jq -r .appId deployments/$AZURE_DEPLOYMENT/secrets/serviceprincipal.json) \
+        --client-secret $(jq -r .password deployments/$AZURE_DEPLOYMENT/secrets/serviceprincipal.json) \
         --output table
 
 The first command creates a `resource group <https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest>`_ in a local region and the second
