@@ -30,7 +30,7 @@ the currently favored configuration.
    gcloud container clusters create \
         --enable-ip-alias \
         --enable-autoscaling \
-        --max-nodes=20 --min-nodes=2 \
+        --max-nodes=20 --min-nodes=1 \
         --region=us-central1 --node-locations=us-central1-b \
         --image-type=ubuntu \
         --disk-size=100 --disk-type=pd-standard \
@@ -39,16 +39,26 @@ the currently favored configuration.
         --no-enable-autoupgrade \
         --enable-network-policy \
         --create-subnetwork="" \
+        --tags=hub-cluster \
         <cluster-name>
 
-.. note::
+.. code:: bash
 
-   The following flags have been recently added for additional security.
-   All new clusters created should have them, but older clusters might not.
+    gcloud container node-pools create  \
+        --machine-type n1-standard-8 \
+        --num-nodes 1 \
+        --enable-autoscaling \
+        --min-nodes 1 --max-nodes 20 \
+        --node-labels hub.jupyter.org/node-purpose=user \
+        --node-taints hub.jupyter.org_dedicated=user:NoSchedule \
+        --region=us-central1 \
+        --image-type=ubuntu \
+        --disk-size=100 --disk-type=pd-standard \
+        --no-enable-autoupgrade \
+        --tags=hub-cluster \
+        --cluster=<cluster-name> \
+        user-pool
 
-     #. ``--enable-network-policy``
-
-We will try explain the various arguments to this command line invocation.
 
 IP Aliasing
 -----------
@@ -172,6 +182,24 @@ only the flows you want. The JupyterHub chart we use supports setting up
 appropriate NetworkPolicy objects it needs, so we should turn it on for
 additional security depth. Note that any extra in-cluster services we run
 *must* have a NetworkPolicy set up for them to work reliabliy.
+
+Subnetwork
+----------
+
+We put each cluster in its own subnetwork, since *seems* to be a limit on how
+many clusters you can create in the same network with IP aliasing on - you
+just run out of addresses. This also gives us some isolation - subnetworks
+are isolated by default and can't reach other resources. You must add
+`firewall rules <https://cloud.google.com/vpc/docs/using-firewalls>`_ to
+provide access, including access to any manually run NFS servers.
+We add tags for this.
+
+Tags
+----
+
+To help with firewalling, we add `network tags <https://cloud.google.com/vpc/docs/add-remove-network-tags>`_
+to all our cluster nodes. This lets us add firewall rules to control traffic
+between subnetworks.
 
 Cluster name
 ------------
