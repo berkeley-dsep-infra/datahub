@@ -11,7 +11,7 @@ ipywidgets==7.2.1
 #
 # data8; foundation
 tornado==5.1.1
-datascience==0.11.4
+datascience==0.13.5
 matplotlib==3.1.0
 numpy==1.16.0
 pandas==0.23.4
@@ -19,6 +19,7 @@ scipy==1.2.0
 statsmodels==0.8.0
 okpy==1.12.5
 ipympl==0.2.1
+folium==0.9.1
 #
 # r
 jupyter-server-proxy==1.0.1
@@ -106,3 +107,4 @@ ffmpeg-python==0.1.17
 # data 88; fall 2019
 mpmath==1.1.0
 sympy==1.4
+mcautograder==0.0.5
