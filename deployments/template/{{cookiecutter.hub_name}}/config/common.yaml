@@ -15,5 +15,18 @@ jupyterhub:
       limit: 1G
     image:
       name: gcr.io/{{cookiecutter.project_name}}/{{cookiecutter.hub_name}}-user-image
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_{{cookiecutter.hub_name}}/{username}"
     storage:
-      type: hostPath
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "__{{cookiecutter.hub_name}}/{username}"

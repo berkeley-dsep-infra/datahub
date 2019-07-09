@@ -1,8 +1,5 @@
-nfsMounter:
-  enabled: true
-
 nfsPVC:
-  enabled: false
+  enabled: true
 jupyterhub:
   auth:
     google:
