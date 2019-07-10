@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
+    serverIP: 10.209.253.50
     shareName: export/pool0/homes
 
 jupyterhub:
