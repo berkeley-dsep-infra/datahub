@@ -1,11 +1,8 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
+    serverIP: 10.209.253.50
+    shareName: userhomes
 
 jupyterhub:
   auth:

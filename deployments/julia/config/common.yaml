@@ -1,6 +1,3 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
