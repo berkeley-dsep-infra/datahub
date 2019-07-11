@@ -62,7 +62,7 @@ RUN R --quiet -e "install.packages('IRkernel')" && \
 # Install some R libraries that aren't in the base image
 COPY --chown=rstudio extras.d  /tmp/extras.d
 
-RUN ls /tmp/extras.d | xargs -L1 Rscript
+RUN find /tmp/extras.d -type f | xargs -L1 Rscript
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
