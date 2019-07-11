@@ -246,6 +246,8 @@ Create cluster
 Pick the latest version at this time. You *might* need to update your local
 version of az to get this more accurate.
 
+.. code:: bash
+
     az aks create \
         --name $AZURE_CLUSTER_NAME \
         --resource-group $AZURE_CLUSTER_NAME \
