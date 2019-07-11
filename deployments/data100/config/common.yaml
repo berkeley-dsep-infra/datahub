@@ -18,3 +18,5 @@ jupyterhub:
       tag: python-3.7.3
     storage:
       type: none
+nfsPVC:
+  enabled: false
