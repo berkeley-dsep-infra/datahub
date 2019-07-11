@@ -1,6 +1,14 @@
+images:
+  image_name: berkeleydsep/data100-fall-2019
+  registry:
+    provider: dockerhub
+    dockerhub:
+      credentials_file: dockerhub-creds.yaml
+
 cluster:
   provider: azure
   azure:
     resource_group: data100-fall-2019
     cluster: data100-fall-2019
     auth_file: serviceprincipal.json
+

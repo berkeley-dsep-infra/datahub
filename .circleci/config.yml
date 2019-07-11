@@ -83,6 +83,12 @@ jobs:
           command: |
             hubploy build workshop --commit-range ${COMMIT_RANGE}
 
+      - run:
+          name: Test building data100 image if needed
+          command: |
+            hubploy build data100 --commit-range ${COMMIT_RANGE}
+
+
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
