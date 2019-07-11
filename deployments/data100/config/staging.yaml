@@ -1,10 +1,5 @@
 jupyterhub:
   proxy:
-    # service:
-      # make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of data100.datahub.berkeley.edu
-    # uncomment once DNS entry has been made
-    # https:
-      # hosts:
-        # - data100-staging.datahub.berkeley.edu
+    https:
+      hosts:
+        - data100-staging.datahub.berkeley.edu
