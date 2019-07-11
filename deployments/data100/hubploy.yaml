@@ -1,0 +1,6 @@
+cluster:
+  provider: azure
+  azure:
+    resource_group: data100-fall-2019
+    cluster: data100-fall-2019
+    auth_file: serviceprincipal.json
