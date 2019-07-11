@@ -66,8 +66,7 @@ COPY --chown=rstudio extras.d  /tmp/extras.d
 # FIXME: Find something less sucky
 # another hubploy #1
 RUN chmod -R +x /tmp/extras.d && \
-	run-parts /tmp/extras.d > /tmp/r-custom-packages.log 2>&1 && \
-    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
+	run-parts /tmp/extras.d
 
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
