@@ -61,15 +61,8 @@ RUN R --quiet -e "install.packages('IRkernel')" && \
 
 # Install some R libraries that aren't in the base image
 COPY --chown=rstudio extras.d  /tmp/extras.d
-# CircleCI stops printing output at 40k chars.
-# We send stdout to a log file, and tail it a bit
-# FIXME: Find something less sucky
-# another hubploy #1
-RUN chmod -R +x /tmp/extras.d && \
-	run-parts /tmp/extras.d
 
-RUN tail /tmp/r-custom-packages.log
-RUN rm /tmp/r-custom-packages.log
+RUN ls /tmp/extras.d | xargs -L1 Rscript
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
