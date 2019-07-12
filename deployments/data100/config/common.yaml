@@ -1,0 +1,22 @@
+jupyterhub:
+  auth:
+    type: dummy
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+
+  singleuser:
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: jupyter/base-notebook
+      tag: python-3.7.3
+    storage:
+      type: none
+nfsPVC:
+  enabled: false
