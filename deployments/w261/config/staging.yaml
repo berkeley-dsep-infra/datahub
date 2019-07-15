@@ -1,7 +1,6 @@
 jupyterhub:
   proxy:
-    service:
-      loadBalancerIP: 35.202.124.242
     https:
+      enabled: false
       hosts:
         - w261-staging.datahub.berkeley.edu
