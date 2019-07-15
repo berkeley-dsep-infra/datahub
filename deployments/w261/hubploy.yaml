@@ -11,5 +11,5 @@ cluster:
   gcloud:
     project: ucb-datahub-2018
     service_key: gke-key.json
-    cluster: summer-2019
+    cluster: w261-testing
     zone: us-central1
