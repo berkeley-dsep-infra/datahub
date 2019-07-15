@@ -1,15 +1,15 @@
 images:
-  image_name: gcr.io/ucb-datahub-2018/w261-user-image
+  image_name: gcr.io/ucb-w261-hub/w261-user-image
   registry:
     provider: gcloud
     gcloud:
-      project: ucb-datahub-2018
+      project: ucb-w261-hub
       service_key: gcr-key.json
 
 cluster:
   provider: gcloud
   gcloud:
-    project: ucb-datahub-2018
+    project: ucb-w261-hub
     service_key: gke-key.json
-    cluster: fall-2019
+    cluster: w261-2019
     zone: us-central1
