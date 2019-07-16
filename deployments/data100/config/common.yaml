@@ -1,22 +1,64 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: homes/prod/home
+
 jupyterhub:
   auth:
     type: dummy
     admin:
       users:
-          # infrastructure
-          - rylo
-          - yuvipanda
-          - felder
-          # List of other admin users
+        # infrastructure
+        - rylo
+        - yuvipanda
+        - felder
+        # instructors
+        - denero
+        - sandrine
+        # gsis
+        - data100.instructors
+        - sona.jeswani
+        - philippe_boileau
+        - suraj.rampure
+        - xmo
+        - allenshen5
+        - amandhar
+        - jinkyu.kim
+        - murphy2122
+        - janaki.vivrekar
+        - junseopark
+        - samirnaqvi
+        - lhtonywei
+        - ashleychien
+        - sumukhshiv
+        - neilshah430
+        - ananth.agarwal
+        - schaganty
+        - manana.hakobyan
+        - daniel.zhu
+        - hatim.ezbakhe
+        - jinkyu.kim
+        - crankshaw
 
   singleuser:
-    memory:
-      guarantee: 512M
-      limit: 1G
-    image:
-      name: jupyter/base-notebook
-      tag: python-3.7.3
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
     storage:
-      type: none
-nfsPVC:
-  enabled: false
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 1G
+      limit: 2G
+    image:
+      name: docker.io/berkeleydsep/singleuser-data100
