@@ -1,8 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    #serverIP: nfsserver
-    serverIP: 10.240.0.7
+    serverIP: nfsserver1
     shareName: homes/prod/home
 
 jupyterhub:
