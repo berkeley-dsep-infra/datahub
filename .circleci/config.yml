@@ -69,6 +69,11 @@ jobs:
             hubploy build canvas-test --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building w261 image if needed
+          command: |
+            hubploy build w261 --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building data8x image if needed
           command: |
             hubploy build data8x --commit-range ${COMMIT_RANGE}
@@ -82,6 +87,16 @@ jobs:
           name: Test building workshop image if needed
           command: |
             hubploy build workshop --commit-range ${COMMIT_RANGE}
+
+      - run:
+          name: Test building data100 image if needed
+          command: |
+            hubploy build data100 --commit-range ${COMMIT_RANGE}
+
+      - run:
+          name: Test building w261 image if needed
+          command: |
+            hubploy build w261 --commit-range ${COMMIT_RANGE}
 
   deploy:
     docker:
@@ -164,6 +179,11 @@ jobs:
             hubploy build canvas-test --check-registry --push
 
       - run:
+          name: Build w261 image if needed
+          command: |
+            hubploy build w261 --check-registry --push
+
+      - run:
           name: Build data8x image if needed
           command: |
             hubploy build data8x --check-registry --push
@@ -177,6 +197,11 @@ jobs:
           name: Build workshop image if needed
           command: |
             hubploy build workshop --check-registry --push
+
+      - run:
+          name: Build w261 image if needed
+          command: |
+            hubploy build w261 --check-registry --push
 
       - run:
           name: Install helm
@@ -219,6 +244,11 @@ jobs:
             hubploy deploy canvas-test hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy w261
+          command: |
+            hubploy deploy w261 hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy data8x
           command: |
             hubploy deploy data8x hub ${CIRCLE_BRANCH}
@@ -232,6 +262,11 @@ jobs:
           name: Deploy workshop
           command: |
             hubploy deploy workshop hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy w261
+          command: |
+            hubploy deploy w261 hub ${CIRCLE_BRANCH}
 
 workflows:
   version: 2

@@ -5,8 +5,7 @@ jupyterhub:
         # This also holds logs
         storage: 4Gi
   proxy:
-    service:
-      loadBalancerIP: 35.202.51.47
     https:
+      enabled: false
       hosts:
         - w261.datahub.berkeley.edu
