@@ -89,6 +89,11 @@ jobs:
             hubploy build workshop --commit-range ${COMMIT_RANGE}
 
       - run:
+          name: Test building data100 image if needed
+          command: |
+            hubploy build data100 --commit-range ${COMMIT_RANGE}
+
+      - run:
           name: Test building w261 image if needed
           command: |
             hubploy build w261 --commit-range ${COMMIT_RANGE}
