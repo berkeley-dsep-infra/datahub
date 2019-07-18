@@ -6,7 +6,7 @@ nfsPVC:
 
 jupyterhub:
   auth:
-    type: google
+    type: canvas
     admin:
       users:
           # infrastructure

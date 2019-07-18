@@ -14,7 +14,9 @@ ENV PATH /usr/local/google-cloud-sdk/bin:${PATH}
 RUN gcloud components install kubectl
 
 COPY sparklyspawner /srv/sparklyspawner
-
 RUN python3 -m pip install --no-cache /srv/sparklyspawner
+
+COPY canvasauthenticator /srv/canvasauthenticator
+RUN python3 -m pip install --no-cache /srv/canvasauthenticator
 
 USER ${NB_USER}
