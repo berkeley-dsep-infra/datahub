@@ -13,7 +13,7 @@ jupyterhub:
         c.KubeSpawner.working_dir = '/home/rstudio'
 
   auth:
-    type: google
+    type: custom # This enables canvas auth
     admin:
       users:
           # infrastructure
