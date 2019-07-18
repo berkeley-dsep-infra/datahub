@@ -64,11 +64,6 @@ jobs:
             hubploy build r --commit-range ${COMMIT_RANGE}
 
       - run:
-          name: Test building canvas-test image if needed
-          command: |
-            hubploy build canvas-test --commit-range ${COMMIT_RANGE}
-
-      - run:
           name: Test building w261 image if needed
           command: |
             hubploy build w261 --commit-range ${COMMIT_RANGE}
@@ -82,16 +77,6 @@ jobs:
           name: Test building external image if needed
           command: |
             hubploy build external --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building workshop image if needed
-          command: |
-            hubploy build workshop --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building data100 image if needed
-          command: |
-            hubploy build data100 --commit-range ${COMMIT_RANGE}
 
       - run:
           name: Test building w261 image if needed
@@ -174,11 +159,6 @@ jobs:
             hubploy build r --check-registry --push
 
       - run:
-          name: Build Canvas image if needed
-          command: |
-            hubploy build canvas-test --check-registry --push
-
-      - run:
           name: Build w261 image if needed
           command: |
             hubploy build w261 --check-registry --push
@@ -192,11 +172,6 @@ jobs:
           name: Build external image if needed
           command: |
             hubploy build external --check-registry --push
-
-      - run:
-          name: Build workshop image if needed
-          command: |
-            hubploy build workshop --check-registry --push
 
       - run:
           name: Build w261 image if needed
@@ -239,11 +214,6 @@ jobs:
             hubploy deploy r hub ${CIRCLE_BRANCH}
 
       - run:
-          name: Deploy Canvas
-          command: |
-            hubploy deploy canvas-test hub ${CIRCLE_BRANCH}
-
-      - run:
           name: Deploy w261
           command: |
             hubploy deploy w261 hub ${CIRCLE_BRANCH}
@@ -257,11 +227,6 @@ jobs:
           name: Deploy external
           command: |
             hubploy deploy external hub ${CIRCLE_BRANCH}
-
-      - run:
-          name: Deploy workshop
-          command: |
-            hubploy deploy workshop hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy w261

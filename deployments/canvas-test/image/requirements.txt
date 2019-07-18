@@ -1,2 +1,0 @@
-nbgitpuller==0.6.1
-nbresuse==0.3.1

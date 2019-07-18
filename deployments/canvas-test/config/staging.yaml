@@ -1,7 +1,0 @@
-jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 34.67.161.13
-    https:
-      hosts:
-        - canvas-test-staging.datahub.berkeley.edu
