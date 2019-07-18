@@ -1,6 +1,5 @@
 jupyterhub:
   proxy:
     https:
-      enabled: false
       hosts:
         - w261-staging.datahub.berkeley.edu
