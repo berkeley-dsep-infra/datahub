@@ -4,12 +4,14 @@ set -euo pipefail
 
 export HADOOP_HOME=${CONDA_DIR}/hadoop
 export SPARK_HOME=${CONDA_DIR}/spark
+export GCLOUD_HOME=${CONDA_DIR}/gcloud
 
 # Setup spark / hadoop / java related environments
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
-export PATH=${HADOOP_HOME}/bin/:$PATH
 export HADOOP_CLASSPATH="$(hadoop classpath):${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar"
 export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}
+
+export PATH=${GCLOUD_HOME}/bin:${HADOOP_HOME}/bin/:$PATH
 
 # FIXME: These environment variables should be dynamically set
 export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json
