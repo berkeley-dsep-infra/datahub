@@ -13,8 +13,12 @@ export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}
 
 export PATH=${GCLOUD_HOME}/bin:${HADOOP_HOME}/bin/:$PATH
 
-# FIXME: These environment variables should be dynamically set
-export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json
-export GS_PROJECT_ID=ucb-datahub-2018
+# Set up Application Default Credentials so GCP client libraries can discover them
+# automatically
+mkdir -p ${GCLOUD_HOME}/creds
+echo "${SPARK_GCS_KEY}" > ${GCLOUD_HOME}/creds/gcs-key.json
+export GOOGLE_APPLICATION_CREDENTIALS=${GCLOUD_HOME}/creds/gcs-key.json
+# FIXME: This environment variables should be dynamically set
+export GS_PROJECT_ID=ucb-w261-hub
 
 exec "$@"
