@@ -17,7 +17,11 @@ export PATH=${GCLOUD_HOME}/bin:${HADOOP_HOME}/bin/:$PATH
 # automatically
 mkdir -p ${GCLOUD_HOME}/creds
 echo "${SPARK_GCS_KEY}" > ${GCLOUD_HOME}/creds/gcs-key.json
+# This is used by most libraries, including gcloud itself
 export GOOGLE_APPLICATION_CREDENTIALS=${GCLOUD_HOME}/creds/gcs-key.json
+# However, it looks like gsutil needs this?
+${GCLOUD_HOME}/bin/gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+
 # FIXME: This environment variables should be dynamically set
 export GS_PROJECT_ID=ucb-w261-hub
 
