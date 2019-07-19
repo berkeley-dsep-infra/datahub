@@ -17,7 +17,7 @@ jupyterhub:
         c.SparklySpawner.service_account_template = 'w261-user-{username}'
         c.SparklySpawner.gcp_project = 'ucb-w261-hub'
   auth:
-    type: google
+    type: custom # Uses canvas auth
     admin:
       users:
           # infrastructure
