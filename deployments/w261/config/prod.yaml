@@ -6,6 +6,5 @@ jupyterhub:
         storage: 4Gi
   proxy:
     https:
-      enabled: false
       hosts:
         - w261.datahub.berkeley.edu
