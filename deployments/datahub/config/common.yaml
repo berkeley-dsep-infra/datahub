@@ -6,7 +6,7 @@ nfsPVC:
 
 jupyterhub:
   auth:
-    type: google
+    type: custom # This enables canvas auth
     admin:
       users:
           # infrastructure
