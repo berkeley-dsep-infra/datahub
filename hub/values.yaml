@@ -1,9 +1,6 @@
 nfsPVC:
   enabled: true
 jupyterhub:
-  auth:
-    google:
-      hostedDomain: [berkeley.edu]
   scheduling:
     userScheduler:
       enabled: true
@@ -32,6 +29,8 @@ jupyterhub:
             - port: 443
               protocol: TCP
   auth:
+    google:
+      hostedDomain: ['berkeley.edu']
     # common settings when using Canvas Auth
     # Enabled by setting 'custom' as auth.type in individual hub config
     custom:
