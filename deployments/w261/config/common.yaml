@@ -13,9 +13,9 @@ jupyterhub:
 
         sparkly_config = z2jh.get_config('custom.sparkly', {})
         c.SparklySpawner.gcp_service_key = sparkly_config.get('gcp_service_key', None)
-        c.SparklySpawner.storage_bucket_template = 'ucb-datahub-2018-w261-{username}'
+        c.SparklySpawner.storage_bucket_template = 'ucb-w261-hub-{username}'
         c.SparklySpawner.service_account_template = 'w261-user-{username}'
-        c.SparklySpawner.gcp_project = 'ucb-datahub-2018'
+        c.SparklySpawner.gcp_project = 'ucb-w261-hub'
   auth:
     type: google
     admin:
@@ -23,6 +23,7 @@ jupyterhub:
           # infrastructure
           - rylo
           - yuvipanda
+          - winegarj
 
   singleuser:
     # HACK: Temporarily give user pods lots of k8s access in their
@@ -47,6 +48,5 @@ jupyterhub:
       guarantee: 512M
       limit: 2G
     image:
-      name: gcr.io/ucb-datahub-2018/w261-user-image
+      name: gcr.io/ucb-w261-hub/w261-user-image
     defaultUrl: "/lab"
-
