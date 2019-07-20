@@ -13,6 +13,22 @@ jupyterhub:
       enabled: true
   proxy:
     nodeSelector: *coreNodeSelector
+    chp:
+      resources:
+        requests:
+          memory: 320Mi
+          cpu: "0.1"
+        limits:
+          memory: 320Mi
+          cpu: "0.5"
+    nginx:
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: "0.25"
+        limits:
+          memory: 512Mi
+          cpu: 1
     https:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
@@ -57,6 +73,13 @@ jupyterhub:
     networkPolicy:
       enabled: true
     nodeSelector: *coreNodeSelector
+    resources:
+      requests:
+        cpu: "0.25"
+        memory: 256Mi
+      limits:
+        cpu: "1"
+        memory: 1Gi
     extraEnv:
       # This is unfortunately still needed by canvas auth
       OAUTH2_AUTHORIZE_URL: https://bcourses.berkeley.edu/login/oauth2/auth
