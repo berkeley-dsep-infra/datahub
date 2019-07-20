@@ -1,8 +1,8 @@
 userNodeSelector: &userNodeSelector
-  cloud.google.com/gke-nodepool: default-pool
+  cloud.google.com/gke-nodepool: user-pool
 
 coreNodeSelector: &coreNodeSelector
-  cloud.google.com/gke-nodepool: user-pool
+  cloud.google.com/gke-nodepool: default-pool
 
 nfsPVC:
   enabled: true
