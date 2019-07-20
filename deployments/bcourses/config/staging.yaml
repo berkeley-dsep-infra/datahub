@@ -1,4 +1,7 @@
 jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
   proxy:
     service:
       # make the IP static in google cloud console so we won't lose it
