@@ -4,6 +4,13 @@ jupyterhub:
   scheduling:
     userScheduler:
       enabled: true
+      resources:
+        requests:
+          memory: 64Mi
+          cpu: "0.05"
+        limits:
+          memory: 512Mi
+          cpu: "0.5"
   proxy:
     chp:
       resources:
