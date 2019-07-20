@@ -9,9 +9,6 @@ jupyterhub:
     userScheduler:
       nodeSelector:
         cloud.google.com/gke-nodepool: default-pool
-  hub:
-    nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
   proxy:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
@@ -33,6 +30,8 @@ jupyterhub:
           - dibya.ghosh
 
   hub:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
     extraConfigMap:
       profiles:
         2019-spring-25622:
