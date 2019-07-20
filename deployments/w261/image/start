@@ -5,13 +5,12 @@ set -euo pipefail
 export HADOOP_HOME=${CONDA_DIR}/hadoop
 export SPARK_HOME=${CONDA_DIR}/spark
 export GCLOUD_HOME=${CONDA_DIR}/gcloud
+export PATH=${GCLOUD_HOME}/bin:${HADOOP_HOME}/bin/:$PATH
 
 # Setup spark / hadoop / java related environments
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
-export HADOOP_CLASSPATH="$(hadoop classpath):${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar"
+export HADOOP_CLASSPATH="$(${HADOOP_HOME}/bin/hadoop classpath):${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar"
 export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}
-
-export PATH=${GCLOUD_HOME}/bin:${HADOOP_HOME}/bin/:$PATH
 
 # Set up Application Default Credentials so GCP client libraries can discover them
 # automatically
