@@ -4,15 +4,25 @@ set -euo pipefail
 
 export HADOOP_HOME=${CONDA_DIR}/hadoop
 export SPARK_HOME=${CONDA_DIR}/spark
+export GCLOUD_HOME=${CONDA_DIR}/gcloud
 
 # Setup spark / hadoop / java related environments
 export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
-export PATH=${HADOOP_HOME}/bin/:$PATH
 export HADOOP_CLASSPATH="$(hadoop classpath):${SPARK_HOME}/jars/gcs-connector-latest-hadoop2.jar"
 export SPARK_DIST_CLASSPATH=${HADOOP_CLASSPATH}
 
-# FIXME: These environment variables should be dynamically set
-export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcs-key.json
-export GS_PROJECT_ID=ucb-datahub-2018
+export PATH=${GCLOUD_HOME}/bin:${HADOOP_HOME}/bin/:$PATH
+
+# Set up Application Default Credentials so GCP client libraries can discover them
+# automatically
+mkdir -p ${GCLOUD_HOME}/creds
+echo "${SPARK_GCS_KEY}" > ${GCLOUD_HOME}/creds/gcs-key.json
+# This is used by most libraries, including gcloud itself
+export GOOGLE_APPLICATION_CREDENTIALS=${GCLOUD_HOME}/creds/gcs-key.json
+# However, it looks like gsutil needs this?
+${GCLOUD_HOME}/bin/gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+
+# FIXME: This environment variables should be dynamically set
+export GS_PROJECT_ID=ucb-w261-hub
 
 exec "$@"
