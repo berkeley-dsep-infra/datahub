@@ -1,18 +1,10 @@
-userNodeSelector: &userNodeSelector
-  cloud.google.com/gke-nodepool: user-pool
-
-coreNodeSelector: &coreNodeSelector
-  cloud.google.com/gke-nodepool: default-pool
-
 nfsPVC:
   enabled: true
 jupyterhub:
   scheduling:
     userScheduler:
-      nodeSelector: *coreNodeSelector
       enabled: true
   proxy:
-    nodeSelector: *coreNodeSelector
     chp:
       resources:
         requests:
@@ -35,7 +27,6 @@ jupyterhub:
     networkPolicy:
       enabled: true
   singleuser:
-    nodeSelector: *userNodeSelector
     defaultUrl: /tree
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
@@ -72,7 +63,6 @@ jupyterhub:
       tag: '0.1.0-80d0432'
     networkPolicy:
       enabled: true
-    nodeSelector: *coreNodeSelector
     resources:
       requests:
         cpu: "0.25"
