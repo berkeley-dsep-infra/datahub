@@ -78,11 +78,6 @@ jobs:
           command: |
             hubploy build external --commit-range ${COMMIT_RANGE}
 
-      - run:
-          name: Test building w261 image if needed
-          command: |
-            hubploy build w261 --commit-range ${COMMIT_RANGE}
-
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -174,11 +169,6 @@ jobs:
             hubploy build external --check-registry --push
 
       - run:
-          name: Build w261 image if needed
-          command: |
-            hubploy build w261 --check-registry --push
-
-      - run:
           name: Install helm
           command: |
             curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
@@ -227,11 +217,6 @@ jobs:
           name: Deploy external
           command: |
             hubploy deploy external hub ${CIRCLE_BRANCH}
-
-      - run:
-          name: Deploy w261
-          command: |
-            hubploy deploy w261 hub ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
