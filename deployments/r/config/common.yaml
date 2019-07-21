@@ -6,7 +6,16 @@ nfsPVC:
 
 
 jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: default-pool
+  proxy:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
   hub:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
     extraConfig:
       # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
       04-rstudio-home: |
@@ -23,6 +32,8 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: user-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox

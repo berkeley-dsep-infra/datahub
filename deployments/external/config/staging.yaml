@@ -1,4 +1,7 @@
 jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
   proxy:
     service:
       loadBalancerIP: 35.225.68.82
