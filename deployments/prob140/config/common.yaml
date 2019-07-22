@@ -1,8 +1,8 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: 10.209.253.50
-    shareName: userhomes
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
 
 jupyterhub:
   scheduling:
@@ -13,7 +13,7 @@ jupyterhub:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
   auth:
-    type: custom # Uses canvas auth
+    type: google
     admin:
       users:
           # infrastructure
