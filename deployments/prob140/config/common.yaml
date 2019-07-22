@@ -13,7 +13,7 @@ jupyterhub:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
   auth:
-    type: custom # Uses canvas auth
+    type: google
     admin:
       users:
           # infrastructure
