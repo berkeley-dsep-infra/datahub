@@ -1,5 +1,5 @@
 nfsPVC:
-  enabled: true
+  enabled: false
   nfs:
     serverIP: 10.40.69.178
     shareName: userhomes
@@ -26,24 +26,8 @@ jupyterhub:
           - winegarj
 
   singleuser:
-    # HACK: Temporarily give user pods lots of k8s access in their
-    # own namespace. We will lock this down later before productionizing.
-    serviceAccountName: default
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "_w261/{username}"
     storage:
-      type: static
-      static:
-        pvcName: home-nfs
-        subPath: "_w261/{username}"
+      type: dynamic
     memory:
       guarantee: 512M
       limit: 2G
