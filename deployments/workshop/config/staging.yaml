@@ -1,7 +1,0 @@
-jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 34.68.121.88
-    https:
-      hosts:
-        - workshop-2019-staging.datahub.berkeley.edu

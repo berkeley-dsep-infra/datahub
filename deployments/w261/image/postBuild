@@ -48,3 +48,11 @@ cp ${REPO_DIR}/core-site.xml ${HADOOP_HOME}/etc/hadoop/core-site.xml
 
 # Add HDFS configs to Spark
 cp ${REPO_DIR}/spark-env.sh ${SPARK_HOME}/conf/spark-env.sh
+
+# Install gcloud and kubectl commands
+GCLOUD_HOME=${CONDA_DIR}/gcloud
+mkdir -p ${GCLOUD_HOME}
+wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-245.0.0-linux-x86_64.tar.gz -O - | \
+    tar -xz --strip 1 -C ${GCLOUD_HOME}
+
+${GCLOUD_HOME}/bin/gcloud components install kubectl

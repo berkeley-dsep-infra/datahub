@@ -1,4 +1,10 @@
 jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
   proxy:
     service:
       loadBalancerIP: 34.68.107.18
