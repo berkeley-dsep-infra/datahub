@@ -1,9 +1,11 @@
 images:
-  image_name: berkeleydsep/data100-fall-2019
+  image_name: gcr.io/ucb-datahub-2018/data100-user-image
+
   registry:
-    provider: docker
-    docker:
-      auth_file: dockerhub-creds.yaml
+    provider: gcloud
+    gcloud:
+      project: ucb-datahub-2018
+      service_key: gcr-key.json
 
 cluster:
   provider: azure

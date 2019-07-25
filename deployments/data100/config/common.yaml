@@ -61,4 +61,4 @@ jupyterhub:
       guarantee: 1G
       limit: 2G
     image:
-      name: docker.io/berkeleydsep/singleuser-data100
+      name: gcr.io/ucb-datahub-2018/data100-user-image
