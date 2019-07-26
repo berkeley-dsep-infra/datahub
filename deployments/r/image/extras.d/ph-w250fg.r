@@ -18,7 +18,7 @@ print("Installing assertthat...")
 devtools::install_github('cran/assertthat', ref='0.2.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing dplyr...")
-devtools::install_github('cran/dplyr', ref='0.8.1', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/dplyr', ref='0.8.1', upgrade_dependencies=FALSE, quiet=FALSE)
 
 print("Installing ggplot2...")
 devtools::install_github('cran/ggplot2', ref='3.1.0', upgrade_dependencies=FALSE, quiet=TRUE)
