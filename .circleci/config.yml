@@ -213,10 +213,10 @@ jobs:
           command: |
             hubploy deploy r hub ${CIRCLE_BRANCH}
 
-      - run:
-          name: Deploy w261
-          command: |
-            hubploy deploy w261 hub ${CIRCLE_BRANCH}
+      #- run:
+      #    name: Deploy w261
+      #    command: |
+      #      hubploy deploy w261 hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data8x
