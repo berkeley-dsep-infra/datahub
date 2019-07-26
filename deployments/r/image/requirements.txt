@@ -1,2 +1,5 @@
 nbgitpuller==0.6.1
 nbresuse==0.3.1
+
+# Issue #880, for PHW250FG and PH142 - Fall 2019
+okpy==1.14.15
