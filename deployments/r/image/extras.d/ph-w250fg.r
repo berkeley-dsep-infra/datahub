@@ -16,10 +16,10 @@ devtools::install_github('cran/checkr', ref='0.5.0', upgrade_dependencies=FALSE,
 
 # dplyr requires 0.2.1...cran only has 0.2.0
 print("Installing assertthat...")
-devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing dplyr...")
-devtools::install_github('cran/dplyr', ref='0.8.1', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('cran/dplyr', ref='0.8.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing ggplot2...")
 devtools::install_github('cran/ggplot2', ref='3.1.0', upgrade_dependencies=FALSE, quiet=TRUE)
