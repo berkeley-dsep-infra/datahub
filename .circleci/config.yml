@@ -83,6 +83,11 @@ jobs:
           command: |
             hubploy build data100 --commit-range ${COMMIT_RANGE}
 
+      - run:
+          name: Test building data102 image if needed
+          command: |
+            hubploy build data102 --commit-range ${COMMIT_RANGE}
+
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -175,6 +180,11 @@ jobs:
 
       - run:
           name: Build data100 image if needed
+          command: |
+            hubploy build data100 --check-registry --push
+
+      - run:
+          name: Build data102 image if needed
           command: |
             hubploy build data100 --check-registry --push
 
