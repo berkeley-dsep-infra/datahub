@@ -186,7 +186,7 @@ jobs:
       - run:
           name: Build data102 image if needed
           command: |
-            hubploy build data100 --check-registry --push
+            hubploy build data102 --check-registry --push
 
       - run:
           name: Install helm
