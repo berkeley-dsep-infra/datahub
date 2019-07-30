@@ -29,6 +29,9 @@ jupyterhub:
           - rylo
           - yuvipanda
           - felder
+          # PH250WF+PH250WG Instructors, issue 882
+          - jadebc
+          - jcolford
           # List of other admin users
 
   singleuser:
