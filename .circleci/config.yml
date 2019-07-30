@@ -238,6 +238,11 @@ jobs:
           command: |
             hubploy deploy external hub ${CIRCLE_BRANCH}
 
+      - run:
+          name: Deploy data102
+          command: |
+            hubploy deploy data102 hub ${CIRCLE_BRANCH}
+
 workflows:
   version: 2
   build-and-deploy:
