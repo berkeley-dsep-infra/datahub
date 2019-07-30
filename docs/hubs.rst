@@ -38,6 +38,17 @@ gains features around restricting admin use.
 It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018``
 project. You can see :ref:`all config <structure>` for it under ``deployments/prob140``.
 
+Data 100
+========
+
+This hub is for `Data 100 <http://www.ds100.org/>`_ which has a unique
+user and grading environment. It runs on `Microsoft Azure <https://azure.microsoft.com>`_ in the ``data100-19s`` account. You can see :ref:`all config <structure>` for it under ``deployments/data100``.
+
+Data 102
+========
+
+Data 102 runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018`` project. You can see :ref:`all config <structure>` for it under ``deployments/data102``.
+
 bcourses Hub
 ============
 
