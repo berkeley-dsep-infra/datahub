@@ -83,6 +83,11 @@ jobs:
           command: |
             hubploy build data100 --commit-range ${COMMIT_RANGE}
 
+      - run:
+          name: Test building data102 image if needed
+          command: |
+            hubploy build data102 --commit-range ${COMMIT_RANGE}
+
   deploy:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -179,6 +184,11 @@ jobs:
             hubploy build data100 --check-registry --push
 
       - run:
+          name: Build data102 image if needed
+          command: |
+            hubploy build data100 --check-registry --push
+
+      - run:
           name: Install helm
           command: |
             curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
@@ -227,6 +237,11 @@ jobs:
           name: Deploy external
           command: |
             hubploy deploy external hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data102
+          command: |
+            hubploy deploy data102 hub ${CIRCLE_BRANCH}
 
 workflows:
   version: 2

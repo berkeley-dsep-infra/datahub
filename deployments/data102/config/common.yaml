@@ -1,0 +1,55 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: default-pool
+  proxy:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
+  auth:
+    type: google
+    admin:
+      users:
+        # infrastructure
+        - felder
+        - rylo
+        - yuvipanda
+        # instructors
+        - fernando.perez
+        - michael_jordan
+        # gsis
+        #- placeholder
+
+  hub:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
+
+  singleuser:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: user-pool
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_data102/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_data102/{username}"
+    memory:
+      guarantee: 1G
+      limit: 2G
+    image:
+      name: gcr.io/ucb-datahub-2018/data102-user-image
