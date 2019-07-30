@@ -105,7 +105,7 @@ RUN jupyter nbextension install     --sys-prefix --py nbzip
 RUN jupyter nbextension enable      --sys-prefix --py nbzip
 
 # Useful for debugging any issues with conda
-RUN conda info -a
+RUN conda info --all
 
 # Make JupyterHub ports visible
 EXPOSE 8888
