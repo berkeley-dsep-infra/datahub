@@ -152,9 +152,12 @@ jupyterhub:
                 mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
                   self.mem_guarantee = profile_data['mem_guarantee']
 
-            # if user is a student in any course, they never get to be an admin
-            #if is_instructor and not is_student:
-            #   self.user.admin = False
+            # if the user is a student in any course specified by a profile,
+            # they never get to be an admin
+            if is_student:
+              self.user.admin = False
+            elif is_instructor:
+              self.user.admin = True
 
             # custom.admin
             custom_admin = z2jh.get_config('custom.admin', {})
