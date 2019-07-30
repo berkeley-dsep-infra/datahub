@@ -1,0 +1,10 @@
+jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    service:
+      loadBalancerIP: 34.66.74.162
+    https:
+      hosts:
+        - data102-staging.datahub.berkeley.edu
