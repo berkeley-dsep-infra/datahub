@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import logging
 import os
+import shutil
 import sys
 import time
 import tempfile
@@ -105,7 +106,7 @@ def save_emails(profile_dir, profile, people, emails):
 		for email in emails: fp.write(email + '\n')
 	if not os.path.exists(profile_dir):
 		os.mkdir(profile_dir)
-	os.rename(fp.name, filename)
+	shutil.move(fp.name, filename)
 	logger.info(f"saved {filename}")
 
 async def handle_profile(profile, profile_dir):
@@ -118,8 +119,8 @@ async def handle_profile(profile, profile_dir):
 	term_id = int(term_id)
 	logger.debug(f"{year} {term_id} {class_number}")
 
-	#s_emails = await student_emails(term_id, class_number)
-	#save_emails(profile_dir, profile, 'students', s_emails)
+	s_emails = await student_emails(term_id, class_number)
+	save_emails(profile_dir, profile, 'students', s_emails)
 	i_emails = await instructor_emails(term_id, class_number)
 	save_emails(profile_dir, profile, 'instructors', i_emails)
 
