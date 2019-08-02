@@ -12,6 +12,14 @@ jupyterhub:
   hub:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
+    extraConfigMap:
+      profiles:
+        # compsci c8
+        2019-fall-28063: {}
+        # pbhlth w250f
+        2019-fall-29639: {}
+        # pbhlth w250g
+        2019-fall-29640: {}
   proxy:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
