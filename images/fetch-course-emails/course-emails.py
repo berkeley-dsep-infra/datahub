@@ -106,7 +106,7 @@ def save_emails(profile_dir, profile, people, emails):
 		for email in emails: fp.write(email + '\n')
 	if not os.path.exists(profile_dir):
 		os.mkdir(profile_dir)
-	shutil.move(fp.name, filename)
+	#shutil.move(fp.name, filename)
 	logger.info(f"saved {filename}")
 
 async def handle_profile(profile, profile_dir):
