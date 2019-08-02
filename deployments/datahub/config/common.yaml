@@ -12,6 +12,15 @@ jupyterhub:
   hub:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # compsci c8
+        2019-fall-28063: {}
+        # pbhlth w250f
+        2019-fall-29639: {}
+        # pbhlth w250g
+        2019-fall-29640: {}
   proxy:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
@@ -110,12 +119,16 @@ jupyterhub:
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
 
-# read by z2jh.get_config() in hub/values.yaml
 custom:
-  profiles:
-    # compsci c8
-    2019-fall-28063: {}
-    # pbhlth w250f
-    2019-fall-29639: {}
-    # pbhlth w250g
-    2019-fall-29640: {}
+  wtf: "why isn't this passed to config/values.yaml"
+
+# read by z2jh.get_config() in hub/values.yaml
+# (theoretically!)
+# custom:
+#   profiles:
+#     # compsci c8
+#     2019-fall-28063: {}
+#     # pbhlth w250f
+#     2019-fall-29639: {}
+#     # pbhlth w250g
+#     2019-fall-29640: {}
