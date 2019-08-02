@@ -1,0 +1,4 @@
+aiohttp==3.5.4
+ruamel.yaml==0.16.0
+git+https://github.com/ryanlovett/sis-cli.git@1635650
+git+https://github.com/ryanlovett/ucbhr.git@48975fb
