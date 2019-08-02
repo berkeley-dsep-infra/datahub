@@ -117,3 +117,13 @@ jupyterhub:
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
+
+# read by z2jh.get_config() in hub/values.yaml
+custom:
+  profiles:
+    # compsci c8
+    2019-fall-28063: {}
+    # pbhlth w250f
+    2019-fall-29639: {}
+    # pbhlth w250g
+    2019-fall-29640: {}
