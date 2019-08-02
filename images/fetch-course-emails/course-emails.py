@@ -105,8 +105,12 @@ def save_emails(profile_dir, profile, people, emails):
 	with tempfile.NamedTemporaryFile(mode='w', delete=False) as fp:
 		for email in emails: fp.write(email + '\n')
 	if not os.path.exists(profile_dir):
-		os.mkdir(profile_dir)
-	shutil.move(fp.name, filename)
+		os.mkdir(profile_dir, 0o775)
+	try:
+		shutil.move(fp.name, filename)
+	except Exception as e:
+		print(f"Unable to move {filename}")
+		print(e)
 	logger.info(f"saved {filename}")
 
 async def handle_profile(profile, profile_dir):
