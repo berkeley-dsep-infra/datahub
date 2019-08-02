@@ -105,7 +105,7 @@ def save_emails(profile_dir, profile, people, emails):
 	with tempfile.NamedTemporaryFile(mode='w', delete=False) as fp:
 		for email in emails: fp.write(email + '\n')
 	if not os.path.exists(profile_dir):
-		os.mkdir(profile_dir, 0775)
+		os.mkdir(profile_dir, 0o775)
 	try:
 		shutil.move(fp.name, filename)
 	except Exception as e:
