@@ -104,6 +104,7 @@ def save_emails(profile_dir, profile, people, emails):
 	filename = os.path.join(profile_dir, f"{profile}-{people}.txt")
 	with tempfile.NamedTemporaryFile(mode='w', delete=False) as fp:
 		for email in emails: fp.write(email + '\n')
+	os.chmod(fp.name, 0o664)
 	if not os.path.exists(profile_dir):
 		os.mkdir(profile_dir, 0o775)
 	try:
