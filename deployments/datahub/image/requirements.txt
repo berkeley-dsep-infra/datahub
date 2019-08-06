@@ -109,6 +109,7 @@ plotly==4.0.0
 mpmath==1.1.0
 sympy==1.4
 mcautograder==0.0.5
+voila==0.1.9
 
 # issue #875, global 150Q/pacs 190 - fall 2019
 wordcloud==1.5.0
