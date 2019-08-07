@@ -29,7 +29,6 @@ dependencies:
   - jinja2=2.10.1
   - joblib=0.13.2
   - jupyter=1.0.0
-  - jupyterlab=1.0.2
   - jupyter_client=5.3.1
   - jupyter_console=6.0.0
   - jupyter_core=4.5.0
@@ -86,12 +85,13 @@ dependencies:
   - xarray=0.12.1
   - yaml=0.1.7
   - pip:
-    - cufflinks==0.16
-    - plotly_express==0.4.0
+    - plotly==4.1.0
+    - plotly_express==0.4.1
     - tweepy==3.8.0
     - ipympl==0.3.3
     - nbzip==0.1.0
     - nbgitpuller==0.7.0
+    - jupyterlab==1.0.4
     - jupyter-contrib-nbextensions==0.5.1
     # We need JHub installed via pip as there's a conflict with nodejs on the
     # conda repos
