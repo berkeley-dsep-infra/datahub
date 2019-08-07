@@ -73,7 +73,7 @@ USER jovyan
 # Download, install and configure the Conda environment
 
 RUN curl -o /tmp/miniconda.sh \
-	https://repo.continuum.io/miniconda/Miniconda3-4.4.10-Linux-x86_64.sh
+	https://repo.continuum.io/miniconda/Miniconda3-4.7.10-Linux-x86_64.sh
 
 # Install miniconda
 RUN bash /tmp/miniconda.sh -b -u -p ${CONDA_PREFIX}
@@ -98,7 +98,11 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data102/etc/ipython/
 # Installed in conda environment
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
-RUN jupyter labextension install @jupyterlab/hub-extension
+# Install all extensions in one shot to avoid multiple rebuilds
+RUN jupyter labextension install @jupyterlab/hub-extension \
+    @jupyter-widgets/jupyterlab-manager \
+	@jupyterlab/plotly-extension \
+	@jupyterlab/geojson-extension jupyter-matplotlib
 
 RUN jupyter serverextension enable  --sys-prefix --py nbzip
 RUN jupyter nbextension install     --sys-prefix --py nbzip
