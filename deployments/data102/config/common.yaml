@@ -53,3 +53,4 @@ jupyterhub:
       limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/data102-user-image
+    defaultUrl: "/lab"
