@@ -29,72 +29,64 @@ jupyterhub:
     admin:
       users:
           # infrastructure
+          - felder
           - rylo
           - yuvipanda
-          # instructors
+          # regular instructors
           - adhikari
           - culler
           - daw
           - denero
-          - vinitra
           - ramesh_s
           # dsep staff
-          - bacon
           - ericvd
+          - ktakimoto
           - ryanedw
-          # s19 data8 gsis
-          - acheema
+          # f19 data8 gsis
+          - adele.bloch
           - aidandeangelis
-          - akritisingh
-          - alinxie
+          - alanliang
           - ananya.krishnan
+          - andrewdchen
+          - anna.burns
           - anna-nguyen
+          - ashleyquiterio
           - averyyip
+          - carolinejchen
           - castro.ian
-          - clairezhang
           - colbylewis2020
-          - dchotai
-          - echang7
-          - emmajaeger
-          - fmcquarrie3
-          - howardki888
+          - emilykzou
+          - gregking22
+          - gregoryd2017
+          - guanangela
           - hsubbaraj
-          - huangjiayi0922
+          - hubertluo
+          - irenerwang
           - jadeyen
-          - j.hu
+          - jifu.li
           - juliannnguyen
-          - jwarnagieris
-          - katherine.yen
+          - katherinetsai
           - keh7
           - lillianlouie
-          - liusabrina
-          - loischang
-          - makenaschwinn
-          - namushegian
-          - narain.rohan
-          - niraj.a.rao
-          - nwang97
+          - lritter
+          - manikui
+          - mayarao
+          - mayashen
           - olivialewke
           - oscar.syu
+          - parouz
           - ravi.singhal
-          - rishab.s
+          - roshansrin01
           - rwoolf
+          - samwu101
           - sathviknair
+          - saurav
           - scott.lee.3898
-          - sjamil
-          - s.mani
+          - sdjajadi
           - tvilayth
           - vienannguyen
-          - youmnarabie
-          # connector instructors
-          - miladm
-          - cmason
-          - feehan
-          - yasminal
-          - samyag1
-          - michael.eickenberg
-          - shobhana
-
+          - yanayrosen
+          - yashswarup
   singleuser:
     nodeSelector:
       cloud.google.com/gke-nodepool: user-pool
