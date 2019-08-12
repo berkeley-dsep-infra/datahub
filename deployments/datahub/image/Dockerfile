@@ -126,6 +126,9 @@ RUN apt-get -qq update --yes && \
             r-cran-withr \
             r-cran-xml2 \
             r-cran-yaml \
+            r-cran-rlist \
+            r-cran-jsonlite \
+            r-cran-assertthat \
             lsb-release > /dev/null
 
 # Install some R libraries that aren't in the debs

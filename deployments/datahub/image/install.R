@@ -71,3 +71,9 @@ devtools::install_github('cran/dplyr', ref = 'e6ed42a', upgrade_dependencies = F
 
 # github ref is version 0.8.15
 devtools::install_github('cran/irkernel', ref = '238b691', upgrade_dependencies = FALSE)
+
+devtools::install_github('cran/here', ref='0.1', upgrade_dependencies=FALSE)
+
+devtools::install_github('cran/checkr', ref='0.5.0', upgrade_dependencies=FALSE)
+
+devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE)
