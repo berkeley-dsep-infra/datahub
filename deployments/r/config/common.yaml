@@ -16,6 +16,13 @@ jupyterhub:
   hub:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # pbhlth w250f
+        2019-fall-29639: {}
+        # pbhlth w250g
+        2019-fall-29640: {}
     extraConfig:
       # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
       04-rstudio-home: |
@@ -32,6 +39,13 @@ jupyterhub:
           # PH250WF+PH250WG Instructors, issue 882
           - jadebc
           - jcolford
+          # PH250WF+PH250WG student assistants, issue 882
+          - anna-nguyen
+          - lucascarlton
+          - m.ruiz
+          - nolanpokpongkiat
+          - stephaniemholm
+          - wmjilek
           # List of other admin users
 
   singleuser:
