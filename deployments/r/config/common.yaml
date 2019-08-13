@@ -32,6 +32,13 @@ jupyterhub:
           # PH250WF+PH250WG Instructors, issue 882
           - jadebc
           - jcolford
+          # PH250WF+PH250WG student assistants, issue 882
+          - anna-nguyen
+          - lucascarlton
+          - m.ruiz
+          - nolanpokpongkiat
+          - stephaniemholm
+          - wmjilek
           # List of other admin users
 
   singleuser:
