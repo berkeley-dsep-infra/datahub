@@ -22,6 +22,7 @@ WORKDIR ${HOME}
 # Default fonts seem ok, we just install an emoji font
 # Can't use fonts-noto-color-emoji since this is based
 # on debian stretch
+# tcl/tk needed by vioplot/sm (rocker #316)
 RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -34,7 +35,9 @@ RUN apt-get update && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            fonts-symbola && \
+            fonts-symbola \
+            tcl8.6-dev \
+            tk8.6-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -60,7 +63,7 @@ RUN R --quiet -e "install.packages('IRkernel')" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install some R libraries that aren't in the base image
-COPY install-class-libs.R /tmp/install-class-libs.R
+COPY class-libs.R /tmp/class-libs.R
 COPY --chown=rstudio extras.d /tmp/extras.d
 RUN find /tmp/extras.d -type f | xargs -L1 Rscript
 
