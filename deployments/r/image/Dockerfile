@@ -59,7 +59,7 @@ RUN pyppeteer-install
 RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IRKernel
-RUN R --quiet -e "install.packages('IRkernel')" && \
+RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install some R libraries that aren't in the base image
