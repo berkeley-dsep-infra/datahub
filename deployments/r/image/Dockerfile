@@ -60,8 +60,8 @@ RUN R --quiet -e "install.packages('IRkernel')" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install some R libraries that aren't in the base image
-COPY --chown=rstudio extras.d install-class-libs.R /tmp/
-
+COPY install-class-libs.R /tmp/install-class-libs.R
+COPY --chown=rstudio extras.d /tmp/extras.d
 RUN find /tmp/extras.d -type f | xargs -L1 Rscript
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
