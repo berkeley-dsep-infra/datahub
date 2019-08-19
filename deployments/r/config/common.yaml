@@ -73,3 +73,20 @@ jupyterhub:
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/r-user-image
+    networkPolicy:
+      enabled: true
+      egress:
+        # defaults
+        - ports:
+            - port: 53
+              protocol: UDP
+        - ports:
+            - port: 80
+              protocol: TCP
+        - ports:
+            - port: 443
+              protocol: TCP
+        # enabling ssh for private git repos
+        - ports:
+            - port: 22
+              protocol: TCP
