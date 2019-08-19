@@ -14,6 +14,7 @@ class_libs = c(
   "cran/leaps", "2.9",
   "cran/NMF", "0.21.0",
   "cran/randomForest", "4.6-12",
+  "cran/RColorBrewer", "1.1-2",
   "cran/rjson", "0.2.20",
   "cran/rpart.plot", "3.0.7",
   "cran/scatterplot3d", "0.3-41",
