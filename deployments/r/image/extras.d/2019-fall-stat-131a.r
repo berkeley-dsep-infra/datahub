@@ -24,3 +24,6 @@ class_libs = c(
   # "vioplot", "0.3.0"
 )
 class_libs_install_version(class_name, class_libs)
+
+# 0.3.0 via mran 2019-07-05
+install.packages('vioplot')
