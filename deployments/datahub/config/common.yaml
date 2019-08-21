@@ -21,6 +21,8 @@ jupyterhub:
         2019-fall-29639: {}
         # pbhlth w250g
         2019-fall-29640: {}
+        # linguis 243
+        2019-fall-31002: {}
   proxy:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
