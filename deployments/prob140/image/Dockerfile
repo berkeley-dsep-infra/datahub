@@ -73,9 +73,9 @@ RUN pyppeteer-install
 RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install nbzip
-RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
-    jupyter nbextension     install --sys-prefix --py nbzip && \
-    jupyter nbextension     enable  --sys-prefix --py nbzip
+#RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
+#    jupyter nbextension     install --sys-prefix --py nbzip && \
+#    jupyter nbextension     enable  --sys-prefix --py nbzip
 
 ADD ipython_config.py ${APP_DIR}/venv/etc/ipython/ipython_config.py
 ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
