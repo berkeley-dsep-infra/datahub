@@ -215,6 +215,9 @@ RUN /usr/local/sbin/connector-text.bash
 #COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
 #RUN /usr/local/sbin/connector-eps88.bash
 
+COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
+RUN /usr/local/sbin/connector-sw282.bash
+
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
 
