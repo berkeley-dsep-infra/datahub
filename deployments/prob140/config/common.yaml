@@ -32,11 +32,6 @@ jupyterhub:
   hub:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
-    extraConfigMap:
-      profiles:
-        2019-spring-25622:
-          mem_guarantee: 576M
-          mem_limit: 1088M
 
   singleuser:
     nodeSelector:
@@ -61,9 +56,3 @@ jupyterhub:
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/prob140-user-image
-
-# this will be supported later
-#custom:
-#  profiles:
-#    2019-spring-25622:
-#      placeholder: waves
