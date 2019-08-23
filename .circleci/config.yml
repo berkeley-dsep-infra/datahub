@@ -26,6 +26,26 @@ jobs:
             # Install latest repo2docker to https://github.com/jupyter/repo2docker/pull/657
             pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
             echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
+
+      - run:
+          name: Set distribution codename
+          command: |
+            LSB_RELEASE_CODENAME=$(lsb_release -cs)
+            echo $LSB_RELEASE_CODENAME
+            echo "export LSB_RELEASE_CODENAME='${LSB_RELEASE_CODENAME}'" >> ${BASH_ENV}
+
+      # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest
+      - run:
+          name: Install azure client
+          command: |
+            echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $LSB_RELEASE_CODENAME main" | \
+                tee /etc/apt/sources.list.d/azure-cli.list
+            curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+                gpg --dearmor | \
+                tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+            apt-get update  -qq --yes 
+            apt-get install -qq --yes azure-cli
+
       - setup_remote_docker
       - save_cache:
           paths:
