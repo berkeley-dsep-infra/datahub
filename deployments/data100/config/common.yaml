@@ -5,41 +5,23 @@ nfsPVC:
     shareName: homes/prod/home
 
 jupyterhub:
+  hub:
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # stat c100
+        2019-fall-24961: {}
   auth:
     type: dummy
     admin:
       users:
         # infrastructure
+        - felder
         - rylo
         - yuvipanda
-        - felder
-        # instructors
-        - denero
-        - sandrine
         # gsis
         - data100.instructors
-        - sona.jeswani
-        - philippe_boileau
         - suraj.rampure
-        - xmo
-        - allenshen5
-        - amandhar
-        - jinkyu.kim
-        - murphy2122
-        - janaki.vivrekar
-        - junseopark
-        - samirnaqvi
-        - lhtonywei
-        - ashleychien
-        - sumukhshiv
-        - neilshah430
-        - ananth.agarwal
-        - schaganty
-        - manana.hakobyan
-        - daniel.zhu
-        - hatim.ezbakhe
-        - jinkyu.kim
-        - crankshaw
 
   singleuser:
     initContainers:
