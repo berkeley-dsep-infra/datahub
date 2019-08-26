@@ -23,6 +23,8 @@ jupyterhub:
         2019-fall-29639: {}
         # pbhlth w250g
         2019-fall-29640: {}
+        # pbhlth 142
+        2019-fall-29496: {}
         # stat 131a
         2019-fall-23970:
           extraVolumeMounts:
