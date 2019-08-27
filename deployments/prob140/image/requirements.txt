@@ -24,8 +24,4 @@ prob140==0.4.1.2
 gsExport==0.19.1.1
 sympy==1.4
 #
-# nbconvert 5.4.0 with pdf export patch
-#git+https://github.com/ryanlovett/nbconvert.git@16fe302
-#
-#
-git+https://github.com/ryanlovett/jupyter-tree-download.git@a3ad2a1
+git+https://github.com/ryanlovett/jupyter-tree-download.git@b11745c
