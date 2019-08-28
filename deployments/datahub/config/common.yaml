@@ -89,6 +89,52 @@ jupyterhub:
           - vienannguyen
           - yanayrosen
           - yashswarup
+          # f19 data8 tutors
+          - aanika.shah
+          - alvinyu27
+          - brettirvin
+          - celinechen_99
+          - chloelo
+          - connorcclark
+          - devennb
+          - deveshagarwal
+          - dshahroz
+          - ericli3088
+          - erika.n.mack
+          - eshaansoman
+          - fachacoso
+          - fqzbdkh
+          - gnacouzi
+          - harimlee
+          - ikaur
+          - ishaan.srivastava
+          - jacobmartinez
+          - jenniferjia00
+          - karywang
+          - kevin.hsu
+          - kwalia1999
+          - lindseyhanlon
+          - lucyportnoff
+          - marmis
+          - meghanwang
+          - melissarwong
+          - nancywang
+          - nellepersson
+          - netzke
+          - nhanafi
+          - nicholesun
+          - pratibha99
+          - rdoshi99
+          - rinasa525
+          - sophiatan
+          - ssingorahardjo
+          - sunnyshen
+          - vaibhav.pabreja
+          - vikramchandran
+          - winifredchung
+          - wwalsh
+          - youmnarabie
+          - zhoa210
   singleuser:
     nodeSelector:
       cloud.google.com/gke-nodepool: user-pool
