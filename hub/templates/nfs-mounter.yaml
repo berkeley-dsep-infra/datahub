@@ -1,0 +1,31 @@
+{{ if .Values.nfsMounter.enabled }}
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: nfs-mounter
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 100%
+  template:
+    metadata:
+      name: nfs-mounter
+      labels:
+        app: nfs-mounter
+    spec:
+      hostPID: true
+      # Temporarily, I think in production we want to give this more time to exit!
+      terminationGracePeriodSeconds: 0
+      containers:
+        - image: yuvipanda/k8s-nfs-mounter:ca5839a 
+          name: nfs-mounter
+          command:
+            - /usr/local/bin/start-script.py
+          args: {{ toJson .Values.nfsMounter.mounts }}
+          securityContext:
+            privileged: true
+          workingDir: /srv/script
+          securityContext:
+              privileged: true
+{{- end }}
