@@ -26,6 +26,8 @@ jupyterhub:
         2019-fall-29640: {}
         # linguis 243
         2019-fall-31002: {}
+        # data 88
+        2019-fall-33469: {}
   proxy:
     nodeSelector:
       cloud.google.com/gke-nodepool: default-pool
