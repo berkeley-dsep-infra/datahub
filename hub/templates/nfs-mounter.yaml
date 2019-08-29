@@ -14,6 +14,11 @@ spec:
       labels:
         app: nfs-mounter
     spec:
+      tolerations:
+        - effect: NoSchedule
+          # Deploy onto user nodes
+          key: hub.jupyter.org_dedicated
+          value: user
       hostPID: true
       # Temporarily, I think in production we want to give this more time to exit!
       terminationGracePeriodSeconds: 0
