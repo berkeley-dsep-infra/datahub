@@ -1,5 +1,8 @@
-nfsPVC:
+nfsMounter:
   enabled: true
+
+nfsPVC:
+  enabled: false
 jupyterhub:
   scheduling:
     userScheduler:

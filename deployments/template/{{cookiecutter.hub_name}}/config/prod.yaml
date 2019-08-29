@@ -1,3 +1,8 @@
+nfsMounter:
+  mounts:
+    # FIXME: You need to create this manually on the NFS server
+    - nfsserver1:/export/pool0/homes/_{{cookiecutter.hub_name}}=/data/homes/{{cookiecutter.hub_name}}-prod
+
 jupyterhub:
   proxy:
     # service:
@@ -13,3 +18,12 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 4Gi
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/{{cookiecutter.hub_name}}-prod/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan

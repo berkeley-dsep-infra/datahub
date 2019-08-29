@@ -1,4 +1,14 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes=/data/homes/prod
+
 jupyterhub:
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/prod/{username}
   proxy:
     service:
       loadBalancerIP: 35.232.190.188

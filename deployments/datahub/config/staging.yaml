@@ -1,4 +1,13 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes=/data/homes/staging
 jupyterhub:
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/staging/{username}
   scheduling:
     userScheduler:
       replicas: 1
