@@ -1,3 +1,7 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes=/data/homes/prod
+
 jupyterhub:
   proxy:
     service:

@@ -1,6 +1,4 @@
 nfsMounter:
-  mounts:
-    - nfsserver1:/export/pool0/homes=/data/homes/staging
   enabled: true
 
 nfsPVC:
@@ -145,10 +143,6 @@ jupyterhub:
       cloud.google.com/gke-nodepool: user-pool
     storage:
       type: none
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/staging/{username}
       extraVolumeMounts:
         - name: home
           mountPath: /home/jovyan
