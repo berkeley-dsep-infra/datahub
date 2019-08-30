@@ -5,6 +5,8 @@ nfsPVC:
   enabled: false
 jupyterhub:
   scheduling:
+    podPriority:
+      enabled: true
     userScheduler:
       enabled: true
       resources:
