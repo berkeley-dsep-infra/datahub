@@ -249,6 +249,7 @@ jobs:
             hubploy deploy data102 hub ${CIRCLE_BRANCH}
 
       - run:
+          # FIXME: Only deploy on staging / prod?
           name: Deploy support chart on datahub cluster (fall-2019)
           command: |
             gcloud auth \
@@ -259,6 +260,7 @@ jobs:
               --region=us-central1 --project=ucb-datahub-2018 \
               get-credentials fall-2019
 
+            helm dep up support
             helm upgrade \
               --install --wait \
               --namespace=support \
