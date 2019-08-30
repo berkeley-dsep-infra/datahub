@@ -1,0 +1,52 @@
+prometheus:
+  networkPolicy:
+    enabled: true
+  alertmanager:
+    enabled: False
+  nodeExporter:
+    tolerations:
+      - effect: NoSchedule
+        # Deploy onto user nodes
+        key: hub.jupyter.org_dedicated
+        value: user
+    updateStrategy:
+      type: RollingUpdate
+  pushgateway:
+    enabled: false
+  rbac:
+    create: true
+  server:
+    labels:
+      # For HTTP access to the hub, to scrape metrics
+      hub.jupyter.org/network-access-hub: "true"
+    persistentVolume:
+      size: 1000Gi
+      storageClass: ssd
+    retention: 180d
+    service:
+      type: ClusterIP
+
+grafana:
+  deploymentStrategy: 
+    type: Recreate
+
+  persistence: 
+    enabled: true
+  service:
+    type: LoadBalancer
+
+  grafana.ini:
+    server:
+      root_url: http://grafana.datahub.berkeley.edu/
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: prometheus
+          orgId: 1
+          type: prometheus
+          url: http://support-prometheus-server
+          access: proxy
+          isDefault: true
+          editable: false
+  
