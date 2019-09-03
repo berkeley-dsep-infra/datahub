@@ -22,7 +22,30 @@ jupyterhub:
         # gsis
         - data100.instructors
         - suraj.rampure
-
+        - sona.jeswani
+        - allenshen5
+        - amandhar
+        - philippe_boileau
+        - manana.hakobyan
+        - daniel.zhu
+        - lhtonywei
+        - mhwangc
+        - wwhuang@berkeley.edu
+        - aaron_scherf
+        - paulshaoyuqiao1
+        - rkunani
+        - kana
+        - sera4415
+        - kagarwal2
+        - emansishah
+        - wangyimeng98
+        - ishaan.srivastava
+        - chengruizhe
+        - jwirjo
+        # instructors
+        - h___
+        - deborah_nolan
+        
   singleuser:
     initContainers:
       - name: volume-mount-hack
