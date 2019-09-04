@@ -7,6 +7,9 @@ jupyterhub:
   scheduling:
     podPriority:
       enabled: true
+      globalDefault: false
+      defaultPriority: 0
+      userPlaceholderPriority: -10
     userScheduler:
       enabled: true
       resources:

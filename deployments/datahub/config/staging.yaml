@@ -9,6 +9,9 @@ jupyterhub:
           hostPath:
             path: /data/homes/staging/{username}
   scheduling:
+    userPlaceholder:
+      enabled: true
+      replicas: 1
     userScheduler:
       replicas: 1
   prePuller:
