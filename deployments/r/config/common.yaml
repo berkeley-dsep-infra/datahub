@@ -30,11 +30,19 @@ jupyterhub:
         2019-fall-29496: {}
         # stat 131a
         2019-fall-23970:
+          # The stanzas below are used when nfsMounter is disabled
+          extraVolumes:
+          - name: stat131a_ssh
+            hostPath:
+              path: /data/homes/prod/_stat131a/_ssh
           extraVolumeMounts:
-          - mountPath: /home/rstudio/.ssh
-            name: home
-            subPath: _stat131a/_ssh
-            readOnly: true
+          - name: stat131a_ssh
+            mountPath: /home/rstudio/.ssh
+          # The stanza below is used when nfsMounter is enabled
+          #- mountPath: /home/rstudio/.ssh
+          #  name: home
+          #  subPath: _stat131a/_ssh
+          #  readOnly: true
     extraConfig:
       # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
       04-rstudio-home: |
