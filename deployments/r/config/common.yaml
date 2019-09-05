@@ -34,7 +34,7 @@ jupyterhub:
           extraVolumes:
           - name: stat131a_ssh
             hostPath:
-              path: /data/homes/prod/_stat131a_ssh
+              path: /data/homes/prod/_stat131a/_ssh
           extraVolumeMounts:
           - name: stat131a_ssh
             mountPath: /home/rstudio/.ssh
