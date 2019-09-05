@@ -32,11 +32,11 @@ jupyterhub:
         2019-fall-23970:
           # The stanzas below are used when nfsMounter is disabled
           extraVolumes:
-          - name: stat131a_ssh
+          - name: stat131a-ssh
             hostPath:
               path: /data/homes/prod/_stat131a/_ssh
           extraVolumeMounts:
-          - name: stat131a_ssh
+          - name: stat131a-ssh
             mountPath: /home/rstudio/.ssh
           # The stanza below is used when nfsMounter is enabled
           #- mountPath: /home/rstudio/.ssh
