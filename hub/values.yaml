@@ -152,6 +152,7 @@ jupyterhub:
               is_instructor |= (self.user.name in instructors)
               if is_student or is_instructor:
                 self.log.warning(f'using profile {course}')
+                self.volumes += profile_data.get('extraVolumes', [])
                 self.volume_mounts += profile_data.get('extraVolumeMounts', [])
                 # set new mem thresholds if specified are bigger than current
                 if 'mem_limit' in profile_data and \
