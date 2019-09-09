@@ -142,7 +142,7 @@ jupyterhub:
           - zhoa210
   singleuser:
     nodeSelector:
-      cloud.google.com/gke-nodepool: user-pool
+      hub.jupyter.org/node-purpose: user
     storage:
       type: none
       extraVolumeMounts:
