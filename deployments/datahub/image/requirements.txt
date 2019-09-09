@@ -121,3 +121,6 @@ pyreadstat==0.2.8
 # issue 954, EPS24 - fall 2019
 xarray==0.12.3
 dask==2.3.0
+
+# data100
+jassign==0.0.7
