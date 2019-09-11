@@ -86,7 +86,7 @@ dependencies:
   - tweepy==3.5.0
   #- nbzip==0.1.0
   - git+https://github.com/ryanlovett/jupyter-tree-download.git@b11745c
-  - nbgitpuller==0.7.0
+  - nbgitpuller==0.7.2
   - jupyter-contrib-nbextensions==0.5.1
   - psycopg2==2.7.6.1
   - joblib==0.11
