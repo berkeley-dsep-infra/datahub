@@ -2,32 +2,23 @@
 # From https://github.com/berkeley-dsep-infra/datahub/issues/881
 print("Installing packages for PHW250F+G")
 
-print("Installing here...")
-devtools::install_github('cran/here', ref='0.1', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Installing rlist...")
-devtools::install_github('cran/rlist', ref='0.4.6.1', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Installing jsonlite...")
-devtools::install_github('cran/jsonlite', ref='1.6', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Installing checkr...")
-devtools::install_github('cran/checkr', ref='0.5.0', upgrade_dependencies=FALSE, quiet=TRUE)
+source("/tmp/class-libs.R")
 
 # dplyr requires 0.2.1...cran only has 0.2.0
 print("Installing assertthat...")
 devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
-print("Installing dplyr...")
-devtools::install_github('cran/dplyr', ref='0.8.1', upgrade_dependencies=FALSE, quiet=TRUE)
+class_name = "PHW250F+G"
 
-print("Installing ggplot2...")
-devtools::install_github('cran/ggplot2', ref='3.1.0', upgrade_dependencies=FALSE, quiet=TRUE)
+class_libs = c(
+    "here", "0.1",
+    "rlist", "0.4.6.1",
+    "jsonlite", "1.6",
+    "checkr", "0.5.0",
+    "dplyr", "0.8.1",
+    "ggplot2", "3.1.0",
+    "tidyr", "0.8.3",
+    "reticulate", "1.13"
+)
 
-print("Installing tidyr...")
-devtools::install_github('cran/tidyr', ref='0.8.3', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Installing reticulate...")
-devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Done installing packages for PHW250F+G")
+class_libs_install_version(class_name, class_libs)
