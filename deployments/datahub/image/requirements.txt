@@ -121,3 +121,6 @@ pyreadstat==0.2.8
 # issue 954, EPS24 - fall 2019
 xarray==0.12.3
 dask==2.3.0
+
+# issue 1001, Physics 188/288 - fall 2019
+umap-learn==0.3.10
