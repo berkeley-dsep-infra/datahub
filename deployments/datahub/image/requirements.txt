@@ -1,7 +1,7 @@
 # Base
 notebook==5.7.8
 jupyterlab==0.35.4
-nbgitpuller==0.7.1
+nbgitpuller==0.7.2
 nbpdfexport==0.2.1
 nbzip==0.0.4
 jupyterhub==1.0.0
@@ -121,3 +121,6 @@ pyreadstat==0.2.8
 # issue 954, EPS24 - fall 2019
 xarray==0.12.3
 dask==2.3.0
+
+# issue 1001, Physics 188/288 - fall 2019
+umap-learn==0.3.10
