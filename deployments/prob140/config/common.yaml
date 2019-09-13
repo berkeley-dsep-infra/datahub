@@ -11,10 +11,10 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose=core
+        hub.jupyter.org/node-purpose: core
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose=core
+      hub.jupyter.org/node-purpose: core
   auth:
     type: google
     admin:
@@ -34,7 +34,7 @@ jupyterhub:
 
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose=core
+      hub.jupyter.org/node-purpose: core
 
   singleuser:
     nodeSelector:
