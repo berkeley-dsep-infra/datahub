@@ -47,6 +47,9 @@ class CanvasAuthenticator(GenericOAuthenticator):
 
     def normalize_username(self,username):
         username = username.lower()
-        # FIXME: allow 
-        username = username.split('@')[0]
+        # To make life easier & match usernames with existing users who were
+        # created with google auth, we want to strip the domain name. If not,
+        # we use the full email as the official user name
+        if username.endswith('@berkeley.edu'):
+            return username.split('@')[0]
         return username
