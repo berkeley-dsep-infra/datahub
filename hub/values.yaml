@@ -62,6 +62,7 @@ jupyterhub:
       className: 'canvasauthenticator.CanvasAuthenticator'
       config:
         canvas_url: https://bcourses.berkeley.edu/
+        allowed_email_domains: ['berkeley.edu']
         login_service: bCourses
         scope: ['url:GET|/api/v1/users/:user_id/profile']
         username_key: primary_email
