@@ -15,27 +15,21 @@ jupyterhub:
       resources:
         requests:
           memory: 64Mi
-          cpu: "0.05"
         limits:
           memory: 512Mi
-          cpu: "0.5"
   proxy:
     chp:
       resources:
         requests:
           memory: 320Mi
-          cpu: "0.1"
         limits:
           memory: 320Mi
-          cpu: "0.5"
     nginx:
       resources:
         requests:
           memory: 512Mi
-          cpu: "0.25"
         limits:
           memory: 512Mi
-          cpu: 1
     https:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
@@ -80,10 +74,8 @@ jupyterhub:
       enabled: true
     resources:
       requests:
-        cpu: "0.25"
         memory: 256Mi
       limits:
-        cpu: "1"
         memory: 1Gi
     extraEnv:
       # This is unfortunately still needed by canvas auth

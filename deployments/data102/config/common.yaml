@@ -8,10 +8,10 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
+        hub.jupyter.org/node-purpose=core
   proxy:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/node-purpose=core
   auth:
     type: google
     admin:
@@ -28,7 +28,7 @@ jupyterhub:
 
   hub:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/node-purpose=core
 
   singleuser:
     nodeSelector:

@@ -12,13 +12,13 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
+        hub.jupyter.org/node-purpose=core
   proxy:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/node-purpose=core
   hub:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/node-purpose=core
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
