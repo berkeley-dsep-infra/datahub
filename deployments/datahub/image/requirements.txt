@@ -11,7 +11,7 @@ ipywidgets==7.2.1
 #
 # data8; foundation
 tornado==5.1.1
-datascience==0.13.5
+datascience==0.15.1
 matplotlib==3.1.0
 numpy==1.16.0
 pandas==0.23.4
