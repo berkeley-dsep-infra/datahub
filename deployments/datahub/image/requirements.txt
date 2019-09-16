@@ -103,6 +103,7 @@ Theano==1.0.4
 
 # eps 109; fall 2019
 ffmpeg-python==0.1.17
+simpleaudio==1.0.2
 
 # data 88; fall 2019
 plotly==4.0.0
