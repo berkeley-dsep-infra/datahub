@@ -6,13 +6,19 @@ canvas_site = 'https://ucberkeley.test.instructure.com/'
 
 class CanvasAuthenticator(GenericOAuthenticator):
 
-    allowed_email_domains = List(
-        [],
+    strip_email_domain = Unicode(
+        '',
         config=True,
         help="""
-        List of domains whose users are authorized to log in.
+        Strip this domain from user emails when making their JupyterHub user name.
 
-        This relies on the primary email id set in canvas for the user
+        For example, if almost all your users have emails of form username@berkeley.edu,
+        you can set this to 'berkeley.edu'. A canvas user with email yuvipanda@berkeley.edu
+        will get a JupyterHub user name of 'yuvipanda', while a canvas user with email
+        yuvipanda@gmail.com will get a JupyterHub username of 'yuvipanda@gmail.com'.
+
+        By default, *no* domain stripping is performed, and the JupyterHub username
+        is the primary email of the canvas user.
         """
     )
 
@@ -50,6 +56,6 @@ class CanvasAuthenticator(GenericOAuthenticator):
         # To make life easier & match usernames with existing users who were
         # created with google auth, we want to strip the domain name. If not,
         # we use the full email as the official user name
-        if username.endswith('@berkeley.edu'):
+        if self.strip_email_domain and username.endswith('@' + self.strip_email_domain):
             return username.split('@')[0]
         return username
