@@ -31,39 +31,39 @@ print("Installing reticulate...")
 devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing patchwork")
-devtools::install_github("thomasp85/patchwork", upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github("thomasp85/patchwork", ref='36b4918777c25393df605a4959a4c9690d2af186', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing fGarch...")
-devtools::install_github('cran/fGarch', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/fGarch', ref='3042.83.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing SASxport...")
-devtools::install_github('cran/SASxport', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/SASxport', ref='1.6.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing googlesheets...")
-devtools::install_github('cran/googlesheets', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/googlesheets', ref='0.3.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing googledrive...")
-devtools::install_github('cran/googledrive', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/googledrive', ref='0.1.3', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing ggrepel...")
-devtools::install_github('cran/ggrepel', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/ggrepel', ref='0.8.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing infer...")
-devtools::install_github('cran/infer', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/infer', ref='0.4.0.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing janitor...")
-devtools::install_github('cran/janitor', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/janitor', ref='1.2.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing latex2exp...")
-devtools::install_github('cran/latex2exp', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/latex2exp', ref='0.4.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing cowplot...")
-devtools::install_github('cran/cowplot', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/cowplot', ref='1.0.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing measurements...")
-devtools::install_github('cran/measurements', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/measurements', ref='1.3.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing dagitty...")
-devtools::install_github('cran/dagitty', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/dagitty', ref='0.2-2', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Done installing packages for PHW250F+G")
