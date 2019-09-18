@@ -5,10 +5,20 @@ nfsMounter:
 jupyterhub:
   singleuser:
     storage:
+      # Since these are lists, we can not use any merging behavior
+      # grrr
       extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
         - name: home
           hostPath:
             path: /data/homes/prod/{username}
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
+        - name: home
+          mountPath: /home/jovyan
   proxy:
     service:
       loadBalancerIP: 35.232.190.188
