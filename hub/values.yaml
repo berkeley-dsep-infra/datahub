@@ -1,3 +1,19 @@
+etcJupyter:
+  jupyter_notebook_config.json:
+    # if a user leaves a notebook with a running kernel,
+    # the effective idle timeout will typically be CULL_TIMEOUT + CULL_KERNEL_TIMEOUT
+    # as culling the kernel will register activity,
+    # resetting the no_activity timer for the server as a whole
+    MappingKernelManager:
+      # shutdown kernels after no activity
+      cull_idle_timeout: 3600
+      # check for idle kernels this often
+      cull_interval: 300
+      # a kernel with open connections but no activity still counts as idle
+      # this is what allows us to shutdown servers
+      # when people leave a notebook open and wander off
+      cull_connected: true
+
 nfsMounter:
   enabled: true
 

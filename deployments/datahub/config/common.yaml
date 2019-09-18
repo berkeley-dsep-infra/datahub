@@ -145,9 +145,6 @@ jupyterhub:
       hub.jupyter.org/node-purpose: user
     storage:
       type: none
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
     memory:
       guarantee: 512M
       limit: 1G
