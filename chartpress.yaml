@@ -1,4 +1,9 @@
 charts:
+  - name: support
+    imagePrefix: gcr.io/ucb-datahub-2018/jupyterhub-support-
+    images:
+      rebalancer:
+        valuesPath: rebalancer.image
   - name: hub
     imagePrefix: gcr.io/ucb-datahub-2018/jupyterhub-
     images:
