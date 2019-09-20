@@ -49,16 +49,6 @@ Data 102
 
 Data 102 runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018`` project. You can see :ref:`all config <structure>` for it under ``deployments/data102``.
 
-bcourses Hub
-============
-
-A hub for use with UC Berkeley's `Canvas <https://www.canvaslms.com/>`_ system
-(called `bcourses <http://bcourses.berkeley.edu>`_). Not explicitly used by any
-class yet.
-
-It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018``
-project. You can see :ref:`all config <structure>` for it under ``deployments/bcourses``.
-
 Data8X Hub
 ==========
 
