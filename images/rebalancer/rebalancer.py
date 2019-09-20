@@ -46,6 +46,7 @@ async def label_newest_node(v1, namespace, user_node_selector, attractor_label):
             if attractor_label not in node.metadata.labels:
                 # Our youngest node doesn't have this label!
                 node.metadata.labels[attractor_label] = 'true'
+                # FIXME: A loop here to do conflict detection & resolution
                 await v1.patch_node(node.metadata.name, node)
                 logging.info(f'Adding label to {node.metadata.name}')
                 labeling_event = True
@@ -53,6 +54,7 @@ async def label_newest_node(v1, namespace, user_node_selector, attractor_label):
             if attractor_label in node.metadata.labels:
                 # Setting value to None removes the labels
                 node.metadata.labels[attractor_label] = None
+                # FIXME: A loop here to do conflict detection & resolution
                 await v1.patch_node(node.metadata.name, node)
                 logging.info(f'Removing label from {node.metadata.name}')
                 labeling_event = True
@@ -60,6 +62,8 @@ async def label_newest_node(v1, namespace, user_node_selector, attractor_label):
     if labeling_event:
         logging.info('Deleting placeholder pods to move them to newest node')
         await asyncio.sleep(2)
+        # FIXME: Only delete placeholder pods that aren't already on the newest node!
+        #        Since placeholder pods trigger scale ups, there must be some there
         await v1.delete_collection_namespaced_pod(namespace, label_selector='component=user-placeholder')
     else:
         logging.info(f'Newest node {ready_nodes[0].metadata.name} already has appropriate label, no action performed')
