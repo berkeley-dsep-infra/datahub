@@ -232,7 +232,9 @@ jobs:
             # Authenticate to be able to push to our registry
             # FIXME: Make a service account specifically for this?
             gcloud auth activate-service-account --key-file deployments/datahub/secrets/gcr-key.json
-            chartpress --push --commit-range ${CIRCLE_BRANCH}...HEAD
+            # CircleCI doesn't have equivalent of Travis' COMMIT_RANGE, so we determine it ourself
+            COMMIT_RANGE=$(./.circleci/get-commit-range.py)
+            chartpress --push --commit-range $COMMIT_RANGE
 
       - run:
           name: Deploy datahub
