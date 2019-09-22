@@ -1,0 +1,13 @@
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    service:
+      loadBalancerIP: 35.226.84.4
+    https:
+      hosts:
+        - julia-staging.datahub.berkeley.edu

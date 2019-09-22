@@ -1,0 +1,73 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: homes/prod/home
+
+jupyterhub:
+  hub:
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # stat c100
+        2019-fall-24961: {}
+      admin:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /srv/homes
+  auth:
+    type: dummy
+    admin:
+      users:
+        # infrastructure
+        - felder
+        - rylo
+        - yuvipanda
+        # gsis
+        - data100.instructors
+        - suraj.rampure
+        - sona.jeswani
+        - allenshen5
+        - amandhar
+        - philippe_boileau
+        - manana.hakobyan
+        - daniel.zhu
+        - lhtonywei
+        - mhwangc
+        - wwhuang@berkeley.edu
+        - aaron_scherf
+        - paulshaoyuqiao1
+        - rkunani
+        - kana
+        - sera4415
+        - kagarwal2
+        - emansishah
+        - wangyimeng98
+        - ishaan.srivastava
+        - chengruizhe
+        - jwirjo
+        # instructors
+        - h___
+        - deborah_nolan
+        
+  singleuser:
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 1G
+      limit: 2G
+    image:
+      name: gcr.io/ucb-datahub-2018/data100-user-image

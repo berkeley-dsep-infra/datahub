@@ -5,3 +5,5 @@ hub/secrets/staging.yaml filter=git-crypt diff=git-crypt
 hub/secrets/prod.yaml filter=git-crypt diff=git-crypt
 hub/secrets/** filter=git-crypt diff=git-crypt
 deployments/*/secrets/** filter=git-crypt diff=git-crypt
+deployments/**/secrets/** filter=git-crypt diff=git-crypt
+support/secrets.yaml filter=git-crypt diff=git-crypt

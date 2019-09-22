@@ -1,0 +1,10 @@
+jupyterhub:
+  proxy:
+    https:
+      hosts:
+        - data100.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

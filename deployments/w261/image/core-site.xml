@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>fs.AbstractFileSystem.gs.impl</name>
+    <value>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS</value>
+  </property>
+  <property>
+    <name>fs.gs.project.id</name>
+    <value>${GS_PROJECT_ID}</value>
+  </property>
+  <property>
+    <name>google.cloud.auth.service.account.enable</name>
+    <value>true</value>
+  </property>
+</configuration>
+

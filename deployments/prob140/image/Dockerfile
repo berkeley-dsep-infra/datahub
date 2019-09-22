@@ -18,8 +18,8 @@ RUN apt-get update --yes
 RUN apt-get install --yes \
             libdpkg-perl \
             python3.6 \
-            python3.6-venv \
             python3.6-dev \
+            python3.6-venv \
             python3-venv \
             tar \
             vim \
@@ -37,12 +37,29 @@ RUN apt-get install --yes \
             texlive-fonts-recommended \
             texlive-generic-recommended
 
+# for nbpdfexport
+RUN apt-get update && \
+    apt-get install --yes \
+            libx11-xcb1 \
+            libxtst6 \
+            libxrandr2 \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libnss3 \
+            libxss1 \
+            fonts-noto-color-emoji && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 ENV PATH ${APP_DIR}/venv/bin:$PATH
 
-# Set this to be on container storage, rather than under $HOME
-ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
-
 WORKDIR /home/jovyan
+
+# prevent bibtex from interupting nbconvert
+RUN update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
 
 USER jovyan
 RUN python3.6 -m venv ${APP_DIR}/venv
@@ -50,13 +67,17 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-RUN pip install --no-cache-dir jupyterhub==0.9.2
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/app
+RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install nbzip
-RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
-    jupyter nbextension     install --sys-prefix --py nbzip && \
-    jupyter nbextension     enable  --sys-prefix --py nbzip
+#RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
+#    jupyter nbextension     install --sys-prefix --py nbzip && \
+#    jupyter nbextension     enable  --sys-prefix --py nbzip
 
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+ADD ipython_config.py ${APP_DIR}/venv/etc/ipython/ipython_config.py
+ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
 
 EXPOSE 8888

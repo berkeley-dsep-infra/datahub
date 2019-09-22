@@ -1,0 +1,52 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.40.69.178
+    shareName: userhomes
+
+jupyterhub:
+  hub:
+    extraConfig:
+      90-sparklyspawner: |
+        import z2jh
+        c.JupyterHub.spawner_class = 'sparklyspawner.SparklySpawner'
+
+        sparkly_config = z2jh.get_config('custom.sparkly', {})
+        c.SparklySpawner.gcp_service_key = sparkly_config.get('gcp_service_key', None)
+        c.SparklySpawner.storage_bucket_template = 'ucb-w261-hub-{username}'
+        c.SparklySpawner.service_account_template = 'w261-user-{username}'
+        c.SparklySpawner.gcp_project = 'ucb-w261-hub'
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - winegarj
+
+  singleuser:
+    # HACK: Temporarily give user pods lots of k8s access in their
+    # own namespace. We will lock this down later before productionizing.
+    serviceAccountName: default
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_w261/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_w261/{username}"
+    memory:
+      guarantee: 512M
+      limit: 2G
+    image:
+      name: gcr.io/ucb-w261-hub/w261-user-image
+    defaultUrl: "/lab"

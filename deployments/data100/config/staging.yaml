@@ -1,0 +1,8 @@
+jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    https:
+      hosts:
+        - data100-staging.datahub.berkeley.edu

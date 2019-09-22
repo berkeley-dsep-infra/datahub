@@ -1,3 +1,0 @@
-nbgitpuller==0.6.1
-# For PyPlot
-matplotlib==3.0.2
