@@ -11,6 +11,10 @@ jupyterhub:
       profiles:
         # stat c100
         2019-fall-24961: {}
+      admin:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /srv/homes
   auth:
     type: dummy
     admin:
