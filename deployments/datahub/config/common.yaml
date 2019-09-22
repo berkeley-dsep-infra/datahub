@@ -1,80 +1,166 @@
+nfsMounter:
+  enabled: true
+
+nfsPVC:
+  enabled: false
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
 jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/node-purpose: core
+  hub:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # compsci c8
+        2019-fall-28063: {}
+        # pbhlth w250f
+        2019-fall-29639: {}
+        # pbhlth w250g
+        2019-fall-29640: {}
+        # linguis 243
+        2019-fall-31002: {}
+        # data 88
+        2019-fall-33469: {}
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
   auth:
-    type: google
+    type: custom # This enables canvas auth
     admin:
       users:
           # infrastructure
+          - felder
           - rylo
           - yuvipanda
-          # instructors
+          # regular instructors
           - adhikari
           - culler
           - daw
           - denero
-          - vinitra
           - ramesh_s
           # dsep staff
-          - bacon
           - ericvd
+          - ktakimoto
           - ryanedw
-          # s19 data8 gsis
-          - acheema
+          # f19 data8 gsis
+          - adele.bloch
           - aidandeangelis
-          - akritisingh
-          - alinxie
+          - alanliang
           - ananya.krishnan
+          - andrewdchen
+          - anna.burns
           - anna-nguyen
+          - ashleyquiterio
           - averyyip
+          - carolinejchen
           - castro.ian
-          - clairezhang
           - colbylewis2020
-          - dchotai
-          - echang7
-          - emmajaeger
-          - fmcquarrie3
-          - howardki888
+          - emilykzou
+          - gregking22
+          - gregoryd2017
+          - guanangela
           - hsubbaraj
-          - huangjiayi0922
+          - hubertluo
+          - irenerwang
           - jadeyen
-          - j.hu
+          - jifu.li
           - juliannnguyen
-          - jwarnagieris
-          - katherine.yen
+          - katherinetsai
           - keh7
           - lillianlouie
-          - liusabrina
-          - loischang
-          - makenaschwinn
-          - namushegian
-          - narain.rohan
-          - niraj.a.rao
-          - nwang97
+          - lritter
+          - manikui
+          - mayarao
+          - mayashen
           - olivialewke
           - oscar.syu
+          - parouz
           - ravi.singhal
-          - rishab.s
+          - roshansrin01
           - rwoolf
+          - samwu101
           - sathviknair
+          - saurav
           - scott.lee.3898
-          - sjamil
-          - s.mani
+          - sdjajadi
           - tvilayth
           - vienannguyen
+          - yanayrosen
+          - yashswarup
+          # f19 data8 tutors
+          - aanika.shah
+          - alvinyu27
+          - brettirvin
+          - celinechen_99
+          - chloelo
+          - connorcclark
+          - devennb
+          - deveshagarwal
+          - dshahroz
+          - ericli3088
+          - erika.n.mack
+          - eshaansoman
+          - fachacoso
+          - fqzbdkh
+          - gnacouzi
+          - harimlee
+          - ikaur
+          - ishaan.srivastava
+          - jacobmartinez
+          - jenniferjia00
+          - karywang
+          - kevin.hsu
+          - kwalia1999
+          - lindseyhanlon
+          - lucyportnoff
+          - marmis
+          - meghanwang
+          - melissarwong
+          - nancywang
+          - nellepersson
+          - netzke
+          - nhanafi
+          - nicholesun
+          - pratibha99
+          - rdoshi99
+          - rinasa525
+          - sophiatan
+          - ssingorahardjo
+          - sunnyshen
+          - vaibhav.pabreja
+          - vikramchandran
+          - winifredchung
+          - wwalsh
           - youmnarabie
-          # connector instructors
-          - miladm
-          - cmason
-          - feehan
-          - yasminal
-          - samyag1
-          - michael.eickenberg
-          - shobhana
-
+          - zhoa210
   singleuser:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: user
+    storage:
+      type: none
     memory:
       guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
-    storage:
-      type: hostPath
+
+custom:
+  wtf: "why isn't this passed to config/values.yaml"
+
+# read by z2jh.get_config() in hub/values.yaml
+# (theoretically!)
+# custom:
+#   profiles:
+#     # compsci c8
+#     2019-fall-28063: {}
+#     # pbhlth w250f
+#     2019-fall-29639: {}
+#     # pbhlth w250g
+#     2019-fall-29640: {}

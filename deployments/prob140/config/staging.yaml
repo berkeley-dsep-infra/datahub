@@ -1,20 +1,10 @@
-nfsMounter:
-  mounts:
-    - nfsserver1:/export/pool0/homes/_prob140=/data/homes/prob140-staging
-
 jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
   proxy:
     service:
       loadBalancerIP: 35.226.250.22
     https:
       hosts:
         - prob140-staging.datahub.berkeley.edu
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/prob140-staging/{username}
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan

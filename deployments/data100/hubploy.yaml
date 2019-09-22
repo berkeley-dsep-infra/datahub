@@ -1,0 +1,15 @@
+images:
+  image_name: gcr.io/ucb-datahub-2018/data100-user-image
+
+  registry:
+    provider: gcloud
+    gcloud:
+      project: ucb-datahub-2018
+      service_key: gcr-key.json
+
+cluster:
+  provider: azure
+  azure:
+    resource_group: data100-fall-2019
+    cluster: data100-fall-2019
+    auth_file: serviceprincipal.json

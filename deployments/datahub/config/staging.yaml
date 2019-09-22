@@ -1,26 +1,35 @@
 nfsMounter:
   mounts:
     - nfsserver1:/export/pool0/homes=/data/homes/staging
-
 jupyterhub:
+  singleuser:
+    storage:
+      # Since these are lists, we can not use any merging behavior
+      # grrr
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+        - name: home
+          hostPath:
+            path: /data/homes/staging/{username}
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
+        - name: home
+          mountPath: /home/jovyan
+  scheduling:
+    userPlaceholder:
+      enabled: true
+      replicas: 1
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
   proxy:
     service:
       loadBalancerIP: 104.197.27.164
     https:
       hosts:
         - staging.datahub.berkeley.edu
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/staging/{username}
-        - name: cogneuro
-          hostPath:
-            path: /data/homes/staging/_cogneuro
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-        - name: cogneuro
-          mountPath: /data/cogneuro
-          readOnly: True

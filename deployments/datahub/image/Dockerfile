@@ -14,21 +14,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 RUN install -d -o jovyan -g jovyan ${APP_DIR}
 
-# Set up extra debian repositories we want
-COPY neuro-debian.list /etc/apt/sources.list.d/neuro-debian.list
-COPY neurodebian-key.asc /tmp/neurodebian-key.asc
-RUN apt-key add /tmp/neurodebian-key.asc
-
 COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
 COPY nodesource-key.asc /tmp/nodesource-key.asc
 RUN apt-key add /tmp/nodesource-key.asc
 
 # TODO: remove me when apt can find our packages
-RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
-RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
+#RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
+#RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
 
-RUN apt-get -qq update --yes
-RUN apt-get -qq install --yes \
+RUN apt-get -qq update --yes && \
+    apt-get -qq install --yes \
             python3.6 \
             python3.6-venv \
             python3.6-dev \
@@ -53,14 +48,12 @@ RUN apt-get -qq install --yes \
             libgeos-dev \
             # for phys 151
             gfortran \
-            # for cogneuro
-            dirmngr \
-            imagemagick-6.q16 \
-            neurodebian \
-            fsl-complete > /dev/null
+            # for eps 109; fall 2019
+            ffmpeg > /dev/null
 
 # install R, packages, and RStudio dependencies
-RUN apt-get -qq install --yes \
+RUN apt-get -qq update --yes && \
+    apt-get -qq install --yes \
             libapparmor1 \
             libgdal-dev \
             libproj-dev \
@@ -68,6 +61,7 @@ RUN apt-get -qq install --yes \
             sudo \
             r-base \
             r-base-dev \
+            r-cran-aer \
             r-cran-backports \
             r-cran-base64enc \
             r-cran-bindrcpp \
@@ -79,7 +73,6 @@ RUN apt-get -qq install --yes \
             r-cran-dbi \
             r-cran-devtools \
             r-cran-digest \
-            r-cran-dplyr \
             r-cran-e1071 \
             r-cran-evaluate \
             r-cran-forcats \
@@ -91,7 +84,6 @@ RUN apt-get -qq install --yes \
             r-cran-htmlwidgets \
             r-cran-httpuv \
             r-cran-httr \
-            r-cran-knitr \
             r-cran-lubridate \
             r-cran-mapproj \
             r-cran-maptools \
@@ -134,6 +126,9 @@ RUN apt-get -qq install --yes \
             r-cran-withr \
             r-cran-xml2 \
             r-cran-yaml \
+            r-cran-rlist \
+            r-cran-jsonlite \
+            r-cran-assertthat \
             lsb-release > /dev/null
 
 # Install some R libraries that aren't in the debs
@@ -143,7 +138,7 @@ COPY install.R  /tmp/install.R
 # FIXME: Find something less sucky
 # another hubploy #1
 RUN Rscript /tmp/install.R > /tmp/r-custom-packages.log 2>&1 && \
-	true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
+    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
 RUN tail /tmp/r-custom-packages.log
 RUN rm /tmp/r-custom-packages.log
 
@@ -161,6 +156,24 @@ ENV PATH ${APP_DIR}/venv/bin:$PATH:/usr/lib/rstudio-server/bin
 # Set this to be on container storage, rather than under $HOME
 ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
 
+# FIXME: Move this elsewhere in the dockerfile?
+# Install packages needed by nbpdfexport
+# Default fonts seem ok, we just install an emoji font
+RUN apt-get update && \
+    apt-get install --yes \
+            libx11-xcb1 \
+            libxtst6 \
+            libxrandr2 \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libgtk-3-0 \
+            libnss3 \
+            libxss1 \
+            fonts-noto-color-emoji && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/jovyan
 
@@ -170,7 +183,10 @@ RUN python3.6 -m venv ${APP_DIR}/venv
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-RUN pip install --no-cache-dir jupyterhub==0.9.4
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/app
+RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install JupyterLab extensions
 RUN jupyter labextension install \
@@ -180,11 +196,17 @@ RUN jupyter labextension install \
             @jupyterlab/plotly-extension \
             @jupyterlab/geojson-extension
 
+# Install IR kernelspec
+RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${APP_DIR}/venv')"
+
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
 
-COPY connectors/neuro.bash /usr/local/sbin/connector-neuro.bash
-RUN /usr/local/sbin/connector-neuro.bash
+# Cartopy needs to be installed after cython, for eps 88
+RUN pip install --no-cache-dir Cartopy==0.17.0
+
+# hdbscan needs to be installed after cython, for physics 188
+RUN pip install --no-cache-dir hdbscan==0.8.22
 
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
@@ -193,30 +215,24 @@ ENV NLTK_DATA ${APP_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
-COPY connectors/ds100.bash /usr/local/sbin/connector-ds100.bash
-RUN /usr/local/sbin/connector-ds100.bash
-
-COPY connectors/cp255.bash /usr/local/sbin/connector-cp255.bash
-RUN /usr/local/sbin/connector-cp255.bash
-
 #COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
 #RUN /usr/local/sbin/connector-eps88.bash
+
+COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
+RUN /usr/local/sbin/connector-sw282.bash
+
+ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
+ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
 
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
 
-# Install nbrsessionproxy
-RUN jupyter serverextension enable  --sys-prefix --py nbrsessionproxy
-
-# Install nbserverproxy
-RUN jupyter serverextension enable  --sys-prefix --py nbserverproxy
+# install QGrid notebook extension
+RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # Install nbzip
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
-
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-
 
 EXPOSE 8888

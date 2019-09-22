@@ -19,7 +19,7 @@ def from_branch(project, repo, branch_name):
     we iterate through all open PRs and find the PR we're operating on.
     """
     gh = Github()
-    prs = gh.get_repo(f'{project}/{repo}').get_pulls(state='open', sort='updated')
+    prs = gh.get_repo(f'{project}/{repo}').get_pulls(state='all', sort='updated')
     for pr in prs:
         if pr.head.ref == branch_name:
             return f'{pr.base.sha}...{pr.head.sha}'
@@ -32,12 +32,12 @@ def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
         'project',
-        default=os.environ['CIRCLE_PROJECT_USERNAME'],
+        default=os.environ.get('CIRCLE_PROJECT_USERNAME'),
         nargs='?'
     )
     argparser.add_argument(
         'repo',
-        default=os.environ['CIRCLE_PROJECT_REPONAME'],
+        default=os.environ.get('CIRCLE_PROJECT_REPONAME'),
         nargs='?'
     )
 

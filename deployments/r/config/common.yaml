@@ -1,0 +1,119 @@
+nfsMounter:
+  enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/node-purpose: core
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
+  hub:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # pbhlth w250f
+        2019-fall-29639: {}
+        # pbhlth w250g
+        2019-fall-29640: {}
+        # pbhlth 142
+        2019-fall-29496: {}
+        # stat 131a
+        2019-fall-23970:
+          # The stanzas below are used when nfsMounter is disabled
+          extraVolumes:
+          - name: stat131a-ssh
+            hostPath:
+              path: /data/homes/prod/_stat131a/_ssh
+          extraVolumeMounts:
+          - name: stat131a-ssh
+            mountPath: /home/rstudio/.ssh
+          # The stanza below is used when nfsMounter is enabled
+          #- mountPath: /home/rstudio/.ssh
+          #  name: home
+          #  subPath: _stat131a/_ssh
+          #  readOnly: true
+    extraConfig:
+      # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
+      04-rstudio-home: |
+        c.KubeSpawner.working_dir = '/home/rstudio'
+
+  auth:
+    type: custom # This enables canvas auth
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # PH250WF+PH250WG Instructors, issue 882
+          - jadebc
+          - jcolford
+          # PH250WF+PH250WG student assistants, issue 882
+          - anna-nguyen
+          - lucascarlton
+          - m.ruiz
+          - nolanpokpongkiat
+          - stephaniemholm
+          - wmjilek
+          # List of other admin users
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: user
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/rstudio && ls -lhd /home/rstudio"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/rstudio
+          subPath: "{username}"
+    storage:
+      type: static
+      homeMountPath: /home/rstudio
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
+    defaultUrl: "/rstudio"
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/r-user-image
+    networkPolicy:
+      enabled: true
+      egress:
+        # defaults
+        - ports:
+            - port: 53
+              protocol: UDP
+        - ports:
+            - port: 80
+              protocol: TCP
+        - ports:
+            - port: 443
+              protocol: TCP
+        # enabling ssh for private git repos
+        - ports:
+            - port: 22
+              protocol: TCP

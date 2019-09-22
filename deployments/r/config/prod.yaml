@@ -1,0 +1,12 @@
+jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 34.68.2.114
+    https:
+      hosts:
+        - r.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

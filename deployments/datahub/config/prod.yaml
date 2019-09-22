@@ -3,6 +3,22 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes=/data/homes/prod
 
 jupyterhub:
+  singleuser:
+    storage:
+      # Since these are lists, we can not use any merging behavior
+      # grrr
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+        - name: home
+          hostPath:
+            path: /data/homes/prod/{username}
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
+        - name: home
+          mountPath: /home/jovyan
   proxy:
     service:
       loadBalancerIP: 35.232.190.188
@@ -14,18 +30,7 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 40Gi
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/prod/{username}
-        - name: cogneuro
-          hostPath:
-            path: /data/homes/prod/_cogneuro
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-        - name: cogneuro
-          mountPath: /data/cogneuro
-          readOnly: True
+  scheduling:
+    userPlaceholder:
+      enabled: true
+      replicas: 80
