@@ -23,6 +23,8 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/node-purpose: core
   hub:
+    # No more than 150 users at any given time
+    activeServerLimit: 150
     nodeSelector:
       hub.jupyter.org/node-purpose: core
   proxy:
