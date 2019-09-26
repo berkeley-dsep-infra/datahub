@@ -189,10 +189,8 @@ jupyterhub:
             return (yield super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-        c.CustomAttrSpawner.env_keep += [
-          'OAUTH2_ACCESS_TOKEN',
-          'OAUTH2_OAUTH_USER'
-        ]
+        c.CustomAttrSpawner.env_keep.append('OAUTH2_ACCESS_TOKEN')
+        c.CustomAttrSpawner.env_keep.append('OAUTH2_OAUTH_USER')
 
         c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
 
