@@ -66,6 +66,10 @@ class CanvasAuthenticator(GenericOAuthenticator):
         auth_state = yield user.get_auth_state()
         if not auth_state:
             return
-        for k in ['access_token', 'oauth_user']:
-            if k in auth_state:
-                spawner.environment[f"OAUTH2_{k.upper()}"] = auth_state[k]
+        if 'access_token' in auth_state:
+            spawner.environment["OAUTH2_ACCESS_TOKEN"] = auth_state['access_token']
+        # others are lti_user_id, id, integration_id
+        if 'oauth_user' in auth_state:
+            for k in ['login_id', 'name', 'sortable_name', 'primary_email']:
+                if k in auth_state['oauth_user']:
+                    spawner.environment[f"OAUTH2_{k.upper()}"] = auth_state['oauth_user'][k]
