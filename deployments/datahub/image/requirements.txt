@@ -130,3 +130,6 @@ shapely==1.6.4.post2
 pyvcf==0.6.8
 bitarray==0.8.3
 nlmpy==0.1.5
+
+# physics 188/288 fall, 2019
+getdist==0.3.3
