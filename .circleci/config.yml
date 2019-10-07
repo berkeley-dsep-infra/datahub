@@ -92,7 +92,7 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: python:3.7-buster-slim
+      - image: python:3.7-slim-buster
     working_directory: ~/repo
     steps:
       - run:
