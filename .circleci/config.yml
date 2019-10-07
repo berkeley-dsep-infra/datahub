@@ -20,7 +20,6 @@ orbs:
               name: Install git
               command: |
                 apt-get update && apt-get install --yes --no-install-recommends git
-
           - restore_cache:
               keys:
                 - v3.7-dependencies-{{ checksum "requirements.txt" }}
@@ -43,7 +42,7 @@ orbs:
               name: install google-cloud-sdk
               steps:
               - run: |
-                  curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
+                  wget -O - https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
                   # Be careful with quote ordering here. ${PATH} must not be expanded
                   # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
                   # Always use full PATHs in PATH!
