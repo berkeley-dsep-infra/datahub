@@ -37,6 +37,17 @@ orbs:
                 pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
                 echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
 
+          - when:
+              condition: << parameters.push >>
+              # Currently all our images live on google cloud, so we install gcloud sdk when pushing
+              name: install google-cloud-sdk
+              command: |
+                curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
+                # Be careful with quote ordering here. ${PATH} must not be expanded
+                # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+                # Always use full PATHs in PATH!
+                echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+
           - setup_remote_docker
           - save_cache:
               paths:
