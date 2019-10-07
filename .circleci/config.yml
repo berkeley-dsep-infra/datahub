@@ -41,12 +41,13 @@ orbs:
               condition: << parameters.push >>
               # Currently all our images live on google cloud, so we install gcloud sdk when pushing
               name: install google-cloud-sdk
-              command: |
-                curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
-                # Be careful with quote ordering here. ${PATH} must not be expanded
-                # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
-                # Always use full PATHs in PATH!
-                echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+              steps:
+              - run: |
+                  curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
+                  # Be careful with quote ordering here. ${PATH} must not be expanded
+                  # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+                  # Always use full PATHs in PATH!
+                  echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
           - setup_remote_docker
           - save_cache:
@@ -57,10 +58,11 @@ orbs:
           - when:
               condition: << parameters.push >>
               name: Unlock our secrets
-              command: |
-                echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-                git crypt unlock ~/repo/key
-                rm ~/repo/key
+              steps:
+              - run: |
+                  echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+                  git crypt unlock ~/repo/key
+                  rm ~/repo/key
 
           - run:
               name: Build image if needed
