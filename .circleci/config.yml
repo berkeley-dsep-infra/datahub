@@ -48,6 +48,8 @@ orbs:
                     # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
                     # Always use full PATHs in PATH!
                     echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+                    # Try to tell cloud sdk to use python3
+                    echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
           - setup_remote_docker
           - save_cache:
