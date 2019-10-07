@@ -39,9 +39,10 @@ orbs:
           - when:
               condition: << parameters.push >>
               # Currently all our images live on google cloud, so we install gcloud sdk when pushing
-              name: install google-cloud-sdk
               steps:
-              - run: |
+              - run:
+                name: Install google cloud sdk
+                command: |
                   wget -O - https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
                   # Be careful with quote ordering here. ${PATH} must not be expanded
                   # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -56,12 +57,13 @@ orbs:
 
           - when:
               condition: << parameters.push >>
-              name: Unlock our secrets
               steps:
-              - run: |
-                  echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-                  git crypt unlock ~/repo/key
-                  rm ~/repo/key
+              - run:
+                  name: Unlock our secrets
+                  command: |
+                    echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+                    git crypt unlock ~/repo/key
+                    rm ~/repo/key
 
           - run:
               name: Build image if needed
