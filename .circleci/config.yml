@@ -261,8 +261,40 @@ jobs:
           command: |
             hubploy deploy data102 hub ${CIRCLE_BRANCH}
 
+  deploy-support:
+    docker:
+      - image: buildpack-deps:bionic-scm
+    working_directory: ~/repo
+    steps:
+      - checkout
+
       - run:
-          # FIXME: Only deploy on staging / prod?
+          name: install dependencies
+          command: |
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            # Be careful with quote ordering here. ${PATH} must not be expanded
+            # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+            # Always use full PATHs in PATH!
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+
+      - run:
+          name: Unlock our secrets
+          command: |
+            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+            git crypt unlock ~/repo/key
+            rm ~/repo/key
+
+      - run:
+          name: Install helm
+          command: |
+            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
+              tar -xzf -
+            mv linux-amd64/helm /usr/local/bin
+            helm init --client-only
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
+      - run:
           name: Deploy support chart on datahub cluster (fall-2019)
           command: |
             gcloud auth \
@@ -296,3 +328,11 @@ workflows:
               only:
                 - staging
                 - prod
+  deploy-support:
+    jobs:
+      - deploy-support:
+          filters:
+            branches:
+              # We don't have staging / prod for our support cluster
+              # So we deploy only when deploying staging
+              only: staging
