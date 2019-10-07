@@ -9,14 +9,9 @@ orbs:
             type: string
 
         docker:
-          - image: buildpack-deps:bionic-scm
+          - image: python:3.7-slim-buster
         working_directory: ~/repo
         steps:
-          - run:
-              name: Install base apt packages
-              command: |
-                apt-get update --yes -qq
-                apt-get install --yes -qq python3 python3-venv docker.io
           - checkout
           - restore_cache:
               keys:
@@ -56,15 +51,15 @@ orbs:
 jobs:
   build-chartpress:
     docker:
-      - image: buildpack-deps:bionic-scm
+      - image: python:3.7-buster
 
     working_directory: ~/repo
     steps:
       - run:
-          name: Install base apt packages
+          name: Install docker package needed by chartpress
           command: |
             apt-get update --yes -qq
-            apt-get install --yes -qq python3 python3-venv git-crypt jq docker.io
+            apt-get install --yes -qq docker.io
       - checkout
       - restore_cache:
           keys:
