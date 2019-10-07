@@ -341,21 +341,75 @@ workflows:
     jobs:
       - hubploy/build-image:
           deployment: datahub
+          name: datahub image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: prob140
+          name: prob140 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: r
+          name: r hub image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: julia
+          name: julia hub image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: data102
+          name: data102 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: data8x
-      - hubploy/build-image:
-          deployment: external
+          name: data8x image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: data100
-      - build-chartpress
+          name: data100 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - build-chartpress:
+          name: chartpress image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
 
   deploy:
     jobs:
