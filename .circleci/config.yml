@@ -269,7 +269,13 @@ jobs:
       - checkout
 
       - run:
-          name: install dependencies
+          name: install git-crypt
+          command: |
+            apt-get update --yes -qq
+            apt-get install --yes -qq git-crypt
+
+      - run:
+          name: install google-cloud-sdk
           command: |
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
             # Be careful with quote ordering here. ${PATH} must not be expanded
@@ -295,7 +301,7 @@ jobs:
             helm repo update
 
       - run:
-          name: Deploy support chart on datahub cluster (fall-2019)
+          name: Activate credentials for datahub cluster (fall-2019)
           command: |
             gcloud auth \
               activate-service-account \
@@ -305,6 +311,9 @@ jobs:
               --region=us-central1 --project=ucb-datahub-2018 \
               get-credentials fall-2019
 
+      - run:
+          name: Deploy support helm chart
+          command: |
             helm dep up support
             helm upgrade \
               --install --wait \
