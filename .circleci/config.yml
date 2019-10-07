@@ -43,7 +43,7 @@ orbs:
               - run:
                   name: Install google cloud sdk
                   command: |
-                    curl -sSL  https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
+                    curl -sSL  https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
                     # Be careful with quote ordering here. ${PATH} must not be expanded
                     # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
                     # Always use full PATHs in PATH!
@@ -132,9 +132,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
+            - v1-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-gcloud-226-
+            - v1-dependencies-gcloud-265-
 
       - run:
           name: install dependencies
@@ -148,7 +148,7 @@ jobs:
             # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
             pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
 
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
@@ -178,7 +178,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-gcloud-226-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
 
       - run:
           name: Unlock our secrets
@@ -270,7 +270,7 @@ jobs:
       - run:
           name: install google-cloud-sdk
           command: |
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-226.0.0-linux-x86_64.tar.gz | tar -xzf -
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
