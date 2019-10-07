@@ -36,6 +36,17 @@ orbs:
                 pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
                 echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
 
+          - unless:
+              condition: << parameters.push >>
+              steps:
+                - run:
+                    name: Determine range of commits we are building
+                    command: |
+                        # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
+                        COMMIT_RANGE=$(./.circleci/get-commit-range.py)
+                        echo ${COMMIT_RANGE}
+                        echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
+
           - when:
               condition: << parameters.push >>
               # Currently all our images live on google cloud, so we install gcloud sdk when pushing
@@ -70,6 +81,10 @@ orbs:
           - run:
               name: Build image if needed
               command: |
+                if [ "<< parameters.push >>" == "true" ]; then
+                  HUBPLOY_ARGS="--check-registry --push"
+                else
+                  HUBPLOY_ARGS="--commit-range ${COMMIT_RANGE}"
                 hubploy build << parameters.deployment >>  --check-registry  <<# parameters.push >> --push <</ parameters.push >>
 
 jobs:
