@@ -1,6 +1,65 @@
-version: 2
+version: 2.1
+orbs:
+  hubploy:
+    jobs:
+      build-image:
+        description: "Build an image via hubploy"
+        parameters:
+          deployment:
+            type: string
+
+        docker:
+          - image: buildpack-deps:bionic-scm
+        working_directory: ~/repo
+        steps:
+          docker:
+            - image: buildpack-deps:bionic-scm
+
+          working_directory: ~/repo
+          steps:
+            - run:
+                name: Install base apt packages
+                command: |
+                  apt-get update --yes -qq
+                  apt-get install --yes -qq python3 python3-venv docker.io
+            - checkout
+            - restore_cache:
+                keys:
+                - v1-dependencies-{{ checksum "requirements.txt" }}
+                # fallback to using the latest cache if no exact match is found
+                - v1-dependencies-
+
+            - run:
+                name: install dependencies
+                command: |
+                  python3 -m venv venv
+                  source venv/bin/activate
+                  pip install --upgrade -r requirements.txt
+                  # Install latest repo2docker to https://github.com/jupyter/repo2docker/pull/657
+                  pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
+                  echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
+
+            - setup_remote_docker
+            - save_cache:
+                paths:
+                  - ./venv
+                key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+            - run:
+                name: Determine range of commits we are building
+                command: |
+                    # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
+                    COMMIT_RANGE=$(./.circleci/get-commit-range.py)
+                    echo ${COMMIT_RANGE}
+                    echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
+
+            - run:
+                name: Build image if needed
+                command: |
+                  hubploy build << parameters.deployment >> --commit-range ${COMMIT_RANGE}
+
 jobs:
-  build:
+  build-chartpress:
     docker:
       - image: buildpack-deps:bionic-scm
 
@@ -44,46 +103,6 @@ jobs:
           name: Test building support images we need
           command: |
             chartpress --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building datahub image if needed
-          command: |
-            hubploy build datahub --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building prob140 image if needed
-          command: |
-            hubploy build prob140 --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building julia image if needed
-          command: |
-            hubploy build julia --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building R image if needed
-          command: |
-            hubploy build r --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building data8x image if needed
-          command: |
-            hubploy build data8x --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building data100 image if needed
-          command: |
-            hubploy build data100 --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building data102 image if needed
-          command: |
-            hubploy build data102 --commit-range ${COMMIT_RANGE}
-
-      - run:
-          name: Test building external image if needed
-          command: |
-            hubploy build external --commit-range ${COMMIT_RANGE}
 
   deploy:
     docker:
@@ -323,14 +342,41 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy:
+  test-build-images:
+    filters:
+      branches:
+        ignore:
+          - staging
+          - prod
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - staging
-                - prod
+      - hubploy/build-image:
+          parameters:
+            deployment: datahub
+      - hubploy/build-image:
+          parameters:
+            deployment: prob140
+      - hubploy/build-image:
+          parameters:
+            deployment: r
+      - hubploy/build-image:
+          parameters:
+            deployment: julia
+      - hubploy/build-image:
+          parameters:
+            deployment: data102
+      - hubploy/build-image:
+          parameters:
+            deployment: data8x
+      - hubploy/build-image:
+          parameters:
+            deployment: external
+      - hubploy/build-image:
+          parameters:
+            deployment: data100
+      - build-chartpress
+
+  deploy:
+    jobs:
       - deploy:
           filters:
             branches:
