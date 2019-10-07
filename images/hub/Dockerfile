@@ -19,4 +19,7 @@ RUN python3 -m pip install --no-cache /srv/sparklyspawner
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
 
+# for talking to canvas api
+RUN python3 -m pip install --no-cache aiohttp==3.6.1
+
 USER ${NB_USER}
