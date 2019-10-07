@@ -89,102 +89,133 @@ orbs:
                 fi
                 hubploy build << parameters.deployment >>  ${HUBPLOY_ARGS}
 
-      helm:
-        description: "Deploy a hub via hubploy"
-        parameters:
-          deployment:
-            type: string
-
-        docker:
-          - image: python:3.7-slim-buster
-        working_directory: ~/repo
-        steps:
-          - run:
-              name: Install base apt packages
-              command: |
-                apt-get update -qq --yes
-                apt-get install -qq --yes git curl git-crypt apt-transport-https
-
-          - checkout
-
-          # Download and cache dependencies
-          - restore_cache:
-              keys:
-                - v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
-                # fallback to using the latest cache if no exact match is found
-                - v3.7-dependencies-gcloud-265-
-
-          - run:
-              name: install dependencies
-              command: |
-                python3 -m venv venv
-                source venv/bin/activate
-                pip install --upgrade -r requirements.txt
-                # Install latest repo2docker to https://github.com/jupyter/repo2docker/pull/657
-                pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
-
-                # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
-                pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
-
-                curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
-                # Be careful with quote ordering here. ${PATH} must not be expanded
-                # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
-                # Always use full PATHs in PATH!
-                echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
-
-          # FIXME: Only install this if we're using azure
-          # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest
-          - run:
-              name: Install azure client
-              command: |
-                echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ buster main" | \
-                    tee /etc/apt/sources.list.d/azure-cli.list
-                curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
-                    gpg --dearmor | \
-                    tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
-                apt-get update  -qq --yes
-                apt-get install -qq --yes azure-cli
-
-          - save_cache:
-              paths:
-                - ./venv
-              key: v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
-
-          - run:
-              name: Unlock our secrets
-              command: |
-                echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-                git crypt unlock ~/repo/key
-                rm ~/repo/key
-
-          - run:
-              name: Install helm
-              command: |
-                curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
-                  tar -xzf -
-                mv linux-amd64/helm /usr/local/bin
-                helm init --client-only
-                helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
-                helm repo update
-
-          - run:
-              name: Post annotation to Grafana
-              command: |
-                # We get GRAFANA_API_KEY from circle secret config. FIXME: put this inside git-crypt
-                export PULL_REQUEST_ID=$(git log -1 --pretty=%B | head -n1 | sed 's/^.*#\([0-9]*\).*/\1/')
-                export AUTHOR_NAME="$(git log  -1 --pretty=%aN)"
-                export PULL_REQUEST_TITLE="$(git log --pretty=%B -1 | tail -n+3)"
-                python3 scripts/post-grafana-annotation.py  \
-                  --grafana-url http://grafana.datahub.berkeley.edu\
-                  --tag deployment-start \
-                  "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
-
-          - run:
-              name: Deploy << parameters.deployment >>
-              command: |
-                hubploy deploy << parameters.deployment >> hub ${CIRCLE_BRANCH}
-
 jobs:
+  deploy:
+    docker:
+      - image: buildpack-deps:bionic-scm
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: Install base apt packages
+          command: |
+            apt-get update -qq --yes
+            apt-get install -qq --yes python3 python3-venv git-crypt lsb-release apt-transport-https docker.io
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-gcloud-265-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install --upgrade -r requirements.txt
+            # Install latest repo2docker to https://github.com/jupyter/repo2docker/pull/657
+            pip install --upgrade git+https://github.com/jupyter/repo2docker@e976627c1e238cf654ad178456b1bf81db7aac36
+
+            # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
+            pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
+
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            # Be careful with quote ordering here. ${PATH} must not be expanded
+            # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+            # Always use full PATHs in PATH!
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+
+      - run:
+          name: Set distribution codename
+          command: |
+            LSB_RELEASE_CODENAME=$(lsb_release -cs)
+            echo $LSB_RELEASE_CODENAME
+            echo "export LSB_RELEASE_CODENAME='${LSB_RELEASE_CODENAME}'" >> ${BASH_ENV}
+
+      # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest
+      - run:
+          name: Install azure client
+          command: |
+            echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $LSB_RELEASE_CODENAME main" | \
+                tee /etc/apt/sources.list.d/azure-cli.list
+            curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+                gpg --dearmor | \
+                tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+            apt-get update  -qq --yes
+            apt-get install -qq --yes azure-cli
+
+      - setup_remote_docker
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+
+      - run:
+          name: Unlock our secrets
+          command: |
+            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+            git crypt unlock ~/repo/key
+            rm ~/repo/key
+
+      - run:
+          name: Install helm
+          command: |
+            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
+              tar -xzf -
+            mv linux-amd64/helm /usr/local/bin
+            helm init --client-only
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
+      - run:
+          name: Post annotation to Grafana
+          command: |
+            # We get GRAFANA_API_KEY from circle secret config. FIXME: put this inside git-crypt
+            export PULL_REQUEST_ID=$(git log -1 --pretty=%B | head -n1 | sed 's/^.*#\([0-9]*\).*/\1/')
+            export AUTHOR_NAME="$(git log  -1 --pretty=%aN)"
+            export PULL_REQUEST_TITLE="$(git log --pretty=%B -1 | tail -n+3)"
+            python3 scripts/post-grafana-annotation.py  \
+              --grafana-url http://grafana.datahub.berkeley.edu\
+              --tag deployment-start \
+              "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
+
+      - run:
+          name: Deploy datahub
+          command: |
+            hubploy deploy datahub hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy prob140
+          command: |
+            hubploy deploy prob140 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy julia
+          command: |
+            hubploy deploy julia hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy R
+          command: |
+            hubploy deploy r hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data8x
+          command: |
+            hubploy deploy data8x hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data100
+          command: |
+            hubploy deploy data100 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data102
+          command: |
+            hubploy deploy data102 hub ${CIRCLE_BRANCH}
+
   deploy-support:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -355,7 +386,6 @@ workflows:
                 only:
                 - staging
                 - prod
-
       - hubploy/build-image:
           deployment: data102
           name: data102 image build
@@ -386,91 +416,20 @@ workflows:
                 only:
                 - staging
                 - prod
-
-      - hubploy/helm:
-          deployment: datahub
-          name: datahub helm deploy
+      - deploy:
           requires:
-            - datahub image build
-          # Filters can only be per-job? wtf
+              - datahub image build
+              - prob140 image build
+              - r hub image build
+              - julia hub image build
+              - data102 image build
+              - data8x image build
+              - data100 image build
           filters:
-              branches:
-                only:
+            branches:
+              only:
                 - staging
                 - prod
-
-      - hubploy/helm:
-          deployment: prob140
-          name: prob140 helm deploy
-          requires:
-            - prob140 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-
-      - hubploy/helm:
-          deployment: r
-          name: r hub helm deploy
-          requires:
-            - r hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-
-      - hubploy/helm:
-          deployment: julia
-          name: julia hub helm deploy
-          requires:
-            - julia hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-
-      - hubploy/helm:
-          deployment: data102
-          name: data102 helm deploy
-          requires:
-            - data102 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-
-      - hubploy/helm:
-          deployment: data8x
-          name: data8x helm deploy
-          requires:
-            - data8x image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-
-      - hubploy/helm:
-          deployment: data100
-          name: data100 helm deploy
-          requires:
-            - data100 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-
   deploy-support:
     jobs:
       - deploy-support:
