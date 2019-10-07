@@ -85,6 +85,7 @@ orbs:
                   HUBPLOY_ARGS="--check-registry --push"
                 else
                   HUBPLOY_ARGS="--commit-range ${COMMIT_RANGE}"
+                fi
                 hubploy build << parameters.deployment >>  --check-registry  <<# parameters.push >> --push <</ parameters.push >>
 
 jobs:
