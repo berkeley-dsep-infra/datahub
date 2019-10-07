@@ -99,7 +99,7 @@ jobs:
           name: Install base apt packages
           command: |
             apt-get update -qq --yes
-            apt-get install -qq --yes git-crypt lsb-release apt-transport-https
+            apt-get install -qq --yes git curl git-crypt lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
