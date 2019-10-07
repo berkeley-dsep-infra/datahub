@@ -145,8 +145,6 @@ jobs:
             apt-get update  -qq --yes
             apt-get install -qq --yes azure-cli
 
-      - setup_remote_docker
-
       - save_cache:
           paths:
             - ./venv
