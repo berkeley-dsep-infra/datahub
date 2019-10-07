@@ -13,6 +13,11 @@ orbs:
         working_directory: ~/repo
         steps:
           - checkout
+          - run:
+              name: Install git
+              command: |
+                apt-get update && apt-get install --yes --no-install-recommends git
+
           - restore_cache:
               keys:
                 - v3.7-dependencies-{{ checksum "requirements.txt" }}
@@ -56,10 +61,10 @@ jobs:
     working_directory: ~/repo
     steps:
       - run:
-          name: Install docker package needed by chartpress
+          name: Install git & docker needed by chartpress
           command: |
             apt-get update --yes -qq
-            apt-get install --yes -qq docker.io
+            apt-get install --yes -qq docker.io git
       - checkout
       - restore_cache:
           keys:
