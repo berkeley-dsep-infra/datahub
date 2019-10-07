@@ -7,6 +7,9 @@ orbs:
         parameters:
           deployment:
             type: string
+          push:
+            type: boolean
+            default: false
 
         docker:
           - image: python:3.7-slim-buster
@@ -48,10 +51,18 @@ orbs:
                   echo ${COMMIT_RANGE}
                   echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
 
+          - when:
+              condition: << parameters.push >>
+              name: Unlock our secrets
+              command: |
+                echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
+                git crypt unlock ~/repo/key
+                rm ~/repo/key
+
           - run:
               name: Build image if needed
               command: |
-                hubploy build << parameters.deployment >> --commit-range ${COMMIT_RANGE}
+                hubploy build << parameters.deployment >> --commit-range ${COMMIT_RANGE} <<# parameters.push >> --check-registry --push <</ parameters.push >>
 
 jobs:
   build-chartpress:
@@ -167,46 +178,6 @@ jobs:
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
             git crypt unlock ~/repo/key
             rm ~/repo/key
-
-      - run:
-          name: Build datahub image if needed
-          command: |
-            hubploy build datahub --check-registry --push
-
-      - run:
-          name: Build prob140 image if needed
-          command: |
-            hubploy build prob140 --check-registry --push
-
-      - run:
-          name: Build julia image if needed
-          command: |
-            hubploy build julia --check-registry --push
-
-      - run:
-          name: Build R image if needed
-          command: |
-            hubploy build r --check-registry --push
-
-      - run:
-          name: Build data8x image if needed
-          command: |
-            hubploy build data8x --check-registry --push
-
-      - run:
-          name: Build data100 image if needed
-          command: |
-            hubploy build data100 --check-registry --push
-
-      - run:
-          name: Build data102 image if needed
-          command: |
-            hubploy build data102 --check-registry --push
-
-      - run:
-          name: Build external image if needed
-          command: |
-            hubploy build external --check-registry --push
 
       - run:
           name: Install helm
@@ -413,7 +384,85 @@ workflows:
 
   deploy:
     jobs:
+      - hubploy/build-image:
+          deployment: datahub
+          name: datahub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: prob140
+          name: prob140 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: r
+          name: r hub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: julia
+          name: julia hub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: data102
+          name: data102 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: data8x
+          name: data8x image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: data100
+          name: data100 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
       - deploy:
+          requires:
+              - datahub image build
+              - prob140 image build
+              - r hub image build
+              - julia hub image build
+              - data102 image build
+              - data8x image build
+              - data100 image build
           filters:
             branches:
               only:
