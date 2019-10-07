@@ -15,9 +15,9 @@ orbs:
           - checkout
           - restore_cache:
               keys:
-                - v1-dependencies-{{ checksum "requirements.txt" }}
+                - v3.7-dependencies-{{ checksum "requirements.txt" }}
                 # fallback to using the latest cache if no exact match is found
-                - v1-dependencies-
+                - v3.7-dependencies-
 
           - run:
               name: install dependencies
@@ -33,7 +33,7 @@ orbs:
           - save_cache:
               paths:
                 - ./venv
-              key: v1-dependencies-{{ checksum "requirements.txt" }}
+              key: v3.7-dependencies-{{ checksum "requirements.txt" }}
 
           - run:
               name: Determine range of commits we are building
@@ -63,9 +63,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v3.7-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v3.7-dependencies-
       - run:
           name: install dependencies
           command: |
@@ -80,7 +80,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v3.7-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Determine range of commits we are building
           command: |
