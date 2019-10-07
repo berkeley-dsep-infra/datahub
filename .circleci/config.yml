@@ -43,14 +43,6 @@ orbs:
                 - ./venv
               key: v3.7-dependencies-{{ checksum "requirements.txt" }}
 
-          - run:
-              name: Determine range of commits we are building
-              command: |
-                  # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
-                  COMMIT_RANGE=$(./.circleci/get-commit-range.py)
-                  echo ${COMMIT_RANGE}
-                  echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
-
           - when:
               condition: << parameters.push >>
               name: Unlock our secrets
@@ -62,7 +54,7 @@ orbs:
           - run:
               name: Build image if needed
               command: |
-                hubploy build << parameters.deployment >> --commit-range ${COMMIT_RANGE} <<# parameters.push >> --check-registry --push <</ parameters.push >>
+                hubploy build << parameters.deployment >>  <<# parameters.push >> --check-registry --push <</ parameters.push >>
 
 jobs:
   build-chartpress:
