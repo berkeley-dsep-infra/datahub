@@ -70,7 +70,7 @@ orbs:
           - run:
               name: Build image if needed
               command: |
-                hubploy build << parameters.deployment >>  <<# parameters.push >> --check-registry --push <</ parameters.push >>
+                hubploy build << parameters.deployment >>  --check-registry  <<# parameters.push >> --push <</ parameters.push >>
 
 jobs:
   build-chartpress:
