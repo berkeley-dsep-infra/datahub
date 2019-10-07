@@ -6,7 +6,7 @@ nbpdfexport==0.2.1
 #nbzip==0.0.4
 jupyterhub==1.0.0
 appmode==0.4.0
-nbresuse==0.3.1
+nbresuse==0.3.2
 ipywidgets==7.2.1
 nbconvert==5.6.0
 #
