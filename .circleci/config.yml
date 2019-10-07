@@ -103,7 +103,7 @@ orbs:
               name: Install base apt packages
               command: |
                 apt-get update -qq --yes
-                apt-get install -qq --yes python3 python3-venv git-crypt apt-transport-https
+                apt-get install -qq --yes git curl git-crypt apt-transport-https
 
           - checkout
 
