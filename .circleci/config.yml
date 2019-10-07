@@ -92,21 +92,21 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: buildpack-deps:bionic-scm
+      - image: python:3.7-buster-slim
     working_directory: ~/repo
     steps:
       - run:
           name: Install base apt packages
           command: |
             apt-get update -qq --yes
-            apt-get install -qq --yes python3 python3-venv git-crypt lsb-release apt-transport-https docker.io
+            apt-get install -qq --yes git-crypt lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+            - v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-gcloud-265-
+            - v3.7-dependencies-gcloud-265-
 
       - run:
           name: install dependencies
@@ -145,12 +145,10 @@ jobs:
             apt-get update  -qq --yes
             apt-get install -qq --yes azure-cli
 
-      - setup_remote_docker
-
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+          key: v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
 
       - run:
           name: Unlock our secrets
