@@ -215,11 +215,11 @@ ENV NLTK_DATA ${APP_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
-#COPY connectors/eps88.bash /usr/local/sbin/connector-eps88.bash
-#RUN /usr/local/sbin/connector-eps88.bash
-
 COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
 RUN /usr/local/sbin/connector-sw282.bash
+
+COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
+RUN /usr/local/sbin/2019-fall-phys-188-288.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
