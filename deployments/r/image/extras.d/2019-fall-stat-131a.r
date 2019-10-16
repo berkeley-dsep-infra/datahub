@@ -20,7 +20,8 @@ class_libs = c(
   "rpart.plot", "3.0.7",
   "scatterplot3d", "0.3-41",
   "shape", "1.4.4",
-  "sm", "2.2-5.6"
+  "sm", "2.2-5.6",
+  "pheatmap", "1.0.12"
   # "vioplot", "0.3.0"
 )
 class_libs_install_version(class_name, class_libs)
