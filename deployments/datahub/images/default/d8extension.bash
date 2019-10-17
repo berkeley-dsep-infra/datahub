@@ -8,5 +8,5 @@ git checkout e92fa23
 cd ..
 jupyter nbextension install --sys-prefix nbextension-scratchpad
 jupyter nbextension enable  --sys-prefix nbextension-scratchpad/main
-cd .. 
+cd ..
 rm -rf /tmp/nbextension-scratchpad
