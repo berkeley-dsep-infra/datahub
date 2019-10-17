@@ -1,3 +1,3 @@
-git+https://github.com/yuvipanda/hubploy.git@6dcfa9ae3aae2c44263791babcf82ed8aee4149c
+git+https://github.com/yuvipanda/hubploy.git@3b64e6fbd955239c5fc715cba14d0a0cece63938
 pygithub
 chartpress
