@@ -1,3 +1,13 @@
+images:
+  images:
+    - name: gcr.io/ucb-datahub-2018/primary-user-image
+      path: ../datahub/images/default
+  registry:
+    provider: gcloud
+    gcloud:
+      project: ucb-datahub-2018
+      service_key: gcr-key.json
+
 cluster:
   provider: gcloud
   gcloud:

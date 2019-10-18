@@ -39,10 +39,8 @@ jupyterhub:
           - yuvipanda
   singleuser:
     image:
-      # FIXME: This is manually copied over from datahub.
-      # Auto-generate this to match datahub
+      # Matches datahub image
       name: gcr.io/ucb-datahub-2018/primary-user-image
-      tag: 907a4e2
     nodeSelector:
       hub.jupyter.org/node-purpose: user
     initContainers:

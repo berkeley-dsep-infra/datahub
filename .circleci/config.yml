@@ -285,6 +285,7 @@ workflows:
     jobs:
       - hubploy/build-image:
           deployment: datahub
+          # Workshop hub also uses this
           name: datahub image build
           # Filters can only be per-job? wtf
           filters:
@@ -329,15 +330,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: workshop
-          name: workshop image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: data8x
           name: data8x image build
           # Filters can only be per-job? wtf
@@ -359,6 +351,7 @@ workflows:
   deploy:
     jobs:
       - hubploy/build-image:
+          # workshop hub also uses this image
           deployment: datahub
           name: datahub image build
           push: true
@@ -409,16 +402,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: workshop
-          name: workshop image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: data8x
           name: data8x image build
           push: true
@@ -445,7 +428,6 @@ workflows:
               - r hub image build
               - julia hub image build
               - data102 image build
-              - workshop image build
               - data8x image build
               - data100 image build
           filters:
