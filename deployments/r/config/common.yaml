@@ -28,8 +28,9 @@ jupyterhub:
         2019-fall-29640: {}
         # pbhlth 142
         2019-fall-29496: {}
+      canvas_courses:
         # stat 131a
-        2019-fall-23970:
+        1484698:
           # The stanzas below are used when nfsMounter is disabled
           extraVolumes:
           - name: stat131a-ssh
@@ -47,6 +48,8 @@ jupyterhub:
       # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
       04-rstudio-home: |
         c.KubeSpawner.working_dir = '/home/rstudio'
+      11-canvas_url: |
+        c.CustomAttrSpawner.canvas_url = 'https://bcourses.berkeley.edu'
 
   auth:
     type: custom # This enables canvas auth

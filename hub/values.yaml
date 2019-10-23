@@ -102,10 +102,15 @@ jupyterhub:
     extraConfig:
       01-custom-attr-spawner: |
         import os
+        from functools import lru_cache
+
         from kubespawner import KubeSpawner
+        from traitlets import Unicode
         from tornado import gen
         import z2jh
+        import aiohttp
 
+        # for SIS courses
         hosted_domain = 'berkeley.edu'
         course_profile_tmpl = '/srv/jupyterhub/profiles.d/{}-{}.txt'
 
@@ -122,9 +127,11 @@ jupyterhub:
           x = memparse(a) ; y = memparse(b)
           return (x > y) - (x < y)
 
+        # for SIS courses
         def course_profile_filename(course, constituent):
           return course_profile_tmpl.format(course, constituent)
 
+        # for SIS courses
         def course_members(course, constituent, hd=None):
           '''Extracts usernames from files containing email addresses.'''
           members = []
@@ -141,7 +148,67 @@ jupyterhub:
               line = f.readline()
           return members
 
+        def course_error_messages(courses):
+          return map(lambda x: x.get('message', ''), courses['errors'])
+
+        def course_filter(courses, enrollment_type, attr='id'):
+          '''Filter course attributes by enrollment type.'''
+          attrs = []
+          for course in courses:
+            if 'enrollments' not in course: continue
+            for enrollment in course['enrollments']:
+              if enrollment['type'] == enrollment_type:
+                attrs.append(course[attr]); break
+          return attrs
+
+        class InvalidAccessToken(Exception): pass
+
         class CustomAttrSpawner(KubeSpawner):
+
+          canvas_client_id = Unicode('', config=True,
+            help="OAuth client id to refresh the access token."
+          )
+          canvas_client_secret = Unicode('', config=True,
+            help="OAuth client secret to refresh the access token."
+          )
+          canvas_url = Unicode('', config=True,
+            help="Canvas URL."
+          )
+
+          async def refresh_access_token(self, auth_state):
+            '''Use the user's refresh token to get a new access token.'''
+            url = f"{self.canvas_url}/login/oauth2/token"
+            params = dict(
+              grant_type = 'refresh_token',
+              client_id = self.canvas_client_id,
+              client_secret = self.canvas_client_secret,
+              refresh_token = auth_state['refresh_token']
+            )
+            data = {}
+            async with aiohttp.ClientSession() as session:
+              async with session.post(url, params=params) as r:
+                data = await r.json()
+            auth_state['access_token'] = data['access_token']
+            await self.user.save_auth_state(auth_state)
+            return data['access_token']
+
+          @lru_cache(maxsize=1024)
+          async def get_canvas_courses(self, token, enrollment_type=None):
+            '''Fetch a persons courses from Canvas.'''
+            headers = dict(Authorization = f"Bearer {token}")
+            params = {}
+            if enrollment_type: params["enrollment_type"] = enrollment_type
+            url = f"{self.canvas_url}/api/v1/courses"
+            data = []
+            async with aiohttp.ClientSession() as session:
+              async with session.get(url, headers=headers, params=params) as r:
+                data = await r.json()
+                if r.status == 401: # unauthorized
+                  if "Invalid access token." in course_error_messages(data):
+                    raise InvalidAccessToken()
+                elif r.status != 200:
+                  raise Exception(f"error: {r.status} -- {r.text()}")
+            return data
 
           @gen.coroutine
           def start(self):
@@ -153,7 +220,7 @@ jupyterhub:
                 self.mem_guarantee = attr
                 break
 
-            # custom.profiles
+            # custom.profiles (SIS)
             custom_profiles = z2jh.get_config('custom.profiles', {})
             is_student = False ; is_instructor = False
             for course, profile_data in custom_profiles.items():
@@ -180,6 +247,59 @@ jupyterhub:
             elif is_instructor:
               self.user.admin = True
 
+            ## custom.canvas_courses
+            # retrieve the user's enrollments from bcourses
+            canvas_courses = []
+            auth_state = yield self.user.get_auth_state()
+            if auth_state and 'access_token' in auth_state:
+              token = auth_state['access_token']
+              # FIXME: check token expiration rather than using try/except
+              try:
+                canvas_courses = yield self.get_canvas_courses(token)
+              except InvalidAccessToken as e:
+                self.log.warning(f"got invalid access token")
+                new_token = yield self.refresh_access_token(auth_state)
+                canvas_courses = yield self.get_canvas_courses(new_token)
+              except Exception as e:
+                self.log.info("error getting canvas courses")
+                self.log.info(str(e))
+            student_courses = course_filter(canvas_courses, 'student') + \
+                              course_filter(canvas_courses, 'observer')
+            instructor_courses = course_filter(canvas_courses, 'ta') + \
+                                 course_filter(canvas_courses, 'teacher')
+            self.log.info(f"student_courses: {student_courses}")
+            self.log.info(f"instructor_courses: {instructor_courses}")
+
+            # set resource limits, add volumes, set/revoke admin based on
+            # courses
+            custom_canvas_courses = z2jh.get_config('custom.canvas_courses', {})
+            is_canvas_student = False ; is_canvas_instructor = False
+            for canvas_course_id, profile_data in custom_canvas_courses.items():
+              self.log.warning(f'evaluating course id {canvas_course_id}')
+              is_canvas_student    |= (int(canvas_course_id) in student_courses)
+              is_canvas_instructor |= (int(canvas_course_id) in instructor_courses)
+
+              if is_canvas_student or is_canvas_instructor:
+                self.log.warning(f'using course {canvas_course_id}')
+                self.volumes += profile_data.get('extraVolumes', [])
+                self.volume_mounts += profile_data.get('extraVolumeMounts', [])
+                # set new mem thresholds if specified are bigger than current
+                if 'mem_limit' in profile_data and \
+                  mem_cmp(profile_data['mem_limit'], self.mem_limit) == 1:
+                    self.mem_limit = profile_data['mem_limit']
+                if 'mem_guarantee' in profile_data and \
+                  mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
+                    self.mem_guarantee = profile_data['mem_guarantee']
+              else:
+                self.log.warning(f'user not in any canvas course')
+
+            # if the user is a student in any canvas course specified by a
+            # profile, they never get to be an admin
+            if is_canvas_student:
+              self.user.admin = False
+            elif is_canvas_instructor:
+              self.user.admin = True
+
             # custom.admin
             custom_admin = z2jh.get_config('custom.admin', {})
             if custom_admin and self.user.admin:
@@ -189,14 +309,6 @@ jupyterhub:
             return (yield super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-        # these are for accessing canvas api
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_ACCESS_TOKEN')
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_LOGIN_ID')
-        # these are for when hub/admin supports a display name
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_NAME')
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_SORTABLE_NAME')
-        # we might not need this one
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_PRIMARY_EMAIL')
 
         c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
 
