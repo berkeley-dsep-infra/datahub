@@ -58,7 +58,7 @@ tqdm==4.15.0
 mne==0.14.1
 nibabel==2.1.0
 h5py==2.7.0
-pillow==4.2.1
+pillow==6.2.0
 numexpr==2.6.4
 openpyxl==2.4.8
 nipype==0.13.1
