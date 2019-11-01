@@ -200,6 +200,11 @@ jobs:
             hubploy deploy r hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy desktop-test
+          command: |
+            hubploy deploy desktop-test hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy data8x
           command: |
             hubploy deploy data8x hub ${CIRCLE_BRANCH}
@@ -321,6 +326,15 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: desktop-test
+          name: desktop-test hub image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: data102
           name: data102 image build
           # Filters can only be per-job? wtf
@@ -392,6 +406,16 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: desktop-test
+          name: desktop-test hub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: data102
           name: data102 image build
           push: true
@@ -426,6 +450,7 @@ workflows:
               - datahub image build
               - prob140 image build
               - r hub image build
+              - desktop-test hub image build
               - julia hub image build
               - data102 image build
               - data8x image build
