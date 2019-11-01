@@ -134,3 +134,6 @@ nlmpy==0.1.5
 
 # physics 188/288 fall, 2019
 getdist==0.3.3
+#tensorflow==2.0.0
+#tensorflow-hub==0.7.0
+#tensorflow-probability==0.8.0
