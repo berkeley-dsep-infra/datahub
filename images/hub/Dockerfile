@@ -26,6 +26,6 @@ RUN apt-get update --yes --quiet && \
     apt-get install --yes --no-install-recommends nodejs-dev node-gyp libssl1.0-dev npm && \
     rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install git+https://github.com/jupyterhub/jupyterhub.git@2847c3a90c241b212b89aef6181b6da687948a03
+RUN python3 -m pip install git+https://github.com/jupyterhub/jupyterhub.git@5bbb292ef5c100c2c415a662b6e5e445546a24e6
 
 USER ${NB_USER}
