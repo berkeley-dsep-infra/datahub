@@ -47,7 +47,7 @@ bokeh==0.12.6
 decorator==4.1.2
 networkx==2.3
 pygame==1.9.3
-nltk==3.2.4
+nltk==3.4.5
 beautifulsoup4==4.6.0
 spacy==1.9.0
 qgrid==1.1.1
