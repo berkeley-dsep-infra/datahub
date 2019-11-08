@@ -45,7 +45,7 @@ scikit-learn==0.21.3
 seaborn==0.9.0
 bokeh==0.12.6
 decorator==4.1.2
-networkx==1.11
+networkx==2.3
 pygame==1.9.3
 nltk==3.2.4
 beautifulsoup4==4.6.0
@@ -136,3 +136,7 @@ nlmpy==0.1.5
 getdist==0.3.3
 tensorflow-hub==0.7.0
 tensorflow-probability==0.8.0
+
+# mcb 163l, fall 2019
+pydot==1.4.1
+allensdk==0.16.0
