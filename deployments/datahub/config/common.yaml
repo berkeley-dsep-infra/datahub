@@ -32,6 +32,25 @@ jupyterhub:
         2019-fall-32821:
           mem_limit: 2048M
           mem_guarantee: 1024M
+        modules-leads:
+          users:
+            - yuvipanda
+            - ktakimoto
+            - ericvd
+            - jasonjiang
+            - alec.kan
+            - eesaravia
+            - almapineda
+            - m.wilkinson
+            - schaganty
+            - timlan.wong
+          extraVolumes:
+            - name: shared
+              hostPath:
+                path: /data/homes/prod/_shared/module-leads
+          extraVolumeMounts:
+            - name: shared
+              mountPath: /home/jovyan/shared/module-leads
   proxy:
     nodeSelector:
       hub.jupyter.org/node-purpose: core
