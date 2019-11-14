@@ -111,7 +111,8 @@ jupyterhub:
 
         def memparse(val):
           '''Parse memory for relative comparisons.'''
-          if type(val) != str or len(val) == 0: return val
+          if type(val) != str or len(val) == 0:
+            return val
           mem = int(val.upper()[0:-1])
           unit = val[-1]
           n = {'B':0, 'K':1, 'M':2, 'G':3}[unit]
@@ -119,7 +120,8 @@ jupyterhub:
 
         def mem_cmp(a, b):
           '''Compare memory values.'''
-          x = memparse(a) ; y = memparse(b)
+          x = memparse(a)
+          y = memparse(b)
           return (x > y) - (x < y)
 
         def course_profile_filename(course, constituent):
@@ -155,13 +157,19 @@ jupyterhub:
 
             # custom.profiles
             custom_profiles = z2jh.get_config('custom.profiles', {})
-            is_student = False ; is_instructor = False
+            is_student = False
+            is_instructor = False
             for course, profile_data in custom_profiles.items():
-              students    = course_members(course, 'students',    hosted_domain)
-              instructors = course_members(course, 'instructors', hosted_domain)
-              is_student    |= (self.user.name in students)
-              is_instructor |= (self.user.name in instructors)
-              if is_student or is_instructor:
+              customize = False
+              if 'users' in profile_data and self.user.name in profile_data['users']:
+                customize = True
+              else:
+                students = course_members(course, 'students', hosted_domain)
+                instructors = course_members(course, 'instructors', hosted_domain)
+                is_student |= (self.user.name in students)
+                is_instructor |= (self.user.name in instructors)
+                customize = self.user.name in students or self.user.name in instructors
+              if customize:
                 self.log.warning(f'using profile {course}')
                 self.volumes += profile_data.get('extraVolumes', [])
                 self.volume_mounts += profile_data.get('extraVolumeMounts', [])
