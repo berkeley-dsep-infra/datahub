@@ -17,6 +17,7 @@ dependencies:
   - distributed=2.2.0
   - flake8=3.7.7
   - graphviz=2.40.1
+  - gym=0.15.4
   - h5py=2.9.0
   - hdf5=1.10.4
   - html5lib=1.0.1
