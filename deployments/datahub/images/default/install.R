@@ -77,3 +77,6 @@ devtools::install_github('cran/here', ref='0.1', upgrade_dependencies=FALSE)
 devtools::install_github('cran/checkr', ref='0.5.0', upgrade_dependencies=FALSE)
 
 devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE)
+
+# for Nolan workshop.datahub, 2019-11
+devtools::install_github('cran/ggformula', ref='0.9.2', upgrade_dependencies=FALSE)
