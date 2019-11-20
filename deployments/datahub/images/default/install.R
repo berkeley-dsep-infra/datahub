@@ -80,3 +80,6 @@ devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FAL
 
 # for Nolan workshop.datahub, 2019-11
 devtools::install_github('cran/ggformula', ref='0.9.2', upgrade_dependencies=FALSE)
+
+# for EEP118, 2019-11 issue 1154
+devtools::install_github('cran/lfe', ref='2.8-2', upgrade_dependencies=FALSE)
