@@ -13,11 +13,16 @@ jupyterhub:
         - name: home
           hostPath:
             path: /data/homes/staging/{username}
+        - name: shared-tmp
+          hostPath:
+            path: /data/homes/staging/_shared/temporary
       extraVolumeMounts:
         - name: etc-jupyter
           mountPath: /etc/jupyter
         - name: home
           mountPath: /home/jovyan
+        - name: shared-tmp
+          mountPath: /data/shared/temporary
   scheduling:
     userPlaceholder:
       enabled: true
