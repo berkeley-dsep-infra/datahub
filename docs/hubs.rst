@@ -58,13 +58,3 @@ to provide login capability from inside EdX.
 
 It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``data8x-scratch``
 project. You can see :ref:`all config <structure>` for it under ``deployments/data8x``.
-
-External Hub
-============
-
-Hub used temporarily by other institutions that are experimenting with the UCB way of
-doing data science. They receive support only on a best-effort basis.
-
-Currently, SRM Amravati is the only institution on the hub, sponsored by Yuvi Panda &
-Prof. Janaki Bakhle. IT runs in the ``data8x-scratch`` project too, since it is
-technically external pedagogy.

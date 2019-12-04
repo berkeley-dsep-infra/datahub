@@ -1,3 +1,0 @@
-rsync
-vim
-util-linux
