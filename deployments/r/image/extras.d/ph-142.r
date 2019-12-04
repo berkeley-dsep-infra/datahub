@@ -38,4 +38,7 @@ devtools::install_github('cran/measurements', ref='1.3.0', upgrade_dependencies=
 print("Installing dagitty...")
 devtools::install_github('cran/dagitty', ref='0.2-2', upgrade_dependencies=FALSE, quiet=TRUE)
 
+print("Installing tigris...")
+devtools::install_github('walkerke/tigris', ref='78d1e44ccc1f561342078c0e79d0415fa4396389', upgrade_dependencies=FALSE, quiet=TRUE)
+
 print("Done installing packages for PH142")
