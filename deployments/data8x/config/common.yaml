@@ -8,6 +8,10 @@ nfsPVC:
     shareName: userhomes
 
 jupyterhub:
+  hub:
+    services:
+      gofer_nb:
+        url: http://35.239.20.122:10101
   auth:
     type: lti
     admin:
