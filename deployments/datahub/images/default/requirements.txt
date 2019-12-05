@@ -111,8 +111,8 @@ sympy==1.4
 mcautograder==0.0.5
 chart-studio==1.0.0
 csaps==0.5.0
-nb2pdf==0.1.0
-otter-grader==0.1.7
+nb2pdf==0.1.1
+otter-grader==0.1.8
 
 # issue #875, global 150Q/pacs 190 - fall 2019
 wordcloud==1.5.0
