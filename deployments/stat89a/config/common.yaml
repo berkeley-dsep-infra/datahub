@@ -1,0 +1,19 @@
+jupyterhub:
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+
+  singleuser:
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/stat89a-user-image
+    storage:
+      type: hostPath
