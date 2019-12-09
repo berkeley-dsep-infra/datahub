@@ -1,14 +1,11 @@
 nfsMounter:
   mounts:
-    # FIXME: You need to create this manually on the NFS server
     - nfsserver1:/export/pool0/homes/_stat89a=/data/homes/stat89a-prod
 
 jupyterhub:
   proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of stat89a.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 34.67.27.111
     # https:
       # hosts:
         # FIXME: Make a DNS entry for the service IP first before uncommenting it

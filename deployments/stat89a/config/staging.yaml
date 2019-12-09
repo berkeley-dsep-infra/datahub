@@ -7,14 +7,11 @@ jupyterhub:
     continuous:
       enabled: false
   proxy:
-    # service:
-      # make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of stat89a.datahub.berkeley.edu
-    # uncomment once DNS entry has been made
-    # https:
-      # hosts:
-        # - stat89a-staging.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 34.66.75.97
+    #https:
+    #  hosts:
+    #    - stat89a-staging.datahub.berkeley.edu
   singleuser:
     storage:
       extraVolumes:
