@@ -432,7 +432,7 @@ workflows:
                 - prod
       - hubploy/build-image:
           deployment: stat89a
-          name: stat89a hub image build
+          name: stat89a image build
           push: true
           # Filters can only be per-job? wtf
           filters:
