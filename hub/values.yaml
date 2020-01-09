@@ -37,13 +37,13 @@ jupyterhub:
     chp:
       resources:
         requests:
-          memory: 320Mi
+          memory: 64Mi
         limits:
-          memory: 320Mi
+          memory: 256Mi
     nginx:
       resources:
         requests:
-          memory: 512Mi
+          memory: 256Mi
         limits:
           memory: 512Mi
     https:
