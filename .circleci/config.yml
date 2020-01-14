@@ -164,7 +164,6 @@ jobs:
             curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
-            helm init --client-only
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
@@ -255,13 +254,11 @@ jobs:
             rm ~/repo/key
 
       - run:
-          name: Install helm
+          name: Install helm3
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
-            helm repo update
 
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
