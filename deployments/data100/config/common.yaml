@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/data100homes/homes/prod
+    shareName: export/data100homes/homes/prod/home
 
 jupyterhub:
   hub:
