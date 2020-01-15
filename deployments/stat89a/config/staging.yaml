@@ -9,9 +9,9 @@ jupyterhub:
   proxy:
     service:
       loadBalancerIP: 34.66.75.97
-    #https:
-    #  hosts:
-    #    - stat89a-staging.datahub.berkeley.edu
+    https:
+      hosts:
+        - stat89a-staging.datahub.berkeley.edu
   singleuser:
     storage:
       extraVolumes:

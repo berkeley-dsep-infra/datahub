@@ -12,6 +12,6 @@ jupyterhub:
       # then specify it here so if we redeploy we get the same stuff
       # loadBalancerIP: <IP of desktop-test.datahub.berkeley.edu
     # uncomment once DNS entry has been made
-    # https:
-      # hosts:
-        # - desktop-test-staging.datahub.berkeley.edu
+    https:
+      hosts:
+        - desktop-test-staging.datahub.berkeley.edu
