@@ -6,10 +6,10 @@ jupyterhub:
   proxy:
     service:
       loadBalancerIP: 34.67.27.111
-    # https:
-      # hosts:
+    https:
+      hosts:
         # FIXME: Make a DNS entry for the service IP first before uncommenting it
-        # - stat89a.datahub.berkeley.edu
+        - stat89a.datahub.berkeley.edu
   hub:
     db:
       pvc:
