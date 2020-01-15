@@ -1,0 +1,3 @@
+[submodule "zero-to-jupyterhub-k8s"]
+	path = zero-to-jupyterhub-k8s
+	url = https://github.com/yuvipanda/zero-to-jupyterhub-k8s.git
