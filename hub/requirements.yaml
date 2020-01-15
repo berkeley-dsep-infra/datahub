@@ -1,5 +1,5 @@
 dependencies:
  - name: jupyterhub
    # REMEMBER TO CHANGE BASE IMAGE OF images/hub/ WHEN CHANGING THIS
-   version: v0.0.1+3175.434f0d3
+   version: v0.0.1-n3175.h434f0d3
    repository: file://../zero-to-jupyterhub-k8s/jupyterhub
