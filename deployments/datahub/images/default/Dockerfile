@@ -1,4 +1,5 @@
-FROM buildpack-deps:bionic-scm
+# Using a non LTS version here to get newer python
+FROM buildpack-deps:eoan-scm
 
 ENV APP_DIR /srv/app
 
