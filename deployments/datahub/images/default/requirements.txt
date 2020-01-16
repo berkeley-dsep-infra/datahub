@@ -104,7 +104,7 @@ Theano==1.0.4
 # eps 109; fall 2019
 ffmpeg-python==0.1.17
 
-# data 88; fall 2019
+# data 88; spring 2020
 plotly==4.0.0
 mpmath==1.1.0
 sympy==1.4
@@ -112,7 +112,8 @@ mcautograder==0.0.5
 chart-studio==1.0.0
 csaps==0.5.0
 nb2pdf==0.1.1
-otter-grader==0.1.8
+otter-grader==0.1.19
+nbforms==0.3.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
 wordcloud==1.5.0
