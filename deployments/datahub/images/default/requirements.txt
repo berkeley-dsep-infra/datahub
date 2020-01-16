@@ -61,6 +61,7 @@ h5py==2.7.0
 pillow==4.2.1
 numexpr==2.6.4
 openpyxl==2.4.8
+wheel==0.33.6
 nipype==0.13.1
 nilearn==0.3.1
 #
