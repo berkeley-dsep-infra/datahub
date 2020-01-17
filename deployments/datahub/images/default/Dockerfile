@@ -180,9 +180,8 @@ WORKDIR /home/jovyan
 USER jovyan
 RUN python3.6 -m venv ${APP_DIR}/venv
 
-# adding for tensorflow >= 2.0.0
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
+# adding for tensorflow >= 2.0.0, astropy
+RUN pip install --upgrade pip setuptools wheel
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
