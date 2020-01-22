@@ -4,8 +4,14 @@
 
 print("Installing packages for EEP 1118")
 
-print("Installing car...")
-devtools::install_github('cran/car', ref='3.0-2', upgrade_dependencies=FALSE, quiet=TRUE)
+source("/tmp/class-libs.R")
+
+class_name="EEP 1118"
+class_libs = c(
+    "car", "3.0-2"
+)
+
+class_libs_install_version(class_name, class_libs)
 
 print("Done installing packages for EEP 1118")
 
