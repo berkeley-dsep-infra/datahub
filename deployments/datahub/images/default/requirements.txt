@@ -76,7 +76,7 @@ cython==0.25.2
 pymdptoolbox==4.0b3
 #
 # data-x; DL
-tensorflow==1.15.0
+tensorflow==2.1.0
 scikit-image==0.13.1
 Keras==2.0.8
 keras-vis==0.4.1
