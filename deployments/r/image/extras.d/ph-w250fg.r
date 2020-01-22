@@ -18,7 +18,10 @@ class_libs = c(
     "dplyr", "0.8.1",
     "ggplot2", "3.1.0",
     "tidyr", "0.8.3",
-    "reticulate", "1.13"
 )
+
+# 1.13 isn't found in cran?
+print("Installing reticulate...")
+devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE, quiet=TRUE)
 
 class_libs_install_version(class_name, class_libs)
