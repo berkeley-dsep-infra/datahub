@@ -17,7 +17,7 @@ class_libs = c(
     "checkr", "0.5.0",
     "dplyr", "0.8.1",
     "ggplot2", "3.1.0",
-    "tidyr", "0.8.3",
+    "tidyr", "0.8.3"
 )
 
 # 1.13 isn't found in cran?
