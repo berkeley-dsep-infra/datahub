@@ -35,7 +35,6 @@ RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone	
      libevent-dev 										    \
      libffi-dev 										    \
      libzmq3-dev 										    \
-     locale-gen                                                        		                    \
      locales 											    \
      lsb-release 										    \
      tar 											    \
