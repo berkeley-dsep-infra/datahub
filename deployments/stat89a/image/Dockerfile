@@ -15,7 +15,7 @@ ENV PATH=${CONDA_PREFIX}/bin:$PATH
 #    Set up timezone
 RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone			    &&  \
 #    locale setup
-     echo "${LC_ALL} UTF-8" > /etc/locale.gen && locale-gen					    &&  \
+     echo "${LC_ALL} UTF-8" > /etc/locale.gen 							    &&  \
 #
 #    Set up default user
      adduser --disabled-password --gecos "Default Jupyter user" jupyterian			    &&  \
@@ -35,6 +35,7 @@ RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone	
      libevent-dev 										    \
      libffi-dev 										    \
      libzmq3-dev 										    \
+     locale-gen                                                        		                    \
      locales 											    \
      lsb-release 										    \
      tar 											    \
@@ -62,6 +63,8 @@ RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone	
 #    Use newly installed tzdata for configuring timezone
      dpkg-reconfigure --frontend noninteractive tzdata						    &&  \
 #
+#    Use newly installed locales/locale-gen to configure locals
+     locale-gen											    &&  \
 #    Prevent bibtex from interrupting nbconvert
      update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
 
