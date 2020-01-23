@@ -9,6 +9,7 @@ jupyterhub:
           - felder
           # List of other admin users
           - krinsman
+          - theisen
           - wqixuan
 
   singleuser:
