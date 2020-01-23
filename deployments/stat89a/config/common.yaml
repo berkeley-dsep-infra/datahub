@@ -8,6 +8,7 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          - krinsman
 
   singleuser:
     memory:
