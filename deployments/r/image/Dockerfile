@@ -51,7 +51,8 @@ RUN pip install --no-cache-dir \
                 jupyterhub==1.0.0 \
                 jupyterlab==0.35.6 \
                 notebook==5.7.8 \
-                nbpdfexport==0.2.1
+                nbpdfexport==0.2.1 \
+                PyPDF2==1.26.0
 
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME /srv/conda
