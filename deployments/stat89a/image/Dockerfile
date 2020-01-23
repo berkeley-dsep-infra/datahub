@@ -89,6 +89,7 @@ RUN  curl -s -o miniconda3.sh https://repo.continuum.io/miniconda/Miniconda3-lat
      pandas  											    \
      pandoc  											    \
      plotly  											    \
+     psutil											    \
      scipy  											    \
      setuptools 										    \
      statsmodels										    &&  \
