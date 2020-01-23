@@ -11,6 +11,10 @@ ENV PATH ${CONDA_DIR}/bin:$PATH
 # And set ENV for R! It doesn't read from the environment...
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
 
+# Add PATH to /etc/profile so it gets picked up by the terminal
+RUN echo "PATH=${PATH}" >> /etc/profile
+RUN echo "export PATH" >> /etc/profile
+
 # The `rsession` binary that is called by jupyter-rsession-proxy to start R
 # doesn't seem to start without this being explicitly set
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
