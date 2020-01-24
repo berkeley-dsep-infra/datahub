@@ -3,9 +3,6 @@ set -euo pipefail
 
 export TZ=America/Los_Angeles
 export LC_ALL=en_US.UTF-8
-#    Prevent bibtex from interrupting nbconvert
-update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
-
 #    Copy over Jupyter configuration files
 mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
