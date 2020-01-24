@@ -20,3 +20,4 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/stat89a-user-image
     storage:
       type: hostPath
+    defaultUrl: "/lab"
