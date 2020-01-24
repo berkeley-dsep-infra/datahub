@@ -7,10 +7,6 @@ assignees: ''
 
 ---
 
-### Before making an issue for your addition/change request, you're encouraged to try submitting your own PR.
-
-If you need assistance doing this please provide as much of the information requested below that you can.
-
 **Which package do you want installed?**
 
 **Which hub do you want it installed on?  For example r.datahub, datahub, data100.datahub, etc.**
