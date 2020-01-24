@@ -9,6 +9,8 @@ assignees: ''
 
 **Which package do you want installed?**
 
+**Which hub do you want it installed on?  For example r.datahub, datahub, data100.datahub, etc.**
+
 **Which class will use this package?**
 
 Include a link to appropriate entry in https://classes.berkeley.edu/ if available. If not, please mention class name & instructor.
