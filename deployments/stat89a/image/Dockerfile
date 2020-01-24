@@ -75,9 +75,7 @@ RUN  curl -s -o miniconda3.sh https://repo.continuum.io/miniconda/Miniconda3-lat
      conda config --add channels conda-forge  							    &&  \
      conda config --set changeps1 no         							    &&  \
      conda env update --name base --file /tmp/environment.yml --quiet				    &&  \
-     conda clean --all --yes -f   	 		      					    &&  \
-#    Get rid of that environment.yml file
-     rm -rf /tmp/*
+     conda clean --all --yes -f
 
 #    Install extra JupyterLab Extension dependencies
 RUN  jupyter labextension install								    \
