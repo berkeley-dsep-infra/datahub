@@ -59,11 +59,14 @@ RUN  dpkg-reconfigure --frontend noninteractive tzdata						    &&  \
 #
 #    Use newly installed locales/locale-gen to configure locals
      locale-gen											    &&  \
-#    Prevent bibtex from interrupting nbconvert
-     update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200				    &&  \
 #
 #    prevent from updating to Python 3.8 and getting unexpected behavior
-     echo "python 3.7.*" >> /opt/conda/conda-meta/pinned
+     mkdir -p ${CONDA_PREFIX}/conda-meta && touch ${CONDA_PREFIX}/conda-meta/pinned		    &&  \
+     echo "python 3.7.*" >> ${CONDA_PREFIX}/conda-meta/pinned					    &&  \
+#
+#    Prevent bibtex from interrupting nbconvert
+     update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
+
 
 #    Leave root
 WORKDIR ${HOME_DIR}
