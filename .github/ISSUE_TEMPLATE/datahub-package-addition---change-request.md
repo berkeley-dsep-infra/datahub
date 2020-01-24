@@ -19,6 +19,6 @@ Include a link to appropriate entry in https://classes.berkeley.edu/ if availabl
 
 This helps us clean up unused packages after a term ends.
 
-**If you tried to make your PR for this first, what issue did you encounter that prevented it from working?**
+**If you tried to submit a PR for this first, what issue did you encounter that prevented it from working?**
 
 **Any additional information we should know about?**
