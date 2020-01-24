@@ -26,8 +26,8 @@ RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone	
      install -d -o ${JUPYTER_USER} -g ${JUPYTER_USER} ${CONDA_PREFIX}
      
 #    Install basic dependencies e.g. for Python
-RUN  apt-get update && apt-get --yes upgrade							    &&  \
-     apt-get --yes install   	  	    	 						    \
+RUN  apt-get -qq update && apt-get --yes -qq upgrade							    &&  \
+     apt-get --yes -qq install   	  	    	 						    \
      bzip2											    \
      gcc 											    \
      libevent-dev 										    \
@@ -41,7 +41,7 @@ RUN  apt-get update && apt-get --yes upgrade							    &&  \
 
 #    nbconvert prefers having a TeX distribution available, this is the easiest way
 #    to install on Ubuntu. pandoc can be installed via conda
-RUN  apt-get --yes install									    \
+RUN  apt-get --yes -qq install									    \
      texlive-xetex										    \
      texlive-fonts-recommended 									    \
      texlive-generic-recommended 								    \
@@ -74,7 +74,7 @@ RUN  curl -s -o miniconda3.sh https://repo.continuum.io/miniconda/Miniconda3-lat
      bash miniconda3.sh -f -b -p ${CONDA_PREFIX}  						    &&  \
      conda config --add channels conda-forge  							    &&  \
      conda config --set changeps1 no         							    &&  \
-     conda env update --name base --file /tmp/environment.yml --quiet				    &&  \
+     conda env update --name base --file /tmp/environment.yml				   	    &&  \
      conda clean --all --yes -f
 
 #    Install extra JupyterLab Extension dependencies
