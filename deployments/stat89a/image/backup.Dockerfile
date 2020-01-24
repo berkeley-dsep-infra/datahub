@@ -41,14 +41,14 @@ RUN  apt-get -qq update && apt-get --yes -qq upgrade							    &&  \
 
 #    nbconvert prefers having a TeX distribution available, this is the easiest way
 #    to install on Ubuntu. pandoc can be installed via conda
-#RUN  apt-get --yes -qq install									    \
-#     texlive-xetex										    \
-#     texlive-fonts-recommended 									    \
-#     texlive-generic-recommended 								    \
+RUN  apt-get --yes -qq install									    \
+     texlive-xetex										    \
+     texlive-fonts-recommended 									    \
+     texlive-generic-recommended 								    \
 #
 #    Have this available for students to export PDFs, since JupyterLab doesn't support
 #    loading NBConvert (bundler) extensions via UI yet, so nbpdfexport won't work
-#     wkhtmltopdf										   
+     wkhtmltopdf										   
 #
 #    curl, ca-certificates, wget, git should all be installed in
 #    bionic-scm and parent bionic-curl images, so no need to install again here
