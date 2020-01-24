@@ -14,7 +14,6 @@ RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
 # Add PATH to /etc/profile so it gets picked up by the terminal
 RUN echo "PATH=${PATH}" >> /etc/profile
 RUN echo "export PATH" >> /etc/profile
-RUN echo "GITHUB_PAT=${GITHUB_PAT}" >> ~/.Renviron
 
 # The `rsession` binary that is called by jupyter-rsession-proxy to start R
 # doesn't seem to start without this being explicitly set
