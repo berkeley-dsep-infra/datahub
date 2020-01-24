@@ -1,7 +1,6 @@
 name: base
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - coverage
   - ipympl=0.4.1
@@ -28,3 +27,4 @@ dependencies:
     - nbgitpuller==0.8.0
     - nbresuse==0.3.3
     - okpy==1.14.19
+    - jupyterlab_latex
