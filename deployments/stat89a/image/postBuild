@@ -1,6 +1,48 @@
 #!/bin/bash
 set -euo pipefail
 
-# Create ipython config directory if it doesn't exist
-mkdir -p ${CONDA_DIR}/etc/ipython
-cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
+export TZ=America/Los_Angeles
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export CONDA_PREFIX=/opt/conda
+export DEBIAN_FRONTEND=noninteractive
+export JUPYTER_USER=jovyan
+
+export PATH=${CONDA_PREFIX}/bin:$PATH
+export HOME_DIR=/home/${JUPYTER_USER}
+
+#    Basic configuration steps
+#
+#    Set up timezone
+ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+echo "${LC_ALL} UTF-8" > /etc/locale.gen
+
+#    Set up default user
+adduser --disabled-password --gecos "Default Jupyter user" ${JUPYTER_USER}
+
+#    Make sure default user has access to conda directory
+install -d -o ${JUPYTER_USER} -g ${JUPYTER_USER} ${CONDA_PREFIX}
+     
+#    Use newly installed tzdata for configuring timezone
+dpkg-reconfigure --frontend noninteractive tzdata
+
+#    Use newly installed locales/locale-gen to configure locals
+locale-gen
+
+#    Prevent bibtex from interrupting nbconvert
+update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
+
+#    Copy over Jupyter configuration files
+mkdir -p ${CONDA_PREFIX}/etc/ipython
+cp ipython_config.py ${CONDA_PREFIX}/etc/ipython/ipython_config.py
+mkdir -p ${CONDA_PREFIX}/etc/jupyter
+cp jupyter_notebook_config.py ${CONDA_PREFIX}/etc/jupyter/jupyter_notebook_config.py
+
+#    Install necessary JupyterLab extensions
+jupyter labextension install								            \
+     @jupyter-widgets/jupyterlab-manager  							    \
+     @jupyterlab/plotly-extension  								    \
+     jupyter-matplotlib  									    \
+     plotlywidget
+jupyter lab clean

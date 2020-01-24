@@ -1,3 +1,0 @@
-notebook==6.0.2
-nbgitpuller==0.8.0
-nbresuse==0.3.3
