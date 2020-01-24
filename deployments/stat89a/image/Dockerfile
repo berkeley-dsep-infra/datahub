@@ -18,12 +18,10 @@ RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone	
      echo "${LC_ALL} UTF-8" > /etc/locale.gen 							    &&  \
 #
 #    Set up default user
-     adduser --disabled-password --gecos "Default Jupyter user" jupyterian			    &&  \
-#    It took me WAY too long to realize that jovyan was Jovian with the i replaced with
-#    a y, like Jupyter is to Jupiter. This username seems more straightforward
+     adduser --disabled-password --gecos "Default Jupyter user" jovyan				    &&  \
 #
 #    Make sure default user has access to conda directory
-     install -d -o jupyterian -g jupyterian ${CONDA_PREFIX}					    &&  \
+     install -d -o jovyan -g jovyan ${CONDA_PREFIX}						    &&  \
 #
 #    Install basic dependencies e.g. for Python
      apt-get update && apt-get --yes upgrade							    &&  \
@@ -68,8 +66,8 @@ RUN  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone	
      update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
 
 #    Leave root
-WORKDIR /home/jupyterian
-USER jupyterian
+WORKDIR /home/jovyan
+USER jovyan
 
 #    Install Miniconda
 #
