@@ -8,9 +8,12 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          # Professor
           - mahoneymw
+          # GSIs
           - krinsman
           - theisen
+          # UGSI
           - wqixuan
 
   singleuser:
