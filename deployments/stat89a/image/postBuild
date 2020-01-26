@@ -7,11 +7,6 @@ cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 mkdir -p ${CONDA_DIR}/etc/jupyter
 cp jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/jupyter_notebook_config.py
 
-# This was probably what broke it?
-#    Get up-to-date version of JupyterHub
-#pip uninstall --yes jupyterhub sqlalchemy python-oauth2 urllib3 mako alembic
-#conda install --yes -c conda-forge jupyterhub=1.1.0
-
 # run matplotlib once to generate the font cache
 python -c "import matplotlib as mpl; mpl.use('Agg'); import pylab as plt; fig, ax = plt.subplots(); fig.savefig('test.png')"
 test -e test.png && rm test.png
