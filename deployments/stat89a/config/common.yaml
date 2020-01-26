@@ -8,6 +8,10 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          - mahoneymw
+          - krinsman
+          - theisen
+          - wqixuan
 
   singleuser:
     memory:
@@ -17,3 +21,4 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/stat89a-user-image
     storage:
       type: hostPath
+    defaultUrl: "/lab"
