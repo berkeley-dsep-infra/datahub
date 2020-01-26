@@ -12,6 +12,4 @@ texlive-latex-extra
 texlive-fonts-recommended
 dvipng
 ghostscript
-xauth
-xvfb
 wkhtmltopdf
