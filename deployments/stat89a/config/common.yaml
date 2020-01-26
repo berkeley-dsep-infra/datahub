@@ -8,12 +8,9 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
-	  # Professor
           - mahoneymw
-	  # GSIs
           - krinsman
           - theisen
-	  # UGSI
           - wqixuan
 
   singleuser:
@@ -25,7 +22,3 @@ jupyterhub:
     storage:
       type: hostPath
     defaultUrl: "/lab"
-    lifecycleHooks:
-      postStart:
-        exec:
-	  command: ["gitpuller", "https://github.com/STAT-89A/spring_2020", "master", "STAT 89A Spring 2020"]

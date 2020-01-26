@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd STAT\ 89A\ 2020
-exec "$@"
