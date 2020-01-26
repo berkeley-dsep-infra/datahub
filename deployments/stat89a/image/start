@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import sys
+import shutil
+import os
+
+# Add path to notebook dir
+args = sys.argv + ['--notebook-dir ./STAT\ 89A\ 2020']
+
+print(args, flush=True)
+os.execv(shutil.which('python3'), args)
