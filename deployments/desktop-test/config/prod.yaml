@@ -1,0 +1,19 @@
+nfsMounter:
+  mounts:
+    # FIXME: You need to create this manually on the NFS server
+    - nfsserver1:/export/pool0/homes/_desktop-test=/data/homes/desktop-test-prod
+
+jupyterhub:
+  proxy:
+    # service:
+      # FIXME: make the IP static in google cloud console so we won't lose it
+      # then specify it here so if we redeploy we get the same stuff
+      # loadBalancerIP: <IP of desktop-test.datahub.berkeley.edu
+    https:
+      hosts:
+        - desktop-test.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

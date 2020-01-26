@@ -1,0 +1,71 @@
+nfsMounter:
+  enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
+jupyterhub:
+  prePuller:
+    continuous:
+      # Same image as datahub, so no continouus pre-puller needed
+      enabled: false
+  cull:
+    # Cull after 30min of inactivity
+    every: 300
+    timeout: 1800
+    # No pods over 12h long, no workshop is gonna be more than that :)
+    maxAge: 43200
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/node-purpose: core
+  hub:
+    # No more than 150 users at any given time
+    activeServerLimit: 150
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
+  auth:
+    type: dummy
+    admin:
+      users:
+          - felder
+          - rylo
+          - yuvipanda
+  singleuser:
+    image:
+      # Matches datahub image
+      name: gcr.io/ucb-datahub-2018/primary-user-image
+    nodeSelector:
+      hub.jupyter.org/node-purpose: user
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_workshop/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_workshop/{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
+    memory:
+      # As low a guarantee as possible
+      guarantee: 128M
+      limit: 1G

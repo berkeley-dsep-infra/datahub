@@ -1,5 +1,8 @@
 nbgitpuller==0.7.2
-nbresuse==0.3.1
+nbresuse==0.3.2
 
 # Issue #880, for PHW250FG and PH142 - Fall 2019
 okpy==1.14.15
+
+# Issue ##1222, for PH 142 - Spring 2020
+PyPDF2==1.26.0

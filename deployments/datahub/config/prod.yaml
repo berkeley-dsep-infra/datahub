@@ -14,11 +14,16 @@ jupyterhub:
         - name: home
           hostPath:
             path: /data/homes/prod/{username}
+        - name: shared-tmp
+          hostPath:
+            path: /data/homes/staging/_shared/temporary
       extraVolumeMounts:
         - name: etc-jupyter
           mountPath: /etc/jupyter
         - name: home
           mountPath: /home/jovyan
+        - name: shared-tmp
+          mountPath: /data/shared/temporary
   proxy:
     service:
       loadBalancerIP: 35.232.190.188

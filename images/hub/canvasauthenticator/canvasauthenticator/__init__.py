@@ -59,3 +59,17 @@ class CanvasAuthenticator(GenericOAuthenticator):
         if self.strip_email_domain and username.endswith('@' + self.strip_email_domain):
             return username.split('@')[0]
         return username
+
+    @gen.coroutine
+    def pre_spawn_start(self, user, spawner):
+        """Pass oauth data to spawner via OAUTH2_ prefixed env variables."""
+        auth_state = yield user.get_auth_state()
+        if not auth_state:
+            return
+        if 'access_token' in auth_state:
+            spawner.environment["OAUTH2_ACCESS_TOKEN"] = auth_state['access_token']
+        # others are lti_user_id, id, integration_id
+        if 'oauth_user' in auth_state:
+            for k in ['login_id', 'name', 'sortable_name', 'primary_email']:
+                if k in auth_state['oauth_user']:
+                    spawner.environment[f"OAUTH2_{k.upper()}"] = auth_state['oauth_user'][k]

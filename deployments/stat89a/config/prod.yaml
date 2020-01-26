@@ -1,0 +1,26 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_stat89a=/data/homes/stat89a-prod
+
+jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 34.67.27.111
+    https:
+      hosts:
+        # FIXME: Make a DNS entry for the service IP first before uncommenting it
+        - stat89a.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/stat89a-prod/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
