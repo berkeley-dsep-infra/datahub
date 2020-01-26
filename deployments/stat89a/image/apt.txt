@@ -13,5 +13,5 @@ texlive-fonts-recommended
 dvipng
 ghostscript
 xauth
-xfvb
+xvfb
 wkhtmltopdf
