@@ -25,3 +25,7 @@ jupyterhub:
     storage:
       type: hostPath
     defaultUrl: "/lab"
+    lifecycleHooks:
+      postStart:
+        exec:
+          command: ["gitpuller", "https://github.com/STAT-89A/spring_2020", "master", "STAT 89A 2020", "&&", "cd", "STAT 89A 2020"]
