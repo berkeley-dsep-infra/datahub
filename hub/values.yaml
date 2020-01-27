@@ -52,6 +52,7 @@ jupyterhub:
     networkPolicy:
       enabled: true
   singleuser:
+    startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
     defaultUrl: /tree
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
