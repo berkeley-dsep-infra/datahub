@@ -6,6 +6,8 @@ mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 mkdir -p ${CONDA_DIR}/etc/jupyter
 cp jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/jupyter_notebook_config.py
+mkdir -p ${CONDA_DIR}/share/jupyter/lab/settings
+cp overrides.json ${CONDA_DIR}/share/jupyter/lab/settings/overrides.json
 
 # run matplotlib once to generate the font cache
 python -c "import matplotlib as mpl; mpl.use('Agg'); import pylab as plt; fig, ax = plt.subplots(); fig.savefig('test.png')"
