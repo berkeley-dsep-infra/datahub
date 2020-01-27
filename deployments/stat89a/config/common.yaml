@@ -8,6 +8,13 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          # Professor
+          - mahoneymw
+          # GSIs
+          - krinsman
+          - theisen
+          # UGSI
+          - wqixuan
 
   singleuser:
     memory:
@@ -17,3 +24,8 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/stat89a-user-image
     storage:
       type: hostPath
+    defaultUrl: "/lab"
+    lifecycleHooks:
+      postStart:
+        exec:
+          command: ["gitpuller", "https://github.com/STAT-89A/spring_2020", "master", "STAT\ 89A\ 2020"]

@@ -466,11 +466,4 @@ workflows:
               only:
                 - staging
                 - prod
-  deploy-support:
-    jobs:
-      - deploy-support:
-          filters:
-            branches:
-              # We don't have staging / prod for our support cluster
-              # So we deploy only when deploying staging
-              only: staging
+                
