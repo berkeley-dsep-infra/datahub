@@ -101,6 +101,6 @@ dependencies:
   - seaborn==0.10.0
   - graphviz==0.13.2
   - ray[debug]==0.6.5
-  - dsassign = 0.0.8
-  - altair = 4.0.1
-  - torch = 1.4.0
+  - dsassign==0.0.8
+  - altair==4.0.1
+  - torch==1.4.0
