@@ -76,10 +76,10 @@ dependencies:
 - zeromq=4.2.5
 - graphviz=2.40.1
 - pip:
-  - scipy=1.4.1
-  - scikit-learn=0.22.1
-  - scikit-image=0.16.2
-  - plotly=4.5.0
+  - scipy==1.4.1
+  - scikit-learn==0.22.1
+  - scikit-image==0.16.2
+  - plotly==4.5.0
   - colorlover==0.2.1
   - cufflinks==0.17.0
   - jupyterlab==0.35.4
