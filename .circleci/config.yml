@@ -147,14 +147,6 @@ jobs:
             mv linux-amd64/helm /usr/local/bin
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
-      - run:
-          # HACK: We want HTTPS, but https://github.com/jupyterhub/zero-to-jupyterhub-k8s/pull/1539
-          # is not merged yet
-          name: Update submodules & run chartpress
-          command: |
-            git submodule update --init
-            cd zero-to-jupyterhub-k8s
-            chartpress --skip-build
 
       - run:
           name: Post annotation to Grafana
