@@ -209,6 +209,11 @@ jobs:
             hubploy deploy data102 hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy data100
+          command: |
+            hubploy deploy data100 hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy workshop
           command: |
             hubploy deploy workshop hub ${CIRCLE_BRANCH}
