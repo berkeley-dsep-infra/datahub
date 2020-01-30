@@ -28,4 +28,4 @@ jupyterhub:
     lifecycleHooks:
       postStart:
         exec:
-          command: ["gitpuller", "https://github.com/STAT-89A/spring_2020", "master", "STAT\ 89A\ 2020"]
+          command: ["gitpuller", "https://gitlab.com/stat-89a/spring-2020/spring_2020.git", "master", "STAT\ 89A\ 2020"]
