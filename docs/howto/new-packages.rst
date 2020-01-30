@@ -49,7 +49,7 @@ Submitting a pull request
 Familiarize yourself with `pull requests <https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests>`_ and `repo2docker <https://github.com/jupyter/repo2docker>`_ , and create a fork of the `datahub staging branch <https://github.com/berkeley-dsep-infra/datahub>`_.
 
 #. Find the correct :file:`environment.yml` file for your class. This should be under ``\deployments\class\image\``
-#. In :file:`environment.yml`, packages listed under :code:`dependencies` are installed using :code:`conda`, while packages under :code:`pip` are installed using :code:`pip`. Any packages that need to be installed via :code:`apt` must be added to :file:`\deployments\class\image\Dockerfile`.
+#. In :file:`environment.yml`, packages listed under :code:`dependencies` are installed using :code:`conda`, while packages under :code:`pip` are installed using :code:`pip`. Any packages that need to be installed via :code:`apt` must be added to ``\deployments\class\image\Dockerfile``.
 #. Add any packages necessary. :code:`Pip` will almost always have the latest version of a package, but :code:`conda` may only contain older versions.
 	* Note that package versions for :code:`conda` are specified using :code:`=`, while in :code:`pip` they are specified using :code:`==`
 #. Test the changes locally using :code:`repo2docker`, then submit a PR to ``staging``.
