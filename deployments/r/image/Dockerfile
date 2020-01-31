@@ -41,8 +41,8 @@ RUN apt-get update && \
             libxss1 \
             fonts-symbola \
             tcl8.6-dev \
-            tk8.6-dev && \
-            gdebi-core \
+            tk8.6-dev \
+            gdebi-core && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
