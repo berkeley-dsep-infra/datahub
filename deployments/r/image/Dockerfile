@@ -41,9 +41,16 @@ RUN apt-get update && \
             libxss1 \
             fonts-symbola \
             tcl8.6-dev \
-            tk8.6-dev && \
+            tk8.6-dev \
+            gdebi-core && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Download and install shiny server
+RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb -O ss.deb && \
+    gdebi -n ss.deb && \
+    rm -f ss.deb
+RUN chown -R rstudio:rstudio /var/lib/shiny-server
 
 COPY install-miniconda.bash /tmp/install-miniconda.bash
 RUN /tmp/install-miniconda.bash
