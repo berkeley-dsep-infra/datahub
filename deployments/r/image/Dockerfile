@@ -50,6 +50,7 @@ RUN apt-get update && \
 RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb -O ss.deb && \
     gdebi -n ss.deb && \
     rm -f ss.deb
+RUN chown -R rstudio:rstudio /var/lib/shiny-server
 
 COPY install-miniconda.bash /tmp/install-miniconda.bash
 RUN /tmp/install-miniconda.bash
