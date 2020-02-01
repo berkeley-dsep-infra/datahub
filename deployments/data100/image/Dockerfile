@@ -31,6 +31,7 @@ RUN apt-get install --yes --no-install-recommends \
 		git \
 		htop \
 		less \
+		libpq-dev \
 		man \
 		mc \
 		nano \
@@ -80,6 +81,7 @@ RUN bash /tmp/miniconda.sh -b -u -p ${CONDA_PREFIX}
 
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda update -q conda
+RUN conda config --add channels conda-forge
 
 # Encapsulate the environment info into its own yml file (which carries
 # the name `data100` in it
@@ -99,6 +101,7 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
 RUN jupyter labextension install @jupyterlab/hub-extension
+RUN jupyter labextension install @jupyterlab/plotly-extension
 
 #RUN jupyter serverextension enable  --sys-prefix --py nbzip
 #RUN jupyter nbextension install     --sys-prefix --py nbzip
