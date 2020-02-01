@@ -101,7 +101,9 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
 RUN jupyter labextension install @jupyterlab/hub-extension
-RUN jupyter labextension install @jupyterlab/plotly-extension
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1
+RUN jupyter labextension install jupyterlab-plotly@1.5.0 
+RUN jupyter labextension install plotlywidget@1.5.0
 
 #RUN jupyter serverextension enable  --sys-prefix --py nbzip
 #RUN jupyter nbextension install     --sys-prefix --py nbzip
