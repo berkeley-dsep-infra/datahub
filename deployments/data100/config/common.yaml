@@ -15,6 +15,9 @@ jupyterhub:
         extraVolumeMounts:
           - name: home
             mountPath: /srv/homes
+          - name: home
+            mountPath: /home/jovyan/shared-readwrite
+            subPath: _shared
   auth:
     type: dummy
     admin:
@@ -59,23 +62,31 @@ jupyterhub:
         # instructors
         - adhikari
         - jegonzal
-        
+
   singleuser:
     initContainers:
       - name: volume-mount-hack
         image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && chown 1000:1000 /home/jovyan/shared"]
         securityContext:
           runAsUser: 0
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
           subPath: "{username}"
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     memory:
       guarantee: 768M
       limit: 2G
