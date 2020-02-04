@@ -148,6 +148,17 @@ jupyterhub:
           - rdoshi99
           - sophiatan
           - sunnyshen
+          - rikiiyer
+          - jinhao.huo
+          - anujalohia
+          - wseward
+          - alicechen295
+          - ritawang
+          - jacquelinekyu
+          - nataliegomas
+          - ryanchien04
+          - sydniezanone
+          - kevinmiao
   singleuser:
     nodeSelector:
       hub.jupyter.org/node-purpose: user
