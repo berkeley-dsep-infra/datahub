@@ -159,6 +159,7 @@ jupyterhub:
           - ryanchien04
           - sydniezanone
           - kevinmiao
+          - tongshen
   singleuser:
     nodeSelector:
       hub.jupyter.org/node-purpose: user
