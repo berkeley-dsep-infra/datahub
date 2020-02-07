@@ -12,6 +12,8 @@ jupyterhub:
         # stat c100
         2019-fall-24961: {}
       admin:
+        mem_limit: 4096M
+        mem_guarantee: 20484M
         extraVolumeMounts:
           - name: home
             mountPath: /srv/homes
