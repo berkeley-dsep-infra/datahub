@@ -11,7 +11,7 @@ Criteria
 --------
 
 No non-hidden files in the user's home directory have been modified in
-the last 6 months.
+the last 12 months.
 
 Archival
 --------
@@ -30,7 +30,7 @@ these users used datahub in previous semesters, have not logged in
 for a long time, and will probably never log in again. This costs us
 a lot of money in disk space - we will have to forever expand disk space.
 
-By cleaning it up after 6 months of non-usage, we will not affect any
+By cleaning it up after 12 months of non-usage, we will not affect any
 current users - just folks who haven't logged in for a long time. Archiving
 the contents would make sure people still have access to their old work,
 without leaving the burden of maintaining it forever on us.
