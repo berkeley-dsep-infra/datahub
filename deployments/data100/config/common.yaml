@@ -90,7 +90,7 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     memory:
-      guarantee: 768M
+      guarantee: 512M
       limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/data100-user-image
