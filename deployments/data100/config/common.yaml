@@ -61,6 +61,31 @@ jupyterhub:
         - manana.hakobyan
         - andysheu
         - allenshen5
+        
+        # tutors
+        - wesley1016
+        - ischmidt20
+        - zacharywu
+        - zhaoziyun
+        - oliversong
+        - leong.eric17
+        - yangluanne
+        - lexyyxl
+        - kevin.hsu
+        - xuzh
+        - jamesrichardsusilo
+        - violetyao
+        - janelawrence
+        - y_liang
+        - jessicawang7201
+        - diego.uribe
+        - oliveqy
+        - rohan.hajela
+        - sayanc
+        - am123
+        - pranshu
+        - parthbaokar
+
         # instructors
         - adhikari
         - jegonzal
