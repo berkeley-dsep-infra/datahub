@@ -17,6 +17,8 @@ jupyterhub:
           - wqixuan
 
   singleuser:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: user
     memory:
       guarantee: 512M
       limit: 1G
