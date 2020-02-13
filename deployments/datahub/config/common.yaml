@@ -162,7 +162,7 @@ jupyterhub:
           - tongshen
   singleuser:
     nodeSelector:
-      hub.jupyter.org/node-purpose: user
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: none
     memory:
