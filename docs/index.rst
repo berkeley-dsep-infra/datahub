@@ -31,6 +31,7 @@ How to
    howto/new-hub
    howto/rebuild-hub-image
    howto/new-packages
+   howto/contributing
 
 Services
 ========
