@@ -1,4 +1,9 @@
 jupyterhub:
+  scheduling:
+    userPlaceholder:
+      enabled: true
+      # About one node of headroom
+      replicas: 60
   proxy:
     service:
       loadBalancerIP: 35.184.101.216
