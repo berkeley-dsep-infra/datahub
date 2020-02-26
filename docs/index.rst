@@ -18,6 +18,7 @@ Contents
    topic/storage
    topic/cluster-config
    topic/credentials
+   topic/storage-retention
 
 
 How to
