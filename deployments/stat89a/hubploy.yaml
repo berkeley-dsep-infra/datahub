@@ -1,6 +1,5 @@
 images:
-  image_name: gcr.io/ucb-datahub-2018/data100-user-image
-
+  image_name: gcr.io/ucb-datahub-2018/stat89a-user-image
   registry:
     provider: gcloud
     gcloud:

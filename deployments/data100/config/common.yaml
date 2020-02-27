@@ -1,8 +1,11 @@
+nfsMounter:
+  enabled: false
+
 nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: homes/prod/home
+    shareName: export/data100homes/homes/prod/home
 
 jupyterhub:
   hub:
@@ -12,9 +15,14 @@ jupyterhub:
         # stat c100
         2019-fall-24961: {}
       admin:
+        mem_limit: 4096M
+        mem_guarantee: 20484M
         extraVolumeMounts:
           - name: home
             mountPath: /srv/homes
+          - name: home
+            mountPath: /home/jovyan/shared-readwrite
+            subPath: _shared
   auth:
     type: dummy
     admin:
@@ -25,49 +33,94 @@ jupyterhub:
         - yuvipanda
         # gsis
         - data100.instructors
-        - suraj.rampure
-        - sona.jeswani
-        - allenshen5
-        - amandhar
-        - philippe_boileau
-        - manana.hakobyan
-        - daniel.zhu
-        - lhtonywei
-        - mhwangc
-        - wwhuang@berkeley.edu
-        - aaron_scherf
+        - vikrams
         - paulshaoyuqiao1
-        - rkunani
-        - kana
-        - sera4415
-        - kagarwal2
-        - emansishah
-        - wangyimeng98
+        - yifanwu
+        - rami.mostafa
+        - davidyi624
+        - samirnaqvi
+        - fmcquarrie3
+        - rahuljcool26
         - ishaan.srivastava
+        - jake.singleton
+        - cshih
+        - rkunani
+        - sera4415
+        - wangyimeng98
+        - suraj.rampure
+        - daniel.zhu
+        - julieyu
+        - calzoom
         - chengruizhe
-        - jwirjo
-        # instructors
-        - h___
-        - deborah_nolan
+        - kagarwal2
+        - pranav.njn
+        - cpyles
+        - dqw
+        - rain
+        - mayashen
+        - sona.jeswani
+        - wwhuang
+        - devin.petersohn
+        - manana.hakobyan
+        - andysheu
+        - allenshen5
         
+        # tutors
+        - wesley1016
+        - ischmidt20
+        - zacharywu
+        - zhaoziyun
+        - oliversong
+        - leong.eric17
+        - yangluanne
+        - lexyyxl
+        - kevin.hsu
+        - xuzh
+        - jamesrichardsusilo
+        - violetyao
+        - janelawrence
+        - y_liang
+        - jessicawang7201
+        - diego.uribe
+        - oliveqy
+        - rohan.hajela
+        - sayanc
+        - am123
+        - pranshu
+        - parthbaokar
+
+        # instructors
+        - adhikari
+        - jegonzal
+
   singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && chown 1000:1000 /home/jovyan/shared"]
         securityContext:
           runAsUser: 0
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
           subPath: "{username}"
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     memory:
-      guarantee: 1G
+      guarantee: 512M
       limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/data100-user-image

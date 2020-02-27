@@ -1,6 +1,6 @@
 # Should match the hub image used by version of chart in hub/requirements.yaml
 # If that changes, this should be changed too!
-FROM jupyterhub/k8s-hub:0.9-445a953
+FROM jupyterhub/k8s-hub:0.9.0-beta.3.n000.h9e1a7f9
 
 USER root
 RUN apt update && apt install --yes curl python

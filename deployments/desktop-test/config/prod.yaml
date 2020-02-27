@@ -9,10 +9,9 @@ jupyterhub:
       # FIXME: make the IP static in google cloud console so we won't lose it
       # then specify it here so if we redeploy we get the same stuff
       # loadBalancerIP: <IP of desktop-test.datahub.berkeley.edu
-    # https:
-      # hosts:
-        # FIXME: Make a DNS entry for the service IP first before uncommenting it
-        # - desktop-test.datahub.berkeley.edu
+    https:
+      hosts:
+        - desktop-test.datahub.berkeley.edu
   hub:
     db:
       pvc:

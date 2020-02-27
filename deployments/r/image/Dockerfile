@@ -11,6 +11,10 @@ ENV PATH ${CONDA_DIR}/bin:$PATH
 # And set ENV for R! It doesn't read from the environment...
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
 
+# Add PATH to /etc/profile so it gets picked up by the terminal
+RUN echo "PATH=${PATH}" >> /etc/profile
+RUN echo "export PATH" >> /etc/profile
+
 # The `rsession` binary that is called by jupyter-rsession-proxy to start R
 # doesn't seem to start without this being explicitly set
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
@@ -37,9 +41,16 @@ RUN apt-get update && \
             libxss1 \
             fonts-symbola \
             tcl8.6-dev \
-            tk8.6-dev && \
+            tk8.6-dev \
+            gdebi-core && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Download and install shiny server
+RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb -O ss.deb && \
+    gdebi -n ss.deb && \
+    rm -f ss.deb
+RUN chown -R rstudio:rstudio /var/lib/shiny-server
 
 COPY install-miniconda.bash /tmp/install-miniconda.bash
 RUN /tmp/install-miniconda.bash
@@ -64,8 +75,26 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 
 # Install some R libraries that aren't in the base image
 COPY class-libs.R /tmp/class-libs.R
-COPY --chown=rstudio extras.d /tmp/extras.d
-RUN find /tmp/extras.d -type f | xargs -L1 Rscript
+
+RUN mkdir -p /tmp/extras.d
+
+COPY --chown=rstudio extras.d/example /tmp/extras.d
+RUN Rscript /tmp/extras.d/example
+
+COPY --chown=rstudio extras.d/2019-fall-stat-131a.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/2019-fall-stat-131a.r
+
+COPY --chown=rstudio extras.d/eep-1118.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/eep-1118.r
+
+COPY --chown=rstudio extras.d/ias-c188.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/ias-c188.r
+
+COPY --chown=rstudio extras.d/ph-142.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/ph-142.r
+
+COPY --chown=rstudio extras.d/ph-w250fg.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/ph-w250fg.r
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 

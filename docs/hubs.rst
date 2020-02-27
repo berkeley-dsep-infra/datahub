@@ -42,7 +42,9 @@ Data 100
 ========
 
 This hub is for `Data 100 <http://www.ds100.org/>`_ which has a unique
-user and grading environment. It runs on `Microsoft Azure <https://azure.microsoft.com>`_ in the ``data100-19s`` account. You can see :ref:`all config <structure>` for it under ``deployments/data100``.
+user and grading environment. It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``ucb-datahub-2018`` account. You can see :ref:`all config <structure>` for it under ``deployments/data100``.
+
+Data100 also has shared folders between staff (professors and GSIs) and students. Staff, assuming they have been added as admins in ``config/common.yaml``, can see a ``shared`` and a ``shared-readwrite`` folder. Students can only see the ``shared`` folder, which is read-only. Anything that gets put in ``shared-readwrite`` is automatically viewable in ``shared``, but as read-only files. The purpose of this is to be able to share large data files instead of having one per student. 
 
 Data 102
 ========
@@ -58,13 +60,3 @@ to provide login capability from inside EdX.
 
 It runs on `Google Cloud Platform <https://cloud.google.com>`_ in the ``data8x-scratch``
 project. You can see :ref:`all config <structure>` for it under ``deployments/data8x``.
-
-External Hub
-============
-
-Hub used temporarily by other institutions that are experimenting with the UCB way of
-doing data science. They receive support only on a best-effort basis.
-
-Currently, SRM Amravati is the only institution on the hub, sponsored by Yuvi Panda &
-Prof. Janaki Bakhle. IT runs in the ``data8x-scratch`` project too, since it is
-technically external pedagogy.

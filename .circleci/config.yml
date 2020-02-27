@@ -127,25 +127,6 @@ jobs:
             # Always use full PATHs in PATH!
             echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
-      - run:
-          name: Set distribution codename
-          command: |
-            LSB_RELEASE_CODENAME=$(lsb_release -cs)
-            echo $LSB_RELEASE_CODENAME
-            echo "export LSB_RELEASE_CODENAME='${LSB_RELEASE_CODENAME}'" >> ${BASH_ENV}
-
-      # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest
-      - run:
-          name: Install azure client
-          command: |
-            echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $LSB_RELEASE_CODENAME main" | \
-                tee /etc/apt/sources.list.d/azure-cli.list
-            curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
-                gpg --dearmor | \
-                tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
-            apt-get update  -qq --yes
-            apt-get install -qq --yes azure-cli
-
       - save_cache:
           paths:
             - ./venv
@@ -159,12 +140,11 @@ jobs:
             rm ~/repo/key
 
       - run:
-          name: Install helm
+          name: Install helm3
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
-            helm init --client-only
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
@@ -206,19 +186,24 @@ jobs:
             hubploy deploy desktop-test hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy stat89a
+          command: |
+            hubploy deploy stat89a hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy data8x
           command: |
             hubploy deploy data8x hub ${CIRCLE_BRANCH}
 
       - run:
-          name: Deploy data100
-          command: |
-            hubploy deploy data100 hub ${CIRCLE_BRANCH}
-
-      - run:
           name: Deploy data102
           command: |
             hubploy deploy data102 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data100
+          command: |
+            hubploy deploy data100 hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy workshop
@@ -255,14 +240,11 @@ jobs:
             rm ~/repo/key
 
       - run:
-          name: Install helm
+          name: Install helm3
           command: |
-            curl https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
-            helm init --client-only
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
-            helm repo update
 
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
@@ -336,6 +318,15 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: stat89a
+          name: stat89a image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: data102
           name: data102 image build
           # Filters can only be per-job? wtf
@@ -345,8 +336,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data8x
-          name: data8x image build
+          deployment: data100
+          name: data100 image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -354,8 +345,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data100
-          name: data100 image build
+          deployment: data8x
+          name: data8x image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -417,8 +408,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
+          deployment: stat89a
+          name: stat89a image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -427,8 +418,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data8x
-          name: data8x image build
+          deployment: data102
+          name: data102 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -446,26 +437,30 @@ workflows:
                 only:
                 - staging
                 - prod
+      - hubploy/build-image:
+          deployment: data8x
+          name: data8x image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
       - deploy:
           requires:
               - datahub image build
               - prob140 image build
               - r hub image build
               - desktop-test hub image build
+              - stat89a image build
               - julia hub image build
               - data102 image build
-              - data8x image build
               - data100 image build
+              - data8x image build
           filters:
             branches:
               only:
                 - staging
                 - prod
-  deploy-support:
-    jobs:
-      - deploy-support:
-          filters:
-            branches:
-              # We don't have staging / prod for our support cluster
-              # So we deploy only when deploying staging
-              only: staging
+                

@@ -1,22 +1,17 @@
 #!/usr/bin/env Rscript
 # From https://github.com/berkeley-dsep-infra/datahub/issues/814
-print("Installing packages for IA C188")
+#      https://github.com/berkeley-dsep-infra/datahub/issues/897
 
-# rdd requested in https://github.com/berkeley-dsep-infra/datahub/issues/897
-print("Installing rdd...")
-devtools::install_github('cran/rdd', ref='0.57', upgrade_dependencies=FALSE, quiet=TRUE)
+source("/tmp/class-libs.R")
 
-print("Installing stargazer...")
-devtools::install_github('cran/stargazer', ref='5.2.2', upgrade_dependencies=FALSE, quiet=TRUE)
+class_name = "IA C188"
+class_libs = c(
+    "rdd", "0.57",
+    "stargazer", "5.2.2",
+    "lm.beta", "1.5-1",
+    "multcomp", "1.4-8",
+    "lfe", "2.8-2"
+)
 
-print("Installing lm.beta...")
-devtools::install_github('cran/lm.beta', ref='1.5-1', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Installing multcomp...")
-devtools::install_github('cran/multcomp', ref='1.4-8', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Installing lfe...")
-devtools::install_github('cran/lfe', ref='2.8-2', upgrade_dependencies=FALSE, quiet=TRUE)
-
-print("Done installing packages for IA C188")
+class_libs_install_version(class_name, class_libs)
 

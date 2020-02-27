@@ -84,7 +84,7 @@ RUN conda update -q conda
 # Encapsulate the environment info into its own yml file (which carries
 # the name `data100` in it
 COPY environment.yml /tmp/
-RUN conda env create -q -f /tmp/environment.yml
+RUN conda env create -f /tmp/environment.yml
 
 # We modify the path directly since the `source activate data100`
 # environment won't be preserved here.

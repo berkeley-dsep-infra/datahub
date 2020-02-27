@@ -1,0 +1,23 @@
+nfsMounter:
+  mounts:
+    - nfsserver1:/export/pool0/homes/_stat89a=/data/homes/stat89a-staging
+
+jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    service:
+      loadBalancerIP: 34.66.75.97
+    https:
+      hosts:
+        - stat89a-staging.datahub.berkeley.edu
+  singleuser:
+    storage:
+      extraVolumes:
+        - name: home
+          hostPath:
+            path: /data/homes/stat89a-staging/{username}
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
