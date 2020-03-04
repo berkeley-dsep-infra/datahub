@@ -7,4 +7,3 @@ nbresuse==0.3.2
 # For grading
 gofer-grader==1.1.0
 gofer-submit==0.3
-nbforms==0.5.1
