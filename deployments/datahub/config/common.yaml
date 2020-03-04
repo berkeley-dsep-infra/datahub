@@ -29,7 +29,7 @@ jupyterhub:
         # data 88
         2019-fall-33469: {}
         # astr 128/256
-        2020-spring-astron-128-001-lab-001:
+        2020-spring-24268:
           mem_limit: 4096M
           mem_guarantee: 1024M
         # physics 188
