@@ -145,3 +145,5 @@ tensorflow-probability==0.8.0
 pydot==1.4.1
 allensdk==0.16.0
 
+# cs16A/B, spring 2020
+lcapy==0.44.1
