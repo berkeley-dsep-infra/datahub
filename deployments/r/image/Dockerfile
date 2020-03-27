@@ -96,6 +96,9 @@ RUN Rscript /tmp/extras.d/ph-142.r
 COPY --chown=rstudio extras.d/ph-w250fg.r /tmp/extras.d
 RUN Rscript /tmp/extras.d/ph-w250fg.r
 
+COPY --chown=rstudio extras.d/stat-131a.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/stat-131a.r
+
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
 RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
