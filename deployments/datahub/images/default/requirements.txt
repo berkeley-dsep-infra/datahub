@@ -116,6 +116,7 @@ csaps==0.5.0
 nb2pdf==0.4.1
 otter-grader==0.2.3
 nbforms==0.5.1
+axelrod==4.8.0
 
 # issue #875, global 150Q/pacs 190 - fall 2019
 wordcloud==1.5.0
