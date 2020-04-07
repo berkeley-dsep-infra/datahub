@@ -6,5 +6,5 @@ scipy==1.2.0
 nbresuse==0.3.2
 nbforms==0.5.1
 # For grading
-git+https://github.com/ucbds-infra/Gofer-Grader.git@8x-telemetry
+git+https://github.com/ucbds-infra/Gofer-Grader.git@prod
 gofer-submit==0.3
