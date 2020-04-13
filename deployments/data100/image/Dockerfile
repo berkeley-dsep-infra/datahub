@@ -31,6 +31,7 @@ RUN apt-get install --yes --no-install-recommends \
 		git \
 		htop \
 		less \
+		libpq-dev \
 		man \
 		mc \
 		nano \
@@ -73,13 +74,14 @@ USER jovyan
 # Download, install and configure the Conda environment
 
 RUN curl -o /tmp/miniconda.sh \
-	https://repo.continuum.io/miniconda/Miniconda3-4.4.10-Linux-x86_64.sh
+	https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
 
 # Install miniconda
 RUN bash /tmp/miniconda.sh -b -u -p ${CONDA_PREFIX}
 
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda update -q conda
+RUN conda config --add channels conda-forge
 
 # Encapsulate the environment info into its own yml file (which carries
 # the name `data100` in it
@@ -99,6 +101,9 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
 RUN jupyter labextension install @jupyterlab/hub-extension
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1
+RUN jupyter labextension install jupyterlab-plotly@1.5.0 
+RUN jupyter labextension install plotlywidget@1.5.0
 
 #RUN jupyter serverextension enable  --sys-prefix --py nbzip
 #RUN jupyter nbextension install     --sys-prefix --py nbzip
