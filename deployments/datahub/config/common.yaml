@@ -28,6 +28,14 @@ jupyterhub:
         2019-fall-31002: {}
         # data 88
         2019-fall-33469: {}
+        # astr 128
+        2020-spring-24268:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # astr 256
+        2020-spring-24536:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
         # physics 188
         2019-fall-32821:
           mem_limit: 2048M
@@ -148,9 +156,21 @@ jupyterhub:
           - rdoshi99
           - sophiatan
           - sunnyshen
+          - rikiiyer
+          - jinhao.huo
+          - anujalohia
+          - wseward
+          - alicechen295
+          - ritawang
+          - jacquelinekyu
+          - nataliegomas
+          - ryanchien04
+          - sydniezanone
+          - kevinmiao
+          - tongshen
   singleuser:
     nodeSelector:
-      hub.jupyter.org/node-purpose: user
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: none
     memory:
