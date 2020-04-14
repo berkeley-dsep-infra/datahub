@@ -70,7 +70,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/node-purpose: user
+      hub.jupyter.org/pool-name: gamma-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox
