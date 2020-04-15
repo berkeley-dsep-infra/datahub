@@ -13,4 +13,4 @@ jupyterhub:
   scheduling:
     userPlaceholder:
       enabled: true
-      replicas: 60
+      replicas: 50
