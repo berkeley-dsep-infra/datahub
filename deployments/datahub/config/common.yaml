@@ -36,10 +36,6 @@ jupyterhub:
         2020-spring-24536:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        # ARESEC 212
-        2020-spring-25937:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
         # physics 188
         2019-fall-32821:
           mem_limit: 2048M
