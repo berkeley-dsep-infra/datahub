@@ -6,7 +6,7 @@ Kubernetes Cluster Configuration
 
 We use `kubernetes <http://kubernetes.io/>`_ to run our JupyterHubs. It has
 a healthy open source community, managed offerings from multiple vendors &
-a fast pace of development. We can run easily on many different cloud 
+a fast pace of development. We can run easily on many different cloud
 providers with similar config by running on top of Kubernetes, so it is also
 our cloud agnostic abstraction layer.
 
@@ -45,19 +45,19 @@ the currently favored configuration.
 .. code:: bash
 
     gcloud container node-pools create  \
-        --machine-type n1-standard-8 \
+        --machine-type e2-highmem-8 \
         --num-nodes 1 \
         --enable-autoscaling \
         --min-nodes 1 --max-nodes 20 \
-        --node-labels hub.jupyter.org/node-purpose=user \
+        --node-labels hub.jupyter.org/pool-name=<pool-name>-pool \
         --node-taints hub.jupyter.org_dedicated=user:NoSchedule \
         --region=us-central1 \
         --image-type=ubuntu \
-        --disk-size=100 --disk-type=pd-standard \
+        --disk-size=200 --disk-type=pd-ssd \
         --no-enable-autoupgrade \
         --tags=hub-cluster \
         --cluster=<cluster-name> \
-        user-pool
+        user-pool-<pool-name>-<yyyy>-<mm>-<dd>
 
 
 IP Aliasing
@@ -75,7 +75,7 @@ to scale our node count up and down based on demand. It waits until the cluster 
 before triggering creation of a new node - but that's ok, since new node creation time on GKE is
 pretty quick.
 
-``--enable-autoscaling`` turns the cluster autoscaler on. 
+``--enable-autoscaling`` turns the cluster autoscaler on.
 
 ``--min-nodes`` sets the minimum number of nodes that will be maintained
 regardless of demand. This should ideally be 2, to give us some headroom for
@@ -135,7 +135,7 @@ of big images, or if we want our image pulls to be faster (since disk performanc
 
 ``--disk-type=pd-standard`` gives us standard spinning disks, which are cheaper. We
 can also request SSDs instead with ``--disk-type=pd-ssd`` - it is much faster,
-but also much more expensive. 
+but also much more expensive.
 
 Node size
 ---------

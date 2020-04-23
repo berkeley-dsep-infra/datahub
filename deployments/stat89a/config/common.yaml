@@ -1,4 +1,14 @@
 jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/node-purpose: core
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
+  hub:
+    nodeSelector:
+      hub.jupyter.org/node-purpose: core
   auth:
     type: google
     admin:
