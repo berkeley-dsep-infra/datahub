@@ -44,8 +44,6 @@ jupyterhub:
     image:
       # Matches datahub image
       name: gcr.io/ucb-datahub-2018/primary-user-image
-    nodeSelector:
-      hub.jupyter.org/node-purpose: user
     initContainers:
       - name: volume-mount-hack
         image: busybox
