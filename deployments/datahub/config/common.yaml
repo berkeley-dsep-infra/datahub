@@ -44,13 +44,6 @@ jupyterhub:
         2019-fall-32821:
           mem_limit: 2048M
           mem_guarantee: 1024M
-        # special request to yuvipanda
-        # Remove by fall 2020
-        special-request-spring-2020:
-          mem_limit: 4096M
-          mem_guarantee: 2048M
-          users:
-            - amxwang
         modules-leads:
           users:
             - yuvipanda
