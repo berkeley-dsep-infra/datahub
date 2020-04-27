@@ -84,6 +84,9 @@ RUN Rscript /tmp/extras.d/example
 COPY --chown=rstudio extras.d/2019-fall-stat-131a.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/2019-fall-stat-131a.r
 
+COPY --chown=rstudio extras.d/2020-spring-envecon-c118.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
+
 COPY --chown=rstudio extras.d/eep-1118.r /tmp/extras.d
 RUN Rscript /tmp/extras.d/eep-1118.r
 
