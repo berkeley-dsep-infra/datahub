@@ -1,5 +1,5 @@
 # Base
-notebook==5.7.8
+notebook==6.0.3
 jupyterlab==0.35.4
 nbgitpuller==0.7.2
 nbpdfexport==0.2.1
@@ -8,7 +8,6 @@ jupyterhub==1.0.0
 appmode==0.4.0
 nbresuse==0.3.2
 ipywidgets==7.2.1
-nbconvert==5.6.0
 #
 # data8; foundation
 datascience==0.15.0

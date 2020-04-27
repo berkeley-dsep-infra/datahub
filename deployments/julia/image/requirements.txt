@@ -1,4 +1,4 @@
-notebook==5.7.8
+notebook==6.0.3
 nbgitpuller==0.7.2
 nbresuse==0.3.2
 # For PyPlot
