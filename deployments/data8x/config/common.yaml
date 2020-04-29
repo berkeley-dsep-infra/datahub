@@ -4,8 +4,8 @@ nfsMounter:
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: 10.128.0.62
-    shareName: export/data8xhomes-2020-04-23
+    serverIP: 10.94.73.146
+    shareName: userhomes
 
 jupyterhub:
   hub:
