@@ -1,12 +1,3 @@
-nfsMounter:
-  enabled: false
-
-nfsPVC:
-  enabled: true
-  nfs:
-    serverIP: 10.128.0.62
-    shareName: export/data8xhomes-2020-04-23
-
 jupyterhub:
   prePuller:
     continuous:
