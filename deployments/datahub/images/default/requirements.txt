@@ -114,7 +114,7 @@ mcautograder==0.0.5
 chart-studio==1.0.0
 csaps==0.5.0
 nb2pdf==0.2.0
-otter-grader==0.2.3
+git+https://github.com/ucbds-infra/otter-grader.git@beta
 nbforms==0.5.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
