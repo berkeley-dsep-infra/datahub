@@ -93,6 +93,12 @@ jupyterhub:
         - adhikari
         - jegonzal
 
+  prePuller:
+    extraImages:
+      postgres:
+        name: postgres
+        tag: 122
+        policy: IfNotPresent
   singleuser:
     extraContainers:
       - name: postgres
