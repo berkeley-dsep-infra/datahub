@@ -64,7 +64,7 @@ jupyterhub:
         - manana.hakobyan
         - andysheu
         - allenshen5
-        
+
         # tutors
         - wesley1016
         - ischmidt20
@@ -93,7 +93,30 @@ jupyterhub:
         - adhikari
         - jegonzal
 
+  prePuller:
+    extraImages:
+      postgres:
+        name: postgres
+        tag: 12.2
+        policy: IfNotPresent
   singleuser:
+    extraContainers:
+      - name: postgres
+        image: postgres:12.2
+        resources:
+          limits:
+            # Best effort only. No more than 1 CPU
+            memory: 512Mi
+            cpu: 1.0
+          requests:
+            # If we don't set requests, k8s sets requests == limits!
+            memory: 64Mi
+            cpu: 0.01
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: "trust"
+        - name: POSTGRES_USER
+          value: "jovyan"
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     initContainers:
