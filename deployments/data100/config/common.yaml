@@ -117,6 +117,14 @@ jupyterhub:
           value: "trust"
         - name: POSTGRES_USER
           value: "jovyan"
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     initContainers:
