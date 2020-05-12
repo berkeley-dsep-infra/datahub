@@ -1,0 +1,22 @@
+tar
+vim
+gcc
+
+# nbconvert
+pandoc
+texlive-xetex
+texlive-fonts-recommended
+texlive-generic-recommended
+
+# nbpdfexport
+libx11-xcb1
+libxtst6
+libxrandr2
+libasound2
+libpangocairo-1.0-0
+libatk1.0-0
+libatk-bridge2.0-0
+libgtk-3-0
+libnss3
+libxss1
+fonts-noto-color-emoji
