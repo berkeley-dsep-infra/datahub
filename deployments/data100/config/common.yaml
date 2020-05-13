@@ -102,7 +102,7 @@ jupyterhub:
   singleuser:
     extraContainers:
       - name: postgres
-        image: postgres:12.2
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n2510.hd28e63b
         resources:
           limits:
             # Best effort only. No more than 1 CPU
