@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Set up nbpdf dependencies
-export PYPPETEER_HOME=/srv/app
+export PYPPETEER_HOME=${APP_DIR}
 pyppeteer-install
 jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
