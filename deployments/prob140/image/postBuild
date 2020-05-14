@@ -1,14 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
+mkdir -p ${CONDA_DIR}/etc/ipython ${CONDA_DIR}/etc/jupyter
+cp -p ipython_config.py ${CONDA_DIR}/etc/ipython/
+cp -p jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/
+
 # Set up nbpdf dependencies
-export PYPPETEER_HOME=${APP_DIR}
+export PYPPETEER_HOME=${CONDA_DIR}
 pyppeteer-install
 jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
-
-cp -p ipython_config.py ${APP_DIR}/etc/ipython/
-
-cp -p jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/
 
 # pre-generate the font cache
 python font-cache.py
