@@ -1,5 +1,4 @@
 # Base
-jupyterlab==2.1.2
 nbgitpuller==0.8.0
 nbpdfexport==0.2.1
 appmode==0.7.0
