@@ -193,7 +193,6 @@ RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install JupyterLab extensions
 RUN jupyter labextension install \
-            @jupyterlab/hub-extension \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
             @jupyterlab/plotly-extension \
