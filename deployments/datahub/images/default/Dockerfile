@@ -195,7 +195,7 @@ RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 RUN jupyter labextension install \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
-            @jupyterlab/plotly-extension \
+            jupyterlab-plotly \
             @jupyterlab/geojson-extension
 
 # Install IR kernelspec
