@@ -237,5 +237,7 @@ RUN jupyter labextension install \
             jupyterlab-plotly \
             @jupyterlab/geojson-extension
 
+RUN jupyter labextension install \
+            jupyterlab-videochat@0.2.0
 
 EXPOSE 8888
