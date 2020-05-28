@@ -238,6 +238,6 @@ RUN jupyter labextension install \
             @jupyterlab/geojson-extension
 
 RUN jupyter labextension install \
-            jupyterlab-videochat@0.2.0
+            jupyterlab-videochat@0.2.3
 
 EXPOSE 8888
