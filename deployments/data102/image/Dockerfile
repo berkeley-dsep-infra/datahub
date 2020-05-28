@@ -99,10 +99,11 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data102/etc/ipython/
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
 # Install all extensions in one shot to avoid multiple rebuilds
-RUN jupyter labextension install @jupyterlab/hub-extension \
+RUN jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
-	@jupyterlab/plotly-extension \
-	@jupyterlab/geojson-extension jupyter-matplotlib
+	jupyterlab-plotly \
+	jupyter-matplotlib \
+	@jupyterlab/geojson-extension
 
 RUN jupyter serverextension enable  --sys-prefix --py nbzip
 RUN jupyter nbextension install     --sys-prefix --py nbzip
