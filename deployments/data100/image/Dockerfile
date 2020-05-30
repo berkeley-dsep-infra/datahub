@@ -100,14 +100,9 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 # Installed in conda environment
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
-RUN jupyter labextension install @jupyterlab/hub-extension
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1
-RUN jupyter labextension install jupyterlab-plotly@1.5.0 
-RUN jupyter labextension install plotlywidget@1.5.0
-
-#RUN jupyter serverextension enable  --sys-prefix --py nbzip
-#RUN jupyter nbextension install     --sys-prefix --py nbzip
-#RUN jupyter nbextension enable      --sys-prefix --py nbzip
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 \
+                                 jupyterlab-plotly@4.8.1  \
+                                 plotlywidget@4.8.1
 
 # Useful for debugging any issues with conda
 RUN conda info -a
