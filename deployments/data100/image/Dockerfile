@@ -11,18 +11,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 
-RUN apt-get update --yes
-RUN apt-get install --yes \
-        python3.6 \
-        python3.6-venv \
-        python3.6-dev \
-        tar \
-        vim \
-        locales
-
 # Other packages for user convenience and Data100 usage
 # Install these without 'recommended' packages to keep image smaller.
-RUN apt-get install --yes --no-install-recommends \
+RUN apt-get update -qq --yes && \
+    apt-get install --yes --no-install-recommends -qq \
         build-essential \
         ca-certificates \
         curl \
@@ -40,24 +32,23 @@ RUN apt-get install --yes --no-install-recommends \
         screen \
         tar \
         tmux \
-        wget
+        wget \
+        vim \
+        locales > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
     locale-gen
 
-# for nbconvert
-RUN apt-get install --yes \
+RUN apt-get update -qq --yes && \
+    apt-get install --yes -qq \
         # for nbconvert
         pandoc \
         texlive-xetex \
         texlive-fonts-recommended \
-        texlive-generic-recommended
+        texlive-generic-recommended \
+        wkhtmltopdf # for pdf export \
+        > /dev/null
 
-# for pdf export
-RUN apt-get install --yes wkhtmltopdf
-
-# Keep image size at a minimum
-RUN apt-get clean
 
 ENV CONDA_PREFIX /srv/conda
 ENV PATH ${CONDA_PREFIX}/bin:$PATH
