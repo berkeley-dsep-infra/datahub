@@ -13,45 +13,45 @@ RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 
 RUN apt-get update --yes
 RUN apt-get install --yes \
-		python3.6 \
-		python3.6-venv \
-		python3.6-dev \
-		tar \
-		vim \
-		locales
+        python3.6 \
+        python3.6-venv \
+        python3.6-dev \
+        tar \
+        vim \
+        locales
 
 # Other packages for user convenience and Data100 usage
 # Install these without 'recommended' packages to keep image smaller.
 RUN apt-get install --yes --no-install-recommends \
-		build-essential \
-		ca-certificates \
-		curl \
-		default-jdk \
-		emacs-nox \
-		git \
-		htop \
-		less \
-		libpq-dev \
-		man \
-		mc \
-		nano \
-		openssh-client \
-		postgresql-client \
-		screen \
-		tar \
-		tmux \
-		wget
+        build-essential \
+        ca-certificates \
+        curl \
+        default-jdk \
+        emacs-nox \
+        git \
+        htop \
+        less \
+        libpq-dev \
+        man \
+        mc \
+        nano \
+        openssh-client \
+        postgresql-client \
+        screen \
+        tar \
+        tmux \
+        wget
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
-	locale-gen
+    locale-gen
 
 # for nbconvert
 RUN apt-get install --yes \
-		# for nbconvert
-		pandoc \
-		texlive-xetex \
-		texlive-fonts-recommended \
-		texlive-generic-recommended
+        # for nbconvert
+        pandoc \
+        texlive-xetex \
+        texlive-fonts-recommended \
+        texlive-generic-recommended
 
 # for pdf export
 RUN apt-get install --yes wkhtmltopdf
@@ -74,7 +74,7 @@ USER jovyan
 # Download, install and configure the Conda environment
 
 RUN curl -o /tmp/miniconda.sh \
-	https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
+    https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
 
 # Install miniconda
 RUN bash /tmp/miniconda.sh -b -u -p ${CONDA_PREFIX}
