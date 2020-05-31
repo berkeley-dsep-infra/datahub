@@ -73,7 +73,7 @@ USER jovyan
 ####################################################################
 # Download, install and configure the Conda environment
 
-RUN curl -o /tmp/miniconda.sh \
+RUN curl -sSL -o /tmp/miniconda.sh \
 	https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
 
 # Install miniconda
