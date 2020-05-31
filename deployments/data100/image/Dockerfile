@@ -11,53 +11,44 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
 
-RUN apt-get update --yes
-RUN apt-get install --yes \
-		python3.6 \
-		python3.6-venv \
-		python3.6-dev \
-		tar \
-		vim \
-		locales
-
 # Other packages for user convenience and Data100 usage
 # Install these without 'recommended' packages to keep image smaller.
-RUN apt-get install --yes --no-install-recommends \
-		build-essential \
-		ca-certificates \
-		curl \
-		default-jdk \
-		emacs-nox \
-		git \
-		htop \
-		less \
-		libpq-dev \
-		man \
-		mc \
-		nano \
-		openssh-client \
-		postgresql-client \
-		screen \
-		tar \
-		tmux \
-		wget
+RUN apt-get update -qq --yes && \
+    apt-get install --yes --no-install-recommends -qq \
+        build-essential \
+        ca-certificates \
+        curl \
+        default-jdk \
+        emacs-nox \
+        git \
+        htop \
+        less \
+        libpq-dev \
+        man \
+        mc \
+        nano \
+        openssh-client \
+        postgresql-client \
+        screen \
+        tar \
+        tmux \
+        wget \
+        vim \
+        locales > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
-	locale-gen
+    locale-gen
 
-# for nbconvert
-RUN apt-get install --yes \
-		# for nbconvert
-		pandoc \
-		texlive-xetex \
-		texlive-fonts-recommended \
-		texlive-generic-recommended
+RUN apt-get update -qq --yes && \
+    apt-get install --yes -qq \
+        # for nbconvert
+        pandoc \
+        texlive-xetex \
+        texlive-fonts-recommended \
+        texlive-generic-recommended \
+        wkhtmltopdf # for pdf export \
+        > /dev/null
 
-# for pdf export
-RUN apt-get install --yes wkhtmltopdf
-
-# Keep image size at a minimum
-RUN apt-get clean
 
 ENV CONDA_PREFIX /srv/conda
 ENV PATH ${CONDA_PREFIX}/bin:$PATH
@@ -74,7 +65,7 @@ USER jovyan
 # Download, install and configure the Conda environment
 
 RUN curl -o /tmp/miniconda.sh \
-	https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
+    https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
 
 # Install miniconda
 RUN bash /tmp/miniconda.sh -b -u -p ${CONDA_PREFIX}
@@ -100,14 +91,9 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 # Installed in conda environment
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
-RUN jupyter labextension install @jupyterlab/hub-extension
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1
-RUN jupyter labextension install jupyterlab-plotly@1.5.0 
-RUN jupyter labextension install plotlywidget@1.5.0
-
-#RUN jupyter serverextension enable  --sys-prefix --py nbzip
-#RUN jupyter nbextension install     --sys-prefix --py nbzip
-#RUN jupyter nbextension enable      --sys-prefix --py nbzip
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 \
+                                 jupyterlab-plotly@4.8.1  \
+                                 plotlywidget@4.8.1
 
 # Useful for debugging any issues with conda
 RUN conda info -a
