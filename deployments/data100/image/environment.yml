@@ -79,4 +79,4 @@ dependencies:
   - altair==4.0.1
   - xlrd==1.2.0
   - git+https://github.com/ryanlovett/jupyter-tree-download.git
-  - git+https://github.com/ucbds-infra/otter-grader.git@80c7c7dc335f2a950576cec6be8eb5ad456d7a25
+  - git+https://github.com/ucbds-infra/otter-grader.git@1463f96f8ed6bb264f62feba8cce7d88bc6c76ae
