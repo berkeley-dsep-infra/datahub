@@ -1,7 +1,3 @@
-nfsMounter:
-  mounts:
-    - nfsserver1:/export/pool0/homes/_{{cookiecutter.hub_name}}=/data/homes/{{cookiecutter.hub_name}}-staging
-
 jupyterhub:
   prePuller:
     continuous:
@@ -15,12 +11,3 @@ jupyterhub:
     # https:
       # hosts:
         # - {{cookiecutter.hub_name}}-staging.datahub.berkeley.edu
-  singleuser:
-    storage:
-      extraVolumes:
-        - name: home
-          hostPath:
-            path: /data/homes/{{cookiecutter.hub_name}}-staging/{username}
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
