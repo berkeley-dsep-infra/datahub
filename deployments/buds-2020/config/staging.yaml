@@ -1,0 +1,10 @@
+jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    service:
+      loadBalancerIP: 34.72.13.135
+    https:
+      hosts:
+        - buds-2020-staging.datahub.berkeley.edu

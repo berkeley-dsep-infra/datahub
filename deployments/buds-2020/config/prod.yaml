@@ -1,0 +1,12 @@
+jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 34.72.130.160
+    https:
+      hosts:
+        - buds-2020.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
