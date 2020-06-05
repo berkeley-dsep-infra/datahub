@@ -33,6 +33,7 @@ jupyterhub:
           - rylo
           - yuvipanda
           - felder
+          - cpyles
           # List of other admin users
 
   singleuser:
