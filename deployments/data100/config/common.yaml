@@ -9,6 +9,12 @@ nfsPVC:
 
 jupyterhub:
   hub:
+    extraConfig:
+      09-lab-availability: |
+        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
+        # See #1468
+        c.Spawner.cmd = ['jupyterhub-singleuser']
+
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
@@ -102,7 +108,7 @@ jupyterhub:
   singleuser:
     extraContainers:
       - name: postgres
-        image: postgres:12.2
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n2510.hd28e63b
         resources:
           limits:
             # Best effort only. No more than 1 CPU

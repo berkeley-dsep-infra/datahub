@@ -19,6 +19,11 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/node-purpose: core
+    extraConfig:
+      09-lab-availability: |
+        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
+        # See #1468
+        c.Spawner.cmd = ['jupyterhub-singleuser']
 
   auth:
     type: google
@@ -28,6 +33,7 @@ jupyterhub:
           - rylo
           - yuvipanda
           - felder
+          - cpyles
           # List of other admin users
 
   singleuser:
@@ -42,14 +48,14 @@ jupyterhub:
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
-          subPath: "_{{cookiecutter.hub_name}}/{username}"
+          subPath: "_buds-2020/{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_{{cookiecutter.hub_name}}/{username}"
+        subPath: "_buds-2020/{username}"
     memory:
       guarantee: 512M
       limit: 1G
     image:
-      name: gcr.io/{{cookiecutter.project_name}}/{{cookiecutter.hub_name}}-user-image
+      name: gcr.io/ucb-datahub-2018/buds-2020-user-image
