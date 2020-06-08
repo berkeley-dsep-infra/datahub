@@ -215,6 +215,11 @@ jobs:
           command: |
             hubploy deploy buds-2020 hub ${CIRCLE_BRANCH}
 
+      - run:
+          name: Deploy eecs
+          command: |
+            hubploy deploy eecs hub ${CIRCLE_BRANCH}
+
   deploy-support:
     docker:
       - image: buildpack-deps:bionic-scm
