@@ -91,7 +91,7 @@ ADD ipython_config.py ${CONDA_PREFIX}/envs/data102/etc/ipython/
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 \
                                  jupyterlab-plotly@4.8.1  \
                                  plotlywidget@4.8.1 \
-                                 jupyterlab-matplotlib@0.7.2 \
+                                 jupyter-matplotlib@0.7.2 \
                                  @jupyterlab/geojson-extension@2.0.1
 
 # Useful for debugging any issues with conda
