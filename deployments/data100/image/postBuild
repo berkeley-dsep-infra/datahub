@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+
+# Set bash as default shell
+# FIXME: Is this needed?
+cp jupyter_notebook_config.py ${CONDA_PREFIX}/etc/jupyter
+
+# Disable history
+cp ipython_config.py ${CONDA_PREFIX}/etc/ipython
+
+# Install lab extensions
+jupyter labextension install \
+    @jupyter-widgets/jupyterlab-manager@2.0.0 \
+    jupyterlab-plotly@4.8.1  \
+    plotlywidget@4.8.1
+

@@ -1,0 +1,25 @@
+ca-certificates
+curl
+default-jdk
+emacs-nox
+git
+htop
+less
+libpq-dev
+man
+mc
+nano
+openssh-client
+postgresql-client
+screen
+tar
+tmux
+wget
+vim
+
+# nbconvert / latex packages
+pandoc
+texlive-xetex
+texlive-fonts-recommended
+texlive-generic-recommended
+wkhtmltopdf # for pdf export
