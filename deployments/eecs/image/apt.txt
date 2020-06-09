@@ -6,4 +6,9 @@ xfce4-session
 xfce4-settings
 xorg
 xubuntu-icon-theme
+# You definitely need a browser
 firefox
+# And a text editor
+gedit
+# And a terminal
+gnome-terminal
