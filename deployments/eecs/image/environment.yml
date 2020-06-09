@@ -1,0 +1,9 @@
+channels:
+- conda-forge
+
+dependencies:
+# Almost all libraries should be added in requirements.txt
+# Only libraries *not* available in PyPI should be here
+- pip
+- pip:
+  - -r requirements.txt
