@@ -11,3 +11,6 @@ sympy
 lcapy
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
 Pillow==7.*
+
+# For desktop environment
+jupyter-desktop-server==0.1.*
