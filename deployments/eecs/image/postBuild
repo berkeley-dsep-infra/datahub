@@ -4,3 +4,8 @@ set -euo pipefail
 # Create ipython config directory if it doesn't exist
 mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
+
+# Install JupyterLab extensions
+jupyter labextension install \
+    @jupyter-widgets/jupyterlab-manager \
+    @jupyterlab/server-proxy

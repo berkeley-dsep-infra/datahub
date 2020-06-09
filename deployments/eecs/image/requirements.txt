@@ -9,3 +9,5 @@ numpy
 matplotlib
 sympy
 lcapy
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1505
+Pillow==7.*
