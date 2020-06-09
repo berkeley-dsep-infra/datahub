@@ -34,6 +34,12 @@ jupyterhub:
           - yuvipanda
           - felder
           - cpyles
+          - ashleyquiterio
+          - kevin.hsu
+          - castro.ian
+          - alleanna
+          - kpalos
+          - adhikari
           # List of other admin users
 
   singleuser:
