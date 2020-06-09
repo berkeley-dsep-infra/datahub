@@ -4,6 +4,11 @@ channels:
 dependencies:
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
+
+# Visual Studio Code!
+- jupyter-vscode-proxy
+- code-server
+
 - pip
 - pip:
   - -r requirements.txt
