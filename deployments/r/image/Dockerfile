@@ -61,7 +61,7 @@ RUN pip install --no-cache-dir \
                 jupyter-rsession-proxy==1.0b6 \
                 jupyterhub==1.0.0 \
                 jupyterlab==0.35.6 \
-                notebook==5.7.8 \
+                notebook==6.0.3 \
                 nbpdfexport==0.2.1
 
 # Set up nbpdf dependencies

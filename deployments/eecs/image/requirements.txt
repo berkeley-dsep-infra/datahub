@@ -1,0 +1,16 @@
+jupyterlab>=2.0
+notebook>=6.0
+nbgitpuller==0.7.2
+nbresuse==0.3.2
+
+# CS 16A
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
+numpy
+matplotlib
+sympy
+lcapy
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1505
+Pillow==7.*
+
+# For desktop environment
+jupyter-desktop-server==0.1.*

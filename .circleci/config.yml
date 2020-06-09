@@ -215,6 +215,11 @@ jobs:
           command: |
             hubploy deploy buds-2020 hub ${CIRCLE_BRANCH}
 
+      - run:
+          name: Deploy eecs
+          command: |
+            hubploy deploy eecs hub ${CIRCLE_BRANCH}
+
   deploy-support:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -367,6 +372,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
+      - hubploy/build-image:
+          deployment: eecs
+          name: eecs image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
 
   deploy:
     jobs:
@@ -471,6 +485,16 @@ workflows:
                 only:
                 - staging
                 - prod
+      - hubploy/build-image:
+          deployment: eecs
+          name: eecs image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
       - deploy:
           requires:
               - datahub image build
@@ -483,6 +507,7 @@ workflows:
               - data100 image build
               - data8x image build
               - buds-2020 image build
+              - eecs image build
           filters:
             branches:
               only:

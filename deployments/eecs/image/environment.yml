@@ -1,0 +1,19 @@
+channels:
+- conda-forge
+# For jupyter-desktop-server
+- manics
+
+dependencies:
+# Almost all libraries should be added in requirements.txt
+# Only libraries *not* available in PyPI should be here
+
+# Visual Studio Code!
+- jupyter-vscode-proxy
+- code-server
+
+# A linux desktop environment
+- websockify # from manics channel
+
+- pip
+- pip:
+  - -r requirements.txt
