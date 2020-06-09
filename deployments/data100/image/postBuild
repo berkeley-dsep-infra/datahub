@@ -3,10 +3,10 @@ set -euo pipefail
 
 # Set bash as default shell
 # FIXME: Is this needed?
-cp jupyter_notebook_config.py ${CONDA_PREFIX}/etc/jupyter
+cp jupyter_notebook_config.py ${NB_PYTHON_PREFIX}/etc/jupyter
 
 # Disable history
-cp ipython_config.py ${CONDA_PREFIX}/etc/ipython
+cp ipython_config.py ${NB_PYTHON_PREFIX}/etc/ipython
 
 # Install lab extensions
 jupyter labextension install \
