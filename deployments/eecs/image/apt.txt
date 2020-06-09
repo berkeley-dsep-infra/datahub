@@ -12,3 +12,5 @@ firefox
 gedit
 # And a terminal
 gnome-terminal
+# Install JDK
+default-jdk
