@@ -11,6 +11,6 @@ firefox
 # And a text editor
 gedit
 # And a terminal
-gnome-terminal
+xfce4-terminal
 # Install JDK
 default-jdk
