@@ -57,7 +57,7 @@ jupyterhub:
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
       # allow outbound internet access that's not DNS, HTTP or HTTPS
-      # We can override this on a case to case basesi where
+      # We can override this on a case to case basis where
       # required.
       enabled: true
       egress:
