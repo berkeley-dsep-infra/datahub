@@ -36,6 +36,9 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    extraEnv:
+      # Until https://github.com/betatim/vscode-binder/pull/19 is merged
+      CODE_WORKINGDIR: /home/jovyan
     defaultUrl: "/lab"
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool

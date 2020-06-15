@@ -11,6 +11,9 @@ firefox
 # And a text editor
 gedit
 # And a terminal
-gnome-terminal
+xfce4-terminal
 # Install JDK
 default-jdk
+# Qt for pyqt based exercises in our desktop environment
+# https://github.com/berkeley-dsep-infra/datahub/issues/1505
+qt5-default
