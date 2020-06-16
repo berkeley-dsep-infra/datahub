@@ -27,10 +27,11 @@ jupyterhub:
 
   auth:
     type: google
-    hostedDomain:
-    - berkeley.edu
-    # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
-    - achieveprogram.org
+    google:
+      hostedDomain:
+      - berkeley.edu
+      # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
+      - achieveprogram.org
     admin:
       users:
           # infrastructure
