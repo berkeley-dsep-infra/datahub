@@ -88,6 +88,11 @@ ADD jupyter_notebook_config.py  ${CONDA_PREFIX}/envs/data100/etc/jupyter/
 # Disable history.
 ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 
+# install and enable notetaker for Data 100 study
+RUN git clone https://github.com/yifanwu/notetaker /tmp/notetaker
+RUN jupyter nbextension install --sys-prefix /tmp/notetaker/notetaker
+RUN jupyter nbextension enable --sys-prefix notetaker/main
+
 # Installed in conda environment
 RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 
