@@ -38,7 +38,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox
