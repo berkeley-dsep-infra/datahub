@@ -11,14 +11,14 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
 
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
     extraConfig:
       09-lab-availability: |
         # Overrides values.yaml, until jupyterlab is upgraded in other hubs
@@ -49,7 +49,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox

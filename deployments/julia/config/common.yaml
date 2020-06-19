@@ -11,13 +11,13 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: custom  # uses canvas auth, see hub/values.yaml
     admin:
@@ -30,7 +30,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox

@@ -2,13 +2,13 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: google
     admin:
@@ -28,7 +28,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     memory:
       guarantee: 512M
       limit: 1G

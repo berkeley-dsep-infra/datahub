@@ -10,10 +10,10 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: google
     admin:
@@ -35,11 +35,11 @@ jupyterhub:
         # See #1468
         c.Spawner.cmd = ['jupyterhub-singleuser']
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox
