@@ -3,6 +3,9 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes/_desktop-test=/data/homes/desktop-test-staging
 
 jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
   prePuller:
     continuous:
       enabled: false
