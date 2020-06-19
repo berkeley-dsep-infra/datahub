@@ -21,7 +21,7 @@ jupyterhub:
   singleuser:
     defaultUrl: /desktop
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: gamma-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox
