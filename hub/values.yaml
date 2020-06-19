@@ -30,6 +30,8 @@ jupyterhub:
       enabled: true
       resources:
         requests:
+          # FIXME: Just unset this?
+          cpu: 0.01
           memory: 64Mi
         limits:
           memory: 512Mi
