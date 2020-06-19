@@ -21,7 +21,7 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   hub:
     extraConfig:
       09-lab-availability: |
@@ -31,10 +31,10 @@ jupyterhub:
     # No more than 200 users at any given time
     activeServerLimit: 200
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: dummy
     admin:
