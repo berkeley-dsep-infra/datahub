@@ -1,7 +1,0 @@
-channels:
-  - manics
-dependencies:
-  - websockify
-  - pip:
-    - jupyter-server-proxy
-    - jupyter-desktop-server==0.1.2
