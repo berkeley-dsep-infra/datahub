@@ -1,4 +1,4 @@
-# Billing confusion with Azure portal causes summer hub to be lost
+# 2017-10-19 - Billing confusion with Azure portal causes summer hub to be lost
 
 ## Summary
 

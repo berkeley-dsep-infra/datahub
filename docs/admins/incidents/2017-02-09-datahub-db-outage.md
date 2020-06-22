@@ -1,4 +1,4 @@
-# JupyterHub db manual overwrite
+# 2017-02-09 - JupyterHub db manual overwrite
 ## Summary ##
 Datahub was reportedly down at 1am. Users attempting to log in to datahub were greeted with a proxy error. The hub pod was up but the log was full of sqlite errors. After the hub pod was deleted and a new one came up, students logging in to datahub found their notebooks were missing and their home directories were empty. Once this was fixed, some students still were being logged in as a different particular user. Finally, students with a '.' in their username were still having issues after everyone else was fine. This was all fixed and an all-clear signalled at about 2017-02-09 11:35 AM.
 

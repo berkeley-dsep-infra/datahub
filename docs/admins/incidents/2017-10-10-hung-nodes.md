@@ -1,4 +1,4 @@
-# Docker dies on a few Azure nodes
+# 2017-10-10 - Docker dies on a few Azure nodes
 
 ## Summary
 
