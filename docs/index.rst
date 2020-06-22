@@ -19,7 +19,7 @@ Contents
    topic/cluster-config
    topic/credentials
    topic/storage-retention
-
+   topic/services
 
 How to
 ======
