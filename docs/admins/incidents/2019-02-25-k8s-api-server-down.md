@@ -1,4 +1,6 @@
-# Summary
+# Azure Kubernetes API Server outage causes downtime
+
+## Summary
 
 On February 25, 2019, the kubernetes API server for data100 became unreachable, causing new resource creation requests to fail. When the hub pod was stopped, a new one did not get created leading users to see a proxy error message. The hub came back online after a new cluster was created, storage was migrated to the new cluster, and then DNS was updated.
 

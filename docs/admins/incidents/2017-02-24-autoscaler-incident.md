@@ -1,3 +1,5 @@
+# Custom Autoscaler gonee haywire
+
 ## Summary ##
 On the evening of February 24, 2017, a premature version of the Autoscaler script for the Datahub deployment was mistakenly run on the prod cluster, resulting in a large amount of nodes (roughly 30-40) being set as unschedulable for about 20 minutes. Though no information was lost nor service critically disturbed, it was necessary to manually re-enable these nodes to be scheduled.
 

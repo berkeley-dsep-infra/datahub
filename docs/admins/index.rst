@@ -3,15 +3,18 @@ Contributing to DataHub
 =======================
 
 .. toctree::
-   :maxdepth: 1
+   :titlesonly:
+   :maxdepth: 2
 
    pre-reqs
    structure
    storage
-   cluster-config.rst
-   credentials.rst
+   cluster-config
+   credentials
+   incidents/index
 
 .. toctree::
+   :titlesonly:
    :maxdepth: 2
 
    howto/index

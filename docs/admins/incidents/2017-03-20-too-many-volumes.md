@@ -1,3 +1,5 @@
+# Too many volumes per disk leave students stuck
+
 ## Summary ##
 
 From sometime early March 20 2017 till about 1300, some new student servers were stuck in `Pending` forever, giving them 500 errors. This was an unintended side-effect of [reducing student memory limit to 1G](https://github.com/data-8/infrastructure/issues/16) while keeping the size of our nodes constant, causing us to hit a Google Cloud limit on number of disks per node. This was fixed by spawning more nodes that were smaller.

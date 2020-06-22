@@ -1,4 +1,6 @@
-# Summary
+# Docker dies on a few Azure nodes
+
+## Summary
 
 On Oct 10, 2017, some user pods were not starting or terminating correctly. After checking node status, it was found that all affected pods were running on two specific nodes. The docker daemon wasn't responsive on these nodes so they were cordoned off. User pods were then able to start correctly.
 

@@ -1,3 +1,5 @@
+# Proxy eviction strands user
+
 ## Summary ##
 
 On the evening of Feb 23, several students started experiencing 500 errors in trying to access datahub. The proxy had died because of [a known issue](https://github.com/data-8/infrastructure/issues/6), and it took a while for the hub to re-add all the user routes to the proxy. Some students’ needed their servers to be manually restarted, due to a JupyterHub spawner bug that is showing up at scale. Everything was fixed in about 40 minutes.

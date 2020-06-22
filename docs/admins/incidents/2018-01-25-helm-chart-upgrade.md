@@ -1,4 +1,6 @@
-# Summary
+# Accidental merge to prod brings things down
+
+## Summary
 
 On January 25, 2018, a new version of the helm chart was installed on the staging hub. It was not immediately merged to production because there were active labs throughout the day. While preparing another course's hub via Travis CI, the Data 8 change was accidentally merged from staging to production. This production hub went down because the new helm chart's jupyterhub image was broken.
 

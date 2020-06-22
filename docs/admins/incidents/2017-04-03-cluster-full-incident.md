@@ -1,4 +1,6 @@
-# Summary
+# Custom autoscaler does not scale up when it should
+
+## Summary
 
 On April 3, 2017, as students were returning from spring break, the cluster wasn't big enough in time and several students had errors spawning. This was because the simple-autoscaler was 'stuck' on a populate call. More capacity was manually added, the pending pods were deleted & this seemed to fix the outage.
 

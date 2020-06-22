@@ -1,4 +1,6 @@
-# Summary
+# Billing confusion with Azure portal causes summer hub to be lost
+
+## Summary
 
 On October 10, 2017, the cloud vendor notified ds-instr that the data8r-17s subscription was canceled due to its end date, and we had 90 days to reactivate it using the educator portal. A support ticket was created to reverse the cancellation since the educator portal did not permit reactivation. On October 18 we were notified that the subscription's resources were deleted.
 

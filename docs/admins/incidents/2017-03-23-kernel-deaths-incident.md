@@ -1,3 +1,5 @@
+# Weird upstream ipython bug kills kernels
+
 ## Summary ##
 
 A seemingly unrelated change caused user kernels to die on start (making notebook execution impossible) for newly started user servers from about Mar 22 19:30 to Mar 23 09:45. Most users didn't see any errors until start of class at about 9AM, since they were running servers that were previously started.

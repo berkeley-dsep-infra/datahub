@@ -1,3 +1,5 @@
+# Non-matching hub image tags cause downtime
+
 ## Summary ##
 
 On the evening of Mar 6, the hub on prod would not come up after an upgrade. The upgrade was to accommodate a new disk for cogneuro that had been tested on dev. After some investigation it was determined that the helm's config did not match the hub's image. After the hub image was rebuilt and pushed out, then tested on dev, it was pushed out to prod. The problem was fixed in about 40 minutes.

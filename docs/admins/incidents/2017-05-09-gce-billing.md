@@ -1,4 +1,6 @@
-# Summary
+# Oops we forgot to pay the bill
+
+## Summary
 
 On May 9, 2017, the compute resources associated with the data-8 project at GCE were suspended. All hubs including datahub, stat28, and prob140 were not reachable. This happened because the grant that backed the project's billing account ran out of funds. The project was moved to a different funding source and the resources gradually came back online.
 

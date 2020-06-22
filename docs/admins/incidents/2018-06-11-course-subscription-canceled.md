@@ -1,4 +1,6 @@
-# Summary
+# Azure billing issue causes downtime
+
+## Summary
 
 On June 11, 2018, the cloud vendor notified ds-instr that the data8-17f-prod subscription was canceled due to its usage cap. The educator portal confirmed that the spend had surpassed the budget. After additional funds were allocated to the subscription, a portion of the VMs were manually started. The hub came back online after pods were forcibly deleted and nodes were cordoned.
 

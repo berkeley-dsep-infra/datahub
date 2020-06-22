@@ -1,4 +1,6 @@
-# Summary
+# Hub starts up very slow, causing outage for users
+
+## Summary
 
 On January 26, 2018, a new version of the helm chart was being installed on the production hub. Though the pod prepuller worked fine on the staging cluster, the prepuller never successfully finished on prod. This caused the CI to error because helm ran for too long. Additionally, the hub was taking a very long time to check user routes. After users were deleted in the hub's orm and the hub was restarted, it came back up fairly quickly.
 
