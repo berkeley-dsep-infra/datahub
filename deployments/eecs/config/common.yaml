@@ -11,10 +11,10 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
 
   hub:
     extraConfig:
@@ -23,7 +23,7 @@ jupyterhub:
         # See #1468
         c.Spawner.cmd = ['jupyterhub-singleuser']
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
 
   auth:
     type: google
@@ -39,6 +39,9 @@ jupyterhub:
     extraEnv:
       # Until https://github.com/betatim/vscode-binder/pull/19 is merged
       CODE_WORKINGDIR: /home/jovyan
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
     defaultUrl: "/lab"
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
