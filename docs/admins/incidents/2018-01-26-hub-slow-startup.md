@@ -1,4 +1,4 @@
-# Hub starts up very slow, causing outage for users
+# 2018-01-26 - Hub starts up very slow, causing outage for users
 
 ## Summary
 
