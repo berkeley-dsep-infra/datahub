@@ -37,6 +37,7 @@ jupyterhub:
         - felder
         - rylo
         - yuvipanda
+        - cpyles
         # gsis
         - data100.instructors
         - vikrams
