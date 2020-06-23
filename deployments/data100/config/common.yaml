@@ -37,6 +37,7 @@ jupyterhub:
         - felder
         - rylo
         - yuvipanda
+        - cpyles
         # instructors
         - allenshen5
         - suraj.rampure
