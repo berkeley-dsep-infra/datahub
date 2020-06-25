@@ -27,7 +27,7 @@ user server instance has the new version. If you spot any problems you can
 revert your change. You should test the changes soon after the merge since
 we do not want unverified changes to linger in staging.
 
-If staging fails, *never* update production. Revert your change or 
+If staging fails, *never* update production. Revert your change or
 call in help if necessary. If your change is successful, you will need
 to merge the change from staging branch to production. Create another PR,
 this time with the `base` set to prod and the `head` set to staging. This

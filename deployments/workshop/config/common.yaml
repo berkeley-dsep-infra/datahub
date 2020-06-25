@@ -21,15 +21,20 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   hub:
-    # No more than 150 users at any given time
-    activeServerLimit: 150
+    extraConfig:
+      09-lab-availability: |
+        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
+        # See #1468
+        c.Spawner.cmd = ['jupyterhub-singleuser']
+    # No more than 200 users at any given time
+    activeServerLimit: 200
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: dummy
     admin:
@@ -40,12 +45,10 @@ jupyterhub:
   singleuser:
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: gamma-pool
     image:
       # Matches datahub image
       name: gcr.io/ucb-datahub-2018/primary-user-image
-    nodeSelector:
-      hub.jupyter.org/node-purpose: user
     initContainers:
       - name: volume-mount-hack
         image: busybox

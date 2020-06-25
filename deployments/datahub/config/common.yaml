@@ -11,10 +11,16 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
+    extraConfig:
+
+      09-lab-availability: |
+        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
+        # See #1468
+        c.Spawner.cmd = ['jupyterhub-singleuser']
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
@@ -28,8 +34,16 @@ jupyterhub:
         2019-fall-31002: {}
         # data 88
         2019-fall-33469: {}
-        # astr 128/256
+        # astr 128
         2020-spring-24268:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # astr 256
+        2020-spring-24536:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # ARESEC 212
+        2020-spring-25937:
           mem_limit: 4096M
           mem_guarantee: 1024M
         # physics 188
@@ -57,7 +71,7 @@ jupyterhub:
               mountPath: /home/jovyan/shared/module-leads
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: custom # This enables canvas auth
     admin:
@@ -166,7 +180,7 @@ jupyterhub:
           - tongshen
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: none
     memory:

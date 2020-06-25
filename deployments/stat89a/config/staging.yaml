@@ -3,6 +3,9 @@ nfsMounter:
     - nfsserver1:/export/pool0/homes/_stat89a=/data/homes/stat89a-staging
 
 jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
   prePuller:
     continuous:
       enabled: false

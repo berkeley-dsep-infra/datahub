@@ -61,7 +61,7 @@ RUN pip install --no-cache-dir \
                 jupyter-rsession-proxy==1.0b6 \
                 jupyterhub==1.0.0 \
                 jupyterlab==0.35.6 \
-                notebook==5.7.8 \
+                notebook==6.0.3 \
                 nbpdfexport==0.2.1
 
 # Set up nbpdf dependencies
@@ -95,6 +95,12 @@ RUN Rscript /tmp/extras.d/ph-142.r
 
 COPY --chown=rstudio extras.d/ph-w250fg.r /tmp/extras.d
 RUN Rscript /tmp/extras.d/ph-w250fg.r
+
+COPY --chown=rstudio extras.d/stat-131a.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/stat-131a.r
+
+COPY --chown=rstudio extras.d/2020-spring-envecon-c118.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 

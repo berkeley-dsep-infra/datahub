@@ -1,0 +1,38 @@
+jupyterlab>=2.0
+notebook>=6.0
+nbgitpuller==0.7.2
+nbresuse==0.3.2
+nbpdfexport==0.2.1
+nbzip==0.0.4
+jupyterhub==1.0.0
+appmode==0.4.0
+nbresuse==0.3.2
+ipywidgets==7.2.1
+
+# data8; foundation
+tornado==5.1.1
+git+https://github.com/chrispyles/datascience.git@f5a16b5dce33c49b35b0a90f26bc2c3e68c96006
+matplotlib==3.1.0
+numpy==1.16.0
+pandas==0.23.4
+ipympl==0.2.1
+folium==0.9.1
+seaborn==0.9.0
+
+# for scipy
+sympy==1.6
+nose==1.3.7
+
+# # moved to numpy-requirements.txt
+# scipy==1.2.0
+# statsmodels==0.11.0
+# scikit-learn==0.21.3
+
+# new stuff
+plotly==4.0.0
+chart-studio==1.0.0
+nb2pdf==0.5.0
+git+https://github.com/ucbds-infra/otter-grader.git@655813fb531f1cf098f8df67df02a03b727b0493
+
+# for sklearn
+Cython==0.29.19

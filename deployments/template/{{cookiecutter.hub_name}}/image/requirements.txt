@@ -1,3 +1,4 @@
-notebook==5.7.8
+jupyterlab>=2.0
+notebook>=6.0
 nbgitpuller==0.7.2
 nbresuse==0.3.2

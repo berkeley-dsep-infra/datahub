@@ -1,4 +1,9 @@
 jupyterhub:
+  scheduling:
+    userPlaceholder:
+      enabled: true
+      replicas: 50
+
   proxy:
   #   service:
   #     loadBalancerIP: 35.232.190.188

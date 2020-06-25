@@ -1,3 +1,5 @@
 hubploy==0.1.0
 pygithub
 chartpress
+
+myst-parser

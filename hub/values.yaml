@@ -30,6 +30,8 @@ jupyterhub:
       enabled: true
       resources:
         requests:
+          # FIXME: Just unset this?
+          cpu: 0.01
           memory: 64Mi
         limits:
           memory: 512Mi
@@ -37,13 +39,16 @@ jupyterhub:
     chp:
       resources:
         requests:
+          # FIXME: We want no guarantees here!!!
+          # This is lowest possible value
+          cpu: 0.001
           memory: 64Mi
         limits:
           memory: 256Mi
-    nginx:
+    traefik:
       resources:
         requests:
-          memory: 256Mi
+          memory: 96Mi
         limits:
           memory: 512Mi
     https:
@@ -57,7 +62,7 @@ jupyterhub:
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
       # allow outbound internet access that's not DNS, HTTP or HTTPS
-      # We can override this on a case to case basesi where
+      # We can override this on a case to case basis where
       # required.
       enabled: true
       egress:
@@ -94,6 +99,9 @@ jupyterhub:
       enabled: true
     resources:
       requests:
+        # Very small unit, since we don't want any CPU guarantees
+        # FIXME: Can't seem to get this to null?
+        cpu: 0.001
         memory: 256Mi
       limits:
         memory: 1Gi

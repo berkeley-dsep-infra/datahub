@@ -191,14 +191,6 @@ ENV PYPPETEER_HOME /srv/app
 RUN pyppeteer-install
 RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
-# Install JupyterLab extensions
-RUN jupyter labextension install \
-            @jupyterlab/hub-extension \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
-            @jupyterlab/plotly-extension \
-            @jupyterlab/geojson-extension
-
 # Install IR kernelspec
 RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${APP_DIR}/venv')"
 
@@ -237,5 +229,15 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
+
+# Install JupyterLab extensions last, since we are actively experimenting with them
+RUN jupyter labextension install \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            jupyterlab-plotly \
+            @jupyterlab/geojson-extension
+
+RUN jupyter labextension install \
+            jupyterlab-videochat@0.2.3
 
 EXPOSE 8888

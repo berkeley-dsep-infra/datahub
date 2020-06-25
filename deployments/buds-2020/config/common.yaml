@@ -1,0 +1,72 @@
+nfsMounter:
+  enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    extraConfig:
+      09-lab-availability: |
+        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
+        # See #1468
+        c.Spawner.cmd = ['jupyterhub-singleuser']
+
+  auth:
+    type: google
+    google:
+      hostedDomain:
+      - berkeley.edu
+      # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
+      - achieveprogram.org
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          - cpyles
+          - ashleyquiterio
+          - kevin.hsu
+          - castro.ian
+          - alleanna
+          - kpalos
+          - adhikari
+          # List of other admin users
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: gamma-pool
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_buds-2020/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_buds-2020/{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/buds-2020-user-image

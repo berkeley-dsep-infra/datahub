@@ -1,0 +1,67 @@
+nfsMounter:
+  enabled: false
+
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    extraConfig:
+      09-lab-availability: |
+        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
+        # See #1468
+        c.Spawner.cmd = ['jupyterhub-singleuser']
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+
+  singleuser:
+    extraEnv:
+      # Until https://github.com/betatim/vscode-binder/pull/19 is merged
+      CODE_WORKINGDIR: /home/jovyan
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
+    defaultUrl: "/lab"
+    nodeSelector:
+      hub.jupyter.org/pool-name: gamma-pool
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "_eecs/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_eecs/{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/eecs-user-image
