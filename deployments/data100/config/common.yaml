@@ -69,8 +69,8 @@ jupyterhub:
         - moisternw
         - rohan.hajela
         - vincent.lao
-        - truong.winson
         - zacharywu
+        - truong.winson
 
   prePuller:
     extraImages:
