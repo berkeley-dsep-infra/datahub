@@ -1,6 +1,3 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
@@ -30,7 +27,7 @@ jupyterhub:
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
   auth:
-    type: dummy
+    type: custom # This enables canvas auth
     admin:
       users:
         # infrastructure
@@ -56,7 +53,6 @@ jupyterhub:
         - schan21
         - rain
         - xinranliang
-
         # tutors
         - anamtudor
         - andihalim

@@ -1,8 +1,5 @@
-nfsMounter:
-  enabled: true
-
 nfsPVC:
-  enabled: false
+  enabled: true
   nfs:
     serverIP: nfsserver1
     shareName: export/pool0/homes
@@ -182,7 +179,17 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     storage:
-      type: none
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
     memory:
       guarantee: 512M
       limit: 1G
