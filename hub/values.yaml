@@ -14,11 +14,9 @@ etcJupyter:
       # when people leave a notebook open and wander off
       cull_connected: true
 
-nfsMounter:
+nfsPVC:
   enabled: true
 
-nfsPVC:
-  enabled: false
 jupyterhub:
   scheduling:
     podPriority:
