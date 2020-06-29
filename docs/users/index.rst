@@ -6,4 +6,5 @@ Using DataHub
 
    services
    hubs
+   authentication
    storage-retention

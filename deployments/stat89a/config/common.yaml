@@ -1,3 +1,9 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
 jupyterhub:
   scheduling:
     userScheduler:
@@ -35,5 +41,8 @@ jupyterhub:
     image:
       name: gcr.io/ucb-datahub-2018/stat89a-user-image
     storage:
-      type: hostPath
+      static:
+        pvcName: home-nfs
+        subPath: "_stat89a/{username}"
+      type: static
     defaultUrl: "/lab"
