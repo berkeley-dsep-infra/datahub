@@ -29,20 +29,7 @@ jupyterhub:
       - berkeley.edu
       # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
       - achieveprogram.org
-    admin:
-      users:
-          # infrastructure
-          - rylo
-          - yuvipanda
-          - felder
-          - cpyles
-          - ashleyquiterio
-          - kevin.hsu
-          - castro.ian
-          - alleanna
-          - kpalos
-          - adhikari
-          # List of other admin users
+      # moved admin users to protected directory
 
   singleuser:
     nodeSelector:
