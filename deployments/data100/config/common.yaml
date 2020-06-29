@@ -53,7 +53,6 @@ jupyterhub:
         - schan21
         - rain
         - xinranliang
-
         # tutors
         - anamtudor
         - andihalim
