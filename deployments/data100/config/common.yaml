@@ -27,7 +27,7 @@ jupyterhub:
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
   auth:
-    type: dummy
+    type: custom # This enables canvas auth
     admin:
       users:
         # infrastructure
