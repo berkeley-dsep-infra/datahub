@@ -45,7 +45,7 @@ dependencies:
   - nbformat=4.4.0
   - networkx=2.3
   - nodejs=10.13.0
-  - notebook=6.0.0
+  - notebook=6.0.3
   - numpy=1.16.4
   - numpy-base=1.16.4
   - pandas=0.25.0
