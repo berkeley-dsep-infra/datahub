@@ -58,7 +58,7 @@ jupyterhub:
         pvcName: home-nfs
         subPath: "_eecs/{username}"
     memory:
-      guarantee: 512M
-      limit: 1G
+      guarantee: 1G
+      limit: 4G
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
