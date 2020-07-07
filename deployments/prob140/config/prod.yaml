@@ -2,7 +2,7 @@ jupyterhub:
   scheduling:
     userPlaceholder:
       enabled: true
-      replicas: 50
+      replicas: 10
   proxy:
     service:
       loadBalancerIP: 35.184.101.216

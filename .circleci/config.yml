@@ -142,7 +142,7 @@ jobs:
       - run:
           name: Install helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.2.4-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
@@ -179,11 +179,6 @@ jobs:
           name: Deploy R
           command: |
             hubploy deploy r hub ${CIRCLE_BRANCH}
-
-      - run:
-          name: Deploy desktop-test
-          command: |
-            hubploy deploy desktop-test hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy stat89a
@@ -319,15 +314,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: desktop-test
-          name: desktop-test hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: stat89a
           name: stat89a image build
           # Filters can only be per-job? wtf
@@ -426,16 +412,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: desktop-test
-          name: desktop-test hub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: stat89a
           name: stat89a image build
           push: true
@@ -500,7 +476,6 @@ workflows:
               - datahub image build
               - prob140 image build
               - r hub image build
-              - desktop-test hub image build
               - stat89a image build
               - julia hub image build
               - data102 image build

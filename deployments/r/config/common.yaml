@@ -1,6 +1,3 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
@@ -12,13 +9,13 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
@@ -30,19 +27,11 @@ jupyterhub:
         2019-fall-29496: {}
         # stat 131a
         2019-fall-23970:
-          # The stanzas below are used when nfsMounter is disabled
-          extraVolumes:
-          - name: stat131a-ssh
-            hostPath:
-              path: /data/homes/prod/_stat131a/_ssh
           extraVolumeMounts:
-          - name: stat131a-ssh
-            mountPath: /home/rstudio/.ssh
-          # The stanza below is used when nfsMounter is enabled
-          #- mountPath: /home/rstudio/.ssh
-          #  name: home
-          #  subPath: _stat131a/_ssh
-          #  readOnly: true
+          - mountPath: /home/rstudio/.ssh
+            name: home
+            subPath: _stat131a/_ssh
+            readOnly: true
     extraConfig:
       # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
       04-rstudio-home: |

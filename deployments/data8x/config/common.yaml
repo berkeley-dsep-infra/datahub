@@ -1,6 +1,3 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
@@ -43,6 +40,9 @@ jupyterhub:
         - 4a3686977e73987429ffed1239fff3c1
         - d921b4caaa1fe484094618ead010445d
         - 552c15a76d0bc7b546f5baef4310b7f4
+        - 0e7433ca5642cb41432e49f5353feaed
+        - 81da7e07167fc27429baf36e4a71ea78
+        - e3ec379e8ca696ea7e815f667189942a
   singleuser:
     initContainers:
       - name: volume-mount-hack

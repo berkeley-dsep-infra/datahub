@@ -1,8 +1,5 @@
-nfsMounter:
-  enabled: true
-
 nfsPVC:
-  enabled: false
+  enabled: true
   nfs:
     serverIP: nfsserver1
     shareName: export/pool0/homes
@@ -11,10 +8,10 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/node-purpose: core
+        hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
     extraConfig:
 
       09-lab-availability: |
@@ -71,7 +68,7 @@ jupyterhub:
               mountPath: /home/jovyan/shared/module-leads
   proxy:
     nodeSelector:
-      hub.jupyter.org/node-purpose: core
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: custom # This enables canvas auth
     admin:
@@ -180,9 +177,19 @@ jupyterhub:
           - tongshen
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
-      type: none
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
     memory:
       guarantee: 512M
       limit: 1G

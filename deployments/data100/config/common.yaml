@@ -1,6 +1,3 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
@@ -18,8 +15,11 @@ jupyterhub:
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
+        # below config automatically promotes instructors/gsis to admin and demotes students
+        # year-term-ccn can be found by searching for c100 in classes.berkeley.edu
+        # see issue #1584 for implementation detail
         # stat c100
-        2019-fall-24961: {}
+        # 2019-fall-24961: {}
       admin:
         mem_limit: 4096M
         mem_guarantee: 20484M
@@ -30,74 +30,46 @@ jupyterhub:
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
   auth:
-    type: dummy
+    type: custom # This enables canvas auth
     admin:
       users:
         # infrastructure
         - felder
         - rylo
         - yuvipanda
-        # gsis
-        - data100.instructors
-        - vikrams
-        - paulshaoyuqiao1
-        - yifanwu
-        - rami.mostafa
-        - davidyi624
-        - samirnaqvi
-        - fmcquarrie3
-        - rahuljcool26
-        - ishaan.srivastava
-        - jake.singleton
-        - cshih
-        - rkunani
-        - sera4415
-        - wangyimeng98
-        - suraj.rampure
-        - daniel.zhu
-        - julieyu
-        - calzoom
-        - chengruizhe
-        - kagarwal2
-        - pranav.njn
         - cpyles
-        - dqw
-        - rain
-        - mayashen
-        - sona.jeswani
-        - wwhuang
-        - devin.petersohn
-        - manana.hakobyan
-        - andysheu
-        - allenshen5
-
-        # tutors
-        - wesley1016
-        - ischmidt20
-        - zacharywu
-        - zhaoziyun
-        - oliversong
-        - leong.eric17
-        - yangluanne
-        - lexyyxl
-        - kevin.hsu
-        - xuzh
-        - jamesrichardsusilo
-        - violetyao
-        - janelawrence
-        - y_liang
-        - jessicawang7201
-        - diego.uribe
-        - oliveqy
-        - rohan.hajela
-        - sayanc
-        - am123
-        - pranshu
-        - parthbaokar
-
         # instructors
-        - adhikari
-        - jegonzal
+        - allenshen5
+        - suraj.rampure
+        - data100.instructors
+        # gsis
+        - alexletu
+        - henrymaier
+        - ischmidt20
+        - ishaan.srivastava
+        - jwu19
+        - johntsor
+        - kevinmoy
+        - kagarwal2
+        - oliveqy
+        - raujla
+        - schan21
+        - rain
+        - xinranliang
+        # tutors
+        - anamtudor
+        - andihalim
+        - leong.eric17
+        - jocelyn.z.sun
+        - jeakadi
+        - kevinyang8
+        - lexyyxl
+        - popo
+        - moisternw
+        - rohan.hajela
+        - vincent.lao
+        - truong.winson
+        - zacharywu
 
   prePuller:
     extraImages:
@@ -132,7 +104,7 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: gamma-pool
     initContainers:
       - name: volume-mount-hack
         image: busybox
