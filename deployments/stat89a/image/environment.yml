@@ -22,7 +22,7 @@ dependencies:
   - setuptools=45.1.0
   - statsmodels=0.11.0
   - tqdm
-  - notebook=6.0.3
+  - notebook=6.0.0
   - pip:
     - jassign==0.0.7
     - linalg_for_datasci==1.2.2
