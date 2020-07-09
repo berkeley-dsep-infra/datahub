@@ -9,6 +9,9 @@ appmode==0.4.0
 nbresuse==0.3.2
 ipywidgets==7.2.1
 
+# adding Cython for pandas issue -- https://app.circleci.com/pipelines/github/berkeley-dsep-infra/datahub/905/workflows/7231153f-65ad-4f23-a217-163e8a7de404/jobs/10514/steps
+Cython==0.29.20
+
 # data8; foundation
 tornado==5.1.1
 git+https://github.com/khsu2000/datascience.git@e3c1e180cebfc6ee03721bb29b0d80b570e47c6e
@@ -34,5 +37,5 @@ chart-studio==1.0.0
 nb2pdf==0.5.0
 git+https://github.com/ucbds-infra/otter-grader.git@655813fb531f1cf098f8df67df02a03b727b0493
 
-# for sklearn
-Cython==0.29.19
+# # for sklearn
+# Cython==0.29.19
