@@ -11,7 +11,7 @@ ipywidgets==7.2.1
 
 # data8; foundation
 tornado==5.1.1
-git+https://github.com/khsu2000/datascience.git@cee4c60023aad01aab0ddf93c22b1d5ff9c105e3
+git+https://github.com/khsu2000/datascience.git@e3c1e180cebfc6ee03721bb29b0d80b570e47c6e
 matplotlib==3.1.0
 numpy==1.16.0
 pandas==0.23.4
