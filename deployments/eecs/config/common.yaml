@@ -59,6 +59,6 @@ jupyterhub:
         subPath: "_eecs/{username}"
     memory:
       guarantee: 4G
-      limit: 4G
+      limit: 8G
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
