@@ -31,6 +31,25 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          - lakabuli
+          - Quizenger
+          - onibrow
+          - panzarkos
+          - sweismann
+          - gracekuo01
+          - urmita
+          - neeleshkr
+          - msswn
+          - dsaba123
+          - dshika14
+          - dixun-cui
+          - miyukiweldon
+          - mbharadwaj13
+          - lilybhattacharjee5
+          - spencerkent
+          - rohansood10
+          - christosadamo
+          - boosoba
 
   singleuser:
     extraEnv:
