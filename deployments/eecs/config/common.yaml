@@ -31,6 +31,26 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          # EECS16A - Retain till the end of Fall 2020 
+          - lakabuli
+          - Quizenger
+          - onibrow
+          - panzarkos
+          - sweismann
+          - gracekuo01
+          - urmita
+          - neeleshkr
+          - msswn
+          - dsaba123
+          - dshika14
+          - dixun-cui
+          - miyukiweldon
+          - mbharadwaj13
+          - lilybhattacharjee5
+          - spencerkent
+          - rohansood10
+          - christosadamo
+          - boosoba
 
   singleuser:
     extraEnv:
