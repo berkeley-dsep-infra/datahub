@@ -10,3 +10,4 @@ Common Administrator Tasks
    new-hub
    rebuild-hub-image
    new-packages
+   course-config
