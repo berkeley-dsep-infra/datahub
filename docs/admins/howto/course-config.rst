@@ -72,4 +72,3 @@ If a student is in a course with a specified profile, and they become
 a member of course staff the next semester, the old course profile
 will need to be removed to ensure the new GSI/UGSI has sufficient
 admin access.
-
