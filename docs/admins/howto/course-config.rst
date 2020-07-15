@@ -4,16 +4,16 @@
 Configuring course profiles
 ===========================
 
-We fetch per-course enrollment from the Student Information System to
-configure user servers based on course affiliations. In the past we
-have used this to set per-user resource limits, attach extra read-only
+We fetch per-course enrollment from the Student Information System
+when we need to configure user servers based on course affiliations.
+We periodically use this to set per-user resource limits, attach extra
 volumes to user servers, and automatically add or remove admin roles.
 
-This is implemented with a sidecar container running along side the
-hub which fetches enrollment data and shares it with the hub. The
-sidecar container's image is located in ``images/fetch-course-emails``
-and the hub reads these rosters in our custom KubeSpawner in
-``hub/values.yaml``. The rosters are saved into the files:
+This is implemented with a hub sidecar container which fetches
+enrollment data and shares it with the hub. The sidecar container's
+image is located in ``images/fetch-course-emails`` and the hub reads
+these rosters in our custom KubeSpawner in ``hub/values.yaml``. The
+rosters are saved into the files:
 
    .. code:: bash
 
@@ -56,3 +56,19 @@ on the same hub, and they've been given admin access.
 
 Memory limits and extra volume mounts are specified as in the example
 above.
+
+===========
+Cleaning Up
+===========
+
+Remember to remove a course profile after the course is over. This
+prevents the sidecar container from fetching unnecessary enrollment
+data. Two semesters is probably a sufficient amount of time to retain
+the profiles in the event students want to revisit assignments or
+instructors want to re-evaluate them. For example if a profile was
+specified for 2019 Fall, consider removing it by 2020 Summer.
+
+If a student is in a course with a specified profile, and they become
+a member of course staff the next semester, the old course profile
+will need to be removed to ensure the new GSI/UGSI has sufficient
+admin access.
