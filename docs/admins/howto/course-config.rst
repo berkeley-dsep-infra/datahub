@@ -21,7 +21,6 @@ rosters are saved into the files:
       /srv/jupyterhub/profiles.d/{year}-{term}-{class_section_id}-instructors.txt
 
 
-========================
 Defining course profiles
 ========================
 
@@ -57,7 +56,7 @@ on the same hub, and they've been given admin access.
 Memory limits and extra volume mounts are specified as in the example
 above.
 
-===========
+
 Cleaning Up
 ===========
 
