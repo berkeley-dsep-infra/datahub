@@ -80,4 +80,4 @@ dependencies:
   - xlrd==1.2.0
   - git+https://github.com/ryanlovett/jupyter-tree-download.git
   - otter-grader==1.0.0.b6
-  - notetaker==0.0.2 # for data 100 hub study
+  - notetaker==0.0.3 # for data 100 hub study
