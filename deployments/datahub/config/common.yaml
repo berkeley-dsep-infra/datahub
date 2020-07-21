@@ -47,6 +47,10 @@ jupyterhub:
         2019-fall-32821:
           mem_limit: 2048M
           mem_guarantee: 1024M
+        # ling 188
+        2020-summer-13097:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
         modules-leads:
           users:
             - yuvipanda
@@ -177,7 +181,7 @@ jupyterhub:
           - tongshen
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:

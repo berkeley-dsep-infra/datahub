@@ -79,5 +79,5 @@ dependencies:
   - altair==4.0.1
   - xlrd==1.2.0
   - git+https://github.com/ryanlovett/jupyter-tree-download.git
-  - git+https://github.com/ucbds-infra/otter-grader.git@2c72c964bba0be9f91c7f146c8ac2ad8964c5260
-  - notetaker==0.0.2 # for data 100 hub study
+  - otter-grader==1.0.0.b6
+  - notetaker==0.0.3 # for data 100 hub study
