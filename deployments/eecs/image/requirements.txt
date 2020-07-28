@@ -15,3 +15,7 @@ PyQt5==5.15.*
 
 # For desktop environment
 jupyter-desktop-server==0.1.*
+
+# For EECS127/227a
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1631
+cvxpy==1.1.*
