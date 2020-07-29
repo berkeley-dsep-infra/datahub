@@ -14,7 +14,7 @@ Cython==0.29.20
 
 # data8; foundation
 tornado==5.1.1
-git+https://github.com/khsu2000/datascience.git@e3c1e180cebfc6ee03721bb29b0d80b570e47c6e
+git+https://github.com/khsu2000/datascience.git@9509c5e3d68cf9789f732cf71f04a08f44255cbc
 matplotlib==3.1.0
 numpy==1.16.0
 pandas==0.23.4
