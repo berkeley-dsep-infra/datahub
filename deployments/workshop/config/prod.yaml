@@ -1,8 +1,7 @@
 jupyterhub:
   scheduling:
     userPlaceholder:
-      enabled: true
-      replicas: 50
+      enabled: false
 
   proxy:
   #   service:
