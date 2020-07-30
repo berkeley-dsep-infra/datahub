@@ -105,19 +105,6 @@ jupyterhub:
           readOnly: true
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && chown 1000:1000 /home/jovyan/shared"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
-        - name: home
-          mountPath: /home/jovyan/shared
-          subPath: _shared
     storage:
       type: static
       static:
