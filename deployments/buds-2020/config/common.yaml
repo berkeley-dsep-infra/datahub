@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/buds-2020
 
 jupyterhub:
   scheduling:
@@ -43,12 +43,12 @@ jupyterhub:
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
-          subPath: "_buds-2020/{username}"
+          subPath: "{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_buds-2020/{username}"
+        subPath: "{username}"
     memory:
       guarantee: 512M
       limit: 1G

@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/workshop
 
 jupyterhub:
   prePuller:
@@ -55,12 +55,12 @@ jupyterhub:
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
-          subPath: "_workshop/{username}"
+          subPath: "{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_workshop/{username}"
+        subPath: "{username}"
       extraVolumes:
         - name: etc-jupyter
           configMap:

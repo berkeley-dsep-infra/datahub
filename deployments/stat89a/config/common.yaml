@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/stat89a
 
 jupyterhub:
   scheduling:
@@ -43,6 +43,6 @@ jupyterhub:
     storage:
       static:
         pvcName: home-nfs
-        subPath: "_stat89a/{username}"
+        subPath: "{username}"
       type: static
     defaultUrl: "/lab"
