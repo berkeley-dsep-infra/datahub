@@ -46,16 +46,6 @@ jupyterhub:
     image:
       # Matches datahub image
       name: gcr.io/ucb-datahub-2018/primary-user-image
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
     storage:
       type: static
       static:
