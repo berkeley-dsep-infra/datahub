@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/eecs
 
 jupyterhub:
   scheduling:
@@ -71,12 +71,12 @@ jupyterhub:
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
-          subPath: "_eecs/{username}"
+          subPath: "{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_eecs/{username}"
+        subPath: "{username}"
     memory:
       guarantee: 4G
       limit: 8G
