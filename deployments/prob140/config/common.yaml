@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/prob140
 
 jupyterhub:
   scheduling:
@@ -50,12 +50,12 @@ jupyterhub:
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
-          subPath: "_prob140/{username}"
+          subPath: "{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_prob140/{username}"
+        subPath: "{username}"
       extraVolumes:
         - name: etc-jupyter
           configMap:
