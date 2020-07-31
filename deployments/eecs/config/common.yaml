@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/eecs
 
 jupyterhub:
   scheduling:
@@ -31,6 +31,26 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
+          # EECS16A - Retain till the end of Fall 2020 
+          - lakabuli
+          - Quizenger
+          - onibrow
+          - panzarkos
+          - sweismann
+          - gracekuo01
+          - urmita
+          - neeleshkr
+          - msswn
+          - dsaba123
+          - dshika14
+          - dixun-cui
+          - miyukiweldon
+          - mbharadwaj13
+          - lilybhattacharjee5
+          - spencerkent
+          - rohansood10
+          - christosadamo
+          - boosoba
 
   singleuser:
     extraEnv:
@@ -42,21 +62,11 @@ jupyterhub:
     defaultUrl: "/lab"
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "_eecs/{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_eecs/{username}"
+        subPath: "{username}"
     memory:
       guarantee: 4G
       limit: 8G

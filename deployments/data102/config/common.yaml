@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/pool0/homes
+    shareName: export/homedirs-other-2020-07-29/data102
 
 jupyterhub:
   scheduling:
@@ -38,21 +38,11 @@ jupyterhub:
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "_data102/{username}"
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_data102/{username}"
+        subPath: "{username}"
       extraVolumes:
         - name: etc-jupyter
           configMap:
