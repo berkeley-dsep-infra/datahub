@@ -21,5 +21,4 @@ jupyter labextension install --debug \
      @jupyter-widgets/jupyterlab-manager \
      jupyter-matplotlib \
      jupyterlab-plotly \
-     plotlywidget \
-     @jupyterlab/latex
+     plotlywidget
