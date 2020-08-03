@@ -176,6 +176,8 @@ RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5
 COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
 
+# Too many packages need numpy to be already installed, SMH
+RUN pip install --no-cache numpy==1.16.0
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 # Set up nbpdf dependencies
