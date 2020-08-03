@@ -1,6 +1,6 @@
 FROM buildpack-deps:bionic-scm
 
-ENV APP_DIR /srv/app
+ENV CONDA_DIR /opt/conda
 
 # Set up common env variables
 ENV TZ=America/Los_Angeles
@@ -12,24 +12,11 @@ ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
-RUN install -d -o jovyan -g jovyan ${APP_DIR}
-
-COPY nodesource.list /etc/apt/sources.list.d/nodesource.list
-COPY nodesource-key.asc /tmp/nodesource-key.asc
-RUN apt-key add /tmp/nodesource-key.asc
-
-# TODO: remove me when apt can find our packages
-#RUN echo 91.189.91.26  security.ubuntu.com >> /etc/hosts
-#RUN echo 91.189.88.149  archive.ubuntu.com >> /etc/hosts
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
-            python3.6 \
-            python3.6-venv \
-            python3.6-dev \
             tar \
             vim \
-            nodejs \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -151,10 +138,10 @@ RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-ENV PATH ${APP_DIR}/venv/bin:$PATH:/usr/lib/rstudio-server/bin
+ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME
-ENV IPYTHONDIR ${APP_DIR}/venv/etc/ipython
+ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
 
 # FIXME: Move this elsewhere in the dockerfile?
 # Install packages needed by nbpdfexport
@@ -177,22 +164,27 @@ RUN apt-get update && \
 
 WORKDIR /home/jovyan
 
+RUN mkdir -p /opt/conda && chown jovyan:jovyan /opt/conda
+
 USER jovyan
-RUN python3.6 -m venv ${APP_DIR}/venv
 
-# adding for tensorflow >= 2.0.0, astropy
-RUN pip install --upgrade pip setuptools wheel
+RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5/Miniforge3-4.8.3-5-Linux-x86_64.sh > /tmp/miniforge-installer.sh && \
+    sh /tmp/miniforge-installer.sh -b -p /opt/conda && \
+    rm /tmp/miniforge-installer.sh
 
+
+COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 # Set up nbpdf dependencies
-ENV PYPPETEER_HOME /srv/app
+ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
 RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IR kernelspec
-RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${APP_DIR}/venv')"
+RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
 # hmms needs to be installed after cython, for ce88 and ls88-3
 RUN pip install --no-cache-dir hmms==0.1
@@ -206,7 +198,7 @@ RUN pip install --no-cache-dir hdbscan==0.8.22
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
 
-ENV NLTK_DATA ${APP_DIR}/nltk_data
+ENV NLTK_DATA ${CONDA_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
@@ -217,7 +209,7 @@ COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
 RUN /usr/local/sbin/2019-fall-phys-188-288.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-ADD jupyter_notebook_config.py ${APP_DIR}/venv/etc/jupyter/jupyter_notebook_config.py
+ADD jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/jupyter_notebook_config.py
 
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
