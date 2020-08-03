@@ -169,7 +169,7 @@ RUN mkdir -p /opt/conda && chown jovyan:jovyan /opt/conda
 USER jovyan
 
 RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5/Miniforge3-4.8.3-5-Linux-x86_64.sh > /tmp/miniforge-installer.sh && \
-    sh /tmp/miniforge-installer.sh -b -p /opt/conda && \
+    sh /tmp/miniforge-installer.sh -b -u -p /opt/conda && \
     rm /tmp/miniforge-installer.sh
 
 
