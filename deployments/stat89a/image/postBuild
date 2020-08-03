@@ -17,7 +17,7 @@ python -c "import matplotlib as mpl; mpl.use('Agg'); import pylab as plt; fig, a
 test -e test.png && rm test.png
 
 #    Install necessary JupyterLab extensions
-jupyter labextension install \
+jupyter labextension install --debug \
      @jupyter-widgets/jupyterlab-manager \
      jupyter-matplotlib \
      jupyterlab-plotly \
