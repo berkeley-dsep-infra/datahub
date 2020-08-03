@@ -19,7 +19,7 @@ test -e test.png && rm test.png
 #    Install necessary JupyterLab extensions
 jupyter labextension install \
      @jupyter-widgets/jupyterlab-manager \
-     @jupyterlab/plotly-extension \
      jupyter-matplotlib \
+     jupyterlab-plotly \
      plotlywidget \
      @jupyterlab/latex
