@@ -77,6 +77,7 @@ RUN conda config --add channels conda-forge
 # Encapsulate the environment info into its own yml file (which carries
 # the name `data100` in it
 COPY environment.yml /tmp/
+COPY requirements.txt /tmp/
 RUN conda env create -f /tmp/environment.yml
 
 # We modify the path directly since the `source activate data100`
