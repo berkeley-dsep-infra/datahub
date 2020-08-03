@@ -16,11 +16,6 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-    extraConfig:
-      09-lab-availability: |
-        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
-        # See #1468
-        c.Spawner.cmd = ['jupyterhub-singleuser']
 
   auth:
     type: google
