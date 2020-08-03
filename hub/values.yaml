@@ -215,9 +215,6 @@ jupyterhub:
 
         c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
 
-      02-lab-availability: |
-        c.Spawner.cmd = ['jupyter-labhub']
-
       03-working-dir: |
         # Make sure working directory is ${HOME}
         # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo

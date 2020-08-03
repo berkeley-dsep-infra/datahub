@@ -1,0 +1,6 @@
+jassign==0.0.7
+linalg_for_datasci==1.2.2
+nbgitpuller==0.8.0
+nbresuse==0.3.3
+okpy==1.14.19
+jupyterlab_latex
