@@ -1,8 +1,3 @@
-rebalancer:
-  image:
-    name: gcr.io/ucb-datahub-2018/jupyterhub-support-rebalancer
-    tag: '0.0.1-n1610.hf51b67e'
-
 prometheus:
   networkPolicy:
     enabled: true
