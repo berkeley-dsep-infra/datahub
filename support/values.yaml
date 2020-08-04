@@ -27,6 +27,8 @@ prometheus:
       type: ClusterIP
 
 grafana:
+  persistence:
+    storageClassName: standard
   deploymentStrategy:
     type: Recreate
 
