@@ -13,6 +13,8 @@ lcapy
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
 Pillow==7.*
 PyQt5==5.15.*
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1639
+opencv-python==4.3.*
 
 # For desktop environment
 jupyter-desktop-server==0.1.*
