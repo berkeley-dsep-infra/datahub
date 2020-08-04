@@ -15,6 +15,16 @@ jupyterhub:
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
+        # compsci c8
+        2019-fall-28063: {}
+        # pbhlth w250f
+        2019-fall-29639: {}
+        # pbhlth w250g
+        2019-fall-29640: {}
+        # linguis 243
+        2019-fall-31002: {}
+        # data 88
+        2019-fall-33469: {}
         # astr 128
         2020-spring-24268:
           mem_limit: 4096M
@@ -27,6 +37,11 @@ jupyterhub:
         2020-spring-25937:
           mem_limit: 4096M
           mem_guarantee: 1024M
+        # physics 188
+        2019-fall-32821:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
+        # ling 188
         2020-summer-13097:
           mem_limit: 2048M
           mem_guarantee: 1024M

@@ -52,20 +52,15 @@ jupyterhub:
 Profiles
 ========
 Courses are specified as keys of the form {year}-{term}-{class_section_id} in
-the helm config. For example, at `jupyterhub.hub.extraConfigMap.profiles`:
+the helm config. For example:
 
 ```
-profiles:
-  2019-summer-15798: {}
-  2019-spring-25622:
-    mem_limit: 4096M
-    mem_guarantee: 2048M
-  2019-fall-23970:
-    extraVolumeMounts:
-    - mountPath: /home/rstudio/.ssh
-      name: home
-      subPath: _stat131a/_ssh
-      readOnly: true
+custom:
+  profiles:
+    2019-summer-15798: {}
+    2019-spring-25622:
+      mem_limit: 4096M
+      mem_guarantee: 2048M
 ```
 
 See https://classes.berkeley.edu for class section IDs.
