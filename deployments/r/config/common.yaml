@@ -16,6 +16,22 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
+    #extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+    #  profiles:
+        # pbhlth w250f
+        #2019-fall-29639: {}
+        # pbhlth w250g
+        #2019-fall-29640: {}
+        # pbhlth 142
+        #2019-fall-29496: {}
+        # stat 131a
+        #2019-fall-23970:
+        #  extraVolumeMounts:
+        #  - mountPath: /home/rstudio/.ssh
+        #    name: home
+        #    subPath: _stat131a/_ssh
+        #    readOnly: true
     extraConfig:
       # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
       04-rstudio-home: |
