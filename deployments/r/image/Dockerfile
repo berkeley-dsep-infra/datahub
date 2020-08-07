@@ -59,8 +59,7 @@ USER ${NB_USER}
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir \
-                jupyter-rsession-proxy==1.0b6 \
-                nbpdfexport==0.2.1
+                jupyter-rsession-proxy==1.0b6
 
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME /srv/conda
