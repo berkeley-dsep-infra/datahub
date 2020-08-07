@@ -1,8 +1,5 @@
 # Base
-nbgitpuller==0.8.0
-nbpdfexport==0.2.1
-appmode==0.7.0
-nbresuse==0.3.4
+-r infra-requirements.txt
 
 # data8; foundation
 datascience==0.15.4

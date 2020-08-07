@@ -1,10 +1,7 @@
-jupyterlab>=2.0
-notebook>=6.0
-nbgitpuller==0.7.2
-nbresuse==0.3.2
+-r infra-requirements.txt
+
 nbpdfexport==0.2.1
 nbzip==0.0.4
-jupyterhub==1.0.0
 appmode==0.4.0
 nbresuse==0.3.2
 ipywidgets==7.2.1
