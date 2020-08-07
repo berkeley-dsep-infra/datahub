@@ -1,4 +1,4 @@
--r infr-requirements.txt
+-r infra-requirements.txt
 
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
