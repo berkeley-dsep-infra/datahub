@@ -71,8 +71,6 @@ dependencies:
   - tensorflow-base=1.14.0
   - tensorflow-estimator=1.14.0
   - termcolor=1.1.0
-  - terminado=0.8.2
-  - tqdm=4.32.1
   - widgetsnbextension=3.5.0
   - xarray=0.12.1
   - yaml=0.1.7
