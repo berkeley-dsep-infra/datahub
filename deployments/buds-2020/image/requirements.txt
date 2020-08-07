@@ -2,8 +2,6 @@
 
 nbpdfexport==0.2.1
 nbzip==0.0.4
-appmode==0.4.0
-nbresuse==0.3.2
 ipywidgets==7.2.1
 
 # adding Cython for pandas issue -- https://app.circleci.com/pipelines/github/berkeley-dsep-infra/datahub/905/workflows/7231153f-65ad-4f23-a217-163e8a7de404/jobs/10514/steps
