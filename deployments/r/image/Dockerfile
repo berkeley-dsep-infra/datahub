@@ -61,10 +61,6 @@ COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir \
                 jupyter-rsession-proxy==1.0b6
 
-# Set up nbpdf dependencies
-ENV PYPPETEER_HOME /srv/conda
-RUN pyppeteer-install
-RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
@@ -102,6 +98,11 @@ RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
 RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/conda
+RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
