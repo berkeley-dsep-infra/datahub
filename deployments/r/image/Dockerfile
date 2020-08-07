@@ -57,7 +57,8 @@ RUN /tmp/install-miniconda.bash
 
 USER ${NB_USER}
 
-RUN pip install --no-cache-dir -r infra-requirements.txt
+COPY infra-requirements.txt /tmp/infra-requirements.txt
+RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir \
                 jupyter-rsession-proxy==1.0b6 \
                 nbpdfexport==0.2.1

@@ -175,6 +175,7 @@ RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5
 
 COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
+COPY infra-requirements.txt /tmp/requirements.txt
 
 # Too many packages need numpy to be already installed, SMH
 RUN pip install --no-cache numpy==1.16.0
