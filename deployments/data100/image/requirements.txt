@@ -7,13 +7,13 @@ plotly==4.5.0
 colorlover==0.3.0
 cufflinks==0.17.0
 tweepy==3.8.0
-nbgitpuller==0.8.0
 jupyter-contrib-nbextensions==0.5.1
 psycopg2==2.8.4
 jupyter-server-proxy==1.2.0
 jassign==0.0.7
 okpy==1.13.11
 tqdm==4.42.0
+requests-oauthlib=1.2.0
 # Install seaborn via pip, it will update pandas along the way
 seaborn==0.10.0
 ray==0.8.1
