@@ -13,7 +13,7 @@ jupyter-server-proxy==1.2.0
 jassign==0.0.7
 okpy==1.13.11
 tqdm==4.42.0
-requests-oauthlib=1.2.0
+requests-oauthlib==1.2.0
 # Install seaborn via pip, it will update pandas along the way
 seaborn==0.10.0
 ray==0.8.1
