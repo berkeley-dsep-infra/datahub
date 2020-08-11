@@ -177,8 +177,6 @@ COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
 COPY infra-requirements.txt /tmp/requirements.txt
 
-# Too many packages need numpy & cython to be already installed, SMH
-RUN pip install --no-cache numpy==1.16.0 cython==0.29.21
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 # Set up nbpdf dependencies
