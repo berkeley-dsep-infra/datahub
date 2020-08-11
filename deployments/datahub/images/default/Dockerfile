@@ -175,10 +175,12 @@ RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5
 
 COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
-COPY infra-requirements.txt /tmp/requirements.txt
+COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
+RUN pip install --no-cache numpy==1.16.1 cython==0.29.21
+RUN pip install --no-cache -r /tmp/requirements.txt
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install

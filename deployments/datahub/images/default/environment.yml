@@ -2,8 +2,3 @@ dependencies:
 - nodejs==14.*
 - pip==20.*
 - python==3.6.*
-- pip:
-  # Too many packages need numpy & cython to be already installed, SMH
-  - numpy==1.6.0
-  - cython==0.29.21
-  - -r requirements.txt
