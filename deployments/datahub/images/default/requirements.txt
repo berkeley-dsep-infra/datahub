@@ -65,7 +65,6 @@ daft==0.0.4
 corner==2.0.1
 #
 # ce88;
-cython==0.25.2
 pymdptoolbox==4.0b3
 #
 # data-x; DL
