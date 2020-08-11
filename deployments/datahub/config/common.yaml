@@ -173,6 +173,7 @@ jupyterhub:
           - sydniezanone
           - kevinmiao
           - tongshen
+          - terry.regier # fa20 ling 290L instructor, with temp title "Additional Seminar on Special Topics to Be Announced"
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
