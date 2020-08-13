@@ -9,8 +9,8 @@ jupyterhub:
     # service:
       # make the IP static in google cloud console so we won't lose it
       # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of IB134L.datahub.berkeley.edu
+      # loadBalancerIP: <IP of genomics.datahub.berkeley.edu
     # uncomment once DNS entry has been made
     # https:
       # hosts:
-        # - IB134L-staging.datahub.berkeley.edu
+        # - genomics-staging.datahub.berkeley.edu
