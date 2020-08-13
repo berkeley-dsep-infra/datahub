@@ -190,7 +190,8 @@ RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
 # hmms needs to be installed after cython, for ce88 and ls88-3
-RUN pip install --no-cache-dir hmms==0.1
+# FIXME: Temporarily disabled, running into https://github.com/lopatovsky/HMMs/issues/13
+# RUN pip install --no-cache-dir hmms==0.1
 
 # Cartopy needs to be installed after cython, for eps 88
 RUN pip install --no-cache-dir Cartopy==0.17.0
