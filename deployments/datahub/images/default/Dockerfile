@@ -226,7 +226,7 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
 # Install JupyterLab extensions last, since we are actively experimenting with them
-RUN jupyter labextension install \
+RUN jupyter labextension install --debug\
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
             jupyterlab-plotly \
