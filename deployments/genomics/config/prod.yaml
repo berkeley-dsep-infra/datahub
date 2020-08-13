@@ -12,4 +12,4 @@ jupyterhub:
     db:
       pvc:
         # This also holds logs
-        storage: 40Gi
+        storage: 4Gi
