@@ -171,6 +171,11 @@ jobs:
             hubploy deploy prob140 hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy genomics
+          command: |
+            hubploy deploy genomics hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy julia
           command: |
             hubploy deploy julia hub ${CIRCLE_BRANCH}
