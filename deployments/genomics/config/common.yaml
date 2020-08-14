@@ -35,7 +35,7 @@ jupyterhub:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_IB134L/{username}"
+        subPath: "{username}"
     memory:
       guarantee: 512M
       limit: 1G
