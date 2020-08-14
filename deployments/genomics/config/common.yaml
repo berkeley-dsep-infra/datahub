@@ -18,7 +18,7 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
 
   auth:
-    type: custom # to enable canvas
+    type: google
     admin:
       users:
           # infrastructure
