@@ -20,11 +20,6 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
   hub:
-    extraConfig:
-      09-lab-availability: |
-        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
-        # See #1468
-        c.Spawner.cmd = ['jupyterhub-singleuser']
     # No more than 200 users at any given time
     activeServerLimit: 200
     nodeSelector:

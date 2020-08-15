@@ -1,0 +1,16 @@
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    # service:
+      # make the IP static in google cloud console so we won't lose it
+      # then specify it here so if we redeploy we get the same stuff
+      # loadBalancerIP: <IP of genomics.datahub.berkeley.edu
+    # uncomment once DNS entry has been made
+    https:
+      hosts:
+        - genomics-staging.datahub.berkeley.edu

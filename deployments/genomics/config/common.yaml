@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver1
-    shareName: export/homedirs-other-2020-07-29/buds-2020
+    shareName: export/homedirs-other-2020-07-29/genomics
 
 jupyterhub:
   scheduling:
@@ -19,12 +19,14 @@ jupyterhub:
 
   auth:
     type: google
-    google:
-      hostedDomain:
-      - berkeley.edu
-      # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
-      - achieveprogram.org
-      # moved admin users to protected directory
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+          - psudmant
 
   singleuser:
     nodeSelector:
@@ -38,4 +40,4 @@ jupyterhub:
       guarantee: 512M
       limit: 1G
     image:
-      name: gcr.io/ucb-datahub-2018/buds-2020-user-image
+      name: gcr.io/IB134L/IB134L-user-image

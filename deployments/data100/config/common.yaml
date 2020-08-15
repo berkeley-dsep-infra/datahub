@@ -6,12 +6,6 @@ nfsPVC:
 
 jupyterhub:
   hub:
-    extraConfig:
-      09-lab-availability: |
-        # Overrides values.yaml, until jupyterlab is upgraded in other hubs
-        # See #1468
-        c.Spawner.cmd = ['jupyterhub-singleuser']
-
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
