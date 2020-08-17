@@ -1,21 +1,19 @@
+-r infra-requirements.txt
+
 scipy==1.4.1
 scikit-learn==0.22.1
 scikit-image==0.16.2
 plotly==4.5.0
 colorlover==0.3.0
 cufflinks==0.17.0
-jupyterlab==2.1.3
 tweepy==3.8.0
-nbgitpuller==0.8.0
 jupyter-contrib-nbextensions==0.5.1
 psycopg2==2.8.4
-jupyterhub==1.1.0
 jupyter-server-proxy==1.2.0
 jassign==0.0.7
 okpy==1.13.11
 tqdm==4.42.0
-nbresuse==0.3.3
-nbconvert==5.6.1
+requests-oauthlib==1.2.0
 # Install seaborn via pip, it will update pandas along the way
 seaborn==0.10.0
 ray==0.8.1
