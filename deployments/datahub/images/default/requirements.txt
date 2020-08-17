@@ -1,7 +1,6 @@
 -r infra-requirements.txt
 
 nbzip==0.0.4
-ipywidgets==7.2.1
 #
 # data8; foundation
 datascience==0.15.1

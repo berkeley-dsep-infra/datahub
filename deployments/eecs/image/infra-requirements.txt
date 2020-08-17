@@ -18,3 +18,4 @@ nbresuse==0.3.6
 jupyterhub==1.1.0
 appmode==0.8.0
 nbpdfexport==0.2.1
+ipywidgets==7.5.1
