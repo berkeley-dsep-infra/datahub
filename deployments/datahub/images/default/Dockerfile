@@ -10,8 +10,10 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
+ENV NB_USER jovyan
+ENV NB_UID 1000
 
-RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
+RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
@@ -162,11 +164,12 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/jovyan
+WORKDIR /home/${NB_USER}
 
-RUN mkdir -p /opt/conda && chown jovyan:jovyan /opt/conda
+COPY install-miniforge.bash /tmp/install-miniforge.bash
+RUN /tmp/install-miniforge.bash
 
-USER jovyan
+USER ${NB_USER}
 
 RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5/Miniforge3-4.8.3-5-Linux-x86_64.sh > /tmp/miniforge-installer.sh && \
     sh /tmp/miniforge-installer.sh -b -u -p /opt/conda && \
