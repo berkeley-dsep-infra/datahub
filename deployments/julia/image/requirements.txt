@@ -1,5 +1,4 @@
-notebook==6.0.3
-nbgitpuller==0.7.2
-nbresuse==0.3.2
+-r infra-requirements.txt
+
 # For PyPlot
 matplotlib==3.0.2

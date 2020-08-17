@@ -10,8 +10,10 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
+ENV NB_USER jovyan
+ENV NB_UID 1000
 
-RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
+RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
@@ -162,11 +164,12 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/jovyan
+WORKDIR /home/${NB_USER}
 
-RUN mkdir -p /opt/conda && chown jovyan:jovyan /opt/conda
+COPY install-miniforge.bash /tmp/install-miniforge.bash
+RUN /tmp/install-miniforge.bash
 
-USER jovyan
+USER ${NB_USER}
 
 RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5/Miniforge3-4.8.3-5-Linux-x86_64.sh > /tmp/miniforge-installer.sh && \
     sh /tmp/miniforge-installer.sh -b -u -p /opt/conda && \
@@ -175,11 +178,12 @@ RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5
 
 COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
+COPY infra-requirements.txt /tmp/infra-requirements.txt
 
-# Too many packages need numpy to be already installed, SMH
-RUN pip install --no-cache numpy==1.16.0
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
+RUN pip install --no-cache numpy==1.16.1 cython==0.29.21
+RUN pip install --no-cache -r /tmp/requirements.txt
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
@@ -189,7 +193,8 @@ RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
 # hmms needs to be installed after cython, for ce88 and ls88-3
-RUN pip install --no-cache-dir hmms==0.1
+# FIXME: Temporarily disabled, running into https://github.com/lopatovsky/HMMs/issues/13
+# RUN pip install --no-cache-dir hmms==0.1
 
 # Cartopy needs to be installed after cython, for eps 88
 RUN pip install --no-cache-dir Cartopy==0.17.0
@@ -225,7 +230,7 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
 # Install JupyterLab extensions last, since we are actively experimenting with them
-RUN jupyter labextension install \
+RUN jupyter labextension install --debug\
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
             jupyterlab-plotly \

@@ -1,8 +1,4 @@
-jupyterlab>=2.0
-notebook>=6.0
-nbgitpuller==0.7.2
-nbformat>=5.0.7 # https://github.com/jupyter/nbformat/issues/161
-nbresuse==0.3.2
+-r infra-requirements.txt
 
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
