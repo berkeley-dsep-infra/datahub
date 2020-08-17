@@ -52,8 +52,8 @@ RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-se
     rm -f ss.deb
 RUN chown -R rstudio:rstudio /var/lib/shiny-server
 
-COPY install-miniconda.bash /tmp/install-miniconda.bash
-RUN /tmp/install-miniconda.bash
+COPY install-miniforge.bash /tmp/install-miniforge.bash
+RUN /tmp/install-miniforge.bash
 
 USER ${NB_USER}
 
