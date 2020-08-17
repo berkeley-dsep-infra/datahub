@@ -8,3 +8,6 @@ PyPDF2==1.26.0
 
 # Issue #1239, for PH 142 - Spring 2020
 requests==2.22.0
+
+# Econ 140 - Fall 2020
+otter-grader==1.0.0.b11

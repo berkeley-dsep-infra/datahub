@@ -1,0 +1,5 @@
+dependencies:
+- python=3.8.*
+- pip=20.*
+- pip:
+  - -r requirements.txt

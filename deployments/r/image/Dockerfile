@@ -95,6 +95,9 @@ RUN Rscript /tmp/extras.d/stat-131a.r
 COPY --chown=rstudio extras.d/2020-spring-envecon-c118.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 
+COPY --chown=rstudio extras.d/econ-140.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/econ-140.r
+
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
 RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
