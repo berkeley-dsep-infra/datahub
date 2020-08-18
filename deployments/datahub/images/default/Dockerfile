@@ -182,7 +182,7 @@ COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
-RUN pip install --no-cache numpy==1.19.1 cython==0.29.21
+RUN pip install --no-cache numpy==1.18.5 cython==0.29.21
 RUN pip install --no-cache -r /tmp/requirements.txt
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
