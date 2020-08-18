@@ -5,10 +5,9 @@ mkdir -p ${CONDA_DIR}/etc/ipython ${CONDA_DIR}/etc/jupyter
 cp -p ipython_config.py ${CONDA_DIR}/etc/ipython/
 cp -p jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/
 
-# Set up nbpdf dependencies
+# Set up notebook-as-pdf dependencies
 export PYPPETEER_HOME=${CONDA_DIR}
 pyppeteer-install
-jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # pre-generate the font cache
 python font-cache.py
