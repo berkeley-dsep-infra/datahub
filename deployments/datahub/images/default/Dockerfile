@@ -192,10 +192,6 @@ RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 # Install IR kernelspec
 RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
-# hmms needs to be installed after cython, for ce88 and ls88-3
-# FIXME: Temporarily disabled, running into https://github.com/lopatovsky/HMMs/issues/13
-# RUN pip install --no-cache-dir hmms==0.1
-
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
 
