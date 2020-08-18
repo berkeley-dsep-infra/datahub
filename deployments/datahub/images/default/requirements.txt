@@ -71,7 +71,7 @@ scikit-image==0.13.1
 Keras==2.0.8
 keras-vis==0.4.1
 tables==3.6.1
-opencv-python==3.3.0.10
+opencv-python==4.4.0.42
 
 # astr 128/256; spring 2020
 astroquery==0.3.10
