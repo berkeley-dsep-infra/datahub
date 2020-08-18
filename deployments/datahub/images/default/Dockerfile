@@ -182,7 +182,7 @@ COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
-RUN pip install --no-cache numpy==1.16.1 cython==0.29.21
+RUN pip install --no-cache numpy==1.19.1 cython==0.29.21
 RUN pip install --no-cache -r /tmp/requirements.txt
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
@@ -191,12 +191,6 @@ RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IR kernelspec
 RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
-
-# Cartopy needs to be installed after cython, for eps 88
-RUN pip install --no-cache-dir Cartopy==0.17.0
-
-# hdbscan needs to be installed after cython, for physics 188
-RUN pip install --no-cache-dir hdbscan==0.8.22
 
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
