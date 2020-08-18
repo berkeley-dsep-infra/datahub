@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
+    serverIP: nfsserver-01
     shareName: export/homedirs-other-2020-07-29/workshop
 
 jupyterhub:
