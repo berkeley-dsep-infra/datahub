@@ -70,7 +70,7 @@ tensorflow==2.1.0
 scikit-image==0.13.1
 Keras==2.0.8
 keras-vis==0.4.1
-tables==3.4.2
+tables==3.6.1
 opencv-python==3.3.0.10
 
 # astr 128/256; spring 2020
