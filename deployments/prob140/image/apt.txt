@@ -8,7 +8,7 @@ texlive-xetex
 texlive-fonts-recommended
 texlive-generic-recommended
 
-# nbpdfexport
+# notebook-as-pdf
 libx11-xcb1
 libxtst6
 libxrandr2

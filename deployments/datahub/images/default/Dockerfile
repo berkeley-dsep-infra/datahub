@@ -146,7 +146,7 @@ ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
 
 # FIXME: Move this elsewhere in the dockerfile?
-# Install packages needed by nbpdfexport
+# Install packages needed by notebook-as-pdf
 # Default fonts seem ok, we just install an emoji font
 RUN apt-get update && \
     apt-get install --yes \
@@ -187,7 +187,6 @@ RUN pip install --no-cache -r /tmp/requirements.txt
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
-RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IR kernelspec
 RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
