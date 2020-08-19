@@ -1,19 +1,11 @@
-jupyterlab>=2.0
-notebook>=6.0
-nbgitpuller==0.7.2
-nbresuse==0.3.2
-nbpdfexport==0.2.1
+-r infra-requirements.txt
+
 nbzip==0.0.4
-jupyterhub==1.0.0
-appmode==0.4.0
-nbresuse==0.3.2
-ipywidgets==7.2.1
 
 # adding Cython for pandas issue -- https://app.circleci.com/pipelines/github/berkeley-dsep-infra/datahub/905/workflows/7231153f-65ad-4f23-a217-163e8a7de404/jobs/10514/steps
 Cython==0.29.20
 
 # data8; foundation
-tornado==5.1.1
 git+https://github.com/khsu2000/datascience.git@9509c5e3d68cf9789f732cf71f04a08f44255cbc
 matplotlib==3.1.0
 numpy==1.16.0

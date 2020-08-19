@@ -52,22 +52,15 @@ RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-se
     rm -f ss.deb
 RUN chown -R rstudio:rstudio /var/lib/shiny-server
 
-COPY install-miniconda.bash /tmp/install-miniconda.bash
-RUN /tmp/install-miniconda.bash
+COPY install-miniforge.bash /tmp/install-miniforge.bash
+RUN /tmp/install-miniforge.bash
 
 USER ${NB_USER}
 
+COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir \
-                jupyter-rsession-proxy==1.0b6 \
-                jupyterhub==1.0.0 \
-                jupyterlab==0.35.6 \
-                notebook==6.0.3 \
-                nbpdfexport==0.2.1
+                jupyter-rsession-proxy==1.0b6
 
-# Set up nbpdf dependencies
-ENV PYPPETEER_HOME /srv/conda
-RUN pyppeteer-install
-RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
@@ -102,9 +95,17 @@ RUN Rscript /tmp/extras.d/stat-131a.r
 COPY --chown=rstudio extras.d/2020-spring-envecon-c118.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 
+COPY --chown=rstudio extras.d/econ-140.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/econ-140.r
+
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
 RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/conda
+RUN pyppeteer-install
+RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
