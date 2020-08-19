@@ -2,10 +2,10 @@
 
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
-numpy
-matplotlib
-sympy
-lcapy
+numpy==1.19.*
+matplotlib==3.3.*
+sympy==1.6.*
+lcapy==0.66.*
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
 Pillow==7.*
 PyQt5==5.15.*
