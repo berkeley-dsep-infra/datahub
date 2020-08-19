@@ -37,7 +37,7 @@ seaborn==0.10.1
 bokeh==2.1.1
 decorator==4.4.2
 networkx==2.4
-pygame==1.9.6
+# pygame==1.9.6
 nltk==3.5
 beautifulsoup4==4.9.1
 spacy==2.3.2
