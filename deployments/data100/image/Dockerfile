@@ -51,7 +51,6 @@ RUN apt-get update -qq --yes && \
         texlive-xetex \
         texlive-fonts-recommended \
         texlive-generic-recommended \
-        wkhtmltopdf # for pdf export \
         > /dev/null
 
 WORKDIR /home/jovyan
