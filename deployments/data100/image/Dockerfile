@@ -75,9 +75,6 @@ ADD jupyter_notebook_config.py  ${CONDA_PREFIX}/envs/data100/etc/jupyter/
 # Disable history.
 ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 
-# Installed in conda environment
-RUN jupyter serverextension enable --sys-prefix --py jupyterlab
-
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 \
                                  jupyterlab-plotly@4.8.1  \
                                  plotlywidget@4.8.1
