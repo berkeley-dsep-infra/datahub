@@ -8,8 +8,13 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
+ENV NB_USER jovyan
+ENV NB_UID 1000
 
-RUN adduser --disabled-password --gecos "Default Jupyter user" jovyan
+ENV CONDA_DIR /opt/conda
+ENV PATH ${CONDA_DIR}/bin:$PATH
+
+RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 # Other packages for user convenience and Data100 usage
 # Install these without 'recommended' packages to keep image smaller.
@@ -49,41 +54,22 @@ RUN apt-get update -qq --yes && \
         wkhtmltopdf # for pdf export \
         > /dev/null
 
-
-ENV CONDA_PREFIX /srv/conda
-ENV PATH ${CONDA_PREFIX}/bin:$PATH
-RUN install -d -o jovyan -g jovyan ${CONDA_PREFIX}
-
 WORKDIR /home/jovyan
 
 # prevent bibtex from interupting nbconvert
 RUN update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
 
-USER jovyan
+COPY install-miniforge.bash /tmp/install-miniforge.bash
+RUN /tmp/install-miniforge.bash
 
-####################################################################
-# Download, install and configure the Conda environment
+USER ${NB_USER}
 
-RUN curl -o /tmp/miniconda.sh \
-    https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
 
-# Install miniconda
-RUN bash /tmp/miniconda.sh -b -u -p ${CONDA_PREFIX}
-
-RUN conda config --set always_yes yes --set changeps1 no
-RUN conda update -q conda
-RUN conda config --add channels conda-forge
-
-# Encapsulate the environment info into its own yml file (which carries
-# the name `data100` in it
 COPY environment.yml /tmp/
 COPY requirements.txt /tmp/
 COPY infra-requirements.txt /tmp/
-RUN conda env create -f /tmp/environment.yml
 
-# We modify the path directly since the `source activate data100`
-# environment won't be preserved here.
-ENV PATH ${CONDA_PREFIX}/envs/data100/bin:$PATH
+RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 # Set bash as shell in terminado.
 ADD jupyter_notebook_config.py  ${CONDA_PREFIX}/envs/data100/etc/jupyter/
@@ -96,9 +82,3 @@ RUN jupyter serverextension enable --sys-prefix --py jupyterlab
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 \
                                  jupyterlab-plotly@4.8.1  \
                                  plotlywidget@4.8.1
-
-# Useful for debugging any issues with conda
-RUN conda info -a
-
-# Make JupyterHub ports visible
-EXPOSE 8888
