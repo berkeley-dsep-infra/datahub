@@ -171,11 +171,6 @@ RUN /tmp/install-miniforge.bash
 
 USER ${NB_USER}
 
-RUN curl -sSL https://github.com/conda-forge/miniforge/releases/download/4.8.3-5/Miniforge3-4.8.3-5-Linux-x86_64.sh > /tmp/miniforge-installer.sh && \
-    sh /tmp/miniforge-installer.sh -b -u -p /opt/conda && \
-    rm /tmp/miniforge-installer.sh
-
-
 COPY environment.yml /tmp/environment.yml
 COPY requirements.txt /tmp/requirements.txt
 COPY infra-requirements.txt /tmp/infra-requirements.txt
