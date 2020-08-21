@@ -6,7 +6,7 @@ jupyterhub:
       # loadBalancerIP: <IP of genomics.datahub.berkeley.edu
     https:
       hosts:
-        - genomics.datahub.berkeley.edu
+        - biology.datahub.berkeley.edu
   hub:
     db:
       pvc:
