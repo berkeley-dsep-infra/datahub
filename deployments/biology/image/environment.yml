@@ -1,5 +1,12 @@
+channels:
+- bioconda
 dependencies:
 - python=3.8.*
 - pip=20.*
+
+# Packages from bioconda for BIO1B
+- raxml=8.2.*
+- muscle=3.8.*
+- dendropy=4.4.*
 - pip:
   - -r requirements.txt

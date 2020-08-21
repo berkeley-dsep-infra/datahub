@@ -39,5 +39,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/IB134L/IB134L-user-image

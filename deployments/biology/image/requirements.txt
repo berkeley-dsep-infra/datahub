@@ -1,8 +1,4 @@
-# infrastructure packages
-jupyterlab>=2.0
-notebook>=6.0
-nbgitpuller==0.9.*
-nbresuse==0.3.2
+-r infra-requirements.txt
 
 # pedagogy packages
 scipy==1.4.1
