@@ -13,4 +13,4 @@ jupyterhub:
     # uncomment once DNS entry has been made
     https:
       hosts:
-        - genomics-staging.datahub.berkeley.edu
+        - biology-staging.datahub.berkeley.edu
