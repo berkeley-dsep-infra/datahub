@@ -1,10 +1,9 @@
-# infrastructure packages
-jupyterlab>=2.0
-notebook>=6.0
-nbgitpuller==0.9.*
-nbresuse==0.3.2
+-r infra-requirements.txt
 
 # pedagogy packages
 scipy==1.4.1
 pandas==1.1.0
 seaborn==0.10.1
+
+# For BIO1B -https://github.com/berkeley-dsep-infra/datahub/issues/1699
+dendropy==4.4.0
