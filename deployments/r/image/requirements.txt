@@ -10,4 +10,4 @@ PyPDF2==1.26.0
 requests==2.22.0
 
 # Econ 140 - Fall 2020
-otter-grader==1.0.0.b11
+otter-grader==1.0.0
