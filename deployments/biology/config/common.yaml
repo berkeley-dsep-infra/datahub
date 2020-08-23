@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/genomics
+    shareName: export/homedirs-other-2020-07-29/biology
 
 jupyterhub:
   scheduling:
@@ -39,5 +39,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/IB134L/IB134L-user-image

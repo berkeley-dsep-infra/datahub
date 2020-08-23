@@ -22,7 +22,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
 ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
-# Install packages needed by nbpdfexport
+# Install packages needed by notebook-as-pdf
 # Default fonts seem ok, we just install an emoji font
 # Can't use fonts-noto-color-emoji since this is based
 # on debian stretch
@@ -105,7 +105,6 @@ RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME /srv/conda
 RUN pyppeteer-install
-RUN jupyter bundlerextension enable nbpdfexport.bundler --sys-prefix --py
 
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild

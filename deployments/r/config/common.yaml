@@ -1,9 +1,8 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
-
+    serverIP: nfsserver-01
+    shareName: export/datahubhomes-2020-07-29/homes
 
 jupyterhub:
   scheduling:
