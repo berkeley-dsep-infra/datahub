@@ -101,11 +101,9 @@ Cartopy==0.18.0
 plotly==4.9.0
 mpmath==1.1.0
 sympy==1.6.2
-mcautograder==0.0.6
 chart-studio==1.1.0
 csaps==1.0.2
-nb2pdf==0.6.2
-git+https://github.com/ucbds-infra/otter-grader.git@655813fb531f1cf098f8df67df02a03b727b0493
+otter-grader==1.0.0
 nbforms==0.5.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
