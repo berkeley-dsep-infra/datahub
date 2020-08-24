@@ -11,7 +11,7 @@ statsmodels==0.11.1
 #
 jupyter-server-proxy==1.4.0
 #
-prob140==0.4.1.4
+prob140==0.4.1.5
 #gsExport==0.19.1.1
 sympy==1.5.1
 #
