@@ -98,7 +98,7 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: beta-pool
     storage:
       type: static
       static:
