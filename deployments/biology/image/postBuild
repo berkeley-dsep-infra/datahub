@@ -11,3 +11,29 @@ cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 wget http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz -O ${CONDA_DIR}/bin/paup.gz
 gunzip ${CONDA_DIR}/bin/paup.gz
 chmod +x ${CONDA_DIR}/bin/paup
+
+# mitoZ installation
+# download source files
+wget https://raw.githubusercontent.com/linzhi2013/MitoZ/master/version_2.4-alpha/release_MitoZ_v2.4-alpha.tar.bz2
+tar -jxvf release_MitoZ_v2.4-alpha.tar.bz2
+rm release_MitoZ_v2.4-alpha.tar.bz2
+
+cd release_MitoZ_v2.4-alpha
+wget https://raw.githubusercontent.com/linzhi2013/MitoZ/master/version_2.4-alpha/mitozEnv.yaml
+cd ..
+
+## create mitoZ env
+conda env create -n mitozEnv -f release_MitoZ_v2.4-alpha/mitozEnv.yaml # worked after reinstallation of conda
+
+## patch ncbiquery.py
+cp patches/ncbiquery.py /srv/conda/envs/mitozEnv/lib/python3.6/site-packages/ete3/ncbi_taxonomy/ncbiquery.py
+
+## download annotations
+source activate mitozEnv
+python3 mitozEnv_config.py
+source deactivate
+
+## clean up
+rm -rf release_MitoZ_v2.4-alpha
+rm taxdump.tar.gz
+
