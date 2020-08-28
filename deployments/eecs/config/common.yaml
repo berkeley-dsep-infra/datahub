@@ -27,6 +27,7 @@ jupyterhub:
           - felder
           # List of other admin users
           # ISG Staff
+          - finsen
           - lindah
           # EECS16A - Retain till the end of Fall 2020  
           - lakabuli
