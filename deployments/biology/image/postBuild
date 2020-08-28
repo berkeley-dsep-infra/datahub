@@ -12,6 +12,8 @@ wget http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz -O ${CONDA_DIR}/b
 gunzip ${CONDA_DIR}/bin/paup.gz
 chmod +x ${CONDA_DIR}/bin/paup
 
+# Install packages for IB134L
+
 # mitoZ installation
 # download source files
 wget https://raw.githubusercontent.com/linzhi2013/MitoZ/master/version_2.4-alpha/release_MitoZ_v2.4-alpha.tar.bz2
