@@ -26,7 +26,10 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
-          # EECS16A - Retain till the end of Fall 2020 
+          # ISG Staff
+          - finsen
+          - lindah
+          # EECS16A - Retain till the end of Fall 2020  
           - lakabuli
           - Quizenger
           - onibrow

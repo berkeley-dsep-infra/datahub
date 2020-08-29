@@ -39,7 +39,7 @@ jassign==0.0.7
 okpy==1.13.11
 dsassign==0.0.8
 notetaker==0.0.3 # for data 100 hub study
-otter-grader==1.0.0.b9
+otter-grader==1.0.0
 
 # notebook stuff
 jupyter-contrib-nbextensions==0.5.1
