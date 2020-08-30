@@ -1,13 +1,17 @@
-name: Prevent prod to staging merges
+name: Only allow staging -> prod & !prod -> staging merges
 
 on:
   pull_request:
-    branches: staging
+    branches: 
+    - staging
+    - prod
 
 jobs:
   check-branch:
     runs-on: ubuntu-latest
     steps:
-    - name: Fail if we are merging prod to staging
+    - name: Only allow staging -> prod merges
       run: |
-        echo $GITHUB_HEAD_REF | grep -v prod
+        # All branches *except* prod can be merged into staging
+        # *Only* staging can be merged into prod
+        python3 -c 'import os, sys; sys.exit(not(os.environ["GITHUB_HEAD_REF"] == "staging" if os.environ["GITHUB_BASE_REF"] == "prod" else os.environ["GITHUB_HEAD_REF"] != "prod"))'
