@@ -1,0 +1,13 @@
+name: Prevent prod to staging merges
+
+on:
+  pull_request:
+    branches: staging
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fail if we are merging prod to staging
+      run: |
+        echo $GITHUB_REF | grep -v prod
