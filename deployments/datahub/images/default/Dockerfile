@@ -177,6 +177,19 @@ COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
+
+RUN pip install --no-cache -r /tmp/infra-requirements.txt
+# Install jupyterlab extensions immediately after infra-requirements
+# This hopefully prevents re-installation all the time
+RUN mkdir /tmp/yarncache && YARN_CACHE_FOLDER=/tmp/yarncache && \
+    jupyter labextension install --debug \
+            @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
+            jupyterlab-plotly \
+            @jupyterlab/geojson-extension \
+            jupyterlab-videochat@0.4 && \
+    rm -rf /tmp/yarncache
+
 RUN pip install --no-cache numpy==1.18.5 cython==0.29.21
 RUN pip install --no-cache -r /tmp/requirements.txt
 # Set up nbpdf dependencies
@@ -212,15 +225,5 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
-
-# Install JupyterLab extensions last, since we are actively experimenting with them
-RUN mkdir /tmp/yarncache && YARN_CACHE_FOLDER=/tmp/yarncache && \
-    jupyter labextension install --debug \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
-            jupyterlab-plotly \
-            @jupyterlab/geojson-extension \
-            jupyterlab-videochat@0.4 && \
-    rm -rf /tmp/yarncache
 
 EXPOSE 8888
