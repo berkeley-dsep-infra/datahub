@@ -14,4 +14,5 @@ jobs:
       run: |
         # All branches *except* prod can be merged into staging
         # *Only* staging can be merged into prod
+        echo "Merging ${GITHUB_HEAD_REF} into ${GITHUB_BASE_REF}"
         python3 -c 'import os, sys; sys.exit(not(os.environ["GITHUB_HEAD_REF"] == "staging" if os.environ["GITHUB_BASE_REF"] == "prod" else os.environ["GITHUB_HEAD_REF"] != "prod"))'
