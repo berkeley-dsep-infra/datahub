@@ -32,7 +32,7 @@ jupyterhub:
           cpu: 0.01
           memory: 64Mi
         limits:
-          memory: 512Mi
+          memory: 1G
   proxy:
     chp:
       resources:
@@ -42,13 +42,13 @@ jupyterhub:
           cpu: 0.001
           memory: 64Mi
         limits:
-          memory: 256Mi
+          memory: 1Gi
     traefik:
       resources:
         requests:
           memory: 96Mi
         limits:
-          memory: 512Mi
+          memory: 1Gi
     https:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
@@ -102,7 +102,7 @@ jupyterhub:
         cpu: 0.001
         memory: 256Mi
       limits:
-        memory: 1Gi
+        memory: 2Gi
     extraEnv:
       # This is unfortunately still needed by canvas auth
       OAUTH2_AUTHORIZE_URL: https://bcourses.berkeley.edu/login/oauth2/auth
