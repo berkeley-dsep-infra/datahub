@@ -214,13 +214,13 @@ RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
 
 # Install JupyterLab extensions last, since we are actively experimenting with them
-RUN jupyter labextension install --debug\
+RUN mkdir /tmp/yarncache && YARN_CACHE_FOLDER=/tmp/yarncache && \
+    jupyter labextension install --debug \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
             jupyterlab-plotly \
-            @jupyterlab/geojson-extension
-
-RUN jupyter labextension install \
-            jupyterlab-videochat@0.2.3
+            @jupyterlab/geojson-extension \
+            jupyterlab-videochat@0.4 && \
+    rm -rf /tmp/yarncache
 
 EXPOSE 8888
