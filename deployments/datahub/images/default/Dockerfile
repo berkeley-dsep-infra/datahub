@@ -181,7 +181,8 @@ RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 # Install jupyterlab extensions immediately after infra-requirements
 # This hopefully prevents re-installation all the time
-RUN mkdir /tmp/yarncache && YARN_CACHE_FOLDER=/tmp/yarncache && \
+RUN yarn cache dir && mkdir -p /tmp/yarncache && \
+    yarn config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
