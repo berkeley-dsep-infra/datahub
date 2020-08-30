@@ -10,6 +10,4 @@ jobs:
     steps:
     - name: Fail if we are merging prod to staging
       run: |
-        env
-        echo $GITHUB_REF | grep -v prod
-        cat $GITHUB_EVENT_PATH
+        echo $GITHUB_HEAD_REF | grep -v prod
