@@ -1,3 +1,8 @@
 # Required for PAUP*
 # Note that this doesn't actually install python2, thankfully
 libpython2.7
+
+# utils
+vim
+less
+tmux
