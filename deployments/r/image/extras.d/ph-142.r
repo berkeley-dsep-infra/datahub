@@ -16,12 +16,17 @@ class_libs = c(
     "janitor", "1.2.0",
     "latex2exp", "0.4.0",
     "measurements", "1.3.0",
-    "dagitty", "0.2-2",
-    "cowplot", "1.0.0",
-    "rlang", "0.4.7"
+    "dagitty", "0.2-2"
 )
 
 class_libs_install_version(class_name, class_libs)
+
+# not found in CRAN
+print("Installing rlang...")
+devtools::install_github('cran/rlang', ref='0.4.6', upgrade_dependencies=FALSE, quiet=FALSE)
+
+print("Installing patchwork...")
+devtools::install_github('cran/cowplot', ref='1.0.0', upgrade_dependencies=FALSE, quiet=TRUE)
 
 print("Installing patchwork...")
 devtools::install_github('thomasp85/patchwork', ref='36b4918', upgrade_dependencies=FALSE, quiet=TRUE)
