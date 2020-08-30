@@ -1,0 +1,20 @@
+-r infra-requirements.txt
+
+# CS 16A
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
+numpy==1.19.*
+matplotlib==3.3.*
+sympy==1.6.*
+lcapy==0.66.*
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1505
+Pillow==7.*
+PyQt5==5.15.*
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1639
+opencv-python==4.3.*
+
+# For desktop environment
+jupyter-desktop-server==0.1.*
+
+# For EECS127/227a
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1631
+cvxpy==1.1.*

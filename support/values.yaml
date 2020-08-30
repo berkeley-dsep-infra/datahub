@@ -2,7 +2,7 @@ prometheus:
   networkPolicy:
     enabled: true
   alertmanager:
-    enabled: False
+    enabled: false
   nodeExporter:
     tolerations:
       - effect: NoSchedule
@@ -18,7 +18,7 @@ prometheus:
   server:
     labels:
       # For HTTP access to the hub, to scrape metrics
-      hub.jupyter.org/network-access-hub: "true"
+      hub.jupyter.org/network-access-hub: 'true'
     persistentVolume:
       size: 1000Gi
       storageClass: ssd
@@ -27,10 +27,12 @@ prometheus:
       type: ClusterIP
 
 grafana:
-  deploymentStrategy: 
+  persistence:
+    storageClassName: standard
+  deploymentStrategy:
     type: Recreate
 
-  persistence: 
+  persistence:
     enabled: true
   service:
     type: LoadBalancer
@@ -49,4 +51,3 @@ grafana:
           access: proxy
           isDefault: true
           editable: false
-  

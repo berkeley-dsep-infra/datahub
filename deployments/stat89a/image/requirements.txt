@@ -1,0 +1,6 @@
+-r infra-requirements.txt
+
+jassign==0.0.7
+linalg_for_datasci==1.2.2
+okpy==1.14.19
+jupyterlab_latex

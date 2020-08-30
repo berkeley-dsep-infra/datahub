@@ -5,51 +5,24 @@ UC Berkeley's JupyterHubs
 This repository contains configuration and documentation for the many
 JupyterHubs used by various organizations in UC Berkeley.
 
-Instructor documentation
-========================
-
-Documentation useful for instructors trying to use JupyterHub in
-their classes.
+Using DataHub
+=============
 
 .. toctree::
-   :maxdepth: 1
+   :titlesonly:
+   :maxdepth: 2
 
-   instructor/howto/bcourses
+   users/index
 
-Contents
-========
+Modifying DataHub to fit your needs
+===================================
 
-.. toctree::
-   :maxdepth: 1
-
-   pre-reqs
-   structure
-   hubs
-   finances
-   topic/storage
-   topic/cluster-config
-   topic/credentials
-
-
-How to
-======
+Our infrastructure can serve the diverse needs of our students only if it
+is built by a diverse array of people.
 
 .. toctree::
-   :maxdepth: 1
+   :titlesonly:
+   :maxdepth: 2
 
-   howto/admin
-   howto/dns
-   howto/new-hub
-   howto/rebuild-hub-image
-   howto/new-packages
-
-Services
-========
-
-Some of our hubs provide extra services to make common pedagogical tasks easier.
-They might not be available on all hubs.
-
-.. toctree::
-   :maxdepth: 1
-
-   services/google-sheets
+   admins/index
+   admins/howto/index

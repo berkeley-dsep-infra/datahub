@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+#    Copy over Jupyter configuration files
+mkdir -p ${CONDA_DIR}/etc/ipython
+cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
+mkdir -p ${CONDA_DIR}/etc/jupyter
+cp jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/jupyter_notebook_config.py
+mkdir -p ${CONDA_DIR}/share/jupyter/lab/settings
+#cp overrides.json ${CONDA_DIR}/share/jupyter/lab/settings/overrides.json
+mkdir -p $HOME/.jupyter/lab/user-settings/@jupyterlab/apputils-extension
+#cp overrides.json $HOME/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/overrides.json
+cp themes.jupyterlab-settings $HOME/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/themes.jupyterlab-settings
+
+# run matplotlib once to generate the font cache
+python -c "import matplotlib as mpl; mpl.use('Agg'); import pylab as plt; fig, ax = plt.subplots(); fig.savefig('test.png')"
+test -e test.png && rm test.png
+
+#    Install necessary JupyterLab extensions
+jupyter labextension install --debug \
+     @jupyter-widgets/jupyterlab-manager \
+     jupyter-matplotlib \
+     jupyterlab-plotly \
+     plotlywidget

@@ -1,69 +1,116 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: homes/prod/home
+    serverIP: nfsserver-01
+    shareName: export/data100homes-2020-08-04/homes/prod/home
 
 jupyterhub:
   hub:
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
+        # below config automatically promotes instructors/gsis to admin and demotes students
+        # year-term-ccn can be found by searching for c100 in classes.berkeley.edu
+        # see issue #1584 for implementation detail
         # stat c100
-        2019-fall-24961: {}
+        # 2019-fall-24961: {}
+      admin:
+        mem_limit: 4096M
+        mem_guarantee: 20484M
+        extraVolumeMounts:
+          - name: home
+            mountPath: /srv/homes
+          - name: home
+            mountPath: /home/jovyan/shared-readwrite
+            subPath: _shared
   auth:
-    type: dummy
+    type: custom # This enables canvas auth
     admin:
       users:
         # infrastructure
         - felder
         - rylo
         - yuvipanda
-        # gsis
-        - data100.instructors
-        - suraj.rampure
-        - sona.jeswani
-        - allenshen5
-        - amandhar
-        - philippe_boileau
-        - manana.hakobyan
-        - daniel.zhu
-        - lhtonywei
-        - mhwangc
-        - wwhuang@berkeley.edu
-        - aaron_scherf
-        - paulshaoyuqiao1
-        - rkunani
-        - kana
-        - sera4415
-        - kagarwal2
-        - emansishah
-        - wangyimeng98
-        - ishaan.srivastava
-        - chengruizhe
-        - jwirjo
+        - cpyles
         # instructors
-        - h___
-        - deborah_nolan
-        
+        - allenshen5
+        - suraj.rampure
+        - data100.instructors
+        # gsis
+        - alexletu
+        - henrymaier
+        - ischmidt20
+        - ishaan.srivastava
+        - jwu19
+        - johntsor
+        - kevinmoy
+        - kagarwal2
+        - oliveqy
+        - raujla
+        - schan21
+        - rain
+        - xinranliang
+        # tutors
+        - anamtudor
+        - andihalim
+        - leong.eric17
+        - jocelyn.z.sun
+        - jeakadi
+        - kevinyang8
+        - lexyyxl
+        - popo
+        - moisternw
+        - rohan.hajela
+        - vincent.lao
+        - truong.winson
+        - zacharywu
+
+  prePuller:
+    extraImages:
+      postgres:
+        name: postgres
+        tag: 12.2
+        policy: IfNotPresent
   singleuser:
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
+    extraContainers:
+      - name: postgres
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n2510.hd28e63b
+        resources:
+          limits:
+            # Best effort only. No more than 1 CPU
+            memory: 512Mi
+            cpu: 1.0
+          requests:
+            # If we don't set requests, k8s sets requests == limits!
+            memory: 64Mi
+            cpu: 0.01
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: "trust"
+        - name: POSTGRES_USER
+          value: "jovyan"
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
           subPath: "{username}"
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     memory:
-      guarantee: 1G
+      guarantee: 512M
       limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/data100-user-image

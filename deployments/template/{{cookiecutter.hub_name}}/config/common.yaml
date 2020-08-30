@@ -1,4 +1,22 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver1
+    shareName: export/pool0/homes
+
 jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
   auth:
     type: google
     admin:
@@ -10,10 +28,15 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: gamma-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "_{{cookiecutter.hub_name}}/{username}"
     memory:
       guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/{{cookiecutter.project_name}}/{{cookiecutter.hub_name}}-user-image
-    storage:
-      type: hostPath

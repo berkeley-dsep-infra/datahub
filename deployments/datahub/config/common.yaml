@@ -1,36 +1,58 @@
-nfsMounter:
-  enabled: true
-
 nfsPVC:
-  enabled: false
+  enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
+    serverIP: nfsserver-01
+    shareName: export/datahubhomes-2020-07-29/homes
 
 jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
+        hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/pool-name: core-pool
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
-        # compsci c8
-        2019-fall-28063: {}
-        # pbhlth w250f
-        2019-fall-29639: {}
-        # pbhlth w250g
-        2019-fall-29640: {}
-        # linguis 243
-        2019-fall-31002: {}
-        # data 88
-        2019-fall-33469: {}
+        # astr 128
+        2020-spring-24268:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # astr 256
+        2020-spring-24536:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # ARESEC 212
+        2020-spring-25937:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # ling 188
+        2020-summer-13097:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
+        modules-leads:
+          users:
+            - yuvipanda
+            - ktakimoto
+            - ericvd
+            - jasonjiang
+            - alec.kan
+            - eesaravia
+            - almapineda
+            - m.wilkinson
+            - schaganty
+            - timlan.wong
+          extraVolumes:
+            - name: shared
+              hostPath:
+                path: /data/homes/prod/_shared/module-leads
+          extraVolumeMounts:
+            - name: shared
+              mountPath: /home/jovyan/shared/module-leads
   proxy:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: custom # This enables canvas auth
     admin:
@@ -45,109 +67,114 @@ jupyterhub:
           - daw
           - denero
           - ramesh_s
+          - swupnil
           # dsep staff
           - ericvd
           - ktakimoto
           - ryanedw
-          # f19 data8 gsis
+          # sp20 data8 gsis
+          - ananya.krishnan
+          - vienannguyen
+          - austenzhu
+          - averyyip
+          - mayarao
+          - ravi.singhal
+          - narain.rohan
+          - samwu101
+          - scott.lee.3898
+          - tvilayth
+          - yanayrosen
           - adele.bloch
           - aidandeangelis
           - alanliang
-          - ananya.krishnan
-          - andrewdchen
+          - guanangela
           - anna.burns
-          - anna-nguyen
           - ashleyquiterio
-          - averyyip
           - carolinejchen
-          - castro.ian
           - colbylewis2020
           - emilykzou
-          - gregking22
           - gregoryd2017
-          - guanangela
-          - hsubbaraj
+          - gregking22
           - hubertluo
+          - castro.ian
           - irenerwang
-          - jadeyen
           - jifu.li
           - juliannnguyen
           - katherinetsai
           - keh7
           - lillianlouie
           - lritter
-          - manikui
-          - mayarao
-          - mayashen
           - olivialewke
           - oscar.syu
           - parouz
-          - ravi.singhal
           - roshansrin01
-          - rwoolf
-          - samwu101
-          - sathviknair
           - saurav
-          - scott.lee.3898
-          - sdjajadi
-          - tvilayth
-          - vienannguyen
-          - yanayrosen
           - yashswarup
-          # f19 data8 tutors
+          - youmnarabie
           - aanika.shah
           - alvinyu27
+          - devennb
+          - gnacouzi
+          - ssingorahardjo
+          - vikramchandran
+          - winifredchung
+          # sp20 data8 tutors
+          - zhoa210
           - brettirvin
           - celinechen_99
           - chloelo
-          - connorcclark
-          - devennb
-          - deveshagarwal
           - dshahroz
-          - ericli3088
+          - deveshagarwal
+          - nellepersson
           - erika.n.mack
           - eshaansoman
+          - vaibhav.pabreja
           - fachacoso
           - fqzbdkh
-          - gnacouzi
-          - harimlee
           - ikaur
-          - ishaan.srivastava
           - jacobmartinez
           - jenniferjia00
-          - karywang
-          - kevin.hsu
           - kwalia1999
-          - lindseyhanlon
-          - lucyportnoff
+          - karywang
           - marmis
           - meghanwang
           - melissarwong
           - nancywang
-          - nellepersson
-          - netzke
-          - nhanafi
           - nicholesun
+          - nhanafi
           - pratibha99
+          - netzke
           - rdoshi99
-          - rinasa525
           - sophiatan
-          - ssingorahardjo
           - sunnyshen
-          - vaibhav.pabreja
-          - vikramchandran
-          - winifredchung
-          - wwalsh
-          - youmnarabie
-          - zhoa210
+          - rikiiyer
+          - jinhao.huo
+          - anujalohia
+          - wseward
+          - alicechen295
+          - ritawang
+          - jacquelinekyu
+          - nataliegomas
+          - ryanchien04
+          - sydniezanone
+          - kevinmiao
+          - tongshen
+          - terry.regier # fa20 ling 290L instructor, with temp title "Additional Seminar on Special Topics to Be Announced"
   singleuser:
     nodeSelector:
-      hub.jupyter.org/node-purpose: user
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
-      type: none
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
       extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
     memory:
       guarantee: 512M
       limit: 1G

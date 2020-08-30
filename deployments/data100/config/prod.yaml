@@ -7,4 +7,9 @@ jupyterhub:
     db:
       pvc:
         # This also holds logs
-        storage: 4Gi
+        storage: 40Gi
+
+  scheduling:
+    userPlaceholder:
+      enabled: true
+      replicas: 100

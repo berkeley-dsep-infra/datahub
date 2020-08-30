@@ -1,23 +1,20 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
+    serverIP: nfsserver-01
+    shareName: export/datahubhomes-2020-07-29/homes
 
 jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
+        hub.jupyter.org/pool-name: core-pool
   hub:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/pool-name: core-pool
   auth:
     type: custom  # uses canvas auth, see hub/values.yaml
     admin:
@@ -30,17 +27,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/node-purpose: user
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:

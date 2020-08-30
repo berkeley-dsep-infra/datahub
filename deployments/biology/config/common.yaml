@@ -1,0 +1,41 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/biology
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  auth:
+    type: google
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+          - psudmant
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: gamma-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 2056M
+      limit: 4G

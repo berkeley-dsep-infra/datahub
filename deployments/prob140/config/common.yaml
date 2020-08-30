@@ -1,22 +1,19 @@
-nfsMounter:
-  enabled: false
-
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/prob140
 
 jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
+        hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/pool-name: core-pool
   auth:
-    type: google
+    type: custom
     admin:
       users:
           # infrastructure
@@ -34,26 +31,23 @@ jupyterhub:
 
   hub:
     nodeSelector:
-      cloud.google.com/gke-nodepool: default-pool
+      hub.jupyter.org/pool-name: core-pool
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/node-purpose: user
-    initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "_prob140/{username}"
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_prob140/{username}"
+        subPath: "{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
     memory:
       guarantee: 512M
       limit: 1G

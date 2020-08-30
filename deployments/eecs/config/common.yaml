@@ -1,0 +1,72 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/eecs
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  auth:
+    type: custom
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+          # ISG Staff
+          - finsen
+          - lindah
+          # EECS16A - Retain till the end of Fall 2020  
+          - lakabuli
+          - Quizenger
+          - onibrow
+          - panzarkos
+          - sweismann
+          - gracekuo01
+          - urmita
+          - neeleshkr
+          - msswn
+          - dsaba123
+          - dshika14
+          - dixun-cui
+          - miyukiweldon
+          - mbharadwaj13
+          - lilybhattacharjee5
+          - spencerkent
+          - rohansood10
+          - christosadamo
+          - boosoba
+
+  singleuser:
+    extraEnv:
+      # Until https://github.com/betatim/vscode-binder/pull/19 is merged
+      CODE_WORKINGDIR: /home/jovyan
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
+    defaultUrl: "/lab"
+    nodeSelector:
+      hub.jupyter.org/pool-name: gamma-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 2G
+      limit: 4G
+    image:
+      name: gcr.io/ucb-datahub-2018/eecs-user-image
