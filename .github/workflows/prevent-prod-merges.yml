@@ -1,4 +1,4 @@
-name: Prevent prod to staging merges
+name: Only allow staging -> prod & !prod -> staging merges
 
 on:
   pull_request:
