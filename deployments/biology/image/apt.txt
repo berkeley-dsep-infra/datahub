@@ -6,3 +6,4 @@ libpython2.7
 vim
 less
 tmux
+man
