@@ -33,36 +33,58 @@ jupyterhub:
         - yuvipanda
         - cpyles
         # instructors
-        - allenshen5
-        - suraj.rampure
+        - fernando.perez
+        - adj
         - data100.instructors
         # gsis
-        - alexletu
-        - henrymaier
-        - ischmidt20
+        - davidyi624
+        - dorx
         - ishaan.srivastava
+        - kagarwal2
+        - rkunani
+        - snhing
+        - samirnaqvi
+        - suraj.rampure
+        - susanhao
+        - cshih
+        - agnibhoroy
+        - am123
+        - alberttang
+        - anamtudor
+        - andysheu
+        - brandonyli
+        - waikeikong
+        - ischmidt20
+        - calzoom
+        - jaykakkar
         - jwu19
+        - julieyu
+        - oliviaqin
+        - parthbaokar
+        - pranav.njn
+        - rami.mostafa
+        - shaviv
+        - rain
+        - violetyao
+        # tutors
+        - aahuang
+        - guanangela
+        - erika.n.mack
+        - henrymaier
         - johntsor
         - kevinmoy
-        - kagarwal2
-        - oliveqy
-        - raujla
-        - schan21
-        - rain
-        - xinranliang
-        # tutors
-        - anamtudor
-        - andihalim
-        - leong.eric17
-        - jocelyn.z.sun
-        - jeakadi
         - kevinyang8
-        - lexyyxl
-        - popo
-        - moisternw
+        - kiranrajgobal
+        - yangluanne
+        - marian5566
+        - pranshu
+        - rikiiyer
         - rohan.hajela
-        - vincent.lao
-        - truong.winson
+        - raujla
+        - sunnyshen
+        - tom.kim
+        - wallace.lim
+        - y_liang
         - zacharywu
 
   prePuller:
