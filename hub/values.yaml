@@ -95,6 +95,11 @@ jupyterhub:
       tag: '0.0.1-n2724.h1dfae31'
     networkPolicy:
       enabled: true
+      ingress:
+      - from:
+        - namespaceSelector:
+            matchLabels:
+              name: support
     resources:
       requests:
         # Very small unit, since we don't want any CPU guarantees
