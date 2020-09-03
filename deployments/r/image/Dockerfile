@@ -71,6 +71,9 @@ COPY class-libs.R /tmp/class-libs.R
 
 RUN mkdir -p /tmp/extras.d
 
+COPY --chown=rstudio extras.d/00-package.r /tmp/extras.d
+RUN Rscript /tmp/extras.d/00-package.r
+
 COPY --chown=rstudio extras.d/example /tmp/extras.d
 RUN Rscript /tmp/extras.d/example
 
