@@ -6,7 +6,7 @@ source("/tmp/class-libs.R")
 
 # dplyr requires 0.2.1...cran only has 0.2.0
 print("Installing assertthat...")
-devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade='never', quiet=TRUE)
 
 class_name = "PHW250F+G"
 
@@ -22,6 +22,6 @@ class_libs = c(
 
 # 1.13 isn't found in cran?
 print("Installing reticulate...")
-devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE, quiet=TRUE)
+devtools::install_github('cran/reticulate', ref='1.13', upgrade='never', quiet=TRUE)
 
 class_libs_install_version(class_name, class_libs)

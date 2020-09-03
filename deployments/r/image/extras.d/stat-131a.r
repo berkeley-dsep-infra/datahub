@@ -9,4 +9,4 @@ class_libs = c(
 
 class_libs_install_version(class_name, class_libs)
 
-devtools::install_github('DataComputing/DataComputing', ref='d5cebba', upgrade_dependencies = FALSE)
+devtools::install_github('DataComputing/DataComputing', ref='d5cebba', upgrade='never')
