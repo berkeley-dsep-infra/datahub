@@ -25,14 +25,14 @@ class_libs_install_version(class_name, class_libs)
 print("Installing rlang...")
 devtools::install_github('cran/rlang', ref='0.4.6', upgrade='never', quiet=FALSE)
 
-print("Installing tigris...")
-devtools::install_github('walkerke/tigris', ref='3d50076', upgrade='never')
+#print("Installing tigris...")
+#devtools::install_github('walkerke/tigris', ref='3d50076', upgrade='never')
 
-print("Installing cowplot...")
-devtools::install_github('cran/cowplot', ref='1.0.0', upgrade='never')
+#print("Installing cowplot...")
+#devtools::install_github('cran/cowplot', ref='1.0.0', upgrade='never')
 
 # print("Installing patchwork...")
-devtools::install_github('thomasp85/patchwork', ref='36b4918', upgrade='never')
+#devtools::install_github('thomasp85/patchwork', ref='36b4918', upgrade='never')
 
 print("Installing googlesheets4")
 devtools::install_github("tidyverse/googlesheets4", ref='9348a37511c45257f2aceadf76674a601740e708', upgrade='never', quiet=TRUE)
