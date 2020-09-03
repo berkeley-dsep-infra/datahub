@@ -135,3 +135,6 @@ allensdk==2.1.0
 
 # cs16A/B, spring 2020
 lcapy==0.66.0
+
+# EPS 256, https://github.com/berkeley-dsep-infra/datahub/issues/1775
+obspy==1.2.2

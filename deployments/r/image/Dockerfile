@@ -59,7 +59,7 @@ USER ${NB_USER}
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir \
-                jupyter-rsession-proxy==1.0b6
+                jupyter-rsession-proxy==1.2
 
 
 # Install IRKernel
