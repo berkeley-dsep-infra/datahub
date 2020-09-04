@@ -73,6 +73,10 @@ jupyterhub:
         - ports:
             - port: 443
               protocol: TCP
+        - ports:
+            # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
+            - port: 21
+              protocol: TCP
   auth:
     google:
       hostedDomain: [berkeley.edu]
