@@ -16,6 +16,10 @@ prometheus:
   rbac:
     create: true
   server:
+    resources:
+      requests:
+        cpu: 1
+        memory: 8Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
