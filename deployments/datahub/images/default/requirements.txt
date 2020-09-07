@@ -140,3 +140,10 @@ lcapy==0.66.0
 
 # EPS 256, https://github.com/berkeley-dsep-infra/datahub/issues/1775
 obspy==1.2.2
+
+# ds198 mch infodemiology, fall 2020/spring 2021
+# google apis
+google-api-python-client==1.11.0
+google-auth-httplib2==0.0.4
+google-auth-oauthlib==0.4.1
+google==3.0.0
