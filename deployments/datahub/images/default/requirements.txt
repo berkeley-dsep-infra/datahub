@@ -94,7 +94,7 @@ Theano==1.0.5
 # eps 109; fall 2019
 ffmpeg-python==0.2.0
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
-Cartopy==0.18.0 --no-binary Cartopy
+# Cartopy==0.18.0 --no-binary Cartopy
 
 # data 88; spring 2020
 plotly==4.9.0
@@ -117,13 +117,13 @@ dask==2.23.0
 
 # issue 1001, Physics 188/288 - fall 2019
 umap-learn==0.4.6
-hdbscan==0.8.26
+#hdbscan==0.8.26
 
 # espm 125/bio 105; fall 2019
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
-shapely==1.7.0 --no-binary shapely
-pyvcf==0.6.8
-bitarray==1.5.2
+#shapely==1.7.0 --no-binary shapely
+#pyvcf==0.6.8
+#bitarray==1.5.2
 nlmpy==0.1.5
 
 # physics 188/288 fall, 2019
@@ -139,7 +139,7 @@ allensdk==2.1.0
 lcapy==0.66.0
 
 # EPS 256, https://github.com/berkeley-dsep-infra/datahub/issues/1775
-obspy==1.2.2
+#obspy==1.2.2
 
 # ds198 mch infodemiology, fall 2020/spring 2021
 # google apis

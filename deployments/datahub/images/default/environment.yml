@@ -11,3 +11,5 @@ dependencies:
 - pyvcf==0.6.8
 - basemap==1.2.2
 - bitarray==1.5.2
+- cartopy==0.18.0
+- shapely==1.7.0
