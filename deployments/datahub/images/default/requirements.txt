@@ -22,7 +22,6 @@ mplleaflet==0.0.5
 geopandas==0.8.1
 geopy==2.0.0
 pysal==2.3.0
-basemap==1.2.2
 #https://github.com/matplotlib/basemap/archive/v1.2.2rel.tar.gz
 rtree==0.9.4
 netCDF4==1.5.4
