@@ -35,7 +35,7 @@ conda env create -n mitozEnv -f release_MitoZ_v2.4-alpha/mitozEnv.yaml # worked 
 cp patches/ncbiquery.py /srv/conda/envs/mitozEnv/lib/python3.6/site-packages/ete3/ncbi_taxonomy/ncbiquery.py
 
 ## download annotations
-source activate mitozEnv
-python3 mitozEnv_config.py
-source deactivate
+#source activate mitozEnv
+#python3 mitozEnv_config.py
+#source deactivate
 
