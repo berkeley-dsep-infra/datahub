@@ -27,6 +27,9 @@ prometheus:
       size: 1000Gi
       storageClass: ssd
     retention: 180d
+    strategy:
+      # Can't really do rolling update, we have a persistent disk attached
+      type: Recreate
     service:
       type: ClusterIP
 
