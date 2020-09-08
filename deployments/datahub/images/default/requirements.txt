@@ -102,7 +102,7 @@ mpmath==1.1.0
 sympy==1.6.2
 chart-studio==1.1.0
 csaps==1.0.2
-otter-grader==1.0.1
+otter-grader==1.1.0
 nbforms==0.5.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
