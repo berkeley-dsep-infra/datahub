@@ -6,3 +6,4 @@ dependencies:
 - pythia8==8.244
 - psutil==5.7.2
 - obspy==1.2.2
+- hdbscan==0.8.26
