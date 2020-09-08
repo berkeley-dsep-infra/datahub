@@ -1,6 +1,7 @@
 dependencies:
 - nodejs==14.8.*
 - pip==20.*
-- python==3.8.1
+- python==3.8.*
 - root==6.22.2
 - pythia8==8.244
+- gcc_linux-64
