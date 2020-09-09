@@ -23,7 +23,7 @@ class_libs_install_version(class_name, class_libs)
 
 # not found in CRAN
 print("Installing rlang...")
-devtools::install_github('cran/rlang', ref='0.4.6', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('cran/rlang', ref='0.4.7', upgrade_dependencies=FALSE, quiet=FALSE)
 
 print("Installing patchwork...")
 devtools::install_github('cran/cowplot', ref='1.0.0', upgrade_dependencies=FALSE, quiet=TRUE)

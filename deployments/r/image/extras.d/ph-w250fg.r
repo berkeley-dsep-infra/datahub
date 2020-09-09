@@ -9,6 +9,10 @@ print("Installing assertthat...")
 devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
 # issue 1810
+devtools::install_github('r-lib/lifecycle', ref='v0.2.0', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('r-lib/vctrs', ref='v0.3.4', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('tidyverse/glue', ref='v1.4.1', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('tidyverse/tidyselect', ref='v1.1.0', upgrade_dependencies=FALSE, quiet=FALSE)
 devtools::install_github('tidyverse/dplyr', ref='v1.0.2', upgrade_dependencies=FALSE, quiet=FALSE)
 
 class_name = "PHW250F+G"
