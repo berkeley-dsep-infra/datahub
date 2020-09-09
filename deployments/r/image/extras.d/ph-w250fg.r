@@ -8,6 +8,9 @@ source("/tmp/class-libs.R")
 print("Installing assertthat...")
 devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=TRUE)
 
+# issue 1810
+devtools::install_github('tidyverse/dplyr', ref='v1.0.2', upgrade_dependencies=FALSE, quiet=FALSE)
+
 class_name = "PHW250F+G"
 
 class_libs = c(
@@ -15,7 +18,6 @@ class_libs = c(
     "rlist", "0.4.6.1",
     "jsonlite", "1.6",
     "checkr", "0.5.0",
-    "dplyr", "1.0.2",
     "ggplot2", "3.1.0",
     "tidyr", "0.8.3"
 )
