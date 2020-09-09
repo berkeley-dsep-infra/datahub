@@ -15,7 +15,7 @@ class_libs = c(
     "rlist", "0.4.6.1",
     "jsonlite", "1.6",
     "checkr", "0.5.0",
-    "dplyr", "0.8.1",
+    "dplyr", "1.0.2",
     "ggplot2", "3.1.0",
     "tidyr", "0.8.3"
 )
