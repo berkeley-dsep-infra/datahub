@@ -25,7 +25,7 @@ jupyterhub:
       defaultPriority: 0
       userPlaceholderPriority: -10
     userScheduler:
-      enabled: true
+      enabled: false
       resources:
         requests:
           # FIXME: Just unset this?
