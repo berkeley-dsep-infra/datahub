@@ -19,7 +19,7 @@ class_libs_install_version <- function(class_name, class_libs) {
         devtools::install_version(
             class_libs[i], version = class_libs[i+1],
             quiet=TRUE,
-            repos=["https://packagemanager.rstudio.com/all/__linux__/bionic/latest"]
+            repos=c(CRAN="https://packagemanager.rstudio.com/all/__linux__/bionic/latest")
         )
     }
     print(paste("Done installing packages for", class_name))
