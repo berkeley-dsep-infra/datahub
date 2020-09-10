@@ -17,9 +17,13 @@ prometheus:
     create: true
   server:
     resources:
+      # Without this, prometheus can easily starve users
       requests:
-        cpu: 1
-        memory: 8Gi
+        cpu: 2
+        memory: 12Gi
+      limits:
+        cpu: 4
+        memory: 16Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
