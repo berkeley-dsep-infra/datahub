@@ -4,24 +4,21 @@ print("Installing packages for PHW250F+G")
 
 source("/tmp/class-libs.R")
 
-# dplyr requires 0.2.1...cran only has 0.2.0
-print("Installing assertthat...")
-devtools::install_github('hadley/assertthat', ref='v0.2.1', upgrade_dependencies=FALSE, quiet=TRUE)
-
 class_name = "PHW250F+G"
 
 class_libs = c(
+    "assertthat", "0.2.1",
     "here", "0.1",
     "rlist", "0.4.6.1",
-    "jsonlite", "1.6",
+    "jsonlite", "1.6.1",
     "checkr", "0.5.0",
-    "dplyr", "0.8.1",
-    "ggplot2", "3.1.0",
-    "tidyr", "0.8.3"
+    "dplyr", "1.0.0",
+    "tidyr", "1.1.0",
+    "reticulate", "1.16"
 )
 
-# 1.13 isn't found in cran?
-print("Installing reticulate...")
-devtools::install_github('cran/reticulate', ref='1.13', upgrade_dependencies=FALSE, quiet=TRUE)
+# "ggplot2", "3.1.0",
+# ggplot was removed from cran
+# https://cran.microsoft.com/snapshot/2020-05-30/src/contrib/Archive/ggplot/
 
 class_libs_install_version(class_name, class_libs)

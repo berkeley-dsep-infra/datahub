@@ -4,7 +4,7 @@ source("/tmp/class-libs.R")
 
 class_name = "Stat 131a"
 class_libs = c(
-    "learnr", "0.9.2"
+    "learnr", "0.10.1"
 )
 
 class_libs_install_version(class_name, class_libs)

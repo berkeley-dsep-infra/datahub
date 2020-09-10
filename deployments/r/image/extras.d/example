@@ -1,4 +1,9 @@
 #!/usr/bin/env Rscript
 
-# github ref is version 0.8.8
-devtools::install_github('cran/summarytools', ref = '8eeb20a', upgrade_dependencies = FALSE, quiet = TRUE)
+source("/tmp/class-libs.R")
+
+class_name = "Example"
+class_libs = c(
+  "summarytools", "0.9.6"
+)
+class_libs_install_version(class_name, class_libs)

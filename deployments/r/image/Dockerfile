@@ -1,4 +1,4 @@
-FROM rocker/geospatial:3.6.0
+FROM rocker/geospatial:3.6.3
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -10,6 +10,9 @@ ENV REPO_DIR /srv/repo
 ENV PATH ${CONDA_DIR}/bin:$PATH
 # And set ENV for R! It doesn't read from the environment...
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
+# Use newer MRAN snapshot. The old timestamp corresponds with what is in
+# geospatial:3.6.3.
+RUN sed -i 's/2020-04-24/2020-05-30/' /usr/local/lib/R/etc/Rprofile.site
 
 # Add PATH to /etc/profile so it gets picked up by the terminal
 RUN echo "PATH=${PATH}" >> /etc/profile
@@ -47,7 +50,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and install shiny server
-RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb -O ss.deb && \
+RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.14.948-amd64.deb -O ss.deb && \
     gdebi -n ss.deb && \
     rm -f ss.deb
 RUN chown -R rstudio:rstudio /var/lib/shiny-server
