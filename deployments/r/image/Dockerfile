@@ -1,4 +1,4 @@
-FROM rocker/geospatial:3.6.0
+FROM rocker/geospatial:4.0.2
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -39,12 +39,22 @@ RUN apt-get update && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
+            libssl1.1 \
             fonts-symbola \
             tcl8.6-dev \
             tk8.6-dev \
             gdebi-core && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Download and install rstudio manually
+# Newer one has bug that doesn't work with jupyter-rsession-proxy
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5042-amd64.deb
+
+# install rstudio
+RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
+    dpkg -i /tmp/rstudio.deb && \
+    rm /tmp/rstudio.deb
 
 # Download and install shiny server
 RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb -O ss.deb && \
