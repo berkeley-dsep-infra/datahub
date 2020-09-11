@@ -13,39 +13,55 @@ jupyterhub:
     type: lti
     admin:
       users:
+        # unknown, not found in any issues
         - 6f3e32e2b27f0fa7c7bfd6e6c5fc9073
+        - 552c15a76d0bc7b546f5baef4310b7f4
+        # 518, sideye
         - 574b83d902c693a3ebe45fac88e498e8
         - dab2902831a95eb786a1f52b14717b38
         - 2003753d84d84db85790fa8de0739eb4
+        # 518, yanay1
         - 5b9e64abdebeca5d617822381744744b
         - a7b92e1bffedf669c8301f76e617f255
         - bce998e3f793c84d635d63b0122c662d
+        # 518, kvah
         - 4da3ae20c3f95786fce26c8b92d37a60
         - ba2c4ab02e0a25755ce903d5c376b7e2
         - 64b9b0b2fde14942b20fe960002b38d9
+        # 518, samwu101
         - 9cb1fbfa7af6472dc8d8dddc28b905be
         - e39a60f081cdfd06347d83df61af4c38
         - 5eac02c99456373adc10942c9e9adaf1
+        # 518, rroggenkemper
         - add4f14e61b549bb26aaac1ec05e97a3
         - 6edae5baf9b08066df2ca99ecc2c1bf3
         - 23f3ac405063c21b23275504ca45ab2b
+        # 1000, sauravmittal
         - 630b33bc007fc68a4912b90d85443224
         - e3a956bffbae67d42744ef08be58a48e
         - 030777d951ba972876eaab81c3bceb21
+        # 1000, fqzbdkh
         - 461ee9f934be0a3079ba12ecc066939b
         - 780e0c299d28f5ab0d505ec8dfffd898
         - ccd399c54550718cafa19b4a2e230bfc
+        # 1000, ebaccay
         - 25a7599135b2bc244ba0e511ec988371
         - 0b3a7d0def967c26e030cc3071d57cde
         - 4a3686977e73987429ffed1239fff3c1
+        # 1000, manikui
         - d921b4caaa1fe484094618ead010445d
-        - 552c15a76d0bc7b546f5baef4310b7f4
+        # 1596, Andrei Caprau
         - 0e7433ca5642cb41432e49f5353feaed
         - 81da7e07167fc27429baf36e4a71ea78
         - e3ec379e8ca696ea7e815f667189942a
+        # 1737, kyle kishimoto
         - 413fff9cb76c471fa0ccb32d7d08ace6
         - 148bc397ac774e18a846abdb54ee2e1a
         - 9e3318ad6da44461990e1d4e3a64986f
+        # 1795, varun mittal
+        - af5bd207bb7fd80a602d0cf488fda336
+        - 6127a516b66666622476c80e7d835705
+        - 4ec74d8be97f3c5ed9addc6a724effa1
   singleuser:
     initContainers:
       - name: volume-mount-hack
