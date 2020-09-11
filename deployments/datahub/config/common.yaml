@@ -31,6 +31,14 @@ jupyterhub:
         2020-summer-13097:
           mem_limit: 2048M
           mem_guarantee: 1024M
+        # Issue 1827, phys188
+        2020-fall-26276:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
+        # Issue 1827, phys288
+        2020-fall-26277:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
         modules-leads:
           users:
             - yuvipanda
