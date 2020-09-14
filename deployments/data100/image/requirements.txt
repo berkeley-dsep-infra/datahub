@@ -43,5 +43,4 @@ otter-grader==1.1.1
 
 # notebook stuff
 jupyter-contrib-nbextensions==0.5.1
-jupyter-server-proxy==1.2.0
 git+https://github.com/ryanlovett/jupyter-tree-download.git
