@@ -11,6 +11,7 @@ dependencies:
 - mafft=7.471
 - emboss=6.6.0
 - augustus=3.3.3
+- repeatmasker=4.0.9
 
 # Packages from bioconda for BIO1B
 - raxml=8.2.*
