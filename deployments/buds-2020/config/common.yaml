@@ -2,7 +2,7 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/highschool
+    shareName: export/homedirs-other-2020-07-29/buds-2020
 
 jupyterhub:
   scheduling:
@@ -38,4 +38,4 @@ jupyterhub:
       guarantee: 512M
       limit: 1G
     image:
-      name: gcr.io/ucb-datahub-2018/highschool-user-image
+      name: gcr.io/ucb-datahub-2018/buds-2020-user-image

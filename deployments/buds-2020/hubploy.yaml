@@ -1,5 +1,5 @@
 images:
-  image_name: gcr.io/ucb-datahub-2018/highschool-user-image
+  image_name: gcr.io/ucb-datahub-2018/buds-2020-user-image
   registry:
     provider: gcloud
     gcloud:
