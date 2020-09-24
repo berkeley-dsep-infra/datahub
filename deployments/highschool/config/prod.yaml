@@ -4,7 +4,7 @@ jupyterhub:
       loadBalancerIP: 34.72.130.160
     https:
       hosts:
-        - buds-2020.datahub.berkeley.edu
+        - highschool.datahub.berkeley.edu
   hub:
     db:
       pvc:
