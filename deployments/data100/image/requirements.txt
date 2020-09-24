@@ -21,7 +21,7 @@ plotly==4.5.0
 colorlover==0.3.0
 cufflinks==0.17.0
 altair==4.0.1
-seaborn==0.10.0
+seaborn==0.11.0
 
 # web access
 beautifulsoup4==4.8.2
