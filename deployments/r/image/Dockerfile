@@ -44,6 +44,10 @@ RUN apt-get update && \
             tcl8.6-dev \
             tk8.6-dev \
             pandoc \
+            texlive-base \
+            texlive-binaries \
+            texlive-latex-base \
+            texlive-latex-extra \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-generic-recommended \
