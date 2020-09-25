@@ -47,6 +47,13 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# issue 1841, pdf knitting
+RUN apt-get -qq install --yes \
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-generic-recommended > /dev/null
+
 # Download and install rstudio manually
 # Newer one has bug that doesn't work with jupyter-rsession-proxy
 ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5042-amd64.deb
