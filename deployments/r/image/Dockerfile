@@ -43,16 +43,13 @@ RUN apt-get update && \
             fonts-symbola \
             tcl8.6-dev \
             tk8.6-dev \
-            gdebi-core && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# issue 1841, pdf knitting
-RUN apt-get -qq install --yes \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
-            texlive-generic-recommended > /dev/null
+            texlive-generic-recommended \
+            gdebi-core && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Download and install rstudio manually
 # Newer one has bug that doesn't work with jupyter-rsession-proxy
