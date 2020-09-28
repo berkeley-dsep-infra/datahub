@@ -16,6 +16,14 @@ prometheus:
   rbac:
     create: true
   server:
+    resources:
+      # Without this, prometheus can easily starve users
+      requests:
+        cpu: 2
+        memory: 12Gi
+      limits:
+        cpu: 4
+        memory: 16Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
@@ -23,6 +31,9 @@ prometheus:
       size: 1000Gi
       storageClass: ssd
     retention: 180d
+    strategy:
+      # Can't really do rolling update, we have a persistent disk attached
+      type: Recreate
     service:
       type: ClusterIP
 

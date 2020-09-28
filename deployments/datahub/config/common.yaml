@@ -31,6 +31,14 @@ jupyterhub:
         2020-summer-13097:
           mem_limit: 2048M
           mem_guarantee: 1024M
+        # Issue 1827, phys188
+        2020-fall-26276:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
+        # Issue 1827, phys288
+        2020-fall-26277:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
         modules-leads:
           users:
             - yuvipanda
@@ -72,93 +80,108 @@ jupyterhub:
           - ericvd
           - ktakimoto
           - ryanedw
-          # sp20 data8 gsis
-          - ananya.krishnan
-          - vienannguyen
-          - austenzhu
-          - averyyip
-          - mayarao
-          - ravi.singhal
-          - narain.rohan
-          - samwu101
-          - scott.lee.3898
-          - tvilayth
-          - yanayrosen
-          - adele.bloch
+          # fa20 data8 gsis
+          - aanika.shah
           - aidandeangelis
           - alanliang
-          - guanangela
-          - anna.burns
-          - ashleyquiterio
-          - carolinejchen
-          - colbylewis2020
-          - emilykzou
-          - gregoryd2017
-          - gregking22
-          - hubertluo
-          - castro.ian
-          - irenerwang
-          - jifu.li
-          - juliannnguyen
-          - katherinetsai
-          - keh7
-          - lillianlouie
-          - lritter
-          - olivialewke
-          - oscar.syu
-          - parouz
-          - roshansrin01
-          - saurav
-          - yashswarup
-          - youmnarabie
-          - aanika.shah
+          - amrosenthal
           - alvinyu27
-          - devennb
-          - gnacouzi
-          - ssingorahardjo
-          - vikramchandran
-          - winifredchung
-          # sp20 data8 tutors
+          - andyjvan
+          - ananya.krishnan
+          - guanangela
           - zhoa210
           - brettirvin
+          - carolinejchen
           - celinechen_99
-          - chloelo
+          - chendiw
+          - connorcclark
           - dshahroz
-          - deveshagarwal
+          - devennb
           - nellepersson
+          - emilykzou
           - erika.n.mack
           - eshaansoman
-          - vaibhav.pabreja
           - fachacoso
           - fqzbdkh
-          - ikaur
-          - jacobmartinez
-          - jenniferjia00
+          - gregoryd2017
+          - gregking22
+          - castro.ian
+          - jifu.li
           - kwalia1999
-          - karywang
+          - katherinetsai
+          - kevin.hsu
+          - lritter
           - marmis
           - meghanwang
           - melissarwong
           - nancywang
           - nicholesun
-          - nhanafi
+          - olivialewke
+          - parouz
           - pratibha99
-          - netzke
-          - rdoshi99
-          - sophiatan
-          - sunnyshen
-          - rikiiyer
-          - jinhao.huo
-          - anujalohia
-          - wseward
-          - alicechen295
           - ritawang
+          - netzke
+          - roshansrin01
+          - rdoshi99
+          - samwu101
+          - sarthakarora
+          - saurav
+          - sophiatan
+          - sdjajadi
+          - sunnyshen
+          - tvilayth
+          - vaibhav.pabreja
+          - vikramchandran
+          - winifredchung
+          - yanayrosen
+          - yashswarup
+          # fa20 data8 tutors
+          - aarushi.k
+          - aditi.mahajan
+          - yanlinma
+          - anna_zhao
+          - anujalohia
+          - ashika-raghavan
+          - aviksethia99
+          - carlosortiz
+          - claudea
+          - terrylincr
+          - devarshdhanuka
+          - deveshagarwal
+          - drewsuranjan
+          - eshadgoo972
+          - gracealtree
+          - ichiachen1
           - jacquelinekyu
-          - nataliegomas
-          - ryanchien04
-          - sydniezanone
+          - jeshoung
+          - jinhao.huo
+          - joyceezheng
           - kevinmiao
+          - laeticiayang
+          - lindseyhanlon
+          - michellelou
+          - nataliegomas
+          - nickha
+          - nicolepark
+          - nhanafi
+          - o.chang
+          - pulkitb124
+          - rachelchen0522
+          - raymondwang
+          - rikiiyer
+          - rohanchilukuri
+          - ryanchien04
+          - sarahding815
+          - sarina.xin
+          - kingh0730
+          - shayan.ghosh
+          - stephaniex
+          - sydniezanone
+          - takaokakegawa
           - tongshen
+          - jvarun
+          - ellenkwok882
+          - karywang
           - terry.regier # fa20 ling 290L instructor, with temp title "Additional Seminar on Special Topics to Be Announced"
   singleuser:
     nodeSelector:
