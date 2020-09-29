@@ -119,6 +119,10 @@ RUN apt-get -qq update --yes && \
             r-cran-jsonlite \
             r-cran-assertthat \
             lsb-release > /dev/null
+            
+# install graphviz
+RUN apt-get -qq update --yes && \
+    apt-get -qq install --yes graphviz
 
 # Install some R libraries that aren't in the debs
 COPY install.R  /tmp/install.R
