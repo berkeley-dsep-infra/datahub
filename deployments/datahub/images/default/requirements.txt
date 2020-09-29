@@ -147,3 +147,6 @@ google-api-python-client==1.11.0
 google-auth-httplib2==0.0.4
 google-auth-oauthlib==0.4.1
 google==3.0.0
+
+# issue 1847; LS 22 spring 2021
+graphviz
