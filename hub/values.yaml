@@ -59,14 +59,14 @@ jupyterhub:
     defaultUrl: /tree
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
-      # allow outbound internet access that's not DNS, HTTP or HTTPS
+      # allow outbound internet access that's not DNS, FTP, HTTP or HTTPS
       # We can override this on a case to case basis where
       # required.
       enabled: true
+      # NOTE: This needs to be repeated in r/config/common.yaml, since we can't
+      # add an item to a list. It needs external ssh access, something I don't
+      # want to allow in general as an anti-abuse measure.
       egress:
-        - ports:
-            - port: 53
-              protocol: UDP
         - ports:
             - port: 80
               protocol: TCP
