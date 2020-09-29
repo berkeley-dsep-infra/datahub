@@ -231,5 +231,8 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
     jupyter nbextension     install --sys-prefix --py nbzip && \
     jupyter nbextension     enable  --sys-prefix --py nbzip
+    
+# install graphviz
+RUN apt-get install -qq -y graphviz
 
 EXPOSE 8888
