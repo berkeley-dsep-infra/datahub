@@ -13,6 +13,13 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
   hub:
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # ESPM 157 https://github.com/berkeley-dsep-infra/datahub/issues/1849
+        2020-fall-27267
+          mem_limit: 4096M
+          mem_guarantee: 1024M
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     extraConfig:
