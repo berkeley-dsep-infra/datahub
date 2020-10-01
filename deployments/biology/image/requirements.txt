@@ -7,3 +7,4 @@ seaborn==0.10.1
 
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1846
 geonomics==0.0.30
+nlmpy==0.1.5
