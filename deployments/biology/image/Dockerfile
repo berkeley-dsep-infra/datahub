@@ -20,6 +20,12 @@ RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 # This lets users temporarily install packages
 RUN mkdir -p ${R_LIBS_USER} && chown ${NB_USER}:${NB_USER} ${R_LIBS_USER}
 
+# Required for PAUP*
+# Note that this doesn't actually install python2, thankfully
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq \
+        libpython2.7 > /dev/null
+
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
