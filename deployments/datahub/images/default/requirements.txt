@@ -40,6 +40,7 @@ nltk==3.5
 beautifulsoup4==4.9.1
 spacy==2.3.2
 qgrid==1.3.1
+nb2pdf==0.6.2
 #
 # ls 88-3; neuro
 lxml==4.5.2
