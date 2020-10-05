@@ -110,6 +110,9 @@ jupyterhub:
             - namespaceSelector:
                 matchLabels:
                   name: support
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 60
     resources:
       requests:
         # Very small unit, since we don't want any CPU guarantees
