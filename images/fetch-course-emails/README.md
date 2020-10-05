@@ -24,7 +24,7 @@ jupyterhub:
           - name: hub-db-dir
             mountPath: /srv/jupyterhub
           # for reading in profiles
-          - name: config
+          - name: secret
             mountPath: /etc/jupyterhub/config
         env:
         - name: UCB_HR_ID
