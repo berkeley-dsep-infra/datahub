@@ -56,6 +56,7 @@ jupyterhub:
         limits:
           memory: 1Gi
     https:
+      enabled: true
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
     networkPolicy:
