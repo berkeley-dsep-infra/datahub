@@ -117,5 +117,9 @@ RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 ENV PYPPETEER_HOME /srv/conda
 RUN pyppeteer-install
 
+# Install latex packages via tlmgr for texlive
+RUN tlmgr update --self
+RUN tlmgr install collection-latexextra
+
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
