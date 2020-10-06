@@ -8,6 +8,10 @@ spec:
     storage: 1Mi
   accessModes:
     - ReadWriteMany
+  mountOptions:
+    - soft
+    - noatime
+    - vers=4.2
   nfs:
     server: {{ .Values.nfsPVC.nfs.serverIP | quote}}
     path: "/{{ .Values.nfsPVC.nfs.shareName }}"
