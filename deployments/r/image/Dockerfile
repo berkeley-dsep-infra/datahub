@@ -27,6 +27,8 @@ WORKDIR ${HOME}
 # Can't use fonts-noto-color-emoji since this is based
 # on debian stretch
 # tcl/tk needed by vioplot/sm (rocker #316)
+RUN apt-get remove --yes texlive-local
+
 RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -43,6 +45,10 @@ RUN apt-get update && \
             fonts-symbola \
             tcl8.6-dev \
             tk8.6-dev \
+            pandoc \
+            texlive-xetex \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
             gdebi-core && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
