@@ -31,12 +31,12 @@ jupyterhub:
       defaultPriority: 0
       userPlaceholderPriority: -10
     userScheduler:
-      enabled: false
+      enabled: true
       resources:
         requests:
           # FIXME: Just unset this?
           cpu: 0.01
-          memory: 64Mi
+          memory: 128Mi
         limits:
           memory: 1G
   proxy:
