@@ -57,6 +57,7 @@ RUN apt-get update -qq --yes > /dev/null && \
     r-base-dev \
     r-recommended \
     r-cran-littler \
+    npm \
     nodejs
 
 # Install desktop packages
@@ -156,40 +157,13 @@ COPY install.R /tmp/install.R
 RUN r /tmp/install.R && \
  	rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-# Set bash as shell in terminado.
-ADD jupyter_notebook_config.py  ${CONDA_PREFIX}/etc/jupyter/
 # Disable history.
 ADD ipython_config.py ${CONDA_PREFIX}/etc/ipython/
 
-# Install PAUP* for BIO 1B
-# https://github.com/berkeley-dsep-infra/datahub/issues/1699
-RUN wget http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz -O ${CONDA_DIR}/bin/paup.gz
-RUN gunzip ${CONDA_DIR}/bin/paup.gz
-RUN chmod +x ${CONDA_DIR}/bin/paup
+# install bio1b packages
+COPY bio1b-packages.bash /tmp/bio1b-packages.bash
+RUN bash /tmp/bio1b-packages.bash 
 
-############################
-# Install packages for IB134L
-############################
-#LOCAL_BIN=${REPO_DIR}/.local/bin
-#mkdir -p ${LOCAL_BIN}
-#
-## mitoZ installation
-#
-#wget https://raw.githubusercontent.com/linzhi2013/MitoZ/master/version_2.4-alpha/release_MitoZ_v2.4-alpha.tar.bz2 -O ${REPO_DIR}/release_MitoZ_v2.4-alpha.tar.bz2
-#pushd ${REPO_DIR}
-#tar -jxvf release_MitoZ_v2.4-alpha.tar.bz2
-#rm release_MitoZ_v2.4-alpha.tar.bz2
-#cd release_MitoZ_v2.4-alpha
-#wget https://raw.githubusercontent.com/linzhi2013/MitoZ/master/version_2.4-alpha/mitozEnv.yaml
-#cd ..
-#
-### create mitoZ env
-#conda env create -n mitozEnv -f release_MitoZ_v2.4-alpha/mitozEnv.yaml # worked after reinstallation of conda
-#
-### patch ncbiquery.py
-#cp patches/ncbiquery.py /srv/conda/envs/mitozEnv/lib/python3.6/site-packages/ete3/ncbi_taxonomy/ncbiquery.py
-#
-### download annotations
-##source activate mitozEnv
-##python3 mitozEnv_config.py
-##source deactivate
+# install ib134L packages
+COPY ib134-packages.bash /tmp/ib134-packages.bash
+RUN bash /tmp/ib134-packages.bash
