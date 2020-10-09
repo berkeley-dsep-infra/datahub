@@ -1,10 +1,11 @@
 jupyterhub:
   proxy:
-    service:
-      loadBalancerIP: 34.72.130.160
-    https:
-      hosts:
-        - highschool.datahub.berkeley.edu
+    enabled: false
+    # service:
+    #   loadBalancerIP: 34.72.130.160
+    # https:
+    #   hosts:
+    #     - highschool.datahub.berkeley.edu
   hub:
     db:
       pvc:
