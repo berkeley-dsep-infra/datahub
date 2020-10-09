@@ -13,6 +13,10 @@ dependencies:
 - augustus=3.3.3
   #- repeatmasker=4.0.9
 
+# Packages from bioconda for BioE-131, Fall 2020, Issue #1885
+- bowtie2=2.4.2
+- spades=3.14.1
+
 # Packages from bioconda for BIO1B
 - raxml=8.2.*
 - muscle=3.8.*
