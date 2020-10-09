@@ -506,7 +506,7 @@ workflows:
               - data102 image build
               - data100 image build
               - data8x image build
-#              - highschool image build
+              - highschool image build
               - eecs image build
           filters:
             branches:
