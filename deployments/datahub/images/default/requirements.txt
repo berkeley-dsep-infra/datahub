@@ -1,4 +1,3 @@
-nbzip==0.0.4
 #
 # data8; foundation
 datascience==0.15.6

@@ -78,7 +78,6 @@ dependencies:
     - plotly_express==0.4.1
     - tweepy==3.8.0
     - ipympl==0.3.3
-    - nbzip==0.1.0
     - jupyter-contrib-nbextensions==0.5.1
     - jassign==0.0.7
     - okpy==1.14.15
