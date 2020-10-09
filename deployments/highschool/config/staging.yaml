@@ -6,8 +6,9 @@ jupyterhub:
     continuous:
       enabled: false
   proxy:
-    service:
-      loadBalancerIP: 34.72.13.135
-    https:
-      hosts:
-        - highschool-staging.datahub.berkeley.edu
+    enabled: false
+    # service:
+    #   loadBalancerIP: 34.72.13.135
+    # https:
+    #   hosts:
+    #     - highschool-staging.datahub.berkeley.edu
