@@ -91,6 +91,11 @@ RUN apt-get update -qq --yes && \
         libxss1 \
         > /dev/null
 
+# Adding pbzip2 for issue #1885 BioE-131, Fall 2020
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq \
+        pbzip2 > /dev/null
+
 WORKDIR /home/jovyan
 
 COPY install-miniforge.bash /tmp/install-miniforge.bash
