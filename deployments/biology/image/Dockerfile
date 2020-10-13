@@ -26,6 +26,12 @@ RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
         libpython2.7 > /dev/null
 
+# libraries required for mothur 
+# libreadline6 required
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq \
+    libreadline6-dev > /dev/null
+
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
@@ -90,6 +96,7 @@ RUN apt-get update -qq --yes && \
         libnss3 \
         libxss1 \
         > /dev/null
+
 
 WORKDIR /home/jovyan
 
@@ -165,5 +172,6 @@ COPY bio1b-packages.bash /tmp/bio1b-packages.bash
 RUN bash /tmp/bio1b-packages.bash 
 
 # install ib134L packages
+
 COPY ib134-packages.bash /tmp/ib134-packages.bash
 RUN bash /tmp/ib134-packages.bash
