@@ -1,6 +1,6 @@
 # Should match the hub image used by version of chart in hub/requirements.yaml
 # If that changes, this should be changed too!
-FROM jupyterhub/k8s-hub:0.9.0-n226.h47f3da5c
+FROM jupyterhub/k8s-hub:0.9.0-n298.h26f07eed
 
 USER root
 

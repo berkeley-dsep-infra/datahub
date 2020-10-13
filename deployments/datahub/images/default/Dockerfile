@@ -231,9 +231,5 @@ RUN jupyter nbextension enable --py --sys-prefix gmaps
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
-# Install nbzip
-RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
-    jupyter nbextension     install --sys-prefix --py nbzip && \
-    jupyter nbextension     enable  --sys-prefix --py nbzip
 
 EXPOSE 8888
