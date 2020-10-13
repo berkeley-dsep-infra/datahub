@@ -30,3 +30,9 @@ for (i in seq(1, length(cran_packages), 2)) {
 #    ref = github_packages[i + 1]
 #  )
 #}
+
+## Bioconductor packages
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("EBSeq")
