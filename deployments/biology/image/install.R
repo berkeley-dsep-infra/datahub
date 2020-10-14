@@ -7,29 +7,22 @@ install.packages("devtools")
 # This doesn't do any dependency resolution or anything,
 # so refer to `installed.packages()` for authoritative list
 cran_packages <- c(
-  "tidyverse", "1.3.0"
+  "tidyverse", "1.3.0",
+  "adegenet", "2.1.3",
+  "pegas", "0.14",
+  "phytools", "0.7-70",
+  "ape","5.4-1",
+  "seqinr","4.2-4",
+  "hierfstat","0.5-7",
+  "poppr","2.8.6"
 )
 
-#github_packages <- c(
-#  # https://github.com/utoronto-2i2c/jupyterhub-deploy/issues/31
-#  #"cutterkom/generativeart", "56ce6beed0433748b4372bfffba0e1c9f2740f9b",
-#  #"djnavarro/flametree", "0999530f758d074c214c068726e68786bb4698f6"
-#)
-#
 for (i in seq(1, length(cran_packages), 2)) {
   devtools::install_version(
     cran_packages[i],
     version = cran_packages[i + 1]
   )
 }
-#
-#
-#for (i in seq(1, length(github_packages), 2)) {
-#  devtools::install_github(
-#    github_packages[i],
-#    ref = github_packages[i + 1]
-#  )
-#}
 
 ## Bioconductor packages
 if (!requireNamespace("BiocManager", quietly = TRUE))
