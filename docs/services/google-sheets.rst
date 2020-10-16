@@ -68,6 +68,6 @@ Google Sheets into a `pandas <https://pandas.pydata.org/>`_ dataframe.
     url = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'
 
     # Open the Google Sheet, and print contents of sheet 1 as a dataframe
-    spread = Spread(creds, url)
+    spread = Spread(url, creds=creds)
     sheet_df = spread.sheet_to_df(sheet='sheet1')
     print(sheet_df)
