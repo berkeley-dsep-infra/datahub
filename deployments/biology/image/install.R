@@ -14,7 +14,9 @@ cran_packages <- c(
   "ape","5.4-1",
   "seqinr","4.2-4",
   "hierfstat","0.5-7",
-  "poppr","2.8.6"
+  "poppr","2.8.6",
+  "PopGenome","2.7.5", 
+  "detectRUNS","0.9.6" 
 )
 
 for (i in seq(1, length(cran_packages), 2)) {
