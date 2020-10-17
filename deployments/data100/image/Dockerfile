@@ -71,7 +71,6 @@ COPY infra-requirements.txt /tmp/
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 # Set bash as shell in terminado.
-ADD jupyter_notebook_config.py  ${CONDA_PREFIX}/envs/data100/etc/jupyter/
 # Disable history.
 ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
 
