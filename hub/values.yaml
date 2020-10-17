@@ -62,6 +62,8 @@ jupyterhub:
     networkPolicy:
       enabled: true
   singleuser:
+    extraEnv:
+      SHELL: /bin/bash
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
     defaultUrl: /tree
     networkPolicy:
