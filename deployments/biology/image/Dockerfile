@@ -65,6 +65,7 @@ RUN apt-get update -qq --yes > /dev/null && \
     r-cran-littler \
     npm \
     libglpk-dev \
+    libzmq5 \
     nodejs
 
 # Install desktop packages
@@ -98,9 +99,10 @@ RUN apt-get update -qq --yes && \
         libxss1 \
         > /dev/null
 
-# Adding pbzip2 for issue #1885 BioE-131, Fall 2020
+# Adding ncompress,pbzip2 for issue #1885 BioE-131, Fall 2020
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
+        ncompress \
         pbzip2 > /dev/null
 
 WORKDIR /home/jovyan
