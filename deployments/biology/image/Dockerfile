@@ -65,6 +65,7 @@ RUN apt-get update -qq --yes > /dev/null && \
     r-cran-littler \
     npm \
     libglpk-dev \
+    libzmq5 \
     nodejs
 
 # Install desktop packages
