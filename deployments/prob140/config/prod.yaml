@@ -1,5 +1,5 @@
 jupyterhub-ssh:
-  hubUrl: https://prob140-staging.datahub.berkeley.edu
+  hubUrl: https://prob140.datahub.berkeley.edu
 
 jupyterhub:
   scheduling:

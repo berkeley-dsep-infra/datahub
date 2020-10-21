@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://prob140-staging.datahub.berkeley.edu
+
 jupyterhub:
   scheduling:
     userScheduler:
