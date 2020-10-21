@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://highschool.datahub.berkeley.edu
+
 jupyterhub:
   proxy:
     enabled: false

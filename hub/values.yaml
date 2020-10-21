@@ -40,6 +40,12 @@ jupyterhub:
         limits:
           memory: 1G
   proxy:
+    service:
+      extraPorts:
+        - port: 22
+          targetPort: 8022
+          protocol: TCP
+          name: ssh
     chp:
       resources:
         requests:
@@ -50,6 +56,23 @@ jupyterhub:
         limits:
           memory: 1Gi
     traefik:
+      extraStaticConfig:
+        entryPoints:
+          ssh:
+            address: ':8022'
+      extraDynamicConfig:
+        tcp:
+          services:
+            ssh:
+              loadBalancer:
+                servers:
+                  - address: jupyterhub-ssh:22
+          routers:
+            ssh-router:
+              entrypoints:
+                - ssh
+              rule: 'HostSNI(`*`)'
+              service: ssh
       resources:
         requests:
           memory: 96Mi

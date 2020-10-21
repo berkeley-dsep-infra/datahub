@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://workshop-staging.datahub.berkeley.edu
+
 jupyterhub:
   scheduling:
     userScheduler:

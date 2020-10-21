@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://julia-staging.datahub.berkeley.edu
+
 jupyterhub:
   scheduling:
     userScheduler:

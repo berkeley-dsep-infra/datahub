@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://eecs-staging.datahub.berkeley.edu
+
 jupyterhub:
   scheduling:
     userScheduler:

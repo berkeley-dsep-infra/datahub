@@ -1,3 +1,5 @@
+jupyterhub-ssh:
+  hubUrl: https://hub.data8x.berkeley.edu
 
 jupyterhub:
   proxy:
