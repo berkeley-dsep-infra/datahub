@@ -56,6 +56,8 @@ jupyterhub:
         limits:
           memory: 1Gi
     traefik:
+      labels:
+        hub.jupyter.org/network-access-ssh-server: "true"
       extraStaticConfig:
         entryPoints:
           ssh:
