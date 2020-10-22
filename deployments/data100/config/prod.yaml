@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://data100.datahub.berkeley.edu
+
 jupyterhub:
   proxy:
     https:
