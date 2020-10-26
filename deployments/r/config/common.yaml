@@ -48,6 +48,18 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    initContainers:
+      # Delete rstudio session on startup
+      # See https://github.com/berkeley-dsep-infra/datahub/issues/1899
+      - name: delete-r-session
+        image: busybox
+        command: ["sh", "-c", "rm -rf /home/jovyan/.rstudio"]
+        securityContext:
+          runAsUser: 1000
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     storage:
