@@ -31,3 +31,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("EBSeq")
+BiocManager::install("Rhtslib")
+BiocManager::install("dada2")
+BiocManager::install("phyloseq")
+BiocManager::install("Biostrings")
