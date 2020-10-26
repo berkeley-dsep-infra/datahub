@@ -145,6 +145,11 @@ RUN apt-get update && \
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
+# Needed by Rhtslib 
+RUN apt-get update -qq --yes && \
+    apt-get install --yes  -qq \
+        libcurl4-openssl-dev > /dev/null
+
 USER ${NB_USER}
 
 COPY environment.yml /tmp/
