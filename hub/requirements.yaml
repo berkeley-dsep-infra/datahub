@@ -4,5 +4,5 @@ dependencies:
    version: 0.9.0-n419.he870fc85
    repository: https://jupyterhub.github.io/helm-chart/
  - name: jupyterhub-ssh
-   version: 0.0.1-n031.hf48e5f0
+   version: 0.0.1-n032.hdc5103a
    repository: https://yuvipanda.github.io/jupyterhub-ssh/
