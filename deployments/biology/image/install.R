@@ -1,4 +1,37 @@
-# R packages to be installed that aren't from apt
+#!/usr/bin/env r
 
-#devtools::install_github('cran/tidyverse', ref = 'bd9ff0b', upgrade_dependencies = FALSE)
-devtools::install_version('tidyverse', '1.2.1', upgrade_dependencies = FALSE)
+# Install devtools, so we can install versioned packages
+install.packages("devtools")
+
+# Install a bunch of R packages
+# This doesn't do any dependency resolution or anything,
+# so refer to `installed.packages()` for authoritative list
+cran_packages <- c(
+  "tidyverse", "1.3.0",
+  "adegenet", "2.1.3",
+  "pegas", "0.14",
+  "phytools", "0.7-70",
+  "ape","5.4-1",
+  "seqinr","4.2-4",
+  "hierfstat","0.5-7",
+  "poppr","2.8.6",
+  "PopGenome","2.7.5", 
+  "detectRUNS","0.9.6" 
+)
+
+for (i in seq(1, length(cran_packages), 2)) {
+  devtools::install_version(
+    cran_packages[i],
+    version = cran_packages[i + 1]
+  )
+}
+
+## Bioconductor packages
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("EBSeq")
+BiocManager::install("Rhtslib")
+BiocManager::install("dada2")
+BiocManager::install("phyloseq")
+BiocManager::install("Biostrings")

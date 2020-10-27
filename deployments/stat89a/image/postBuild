@@ -5,7 +5,6 @@ set -euo pipefail
 mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 mkdir -p ${CONDA_DIR}/etc/jupyter
-cp jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/jupyter_notebook_config.py
 mkdir -p ${CONDA_DIR}/share/jupyter/lab/settings
 #cp overrides.json ${CONDA_DIR}/share/jupyter/lab/settings/overrides.json
 mkdir -p $HOME/.jupyter/lab/user-settings/@jupyterlab/apputils-extension

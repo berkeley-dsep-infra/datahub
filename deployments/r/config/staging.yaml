@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://r-staging.datahub.berkeley.edu
+
 jupyterhub:
   scheduling:
     userScheduler:

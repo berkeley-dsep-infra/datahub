@@ -1,24 +1,12 @@
-#!/bin/bash
-set -euo pipefail
-
-# Create ipython config directory if it doesn't exist
-mkdir -p ${CONDA_DIR}/etc/ipython
-cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
-
-# Install PAUP* for BIO 1B
-# https://github.com/berkeley-dsep-infra/datahub/issues/1699
-
-wget http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz -O ${CONDA_DIR}/bin/paup.gz
-gunzip ${CONDA_DIR}/bin/paup.gz
-chmod +x ${CONDA_DIR}/bin/paup
-
 ############################
 # Install packages for IB134L
 ############################
-LOCAL_BIN=${REPO_DIR}/.local/bin
-mkdir -p ${LOCAL_BIN}
 
-# mitoZ installation
+#LOCAL_BIN=${REPO_DIR}/.local/bin
+#mkdir -p ${LOCAL_BIN}
+#
+## mitoZ installation
+#
 #wget https://raw.githubusercontent.com/linzhi2013/MitoZ/master/version_2.4-alpha/release_MitoZ_v2.4-alpha.tar.bz2 -O ${REPO_DIR}/release_MitoZ_v2.4-alpha.tar.bz2
 #pushd ${REPO_DIR}
 #tar -jxvf release_MitoZ_v2.4-alpha.tar.bz2
@@ -32,9 +20,13 @@ mkdir -p ${LOCAL_BIN}
 #
 ### patch ncbiquery.py
 #cp patches/ncbiquery.py /srv/conda/envs/mitozEnv/lib/python3.6/site-packages/ete3/ncbi_taxonomy/ncbiquery.py
+#
+### download annotations
+##source activate mitozEnv
+##python3 mitozEnv_config.py
+##source deactivate
 
-## download annotations
-#source activate mitozEnv
-#python3 mitozEnv_config.py
-#source deactivate
+
+###
+
 

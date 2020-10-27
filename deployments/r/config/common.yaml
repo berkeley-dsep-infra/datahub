@@ -13,6 +13,13 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
   hub:
+    extraConfigMap:
+      # this should be migrated to custom.profiles when that works
+      profiles:
+        # ESPM 157 https://github.com/berkeley-dsep-infra/datahub/issues/1849
+        2020-fall-27267:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     extraConfig:
@@ -64,16 +71,19 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/r-user-image
     networkPolicy:
       enabled: true
+      # NOTE: This is a partial repetition of what's in hub/values.yaml,
+      # add an item to a list. We add external ssh access here, something I don't
+      # want to allow in general as an anti-abuse measure.
       egress:
-        # defaults
-        - ports:
-            - port: 53
-              protocol: UDP
         - ports:
             - port: 80
               protocol: TCP
         - ports:
             - port: 443
+              protocol: TCP
+        - ports:
+            # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
+            - port: 21
               protocol: TCP
         # enabling ssh for private git repos
         - ports:

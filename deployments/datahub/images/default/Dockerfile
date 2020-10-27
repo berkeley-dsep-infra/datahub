@@ -223,7 +223,6 @@ COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
 RUN /usr/local/sbin/2019-fall-phys-188-288.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-ADD jupyter_notebook_config.py ${CONDA_DIR}/etc/jupyter/jupyter_notebook_config.py
 
 # install gmaps notebook extension
 RUN jupyter nbextension enable --py --sys-prefix gmaps
@@ -231,9 +230,5 @@ RUN jupyter nbextension enable --py --sys-prefix gmaps
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
-# Install nbzip
-RUN jupyter serverextension enable  --sys-prefix --py nbzip && \
-    jupyter nbextension     install --sys-prefix --py nbzip && \
-    jupyter nbextension     enable  --sys-prefix --py nbzip
 
 EXPOSE 8888

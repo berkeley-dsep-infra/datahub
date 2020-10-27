@@ -11,7 +11,13 @@ dependencies:
 - mafft=7.471
 - emboss=6.6.0
 - augustus=3.3.3
-- repeatmasker=4.0.9
+- raxml-ng=1.0.1
+- structure=2.3.4
+#- repeatmasker=4.0.9
+
+# Packages from bioconda for BioE-131, Fall 2020, Issue #1885
+- bowtie2=2.4.2
+- spades=3.14.1
 
 # Packages from bioconda for BIO1B
 - raxml=8.2.*
