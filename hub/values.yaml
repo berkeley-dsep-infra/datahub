@@ -23,6 +23,11 @@ etcJupyter:
 nfsPVC:
   enabled: true
 
+jupyterhub-ssh:
+  sftp:
+    pvc:
+      name: home-nfs
+
 jupyterhub:
   scheduling:
     podPriority:
@@ -46,6 +51,10 @@ jupyterhub:
           targetPort: 8022
           protocol: TCP
           name: ssh
+        - port: 2222
+          targetPort: 2222
+          protocol: TCP
+          name: sftp
     chp:
       resources:
         requests:
@@ -58,18 +67,30 @@ jupyterhub:
     traefik:
       labels:
         hub.jupyter.org/network-access-ssh-server: "true"
+        hub.jupyter.org/network-access-sftp-server: "true"
       extraStaticConfig:
         entryPoints:
           ssh:
             address: ':8022'
+          sftp:
+            address: ':2222'
       extraDynamicConfig:
         tcp:
           services:
+            sftp:
+              loadBalancer:
+                servers:
+                  - address: jupyterhub-sftp:22
             ssh:
               loadBalancer:
                 servers:
                   - address: jupyterhub-ssh:22
           routers:
+            sftp-router:
+              entrypoints:
+                - sftp
+              rule: 'HostSNI(`*`)'
+              service: sftp
             ssh-router:
               entrypoints:
                 - ssh
