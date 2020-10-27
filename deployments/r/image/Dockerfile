@@ -85,9 +85,6 @@ RUN mkdir -p /tmp/extras.d
 COPY --chown=rstudio extras.d/example /tmp/extras.d
 RUN Rscript /tmp/extras.d/example
 
-COPY --chown=rstudio extras.d/ph-290.r /tmp/extras.d/
-RUN Rscript /tmp/extras.d/ph-290.r
-
 COPY --chown=rstudio extras.d/2019-fall-stat-131a.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/2019-fall-stat-131a.r
 
@@ -111,6 +108,9 @@ RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 
 COPY --chown=rstudio extras.d/econ-140.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/econ-140.r
+
+COPY --chown=rstudio extras.d/ph-290.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/ph-290.r
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 

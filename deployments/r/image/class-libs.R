@@ -18,7 +18,7 @@ class_libs_install_version <- function(class_name, class_libs) {
         print(paste("Installing", class_libs[i], class_libs[i+1]))
         devtools::install_version(
             class_libs[i], version = class_libs[i+1],
-            quiet=TRUE
+            quiet=FALSE
         )
     }
     print(paste("Done installing packages for", class_name))
