@@ -14,8 +14,8 @@ SSH access provides the exact same environment - packages, home directory, etc -
    - [biology.datahub.berkeley.edu](https://biology.datahub.berkeley.edu/hub/token)
    - [prob140.datahub.berkeley.edu](https://prob140.datahub.berkeley.edu/hub/token)
    - [workshop.datahub.berkeley.edu](https://workshop.datahub.berkeley.edu/hub/token)
-   - [julia.datahub.berkeley.edu](https://julia.datahub.berkeley.edu/hub/token
-   - [highschool.datahub.berkeley.edu](https://highschool.datahub.berkeley.edu/hub/token
+   - [julia.datahub.berkeley.edu](https://julia.datahub.berkeley.edu/hub/token)
+   - [highschool.datahub.berkeley.edu](https://highschool.datahub.berkeley.edu/hub/token)
   
    **NOTE**: This token is **your password**, and everyone with it can access **all your files**, including any assignments you might have. If you are an **admin** on any of these hubs, then they can use it to access the space of **anyone else** on that hub, so please treat these with extreme care.
    
