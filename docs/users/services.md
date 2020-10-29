@@ -15,7 +15,6 @@ What many people mean when they say 'Jupyter', this familiar interface
 is used by default for most of our introductory classes. Document oriented,
 no-frills, and well known by a lot of people.
 
-
 ### RStudio
 
 ![RStudio Screenshot](images/rstudio.png)
@@ -63,6 +62,10 @@ see if it would be useful for teaching more traditional CS classes.
 Try without Berkeley.edu account: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/betatim/vscode-binder/master?urlpath=lab)
 
 Try with Berkeley.edu account: [EECS DataHub](https://eecs.datahub.berkeley.edu/hub/user-redirect/vscode/)
+
+### SSH & SFTP (Experimental)
+
+You can access the same environments and home directories via the terminal, using traditional `ssh` and `sftp` programs. See [here](ssh) for more documentation.
 
 ### More?
 
