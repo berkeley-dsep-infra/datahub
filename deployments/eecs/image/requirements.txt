@@ -19,4 +19,4 @@ jupyter-desktop-server==0.1.*
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
 cvxpy==1.1.*
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
-sklearn==0.23.*
+scikit-learn==0.23.*
