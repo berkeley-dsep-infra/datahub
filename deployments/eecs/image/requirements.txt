@@ -20,3 +20,6 @@ jupyter-desktop-server==0.1.*
 cvxpy==1.1.*
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
 scikit-learn==0.23.*
+SciPy == 0.19.*
+joblib == 0.*
+threadpoolctl == 2.0.*
