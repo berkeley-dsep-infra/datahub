@@ -18,3 +18,5 @@ jupyter-desktop-server==0.1.*
 # For EECS127/227a
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
 cvxpy==1.1.*
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1936
+scikit-learn==0.22.1
