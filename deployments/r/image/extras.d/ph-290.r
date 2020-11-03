@@ -7,8 +7,8 @@ source("/tmp/class-libs.R")
 class_name = "PH 290W"
 
 class_libs = c(
+  "kableExtra", "1.1.0",
   "plotly", "4.9.2.1",
-  "kableExtra", "1.3.1",
   "ggthemes", "4.2.0",
   "formattable", "0.2.0.1"
 )
