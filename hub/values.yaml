@@ -65,6 +65,10 @@ jupyterhub:
         limits:
           memory: 1Gi
     traefik:
+      networkPolicy:
+        # We xan use 'ssh' instead of 8022 once https://github.com/jupyterhub/zero-to-jupyterhub-k8s/pull/1901 is merged
+        # 8022 for ssh, 2222 for sftp
+        allowedIngressPorts: [http, https, 8022, 2222]
       labels:
         hub.jupyter.org/network-access-ssh-server: "true"
         hub.jupyter.org/network-access-sftp-server: "true"
