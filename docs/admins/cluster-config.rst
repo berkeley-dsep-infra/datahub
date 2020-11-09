@@ -45,8 +45,8 @@ the currently favored configuration.
 .. code:: bash
 
     gcloud container node-pools create  \
-        --machine-type e2-highmem-8 \
-        --num-nodes 1 \
+        --machine-type n1-highmem-8 \
+        --num-nodes 2 \
         --enable-autoscaling \
         --min-nodes 1 --max-nodes 20 \
         --node-labels hub.jupyter.org/pool-name=<pool-name>-pool \
@@ -56,7 +56,7 @@ the currently favored configuration.
         --disk-size=200 --disk-type=pd-ssd \
         --no-enable-autoupgrade \
         --tags=hub-cluster \
-        --cluster=<cluster-name> \
+        --cluster=fall-2019 \
         user-pool-<pool-name>-<yyyy>-<mm>-<dd>
 
 
