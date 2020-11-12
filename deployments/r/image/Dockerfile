@@ -1,4 +1,5 @@
-FROM rocker/geospatial:4.0.2
+# SHA pin of rocker/geospatial:4.0.2, since rocker tags aren't immutable
+FROM rocker/geospatial@sha256:7b0e833cd52753be619030f61ba9e085b45eb9bb13678311da4a55632c3c8c79
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -27,6 +28,7 @@ WORKDIR ${HOME}
 # Can't use fonts-noto-color-emoji since this is based
 # on debian stretch
 # tcl/tk needed by vioplot/sm (rocker #316)
+# poppler and libglpk for D-Lab CTAWG
 RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -43,6 +45,8 @@ RUN apt-get update && \
             fonts-symbola \
             tcl8.6-dev \
             tk8.6-dev \
+            libpoppler-cpp-dev \
+            libglpk-dev \
             gdebi-core && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -108,6 +112,12 @@ RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 
 COPY --chown=rstudio extras.d/econ-140.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/econ-140.r
+
+COPY --chown=rstudio extras.d/ph-290.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/ph-290.r
+
+COPY --chown=rstudio extras.d/dlab-ctawg.r /tmp/extras.d/
+RUN Rscript /tmp/extras.d/dlab-ctawg.r
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
