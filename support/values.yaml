@@ -1,4 +1,13 @@
 prometheus:
+  # We were using network tags to restrict NFS access to just nodes from hub-cluster
+  # However, it turns out packets coming from *pods* are *not* tagged with that, just from the nodes!
+  # I'm guessing this is an intersection of how GKE works? I'm not sure.
+  # Either way, I allowed TCP to port 9100 from 10.0.0.0/8 and it works fine.
+  extraScrapeConfigs: |
+    - job_name: prometheus-nfsd-server
+      static_configs:
+        - targets:
+          - nfsserver-01:9100
   networkPolicy:
     enabled: true
   alertmanager:
