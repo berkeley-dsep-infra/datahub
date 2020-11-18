@@ -80,58 +80,58 @@ RUN pip install --no-cache-dir \
 
 
 # Install IRKernel
-RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
-    R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
+# RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
+#     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
-# Install some R libraries that aren't in the base image
-COPY class-libs.R /tmp/class-libs.R
+# # Install some R libraries that aren't in the base image
+# COPY class-libs.R /tmp/class-libs.R
 
-RUN mkdir -p /tmp/extras.d
+# RUN mkdir -p /tmp/extras.d
 
-COPY --chown=rstudio extras.d/example /tmp/extras.d
-RUN Rscript /tmp/extras.d/example
+# COPY --chown=rstudio extras.d/example /tmp/extras.d
+# RUN Rscript /tmp/extras.d/example
 
-COPY --chown=rstudio extras.d/2019-fall-stat-131a.r /tmp/extras.d/
-RUN Rscript /tmp/extras.d/2019-fall-stat-131a.r
+# COPY --chown=rstudio extras.d/2019-fall-stat-131a.r /tmp/extras.d/
+# RUN Rscript /tmp/extras.d/2019-fall-stat-131a.r
 
-COPY --chown=rstudio extras.d/eep-1118.r /tmp/extras.d
-RUN Rscript /tmp/extras.d/eep-1118.r
+# COPY --chown=rstudio extras.d/eep-1118.r /tmp/extras.d
+# RUN Rscript /tmp/extras.d/eep-1118.r
 
-COPY --chown=rstudio extras.d/ias-c188.r /tmp/extras.d
-RUN Rscript /tmp/extras.d/ias-c188.r
+# COPY --chown=rstudio extras.d/ias-c188.r /tmp/extras.d
+# RUN Rscript /tmp/extras.d/ias-c188.r
 
-COPY --chown=rstudio extras.d/ph-142.r /tmp/extras.d
-RUN Rscript /tmp/extras.d/ph-142.r
+# COPY --chown=rstudio extras.d/ph-142.r /tmp/extras.d
+# RUN Rscript /tmp/extras.d/ph-142.r
 
-COPY --chown=rstudio extras.d/ph-w250fg.r /tmp/extras.d
-RUN Rscript /tmp/extras.d/ph-w250fg.r
+# COPY --chown=rstudio extras.d/ph-w250fg.r /tmp/extras.d
+# RUN Rscript /tmp/extras.d/ph-w250fg.r
 
-COPY --chown=rstudio extras.d/stat-131a.r /tmp/extras.d
-RUN Rscript /tmp/extras.d/stat-131a.r
+# COPY --chown=rstudio extras.d/stat-131a.r /tmp/extras.d
+# RUN Rscript /tmp/extras.d/stat-131a.r
 
-COPY --chown=rstudio extras.d/2020-spring-envecon-c118.r /tmp/extras.d/
-RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
+# COPY --chown=rstudio extras.d/2020-spring-envecon-c118.r /tmp/extras.d/
+# RUN Rscript /tmp/extras.d/2020-spring-envecon-c118.r
 
-COPY --chown=rstudio extras.d/econ-140.r /tmp/extras.d/
-RUN Rscript /tmp/extras.d/econ-140.r
+# COPY --chown=rstudio extras.d/econ-140.r /tmp/extras.d/
+# RUN Rscript /tmp/extras.d/econ-140.r
 
-COPY --chown=rstudio extras.d/ph-290.r /tmp/extras.d/
-RUN Rscript /tmp/extras.d/ph-290.r
+# COPY --chown=rstudio extras.d/ph-290.r /tmp/extras.d/
+# RUN Rscript /tmp/extras.d/ph-290.r
 
-COPY --chown=rstudio extras.d/dlab-ctawg.r /tmp/extras.d/
-RUN Rscript /tmp/extras.d/dlab-ctawg.r
+# COPY --chown=rstudio extras.d/dlab-ctawg.r /tmp/extras.d/
+# RUN Rscript /tmp/extras.d/dlab-ctawg.r
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
 RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 
 # Set up nbpdf dependencies
-ENV PYPPETEER_HOME /srv/conda
-RUN pyppeteer-install
+# ENV PYPPETEER_HOME /srv/conda
+# RUN pyppeteer-install
 
 # Install latex packages via tlmgr for texlive
-RUN tlmgr update --self
-RUN tlmgr install collection-latexextra
+# RUN tlmgr update --self
+# RUN tlmgr install collection-latexextra
 
 # Execute PostBuild if it exists
 RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
