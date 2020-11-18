@@ -19,6 +19,10 @@ etcJupyter:
       # https://github.com/jupyter/jupyter/issues/174
       # https://github.com/ipython/ipython/issues/9163
       db_file: ":memory:"
+    NotebookApp:
+      authenticate_prometheus: false
+    ResourceUseDisplay:
+      disable_legacy_endpoint: true
 
 nfsPVC:
   enabled: true
@@ -114,6 +118,10 @@ jupyterhub:
       SHELL: /bin/bash
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
     defaultUrl: /tree
+    extraAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: "/user/{username}/metrics"
+      prometheus.io/port: "8888"
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
       # allow outbound internet access that's not DNS, FTP, HTTP or HTTPS
@@ -134,6 +142,20 @@ jupyterhub:
             # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
             - port: 21
               protocol: TCP
+      # Allow ingress from promethetheus scraper in support namespace
+      # This lets us get notebook metrics!
+      ingress:
+        - ports:
+            - port: 8888
+              protocol: TCP
+          from:
+          - namespaceSelector:
+              matchLabels:
+                name: support
+            podSelector:
+              matchLabels:
+                app: prometheus
+                component: server
   auth:
     google:
       hostedDomain: [berkeley.edu]
@@ -161,6 +183,13 @@ jupyterhub:
             - namespaceSelector:
                 matchLabels:
                   name: support
+              podSelector:
+                matchLabels:
+                  app: prometheus
+                  component: server
+          ports:
+            - port: http
+              protocol: TCP
     livenessProbe:
       enabled: true
       initialDelaySeconds: 180
