@@ -73,11 +73,6 @@ RUN /tmp/install-miniforge.bash
 
 USER ${NB_USER}
 
-COPY infra-requirements.txt /tmp/infra-requirements.txt
-RUN pip install --no-cache-dir \
-                jupyter-rsession-proxy==1.2 \
-                jupyter-shiny-proxy==1.1
-
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
@@ -123,6 +118,7 @@ RUN Rscript /tmp/extras.d/dlab-ctawg.r
 
 COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
+RUN pip install --no-cache-dir -r ${REPO_DIR}/infra-requirements.txt
 RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 
 # Set up nbpdf dependencies
