@@ -73,6 +73,18 @@ RUN /tmp/install-miniforge.bash
 
 USER ${NB_USER}
 
+COPY infra-requirements.txt ${REPO_DIR}/infra-requirements.txt
+COPY requirements.txt ${REPO_DIR}/requirements.txt
+RUN pip install --no-cache-dir -r ${REPO_DIR}/infra-requirements.txt
+RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/conda
+RUN pyppeteer-install
+
+# Install latex packages via tlmgr for texlive
+RUN tlmgr update --self
+RUN tlmgr install collection-latexextra
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
@@ -116,18 +128,6 @@ RUN Rscript /tmp/extras.d/ph-290.r
 COPY --chown=rstudio extras.d/dlab-ctawg.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/dlab-ctawg.r
 
-COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
-RUN pip install --no-cache-dir -r ${REPO_DIR}/infra-requirements.txt
-RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
-
-# Set up nbpdf dependencies
-ENV PYPPETEER_HOME /srv/conda
-RUN pyppeteer-install
-
-# Install latex packages via tlmgr for texlive
-RUN tlmgr update --self
-RUN tlmgr install collection-latexextra
-
-# Execute PostBuild if it exists
-RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
+COPY postBuild ${REPO_DIR}/postBuild
+RUN ${REPO_DIR}/postBuild
