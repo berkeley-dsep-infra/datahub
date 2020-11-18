@@ -29,6 +29,7 @@ WORKDIR ${HOME}
 # on debian stretch
 # tcl/tk needed by vioplot/sm (rocker #316)
 # poppler and libglpk for D-Lab CTAWG
+# nodejs for installing notebook / jupyterhub from source
 RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -47,7 +48,8 @@ RUN apt-get update && \
             tk8.6-dev \
             libpoppler-cpp-dev \
             libglpk-dev \
-            gdebi-core && \
+            gdebi-core \
+            nodejs npm && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -71,11 +73,18 @@ RUN /tmp/install-miniforge.bash
 
 USER ${NB_USER}
 
-COPY infra-requirements.txt /tmp/infra-requirements.txt
-RUN pip install --no-cache-dir \
-                jupyter-rsession-proxy==1.2 \
-                jupyter-shiny-proxy==1.1
+COPY infra-requirements.txt ${REPO_DIR}/infra-requirements.txt
+COPY requirements.txt ${REPO_DIR}/requirements.txt
+RUN pip install --no-cache-dir -r ${REPO_DIR}/infra-requirements.txt
+RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
 
+# Set up nbpdf dependencies
+ENV PYPPETEER_HOME /srv/conda
+RUN pyppeteer-install
+
+# Install latex packages via tlmgr for texlive
+RUN tlmgr update --self
+RUN tlmgr install collection-latexextra
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
@@ -119,17 +128,8 @@ RUN Rscript /tmp/extras.d/ph-290.r
 COPY --chown=rstudio extras.d/dlab-ctawg.r /tmp/extras.d/
 RUN Rscript /tmp/extras.d/dlab-ctawg.r
 
-COPY --chown=rstudio:rstudio . ${REPO_DIR}
 
-RUN pip install --no-cache-dir -r ${REPO_DIR}/requirements.txt
+COPY postBuild ${REPO_DIR}/postBuild
+COPY ipython_config.py ${REPO_DIR}/ipython_config.py
 
-# Set up nbpdf dependencies
-ENV PYPPETEER_HOME /srv/conda
-RUN pyppeteer-install
-
-# Install latex packages via tlmgr for texlive
-RUN tlmgr update --self
-RUN tlmgr install collection-latexextra
-
-# Execute PostBuild if it exists
-RUN [ -f ${REPO_DIR}/postBuild ] && chmod +x ${REPO_DIR}/postBuild && ${REPO_DIR}/postBuild
+RUN ${REPO_DIR}/postBuild
