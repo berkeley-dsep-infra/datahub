@@ -29,6 +29,7 @@ WORKDIR ${HOME}
 # on debian stretch
 # tcl/tk needed by vioplot/sm (rocker #316)
 # poppler and libglpk for D-Lab CTAWG
+# nodejs for installing notebook / jupyterhub from source
 RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -47,7 +48,8 @@ RUN apt-get update && \
             tk8.6-dev \
             libpoppler-cpp-dev \
             libglpk-dev \
-            gdebi-core && \
+            gdebi-core \
+            nodejs && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
