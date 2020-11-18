@@ -130,4 +130,6 @@ RUN Rscript /tmp/extras.d/dlab-ctawg.r
 
 
 COPY postBuild ${REPO_DIR}/postBuild
+COPY ipython_config.py ${REPO_DIR}/ipython_config.py
+
 RUN ${REPO_DIR}/postBuild
