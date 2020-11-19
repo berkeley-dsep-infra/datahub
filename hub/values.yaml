@@ -20,7 +20,15 @@ etcJupyter:
       # https://github.com/ipython/ipython/issues/9163
       db_file: ":memory:"
     NotebookApp:
+      # Allow scraping metrics from Prometheus server
       authenticate_prometheus: false
+      # Stop notebook when there's no activity
+      # This adds an additional layer to the idle culler, which is sometimes screwed up
+      # via connected websockets and /metrics calls. I'm not sure if this will actually help,
+      # but we can try and find out! See https://github.com/jupyterhub/jupyterhub/issues/3099
+      # for more example
+      # 1h, same as culler.
+      shutdown_no_activity_timeout: 3600
     ResourceUseDisplay:
       disable_legacy_endpoint: true
 
