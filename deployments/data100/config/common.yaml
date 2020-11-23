@@ -94,6 +94,9 @@ jupyterhub:
         tag: 12.2
         policy: IfNotPresent
   singleuser:
+    extraAnnotations:
+      # We scrape only every 5 minutes, to not overwhelm the prometheus server
+      prometheus.io/scrape-slow: "true"
     extraContainers:
       - name: postgres
         image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n2510.hd28e63b
