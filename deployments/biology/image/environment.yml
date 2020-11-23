@@ -13,6 +13,7 @@ dependencies:
 - augustus=3.3.3
 - raxml-ng=1.0.1
 - structure=2.3.4
+- paml=4.9
 #- repeatmasker=4.0.9
 
 # Packages from bioconda for BioE-131, Fall 2020, Issue #1885
