@@ -38,7 +38,7 @@ psycopg2==2.8.4
 jassign==0.0.7
 okpy==1.13.11
 dsassign==0.0.8
-notetaker==0.0.5 # for data 100 hub study
+notetaker==0.0.6 # for data 100 hub study
 
 # notebook stuff
 jupyter-contrib-nbextensions==0.5.1
