@@ -152,3 +152,6 @@ graphviz
 
 # issue #1903, data h195A fall 2020
 habanero==0.7.4
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/1981
+ipycanvas==0.7.0
