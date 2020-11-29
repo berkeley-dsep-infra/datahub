@@ -197,7 +197,8 @@ RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
             jupyter-matplotlib \
             jupyterlab-plotly \
             @jupyterlab/geojson-extension \
-            jupyterlab-videochat@0.4 && \
+            jupyterlab-videochat@0.4 \
+            ipycanvas  && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.18.5 cython==0.29.21
