@@ -6,6 +6,7 @@ USER root
 
 # npm is needed to install JupyterHub from source
 RUN apt update > /dev/null  && apt install --yes npm > /dev/null
+# Install from https://github.com/yuvipanda/jupyterhub/tree/high-pagination
 RUN python3 -m pip install -U git+https://github.com/yuvipanda/jupyterhub@a89ce8f9945c5f24bba0c162799eac54a966abba
 
 COPY canvasauthenticator /srv/canvasauthenticator
