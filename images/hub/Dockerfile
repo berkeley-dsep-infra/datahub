@@ -4,7 +4,10 @@ FROM jupyterhub/k8s-hub:0.10.0
 
 USER root
 
-RUN python3 -m pip install -U jupyterhub==1.2.2
+# npm is needed to install JupyterHub from source
+RUN apt update > /dev/null  && apt install --yes npm > /dev/null
+RUN python3 -m pip install -U git+https://github.com/yuvipanda/jupyterhub@a89ce8f9945c5f24bba0c162799eac54a966abba
+
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
 
