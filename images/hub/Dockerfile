@@ -4,6 +4,7 @@ FROM jupyterhub/k8s-hub:0.10.0
 
 USER root
 
+RUN python3 -m pip install -U jupyterhub==1.2.2
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
 
