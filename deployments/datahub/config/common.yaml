@@ -12,6 +12,23 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
+    initContainers:
+      - name: templates-clone
+        image: alpine/git
+        args:
+          - clone
+          - --depth=1
+          - --single-branch
+          - --
+          - https://github.com/berkeley-dsep-infra/datahub-homepage
+          - /srv/repo
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+        volumeMounts:
+          - name: custom-templates
+            mountPath: /srv/repo
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
