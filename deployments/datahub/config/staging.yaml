@@ -18,23 +18,6 @@ jupyterhub:
       hosts:
         - staging.datahub.berkeley.edu
   hub:
-    initContainers:
-      - name: templates-clone
-        image: alpine/git
-        args:
-          - clone
-          - --depth=1
-          - --single-branch
-          - --
-          - https://github.com/berkeley-dsep-infra/datahub-homepage
-          - /srv/repo
-        securityContext:
-          runAsUser: 1000
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-        volumeMounts:
-          - name: custom-templates
-            mountPath: /srv/repo
     extraContainers:
       # Keep templates in sync, so you can autodeploy from master
       - name: templates-sync
