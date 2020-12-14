@@ -13,6 +13,9 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     initContainers:
+      # There's another sidecar, specified in `secrets/staging.yaml` and `secrets/prod.yaml`
+      # that keeps this up to date. https://github.com/jupyterhub/kubespawner/issues/468
+      # should help us move that back here.
       - name: templates-clone
         image: alpine/git
         args:
@@ -22,25 +25,6 @@ jupyterhub:
           - --
           - https://github.com/berkeley-dsep-infra/datahub-homepage
           - /srv/repo
-        securityContext:
-          runAsUser: 1000
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-        volumeMounts:
-          - name: custom-templates
-            mountPath: /srv/repo
-    extraContainers:
-      # Keep templates in sync, so you can autodeploy from master
-      - name: templates-sync
-        image: alpine/git
-        workingDir: /srv/repo
-        command:
-          - /bin/sh
-        args:
-          - -c
-          # Do git reset --hard origin/master so we aren't confused by force pushes
-          - "while true; do git fetch origin; git reset --hard origin/master; sleep\
-            \ 5m; done"
         securityContext:
           runAsUser: 1000
           allowPrivilegeEscalation: false
