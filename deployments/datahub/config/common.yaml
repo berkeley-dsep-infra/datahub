@@ -49,7 +49,7 @@ jupyterhub:
       # this should be migrated to custom.profiles when that works
       profiles:
         # ENVECON153 (EEP153) Spring 2021 Issue 2013
-        2021-spring-27844
+        2021-spring-27844:
           mem_limit: 4096M
           mem_guarantee: 1024M
         # astr 128
