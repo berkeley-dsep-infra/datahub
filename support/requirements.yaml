@@ -4,4 +4,5 @@ dependencies:
    repository: https://prometheus-community.github.io/helm-charts
  - name: grafana
    version: 5.5.5
-   repository: https://kubernetes-charts.storage.googleapis.com
+   repository: https://grafana.github.io/helm-charts
+#   repository: https://kubernetes-charts.storage.googleapis.com

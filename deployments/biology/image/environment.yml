@@ -16,6 +16,9 @@ dependencies:
 - paml=4.9
 #- repeatmasker=4.0.9
 
+# Packages for IB120/201/CCB210
+- sympy=1.6.2
+
 # Packages from bioconda for BioE-131, Fall 2020, Issue #1885
 - bowtie2=2.4.2
 - spades=3.14.1
