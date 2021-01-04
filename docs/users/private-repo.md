@@ -3,7 +3,7 @@
 GitHub is used to store class materials (lab notebooks, lecture notebooks, etc), and
 [nbgitpuller](https://jupyterhub.github.io/nbgitpuller/) is used to distribute it
 to students. By default, nbgitpuller only supports public GitHub repositories. However,
-Berkeley's varios JupyterHubs are set up to allow pulling from private repositories
+Berkeley's JupyterHubs are set up to allow pulling from private repositories
 as well. 
 
 Public repositories are still preferred, but if you want to distribute a private repository
