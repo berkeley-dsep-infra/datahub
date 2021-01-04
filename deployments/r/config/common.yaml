@@ -4,6 +4,13 @@ nfsPVC:
     serverIP: nfsserver-01
     shareName: export/datahubhomes-2020-07-29/homes
 
+etcGitConfig:
+  enabled: true
+  gitconfig: |
+    [credential "https://github.com"]
+      helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 94386
+      useHttpPath = true
+
 jupyterhub:
   scheduling:
     userScheduler:
@@ -61,12 +68,23 @@ jupyterhub:
         pvcName: home-nfs
         subPath: "{username}"
       extraVolumes:
+        - name: etc-gitconfig
+          secret:
+            secretName: user-etc-gitconfig
         - name: etc-jupyter
           configMap:
             name: user-etc-jupyter
       extraVolumeMounts:
         - name: etc-jupyter
           mountPath: /etc/jupyter
+        - name: etc-gitconfig
+          mountPath: /etc/gitconfig
+          subPath: gitconfig
+          readOnly: true
+        - name: etc-gitconfig
+          mountPath: /etc/github/github-app-private-key.pem
+          subPath: github-app-private-key.pem
+          readOnly: true
     defaultUrl: "/rstudio"
     memory:
       guarantee: 512M

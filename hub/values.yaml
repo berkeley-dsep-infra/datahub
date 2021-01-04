@@ -32,6 +32,8 @@ etcJupyter:
     ResourceUseDisplay:
       disable_legacy_endpoint: true
 
+etcGitConfig:
+  enabled: false
 nfsPVC:
   enabled: true
 

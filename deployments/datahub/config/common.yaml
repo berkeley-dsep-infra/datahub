@@ -4,6 +4,13 @@ nfsPVC:
     serverIP: nfsserver-01
     shareName: export/datahubhomes-2020-07-29/homes
 
+etcGitConfig:
+  enabled: true
+  gitconfig: |
+    [credential "https://github.com"]
+      helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 94384
+      useHttpPath = true
+
 jupyterhub:
   scheduling:
     userScheduler:
@@ -232,9 +239,20 @@ jupyterhub:
         - name: etc-jupyter
           configMap:
             name: user-etc-jupyter
+        - name: etc-gitconfig
+          secret:
+            secretName: user-etc-gitconfig
       extraVolumeMounts:
         - name: etc-jupyter
           mountPath: /etc/jupyter
+        - name: etc-gitconfig
+          mountPath: /etc/gitconfig
+          subPath: gitconfig
+          readOnly: true
+        - name: etc-gitconfig
+          mountPath: /etc/github/github-app-private-key.pem
+          subPath: github-app-private-key.pem
+          readOnly: true
     memory:
       guarantee: 512M
       limit: 1G
