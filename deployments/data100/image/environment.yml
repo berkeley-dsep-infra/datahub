@@ -2,7 +2,7 @@ channels:
 - conda-forge
 dependencies:
 - nodejs=13.7.0
-- pip=20.0.2
+- pip=20.2.*
 - protobuf=3.11.2
 - python=3.8.*
 - graphviz=2.42.3
