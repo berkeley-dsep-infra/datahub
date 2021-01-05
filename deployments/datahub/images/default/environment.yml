@@ -1,4 +1,4 @@
 dependencies:
-- nodejs==14.8.*
+- nodejs==12.*
 - pip==20.2.*
 - python==3.8.*
