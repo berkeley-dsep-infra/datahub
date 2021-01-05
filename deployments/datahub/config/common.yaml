@@ -119,6 +119,7 @@ jupyterhub:
           - daw
           - denero
           - ramesh_s
+          -suraj.rampure
           - swupnil
           # dsep staff
           - ericvd
