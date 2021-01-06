@@ -147,6 +147,7 @@ RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
             @jupyter-widgets/jupyterlab-manager \
+            jupyter-matplotlib \
             jupyterlab-plotly \
             @jupyterlab/geojson-extension \
             jupyterlab-videochat@0.4 \
