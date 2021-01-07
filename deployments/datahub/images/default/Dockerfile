@@ -145,10 +145,9 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 # like https://app.circleci.com/pipelines/github/berkeley-dsep-infra/datahub/1176/workflows/7f49851f-c2fc-46ca-b887-15d8e5612097/jobs/13584
 RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
-    jupyter labextension install --debug \
+    jupyter labextension install \
             @jupyter-widgets/jupyterlab-manager \
             jupyter-matplotlib \
-            jupyterlab-plotly \
             @jupyterlab/geojson-extension \
             jupyterlab-videochat@0.4 \
             ipycanvas  && \
