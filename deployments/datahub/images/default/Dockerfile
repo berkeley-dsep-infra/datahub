@@ -129,12 +129,10 @@ RUN /tmp/install-miniforge.bash
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
-COPY requirements.txt /tmp/requirements.txt
-COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
-
+COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 
 # Install jupyterlab extensions immediately after infra-requirements
@@ -147,15 +145,15 @@ RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
             @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
+            jupyter-matplotlib@0.7.4 \
             @jupyterlab/geojson-extension \
-            jupyterlab-videochat@0.4 \
+            jupyterlab-videochat \
             ipycanvas  && \
     rm -rf /tmp/yarncache
 
-RUN pip install --no-cache numpy==1.18.5 cython==0.29.21
+RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
 
-
+COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
 
 # Set up nbpdf dependencies
