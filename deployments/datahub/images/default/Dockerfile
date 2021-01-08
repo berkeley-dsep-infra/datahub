@@ -72,6 +72,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Use newer version of R
+# Binary packages from packagemanager.rstudio.com work against this.
+# Base R from Focal is only 3.6.
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 
 # Install R packages
 RUN apt-get update -qq --yes > /dev/null && \
