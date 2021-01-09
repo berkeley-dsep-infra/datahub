@@ -1,4 +1,4 @@
-FROM buildpack-deps:bionic-scm
+FROM buildpack-deps:focal-scm
 
 # Set up common env variables
 ENV TZ=America/Los_Angeles
@@ -50,13 +50,10 @@ RUN apt-get update -qq --yes && \
         pandoc \
         texlive-xetex \
         texlive-fonts-recommended \
-        texlive-generic-recommended \
+        texlive-plain-generic \
         > /dev/null
 
 WORKDIR /home/jovyan
-
-# prevent bibtex from interupting nbconvert
-RUN update-alternatives --install /usr/bin/bibtex bibtex /bin/true 200
 
 COPY install-miniforge.bash /tmp/install-miniforge.bash
 RUN /tmp/install-miniforge.bash

@@ -1,4 +1,4 @@
-FROM buildpack-deps:bionic-scm
+FROM buildpack-deps:focal-scm
 
 ENV CONDA_DIR /opt/conda
 
@@ -13,7 +13,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV NB_USER jovyan
 ENV NB_UID 1000
 
+
 RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
+
+# Create user owned R libs dir
+# This lets users temporarily install packages
+ENV R_LIBS_USER /opt/r
+RUN mkdir -p ${R_LIBS_USER} && chown ${NB_USER}:${NB_USER} ${R_LIBS_USER}
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
@@ -25,131 +31,29 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
 # for nbconvert
+# FIXME: Understand what exactly we want
+# texlive-plain-generic is new name of texlive-generic-recommended
 RUN apt-get -qq install --yes \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
-            texlive-generic-recommended > /dev/null
+            texlive-plain-generic > /dev/null
 
 RUN apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
+            # for cartopy
             libgeos-dev \
+            libproj-dev \
+            proj-data \
+            proj-bin \
+            # For L&S22
+            graphviz \
             # for phys 151
             gfortran \
             # for eps 109; fall 2019
             ffmpeg > /dev/null
 
-# install R, packages, and RStudio dependencies
-RUN apt-get -qq update --yes && \
-    apt-get -qq install --yes \
-            libapparmor1 \
-            libgdal-dev \
-            libproj-dev \
-            psmisc \
-            sudo \
-            r-base \
-            r-base-dev \
-            r-cran-aer \
-            r-cran-backports \
-            r-cran-base64enc \
-            r-cran-bindrcpp \
-            r-cran-broom \
-            r-cran-crayon \
-            r-cran-crosstalk \
-            r-cran-curl \
-            r-cran-data.table \
-            r-cran-dbi \
-            r-cran-devtools \
-            r-cran-digest \
-            r-cran-e1071 \
-            r-cran-evaluate \
-            r-cran-forcats \
-            r-cran-ggplot2 \
-            r-cran-glue \
-            r-cran-haven \
-            r-cran-highr \
-            r-cran-hms \
-            r-cran-htmlwidgets \
-            r-cran-httpuv \
-            r-cran-httr \
-            r-cran-lubridate \
-            r-cran-mapproj \
-            r-cran-maptools \
-            r-cran-markdown \
-            r-cran-matrix \
-            r-cran-matrixstats \
-            r-cran-memoise \
-            r-cran-nlme \
-            r-cran-openssl \
-            r-cran-pbdzmq \
-            r-cran-pillar \
-            r-cran-png \
-            r-cran-praise \
-            r-cran-proto \
-            r-cran-raster \
-            r-cran-rcolorbrewer \
-            r-cran-rcpp \
-            r-cran-rcurl \
-            r-cran-readr \
-            r-cran-readxl \
-            r-cran-rematch \
-            r-cran-repr \
-            r-cran-reshape \
-            r-cran-rjson \
-            r-cran-rlang \
-            r-cran-rpart \
-            r-cran-rprojroot \
-            r-cran-shiny \
-            r-cran-sp \
-            r-cran-spatstat \
-            r-cran-spdep \
-            r-cran-stringr \
-            r-cran-stringi \
-            r-cran-testthat \
-            r-cran-tibble \
-            r-cran-tidyr \
-            r-cran-utf8 \
-            r-cran-uuid \
-            r-cran-viridis \
-            r-cran-withr \
-            r-cran-xml2 \
-            r-cran-yaml \
-            r-cran-rlist \
-            r-cran-jsonlite \
-            r-cran-assertthat \
-            lsb-release > /dev/null
-            
-# install graphviz
-RUN apt-get -qq update --yes && \
-    apt-get -qq install --yes graphviz
-
-# Install some R libraries that aren't in the debs
-COPY install.R  /tmp/install.R
-# CircleCI stops printing output at 40k chars.
-# We send stdout to a log file, and tail it a bit
-# FIXME: Find something less sucky
-# another hubploy #1
-RUN Rscript /tmp/install.R > /tmp/r-custom-packages.log 2>&1 && \
-    true || ( echo FAIL ; tail /tmp/r-custom-packages.log ; false )
-RUN tail /tmp/r-custom-packages.log
-RUN rm /tmp/r-custom-packages.log
-
-ENV RSTUDIO_URL https://download2.rstudio.org/rstudio-server-1.1.453-amd64.deb
-ENV RSTUDIO_CHECKSUM 3c546fa9067f48ed1a342f810fca8be6
-
-# install rstudio
-RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    echo "${RSTUDIO_CHECKSUM} /tmp/rstudio.deb" | md5sum -c - && \
-    dpkg -i /tmp/rstudio.deb && \
-    rm /tmp/rstudio.deb
-
-ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
-
-# Set this to be on container storage, rather than under $HOME
-ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
-
-# FIXME: Move this elsewhere in the dockerfile?
 # Install packages needed by notebook-as-pdf
 # Default fonts seem ok, we just install an emoji font
 RUN apt-get update && \
@@ -164,9 +68,63 @@ RUN apt-get update && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            fonts-noto-color-emoji && \
+            fonts-noto-color-emoji > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Use newer version of R
+# Binary packages from packagemanager.rstudio.com work against this.
+# Base R from Focal is only 3.6.
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
+
+# Install R packages
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq \
+    r-base \
+    r-base-dev \
+    r-recommended \
+    r-cran-littler  > /dev/null
+
+# Needed by RStudio
+RUN apt-get update -qq --yes && \
+    apt-get install --yes --no-install-recommends -qq \
+        psmisc \
+        sudo \
+        libapparmor1 \
+        lsb-release \
+        libclang-dev  > /dev/null
+            
+# 1.3.959 is latest version that works with jupyter-rsession-proxy
+# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
+RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
+    dpkg -i /tmp/rstudio.deb && \
+    rm /tmp/rstudio.deb
+
+# Set CRAN mirror to rspm before we install anything
+COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
+# RStudio needs its own config
+COPY rsession.conf /etc/rstudio/rsession.conf
+
+# R_LIBS_USER is set by default in /etc/R/Renviron, which RStudio loads.
+# We uncomment the default, and set what we wanna - so it picks up
+# the packages we install. Without this, RStudio doesn't see the packages
+# that R does.
+# Stolen from https://github.com/jupyterhub/repo2docker/blob/6a07a48b2df48168685bb0f993d2a12bd86e23bf/repo2docker/buildpacks/r.py
+RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
+    echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
+
+# Install all our base R packages
+COPY install.R  /tmp/install.R
+RUN /tmp/install.R && \
+    rm -rf /tmp/downloaded_packages
+
+ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
+
+# Set this to be on container storage, rather than under $HOME
+ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
+
 
 WORKDIR /home/${NB_USER}
 
@@ -176,12 +134,10 @@ RUN /tmp/install-miniforge.bash
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
-COPY requirements.txt /tmp/requirements.txt
-COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
-
+COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 
 # Install jupyterlab extensions immediately after infra-requirements
@@ -194,21 +150,23 @@ RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
             @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib \
-            jupyterlab-plotly \
+            jupyter-matplotlib@0.7.4 \
             @jupyterlab/geojson-extension \
-            jupyterlab-videochat@0.4 \
+            jupyterlab-videochat \
             ipycanvas  && \
     rm -rf /tmp/yarncache
 
-RUN pip install --no-cache numpy==1.18.5 cython==0.29.21
+RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
+
+COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
+
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
 
 # Install IR kernelspec
-RUN Rscript -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
+RUN r -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
