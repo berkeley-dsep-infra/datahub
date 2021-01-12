@@ -121,6 +121,7 @@ jupyterhub:
           - ramesh_s
           - suraj.rampure
           - swupnil
+          - terry.regier
           # dsep staff
           - ericvd
           - ktakimoto
