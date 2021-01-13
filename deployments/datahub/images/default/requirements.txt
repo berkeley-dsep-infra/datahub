@@ -1,9 +1,9 @@
 #
 # data8; foundation
 datascience==0.15.6
-matplotlib==3.1.3
-pandas==1.1.0
-scipy==1.5.2
+matplotlib==3.3.3
+pandas==1.2.0
+scipy==1.6.0
 statsmodels==0.11.1
 okpy==1.18.1
 ipympl==0.5.7
@@ -30,9 +30,9 @@ netCDF4==1.5.4
 nose==1.3.7
 #
 # modules
-scikit-learn==0.23.2
-seaborn==0.10.1
-bokeh==2.1.1
+scikit-learn==0.24.0
+seaborn==0.11.1
+bokeh==2.2.3
 decorator==4.4.2
 networkx==2.4
 # pygame==1.9.6
@@ -48,7 +48,7 @@ tqdm==4.48.2
 mne==0.20.7
 nibabel==3.1.1
 h5py==2.10.0
-pillow==7.2.0
+pillow==8.1.0
 numexpr==2.7.1
 openpyxl==3.0.4
 nilearn==0.6.2
@@ -72,15 +72,17 @@ keras-vis==0.4.1
 tables==3.6.1
 opencv-python==4.4.0.42
 
-# astr 128/256; spring 2020
+# astr 128/256; spring 2021
 astroquery==0.4.1
-astropy==4.0
-dustmaps==1.0.4
+astropy==4.2
+dustmaps==1.0.6
 george==0.3.1
-exoplanet==0.3.2
-pymc3==3.9.3
-torch==1.6.0
-torchvision==0.7.0
+exoplanet==0.4.3
+pymc3==3.10.0
+torch==1.7.1
+torchvision==0.8.2
+pyvo==1.1
+joblib==1.0.0
 
 # eep 153; spring 2019
 requests==2.24.0
