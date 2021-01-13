@@ -184,11 +184,8 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib@0.7.4 \
-            @jupyterlab/geojson-extension \
-            jupyterlab-videochat \
-            ipycanvas  && \
+        @jupyterlab/geojson-extension \
+        jupyterlab-plotly@4.14.3 && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
