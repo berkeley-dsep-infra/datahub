@@ -86,6 +86,9 @@ RUN apt-get update -qq --yes > /dev/null && \
     r-recommended \
     r-cran-littler  > /dev/null
 
+RUN apt update --yes > /dev/null && \
+    apt install --no-install-recommends --yes libpoppler-cpp-dev libx11-dev libglpk-dev libgmp3-dev libxml2-dev > /dev/null
+
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
@@ -115,16 +118,48 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
+COPY  class-libs.R /tmp/class-libs.R
 # Install all our base R packages
 COPY install.R  /tmp/install.R
 RUN /tmp/install.R && \
     rm -rf /tmp/downloaded_packages
 
+
+RUN mkdir -p /tmp/r-packages
+
+# pdftools
+COPY r-packages/dlab-ctawg.r /tmp/r-packages/
+RUN r /tmp/r-packages/dlab-ctawg.r
+
+COPY r-packages/2019-fall-stat-131a.r /tmp/r-packages
+RUN r /tmp/r-packages/2019-fall-stat-131a.r
+
+COPY r-packages/eep-1118.r /tmp/r-packages
+RUN r /tmp/r-packages/eep-1118.r
+
+COPY r-packages/ias-c188.r /tmp/r-packages
+RUN r /tmp/r-packages/ias-c188.r
+
+COPY r-packages/ph-142.r /tmp/r-packages
+RUN r /tmp/r-packages/ph-142.r
+
+COPY r-packages/stat-131a.r /tmp/r-packages
+RUN r /tmp/r-packages/stat-131a.r
+
+COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
+RUN r /tmp/r-packages/2020-spring-envecon-c118.r
+
+COPY r-packages/econ-140.r /tmp/r-packages/
+RUN r /tmp/r-packages/econ-140.r
+
+COPY r-packages/ph-290.r /tmp/r-packages/
+RUN r /tmp/r-packages/ph-290.r
+
+
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME
 ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
-
 
 WORKDIR /home/${NB_USER}
 
