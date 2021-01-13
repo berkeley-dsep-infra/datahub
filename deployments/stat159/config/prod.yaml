@@ -1,3 +1,6 @@
+jupyterhub-ssh:
+  hubUrl: https://stat159.datahub.berkeley.edu
+
 jupyterhub:
   proxy:
     # service:
