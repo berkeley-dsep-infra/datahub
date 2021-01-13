@@ -29,10 +29,6 @@ jupyterhub:
           mem_guarantee: 1024M
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-    extraConfig:
-      # 04, since in hub/values.yaml we explicitly set it to /home/jovyan as 03
-      04-rstudio-home: |
-        c.KubeSpawner.working_dir = '/home/rstudio'
 
   auth:
     type: custom # This enables canvas auth
@@ -63,7 +59,6 @@ jupyterhub:
       hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
-      homeMountPath: /home/rstudio
       static:
         pvcName: home-nfs
         subPath: "{username}"
@@ -89,7 +84,7 @@ jupyterhub:
         # only way to change that is by setting $HOME. So instead, we just
         # bind mount a fresh directory on top of ~/.rstudio!
         - name: home
-          mountPath: /home/rstudio/.rstudio
+          mountPath: /home/jovyan/.rstudio
           subPath: '{username}/.r-hub-rstudio'
     defaultUrl: "/rstudio"
     memory:
