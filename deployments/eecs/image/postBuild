@@ -6,4 +6,6 @@ mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 
 # Install JupyterLab extensions
-jupyter labextension install @jupyterlab/server-proxy
+jupyter labextension install \
+    @jupyter-widgets/jupyterlab-manager \
+    @jupyterlab/server-proxy

@@ -70,3 +70,7 @@ RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 # Set bash as shell in terminado.
 # Disable history.
 ADD ipython_config.py ${CONDA_PREFIX}/envs/data100/etc/ipython/
+
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@2.0.0 \
+                                 jupyterlab-plotly@4.8.1  \
+                                 plotlywidget@4.8.1
