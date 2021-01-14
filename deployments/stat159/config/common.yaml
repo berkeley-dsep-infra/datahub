@@ -1,0 +1,44 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/stat159
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  auth:
+    type: custom
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+          - fernando.perez
+          - pbstark
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: gamma-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G
+    image:
+      name: gcr.io/ucb-datahub-2018/stat159-user-image

@@ -1,0 +1,19 @@
+jupyterhub-ssh:
+  hubUrl: https://stat159-staging.datahub.berkeley.edu
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    # service:
+      # make the IP static in google cloud console so we won't lose it
+      # then specify it here so if we redeploy we get the same stuff
+      # loadBalancerIP: <IP of stat159.datahub.berkeley.edu
+    # uncomment once DNS entry has been made
+    https:
+      hosts:
+        - stat159-staging.datahub.berkeley.edu
