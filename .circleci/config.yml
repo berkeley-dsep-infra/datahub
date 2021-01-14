@@ -178,10 +178,10 @@ jobs:
           command: |
             hubploy deploy biology hub ${CIRCLE_BRANCH}
 
-      # - run:
-      #     name: Deploy julia
-      #     command: |
-      #       hubploy deploy julia hub ${CIRCLE_BRANCH}
+      - run:
+          name: Deploy julia
+          command: |
+            hubploy deploy julia hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy R
@@ -328,15 +328,6 @@ workflows:
                 ignore:
                 - staging
                 - prod
-      # - hubploy/build-image:
-      #     deployment: julia
-      #     name: julia hub image build
-      #     # Filters can only be per-job? wtf
-      #     filters:
-      #         branches:
-      #           ignore:
-      #           - staging
-      #           - prod
       - hubploy/build-image:
           deployment: stat159
           name: stat159 image build
@@ -346,15 +337,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
-#      - hubploy/build-image:
-#          deployment: stat89a
-#          name: stat89a image build
+      - hubploy/build-image:
+          deployment: julia
+          name: julia hub image build
           # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                ignore:
-#                - staging
-#                - prod
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: data102
           name: data102 image build
@@ -444,16 +435,6 @@ workflows:
                 only:
                 - staging
                 - prod
-      # - hubploy/build-image:
-      #     deployment: julia
-      #     name: julia hub image build
-      #     push: true
-      #     # Filters can only be per-job? wtf
-      #     filters:
-      #         branches:
-      #           only:
-      #           - staging
-      #           - prod
       - hubploy/build-image:
           deployment: stat159
           name: stat159 image build
@@ -464,16 +445,16 @@ workflows:
                 only:
                 - staging
                 - prod
-#      - hubploy/build-image:
-#          deployment: stat89a
-#          name: stat89a image build
-#          push: true
+      - hubploy/build-image:
+          deployment: julia
+          name: julia hub image build
+          push: true
           # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                only:
-#                - staging
-#                - prod
+          filters:
+              branches:
+                only:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: data102
           name: data102 image build
@@ -530,8 +511,7 @@ workflows:
               - prob140 image build
               - biology image build
               - r hub image build
-#              - stat89a image build
-              # - julia hub image build
+              - julia hub image build
               - data102 image build
               - data100 image build
               - data8x image build
