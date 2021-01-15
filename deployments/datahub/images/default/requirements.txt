@@ -1,6 +1,6 @@
 #
 # data8; foundation
-datascience==0.15.6
+datascience==0.17.0
 matplotlib==3.3.3
 pandas==1.2.0
 scipy==1.6.0
