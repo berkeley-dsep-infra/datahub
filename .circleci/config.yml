@@ -66,6 +66,10 @@ orbs:
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
           - setup_remote_docker
+              # fixes a docker permission problem
+              # https://support.circleci.com/hc/en-us/articles/360050934711
+              # https://circleci.com/docs/2.0/building-docker-images/
+              version: 19.03.13
           - save_cache:
               paths:
                 - ./venv
