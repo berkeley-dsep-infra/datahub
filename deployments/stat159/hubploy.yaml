@@ -1,5 +1,7 @@
 images:
-  image_name: gcr.io/ucb-datahub-2018/stat159-user-image
+  images:
+    - name: gcr.io/ucb-datahub-2018/primary-user-image
+      path: ../datahub/images/default
   registry:
     provider: gcloud
     gcloud:
