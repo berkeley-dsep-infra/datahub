@@ -320,15 +320,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: r
-          name: r hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: stat159
           name: stat159 image build
           # Filters can only be per-job? wtf
@@ -426,16 +417,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: r
-          name: r hub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: stat159
           name: stat159 image build
           push: true
@@ -510,7 +491,6 @@ workflows:
               - datahub image build
               - prob140 image build
               - biology image build
-              - r hub image build
               - julia hub image build
               - data102 image build
               - data100 image build
