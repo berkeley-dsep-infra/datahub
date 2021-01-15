@@ -13,3 +13,6 @@ Pkg.add.([
     "Images",
     "Plots"
 ]);
+
+# Precompiling installed packages
+Pkg.precompile()

@@ -15,10 +15,9 @@ ENV PATH ${JULIA_DIR}/bin:${CONDA_DIR}/bin:$PATH
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
-# Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
-    apt-get install --yes --no-install-recommends -qq \
+    apt-get install --yes -qq \
         htop \
         less \
         man \
@@ -28,6 +27,7 @@ RUN apt-get update -qq --yes && \
         tmux \
         wget \
         vim \
+        build-essential \
         locales > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
@@ -47,6 +47,9 @@ RUN conda env update -p ${CONDA_DIR}  -f /tmp/environment.yml
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache -r /tmp/requirements.txt
 
 COPY install-julia.bash /tmp/install-julia.bash
 RUN /tmp/install-julia.bash
