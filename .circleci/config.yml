@@ -65,7 +65,11 @@ orbs:
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
-          - setup_remote_docker
+          - setup_remote_docker:
+              # fixes a docker permission problem
+              # https://support.circleci.com/hc/en-us/articles/360050934711
+              # https://circleci.com/docs/2.0/building-docker-images/
+              version: 19.03.13
           - save_cache:
               paths:
                 - ./venv
@@ -302,15 +306,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: biology
           name: biology image build
           # Filters can only be per-job? wtf
@@ -371,16 +366,6 @@ workflows:
           # workshop hub also uses this image
           deployment: datahub
           name: datahub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -451,7 +436,6 @@ workflows:
       - deploy:
           requires:
               - datahub image build
-              - prob140 image build
               - biology image build
               - julia hub image build
               - data102 image build
