@@ -161,3 +161,22 @@ ipycanvas==0.7.0
 
 # Issue #1222, for PH 142 - Spring 2020
 PyPDF2==1.26.0
+
+# data100 scientific packages
+ray==1.1.0
+xlrd==2.0.1
+
+# data100 visualization
+colorlover==0.3.0
+cufflinks==0.17.3
+altair==4.1.0
+
+# data100 tools to access things
+tweepy==3.10.0
+pytz==2020.5
+psycopg2==2.8.6
+
+# data100 teaching
+jassign==0.0.7
+dsassign==0.0.8
+notetaker==0.0.6

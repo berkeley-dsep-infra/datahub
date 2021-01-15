@@ -33,13 +33,15 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 # for nbconvert
 # FIXME: Understand what exactly we want
 # texlive-plain-generic is new name of texlive-generic-recommended
-RUN apt-get -qq install --yes \
+RUN apt-get update > /dev/null && \
+    apt-get -qq install --yes \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-plain-generic > /dev/null
 
-RUN apt-get -qq install --yes \
+RUN apt-get update > /dev/null && \
+    apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
             # for cartopy
@@ -52,7 +54,10 @@ RUN apt-get -qq install --yes \
             # for phys 151
             gfortran \
             # for eps 109; fall 2019
-            ffmpeg > /dev/null
+            ffmpeg  \
+            # for data100
+            libpq-dev \
+            postgresql-client > /dev/null
 
 # Install packages needed by notebook-as-pdf
 # Default fonts seem ok, we just install an emoji font
@@ -179,7 +184,8 @@ RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
-RUN jupyter contrib nbextension install --sys-prefix
+RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
+    jupyter nbextensions_configurator enable --sys-prefix
 
 # Install jupyterlab extensions immediately after infra-requirements
 # This hopefully prevents re-installation all the time
