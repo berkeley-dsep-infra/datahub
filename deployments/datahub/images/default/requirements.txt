@@ -67,8 +67,6 @@ pymdptoolbox==4.0b3
 # data-x; DL
 tensorflow==2.3.0
 scikit-image==0.17.2
-Keras==2.4.3
-keras-vis==0.4.1
 tables==3.6.1
 opencv-python==4.4.0.42
 
@@ -115,7 +113,6 @@ pyreadstat==1.0.0
 
 # issue 954, EPS24 - fall 2019
 xarray==0.16.0
-dask==2.23.0
 
 # issue 1001, Physics 188/288 - fall 2019
 umap-learn==0.4.6
@@ -180,3 +177,13 @@ psycopg2==2.8.6
 jassign==0.0.7
 dsassign==0.0.8
 notetaker==0.0.6
+
+# data102
+dask==2020.12.0
+distributed==2020.12.0
+keras-applications==1.0.8
+keras-preprocessing==1.1.2
+keras==2.4.3
+keras-vis==0.4.1
+plotly-express==0.4.1
+cytoolz==0.11.0
