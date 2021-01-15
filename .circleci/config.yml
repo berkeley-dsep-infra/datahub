@@ -302,15 +302,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: biology
           name: biology image build
           # Filters can only be per-job? wtf
@@ -371,16 +362,6 @@ workflows:
           # workshop hub also uses this image
           deployment: datahub
           name: datahub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -451,7 +432,6 @@ workflows:
       - deploy:
           requires:
               - datahub image build
-              - prob140 image build
               - biology image build
               - julia hub image build
               - data102 image build
