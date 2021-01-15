@@ -194,4 +194,4 @@ sympy==1.7.1
 
 # stat159 2021 Spring
 cryptorandom==0.2
-permute==0.1
+git+https://github.com/statlab/permute@v0.1.a5
