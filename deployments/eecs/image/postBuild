@@ -10,4 +10,5 @@ jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
     @jupyterlab/server-proxy
 
-jupyter contrib nbextension install --sys-prefix
+jupyter contrib nbextensions install --sys-prefix --symlink
+jupyter nbextensions_configurator enable --sys-prefix

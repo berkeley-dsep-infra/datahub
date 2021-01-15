@@ -25,3 +25,4 @@ jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
 # Enough people like this, let's load it in.
 jupyter-contrib-nbextensions==0.5.1
+jupyter_nbextensions_configurator==0.4.1

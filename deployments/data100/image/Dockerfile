@@ -28,11 +28,11 @@ RUN apt-get update -qq --yes && \
         git \
         htop \
         less \
-        libpq-dev \
         man \
         mc \
         nano \
         openssh-client \
+        libpq-dev \
         postgresql-client \
         screen \
         tar \

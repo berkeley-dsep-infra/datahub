@@ -47,7 +47,8 @@ RUN conda env update -p ${CONDA_DIR}  -f /tmp/environment.yml
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
-RUN jupyter contrib nbextension install --sys-prefix
+RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
+    jupyter nbextensions_configurator enable --sys-prefix
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
