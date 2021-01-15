@@ -42,3 +42,4 @@ jupyterhub:
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/stat159-user-image
+    defaultUrl: "/lab"
