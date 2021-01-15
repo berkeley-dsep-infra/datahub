@@ -9,3 +9,5 @@ cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
     @jupyterlab/server-proxy
+
+jupyter contrib nbextension install --sys-prefix
