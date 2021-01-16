@@ -1,6 +1,6 @@
 #
 # data8; foundation
-datascience==0.15.6
+datascience==0.17.0
 matplotlib==3.3.3
 pandas==1.2.0
 scipy==1.6.0
@@ -191,3 +191,7 @@ cytoolz==0.11.0
 # prob140 2021 Spring
 prob140==0.4.1.5
 sympy==1.7.1
+
+# stat159 2021 Spring
+cryptorandom==0.2
+git+https://github.com/statlab/permute@v0.1.a5
