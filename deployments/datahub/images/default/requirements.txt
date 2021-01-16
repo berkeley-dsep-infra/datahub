@@ -1,9 +1,9 @@
 #
 # data8; foundation
-datascience==0.15.6
-matplotlib==3.1.3
-pandas==1.1.0
-scipy==1.5.2
+datascience==0.17.0
+matplotlib==3.3.3
+pandas==1.2.0
+scipy==1.6.0
 statsmodels==0.11.1
 okpy==1.18.1
 ipympl==0.5.7
@@ -12,6 +12,7 @@ folium==0.11
 # r
 jupyter-server-proxy==1.5.0
 jupyter-rsession-proxy==1.2
+jupyter-shiny-proxy==1.1
 #
 # cogsci88;
 ggplot==0.11.5
@@ -29,9 +30,9 @@ netCDF4==1.5.4
 nose==1.3.7
 #
 # modules
-scikit-learn==0.23.2
-seaborn==0.10.1
-bokeh==2.1.1
+scikit-learn==0.24.0
+seaborn==0.11.1
+bokeh==2.2.3
 decorator==4.4.2
 networkx==2.4
 # pygame==1.9.6
@@ -47,7 +48,7 @@ tqdm==4.48.2
 mne==0.20.7
 nibabel==3.1.1
 h5py==2.10.0
-pillow==7.2.0
+pillow==8.1.0
 numexpr==2.7.1
 openpyxl==3.0.4
 nilearn==0.6.2
@@ -66,20 +67,20 @@ pymdptoolbox==4.0b3
 # data-x; DL
 tensorflow==2.3.0
 scikit-image==0.17.2
-Keras==2.4.3
-keras-vis==0.4.1
 tables==3.6.1
 opencv-python==4.4.0.42
 
-# astr 128/256; spring 2020
+# astr 128/256; spring 2021
 astroquery==0.4.1
-astropy==4.0
-dustmaps==1.0.4
+astropy==4.2
+dustmaps==1.0.6
 george==0.3.1
-exoplanet==0.3.2
-pymc3==3.9.3
-torch==1.6.0
-torchvision==0.7.0
+exoplanet==0.4.3
+pymc3==3.10.0
+torch==1.7.1
+torchvision==0.8.2
+pyvo==1.1
+joblib==1.0.0
 
 # eep 153; spring 2019
 requests==2.24.0
@@ -99,7 +100,7 @@ Cartopy==0.18.0 --no-binary Cartopy
 # data 88; spring 2020
 plotly==4.9.0
 mpmath==1.1.0
-sympy==1.6.2
+# sympy==1.6.2
 chart-studio==1.1.0
 csaps==1.0.2
 nbforms==0.5.1
@@ -112,7 +113,6 @@ pyreadstat==1.0.0
 
 # issue 954, EPS24 - fall 2019
 xarray==0.16.0
-dask==2.23.0
 
 # issue 1001, Physics 188/288 - fall 2019
 umap-learn==0.4.6
@@ -155,3 +155,43 @@ habanero==0.7.4
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/1981
 ipycanvas==0.7.0
+
+# Issue #1222, for PH 142 - Spring 2020
+PyPDF2==1.26.0
+
+# data100 scientific packages
+ray==1.1.0
+xlrd==2.0.1
+
+# data100 visualization
+colorlover==0.3.0
+cufflinks==0.17.3
+altair==4.1.0
+
+# data100 tools to access things
+tweepy==3.10.0
+pytz==2020.5
+psycopg2==2.8.6
+
+# data100 teaching
+jassign==0.0.7
+dsassign==0.0.8
+notetaker==0.0.6
+
+# data102
+dask==2020.12.0
+distributed==2020.12.0
+keras-applications==1.0.8
+keras-preprocessing==1.1.2
+keras==2.4.3
+keras-vis==0.4.1
+plotly-express==0.4.1
+cytoolz==0.11.0
+
+# prob140 2021 Spring
+prob140==0.4.1.5
+sympy==1.7.1
+
+# stat159 2021 Spring
+cryptorandom==0.2
+git+https://github.com/statlab/permute@v0.1.a5

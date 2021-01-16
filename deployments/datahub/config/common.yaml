@@ -4,6 +4,13 @@ nfsPVC:
     serverIP: nfsserver-01
     shareName: export/datahubhomes-2020-07-29/homes
 
+etcGitConfig:
+  enabled: true
+  gitconfig: |
+    [credential "https://github.com"]
+      helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 94384
+      useHttpPath = true
+
 jupyterhub:
   scheduling:
     userScheduler:
@@ -112,7 +119,9 @@ jupyterhub:
           - daw
           - denero
           - ramesh_s
+          - suraj.rampure
           - swupnil
+          - terry.regier
           # dsep staff
           - ericvd
           - ktakimoto
@@ -232,9 +241,26 @@ jupyterhub:
         - name: etc-jupyter
           configMap:
             name: user-etc-jupyter
+        - name: etc-gitconfig
+          secret:
+            secretName: user-etc-gitconfig
       extraVolumeMounts:
         - name: etc-jupyter
           mountPath: /etc/jupyter
+        - name: etc-gitconfig
+          mountPath: /etc/gitconfig
+          subPath: gitconfig
+          readOnly: true
+        - name: etc-gitconfig
+          mountPath: /etc/github/github-app-private-key.pem
+          subPath: github-app-private-key.pem
+          readOnly: true
+        # RStudio can't write session files to anywhere except ~/.rstudio -
+        # only way to change that is by setting $HOME. So instead, we just
+        # bind mount a fresh directory on top of ~/.rstudio!
+        - name: home
+          mountPath: /home/jovyan/.rstudio
+          subPath: '{username}/.datahub-rstudio'
     memory:
       guarantee: 512M
       limit: 1G

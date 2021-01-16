@@ -3,7 +3,7 @@ channels:
 - conda-forge
 dependencies:
 - python=3.8.*
-- pip=20.*
+- pip=20.2.*
 
 # Packages from bioconda for IB134L
 - bwa=0.7.12 
