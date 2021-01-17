@@ -65,7 +65,11 @@ orbs:
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
-          - setup_remote_docker
+          - setup_remote_docker:
+              # fixes a docker permission problem
+              # https://support.circleci.com/hc/en-us/articles/360050934711
+              # https://circleci.com/docs/2.0/building-docker-images/
+              version: 19.03.13
           - save_cache:
               paths:
                 - ./venv
@@ -302,35 +306,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: biology
           name: biology image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: r
-          name: r hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: stat159
-          name: stat159 image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -349,15 +326,6 @@ workflows:
       - hubploy/build-image:
           deployment: data102
           name: data102 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: data100
-          name: data100 image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -406,38 +374,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: biology
           name: biology image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: r
-          name: r hub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: stat159
-          name: stat159 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -458,16 +396,6 @@ workflows:
       - hubploy/build-image:
           deployment: data102
           name: data102 image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: data100
-          name: data100 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -508,12 +436,9 @@ workflows:
       - deploy:
           requires:
               - datahub image build
-              - prob140 image build
               - biology image build
-              - r hub image build
               - julia hub image build
               - data102 image build
-              - data100 image build
               - data8x image build
               - highschool image build
               - eecs image build
