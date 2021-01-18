@@ -197,11 +197,6 @@ jobs:
           command: |
             hubploy deploy stat159 hub ${CIRCLE_BRANCH}
 
-#      - run:
-#          name: Deploy stat89a
-#          command: |
-#            hubploy deploy stat89a hub ${CIRCLE_BRANCH}
-
       - run:
           name: Deploy data8x
           command: |
@@ -221,11 +216,6 @@ jobs:
           name: Deploy workshop
           command: |
             hubploy deploy workshop hub ${CIRCLE_BRANCH}
-
-      - run:
-          name: Deploy highschool
-          command: |
-            hubploy deploy highschool hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy eecs
@@ -324,30 +314,12 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: data8x
           name: data8x image build
           # Filters can only be per-job? wtf
           filters:
               branches:
                 ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: highschool
-          name: highschool image build
-          # Filters can only be per-job? wtf
-          filters:
-            branches:
-              ignore:
                 - staging
                 - prod
       - hubploy/build-image:
@@ -394,16 +366,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: data8x
           name: data8x image build
           push: true
@@ -411,16 +373,6 @@ workflows:
           filters:
               branches:
                 only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: highschool
-          name: highschool image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-            branches:
-              only:
                 - staging
                 - prod
       - hubploy/build-image:
@@ -438,9 +390,7 @@ workflows:
               - datahub image build
               - biology image build
               - julia hub image build
-              - data102 image build
               - data8x image build
-              - highschool image build
               - eecs image build
           filters:
             branches:

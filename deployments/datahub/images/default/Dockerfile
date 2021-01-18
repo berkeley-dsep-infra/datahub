@@ -187,6 +187,12 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
+# ls 88-4, economic development connector
+# Should be installed before jupyterlab build, since that's how the
+# lab extension seems to be distributed.
+# See https://github.com/pbugnion/gmaps/issues/349
+RUN pip install --no-cache gmaps==0.9.0
+
 # Install jupyterlab extensions immediately after infra-requirements
 # This hopefully prevents re-installation all the time
 # `jlpm` calls out to yarn internally, and we tell it to
@@ -196,11 +202,7 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib@0.7.4 \
-            @jupyterlab/geojson-extension \
-            jupyterlab-videochat \
-            ipycanvas  && \
+            @jupyterlab/geojson-extension && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
@@ -224,10 +226,6 @@ RUN /usr/local/sbin/connector-text.bash
 
 COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
 RUN /usr/local/sbin/connector-sw282.bash
-
-COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
-RUN /usr/local/sbin/2019-fall-phys-188-288.bash
-
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 # install gmaps notebook extension
