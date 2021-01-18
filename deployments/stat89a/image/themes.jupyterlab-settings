@@ -1,7 +1,0 @@
-{
-    // Theme
-    // @jupyterlab/apputils-extension:themes
-    // Theme manager settings.
-    // *************************************
-    "theme": "JupyterLab Dark"
-}
