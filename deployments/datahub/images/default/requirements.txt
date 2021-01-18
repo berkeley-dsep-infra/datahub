@@ -2,6 +2,7 @@
 # data8; foundation
 datascience==0.17.0
 matplotlib==3.3.3
+ipympl==0.6.2
 pandas==1.2.0
 scipy==1.6.0
 statsmodels==0.11.1
@@ -154,7 +155,7 @@ graphviz
 habanero==0.7.4
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/1981
-ipycanvas==0.7.0
+ipycanvas==0.8.1
 
 # Issue #1222, for PH 142 - Spring 2020
 PyPDF2==1.26.0

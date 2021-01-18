@@ -196,11 +196,8 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib@0.7.4 \
             @jupyterlab/geojson-extension \
-            jupyterlab-videochat \
-            ipycanvas  && \
+            jupyterlab-videochat && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
