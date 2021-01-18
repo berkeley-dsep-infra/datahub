@@ -187,6 +187,12 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
+# ls 88-4, economic development connector
+# Should be installed before jupyterlab build, since that's how the
+# lab extension seems to be distributed.
+# See https://github.com/pbugnion/gmaps/issues/349
+RUN pip install --no-cache gmaps==0.9.0
+
 # Install jupyterlab extensions immediately after infra-requirements
 # This hopefully prevents re-installation all the time
 # `jlpm` calls out to yarn internally, and we tell it to

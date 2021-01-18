@@ -52,10 +52,7 @@ pillow==8.1.0
 numexpr==2.7.1
 openpyxl==3.0.4
 nilearn==0.6.2
-#
-# ls 88-4, economic development connector
-gmaps==0.9.0
-#
+
 # phys 151;
 emcee==3.0.2
 daft==0.1.0
