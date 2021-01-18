@@ -28,7 +28,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
@@ -37,5 +37,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/highschool-user-image
