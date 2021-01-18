@@ -226,10 +226,6 @@ RUN /usr/local/sbin/connector-text.bash
 
 COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
 RUN /usr/local/sbin/connector-sw282.bash
-
-COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
-RUN /usr/local/sbin/2019-fall-phys-188-288.bash
-
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 # install gmaps notebook extension
