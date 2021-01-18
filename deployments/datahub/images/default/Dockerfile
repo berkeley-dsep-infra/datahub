@@ -187,12 +187,6 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
-# ls 88-4, economic development connector
-# Should be installed before jupyterlab build, since that's how the
-# lab extension seems to be distributed.
-# See https://github.com/pbugnion/gmaps/issues/349
-RUN pip install --no-cache gmaps==0.9.0
-
 # Install jupyterlab extensions immediately after infra-requirements
 # This hopefully prevents re-installation all the time
 # `jlpm` calls out to yarn internally, and we tell it to
@@ -202,7 +196,9 @@ RUN pip install --no-cache gmaps==0.9.0
 RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
-            @jupyterlab/geojson-extension && \
+        @jupyterlab/server-proxy \
+        jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 \
+        @jupyterlab/geojson-extension && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
@@ -227,9 +223,6 @@ RUN /usr/local/sbin/connector-text.bash
 COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
 RUN /usr/local/sbin/connector-sw282.bash
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-
-# install gmaps notebook extension
-RUN jupyter nbextension enable --py --sys-prefix gmaps
 
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
