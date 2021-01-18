@@ -127,7 +127,6 @@ jupyterhub:
     extraEnv:
       SHELL: /bin/bash
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
-    defaultUrl: /tree
     extraAnnotations:
       prometheus.io/scrape: "false"
       prometheus.io/path: "/user/{username}/metrics"
