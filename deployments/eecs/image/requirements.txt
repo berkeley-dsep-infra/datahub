@@ -2,6 +2,7 @@
 
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
+tornado>=6.1.0
 numpy==1.19.*
 matplotlib==3.3.*
 sympy==1.6.*
