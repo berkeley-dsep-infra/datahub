@@ -19,7 +19,7 @@ RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 # Create user owned R libs dir
 # This lets users temporarily install packages
 ENV R_LIBS_USER /opt/r
-RUN mkdir -p ${R_LIBS_USER} && chown ${NB_USER}:${NB_USER} ${R_LIBS_USER}
+RUN install -d -o ${NB_USER} -g ${NB_USER} ${R_LIBS_USER}
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
@@ -128,12 +128,14 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
-COPY  class-libs.R /tmp/class-libs.R
+# Install R libraries as our user
+USER ${NB_USER}
+
+COPY class-libs.R /tmp/class-libs.R
 # Install all our base R packages
 COPY install.R  /tmp/install.R
 RUN /tmp/install.R && \
     rm -rf /tmp/downloaded_packages
-
 
 RUN mkdir -p /tmp/r-packages
 
@@ -165,7 +167,6 @@ RUN r /tmp/r-packages/econ-140.r
 COPY r-packages/ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-290.r
 
-
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME
@@ -173,9 +174,12 @@ ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
 
 WORKDIR /home/${NB_USER}
 
+# Install miniforge as root
+USER root
 COPY install-miniforge.bash /tmp/install-miniforge.bash
 RUN /tmp/install-miniforge.bash
 
+# Install conda environment as our user
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
