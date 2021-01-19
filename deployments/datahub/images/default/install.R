@@ -96,6 +96,7 @@ cran_packages = c(
   "ivpack", "1.2",
   "jsonlite", "1.7.2",
   "knitr", "1.30",
+  "units", "0.6-7",
   "leafem", "0.1.3",
   "leaflet", "2.0.3",
   "leafpop", "0.0.6",
