@@ -91,8 +91,6 @@ RUN apt-get update -qq --yes > /dev/null && \
     r-recommended \
     r-cran-littler  > /dev/null
 
-RUN apt update --yes > /dev/null && \
-    apt install --no-install-recommends --yes libpoppler-cpp-dev libx11-dev libglpk-dev libgmp3-dev libxml2-dev > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -103,6 +101,20 @@ RUN apt-get update -qq --yes && \
         lsb-release \
         libclang-dev  > /dev/null
             
+# apt packages needed for R packages
+RUN apt update --yes > /dev/null && \
+    apt install --no-install-recommends --yes \
+    # R package qpdf
+    libpoppler-cpp-dev \
+    # R package imager
+    libx11-dev libglpk-dev libgmp3-dev libxml2-dev \
+    # R package units
+    libudunits2-dev \
+    # R package sf
+    libgdal-dev libproj-dev gdal-bin \
+    # R package magick
+    libmagick++-dev imagemagick > /dev/null
+
 # 1.3.959 is latest version that works with jupyter-rsession-proxy
 # See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
 ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
