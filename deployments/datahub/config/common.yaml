@@ -60,28 +60,12 @@ jupyterhub:
           mem_limit: 4096M
           mem_guarantee: 1024M
         # astr 128
-        2020-spring-24268:
+        2020-spring-25880:
           mem_limit: 4096M
           mem_guarantee: 1024M
         # astr 256
-        2020-spring-24536:
+        2020-spring-25995:
           mem_limit: 4096M
-          mem_guarantee: 1024M
-        # ARESEC 212
-        2020-spring-25937:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-        # ling 188
-        2020-summer-13097:
-          mem_limit: 2048M
-          mem_guarantee: 1024M
-        # Issue 1827, phys188
-        2020-fall-26276:
-          mem_limit: 2048M
-          mem_guarantee: 1024M
-        # Issue 1827, phys288
-        2020-fall-26277:
-          mem_limit: 2048M
           mem_guarantee: 1024M
         modules-leads:
           users:
