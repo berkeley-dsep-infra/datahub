@@ -48,6 +48,18 @@ jupyterhub:
           - nolanpokpongkiat
           - stephaniemholm
           - wmjilek
+          # PH142 Instructor
+          - mi-suk
+          # PH142 GSIs, Tech GSI
+          - sophia.fuller
+          - chandlerbeon
+          - andrewliu21
+          - leishi
+          - nanamizuide
+          - saherdaredia
+          - sarah_johnson
+          - shaziakn
+          - jiyunwen
           # List of other admin users
 
   singleuser:
