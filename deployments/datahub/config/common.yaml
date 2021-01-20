@@ -110,6 +110,9 @@ jupyterhub:
           - ericvd
           - ktakimoto
           - ryanedw
+          # sp21 data 94 staff
+          - isaacmerritt
+          - guanangela
           # fa20 data8 gsis
           - aanika.shah
           - aidandeangelis
