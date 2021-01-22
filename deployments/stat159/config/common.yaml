@@ -37,9 +37,22 @@ jupyterhub:
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumes:
+        - name: etc-jupyter
+          configMap:
+            name: user-etc-jupyter
+      extraVolumeMounts:
+        - name: etc-jupyter
+          mountPath: /etc/jupyter
     memory:
       guarantee: 512M
       limit: 1G
     image:
       name: gcr.io/ucb-datahub-2018/stat159-user-image
     defaultUrl: "/lab"
+
+etcJupyter:
+  jupyter_notebook_config.json:
+    # Show dot files. Requested by instructors for pedagogical reasons.
+    ContentsManager:
+      allow_hidden: true
