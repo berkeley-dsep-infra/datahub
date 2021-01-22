@@ -43,3 +43,9 @@ jupyterhub:
     image:
       name: gcr.io/ucb-datahub-2018/stat159-user-image
     defaultUrl: "/lab"
+
+etcJupyter:
+  jupyter_notebook_config.json:
+    # Show dot files. Requested by instructors for pedagogical reasons.
+    ContentsManager:
+      allow_hidden: true
