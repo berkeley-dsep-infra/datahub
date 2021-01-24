@@ -19,7 +19,7 @@ RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 # Create user owned R libs dir
 # This lets users temporarily install packages
 ENV R_LIBS_USER /opt/r
-RUN mkdir -p ${R_LIBS_USER} && chown ${NB_USER}:${NB_USER} ${R_LIBS_USER}
+RUN install -d -o ${NB_USER} -g ${NB_USER} ${R_LIBS_USER}
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
@@ -91,8 +91,6 @@ RUN apt-get update -qq --yes > /dev/null && \
     r-recommended \
     r-cran-littler  > /dev/null
 
-RUN apt update --yes > /dev/null && \
-    apt install --no-install-recommends --yes libpoppler-cpp-dev libx11-dev libglpk-dev libgmp3-dev libxml2-dev > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -103,6 +101,20 @@ RUN apt-get update -qq --yes && \
         lsb-release \
         libclang-dev  > /dev/null
             
+# apt packages needed for R packages
+RUN apt update --yes > /dev/null && \
+    apt install --no-install-recommends --yes \
+    # R package qpdf
+    libpoppler-cpp-dev \
+    # R package imager
+    libx11-dev libglpk-dev libgmp3-dev libxml2-dev \
+    # R package units
+    libudunits2-dev \
+    # R package sf
+    libgdal-dev libproj-dev gdal-bin \
+    # R package magick
+    libmagick++-dev imagemagick > /dev/null
+
 # 1.3.959 is latest version that works with jupyter-rsession-proxy
 # See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
 ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
@@ -128,12 +140,14 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
-COPY  class-libs.R /tmp/class-libs.R
+# Install R libraries as our user
+USER ${NB_USER}
+
+COPY class-libs.R /tmp/class-libs.R
 # Install all our base R packages
 COPY install.R  /tmp/install.R
 RUN /tmp/install.R && \
     rm -rf /tmp/downloaded_packages
-
 
 RUN mkdir -p /tmp/r-packages
 
@@ -165,6 +179,11 @@ RUN r /tmp/r-packages/econ-140.r
 COPY r-packages/ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-290.r
 
+COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
+RUN r /tmp/r-packages/2021-spring-phw-272a.r
+
+COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/2021-spring-stat-20.r
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
@@ -173,9 +192,12 @@ ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
 
 WORKDIR /home/${NB_USER}
 
+# Install miniforge as root
+USER root
 COPY install-miniforge.bash /tmp/install-miniforge.bash
 RUN /tmp/install-miniforge.bash
 
+# Install conda environment as our user
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
@@ -196,11 +218,9 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jlpm config set cache-folder /tmp/yarncache && \
     jupyter labextension install --debug \
-            @jupyter-widgets/jupyterlab-manager \
-            jupyter-matplotlib@0.7.4 \
-            @jupyterlab/geojson-extension \
-            jupyterlab-videochat \
-            ipycanvas  && \
+        @jupyterlab/server-proxy \
+        jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 \
+        @jupyterlab/geojson-extension && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
@@ -224,14 +244,7 @@ RUN /usr/local/sbin/connector-text.bash
 
 COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
 RUN /usr/local/sbin/connector-sw282.bash
-
-COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
-RUN /usr/local/sbin/2019-fall-phys-188-288.bash
-
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-
-# install gmaps notebook extension
-RUN jupyter nbextension enable --py --sys-prefix gmaps
 
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
