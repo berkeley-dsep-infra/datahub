@@ -1,0 +1,67 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/cs194
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  auth:
+    type: custom
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+
+  singleuser:
+    extraImages:
+      postgres:
+        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+        tag: 0.0.1-n3657.h4f7f88c
+        policy: IfNotPresent
+    extraContainers:
+      - name: postgres
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
+        resources:
+          limits:
+            # Best effort only. No more than 1 CPU
+            memory: 512Mi
+            cpu: 1.0
+          requests:
+            # If we don't set requests, k8s sets requests == limits!
+            memory: 64Mi
+            cpu: 0.01
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: "trust"
+        - name: POSTGRES_USER
+          value: "jovyan"
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
+    nodeSelector:
+      # Since data100 also has the postgres image
+      hub.jupyter.org/pool-name: beta-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G
