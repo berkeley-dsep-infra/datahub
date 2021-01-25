@@ -1,0 +1,21 @@
+jupyterhub-ssh:
+  hubUrl: https://cs194-staging.datahub.berkeley.edu
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  auth:
+    custom:
+      config:
+        client_id: '10720000000000471'
+        oauth_callback_url: 'https://cs194-staging.datahub.berkeley.edu/hub/oauth_callback'
+  proxy:
+    service:
+      loadBalancerIP: 35.222.77.133
+    https:
+      hosts:
+        - cs194-staging.datahub.berkeley.edu
