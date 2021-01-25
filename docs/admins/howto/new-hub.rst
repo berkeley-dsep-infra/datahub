@@ -16,7 +16,8 @@ The major reasons for making a new hub are:
 #. You are running in a different cloud, or using a different
    billing account.
 #. Your environment is different enough and specialized enough
-   that a different hub is a good idea.
+   that a different hub is a good idea. By default, everyone uses the
+   same image as datahub.berkeley.edu.
 #. You want a different URL (X.datahub.berkeley.edu vs just
    datahub.berkeley.edu)
 
@@ -47,6 +48,7 @@ we provide that sets up a blank hub that can be customized.
    #. ``ssh-keygeni -f new-host-key`` to generate a private ssh host key. This will
        output a private host key in ``new-host-key``, which should be filled in at
        ``jupyterhub-ssh.hostKey``. Make sure to get the indent right!
+
 #. Fill in a value for ``jupyterhub.proxy.secretToken``, ``jupyterhub.auth.state.cryptoKey`` on
    ``secrets/staging.yaml`` and ``secrets/prod.yaml`` files.
 
@@ -64,8 +66,11 @@ we provide that sets up a blank hub that can be customized.
 #. Uncomment the values under ``jupyterhub.proxy.https`` under ``config/staging.yaml``
    to enable HTTPS. Run this through CI and make sure HTTPS is set up on the staging hub.
 
-#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_. We have two canvas oauth2 clients - one for prod and one for staging. You'll need to add the domain for your new hub to the authorized list for both these clients - please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is not available).
-
+#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_. We
+   have two canvas oauth2 clients - one for prod and one for staging. You'll
+   need to add the domain for your new hub to the authorized list for both these
+   clients - please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu
+   if he is not available).
 
 #. User logins should now work in the staging hub. Verify and validate to make sure things are
    working as they should.
