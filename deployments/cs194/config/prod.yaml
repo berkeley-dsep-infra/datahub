@@ -1,0 +1,20 @@
+jupyterhub-ssh:
+  hubUrl: https://cs194.datahub.berkeley.edu
+
+jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 35.193.57.206
+    https:
+      hosts:
+        - cs194.datahub.berkeley.edu
+  auth:
+    custom:
+      config:
+        client_id: '10720000000000472'
+        oauth_callback_url: 'https://cs194.berkeley.edu/hub/oauth_callback'
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
