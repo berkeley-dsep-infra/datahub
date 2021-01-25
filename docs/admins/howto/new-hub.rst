@@ -41,8 +41,18 @@ we provide that sets up a blank hub that can be customized.
 #. Answer the questions it asks. Should be fairly basic. It should generate
    a directory with the name of the hub you provided with a skeleton configuration.
 
-#. Fill in values for ``jupyterhub.hub.cookieSecret`` and ``jupyterhub.proxy.secretToken``
-   on ``secrets/staging.yaml`` and ``secrets/prod.yaml`` files.
+#. Generate & fill in secret values
+
+   #. ``openssl rand -hex 32`` to generate values for ``jupyterhub.proxy.secretToken`` and ``jupyterhub.auth.state.cryptoKey``
+   #. ``ssh-keygeni -f new-host-key`` to generate a private ssh host key. This will
+       output a private host key in ``new-host-key``, which should be filled in at
+       ``jupyterhub-ssh.hostKey``. Make sure to get the indent right!
+#. Fill in a value for ``jupyterhub.proxy.secretToken``, ``jupyterhub.auth.state.cryptoKey`` on
+   ``secrets/staging.yaml`` and ``secrets/prod.yaml`` files.
+
+#. You need to log into the NFS server, and create a directory owned by ``1000:1000`` under
+   ``/export/homedirs-other-2020-07-29/<hubname>``. The path *might* differ if your
+   hub has special home directory storage needs. Consult admins if that's the case.
 
 #. Commit the directory, and make a PR. Once tests pass, merge the PR to get a
    working staging hub! It should be accessible by an external IP address that you can
@@ -51,13 +61,11 @@ we provide that sets up a blank hub that can be customized.
 #. Make a :ref:`dns entry <howto/dns>` for the staging hub (<hub-name>-staging.datahub.berkeley.edu>)
    pointing to the public IP. Wait to make sure it resolves correctly.
 
-#. Uncomment the values under ``jupyterhub.proxy.https`` under ``secrets/staging.yaml``
+#. Uncomment the values under ``jupyterhub.proxy.https`` under ``config/staging.yaml``
    to enable HTTPS. Run this through CI and make sure HTTPS is set up on the staging hub.
 
-#. Set up authentication as needed. This should all most likely go under ``secrets/staging.yaml``.
+#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_. We have two canvas oauth2 clients - one for prod and one for staging. You'll need to add the domain for your new hub to the authorized list for both these clients - please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is not available).
 
-#. You now need to log into the NFS server, and create a directory owned by ``1000:1000`` under
-   ``/export/pool0/homes/_<hubname>``. This step doesn't apply if you are using managed NFS!
 
 #. User logins should now work in the staging hub. Verify and validate to make sure things are
    working as they should.

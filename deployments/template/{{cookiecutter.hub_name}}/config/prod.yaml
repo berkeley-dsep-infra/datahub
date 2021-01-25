@@ -11,6 +11,11 @@ jupyterhub:
       # hosts:
         # FIXME: Make a DNS entry for the service IP first before uncommenting it
         # - {{cookiecutter.hub_name}}.datahub.berkeley.edu
+  auth:
+    custom:
+      config:
+        client_id: '10720000000000472'
+        oauth_callback_url: 'https://{{ cookiecutter.hub_name }}.berkeley.edu/hub/oauth_callback'
   hub:
     db:
       pvc:

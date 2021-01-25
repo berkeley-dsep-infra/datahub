@@ -1,8 +1,8 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/{{cookiecutter.hub_name}}
 
 jupyterhub:
   scheduling:
@@ -34,7 +34,7 @@ jupyterhub:
       type: static
       static:
         pvcName: home-nfs
-        subPath: "_{{cookiecutter.hub_name}}/{username}"
+        subPath: "{username}"
     memory:
       guarantee: 512M
       limit: 1G

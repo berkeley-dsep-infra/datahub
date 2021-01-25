@@ -8,6 +8,11 @@ jupyterhub:
   prePuller:
     continuous:
       enabled: false
+  auth:
+    custom:
+      config:
+        client_id: '10720000000000471'
+        oauth_callback_url: 'https://{{ cookiecutter.hub_name }}-staging.berkeley.edu/hub/oauth_callback'
   proxy:
     # service:
       # make the IP static in google cloud console so we won't lose it
