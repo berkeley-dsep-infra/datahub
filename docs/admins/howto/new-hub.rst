@@ -66,11 +66,12 @@ we provide that sets up a blank hub that can be customized.
 #. Uncomment the values under ``jupyterhub.proxy.https`` under ``config/staging.yaml``
    to enable HTTPS. Run this through CI and make sure HTTPS is set up on the staging hub.
 
-#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_. We
+#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_ by adding
+   the new hub to an authorized list of callback URLs. We
    have two canvas oauth2 clients - one for prod and one for staging. You'll
    need to add the domain for your new hub to the authorized list for both these
    clients - please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu
-   if he is not available).
+   if he is not available). Onc
 
 #. User logins should now work in the staging hub. Verify and validate to make sure things are
    working as they should.
