@@ -56,6 +56,17 @@ we provide that sets up a blank hub that can be customized.
    ``/export/homedirs-other-2020-07-29/<hubname>``. The path *might* differ if your
    hub has special home directory storage needs. Consult admins if that's the case.
 
+#. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should be under the
+   ``deploy`` job, and look something like this:
+
+   .. code:: yaml
+      - run:
+          name: Deploy <hub-name>
+          command: |
+            hubploy deploy <hub-name> hub ${CIRCLE_BRANCH}
+
+   There will be a bunch of other stanzas very similar to this one, helping you find it.
+
 #. Commit the directory, and make a PR. Once tests pass, merge the PR to get a
    working staging hub! It should be accessible by an external IP address that you can
    find with ``kubectl --namespace=<hub-name>-staging get svc proxy-public``.
