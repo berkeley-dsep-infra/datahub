@@ -44,6 +44,10 @@ jupyterhub:
         - af5bd207bb7fd80a602d0cf488fda336
         - 6127a516b66666622476c80e7d835705
         - 4ec74d8be97f3c5ed9addc6a724effa1
+	# 1795, ashley zhang
+	- b1b001615f9eb7254387f667569e39fb 
+	- c741d11d7f0bed9930e04276115b1a37
+	- fd5ad8c476846392d8dfb1765d1a6ac5
   singleuser:
     initContainers:
       - name: volume-mount-hack
