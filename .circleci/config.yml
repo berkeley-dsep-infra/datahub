@@ -198,6 +198,11 @@ jobs:
             hubploy deploy stat159 hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy dlab
+          command: |
+            hubploy deploy dlab hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy data8x
           command: |
             hubploy deploy data8x hub ${CIRCLE_BRANCH}
