@@ -3,14 +3,11 @@ jupyterhub-ssh:
 
 jupyterhub:
   proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of dlab.datahub.berkeley.edu
-    # https:
-      # hosts:
-        # FIXME: Make a DNS entry for the service IP first before uncommenting it
-        # - dlab.datahub.berkeley.edu
+    service:
+      loadBalancerIP: 34.122.240.224
+    https:
+      hosts:
+        - dlab.datahub.berkeley.edu
   hub:
     db:
       pvc:
