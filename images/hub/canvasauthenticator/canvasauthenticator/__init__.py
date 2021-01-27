@@ -1,10 +1,14 @@
 from traitlets import List, Unicode
 from oauthenticator.generic import GenericOAuthenticator
-from tornado import gen
-
-canvas_site = 'https://ucberkeley.test.instructure.com/'
+import aiohttp
 
 class CanvasAuthenticator(GenericOAuthenticator):
+    """
+    Canvas OAuth2 based authenticator for JupyterHub.
+
+    Collects info about user & enrolled courses from canvas,
+    puts them into auth_state. To refresh, user has to re-login.
+    """
 
     strip_email_domain = Unicode(
         '',
@@ -51,7 +55,33 @@ class CanvasAuthenticator(GenericOAuthenticator):
             'client_secret': self.client_secret
         }
 
-    def normalize_username(self,username):
+    async def get_courses(self, token):
+        """
+        Get list of courses enrolled by the current user
+        """
+        headers = dict(Authorization = f"Bearer {token}")
+        url = f"{self.canvas_url}/api/v1/courses"
+        data = []
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers, params=self.extra_params) as r:
+                if r.status != 200:
+                    raise Exception(f"error fetching course info for {self.username}: {r.status} -- {r.text()}")
+                data = await r.json()
+        return data
+
+    async def authenticate(self, handler, data=None):
+        """
+        Augment base user auth info with course info
+        """
+        user = await super().authenticate(handler, data)
+        user['auth_state']['courses'] = await self.get_courses(
+            user['auth_state']['access_token']
+        )
+        print(user)
+        return user
+
+    def normalize_username(self, username):
         username = username.lower()
         # To make life easier & match usernames with existing users who were
         # created with google auth, we want to strip the domain name. If not,
@@ -60,8 +90,7 @@ class CanvasAuthenticator(GenericOAuthenticator):
             return username.split('@')[0]
         return username
 
-    @gen.coroutine
-    def pre_spawn_start(self, user, spawner):
+    async def pre_spawn_start(self, user, spawner):
         """Pass oauth data to spawner via OAUTH2_ prefixed env variables."""
         auth_state = yield user.get_auth_state()
         if not auth_state:
