@@ -30,7 +30,8 @@ Setting up a new hub structure
 There's a simple `cookiecutter <https://github.com/audreyr/cookiecutter>`_
 we provide that sets up a blank hub that can be customized. 
 
-#. Make sure you have the ``cookiecutter`` python package installed
+#. Make sure you have the following python packages installed: ``cookiecutter
+   ruamel.yaml``
 
 #. In the ``deployments`` directory, run cookiecutter:
 
@@ -41,50 +42,76 @@ we provide that sets up a blank hub that can be customized.
 
 #. Answer the questions it asks. Should be fairly basic. It should generate
    a directory with the name of the hub you provided with a skeleton configuration.
+   It'll also generate all the secrets necessary.
 
-#. Generate & fill in secret values
+#. You need to log into the NFS server, and create a directory owned by
+   ``1000:1000`` under ``/export/homedirs-other-2020-07-29/<hubname>``. The path
+   *might* differ if your hub has special home directory storage needs. Consult
+   admins if that's the case.
 
-   #. ``openssl rand -hex 32`` to generate values for ``jupyterhub.proxy.secretToken`` and ``jupyterhub.auth.state.cryptoKey``
-   #. ``ssh-keygeni -f new-host-key`` to generate a private ssh host key. This will
-       output a private host key in ``new-host-key``, which should be filled in at
-       ``jupyterhub-ssh.hostKey``. Make sure to get the indent right!
+#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_. We
+   have two canvas OAuth2 clients setup in bcourses for us - one for all
+   production hubs and one for all staging hubs. The secret keys for these are
+   already in the generated secrets config. However, you need to add the new
+   hubs to the authorized callback list maintained in bcourses.
 
-#. Fill in a value for ``jupyterhub.proxy.secretToken``, ``jupyterhub.auth.state.cryptoKey`` on
-   ``secrets/staging.yaml`` and ``secrets/prod.yaml`` files.
+   #. ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` added to
+      the staging hub client (id 10720000000000471)
+   #. ``staging.datahub.berkeley.edu/hub/oauth_callback`` added to the
+      production hub client (id 10720000000000472)
 
-#. You need to log into the NFS server, and create a directory owned by ``1000:1000`` under
-   ``/export/homedirs-other-2020-07-29/<hubname>``. The path *might* differ if your
-   hub has special home directory storage needs. Consult admins if that's the case.
+   Please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is
+   not available) to set this up.
 
-#. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should be under the
-   ``deploy`` job, and look something like this:
+#. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
+   be under the ``deploy`` job, and look something like this:
 
    .. code:: yaml
+
       - run:
           name: Deploy <hub-name>
           command: |
             hubploy deploy <hub-name> hub ${CIRCLE_BRANCH}
 
-   There will be a bunch of other stanzas very similar to this one, helping you find it.
+   There will be a bunch of other stanzas very similar to this one, helping you
+   find it.
 
-#. Commit the directory, and make a PR. Once tests pass, merge the PR to get a
-   working staging hub! It should be accessible by an external IP address that you can
-   find with ``kubectl --namespace=<hub-name>-staging get svc proxy-public``.
+#. Copy service account credentials for container registry & kubernetes cluster to
+   the new hub directory. This is gonna be the same cluster & image as datahub
+   for now, so you can just directly copy those.
 
-#. Make a :ref:`dns entry <howto/dns>` for the staging hub (<hub-name>-staging.datahub.berkeley.edu>)
-   pointing to the public IP. Wait to make sure it resolves correctly.
+   .. code:: bash
 
-#. Uncomment the values under ``jupyterhub.proxy.https`` under ``config/staging.yaml``
-   to enable HTTPS. Run this through CI and make sure HTTPS is set up on the staging hub.
+      # From the root of the repo
+      cp deployments/datahub/secrets/gke-key.json deployments/<hub-name>/secrets
+      cp deployments/datahub/secrets/gcr-key.json deployments/<hub-name>/secrets
 
-#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_ by adding
-   the new hub to an authorized list of callback URLs. We
-   have two canvas oauth2 clients - one for prod and one for staging. You'll
-   need to add the domain for your new hub to the authorized list for both these
-   clients - please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu
-   if he is not available). Onc
+#. Commit the hub directory, and make a PR to the the ``staging`` branch in the
+   GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
+   should be accessible by an external IP address that you can find with
+   ``kubectl --namespace=<hub-name>-staging get svc proxy-public``. However,
+   HTTPS and authentication would not work on the staging hub yet.
 
-#. User logins should now work in the staging hub. Verify and validate to make sure things are
-   working as they should.
+#. Make a :ref:`dns entry <howto/dns>` for the staging hub
+   (``<hub-name>-staging.datahub.berkeley.edu>``) pointing to the public IP.
+   Wait to make sure it resolves correctly, otherwise HTTPS requisition might
+   not work.
+
+#. Uncomment the values under ``jupyterhub.proxy.https`` under
+   ``config/staging.yaml`` to enable HTTPS. Run this through CI and make sure
+   HTTPS is set up on the staging hub.
+
+#. User logins should now work in the staging hub. Verify and validate to make
+   sure things are working as they should.
+
+#. Make a PR from the ``staging`` branch to the ``prod`` branch. When this PR is
+   merged, it'll deploy the production hub.  It should be accessible by an
+   external IP address that you can find with
+   ``kubectl --namespace=<hub-name>-prod get svc proxy-public``. However, HTTPS
+   and authentication would not work for the production hub yet.
+
+#. Make a :ref:`dns entry <howto/dns>` for the prod hub (``<hub-name>.datahub.berkeley.edu>``)
+   pointing to the public IP. Wait to make sure it resolves correctly,
+   otherwise HTTPS requisition might not work.
 
 #. Repeat the process to get the production hub up and running. Tada!
