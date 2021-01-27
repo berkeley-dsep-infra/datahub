@@ -1,5 +1,5 @@
 jupyterhub-ssh:
-  hubUrl: https://stat159-staging.datahub.berkeley.edu
+  hubUrl: https://dlab-staging.datahub.berkeley.edu
 
 jupyterhub:
   scheduling:
@@ -10,7 +10,7 @@ jupyterhub:
       enabled: false
   proxy:
     service:
-      loadBalancerIP: 34.122.233.231
+      loadBalancerIP: 35.232.137.1
     https:
       hosts:
-        - stat159-staging.datahub.berkeley.edu
+        - dlab-staging.datahub.berkeley.edu
