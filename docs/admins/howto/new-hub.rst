@@ -114,4 +114,5 @@ we provide that sets up a blank hub that can be customized.
    pointing to the public IP. Wait to make sure it resolves correctly,
    otherwise HTTPS requisition might not work.
 
-#. Repeat the process to get the production hub up and running. Tada!
+#. Everything should work now! Try logging in to production, and make sure
+   everything works out ok.
