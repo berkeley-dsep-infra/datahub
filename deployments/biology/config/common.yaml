@@ -19,6 +19,9 @@ jupyterhub:
 
   auth:
     type: google
+    google:
+      hostedDomain:
+        - berkeley.edu
     admin:
       users:
           # infrastructure

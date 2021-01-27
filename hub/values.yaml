@@ -198,8 +198,6 @@ jupyterhub:
                   app: prometheus
                   component: server
   auth:
-    google:
-      hostedDomain: [berkeley.edu]
     # common settings when using Canvas Auth
     # Enabled by setting 'custom' as auth.type in individual hub config
     custom:

@@ -18,7 +18,7 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
 
   auth:
-    type: google
+    type: custom
     admin:
       users:
           # infrastructure
