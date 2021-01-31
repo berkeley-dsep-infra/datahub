@@ -33,60 +33,39 @@ jupyterhub:
         - yuvipanda
         - cpyles
         # instructors
-        - fernando.perez
-        - adj
+        - jegonzal
+        - andrewbray
         - data100.instructors
         # gsis
-        - davidyi624
-        - dorx
-        - ishaan.srivastava
-        - kagarwal2
-        - rkunani
-        - snhing
-        - samirnaqvi
-        - suraj.rampure
-        - susanhao
-        - cshih
-        - agnibhoroy
-        - am123
-        - alberttang
-        - anamtudor
-        - andysheu
-        - brandonyli
-        - waikeikong
+        - rahuljcool26
+        - paulshaoyuqiao1
+        - andrew.lenz
         - ischmidt20
-        - calzoom
-        - jaykakkar
-        - jwu19
-        - julieyu
-        - oliviaqin
-        - parthbaokar
-        - pranav.njn
-        - rami.mostafa
-        - shaviv
-        - rain
-        - violetyao
-        # tutors
-        - aahuang
-        - guanangela
-        - erika.n.mack
-        - henrymaier
+        - xuzh
         - johntsor
-        - kevinmoy
-        - kevinyang8
-        - kiranrajgobal
-        - yangluanne
-        - marian5566
-        - pranshu
-        - rikiiyer
-        - rohan.hajela
-        - raujla
-        - sunnyshen
-        - tom.kim
-        - wallace.lim
-        - y_liang
         - zacharywu
-
+        - jamesrichardsusilo
+        - yangluanne
+        - rohanchilukuri
+        - oliveqy
+        - rain
+        - parthbaokar
+        - shaviv
+        - kagarwal2
+        - cshih
+        - cpyles
+        - alberttang
+        - jwu19
+        - kelly_han
+        - saurav
+        - rami.mostafa
+        - am123
+        - rkunani
+        - ishaan.srivastava
+        - rohan.hajela
+        - aahuang
+        - agnibhoroy
+        - calzoom
   prePuller:
     extraImages:
       postgres:
