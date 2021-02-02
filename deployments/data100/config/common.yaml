@@ -32,40 +32,10 @@ jupyterhub:
         - rylo
         - yuvipanda
         - cpyles
-        # instructors
+        # instructors & gsis (spring 2021)
         - jegonzal
         - andrewbray
         - data100.instructors
-        # gsis
-        - rahuljcool26
-        - paulshaoyuqiao1
-        - andrew.lenz
-        - ischmidt20
-        - xuzh
-        - johntsor
-        - zacharywu
-        - jamesrichardsusilo
-        - yangluanne
-        - rohanchilukuri
-        - oliveqy
-        - rain
-        - parthbaokar
-        - shaviv
-        - kagarwal2
-        - cshih
-        - cpyles
-        - alberttang
-        - jwu19
-        - kelly_han
-        - saurav
-        - rami.mostafa
-        - am123
-        - rkunani
-        - ishaan.srivastava
-        - rohan.hajela
-        - aahuang
-        - agnibhoroy
-        - calzoom
   prePuller:
     extraImages:
       postgres:
