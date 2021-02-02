@@ -36,13 +36,6 @@ jupyterhub:
         - jegonzal
         - andrewbray
         - data100.instructors
-        - anna-nguyen
-        - erika.n.mack
-        - yiwendai99
-        - ramesh_s
-        - rroggenkemper
-        - xingyu.jin21
-        - yanshuo
   prePuller:
     extraImages:
       postgres:
