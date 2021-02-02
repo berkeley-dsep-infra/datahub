@@ -69,7 +69,14 @@ jupyterhub:
           - yuvipanda
           - felder
           # List of other admin users
-
+          - hellerstein
+          - adityagp
+          - allenshen5
+          - scherfaoui
+          - mantejpanesar
+          - aditi.mahajan
+          - nikmandava
+          - lexyyxl
   prePuller:
     hook:
       enabled: false
