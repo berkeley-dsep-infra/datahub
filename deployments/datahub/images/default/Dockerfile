@@ -185,6 +185,9 @@ RUN r /tmp/r-packages/2021-spring-phw-272a.r
 COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-stat-20.r
 
+COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
+RUN r /tmp/r-packages/2021-spring-espm-288.r
+
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME
