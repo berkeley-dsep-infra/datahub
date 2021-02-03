@@ -31,6 +31,8 @@ etcJupyter:
       shutdown_no_activity_timeout: 3600
     ResourceUseDisplay:
       disable_legacy_endpoint: true
+    WebPDFExporter:
+      disable_sandbox: true
 
 etcGitConfig:
   enabled: false

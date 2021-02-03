@@ -13,7 +13,8 @@
 git+https://github.com/jupyter/notebook@5a73a8e4026ccc8d7437f788bf0bc2758a73567d
 # Brings in https://github.com/jupyter/nbconvert/pull/1513
 # Brings in https://github.com/jupyter/nbconvert/pull/1515
-git+https://github.com/yuvipanda/nbconvert@e9b62f6a6515069243fc158f88b80978452ee9cd
+# Brings in https://github.com/jupyter/nbconvert/pull/1516
+git+https://github.com/yuvipanda/nbconvert@b141b2b15c1bdf3f3ad64125fb9ebcce90922984
 jupyterlab==3.0.5
 nbgitpuller==0.9.0
 jupyter-resource-usage==0.5.1
