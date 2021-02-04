@@ -32,8 +32,8 @@ the currently favored configuration.
         --enable-autoscaling \
         --max-nodes=20 --min-nodes=1 \
         --region=us-central1 --node-locations=us-central1-b \
-        --image-type=ubuntu \
-        --disk-size=100 --disk-type=pd-standard \
+        --image-type=cos \
+        --disk-size=100 --disk-type=pd-balanced \
         --machine-type=n1-highmem-8 \
         --cluster-version latest \
         --no-enable-autoupgrade \
@@ -49,11 +49,11 @@ the currently favored configuration.
         --num-nodes 2 \
         --enable-autoscaling \
         --min-nodes 1 --max-nodes 20 \
-        --node-labels hub.jupyter.org/pool-name=<pool-name>-pool \
+        --node-labels hub.jupyter.org/pool-name=beta-pool \
         --node-taints hub.jupyter.org_dedicated=user:NoSchedule \
         --region=us-central1 \
-        --image-type=ubuntu \
-        --disk-size=200 --disk-type=pd-ssd \
+        --image-type=cos \
+        --disk-size=200 --disk-type=pd-balanced \
         --no-enable-autoupgrade \
         --tags=hub-cluster \
         --cluster=fall-2019 \
@@ -115,12 +115,6 @@ There are regions closer to us, but latency hasn't really mattered so we are
 currently still in us-central1. There are also unsubstantiated rumors that us-central1 is their
 biggest data center and hence less likely to run out of quota.
 
-Ubuntu operating system
------------------------
-
-Since we use :ref:`NFS for user home directories <topic/storage>`, we select
-Ubuntu as our `node operating system <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images>`_.
-The default (Container Optimized OS) does not have NFS support enabled.
 
 Disk Size
 ---------
@@ -135,7 +129,8 @@ of big images, or if we want our image pulls to be faster (since disk performanc
 
 ``--disk-type=pd-standard`` gives us standard spinning disks, which are cheaper. We
 can also request SSDs instead with ``--disk-type=pd-ssd`` - it is much faster,
-but also much more expensive.
+but also much more expensive. We compromise with ``--disk-type=pd-balanced``, faster
+than spinning disks but not as fast as ssds all the time.
 
 Node size
 ---------
