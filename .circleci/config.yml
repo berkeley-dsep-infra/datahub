@@ -198,6 +198,11 @@ jobs:
             hubploy deploy stat159 hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy cs194
+          command: |
+            hubploy deploy cs194 hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy dlab
           command: |
             hubploy deploy dlab hub ${CIRCLE_BRANCH}
