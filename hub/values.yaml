@@ -40,11 +40,41 @@ nfsPVC:
   enabled: true
 
 jupyterhub-ssh:
+  ssh:
+    networkPolicy:
+      ingress:
+        - ports:
+            - port: ssh
+              protocol: TCP
+          from:
+            - namespaceSelector:
+                matchLabels:
+                  name: support
+              podSelector:
+                matchLabels:
+                  hub.jupyter.org/network-access-ssh-server: "true"
   sftp:
+    networkPolicy:
+      ingress:
+        - ports:
+            - port: sftp
+              protocol: TCP
+          from:
+            - namespaceSelector:
+                matchLabels:
+                  name: support
+              podSelector:
+                matchLabels:
+                  hub.jupyter.org/network-access-ssh-server: "true"
     pvc:
       name: home-nfs
 
 jupyterhub:
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 256m
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
   scheduling:
     podPriority:
       enabled: true

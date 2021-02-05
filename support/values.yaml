@@ -1,11 +1,23 @@
 cert-manager:
   installCRDs: true
 ingress-nginx:
+  tcp:
+    # We need to manually allocate a port for ssh & sftp for
+    # each hub. We have a wildcard for *.datahub.berkeley.edu,
+    # and SSH doesn't have host-based routing. So we differentiate
+    # different hubs by assigning ports for ssh & sftp to each one.
+    # This should be a part of new hub creation.
+
+    # cs194-staging
+    22222: cs194-staging/jupyterhub-ssh:22
+    22223: cs194-staging/jupyterhub-sftp:22
   controller:
     service:
       loadBalancerIP: 34.69.164.86
     podLabels:
       hub.jupyter.org/network-access-proxy-http: 'true'
+      hub.jupyter.org/network-access-ssh-server: "true"
+      hub.jupyter.org/network-access-sftp-server: "true"
 
 prometheus:
   # We were using network tags to restrict NFS access to just nodes from hub-cluster
