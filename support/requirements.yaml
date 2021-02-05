@@ -5,4 +5,9 @@ dependencies:
  - name: grafana
    version: 6.2.1
    repository: https://grafana.github.io/helm-charts
-#   repository: https://kubernetes-charts.storage.googleapis.com
+ - name: cert-manager
+   version: v1.1.0
+   repository: https://charts.jetstack.io
+ - name: ingress-nginx
+   version: 3.23.0
+   repository: https://kubernetes.github.io/ingress-nginx
