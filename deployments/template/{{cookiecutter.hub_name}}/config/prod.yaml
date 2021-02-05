@@ -2,15 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://{{ cookiecutter.hub_name }}.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of {{cookiecutter.hub_name}}.datahub.berkeley.edu
-    # https:
-      # hosts:
-        # FIXME: Make a DNS entry for the service IP first before uncommenting it
-        # - {{cookiecutter.hub_name}}.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - {{cookiecutter.hub_name}}.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - {{cookiecutter.hub_name}}.datahub.berkeley.edu
   auth:
     custom:
       config:

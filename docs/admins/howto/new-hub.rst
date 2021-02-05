@@ -87,32 +87,13 @@ we provide that sets up a blank hub that can be customized.
       cp deployments/datahub/secrets/gcr-key.json deployments/<hub-name>/secrets
 
 #. Commit the hub directory, and make a PR to the the ``staging`` branch in the
-   GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
-   should be accessible by an external IP address that you can find with
-   ``kubectl --namespace=<hub-name>-staging get svc proxy-public``. However,
-   HTTPS and authentication would not work on the staging hub yet.
-
-#. Make a :ref:`dns entry <howto/dns>` for the staging hub
-   (``<hub-name>-staging.datahub.berkeley.edu>``) pointing to the public IP.
-   Wait to make sure it resolves correctly, otherwise HTTPS requisition might
-   not work.
-
-#. Uncomment the values under ``jupyterhub.proxy.https`` under
-   ``config/staging.yaml`` to enable HTTPS. Run this through CI and make sure
-   HTTPS is set up on the staging hub.
-
-#. User logins should now work in the staging hub. Verify and validate to make
-   sure things are working as they should.
+   GitHub repo. Once tests pass, merge the PR to get a working staging hub! You
+   can log into it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out
+   and make sure things work as you think they should.
 
 #. Make a PR from the ``staging`` branch to the ``prod`` branch. When this PR is
-   merged, it'll deploy the production hub.  It should be accessible by an
-   external IP address that you can find with
-   ``kubectl --namespace=<hub-name>-prod get svc proxy-public``. However, HTTPS
-   and authentication would not work for the production hub yet.
+   merged, it'll deploy the production hub. You  can log into it at
+   https://<hub-name>.datahub.berkeley.edu. Test it out and make sure things
+   work as you think they should.
 
-#. Make a :ref:`dns entry <howto/dns>` for the prod hub (``<hub-name>.datahub.berkeley.edu>``)
-   pointing to the public IP. Wait to make sure it resolves correctly,
-   otherwise HTTPS requisition might not work.
-
-#. Everything should work now! Try logging in to production, and make sure
-   everything works out ok.
+#. All done!

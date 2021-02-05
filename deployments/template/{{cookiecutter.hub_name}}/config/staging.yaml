@@ -13,12 +13,11 @@ jupyterhub:
       config:
         client_id: '10720000000000471'
         oauth_callback_url: 'https://{{ cookiecutter.hub_name }}-staging.berkeley.edu/hub/oauth_callback'
-  proxy:
-    # service:
-      # make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of {{cookiecutter.hub_name}}.datahub.berkeley.edu
-    # uncomment once DNS entry has been made
-    # https:
-      # hosts:
-        # - {{cookiecutter.hub_name}}-staging.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - {{cookiecutter.hub_name}}-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - {{cookiecutter.hub_name}}-staging.datahub.berkeley.edu
