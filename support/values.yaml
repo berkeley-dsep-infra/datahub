@@ -1,3 +1,12 @@
+cert-manager:
+  installCRDs: true
+ingress-nginx:
+  controller:
+    service:
+      loadBalancerIP: 34.69.164.86
+    podLabels:
+      hub.jupyter.org/network-access-proxy-http: 'true'
+
 prometheus:
   # We were using network tags to restrict NFS access to just nodes from hub-cluster
   # However, it turns out packets coming from *pods* are *not* tagged with that, just from the nodes!
@@ -47,19 +56,32 @@ prometheus:
       type: ClusterIP
 
 grafana:
-  persistence:
-    storageClassName: standard
   deploymentStrategy:
     type: Recreate
 
   persistence:
     enabled: true
+    storageClassName: standard
+
   service:
-    type: LoadBalancer
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - grafana.datahub.berkeley.edu
+    tls:
+    - hosts:
+      - grafana.datahub.berkeley.edu
+      secretName: grafana-https-auto-tls
 
   grafana.ini:
     server:
-      root_url: http://grafana.datahub.berkeley.edu/
+      root_url: https://grafana.datahub.berkeley.edu/
+
   datasources:
     datasources.yaml:
       apiVersion: 1
