@@ -11,6 +11,13 @@ ingress-nginx:
     # cs194-staging
     22222: cs194-staging/jupyterhub-ssh:22
     22223: cs194-staging/jupyterhub-sftp:22
+
+    # stat159-staging
+    22001: stat159-staging/jupyterhub-ssh:22
+    22002: stat159-staging/jupyterhub-sftp:22
+    # stat159
+    22003: stat159-prod/jupyterhub-ssh:22
+    22004: stat159-prod/jupyterhub-sftp:22
   controller:
     service:
       loadBalancerIP: 34.69.164.86
