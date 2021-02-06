@@ -22,9 +22,16 @@ ingress-nginx:
     # dlab-staging
     22005: dlab-staging/jupyterhub-ssh:22
     22006: dlab-staging/jupyterhub-sftp:22
-    # stat159
+    # dlab-prod
     22007: dlab-prod/jupyterhub-ssh:22
     22008: dlab-prod/jupyterhub-sftp:22
+
+    # workshop-staging
+    22009: workshop-staging/jupyterhub-ssh:22
+    22010: workshop-staging/jupyterhub-sftp:22
+    # workshop-prod
+    22011: workshop-prod/jupyterhub-ssh:22
+    22012: workshop-prod/jupyterhub-sftp:22
 
   controller:
     # Best effort guess on resource needs

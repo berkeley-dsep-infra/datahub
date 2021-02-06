@@ -5,9 +5,11 @@ jupyterhub:
   scheduling:
     userScheduler:
       replicas: 1
-  proxy:
-  #   service:
-  #     loadBalancerIP: 104.197.27.164
-    https:
-      hosts:
-        - workshop-staging.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - workshop-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - workshop-staging.datahub.berkeley.edu
