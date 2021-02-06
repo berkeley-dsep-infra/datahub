@@ -33,6 +33,13 @@ ingress-nginx:
     22011: workshop-prod/jupyterhub-ssh:22
     22012: workshop-prod/jupyterhub-sftp:22
 
+    # julia-staging
+    22013: workshop-staging/jupyterhub-ssh:22
+    22014: workshop-staging/jupyterhub-sftp:22
+    # julia-prod
+    22015: workshop-prod/jupyterhub-ssh:22
+    22016: workshop-prod/jupyterhub-sftp:22
+
   controller:
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
