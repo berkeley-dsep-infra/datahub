@@ -19,6 +19,16 @@ ingress-nginx:
     22003: stat159-prod/jupyterhub-ssh:22
     22004: stat159-prod/jupyterhub-sftp:22
   controller:
+    # Best effort guess on resource needs
+    # We overprovision a little - issues here cause a full cluster outage
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 0.2
+        memory: 384Mi
     service:
       loadBalancerIP: 34.69.164.86
     podLabels:
