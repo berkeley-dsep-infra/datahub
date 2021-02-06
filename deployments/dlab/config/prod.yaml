@@ -2,12 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://dlab.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 34.122.240.224
-    https:
-      hosts:
-        - dlab.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - dlab.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - dlab.datahub.berkeley.edu
   hub:
     db:
       pvc:
