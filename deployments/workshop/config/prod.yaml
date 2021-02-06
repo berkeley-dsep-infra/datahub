@@ -9,11 +9,11 @@ jupyterhub:
   ingress:
     enabled: true
     hosts:
-      - workshop-staging.datahub.berkeley.edu
+      - workshop.datahub.berkeley.edu
     tls:
       - secretName: tls-cert
         hosts:
-          - workshop-staging.datahub.berkeley.edu
+          - workshop.datahub.berkeley.edu
   hub:
     db:
       pvc:
