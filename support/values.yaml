@@ -18,7 +18,32 @@ ingress-nginx:
     # stat159
     22003: stat159-prod/jupyterhub-ssh:22
     22004: stat159-prod/jupyterhub-sftp:22
+
+    # dlab-staging
+    22005: dlab-staging/jupyterhub-ssh:22
+    22006: dlab-staging/jupyterhub-sftp:22
+    # dlab-prod
+    22007: dlab-prod/jupyterhub-ssh:22
+    22008: dlab-prod/jupyterhub-sftp:22
+
+    # workshop-staging
+    22009: workshop-staging/jupyterhub-ssh:22
+    22010: workshop-staging/jupyterhub-sftp:22
+    # workshop-prod
+    22011: workshop-prod/jupyterhub-ssh:22
+    22012: workshop-prod/jupyterhub-sftp:22
+
   controller:
+    # Best effort guess on resource needs
+    # We overprovision a little - issues here cause a full cluster outage
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 0.2
+        memory: 384Mi
     service:
       loadBalancerIP: 34.69.164.86
     podLabels:
