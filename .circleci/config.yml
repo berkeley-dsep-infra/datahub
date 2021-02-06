@@ -106,7 +106,7 @@ jobs:
           name: Install base apt packages
           command: |
             apt-get update -qq --yes
-            apt-get install -qq --yes git curl git-crypt lsb-release apt-transport-https parallel
+            apt-get install -qq --yes git curl git-crypt lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
@@ -168,13 +168,69 @@ jobs:
               "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
 
       - run:
-          name: Deploy all hubs
-          # Deploy all hubs in parallel.
-          # The are independent of each other - thanks helm3
-          # This should make everything much faster.
+          name: Deploy datahub
           command: |
-            ls deployments | grep -v template | \
-            parallel -n4 hubploy deploy {} hub ${CIRCLECI_BRANCH}
+            hubploy deploy datahub hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy prob140
+          command: |
+            hubploy deploy prob140 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy biology
+          command: |
+            hubploy deploy biology hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy julia
+          command: |
+            hubploy deploy julia hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy R
+          command: |
+            hubploy deploy r hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy stat159
+          command: |
+            hubploy deploy stat159 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy cs194
+          command: |
+            hubploy deploy cs194 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy dlab
+          command: |
+            hubploy deploy dlab hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data8x
+          command: |
+            hubploy deploy data8x hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data102
+          command: |
+            hubploy deploy data102 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data100
+          command: |
+            hubploy deploy data100 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy workshop
+          command: |
+            hubploy deploy workshop hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy eecs
+          command: |
+            hubploy deploy eecs hub ${CIRCLE_BRANCH}
 
   deploy-support:
     docker:
