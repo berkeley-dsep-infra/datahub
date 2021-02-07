@@ -87,12 +87,14 @@ we provide that sets up a blank hub that can be customized.
       cp deployments/datahub/secrets/gcr-key.json deployments/<hub-name>/secrets
 
 #. Commit the hub directory, and make a PR to the the ``staging`` branch in the
-   GitHub repo. Once tests pass, merge the PR to get a working staging hub! You
+   GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
+   might take a few minutes for HTTPS to work, but after that you
    can log into it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out
    and make sure things work as you think they should.
 
 #. Make a PR from the ``staging`` branch to the ``prod`` branch. When this PR is
-   merged, it'll deploy the production hub. You  can log into it at
+   merged, it'll deploy the production hub. It might take a few minutes for HTTPS
+   to work, but after that you can log into it at
    https://<hub-name>.datahub.berkeley.edu. Test it out and make sure things
    work as you think they should.
 
