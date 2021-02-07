@@ -8,10 +8,11 @@ jupyterhub:
   prePuller:
     continuous:
       enabled: false
-  proxy:
-    enabled: false
-    # service:
-    #   loadBalancerIP: 34.72.13.135
-    # https:
-    #   hosts:
-    #     - highschool-staging.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - highschool-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - highschool-staging.datahub.berkeley.edu

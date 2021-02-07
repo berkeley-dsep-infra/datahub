@@ -39,6 +39,13 @@ ingress-nginx:
     # biology-prod
     22015: workshop-prod/jupyterhub-ssh:22
     22016: workshop-prod/jupyterhub-sftp:22
+
+    # highschool-staging
+    22017: workshop-staging/jupyterhub-ssh:22
+    22018: workshop-staging/jupyterhub-sftp:22
+    # highschool-prod
+    22019: workshop-prod/jupyterhub-ssh:22
+    22020: workshop-prod/jupyterhub-sftp:22
   controller:
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
