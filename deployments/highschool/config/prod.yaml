@@ -2,13 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://highschool.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    enabled: false
-    # service:
-    #   loadBalancerIP: 34.72.130.160
-    # https:
-    #   hosts:
-    #     - highschool.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - highschool.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - highschool.datahub.berkeley.edu
   hub:
     db:
       pvc:
