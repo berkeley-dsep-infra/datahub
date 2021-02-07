@@ -25,6 +25,7 @@ RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
             tar \
             vim \
+            micro \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
