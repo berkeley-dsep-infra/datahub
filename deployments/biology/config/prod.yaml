@@ -2,14 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://biology.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    # service:
-      # FIXME: make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of genomics.datahub.berkeley.edu
-    https:
-      hosts:
-        - biology.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - biology.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - biology.datahub.berkeley.edu
   hub:
     db:
       pvc:

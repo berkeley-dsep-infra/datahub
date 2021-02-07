@@ -8,12 +8,11 @@ jupyterhub:
   prePuller:
     continuous:
       enabled: false
-  proxy:
-    # service:
-      # make the IP static in google cloud console so we won't lose it
-      # then specify it here so if we redeploy we get the same stuff
-      # loadBalancerIP: <IP of genomics.datahub.berkeley.edu
-    # uncomment once DNS entry has been made
-    https:
-      hosts:
-        - biology-staging.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - biology-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - biology-staging.datahub.berkeley.edu
