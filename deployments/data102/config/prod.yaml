@@ -2,10 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://data102.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    https:
-      hosts:
-        - data102.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - data102.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - data102.datahub.berkeley.edu
   hub:
     db:
       pvc:

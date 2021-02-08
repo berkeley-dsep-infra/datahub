@@ -75,6 +75,7 @@ jupyterhub:
       nginx.ingress.kubernetes.io/proxy-body-size: 256m
       kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      acme.cert-manager.io/http01-edit-in-place: "true"
   scheduling:
     podPriority:
       enabled: true

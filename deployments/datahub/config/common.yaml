@@ -59,12 +59,12 @@ jupyterhub:
         2021-spring-27844:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        # astr 128
-        2020-spring-25880:
+        # astr 128, issue 2083
+        2021-spring-25880:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        # astr 256
-        2020-spring-25995:
+        # astr 256, issue 2083
+        2021-spring-25995:
           mem_limit: 4096M
           mem_guarantee: 1024M
   proxy:
