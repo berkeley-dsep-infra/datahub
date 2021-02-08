@@ -17,6 +17,8 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
   proxy:
+    service:
+      type: ClusterIP
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
   hub:

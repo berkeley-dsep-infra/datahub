@@ -1,20 +1,15 @@
 cert-manager:
   installCRDs: true
+  # Our cluster-internal DNS seems to cache aggressively in
+  # some cases. The cache is also more likely to be warm,
+  # causing issues when cert-manager tries to verify
+  # that the ACME http-01 challenge will succeed. Since
+  # Let's encrypt itself isn't going to use our cluster-local
+  # DNS, this causes false negatives - cert-manager thinks the
+  # challenge will fail, but in reality it will most likely not.
+  podDnsPolicy: None
   podDnsConfig:
     nameservers:
-      # Our cluster-internal DNS seems to cache aggressively in
-      # some cases. The cache is also more likely to be warm,
-      # causing issues when cert-manager tries to verify
-      # that the ACME http-01 challenge will succeed. Since
-      # Let's encrypt itself isn't going to use our cluster-local
-      # DNS, this causes false negatives - cert-manager thinks the
-      # challenge will fail, but in reality it might not.
-      # Ideally, there would be an option that lets us force
-      # cert-manager to ignore caches and hit the upstream nameserver
-      # directly. For now though, this works well enough.
-      # I haven't actually verified if cert-manager checks if the
-      # challenge will succeed before starting it - I am guessing
-      # based on behavior observed. Hopefully this helps?
       - 1.1.1.1
       - 8.8.8.8
 ingress-nginx:
