@@ -73,11 +73,12 @@ astropy==4.2
 dustmaps==1.0.6
 george==0.3.1
 exoplanet==0.4.3
-pymc3==3.10.0
 torch==1.7.1
 torchvision==0.8.2
 pyvo==1.1
 joblib==1.0.0
+theano-pymc==1.1.0
+pymc3==3.11.0
 
 # eep 153; spring 2019
 requests==2.25.1
