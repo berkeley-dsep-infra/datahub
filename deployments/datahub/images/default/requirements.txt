@@ -184,6 +184,7 @@ keras==2.4.3
 keras-vis==0.4.1
 plotly-express==0.4.1
 cytoolz==0.11.0
+pyro-ppl==1.5.2
 
 # prob140 2021 Spring
 prob140==0.4.1.5
