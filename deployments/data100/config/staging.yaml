@@ -5,7 +5,11 @@ jupyterhub:
   prePuller:
     continuous:
       enabled: false
-  proxy:
-    https:
-      hosts:
-        - data100-staging.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - data100-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - data100-staging.datahub.berkeley.edu
