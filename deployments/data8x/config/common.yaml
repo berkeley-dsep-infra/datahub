@@ -9,6 +9,8 @@ jupyterhub:
     services:
       gofer_nb:
         url: http://35.239.20.122:10101
+  proxy:
+    type: Loadbalancer
   auth:
     type: lti
     admin:
