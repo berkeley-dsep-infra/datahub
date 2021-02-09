@@ -1,4 +1,4 @@
-FROM ubuntu:19.04
+FROM ubuntu:20.04
 
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
@@ -15,5 +15,6 @@ ADD requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
 ADD course-emails.py /usr/local/bin/
+ADD save-course-emails.sh /usr/local/bin/
 
-CMD ["/usr/local/bin/course-emails.py", "-v"]
+CMD ["/usr/local/bin/save-course-emails.sh"]
