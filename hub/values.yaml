@@ -93,6 +93,7 @@ jupyterhub:
           memory: 1G
   proxy:
     service:
+      type: ClusterIP
       extraPorts:
         - port: 22
           targetPort: 8022

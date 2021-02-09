@@ -3,6 +3,7 @@ jupyterhub-ssh:
 
 jupyterhub:
   proxy:
+    type: Loadbalancer
     service:
       loadBalancerIP: 35.193.57.206
     https:
