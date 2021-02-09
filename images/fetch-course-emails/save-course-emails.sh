@@ -15,8 +15,8 @@ sleep_time=86400
 
 while true ; do
 
-	if [ ! -f $custom_profiles ]; then
-		echo "No such file: $custom_profiles"
+	if [ ! -f $config_values ]; then
+		echo "No such file: $config_values"
 	else
 
 		if [ ! -d $profile_dir ]; then mkdir -p $profile_dir ; fi
