@@ -59,6 +59,10 @@ ingress-nginx:
     22019: workshop-prod/jupyterhub-ssh:22
     22020: workshop-prod/jupyterhub-sftp:22
   controller:
+    config:
+      # Let's preserve ability to have HTTP pages served under *.datahub.berkeley.edu
+      # when necessary. Ideally would not be, but I want to preserve that option.
+      hsts-include-subdomains: "false"
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
     replicaCount: 2
