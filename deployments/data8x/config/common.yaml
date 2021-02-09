@@ -10,7 +10,7 @@ jupyterhub:
       gofer_nb:
         url: http://35.239.20.122:10101
   proxy:
-    type: Loadbalancer
+    type: LoadBalancer
   auth:
     type: lti
     admin:
