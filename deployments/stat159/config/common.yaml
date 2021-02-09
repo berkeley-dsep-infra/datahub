@@ -28,6 +28,8 @@ jupyterhub:
           # List of other admin users
           - fernando.perez
           - pbstark
+          # GSI for Spring 2021
+          - daniel_mcandrew
 
   singleuser:
     extraEnv:
