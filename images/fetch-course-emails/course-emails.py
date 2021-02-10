@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python3
 
 import argparse
 import asyncio
@@ -122,7 +122,7 @@ async def handle_profile(profile, profile_dir):
 		SIS_TERMS_ID, SIS_TERMS_KEY, year, semester
 	)
 	term_id = int(term_id)
-	logger.debug(f"{year} {term_id} {class_number}")
+	logger.info(f"{year} {term_id} {class_number}")
 
 	s_emails = await student_emails(term_id, class_number)
 	save_emails(profile_dir, profile, 'students', s_emails)
@@ -132,7 +132,7 @@ async def handle_profile(profile, profile_dir):
 async def main():
 	logging.basicConfig(stream=sys.stdout)
 	logger = logging.getLogger()
-	logger.setLevel(logging.ERROR)
+	logger.setLevel(logging.INFO)
 
 	# check for creds in environment and set them as global vars
 	required_env_vars = [
