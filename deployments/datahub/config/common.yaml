@@ -68,6 +68,8 @@ jupyterhub:
           mem_limit: 4096M
           mem_guarantee: 1024M
   proxy:
+    service:
+      type: LoadBalancer
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
   auth:
