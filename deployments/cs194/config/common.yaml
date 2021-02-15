@@ -101,6 +101,23 @@ jupyterhub:
           # postgres recommends against mounting a volume directly here
           # So we put data in a subpath
           subPath: data
+    initContainers:
+      # /var/lib/postgresql should be writeable by uid 1000, so students
+      # can blow out their db directories if need to. Just setting UID on the
+      # postgres server should have been enough - but because we did not do it
+      # early enough, many users have data dirs owned by uid 999.
+      # We explicitly chown them back. We should remove this eventually.
+      - name: postgres-volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown -R 1000:1000 /var/lib/postgresql && ls -lhd /var/lib/postgresql"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: postgres-db
+          mountPath: /var/lib/postgresql/data
+          # postgres recommends against mounting a volume directly here
+          # So we put data in a subpath
+          subPath: data
     extraContainers:
       - name: postgres
         image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
@@ -118,6 +135,8 @@ jupyterhub:
           value: "trust"
         - name: POSTGRES_USER
           value: "jovyan"
+        securityContext:
+          runAsUser: 1000
         volumeMounts:
         - name: home
           mountPath: /home/jovyan
