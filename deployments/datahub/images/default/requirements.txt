@@ -174,7 +174,6 @@ psycopg2==2.8.6
 # data100 teaching
 jassign==0.0.7
 dsassign==0.0.8
-notetaker==0.0.6
 
 # data102
 dask==2020.12.0
