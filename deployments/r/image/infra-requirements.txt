@@ -11,15 +11,18 @@
 # FIXME: Automate finding out when there are new versions of these
 # Temporary until https://github.com/jupyter/notebook/pull/5870 is released
 git+https://github.com/jupyter/notebook@5a73a8e4026ccc8d7437f788bf0bc2758a73567d
-nbconvert==5.6.1
-nbformat==5.0.7
+# from @chrispyles
+# i see that nbformat was unpinned. since the pin, because of the new cell id
+# parameter in notebook format v4 the notebook validation is failing whenever
+# someone opens a notebook created w/ nbformat>=5.1.0. is it possible to pin
+# below 5.1.0 while notebook patches this?
+nbformat<5.1.0
 jupyterlab==3.0.5
 nbgitpuller==0.9.0
 jupyter-resource-usage==0.5.1
 jupyterhub==1.3.0
 appmode==0.8.0
 ipywidgets==7.6.3
-notebook-as-pdf==0.3.1
 otter-grader==2.1.0
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2

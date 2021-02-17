@@ -25,6 +25,8 @@ RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
             tar \
             vim \
+            micro \
+            mc \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -185,10 +187,12 @@ RUN r /tmp/r-packages/2021-spring-phw-272a.r
 COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-stat-20.r
 
+COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
+RUN r /tmp/r-packages/2021-spring-espm-288.r
+
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
-# Set this to be on container storage, rather than under $HOME
-ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
+# Set this to be on container storage, rather than under $HOME ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
 
 WORKDIR /home/${NB_USER}
 
@@ -209,6 +213,7 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
+
 # Install jupyterlab extensions immediately after infra-requirements
 # This hopefully prevents re-installation all the time
 # `jlpm` calls out to yarn internally, and we tell it to
@@ -227,6 +232,14 @@ RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
+
+# Hack to get PyMC3 working for Data 102 & Astro 128/256
+# These are the same versions as in requirements.txt, but
+# the import fails unless you uninstall and reinstall
+# See https://github.com/berkeley-dsep-infra/datahub/issues/2207
+RUN pip uninstall Theano Theano-PyMC pymc3 -y
+RUN pip install --no-cache 'Theano==1.0.5'
+RUN pip install --no-cache 'pymc3==3.11.0'
 
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
@@ -251,3 +264,12 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 
 EXPOSE 8888
+
+# Temporarily install new nbconvert version to fix pagination in PDF generation
+# This can't be in infra-requirements, since that seems to just install the
+# published versions of nbconvert from notebook. Adding this to the end of the
+# image so we can experiment with this faster.
+# Brings in https://github.com/jupyter/nbconvert/pull/1513
+# Brings in https://github.com/jupyter/nbconvert/pull/1515
+# Brings in https://github.com/jupyter/nbconvert/pull/1516
+RUN pip install --no-cache git+https://github.com/yuvipanda/nbconvert@888f39b9fe131f8af403a9396538996afbfd7aa2

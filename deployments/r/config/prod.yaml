@@ -2,12 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://r.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 34.68.2.114
-    https:
-      hosts:
-        - r.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - r.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - r.datahub.berkeley.edu
   hub:
     db:
       pvc:

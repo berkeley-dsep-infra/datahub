@@ -59,34 +59,17 @@ jupyterhub:
         2021-spring-27844:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        # astr 128
-        2020-spring-25880:
+        # astr 128, issue 2083
+        2021-spring-25880:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        # astr 256
-        2020-spring-25995:
+        # astr 256, issue 2083
+        2021-spring-25995:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        modules-leads:
-          users:
-            - yuvipanda
-            - ktakimoto
-            - ericvd
-            - jasonjiang
-            - alec.kan
-            - eesaravia
-            - almapineda
-            - m.wilkinson
-            - schaganty
-            - timlan.wong
-          extraVolumes:
-            - name: shared
-              hostPath:
-                path: /data/homes/prod/_shared/module-leads
-          extraVolumeMounts:
-            - name: shared
-              mountPath: /home/jovyan/shared/module-leads
   proxy:
+    service:
+      type: LoadBalancer
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
   auth:

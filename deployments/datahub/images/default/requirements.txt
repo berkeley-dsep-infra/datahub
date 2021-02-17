@@ -73,11 +73,12 @@ astropy==4.2
 dustmaps==1.0.6
 george==0.3.1
 exoplanet==0.4.3
-pymc3==3.10.0
 torch==1.7.1
 torchvision==0.8.2
 pyvo==1.1
 joblib==1.0.0
+theano-pymc==1.1.0
+pymc3==3.11.0
 
 # eep 153; spring 2019
 requests==2.25.1
@@ -184,6 +185,7 @@ keras==2.4.3
 keras-vis==0.4.1
 plotly-express==0.4.1
 cytoolz==0.11.0
+pyro-ppl==1.5.2
 
 # prob140 2021 Spring
 prob140==0.4.1.5
@@ -192,3 +194,9 @@ sympy==1.7.1
 # stat159 2021 Spring
 cryptorandom==0.2
 git+https://github.com/statlab/permute@v0.1.a5
+pycodestyle==2.6.0
+pep257==0.7.0
+
+# cs194 2021 Spring
+ipython-sql==0.4.0
+pgspecial==1.11.10

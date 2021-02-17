@@ -2,12 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://julia.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 35.238.4.152
-    https:
-      hosts:
-        - julia.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - julia.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - julia.datahub.berkeley.edu
   hub:
     db:
       pvc:

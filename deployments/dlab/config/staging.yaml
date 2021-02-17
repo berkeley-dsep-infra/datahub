@@ -1,0 +1,18 @@
+jupyterhub-ssh:
+  hubUrl: https://dlab-staging.datahub.berkeley.edu
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - dlab-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - dlab-staging.datahub.berkeley.edu

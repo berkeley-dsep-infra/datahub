@@ -8,9 +8,11 @@ jupyterhub:
   prePuller:
     continuous:
       enabled: false
-  proxy:
-    service:
-      loadBalancerIP: 34.68.107.18
-    https:
-      hosts:
-        - r-staging.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - r-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - r-staging.datahub.berkeley.edu

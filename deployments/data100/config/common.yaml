@@ -32,50 +32,20 @@ jupyterhub:
         - rylo
         - yuvipanda
         - cpyles
-        # instructors
+        # instructors & gsis (spring 2021)
         - jegonzal
         - andrewbray
         - data100.instructors
-        # gsis
-        - rahuljcool26
-        - paulshaoyuqiao1
-        - andrew.lenz
-        - ischmidt20
-        - xuzh
-        - johntsor
-        - zacharywu
-        - jamesrichardsusilo
-        - yangluanne
-        - rohanchilukuri
-        - oliveqy
-        - rain
-        - parthbaokar
-        - shaviv
-        - kagarwal2
-        - cshih
-        - cpyles
-        - alberttang
-        - jwu19
-        - kelly_han
-        - saurav
-        - rami.mostafa
-        - am123
-        - rkunani
-        - ishaan.srivastava
-        - rohan.hajela
-        - aahuang
-        - agnibhoroy
-        - calzoom
   prePuller:
     extraImages:
       postgres:
-        name: postgres
-        tag: 12.2
+        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+        tag: 0.0.1-n3657.h4f7f88c
         policy: IfNotPresent
   singleuser:
     extraContainers:
       - name: postgres
-        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n2510.hd28e63b
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
         resources:
           limits:
             # Best effort only. No more than 1 CPU

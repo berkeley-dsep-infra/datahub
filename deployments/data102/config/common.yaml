@@ -24,7 +24,14 @@ jupyterhub:
         - fernando.perez
         - michael_jordan
         # gsis
-        #- placeholder
+        # data102 spring 2021, #2138
+        - anna-nguyen
+        - erika.n.mack
+        - yiwendai99
+        - ramesh_s
+        - rroggenkemper
+        - xingyu.jin21
+        - yanshuo
 
   hub:
     nodeSelector:

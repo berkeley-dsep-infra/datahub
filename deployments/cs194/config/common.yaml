@@ -1,0 +1,154 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+    shareName: export/homedirs-other-2020-07-29/cs194
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    extraConfig:
+      cs194-01-pvc: |
+        storage_class = 'ssd'
+        storage_capacity = '1G'
+        from jupyterhub.utils import exponential_backoff
+        from kubespawner.objects import make_pvc
+        from functools import partial
+
+        def make_db_pvc(spawner):
+          labels = spawner._build_common_labels({})
+          labels.update({
+              'component': 'db-storage'
+          })
+
+          annotations = spawner._build_common_annotations({})
+
+          storage_selector = spawner._expand_all(spawner.storage_selector)
+
+          return make_pvc(
+              name=spawner._expand_all('db-{username}'),
+              storage_class=storage_class,
+              access_modes=['ReadWriteOnce'],
+              selector={},
+              storage=storage_capacity,
+              labels=labels,
+              annotations=annotations
+          )
+
+        async def ensure_db_pvc(spawner):
+          """"
+          Ensure a PVC is created for this user's database volume
+          """
+          pvc = make_db_pvc(spawner)
+
+          # If there's a timeout, just let it propagate
+          await exponential_backoff(
+              partial(spawner._make_create_pvc_request, pvc, spawner.k8s_api_request_timeout),
+              f'Could not create pvc {pvc.metadata.name}',
+              # Each req should be given k8s_api_request_timeout seconds.
+              timeout=spawner.k8s_api_request_retry_timeout
+          )
+
+        c.Spawner.pre_spawn_hook = ensure_db_pvc
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+
+  auth:
+    type: custom
+    admin:
+      users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+          - hellerstein
+          - adityagp
+          - allenshen5
+          - scherfaoui
+          - mantejpanesar
+          - aditi.mahajan
+          - nikmandava
+          - lexyyxl
+  prePuller:
+    hook:
+      enabled: false
+    extraImages:
+      postgres:
+        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+        tag: 0.0.1-n3657.h4f7f88c
+        policy: IfNotPresent
+  singleuser:
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumes:
+        - name: postgres-db
+          persistentVolumeClaim:
+            claimName: 'db-{username}'
+      extraVolumeMounts:
+        - name: postgres-db
+          mountPath: /var/lib/postgresql/data
+          # postgres recommends against mounting a volume directly here
+          # So we put data in a subpath
+          subPath: data
+    initContainers:
+      # /var/lib/postgresql should be writeable by uid 1000, so students
+      # can blow out their db directories if need to. Just setting UID on the
+      # postgres server should have been enough - but because we did not do it
+      # early enough, many users have data dirs owned by uid 999.
+      # We explicitly chown them back. We should remove this eventually.
+      - name: postgres-volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown -R 1000:1000 /var/lib/postgresql && ls -lhd /var/lib/postgresql"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: postgres-db
+          mountPath: /var/lib/postgresql/data
+          # postgres recommends against mounting a volume directly here
+          # So we put data in a subpath
+          subPath: data
+    extraContainers:
+      - name: postgres
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
+        resources:
+          limits:
+            # Best effort only. No more than 1 CPU
+            memory: 512Mi
+            cpu: 1.0
+          requests:
+            # If we don't set requests, k8s sets requests == limits!
+            memory: 64Mi
+            cpu: 0.01
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: "trust"
+        - name: POSTGRES_USER
+          value: "jovyan"
+        securityContext:
+          runAsUser: 1000
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
+        - name: postgres-db
+          mountPath: /var/lib/postgresql/data
+          # postgres recommends against mounting a volume directly here
+          # So we put data in a subpath
+          subPath: data
+    nodeSelector:
+      # Since data100 also has the postgres image
+      hub.jupyter.org/pool-name: beta-pool
+    memory:
+      guarantee: 512M
+      limit: 1G

@@ -198,6 +198,16 @@ jobs:
             hubploy deploy stat159 hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy cs194
+          command: |
+            hubploy deploy cs194 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy dlab
+          command: |
+            hubploy deploy dlab hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy data8x
           command: |
             hubploy deploy data8x hub ${CIRCLE_BRANCH}
@@ -344,7 +354,6 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
           deployment: biology
           name: biology image build
@@ -354,7 +363,6 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
           deployment: julia
           name: julia hub image build
@@ -364,7 +372,6 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
           deployment: data8x
           name: data8x image build
@@ -374,7 +381,6 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
           deployment: eecs
           name: eecs image build
@@ -384,7 +390,10 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
+      # Build images only during the staging deploy. All merges
+      # to prod need to go via staging, so prod should *never*
+      # use images not built for staging. By enforcing this at the
+      # CI level, we also make prod deploys go faster!
       - deploy:
           requires:
               - datahub image build
@@ -396,6 +405,10 @@ workflows:
             branches:
               only:
                 - staging
+      - deploy:
+          filters:
+            branches:
+              only:
                 - prod
   deploy-support:
     jobs:

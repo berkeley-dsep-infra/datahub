@@ -28,8 +28,13 @@ jupyterhub:
           # List of other admin users
           - fernando.perez
           - pbstark
+          # GSI for Spring 2021
+          - daniel_mcandrew
 
   singleuser:
+    extraEnv:
+      # Set default editor to something more new-user-friendly than vim/emacs
+      EDITOR: "micro"
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     storage:
