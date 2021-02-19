@@ -2,13 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://cs194.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    service:
-      type: LoadBalancer
-      loadBalancerIP: 35.193.57.206
-    https:
-      hosts:
-        - cs194.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - cs194.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - cs194.datahub.berkeley.edu
   auth:
     custom:
       config:
