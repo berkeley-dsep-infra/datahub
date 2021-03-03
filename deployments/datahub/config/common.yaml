@@ -88,6 +88,24 @@ jupyterhub:
             - name: home
               mountPath: /home/jovyan/shared-rw/course/astr-128-256
               subPath: _shared/course/astr-128-256
+        # Shared drive for EPS 130
+        # https://github.com/berkeley-dsep-infra/datahub/issues/2123
+        2021-spring-22110:
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared/course/eps-130
+              subPath: _shared/course/eps-130
+              readOnly: true
+        eps-130-admins:
+          users:
+            - yuvipanda
+            - felder
+            - ericvd
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared-rw/course/eps-130
+              subPath: _shared/course/eps-130
+
 
   proxy:
     service:
