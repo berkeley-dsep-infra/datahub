@@ -59,14 +59,36 @@ jupyterhub:
         2021-spring-27844:
           mem_limit: 4096M
           mem_guarantee: 1024M
-        # astr 128, issue 2083
-        2021-spring-25880:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
+        # Shared dataset volumes for astr 128 / 256
+        # See https://github.com/berkeley-dsep-infra/datahub/issues/827
         # astr 256, issue 2083
         2021-spring-25995:
           mem_limit: 4096M
           mem_guarantee: 1024M
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared/course/astr-128-256
+              subPath: _shared/course/astr-128-256
+              readOnly: true
+        # astr 128, issue 2083
+        2021-spring-25880:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+        # Read-write access to the astro shared directory
+        # HACK: Different mountPath to prevent mounting two volumeMounts
+        # at the same path.
+        astr-128-admins:
+          users:
+            - yuvipanda
+            - kelbadry
+            - joshbloom
+            - dan.weisz
+            - felder
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared-rw/course/astr-128-256
+              subPath: _shared/course/astr-128-256
+
   proxy:
     service:
       type: LoadBalancer
