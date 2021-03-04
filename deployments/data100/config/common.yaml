@@ -23,19 +23,18 @@ jupyterhub:
           - name: home
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
-  auth:
-    type: custom # This enables canvas auth
-    admin:
-      users:
-        # infrastructure
-        - felder
-        - rylo
-        - yuvipanda
-        - cpyles
-        # instructors & gsis (spring 2021)
-        - jegonzal
-        - andrewbray
-        - data100.instructors
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - felder
+          - rylo
+          - yuvipanda
+          - cpyles
+          # instructors & gsis (spring 2021)
+          - jegonzal
+          - andrewbray
+          - data100.instructors
   prePuller:
     extraImages:
       postgres:

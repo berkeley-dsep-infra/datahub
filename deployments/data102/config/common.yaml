@@ -12,30 +12,29 @@ jupyterhub:
   proxy:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-  auth:
-    type: custom
-    admin:
-      users:
-        # infrastructure
-        - felder
-        - rylo
-        - yuvipanda
-        # instructors
-        - fernando.perez
-        - michael_jordan
-        # gsis
-        # data102 spring 2021, #2138
-        - anna-nguyen
-        - erika.n.mack
-        - yiwendai99
-        - ramesh_s
-        - rroggenkemper
-        - xingyu.jin21
-        - yanshuo
-
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - felder
+          - rylo
+          - yuvipanda
+          # instructors
+          - fernando.perez
+          - michael_jordan
+          # gsis
+          # data102 spring 2021, #2138
+          - anna-nguyen
+          - erika.n.mack
+          - yiwendai99
+          - ramesh_s
+          - rroggenkemper
+          - xingyu.jin21
+          - yanshuo
+
 
   singleuser:
     nodeSelector:

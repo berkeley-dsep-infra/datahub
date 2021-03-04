@@ -37,10 +37,9 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-  auth:
-    type: custom # This enables canvas auth
-    admin:
-      users:
+    config:
+      Authenticator:
+        admin_users:
           # infrastructure
           - rylo
           - yuvipanda

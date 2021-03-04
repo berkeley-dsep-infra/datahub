@@ -24,16 +24,13 @@ jupyterhub:
     activeServerLimit: 200
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
+    config:
+      JupyterHub:
+        admin_access: false
+        authenticator_class: dummy
   proxy:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-  auth:
-    type: dummy
-    admin:
-      users:
-          - felder
-          - rylo
-          - yuvipanda
   singleuser:
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image
