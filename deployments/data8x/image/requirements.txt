@@ -8,5 +8,5 @@ scipy==1.2.0
 nbforms==0.5.1
 numpy==1.16.0
 # For grading
-git+https://github.com/ucbds-infra/Gofer-Grader.git@1bacb7a
+git+https://github.com/ucbds-infra/Gofer-Grader.git@dbf3500
 gofer-submit==0.4
