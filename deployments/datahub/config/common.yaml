@@ -237,10 +237,6 @@ jupyterhub:
       type: LoadBalancer
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-  auth:
-    type: custom # This enables canvas auth
-    admin:
-      users:
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
