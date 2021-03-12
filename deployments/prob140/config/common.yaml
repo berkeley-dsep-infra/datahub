@@ -12,10 +12,11 @@ jupyterhub:
   proxy:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-  auth:
-    type: custom
-    admin:
-      users:
+
+  hub:
+    config:
+      Authenticator:
+        admin_users:
           # infrastructure
           - rylo
           - yuvipanda
@@ -28,8 +29,6 @@ jupyterhub:
           # s19 prob140 gsis
           - alanchuang
           - dibya.ghosh
-
-  hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 

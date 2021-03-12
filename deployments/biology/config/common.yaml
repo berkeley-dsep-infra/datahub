@@ -17,10 +17,14 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-  auth:
-    type: google
-    admin:
-      users:
+    config:
+      JupyterHub:
+        authenticator_class: oauthenticator.google.GoogleOAuthenticator
+      GoogleOAuthenticator:
+        hosted_domain:
+          - berkeley.edu
+      Authenticator:
+        admin_users:
           # infrastructure
           - rylo
           - yuvipanda

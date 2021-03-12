@@ -14,6 +14,22 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
 
   hub:
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # List of other admin users
+          - hellerstein
+          - adityagp
+          - allenshen5
+          - scherfaoui
+          - mantejpanesar
+          - aditi.mahajan
+          - nikmandava
+          - lexyyxl
     extraConfig:
       cs194-01-pvc: |
         storage_class = 'ssd'
@@ -60,23 +76,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-  auth:
-    type: custom
-    admin:
-      users:
-          # infrastructure
-          - rylo
-          - yuvipanda
-          - felder
-          # List of other admin users
-          - hellerstein
-          - adityagp
-          - allenshen5
-          - scherfaoui
-          - mantejpanesar
-          - aditi.mahajan
-          - nikmandava
-          - lexyyxl
   prePuller:
     hook:
       enabled: false
