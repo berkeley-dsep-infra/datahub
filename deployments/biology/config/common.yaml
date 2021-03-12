@@ -19,8 +19,10 @@ jupyterhub:
 
     config:
       JupyterHub:
-        authenticator_class: GoogleOAuthenticator
-
+        authenticator_class: oauthenticator.google.GoogleOAuthenticator
+      GoogleOAuthenticator:
+        hosted_domain:
+          - berkeley.edu
       Authenticator:
         admin_users:
           # infrastructure

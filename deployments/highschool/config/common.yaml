@@ -21,7 +21,7 @@ jupyterhub:
       JupyterHub:
         authenticator_class: GoogleOAuthenticator
       GoogleOAuthenticator:
-        hostedDomain:
+        hosted_domain:
         - berkeley.edu
         # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
         - achieveprogram.org

@@ -205,8 +205,6 @@ jupyterhub:
     config:
       JupyterHub:
         authenticator_class: canvasauthenticator.CanvasOAuthenticator
-      GoogleOAuthenticator:
-        hostedDomain: [berkeley.edu]
 
       CanvasOAuthenticator:
         canvas_url: https://bcourses.berkeley.edu/
