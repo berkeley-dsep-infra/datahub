@@ -1,11 +1,8 @@
 dependencies:
  - name: jupyterhub
    # REMEMBER TO CHANGE BASE IMAGE OF images/hub/ WHEN CHANGING THIS
-   version: 0.10.0
+   version: 0.11.1
    repository: https://jupyterhub.github.io/helm-chart/
- # - name: jupyterhub-ssh
- #   version: 0.0.1
- #   repository: file://../../jupyterhub-ssh/helm-chart/jupyterhub-ssh
  - name: jupyterhub-ssh
    version: 0.0.1-n077.h0c9caba
    repository: https://yuvipanda.github.io/jupyterhub-ssh/

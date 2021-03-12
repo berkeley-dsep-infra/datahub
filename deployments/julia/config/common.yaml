@@ -9,21 +9,20 @@ jupyterhub:
     userScheduler:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
-  hub:
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
   proxy:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-  auth:
-    type: custom  # uses canvas auth, see hub/values.yaml
-    admin:
-      users:
-          # infrastructure
-          - rylo
-          - yuvipanda
-          - felder
-          # List of other admin users
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      Authenticator:
+        admin_users:
+            # infrastructure
+            - rylo
+            - yuvipanda
+            - felder
+            # List of other admin users
 
   singleuser:
     nodeSelector:

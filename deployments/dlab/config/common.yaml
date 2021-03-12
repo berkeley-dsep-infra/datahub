@@ -17,10 +17,8 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-  auth:
-    type: custom
-    admin:
-      users:
+    Authenticator:
+      admin_users:
           # infrastructure
           - rylo
           - yuvipanda

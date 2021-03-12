@@ -2,7 +2,7 @@ from traitlets import List, Unicode
 from oauthenticator.generic import GenericOAuthenticator
 import aiohttp
 
-class CanvasAuthenticator(GenericOAuthenticator):
+class CanvasOAuthenticator(GenericOAuthenticator):
     """
     Canvas OAuth2 based authenticator for JupyterHub.
 
@@ -41,11 +41,11 @@ class CanvasAuthenticator(GenericOAuthenticator):
         super().__init__(*args, **kwargs)
 
         if not self.canvas_url:
-            raise ValueError('c.CanvasAuthenticator.canvas_url must be set')
+            raise ValueError('c.CanvasOAuthenticator.canvas_url must be set')
 
         # canvas_url must have a trailing slash
         if self.canvas_url[-1] != '/':
-            raise ValueError('c.CanvasAuthenticator.canvas_url must have a trailing slash')
+            raise ValueError('c.CanvasOAuthenticator.canvas_url must have a trailing slash')
 
         self.token_url = f'{self.canvas_url}login/oauth2/token'
         self.userdata_url = f'{self.canvas_url}api/v1/users/self/profile'
