@@ -21,7 +21,7 @@ jupyterhub:
         image: berkeleydsep/fetch-course-emails:v3
         volumeMounts:
           # for writing out email lists ; consider new volume
-          - name: pvc
+          - name: hub-db-dir
             mountPath: /srv/jupyterhub
           # for reading in profiles
           - name: secret
