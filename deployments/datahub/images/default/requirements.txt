@@ -95,13 +95,14 @@ ffmpeg-python==0.2.0
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
 Cartopy==0.18.0 --no-binary Cartopy
 
-# data 88; spring 2020
+# data 88e; spring 2021
 plotly==4.14.3
 mpmath==1.1.0
 # sympy==1.6.2
 chart-studio==1.1.0
 csaps==1.0.3
 nbforms==0.5.1
+gmaps==0.9.0
 
 # issue #875, global 150Q/pacs 190 - fall 2019
 wordcloud==1.8.1
