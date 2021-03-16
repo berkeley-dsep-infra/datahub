@@ -231,7 +231,7 @@ RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
         @jupyterlab/geojson-extension && \
     rm -rf /tmp/yarncache
 
-RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
+RUN pip install --no-cache numpy==1.20.1 cython==0.29.21
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
