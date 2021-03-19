@@ -17,7 +17,8 @@ cran_packages <- c(
   "poppr","2.8.6",
   "PopGenome","2.7.5", 
   "detectRUNS","0.9.6", 
-  "pwr","1.3" 
+  "pwr","1.3" ,
+  "plotly","4.9.3"
 )
 
 for (i in seq(1, length(cran_packages), 2)) {
