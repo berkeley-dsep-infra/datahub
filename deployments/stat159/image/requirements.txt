@@ -86,8 +86,6 @@ Theano==1.0.5
 
 # eps 109; fall 2019
 ffmpeg-python==0.2.0
-# see https://github.com/berkeley-dsep-infra/datahub/issues/1796
-Cartopy==0.18.0 --no-binary Cartopy
 
 # data 88e; spring 2021
 plotly==4.14.3
