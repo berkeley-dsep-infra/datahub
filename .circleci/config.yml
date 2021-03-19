@@ -355,6 +355,15 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
+          deployment: stat159
+          name: stat159 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
           deployment: biology
           name: biology image build
           push: true
@@ -401,6 +410,7 @@ workflows:
               - julia hub image build
               - data8x image build
               - eecs image build
+              - stat159 image build
           filters:
             branches:
               only:
