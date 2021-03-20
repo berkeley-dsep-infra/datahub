@@ -295,6 +295,13 @@ jupyterhub:
 
         class CustomAttrSpawner(KubeSpawner):
 
+          def _build_common_labels(self, extra_labels):
+            labels = super()._build_common_labels(extra_labels)
+            # Until https://github.com/jupyterhub/kubespawner/issues/498
+            # is fixed
+            del labels['hub.jupyter.org/username']
+            return labels
+
           @gen.coroutine
           def start(self):
             # custom.memory
