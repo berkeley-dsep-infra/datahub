@@ -32,6 +32,11 @@ RUN apt-get -qq update --yes && \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
+# Generic development tools
+RUN apt-get update > /dev/null && \
+    apt-get -qq install --yes \
+            build-essential
+
 # for nbconvert
 # FIXME: Understand what exactly we want
 # texlive-plain-generic is new name of texlive-generic-recommended
