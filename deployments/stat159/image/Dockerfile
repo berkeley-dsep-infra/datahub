@@ -26,6 +26,7 @@ RUN apt-get -qq update --yes && \
             vim \
             micro \
             mc \
+            build-essential \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
