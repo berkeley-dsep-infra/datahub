@@ -194,3 +194,6 @@ ipython-sql==0.4.0
 pgspecial==1.11.10
 
 jupyter-book==0.10.1
+
+# For students to check on web servers they are creating
+jupyter-server-proxy==3.0.2
