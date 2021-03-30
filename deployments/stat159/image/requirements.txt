@@ -192,3 +192,5 @@ numpydoc==1.1.0
 # cs194 2021 Spring
 ipython-sql==0.4.0
 pgspecial==1.11.10
+
+jupyter-book==0.10.1
