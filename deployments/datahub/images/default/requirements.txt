@@ -9,7 +9,7 @@ okpy==1.18.1
 folium==0.11
 #
 # r
-jupyter-server-proxy==1.5.0
+jupyter-server-proxy==3.0.2
 jupyter-rsession-proxy==1.2
 jupyter-shiny-proxy==1.1
 #
