@@ -258,8 +258,6 @@ ENV NLTK_DATA ${CONDA_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
-COPY connectors/sw282.bash /usr/local/sbin/connector-sw282.bash
-RUN /usr/local/sbin/connector-sw282.bash
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
 # install QGrid notebook extension

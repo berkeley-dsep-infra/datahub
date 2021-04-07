@@ -1,4 +1,3 @@
-#
 # data8; foundation
 datascience==0.17.0
 matplotlib==3.3.3
@@ -10,7 +9,7 @@ okpy==1.18.1
 folium==0.11
 #
 # r
-jupyter-server-proxy==1.5.0
+jupyter-server-proxy==3.0.2
 jupyter-rsession-proxy==1.2
 jupyter-shiny-proxy==1.1
 #
@@ -202,6 +201,10 @@ pep257==0.7.0
 # cs194 2021 Spring
 ipython-sql==0.4.0
 pgspecial==1.11.10
+pymongo==3.11.3
 
 # ESPM 167 - https://github.com/berkeley-dsep-infra/datahub/issues/2278
 contextily==1.1.0
+
+# For SW282 - see Issue #929
+git+https://github.com/yuvipanda/gradable-nbexport.git@904e0f6c55446f007f07bc12b2af883fb1cc7aee
