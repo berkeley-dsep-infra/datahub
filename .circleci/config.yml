@@ -65,6 +65,12 @@ orbs:
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
+              - run:
+                  name: Authenticating with google service account for kms/sops
+                  command: |
+                    echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
+                    gcloud auth list
+
           - setup_remote_docker:
               # fixes a docker permission problem
               # https://support.circleci.com/hc/en-us/articles/360050934711
