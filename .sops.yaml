@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: deployments/.*/secrets/.*
+    gcp_kms: projects/ucb-datahub-2018/locations/global/keyRings/datahub/cryptoKeys/sops
