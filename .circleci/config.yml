@@ -64,6 +64,8 @@ orbs:
                     echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
+
+              - run:
                   name: Authenticating with google service account for kms/sops
                   command: |
                     echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
