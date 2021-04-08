@@ -1,10 +1,5 @@
-datahub/secrets/staging.yaml filter=git-crypt diff=git-crypt
-datahub/secrets/prod.yaml filter=git-crypt diff=git-crypt
-datahub/secrets/** filter=git-crypt diff=git-crypt
-hub/secrets/staging.yaml filter=git-crypt diff=git-crypt
-hub/secrets/prod.yaml filter=git-crypt diff=git-crypt
-hub/secrets/** filter=git-crypt diff=git-crypt
-deployments/*/secrets/** filter=git-crypt diff=git-crypt
 deployments/**/secrets/** filter=git-crypt diff=git-crypt
 support/secrets.yaml filter=git-crypt diff=git-crypt
-deployments/datahub/secrets/staging.yaml !filter !diff
+deployments/**/secrets/staging.yaml !filter !diff
+deployments/template/**/secrets/staging.yaml filter=git-crypt diff=git-crypt
+deployments/data8x/secrets/staging.yaml filter=git-crypt diff=git-crypt
