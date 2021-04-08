@@ -68,8 +68,10 @@ orbs:
               - run:
                   name: Authenticating with google service account for kms/sops
                   command: |
-                    echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
-                    gcloud auth list
+                    echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+                    echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
+                    #echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
+                    #gcloud auth list
 
           - setup_remote_docker:
               # fixes a docker permission problem
@@ -150,8 +152,10 @@ jobs:
       - run:
           name: Authenticating with google service account for kms/sops
           command: |
-            echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
-            gcloud auth list
+            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
+            #echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
+            #gcloud auth list
 
       - run:
           name: Unlock our secrets
