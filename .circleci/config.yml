@@ -143,6 +143,7 @@ jobs:
             echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
             curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o venv/bin/sops
+            chmod 755 venv/bin/sops
 
       - save_cache:
           paths:
