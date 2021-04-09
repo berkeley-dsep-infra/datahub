@@ -1,4 +1,3 @@
 deployments/**/secrets/** filter=git-crypt diff=git-crypt
-support/secrets.yaml filter=git-crypt diff=git-crypt
 deployments/**/secrets/staging.yaml !filter !diff
 deployments/**/secrets/*.json !filter !diff
