@@ -68,7 +68,7 @@ orbs:
               - run:
                   name: Install sops
                   command: |
-                    mkdir -p ${HOME}/repo/bin/sops
+                    mkdir -p ${HOME}/repo/bin
                     curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
                     chmod 755 ${HOME}/repo/bin/sops
                     echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
