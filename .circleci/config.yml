@@ -282,6 +282,14 @@ jobs:
             echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
+          name: Install sops
+          command: |
+            mkdir -p ${HOME}/repo/bin
+            curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
+            chmod 755 ${HOME}/repo/bin/sops
+            echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
+
+      - run:
           name: Unlock our secrets
           command: |
             echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
