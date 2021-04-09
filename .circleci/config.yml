@@ -17,9 +17,9 @@ orbs:
         steps:
           - checkout
           - run:
-              name: Install git, git-crypt & curl
+              name: Install git & curl
               command: |
-                apt-get update && apt-get install --yes --no-install-recommends git curl git-crypt
+                apt-get update && apt-get install --yes --no-install-recommends git curl
 
           - restore_cache:
               keys:
@@ -85,16 +85,6 @@ orbs:
                 - ./venv
               key: v3.7-dependencies-{{ checksum "requirements.txt" }}
 
-          - when:
-              condition: << parameters.push >>
-              steps:
-              - run:
-                  name: Unlock our secrets
-                  command: |
-                    echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-                    git crypt unlock ~/repo/key
-                    rm ~/repo/key
-
           - run:
               name: Build image if needed
               command: |
@@ -116,7 +106,7 @@ jobs:
           name: Install base apt packages
           command: |
             apt-get update -qq --yes
-            apt-get install -qq --yes git curl git-crypt lsb-release apt-transport-https
+            apt-get install -qq --yes git curl lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
@@ -157,13 +147,6 @@ jobs:
           command: |
             echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
-
-      - run:
-          name: Unlock our secrets
-          command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
 
       - run:
           name: Install helm3
@@ -259,12 +242,6 @@ jobs:
       - checkout
 
       - run:
-          name: install git-crypt
-          command: |
-            apt-get update --yes -qq
-            apt-get install --yes -qq git-crypt
-
-      - run:
           name: install google-cloud-sdk
           command: |
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
@@ -284,20 +261,12 @@ jobs:
             echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
-          name: Unlock our secrets
-          command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
-
-      - run:
           name: Setup helm3
           command: |
             curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-
 
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
