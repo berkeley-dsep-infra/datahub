@@ -308,6 +308,7 @@ jobs:
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
           command: |
+            sops -d -i deployments/datahub/secrets/gke-key.json
             gcloud auth \
               activate-service-account \
               --key-file deployments/datahub/secrets/gke-key.json
