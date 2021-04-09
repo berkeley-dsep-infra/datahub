@@ -68,19 +68,13 @@ orbs:
               - run:
                   name: Install sops
                   command: |
+                    echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+                    echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
                     mkdir -p ${HOME}/repo/bin
                     curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
                     chmod 755 ${HOME}/repo/bin/sops
                     echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
  
-              - run:
-                  name: Authenticating with google service account for kms/sops
-                  command: |
-                    echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
-                    echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
-                    #echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
-                    #gcloud auth list
-
           - setup_remote_docker:
               # fixes a docker permission problem
               # https://support.circleci.com/hc/en-us/articles/360050934711
@@ -163,8 +157,6 @@ jobs:
           command: |
             echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
-            #echo $SOPSACCOUNT_KEY | gcloud auth activate-service-account --key-file=-
-            #gcloud auth list
 
       - run:
           name: Unlock our secrets
