@@ -2,4 +2,3 @@ deployments/**/secrets/** filter=git-crypt diff=git-crypt
 support/secrets.yaml filter=git-crypt diff=git-crypt
 deployments/**/secrets/staging.yaml !filter !diff
 deployments/template/**/secrets/staging.yaml filter=git-crypt diff=git-crypt
-deployments/data8x/secrets/staging.yaml filter=git-crypt diff=git-crypt
