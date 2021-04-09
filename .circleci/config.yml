@@ -322,6 +322,7 @@ jobs:
       - run:
           name: Deploy support helm chart
           command: |
+            sops -d -i support/secrets.yaml
             helm dep up support
             helm upgrade \
               --install --wait \
