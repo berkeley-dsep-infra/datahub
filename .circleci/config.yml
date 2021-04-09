@@ -66,6 +66,13 @@ orbs:
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
               - run:
+                  name: Install sops
+                  command: |
+                    curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/sops
+                    chmod 755 ${HOME}/repo/sops
+                    echo 'export PATH="${HOME}/repo/sops:${PATH}"'
+ 
+              - run:
                   name: Authenticating with google service account for kms/sops
                   command: |
                     echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
