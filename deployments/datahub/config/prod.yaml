@@ -12,7 +12,7 @@ jupyterhub:
     db:
       pvc:
         # This also holds logs
-        storage: 40Gi
+        storage: 80Gi
     resources:
       requests:
         # DataHub often takes up a full CPU now, so let's guarantee it at least that
