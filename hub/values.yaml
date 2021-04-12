@@ -203,6 +203,10 @@ jupyterhub:
                   component: server
   hub:
     config:
+      Pagination:
+        # Disable pagination completely, since there's no search functionality yet
+        default_per_page: 30000
+        max_per_page: 30000
       JupyterHub:
         authenticator_class: canvasauthenticator.CanvasOAuthenticator
 
