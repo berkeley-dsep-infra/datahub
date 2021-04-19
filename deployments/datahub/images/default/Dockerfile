@@ -228,7 +228,6 @@ RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
     jupyter labextension install --debug \
         @jupyterlab/server-proxy \
         jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 \
-        @jupyterlab/geojson-extension && \
     rm -rf /tmp/yarncache
 
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
