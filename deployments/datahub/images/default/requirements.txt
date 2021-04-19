@@ -202,6 +202,13 @@ pep257==0.7.0
 ipython-sql==0.4.0
 pgspecial==1.11.10
 pymongo==3.11.3
+dbt==0.19.1
 
 # ESPM 167 - https://github.com/berkeley-dsep-infra/datahub/issues/2278
 contextily==1.1.0
+
+# INDENG 142 Spring 2021 (future semesters as well) - https://github.com/berkeley-dsep-infra/datahub/issues/2314
+fancyimpute==0.5.5
+
+# JupyterLab pypi extensions
+jupyterlab-geojson==3.1.2
