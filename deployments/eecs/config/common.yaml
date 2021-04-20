@@ -67,5 +67,7 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
+    cpu:
+      guarantee: 0.25
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
