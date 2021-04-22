@@ -203,6 +203,11 @@ jupyterhub:
         2021-spring-25880:
           mem_limit: 4096M
           mem_guarantee: 1024M
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared/course/astr-128-256
+              subPath: _shared/course/astr-128-256
+              readOnly: true
         # Read-write access to the astro shared directory
         # HACK: Different mountPath to prevent mounting two volumeMounts
         # at the same path.
