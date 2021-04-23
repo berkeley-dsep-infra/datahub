@@ -5,45 +5,53 @@ nfsPVC:
     shareName: export/data8xhomes-2020-08-31
 
 jupyterhub:
+  proxy:
+    service:
+      type: LoadBalancer
   hub:
     services:
       gofer_nb:
         url: http://35.239.20.122:10101
-  auth:
-    type: lti
-    admin:
-      users:
-        # unknown, not found in any issues
-        - 6f3e32e2b27f0fa7c7bfd6e6c5fc9073
-        - 552c15a76d0bc7b546f5baef4310b7f4
-        # 1945, sideye
-        - 800142d00c6dfd324853601777917b7a
-        - 7e42c2210de51307336bad6ecd3698fb
-        - 7af8a4b560d265c438354cb0b667e9fa
-        # 1945, kvah
-        - 57b8a1f4446a2474d577d50974e84300
-        - 6404bc6a535a3d6de2d8823d83fd885f
-        - ebe13f9ff075abd51b82dba85c084d94
-        # 1945, fqzbdkh
-        - 74b327432e5eb255cadf6d529101bf57
-        - 87fba502e86ba163fe873ab00129e1ef
-        - edc57c2ad1449d9b188d9edea333285a
-        # 1000, ebaccay
-        - 25a7599135b2bc244ba0e511ec988371
-        - 0b3a7d0def967c26e030cc3071d57cde
-        - 4a3686977e73987429ffed1239fff3c1
-        # 1945, Andrei Caprau
-        - 945f24a55351f54e990f58b4aec45f23
-        - 29d3b143997d6101d61be6debe9ce0a7
-        - f6e1c4e320f7032bed5f79432893d562
-        # 1945, kyle kishimoto
-        - ab46420586cb463f422b19ee8747668c
-        - 2742155a6983300ca2feccf471debd4d
-        - 31a437b2bcf068a60c89badfb1a2e563
-        # 1795, varun mittal
-        - af5bd207bb7fd80a602d0cf488fda336
-        - 6127a516b66666622476c80e7d835705
-        - 4ec74d8be97f3c5ed9addc6a724effa1
+    config:
+      JupyterHub:
+        authenticator_class: ltiauthenticator.LTIAuthenticator
+      Authenticator:
+        admin_users:
+          # unknown, not found in any issues
+          - 6f3e32e2b27f0fa7c7bfd6e6c5fc9073
+          - 552c15a76d0bc7b546f5baef4310b7f4
+          # 1945, sideye
+          - 800142d00c6dfd324853601777917b7a
+          - 7e42c2210de51307336bad6ecd3698fb
+          - 7af8a4b560d265c438354cb0b667e9fa
+          # 1945, kvah
+          - 57b8a1f4446a2474d577d50974e84300
+          - 6404bc6a535a3d6de2d8823d83fd885f
+          - ebe13f9ff075abd51b82dba85c084d94
+          # 1945, fqzbdkh
+          - 74b327432e5eb255cadf6d529101bf57
+          - 87fba502e86ba163fe873ab00129e1ef
+          - edc57c2ad1449d9b188d9edea333285a
+          # 1000, ebaccay
+          - 25a7599135b2bc244ba0e511ec988371
+          - 0b3a7d0def967c26e030cc3071d57cde
+          - 4a3686977e73987429ffed1239fff3c1
+          # 1945, Andrei Caprau
+          - 945f24a55351f54e990f58b4aec45f23
+          - 29d3b143997d6101d61be6debe9ce0a7
+          - f6e1c4e320f7032bed5f79432893d562
+          # 1945, kyle kishimoto
+          - ab46420586cb463f422b19ee8747668c
+          - 2742155a6983300ca2feccf471debd4d
+          - 31a437b2bcf068a60c89badfb1a2e563
+          # 1795, varun mittal
+          - af5bd207bb7fd80a602d0cf488fda336
+          - 6127a516b66666622476c80e7d835705
+          - 4ec74d8be97f3c5ed9addc6a724effa1
+          # 1795, ashley zhang
+          - b1b001615f9eb7254387f667569e39fb
+          - c741d11d7f0bed9930e04276115b1a37
+          - fd5ad8c476846392d8dfb1765d1a6ac5
   singleuser:
     initContainers:
       - name: volume-mount-hack

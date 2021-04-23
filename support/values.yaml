@@ -1,3 +1,89 @@
+cert-manager:
+  installCRDs: true
+  # Our cluster-internal DNS seems to cache aggressively in
+  # some cases. The cache is also more likely to be warm,
+  # causing issues when cert-manager tries to verify
+  # that the ACME http-01 challenge will succeed. Since
+  # Let's encrypt itself isn't going to use our cluster-local
+  # DNS, this causes false negatives - cert-manager thinks the
+  # challenge will fail, but in reality it will most likely not.
+  podDnsPolicy: None
+  podDnsConfig:
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+ingress-nginx:
+  tcp:
+    # We need to manually allocate a port for ssh & sftp for
+    # each hub. We have a wildcard for *.datahub.berkeley.edu,
+    # and SSH doesn't have host-based routing. So we differentiate
+    # different hubs by assigning ports for ssh & sftp to each one.
+    # This should be a part of new hub creation.
+
+    # cs194-staging
+    22222: cs194-staging/jupyterhub-ssh:22
+    22223: cs194-staging/jupyterhub-sftp:22
+
+    # stat159-staging
+    22001: stat159-staging/jupyterhub-ssh:22
+    22002: stat159-staging/jupyterhub-sftp:22
+    # stat159
+    22003: stat159-prod/jupyterhub-ssh:22
+    22004: stat159-prod/jupyterhub-sftp:22
+
+    # dlab-staging
+    22005: dlab-staging/jupyterhub-ssh:22
+    22006: dlab-staging/jupyterhub-sftp:22
+    # dlab-prod
+    22007: dlab-prod/jupyterhub-ssh:22
+    22008: dlab-prod/jupyterhub-sftp:22
+
+    # workshop-staging
+    22009: workshop-staging/jupyterhub-ssh:22
+    22010: workshop-staging/jupyterhub-sftp:22
+    # workshop-prod
+    22011: workshop-prod/jupyterhub-ssh:22
+    22012: workshop-prod/jupyterhub-sftp:22
+
+    # biology-staging
+    22013: workshop-staging/jupyterhub-ssh:22
+    22014: workshop-staging/jupyterhub-sftp:22
+    # biology-prod
+    22015: workshop-prod/jupyterhub-ssh:22
+    22016: workshop-prod/jupyterhub-sftp:22
+
+    # highschool-staging
+    22017: workshop-staging/jupyterhub-ssh:22
+    22018: workshop-staging/jupyterhub-sftp:22
+    # highschool-prod
+    22019: workshop-prod/jupyterhub-ssh:22
+    22020: workshop-prod/jupyterhub-sftp:22
+  controller:
+    config:
+      # Let's preserve ability to have HTTP pages served under *.datahub.berkeley.edu
+      # when necessary. Ideally would not be, but I want to preserve that option.
+      hsts-include-subdomains: "false"
+      # Increasing these per https://kubernetes.github.io/ingress-nginx/user-guide/miscellaneous/#websockets
+      # Possibly related to temporary kernel connectivity issues from websocket failures
+      proxy-read-timeout: "7200"
+      proxy-send-timeout: "7200"
+    # Best effort guess on resource needs
+    # We overprovision a little - issues here cause a full cluster outage
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 2
+        memory: 2Gi
+      requests:
+        cpu: 0.2
+        memory: 384Mi
+    service:
+      loadBalancerIP: 34.69.164.86
+    podLabels:
+      hub.jupyter.org/network-access-proxy-http: 'true'
+      hub.jupyter.org/network-access-ssh-server: "true"
+      hub.jupyter.org/network-access-sftp-server: "true"
+
 prometheus:
   # We were using network tags to restrict NFS access to just nodes from hub-cluster
   # However, it turns out packets coming from *pods* are *not* tagged with that, just from the nodes!
@@ -47,19 +133,32 @@ prometheus:
       type: ClusterIP
 
 grafana:
-  persistence:
-    storageClassName: standard
   deploymentStrategy:
     type: Recreate
 
   persistence:
     enabled: true
+    storageClassName: standard
+
   service:
-    type: LoadBalancer
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - grafana.datahub.berkeley.edu
+    tls:
+    - hosts:
+      - grafana.datahub.berkeley.edu
+      secretName: grafana-https-auto-tls
 
   grafana.ini:
     server:
-      root_url: http://grafana.datahub.berkeley.edu/
+      root_url: https://grafana.datahub.berkeley.edu/
+
   datasources:
     datasources.yaml:
       apiVersion: 1

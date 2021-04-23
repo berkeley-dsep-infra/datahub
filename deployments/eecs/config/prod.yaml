@@ -2,12 +2,14 @@ jupyterhub-ssh:
   hubUrl: https://eecs.datahub.berkeley.edu
 
 jupyterhub:
-  proxy:
-    service:
-      loadBalancerIP: 35.223.70.39
-    https:
-      hosts:
-        - eecs.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - eecs.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - eecs.datahub.berkeley.edu
   hub:
     db:
       pvc:

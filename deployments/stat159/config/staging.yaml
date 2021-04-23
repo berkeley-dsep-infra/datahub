@@ -1,0 +1,18 @@
+jupyterhub-ssh:
+  hubUrl: https://stat159-staging.datahub.berkeley.edu
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - stat159-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - stat159-staging.datahub.berkeley.edu

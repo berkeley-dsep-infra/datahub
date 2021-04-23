@@ -23,80 +23,28 @@ jupyterhub:
           - name: home
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
-  auth:
-    type: custom # This enables canvas auth
-    admin:
-      users:
-        # infrastructure
-        - felder
-        - rylo
-        - yuvipanda
-        - cpyles
-        # instructors
-        - fernando.perez
-        - adj
-        - data100.instructors
-        # gsis
-        - davidyi624
-        - dorx
-        - ishaan.srivastava
-        - kagarwal2
-        - rkunani
-        - snhing
-        - samirnaqvi
-        - suraj.rampure
-        - susanhao
-        - cshih
-        - agnibhoroy
-        - am123
-        - alberttang
-        - anamtudor
-        - andysheu
-        - brandonyli
-        - waikeikong
-        - ischmidt20
-        - calzoom
-        - jaykakkar
-        - jwu19
-        - julieyu
-        - oliviaqin
-        - parthbaokar
-        - pranav.njn
-        - rami.mostafa
-        - shaviv
-        - rain
-        - violetyao
-        # tutors
-        - aahuang
-        - guanangela
-        - erika.n.mack
-        - henrymaier
-        - johntsor
-        - kevinmoy
-        - kevinyang8
-        - kiranrajgobal
-        - yangluanne
-        - marian5566
-        - pranshu
-        - rikiiyer
-        - rohan.hajela
-        - raujla
-        - sunnyshen
-        - tom.kim
-        - wallace.lim
-        - y_liang
-        - zacharywu
-
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - felder
+          - rylo
+          - yuvipanda
+          - cpyles
+          # instructors & gsis (spring 2021)
+          - jegonzal
+          - andrewbray
+          - data100.instructors
   prePuller:
     extraImages:
       postgres:
-        name: postgres
-        tag: 12.2
+        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+        tag: 0.0.1-n3657.h4f7f88c
         policy: IfNotPresent
   singleuser:
     extraContainers:
       - name: postgres
-        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n2510.hd28e63b
+        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
         resources:
           limits:
             # Best effort only. No more than 1 CPU

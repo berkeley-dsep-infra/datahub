@@ -17,9 +17,9 @@ orbs:
         steps:
           - checkout
           - run:
-              name: Install git, git-crypt & curl
+              name: Install git & curl
               command: |
-                apt-get update && apt-get install --yes --no-install-recommends git curl git-crypt
+                apt-get update && apt-get install --yes --no-install-recommends git curl
 
           - restore_cache:
               keys:
@@ -65,21 +65,25 @@ orbs:
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
-          - setup_remote_docker
+              - run:
+                  name: Install sops
+                  command: |
+                    echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+                    echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
+                    mkdir -p ${HOME}/repo/bin
+                    curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
+                    chmod 755 ${HOME}/repo/bin/sops
+                    echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
+ 
+          - setup_remote_docker:
+              # fixes a docker permission problem
+              # https://support.circleci.com/hc/en-us/articles/360050934711
+              # https://circleci.com/docs/2.0/building-docker-images/
+              version: 19.03.13
           - save_cache:
               paths:
                 - ./venv
               key: v3.7-dependencies-{{ checksum "requirements.txt" }}
-
-          - when:
-              condition: << parameters.push >>
-              steps:
-              - run:
-                  name: Unlock our secrets
-                  command: |
-                    echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-                    git crypt unlock ~/repo/key
-                    rm ~/repo/key
 
           - run:
               name: Build image if needed
@@ -102,7 +106,7 @@ jobs:
           name: Install base apt packages
           command: |
             apt-get update -qq --yes
-            apt-get install -qq --yes git curl git-crypt lsb-release apt-transport-https
+            apt-get install -qq --yes git curl lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
@@ -130,17 +134,19 @@ jobs:
             # Always use full PATHs in PATH!
             echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
+            curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o venv/bin/sops
+            chmod 755 venv/bin/sops
+
       - save_cache:
           paths:
             - ./venv
           key: v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
 
       - run:
-          name: Unlock our secrets
+          name: Authenticating with google service account for kms/sops
           command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
+            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
 
       - run:
           name: Install helm3
@@ -178,20 +184,30 @@ jobs:
           command: |
             hubploy deploy biology hub ${CIRCLE_BRANCH}
 
-      # - run:
-      #     name: Deploy julia
-      #     command: |
-      #       hubploy deploy julia hub ${CIRCLE_BRANCH}
+      - run:
+          name: Deploy julia
+          command: |
+            hubploy deploy julia hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy R
           command: |
             hubploy deploy r hub ${CIRCLE_BRANCH}
 
-#      - run:
-#          name: Deploy stat89a
-#          command: |
-#            hubploy deploy stat89a hub ${CIRCLE_BRANCH}
+      - run:
+          name: Deploy stat159
+          command: |
+            hubploy deploy stat159 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy cs194
+          command: |
+            hubploy deploy cs194 hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy dlab
+          command: |
+            hubploy deploy dlab hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy data8x
@@ -214,11 +230,6 @@ jobs:
             hubploy deploy workshop hub ${CIRCLE_BRANCH}
 
       - run:
-          name: Deploy highschool
-          command: |
-            hubploy deploy highschool hub ${CIRCLE_BRANCH}
-
-      - run:
           name: Deploy eecs
           command: |
             hubploy deploy eecs hub ${CIRCLE_BRANCH}
@@ -231,12 +242,6 @@ jobs:
       - checkout
 
       - run:
-          name: install git-crypt
-          command: |
-            apt-get update --yes -qq
-            apt-get install --yes -qq git-crypt
-
-      - run:
           name: install google-cloud-sdk
           command: |
             curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
@@ -246,11 +251,14 @@ jobs:
             echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
-          name: Unlock our secrets
+          name: Install sops
           command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > ~/repo/key
-            git crypt unlock ~/repo/key
-            rm ~/repo/key
+            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
+            mkdir -p ${HOME}/repo/bin
+            curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
+            chmod 755 ${HOME}/repo/bin/sops
+            echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
           name: Setup helm3
@@ -260,10 +268,10 @@ jobs:
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
-
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
           command: |
+            sops -d -i deployments/datahub/secrets/gke-key.json
             gcloud auth \
               activate-service-account \
               --key-file deployments/datahub/secrets/gke-key.json
@@ -275,6 +283,7 @@ jobs:
       - run:
           name: Deploy support helm chart
           command: |
+            sops -d -i support/secrets.yaml
             helm dep up support
             helm upgrade \
               --install --wait \
@@ -297,8 +306,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
+          deployment: stat159
+          name: stat159 image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -315,44 +324,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: r
-          name: r hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      # - hubploy/build-image:
-      #     deployment: julia
-      #     name: julia hub image build
-      #     # Filters can only be per-job? wtf
-      #     filters:
-      #         branches:
-      #           ignore:
-      #           - staging
-      #           - prod
-#      - hubploy/build-image:
-#          deployment: stat89a
-#          name: stat89a image build
-          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                ignore:
-#                - staging
-#                - prod
-      - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: data100
-          name: data100 image build
+          deployment: julia
+          name: julia hub image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -366,15 +339,6 @@ workflows:
           filters:
               branches:
                 ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: highschool
-          name: highschool image build
-          # Filters can only be per-job? wtf
-          filters:
-            branches:
-              ignore:
                 - staging
                 - prod
       - hubploy/build-image:
@@ -399,17 +363,15 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
-          deployment: prob140
-          name: prob140 image build
+          deployment: stat159
+          name: stat159 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
           deployment: biology
           name: biology image build
@@ -419,57 +381,15 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
       - hubploy/build-image:
-          deployment: r
-          name: r hub image build
+          deployment: julia
+          name: julia hub image build
           push: true
           # Filters can only be per-job? wtf
           filters:
               branches:
                 only:
                 - staging
-                - prod
-      # - hubploy/build-image:
-      #     deployment: julia
-      #     name: julia hub image build
-      #     push: true
-      #     # Filters can only be per-job? wtf
-      #     filters:
-      #         branches:
-      #           only:
-      #           - staging
-      #           - prod
-#      - hubploy/build-image:
-#          deployment: stat89a
-#          name: stat89a image build
-#          push: true
-          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                only:
-#                - staging
-#                - prod
-      - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: data100
-          name: data100 image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-                - prod
       - hubploy/build-image:
           deployment: data8x
           name: data8x image build
@@ -479,17 +399,6 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
-      - hubploy/build-image:
-          deployment: highschool
-          name: highschool image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-            branches:
-              only:
-                - staging
-                - prod
       - hubploy/build-image:
           deployment: eecs
           name: eecs image build
@@ -499,24 +408,26 @@ workflows:
               branches:
                 only:
                 - staging
-                - prod
+      # Build images only during the staging deploy. All merges
+      # to prod need to go via staging, so prod should *never*
+      # use images not built for staging. By enforcing this at the
+      # CI level, we also make prod deploys go faster!
       - deploy:
           requires:
               - datahub image build
-              - prob140 image build
               - biology image build
-              - r hub image build
-#              - stat89a image build
-              # - julia hub image build
-              - data102 image build
-              - data100 image build
+              - julia hub image build
               - data8x image build
-              - highschool image build
               - eecs image build
+              - stat159 image build
           filters:
             branches:
               only:
                 - staging
+      - deploy:
+          filters:
+            branches:
+              only:
                 - prod
   deploy-support:
     jobs:

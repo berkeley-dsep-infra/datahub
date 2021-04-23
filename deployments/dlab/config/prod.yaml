@@ -1,0 +1,17 @@
+jupyterhub-ssh:
+  hubUrl: https://dlab.datahub.berkeley.edu
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - dlab.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - dlab.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

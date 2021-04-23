@@ -1,0 +1,17 @@
+jupyterhub-ssh:
+  hubUrl: https://stat159.datahub.berkeley.edu
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - stat159.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - stat159.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

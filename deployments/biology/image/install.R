@@ -18,8 +18,12 @@ cran_packages <- c(
   "PopGenome","2.7.5", 
   "detectRUNS","0.9.6", 
   "pwr","1.3" ,
+<<<<<<< HEAD
   "plotly","4.9.3",
   "mixtools","1.2.0"
+=======
+  "plotly","4.9.3"
+>>>>>>> f36bc3ec68222e34a98451e728a010bfa8a444b5
 )
 
 for (i in seq(1, length(cran_packages), 2)) {

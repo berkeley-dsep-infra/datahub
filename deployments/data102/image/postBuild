@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-jupyter labextension install \
-        @jupyter-widgets/jupyterlab-manager@2.0.0 \
-        jupyterlab-plotly@4.8.1  \
-        plotlywidget@4.8.1 \
-        jupyter-matplotlib@0.7.2 \
-        @jupyterlab/geojson-extension@2.0.1

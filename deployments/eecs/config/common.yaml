@@ -17,10 +17,9 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-  auth:
-    type: custom
-    admin:
-      users:
+    condig:
+      Authenticator:
+        admin_users:
           # infrastructure
           - rylo
           - yuvipanda
@@ -68,5 +67,7 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
+    cpu:
+      guarantee: 0.33
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image

@@ -4,12 +4,144 @@ nfsPVC:
     serverIP: nfsserver-01
     shareName: export/datahubhomes-2020-07-29/homes
 
+etcGitConfig:
+  enabled: true
+  gitconfig: |
+    [credential "https://github.com"]
+      helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 94384
+      useHttpPath = true
+
 jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
   hub:
+    Authenticator:
+      admin_users:
+        # infrastructure
+        - felder
+        - rylo
+        - yuvipanda
+        # regular instructors
+        - adhikari
+        - culler
+        - daw
+        - denero
+        - ramesh_s
+        - suraj.rampure
+        - swupnil
+        - terry.regier
+        # dsep staff
+        - ericvd
+        - ktakimoto
+        - ryanedw
+        # sp21 data 94 staff
+        - isaacmerritt
+        - guanangela
+        # fa20 data8 gsis
+        - aanika.shah
+        - aidandeangelis
+        - alanliang
+        - amrosenthal
+        - alvinyu27
+        - andyjvan
+        - ananya.krishnan
+        - guanangela
+        - zhoa210
+        - brettirvin
+        - carolinejchen
+        - celinechen_99
+        - chendiw
+        - connorcclark
+        - dshahroz
+        - devennb
+        - nellepersson
+        - emilykzou
+        - erika.n.mack
+        - eshaansoman
+        - fachacoso
+        - fqzbdkh
+        - gregoryd2017
+        - gregking22
+        - castro.ian
+        - jifu.li
+        - kwalia1999
+        - katherinetsai
+        - kevin.hsu
+        - lritter
+        - marmis
+        - meghanwang
+        - melissarwong
+        - nancywang
+        - nicholesun
+        - olivialewke
+        - parouz
+        - pratibha99
+        - ritawang
+        - netzke
+        - roshansrin01
+        - rdoshi99
+        - samwu101
+        - sarthakarora
+        - saurav
+        - sophiatan
+        - sdjajadi
+        - sunnyshen
+        - tvilayth
+        - vaibhav.pabreja
+        - vikramchandran
+        - winifredchung
+        - yanayrosen
+        - yashswarup
+        # fa20 data8 tutors
+        - aarushi.k
+        - aditi.mahajan
+        - yanlinma
+        - anna_zhao
+        - anujalohia
+        - ashika-raghavan
+        - aviksethia99
+        - carlosortiz
+        - claudea
+        - terrylincr
+        - devarshdhanuka
+        - deveshagarwal
+        - drewsuranjan
+        - eshadgoo972
+        - gracealtree
+        - ichiachen1
+        - jacquelinekyu
+        - jeshoung
+        - jinhao.huo
+        - joyceezheng
+        - kevinmiao
+        - laeticiayang
+        - lindseyhanlon
+        - michellelou
+        - nataliegomas
+        - nickha
+        - nicolepark
+        - nhanafi
+        - o.chang
+        - pulkitb124
+        - rachelchen0522
+        - raymondwang
+        - rikiiyer
+        - rohanchilukuri
+        - ryanchien04
+        - sarahding815
+        - sarina.xin
+        - kingh0730
+        - shayan.ghosh
+        - stephaniex
+        - sydniezanone
+        - takaokakegawa
+        - tongshen
+        - jvarun
+        - ellenkwok882
+        - karywang
+        - terry.regier # fa20 ling 290L instructor, with temp title "Additional Seminar on Special Topics to Be Announced"
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     initContainers:
@@ -48,174 +180,72 @@ jupyterhub:
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
-        # astr 128
-        2020-spring-24268:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-        # astr 256
-        2020-spring-24536:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-        # ARESEC 212
-        2020-spring-25937:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-        # ling 188
-        2020-summer-13097:
+        # INDENG142 Spring 2021 Issue 2315
+        2021-spring-31201:
           mem_limit: 2048M
           mem_guarantee: 1024M
-        # Issue 1827, phys188
-        2020-fall-26276:
-          mem_limit: 2048M
+        # ENVECON153 (EEP153) Spring 2021 Issue 2013
+        2021-spring-27844:
+          mem_limit: 4096M
           mem_guarantee: 1024M
-        # Issue 1827, phys288
-        2020-fall-26277:
-          mem_limit: 2048M
+        # Shared dataset volumes for astr 128 / 256
+        # See https://github.com/berkeley-dsep-infra/datahub/issues/827
+        # astr 256, issue 2083
+        2021-spring-25995:
+          mem_limit: 4096M
           mem_guarantee: 1024M
-        modules-leads:
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared/course/astr-128-256
+              subPath: _shared/course/astr-128-256
+              readOnly: true
+        # astr 128, issue 2083
+        2021-spring-25880:
+          mem_limit: 4096M
+          mem_guarantee: 1024M
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared/course/astr-128-256
+              subPath: _shared/course/astr-128-256
+              readOnly: true
+        # Read-write access to the astro shared directory
+        # HACK: Different mountPath to prevent mounting two volumeMounts
+        # at the same path.
+        astr-128-admins:
           users:
             - yuvipanda
-            - ktakimoto
-            - ericvd
-            - jasonjiang
-            - alec.kan
-            - eesaravia
-            - almapineda
-            - m.wilkinson
-            - schaganty
-            - timlan.wong
-          extraVolumes:
-            - name: shared
-              hostPath:
-                path: /data/homes/prod/_shared/module-leads
+            - kelbadry
+            - joshbloom
+            - dan.weisz
+            - felder
           extraVolumeMounts:
-            - name: shared
-              mountPath: /home/jovyan/shared/module-leads
+            - name: home
+              mountPath: /home/jovyan/shared-rw/course/astr-128-256
+              subPath: _shared/course/astr-128-256
+        # Shared drive for EPS 130
+        # https://github.com/berkeley-dsep-infra/datahub/issues/2123
+        2021-spring-22110:
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared/course/eps-130
+              subPath: _shared/course/eps-130
+              readOnly: true
+        eps-130-admins:
+          users:
+            - yuvipanda
+            - felder
+            - ericvd
+          extraVolumeMounts:
+            - name: home
+              mountPath: /home/jovyan/shared-rw/course/eps-130
+              subPath: _shared/course/eps-130
+
+
   proxy:
+    service:
+      type: LoadBalancer
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-  auth:
-    type: custom # This enables canvas auth
-    admin:
-      users:
-          # infrastructure
-          - felder
-          - rylo
-          - yuvipanda
-          # regular instructors
-          - adhikari
-          - culler
-          - daw
-          - denero
-          - ramesh_s
-          - swupnil
-          # dsep staff
-          - ericvd
-          - ktakimoto
-          - ryanedw
-          # fa20 data8 gsis
-          - aanika.shah
-          - aidandeangelis
-          - alanliang
-          - amrosenthal
-          - alvinyu27
-          - andyjvan
-          - ananya.krishnan
-          - guanangela
-          - zhoa210
-          - brettirvin
-          - carolinejchen
-          - celinechen_99
-          - chendiw
-          - connorcclark
-          - dshahroz
-          - devennb
-          - nellepersson
-          - emilykzou
-          - erika.n.mack
-          - eshaansoman
-          - fachacoso
-          - fqzbdkh
-          - gregoryd2017
-          - gregking22
-          - castro.ian
-          - jifu.li
-          - kwalia1999
-          - katherinetsai
-          - kevin.hsu
-          - lritter
-          - marmis
-          - meghanwang
-          - melissarwong
-          - nancywang
-          - nicholesun
-          - olivialewke
-          - parouz
-          - pratibha99
-          - ritawang
-          - netzke
-          - roshansrin01
-          - rdoshi99
-          - samwu101
-          - sarthakarora
-          - saurav
-          - sophiatan
-          - sdjajadi
-          - sunnyshen
-          - tvilayth
-          - vaibhav.pabreja
-          - vikramchandran
-          - winifredchung
-          - yanayrosen
-          - yashswarup
-          # fa20 data8 tutors
-          - aarushi.k
-          - aditi.mahajan
-          - yanlinma
-          - anna_zhao
-          - anujalohia
-          - ashika-raghavan
-          - aviksethia99
-          - carlosortiz
-          - claudea
-          - terrylincr
-          - devarshdhanuka
-          - deveshagarwal
-          - drewsuranjan
-          - eshadgoo972
-          - gracealtree
-          - ichiachen1
-          - jacquelinekyu
-          - jeshoung
-          - jinhao.huo
-          - joyceezheng
-          - kevinmiao
-          - laeticiayang
-          - lindseyhanlon
-          - michellelou
-          - nataliegomas
-          - nickha
-          - nicolepark
-          - nhanafi
-          - o.chang
-          - pulkitb124
-          - rachelchen0522
-          - raymondwang
-          - rikiiyer
-          - rohanchilukuri
-          - ryanchien04
-          - sarahding815
-          - sarina.xin
-          - kingh0730
-          - shayan.ghosh
-          - stephaniex
-          - sydniezanone
-          - takaokakegawa
-          - tongshen
-          - jvarun
-          - ellenkwok882
-          - karywang
-          - terry.regier # fa20 ling 290L instructor, with temp title "Additional Seminar on Special Topics to Be Announced"
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
@@ -228,9 +258,26 @@ jupyterhub:
         - name: etc-jupyter
           configMap:
             name: user-etc-jupyter
+        - name: etc-gitconfig
+          secret:
+            secretName: user-etc-gitconfig
       extraVolumeMounts:
         - name: etc-jupyter
           mountPath: /etc/jupyter
+        - name: etc-gitconfig
+          mountPath: /etc/gitconfig
+          subPath: gitconfig
+          readOnly: true
+        - name: etc-gitconfig
+          mountPath: /etc/github/github-app-private-key.pem
+          subPath: github-app-private-key.pem
+          readOnly: true
+        # RStudio can't write session files to anywhere except ~/.rstudio -
+        # only way to change that is by setting $HOME. So instead, we just
+        # bind mount a fresh directory on top of ~/.rstudio!
+        - name: home
+          mountPath: /home/jovyan/.rstudio
+          subPath: '{username}/.datahub-rstudio'
     memory:
       guarantee: 512M
       limit: 1G

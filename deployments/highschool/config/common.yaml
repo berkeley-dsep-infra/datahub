@@ -17,18 +17,19 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-  auth:
-    type: google
-    google:
-      hostedDomain:
-      - berkeley.edu
-      # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
-      - achieveprogram.org
-      # moved admin users to protected directory
+    config:
+      JupyterHub:
+        authenticator_class: oauthenticator.google.GoogleOAuthenticator
+      GoogleOAuthenticator:
+        hosted_domain:
+        - berkeley.edu
+        # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
+        - achieveprogram.org
+        # moved admin users to protected directory
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
@@ -37,5 +38,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/highschool-user-image

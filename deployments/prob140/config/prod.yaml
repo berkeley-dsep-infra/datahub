@@ -6,12 +6,14 @@ jupyterhub:
     userPlaceholder:
       enabled: true
       replicas: 10
-  proxy:
-    service:
-      loadBalancerIP: 35.184.101.216
-    https:
-      hosts:
-        - prob140.datahub.berkeley.edu
+  ingress:
+    enabled: true
+    hosts:
+      - prob140.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - prob140.datahub.berkeley.edu
   hub:
     db:
       pvc:
