@@ -234,6 +234,59 @@ jobs:
           command: |
             hubploy deploy eecs hub ${CIRCLE_BRANCH}
 
+  deploy-node-placeholder:
+    docker:
+      - image: buildpack-deps:bionic-scm
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - run:
+          name: install google-cloud-sdk
+          command: |
+            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
+            # Be careful with quote ordering here. ${PATH} must not be expanded
+            # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
+            # Always use full PATHs in PATH!
+            echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+
+      - run:
+          name: Setup helm3
+          command: |
+            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
+              tar -xzf -
+            mv linux-amd64/helm /usr/local/bin
+            helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+      - run:
+          name: Install sops
+          command: |
+            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
+            mkdir -p ${HOME}/repo/bin
+            curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
+            chmod 755 ${HOME}/repo/bin/sops
+            echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
+
+      - run:
+          name: Activate credentials for datahub cluster (fall-2019)
+          command: |
+            sops -d -i deployments/datahub/secrets/gke-key.json
+            gcloud auth \
+              activate-service-account \
+              --key-file deployments/datahub/secrets/gke-key.json
+
+            gcloud container clusters \
+              --region=us-central1 --project=ucb-datahub-2018 \
+              get-credentials fall-2019
+
+      - run:
+          name: Deploy node placeholder chart
+          command: |
+            helm upgrade \
+              --install --wait \
+              --namespace=node-placeholder node-placeholder node-placeholder
+
   deploy-support:
     docker:
       - image: buildpack-deps:bionic-scm
@@ -429,6 +482,15 @@ workflows:
             branches:
               only:
                 - prod
+  deploy-node-placeholder:
+    jobs:
+      - deploy-node-placeholder:
+          filters:
+            branches:
+              # We don't have staging / prod for our node placeholder pods
+              # So we deploy only when deploying staging
+              only: staging
+
   deploy-support:
     jobs:
       - deploy-support:

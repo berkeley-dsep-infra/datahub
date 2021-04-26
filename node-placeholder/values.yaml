@@ -1,0 +1,15 @@
+enabled: true
+nodePools:
+  delta:
+    nodeSelector:
+      hub.jupyter.org/pool-name: delta-pool
+    resources:
+      requests:
+        # Calculated by:
+        # 1. `k get node gke-fall-2019-user-pool-delta-2021-04-2a2dd2fa-4m3w -o jsonpath='{.status.allocatable.memory}'` 
+        #    (or similar delta pool node) to determine total allocatable memory for each node
+        # 2. Subtracting just enough that when a user pod with guarantee 512M (EECS pod guarantee now) is requested,
+        #    it *must* displace this pod to fit in the node. This was a little bit of trial and error, but should be
+        #    replicable once we count other daemonset pods on this node FIXME
+        memory: 28594536Ki
+    nodes: 3

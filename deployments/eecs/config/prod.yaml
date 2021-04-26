@@ -17,5 +17,4 @@ jupyterhub:
         storage: 4Gi
   scheduling:
     userPlaceholder:
-      enabled: true
-      replicas: 60
+      enabled: false
