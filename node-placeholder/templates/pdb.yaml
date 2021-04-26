@@ -1,0 +1,21 @@
+{{- /*
+The cluster autoscaler should be allowed to evict and reschedule these pods if
+it would help in order to scale down a node.
+*/}}
+{{- if .Values.enabled -}}
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: node-placeholder
+  labels:
+    component: node-placeholder
+    app: node-placeholder
+    release: {{ .Release.Name }}
+spec:
+  minAvailable: 0
+  selector:
+    matchLabels:
+      component: node-placeholder
+      app: node-placeholder
+      release: {{ .Release.Name }}
+{{- end }}
