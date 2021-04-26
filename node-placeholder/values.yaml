@@ -14,6 +14,13 @@
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
 enabled: true
 nodePools:
+  alpha:
+    nodeSelector:
+      hub.jupyter.org/pool-name: alpha-pool
+    resources:
+      requests:
+        memory: 46786Mi
+    nodes: 5
   beta:
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool

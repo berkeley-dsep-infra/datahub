@@ -22,5 +22,4 @@ jupyterhub:
         memory: 2Gi
   scheduling:
     userPlaceholder:
-      enabled: true
-      replicas: 100
+      enabled: false

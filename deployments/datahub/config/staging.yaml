@@ -4,8 +4,7 @@ jupyterhub-ssh:
 jupyterhub:
   scheduling:
     userPlaceholder:
-      enabled: true
-      replicas: 1
+      enabled: false
     userScheduler:
       replicas: 1
   prePuller:
