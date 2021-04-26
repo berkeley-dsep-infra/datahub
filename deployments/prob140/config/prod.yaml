@@ -4,8 +4,7 @@ jupyterhub-ssh:
 jupyterhub:
   scheduling:
     userPlaceholder:
-      enabled: true
-      replicas: 10
+      enabled: false
   ingress:
     enabled: true
     hosts:
