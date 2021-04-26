@@ -283,7 +283,7 @@ jobs:
       - run:
           name: Deploy node placeholder chart
           command: |
-            helm upgrade --create-namespace \
+            helm upgrade \
               --install --wait \
               --namespace=placeholder node-placeholder node-placeholder
 
