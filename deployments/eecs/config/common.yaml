@@ -69,5 +69,7 @@ jupyterhub:
       limit: 2G
     cpu:
       guarantee: 0.33
+      # Limit to 2 so users can't accidentally max out a node
+      limit: 2
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
