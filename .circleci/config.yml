@@ -285,7 +285,7 @@ jobs:
           command: |
             helm upgrade \
               --install --wait \
-              --namespace=placeholder node-placeholder node-placeholder
+              --namespace=node-placeholder node-placeholder node-placeholder
 
   deploy-support:
     docker:
