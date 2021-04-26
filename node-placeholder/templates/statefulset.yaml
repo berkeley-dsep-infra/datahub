@@ -1,5 +1,7 @@
 {{- if .Values.enabled -}}
 {{ range $key, $config := .Values.nodePools }}
+# Document separator is important, since we create multiple resources here
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

@@ -1,15 +1,30 @@
+# Calculate size of node placeholder by:
+# 1. Select a node in the node pool you want to configure
+#    export NODE=<node-name>
+# 2. Get total amount of memory allocatable to pods on this node
+#    k get node $NODE -o jsonpath='{.status.allocatable.memory}'
+# 3. Get total amount of memory used by non-user pods on the node.
+#    k get -A pod -l 'component!=user-placeholder' --field-selector spec.nodeName=$NODE -o jsonpath='{.items[*].spec.containers[*].resources.requests.memory}'  
+#    This will return memory units you'll need to sum yourself
+#
+# The node placeholder pod should be 'big' enough that it needs to be kicked out to get even a single
+# user pod on the node - but not so big that it can't run on a node where other system pods are running!
+#
+# So we should make the memory be output of (2) - output of (3), with maybe another 256Mi wiggle room
+# FIXME: LET US MAKE THIS INTO A SCRIPT!
 enabled: true
 nodePools:
+  beta:
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    resources:
+      requests:
+        memory: 46786Mi
+    nodes: 3
   delta:
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
     resources:
       requests:
-        # Calculated by:
-        # 1. `k get node gke-fall-2019-user-pool-delta-2021-04-2a2dd2fa-4m3w -o jsonpath='{.status.allocatable.memory}'` 
-        #    (or similar delta pool node) to determine total allocatable memory for each node
-        # 2. Subtracting just enough that when a user pod with guarantee 512M (EECS pod guarantee now) is requested,
-        #    it *must* displace this pod to fit in the node. This was a little bit of trial and error, but should be
-        #    replicable once we count other daemonset pods on this node FIXME
         memory: 28594536Ki
     nodes: 3
