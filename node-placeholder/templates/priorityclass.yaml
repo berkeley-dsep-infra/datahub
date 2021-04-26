@@ -1,0 +1,13 @@
+{{- if .Values.enabled }}
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: {{.Release.Name}}-node-placeholder-priority
+  labels:
+    component: node-placeholder
+    app: node-placeholder
+    release: {{ .Release.Name }}
+value: -10
+globalDefault: false
+description: "With a priority higher or eqaul to a cluster autoscalers priority cutoff, a pod can trigger a cluster scale up. At the same time, placeholder pods priority should be lower than other pods to make them evictable."
+{{- end }}
