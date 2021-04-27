@@ -20,7 +20,7 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 5
+    nodes: 3
   beta:
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
@@ -34,7 +34,7 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 5
+    nodes: 3
   delta:
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
