@@ -19,7 +19,8 @@ cran_packages <- c(
   "detectRUNS","0.9.6", 
   "pwr","1.3" ,
   "plotly","4.9.3",
-  "mixtools","1.2.0"
+  "mixtools","1.2.0",
+  "mclust","5.4.7"
 )
 
 for (i in seq(1, length(cran_packages), 2)) {
