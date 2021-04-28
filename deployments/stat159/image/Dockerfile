@@ -79,17 +79,38 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Use newer version of R
+# Binary packages from packagemanager.rstudio.com work against this.
+# Base R from Focal is only 3.6.
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 
-ENV PATH ${CONDA_DIR}/bin:$PATH
-#
-# Set this to be on container storage, rather than under $HOME ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
+# Install R packages
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq \
+    r-base \
+    r-base-dev \
+    r-recommended \
+    r-cran-littler  > /dev/null
+
+# Set CRAN mirror to rspm before we install anything
+COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
+
+USER ${NB_USER}
 WORKDIR /home/${NB_USER}
 
-# Install miniforge as root
+COPY install.R  /tmp/install.R
+RUN /tmp/install.R && \
+    rm -rf /tmp/downloaded_packages
+
+ENV PATH ${CONDA_DIR}/bin:$PATH
+
+USER root
+
+# Install miniforge as root - the script chowns to $NB_USER by the end
 COPY install-miniforge.bash /tmp/install-miniforge.bash
 RUN /tmp/install-miniforge.bash
 
-# Install conda environment as our user
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
@@ -128,6 +149,9 @@ RUN pip install --no-cache -r /tmp/requirements.txt
 RUN pip uninstall Theano Theano-PyMC pymc3 -y
 RUN pip install --no-cache 'Theano==1.0.5'
 RUN pip install --no-cache 'pymc3==3.11.0'
+
+# Install IR kernelspec
+RUN r -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
