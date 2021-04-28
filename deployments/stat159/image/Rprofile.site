@@ -1,0 +1,10 @@
+# Use RStudio's CRAN mirror to get binary packages
+# 'latest' just means it has all available versions.
+# We can specify version numbers in devtools::install_version
+options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/focal/latest"))
+
+# RStudio's CRAN mirror needs this to figure out which binary package to serve.
+# If not set properly, it will just serve up source packages
+# Quite hilarious, IMO.
+# See https://docs.rstudio.com/rspm/admin/binaries.html
+options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), R.version$platform, R.version$arch, R.version$os)))
