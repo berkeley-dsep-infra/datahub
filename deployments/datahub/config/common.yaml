@@ -180,6 +180,10 @@ jupyterhub:
     extraConfigMap:
       # this should be migrated to custom.profiles when that works
       profiles:
+        # ART W32AC 101 Summer 2021 Issue 2330
+        2021-summer-14368:
+          mem_limit: 2048M
+          mem_guarantee: 1024M
         # INDENG142 Spring 2021 Issue 2315
         2021-spring-31201:
           mem_limit: 2048M
