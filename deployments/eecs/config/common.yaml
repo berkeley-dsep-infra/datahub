@@ -58,7 +58,7 @@ jupyterhub:
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
     nodeSelector:
-      hub.jupyter.org/pool-name: delta-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:
@@ -71,7 +71,7 @@ jupyterhub:
       # Give eecs users 1 full CPU
       # Any overprovisioning seems to peg node CPUs pretty quickly, causing issues
       # with even execution for other users
-      guarantee: 1
+      guarantee: 0.33
       limit: 1
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
