@@ -68,10 +68,13 @@ jupyterhub:
       guarantee: 512M
       limit: 2G
     cpu:
-      # Give eecs users 1 full CPU
-      # Any overprovisioning seems to peg node CPUs pretty quickly, causing issues
-      # with even execution for other users
-      guarantee: 0.33
+      # Limit EECS users to 1 CPU
+      # They had a lab running that used a lot of CPU.
+      # It's over, but students might still end up running high
+      # CPU tasks, causing issues for other students. The
+      # CPU Guarantee will spread them out a bit (not a lot),
+      # and the limit should try reduce impact on other users
+      guarantee: 0.1
       limit: 1
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
