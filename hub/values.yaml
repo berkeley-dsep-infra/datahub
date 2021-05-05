@@ -70,6 +70,9 @@ jupyterhub-ssh:
       name: home-nfs
 
 jupyterhub:
+  prePuller:
+    hook:
+      pullOnlyOnChanges: true
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: 256m
