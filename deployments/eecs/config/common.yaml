@@ -71,10 +71,9 @@ jupyterhub:
       # Limit EECS users to 1 CPU
       # They had a lab running that used a lot of CPU.
       # It's over, but students might still end up running high
-      # CPU tasks, causing issues for other students. The
-      # CPU Guarantee will spread them out a bit (not a lot),
-      # and the limit should try reduce impact on other users
-      guarantee: 0.1
+      # CPU tasks, causing issues for other students. This should
+      # hopefully prevent users from stomping on users from other
+      # hubs on the same nodes
       limit: 1
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
