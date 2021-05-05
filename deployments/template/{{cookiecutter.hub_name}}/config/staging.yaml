@@ -1,6 +1,3 @@
-jupyterhub-ssh:
-  hubUrl: https://{{ cookiecutter.hub_name }}-staging.datahub.berkeley.edu
-
 jupyterhub:
   scheduling:
     userScheduler:

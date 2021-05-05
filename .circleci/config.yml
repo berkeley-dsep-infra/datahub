@@ -151,7 +151,7 @@ jobs:
       - run:
           name: Install helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.2.4-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
@@ -253,7 +253,7 @@ jobs:
       - run:
           name: Setup helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -316,7 +316,7 @@ jobs:
       - run:
           name: Setup helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts

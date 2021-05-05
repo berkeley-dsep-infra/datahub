@@ -1,6 +1,3 @@
-jupyterhub-ssh:
-  hubUrl: https://eecs.datahub.berkeley.edu
-
 jupyterhub:
   ingress:
     enabled: true
