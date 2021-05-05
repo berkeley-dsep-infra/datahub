@@ -75,5 +75,7 @@ jupyterhub:
       # hopefully prevent users from stomping on users from other
       # hubs on the same nodes
       limit: 1
+      # Set tiny request to prevent k8s from setting limit == request
+      request: 0.01
     image:
       name: gcr.io/ucb-datahub-2018/eecs-user-image
