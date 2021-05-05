@@ -1,4 +1,4 @@
-hubploy==0.3
+hubploy==0.2
 pygithub
 chartpress
 
