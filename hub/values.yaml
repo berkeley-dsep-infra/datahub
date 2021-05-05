@@ -39,35 +39,6 @@ etcGitConfig:
 nfsPVC:
   enabled: true
 
-jupyterhub-ssh:
-  ssh:
-    networkPolicy:
-      ingress:
-        - ports:
-            - port: ssh
-              protocol: TCP
-          from:
-            - namespaceSelector:
-                matchLabels:
-                  name: support
-              podSelector:
-                matchLabels:
-                  hub.jupyter.org/network-access-ssh-server: "true"
-  sftp:
-    networkPolicy:
-      ingress:
-        - ports:
-            - port: sftp
-              protocol: TCP
-          from:
-            - namespaceSelector:
-                matchLabels:
-                  name: support
-              podSelector:
-                matchLabels:
-                  hub.jupyter.org/network-access-ssh-server: "true"
-    pvc:
-      name: home-nfs
 
 jupyterhub:
   prePuller:
@@ -97,15 +68,6 @@ jupyterhub:
   proxy:
     service:
       type: ClusterIP
-      extraPorts:
-        - port: 22
-          targetPort: 8022
-          protocol: TCP
-          name: ssh
-        - port: 2222
-          targetPort: 2222
-          protocol: TCP
-          name: sftp
     chp:
       resources:
         requests:
@@ -118,41 +80,6 @@ jupyterhub:
       pdb:
         enabled: false
     traefik:
-      networkPolicy:
-        # We xan use 'ssh' instead of 8022 once https://github.com/jupyterhub/zero-to-jupyterhub-k8s/pull/1901 is merged
-        # 8022 for ssh, 2222 for sftp
-        allowedIngressPorts: [http, https, 8022, 2222]
-      labels:
-        hub.jupyter.org/network-access-ssh-server: "true"
-        hub.jupyter.org/network-access-sftp-server: "true"
-      extraStaticConfig:
-        entryPoints:
-          ssh:
-            address: ':8022'
-          sftp:
-            address: ':2222'
-      extraDynamicConfig:
-        tcp:
-          services:
-            sftp:
-              loadBalancer:
-                servers:
-                  - address: jupyterhub-sftp:22
-            ssh:
-              loadBalancer:
-                servers:
-                  - address: jupyterhub-ssh:22
-          routers:
-            sftp-router:
-              entrypoints:
-                - sftp
-              rule: 'HostSNI(`*`)'
-              service: sftp
-            ssh-router:
-              entrypoints:
-                - ssh
-              rule: 'HostSNI(`*`)'
-              service: ssh
       resources:
         requests:
           memory: 96Mi

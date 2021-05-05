@@ -1,6 +1,3 @@
-jupyterhub-ssh:
-  hubUrl: https://workshop.datahub.berkeley.edu
-
 jupyterhub:
   scheduling:
     userPlaceholder:
