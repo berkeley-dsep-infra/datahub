@@ -27,7 +27,7 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 2
+    nodes: 1
   gamma:
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
