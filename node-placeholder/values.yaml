@@ -4,7 +4,7 @@
 # 2. Get total amount of memory allocatable to pods on this node
 #    k get node $NODE -o jsonpath='{.status.allocatable.memory}'
 # 3. Get total amount of memory used by non-user pods on the node.
-#    k get -A pod -l 'component!=user-placeholder' --field-selector spec.nodeName=$NODE -o jsonpath='{.items[*].spec.containers[*].resources.requests.memory}'  
+#    k get -A pod -l 'component!=user-placeholder' --field-selector spec.nodeName=$NODE -o jsonpath='{.items[*].spec.containers[*].resources.requests.memory}'
 #    This will return memory units you'll need to sum yourself
 #
 # The node placeholder pod should be 'big' enough that it needs to be kicked out to get even a single
@@ -20,18 +20,18 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 2
+    nodes: 1
   beta:
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 2
+    nodes: 1
   gamma:
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 2
+    nodes: 1
