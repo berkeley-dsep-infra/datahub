@@ -35,7 +35,7 @@ jupyterhub:
       # Set default editor to something more new-user-friendly than vim/emacs
       EDITOR: "micro"
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
