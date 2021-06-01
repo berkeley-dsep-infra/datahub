@@ -30,8 +30,7 @@ Setting up a new hub structure
 There's a simple `cookiecutter <https://github.com/audreyr/cookiecutter>`_
 we provide that sets up a blank hub that can be customized.
 
-#. Make sure you have the following python packages installed: ``cookiecutter
-   ruamel.yaml``
+#. Make sure you have the following python packages installed: ``cookiecutter``
 
 #. In the ``deployments`` directory, run cookiecutter:
 
@@ -75,16 +74,6 @@ we provide that sets up a blank hub that can be customized.
 
    There will be a bunch of other stanzas very similar to this one, helping you
    find it.
-
-#. Copy service account credentials for container registry & kubernetes cluster to
-   the new hub directory. This is gonna be the same cluster & image as datahub
-   for now, so you can just directly copy those.
-
-   .. code:: bash
-
-      # From the root of the repo
-      cp deployments/datahub/secrets/gke-key.json deployments/<hub-name>/secrets
-      cp deployments/datahub/secrets/gcr-key.json deployments/<hub-name>/secrets
 
 #. Commit the hub directory, and make a PR to the the ``staging`` branch in the
    GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
