@@ -1,8 +1,8 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver1
-    shareName: export/pool0/homes
+    serverIP: nfs-server-01
+    shareName: export/homedirs-other-2020-07-29/{{cookiecutter.hub_name}}
 
 jupyterhub:
   scheduling:
@@ -18,7 +18,7 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
 
   auth:
-    type: google
+    type: custom
     admin:
       users:
           # infrastructure
@@ -38,5 +38,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/{{cookiecutter.project_name}}/{{cookiecutter.hub_name}}-user-image
