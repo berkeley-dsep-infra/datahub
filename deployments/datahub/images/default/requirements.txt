@@ -212,3 +212,7 @@ fancyimpute==0.5.5
 
 # JupyterLab pypi extensions
 jupyterlab-geojson==3.1.2
+
+# LBL summer research internship in materials informatics. Jupyter Book curriculum at https://enze-chen.github.io/mi-book/
+pymatgen==2020.10.20
+matminer==0.6.5
