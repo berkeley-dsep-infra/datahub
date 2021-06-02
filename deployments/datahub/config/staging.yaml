@@ -1,4 +1,10 @@
 jupyterhub:
+
+  hub:
+    services:
+      data8-staging.datahub.berkeley.edu:
+        name: data8-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://data8-staging.datahub.berkeley.edu/hub/oauth_callback
   scheduling:
     userPlaceholder:
       enabled: false

@@ -1,0 +1,13 @@
+# data8
+datascience==0.17.0
+matplotlib==3.3.3
+ipympl==0.6.2
+pandas==1.2.0
+scipy==1.6.0
+statsmodels==0.11.1
+okpy==1.18.1
+folium==0.11
+# Otter is pulled in via infra-requirements.txt, since it's present in all hubs
+
+# Export notebooks as PDFs with Chrome
+notebook-as-pdf==0.5.0
