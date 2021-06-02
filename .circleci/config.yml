@@ -491,6 +491,7 @@ workflows:
       - deploy:
           requires:
               - datahub image build
+              - data8 image build
               - biology image build
               - julia hub image build
               - data8x image build
