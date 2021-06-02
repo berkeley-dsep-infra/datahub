@@ -1,16 +1,16 @@
 nfsPVC:
   nfs:
-    shareName: export/homedirs-other-2020-07-29/{{cookiecutter.hub_name}}/prod
+    shareName: export/homedirs-other-2020-07-29/data8/prod
 
 jupyterhub:
   ingress:
     enabled: true
     hosts:
-      - {{cookiecutter.hub_name}}.datahub.berkeley.edu
+      - data8.datahub.berkeley.edu
     tls:
       - secretName: tls-cert
         hosts:
-          - {{cookiecutter.hub_name}}.datahub.berkeley.edu
+          - data8.datahub.berkeley.edu
   hub:
     config:
       GenericOAuthenticator:
@@ -19,7 +19,7 @@ jupyterhub:
         userdata_url: https://datahub.berkeley.edu/hub/api/user
       CanvasOAuthenticator:
         client_id: '10720000000000472'
-        oauth_callback_url: 'https://{{ cookiecutter.hub_name }}.berkeley.edu/hub/oauth_callback'
+        oauth_callback_url: 'https://data8.berkeley.edu/hub/oauth_callback'
     db:
       pvc:
         # This also holds logs
