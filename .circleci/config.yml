@@ -74,7 +74,7 @@ orbs:
                     curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
                     chmod 755 ${HOME}/repo/bin/sops
                     echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
- 
+
           - setup_remote_docker:
               # fixes a docker permission problem
               # https://support.circleci.com/hc/en-us/articles/360050934711
@@ -173,6 +173,11 @@ jobs:
           name: Deploy datahub
           command: |
             hubploy deploy datahub hub ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy data8
+          command: |
+            hubploy deploy data8 hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy prob140
@@ -359,6 +364,15 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: data8
+          name: data8 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: stat159
           name: stat159 image build
           # Filters can only be per-job? wtf
@@ -410,6 +424,15 @@ workflows:
           # workshop hub also uses this image
           deployment: datahub
           name: datahub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: data8
+          name: data8 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
