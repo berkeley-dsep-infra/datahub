@@ -180,6 +180,11 @@ jobs:
             hubploy deploy data8 hub ${CIRCLE_BRANCH}
 
       - run:
+          name: Deploy highschool hub
+          command: |
+            hubploy deploy highschool hub ${CIRCLE_BRANCH}
+
+      - run:
           name: Deploy prob140
           command: |
             hubploy deploy prob140 hub ${CIRCLE_BRANCH}
