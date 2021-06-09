@@ -17,7 +17,7 @@ notebook==6.4.0
 nbformat<5.1.0
 jupyterlab==3.0.16
 retrolab==0.2.1
-nbgitpuller==0.9.0
+nbgitpuller==0.10.0
 jupyter-resource-usage==0.5.1
 jupyterhub==1.4.0
 appmode==0.8.0
