@@ -255,8 +255,12 @@ jupyterhub:
   proxy:
     service:
       type: LoadBalancer
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+    traefik:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
