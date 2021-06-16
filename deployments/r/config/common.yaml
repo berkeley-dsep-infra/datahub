@@ -22,18 +22,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
   hub:
-    extraConfigMap:
-      # this should be migrated to custom.profiles when that works
-      profiles:
-        # ESPM 157 https://github.com/berkeley-dsep-infra/datahub/issues/1849
-        2020-fall-27267:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-        # espm 288 - https://github.com/berkeley-dsep-infra/datahub/issues/2137
-        # Big limit OK since they only have 12 students
-        2021-spring-27769:
-          mem_limit: 8192M
-          mem_guarantee: 4096M
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
@@ -130,3 +118,15 @@ jupyterhub:
         - ports:
             - port: 22
               protocol: TCP
+  custom:
+    # this should be migrated to custom.profiles when that works
+    profiles:
+      # ESPM 157 https://github.com/berkeley-dsep-infra/datahub/issues/1849
+      2020-fall-27267:
+        mem_limit: 4096M
+        mem_guarantee: 1024M
+      # espm 288 - https://github.com/berkeley-dsep-infra/datahub/issues/2137
+      # Big limit OK since they only have 12 students
+      2021-spring-27769:
+        mem_limit: 8192M
+        mem_guarantee: 4096M
