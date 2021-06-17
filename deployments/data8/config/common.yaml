@@ -9,8 +9,12 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
   proxy:
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+    traefik:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
 
   hub:
     nodeSelector:
