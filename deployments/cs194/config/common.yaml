@@ -90,7 +90,6 @@ jupyterhub:
       postgres:
         name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
         tag: 0.0.1-n3657.h4f7f88c
-        policy: IfNotPresent
   singleuser:
     storage:
       type: static
