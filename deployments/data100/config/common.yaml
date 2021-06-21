@@ -74,13 +74,6 @@ jupyterhub:
       name: gcr.io/ucb-datahub-2018/data100-user-image
 
   custom:
-    # this should be migrated to custom.profiles when that works
-    profiles:
-      # below config automatically promotes instructors/gsis to admin and demotes students
-      # year-term-ccn can be found by searching for c100 in classes.berkeley.edu
-      # see issue #1584 for implementation detail
-      # stat c100
-      # 2019-fall-24961: {}
     admin:
       mem_limit: 4096M
       mem_guarantee: 20484M
