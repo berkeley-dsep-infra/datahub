@@ -6,23 +6,6 @@ nfsPVC:
 
 jupyterhub:
   hub:
-    extraConfigMap:
-      # this should be migrated to custom.profiles when that works
-      profiles:
-        # below config automatically promotes instructors/gsis to admin and demotes students
-        # year-term-ccn can be found by searching for c100 in classes.berkeley.edu
-        # see issue #1584 for implementation detail
-        # stat c100
-        # 2019-fall-24961: {}
-      admin:
-        mem_limit: 4096M
-        mem_guarantee: 20484M
-        extraVolumeMounts:
-          - name: home
-            mountPath: /srv/homes
-          - name: home
-            mountPath: /home/jovyan/shared-readwrite
-            subPath: _shared
     config:
       Authenticator:
         admin_users:
@@ -40,7 +23,6 @@ jupyterhub:
       postgres:
         name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
         tag: 0.0.1-n3657.h4f7f88c
-        policy: IfNotPresent
   singleuser:
     extraContainers:
       - name: postgres
@@ -90,3 +72,14 @@ jupyterhub:
       limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/data100-user-image
+
+  custom:
+    admin:
+      mem_limit: 4096M
+      mem_guarantee: 20484M
+      extraVolumeMounts:
+        - name: home
+          mountPath: /srv/homes
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared

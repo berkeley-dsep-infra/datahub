@@ -17,14 +17,18 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
   proxy:
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+    traefik:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
 
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
-    condig:
+    config:
       Authenticator:
         admin_users:
           # infrastructure

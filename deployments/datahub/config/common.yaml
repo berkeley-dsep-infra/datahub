@@ -179,84 +179,16 @@ jupyterhub:
     extraConfig:
       04-custom-theme: |
         c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
-    extraConfigMap:
-      # this should be migrated to custom.profiles when that works
-      profiles:
-        # ART W32AC 101 Summer 2021 Issue 2330
-        2021-summer-14368:
-          mem_limit: 2048M
-          mem_guarantee: 1024M
-        niemeyer-issue-2330:
-          users:
-            - niemeyer
-          mem_limit: 8192M
-          mem_guarantee: 4096M
-        # INDENG142 Spring 2021 Issue 2315
-        2021-spring-31201:
-          mem_limit: 2048M
-          mem_guarantee: 1024M
-        # ENVECON153 (EEP153) Spring 2021 Issue 2013
-        2021-spring-27844:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-        # Shared dataset volumes for astr 128 / 256
-        # See https://github.com/berkeley-dsep-infra/datahub/issues/827
-        # astr 256, issue 2083
-        2021-spring-25995:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-          extraVolumeMounts:
-            - name: home
-              mountPath: /home/jovyan/shared/course/astr-128-256
-              subPath: _shared/course/astr-128-256
-              readOnly: true
-        # astr 128, issue 2083
-        2021-spring-25880:
-          mem_limit: 4096M
-          mem_guarantee: 1024M
-          extraVolumeMounts:
-            - name: home
-              mountPath: /home/jovyan/shared/course/astr-128-256
-              subPath: _shared/course/astr-128-256
-              readOnly: true
-        # Read-write access to the astro shared directory
-        # HACK: Different mountPath to prevent mounting two volumeMounts
-        # at the same path.
-        astr-128-admins:
-          users:
-            - yuvipanda
-            - kelbadry
-            - joshbloom
-            - dan.weisz
-            - felder
-          extraVolumeMounts:
-            - name: home
-              mountPath: /home/jovyan/shared-rw/course/astr-128-256
-              subPath: _shared/course/astr-128-256
-        # Shared drive for EPS 130
-        # https://github.com/berkeley-dsep-infra/datahub/issues/2123
-        2021-spring-22110:
-          extraVolumeMounts:
-            - name: home
-              mountPath: /home/jovyan/shared/course/eps-130
-              subPath: _shared/course/eps-130
-              readOnly: true
-        eps-130-admins:
-          users:
-            - yuvipanda
-            - felder
-            - ericvd
-          extraVolumeMounts:
-            - name: home
-              mountPath: /home/jovyan/shared-rw/course/eps-130
-              subPath: _shared/course/eps-130
-
 
   proxy:
     service:
       type: LoadBalancer
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+    traefik:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
@@ -295,16 +227,76 @@ jupyterhub:
     image:
       name: gcr.io/ucb-datahub-2018/primary-user-image
 
-custom:
-  wtf: "why isn't this passed to config/values.yaml"
-
-# read by z2jh.get_config() in hub/values.yaml
-# (theoretically!)
-# custom:
-#   profiles:
-#     # compsci c8
-#     2019-fall-28063: {}
-#     # pbhlth w250f
-#     2019-fall-29639: {}
-#     # pbhlth w250g
-#     2019-fall-29640: {}
+  
+  # read by z2jh.get_config() in hub/values.yaml
+  # formerly jupyterhub.hub.extraConfigMap
+  custom:
+    profiles:
+      # ART W32AC 101 Summer 2021 Issue 2330
+      2021-summer-14368:
+        mem_limit: 2048M
+        mem_guarantee: 1024M
+      niemeyer-issue-2330:
+        users:
+          - niemeyer
+        mem_limit: 8192M
+        mem_guarantee: 4096M
+      # INDENG142 Spring 2021 Issue 2315
+      2021-spring-31201:
+        mem_limit: 2048M
+        mem_guarantee: 1024M
+      # ENVECON153 (EEP153) Spring 2021 Issue 2013
+      2021-spring-27844:
+        mem_limit: 4096M
+        mem_guarantee: 1024M
+      # Shared dataset volumes for astr 128 / 256
+      # See https://github.com/berkeley-dsep-infra/datahub/issues/827
+      # astr 256, issue 2083
+      2021-spring-25995:
+        mem_limit: 4096M
+        mem_guarantee: 1024M
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared/course/astr-128-256
+            subPath: _shared/course/astr-128-256
+            readOnly: true
+      # astr 128, issue 2083
+      2021-spring-25880:
+        mem_limit: 4096M
+        mem_guarantee: 1024M
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared/course/astr-128-256
+            subPath: _shared/course/astr-128-256
+            readOnly: true
+      # Read-write access to the astro shared directory
+      # HACK: Different mountPath to prevent mounting two volumeMounts
+      # at the same path.
+      astr-128-admins:
+        users:
+          - yuvipanda
+          - kelbadry
+          - joshbloom
+          - dan.weisz
+          - felder
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared-rw/course/astr-128-256
+            subPath: _shared/course/astr-128-256
+      # Shared drive for EPS 130
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2123
+      2021-spring-22110:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared/course/eps-130
+            subPath: _shared/course/eps-130
+            readOnly: true
+      eps-130-admins:
+        users:
+          - yuvipanda
+          - felder
+          - ericvd
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared-rw/course/eps-130
+            subPath: _shared/course/eps-130

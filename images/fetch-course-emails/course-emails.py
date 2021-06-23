@@ -96,6 +96,9 @@ def read_profiles(values_file):
 	if 'profiles' not in values['custom']:
 		print("No 'custom.profiles' in values.yaml.")
 		return []
+	if not hasattr(values['custom']['profiles'], 'keys'):
+		print("'custom.profiles' is not a dictionary.")
+		return []
 
 	return list(values['custom']['profiles'].keys())
 

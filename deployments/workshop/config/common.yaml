@@ -29,8 +29,12 @@ jupyterhub:
         admin_access: false
         authenticator_class: dummy
   proxy:
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+    traefik:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
   singleuser:
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image

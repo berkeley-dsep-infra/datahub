@@ -1,5 +1,5 @@
 dependencies:
  - name: jupyterhub
    # REMEMBER TO CHANGE BASE IMAGE OF images/hub/ WHEN CHANGING THIS
-   version: 0.11.1-n451.h198fc854
+   version: 1.0.0
    repository: https://jupyterhub.github.io/helm-chart/
