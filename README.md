@@ -1,4 +1,4 @@
-# Berkeley JupyterHubs
+# Berkeley JupyterHubs 
 
 Contains a fully reproducible configuration for JupyterHub on datahub.berkeley.edu,
 as well as its single user image.
