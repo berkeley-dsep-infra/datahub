@@ -31,7 +31,7 @@ jupyterhub:
         # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
         - achieveprogram.org
         # For BLDAP program
-        - lbnl.gov
+        - lbl.gov
         # moved admin users to protected directory
 
   singleuser:
