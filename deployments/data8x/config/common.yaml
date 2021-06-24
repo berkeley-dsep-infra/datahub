@@ -5,6 +5,14 @@ nfsPVC:
     shareName: export/data8xhomes-2020-08-31
 
 jupyterhub:
+  cull:
+    # For some reason, hub users don't cull properly
+    # Empty abandoned sessions stay on for days
+    # This stops users after they have been running for 12+ hours
+    # in one go. In several weeks of looking at user pods older
+    # than this, none have been active.
+    # See issue #2452
+    maxAge: 43200 # 12h
   proxy:
     service:
       type: LoadBalancer
