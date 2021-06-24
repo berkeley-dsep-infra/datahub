@@ -33,6 +33,7 @@ jupyterhub:
           - yuvipanda
           - felder
           # Summmer 2021 Admins, from Yanay
+          - yanayrosen
           - katherinetsai
           - oscarb
           - kylek
