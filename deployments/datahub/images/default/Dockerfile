@@ -139,8 +139,12 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 # the packages we install. Without this, RStudio doesn't see the packages
 # that R does.
 # Stolen from https://github.com/jupyterhub/repo2docker/blob/6a07a48b2df48168685bb0f993d2a12bd86e23bf/repo2docker/buildpacks/r.py
+# To try fight https://community.rstudio.com/t/timedatectl-had-status-1/72060,
+# which shows up sometimes when trying to install packages that want the TZ
+# timedatectl expects systemd running, which isn't true in our containers
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
-    echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
+    echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron && \
+    echo "TZ=${TZ}"
 
 # Install R libraries as our user
 USER ${NB_USER}
