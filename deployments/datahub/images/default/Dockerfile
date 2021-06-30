@@ -144,7 +144,7 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 # timedatectl expects systemd running, which isn't true in our containers
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron && \
-    echo "TZ=${TZ}"
+    echo "TZ=${TZ}" >> /etc/R/Renviron
 
 # Install R libraries as our user
 USER ${NB_USER}
