@@ -3,10 +3,9 @@ channels:
 # For jupyter-desktop-server
 - manics
 
-dependencies:
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
-
+dependencies:
 - python=3.8.*
 
 # Visual Studio Code!
