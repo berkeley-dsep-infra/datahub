@@ -16,6 +16,7 @@ notebook==6.4.0
 # below 5.1.0 while notebook patches this?
 nbformat<5.1.0
 jupyterlab==3.0.16
+nbconvert==6.1.0
 retrolab==0.2.1
 nbgitpuller==0.10.0
 jupyter-resource-usage==0.5.1

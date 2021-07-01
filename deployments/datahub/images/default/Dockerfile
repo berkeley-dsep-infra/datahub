@@ -139,8 +139,12 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 # the packages we install. Without this, RStudio doesn't see the packages
 # that R does.
 # Stolen from https://github.com/jupyterhub/repo2docker/blob/6a07a48b2df48168685bb0f993d2a12bd86e23bf/repo2docker/buildpacks/r.py
+# To try fight https://community.rstudio.com/t/timedatectl-had-status-1/72060,
+# which shows up sometimes when trying to install packages that want the TZ
+# timedatectl expects systemd running, which isn't true in our containers
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
-    echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
+    echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron && \
+    echo "TZ=${TZ}" >> /etc/R/Renviron
 
 # Install R libraries as our user
 USER ${NB_USER}
@@ -264,12 +268,3 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 
 EXPOSE 8888
-
-# Temporarily install new nbconvert version to fix pagination in PDF generation
-# This can't be in infra-requirements, since that seems to just install the
-# published versions of nbconvert from notebook. Adding this to the end of the
-# image so we can experiment with this faster.
-# Brings in https://github.com/jupyter/nbconvert/pull/1513
-# Brings in https://github.com/jupyter/nbconvert/pull/1515
-# Brings in https://github.com/jupyter/nbconvert/pull/1516
-RUN pip install --no-cache git+https://github.com/yuvipanda/nbconvert@888f39b9fe131f8af403a9396538996afbfd7aa2
