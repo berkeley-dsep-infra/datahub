@@ -1,0 +1,2 @@
+# RStudio support
+jupyter-rsession-proxy==1.3

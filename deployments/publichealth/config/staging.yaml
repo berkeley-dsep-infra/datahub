@@ -1,0 +1,25 @@
+nfsPVC:
+  nfs:
+    shareName: export/ischool-2021-07-01/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - publichealth-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - publichealth-staging.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user
