@@ -20,7 +20,7 @@ nbconvert==6.1.0
 retrolab==0.2.1
 nbgitpuller==0.10.0
 jupyter-resource-usage==0.5.1
-jupyterhub==1.4.0
+jupyterhub==1.4.1
 appmode==0.8.0
 ipywidgets==7.6.3
 otter-grader==2.2.0
