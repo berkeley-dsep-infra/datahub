@@ -1,0 +1,78 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      JupyterHub:
+        authenticator_class: generic-oauth
+      GenericOAuthenticator:
+        login_service: bCourses
+        basic_auth: false
+        username_key: name
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          # PH250WF+PH250WG Instructors, issue 882
+          - jadebc
+          - jcolford
+          # PH250WF+PH250WG student assistants, issue 882
+          - anna-nguyen
+          - lucascarlton
+          - m.ruiz
+          - nolanpokpongkiat
+          - stephaniemholm
+          - wmjilek
+          # PH142 Instructor
+          - mi-suk
+          # PH142 GSIs, Tech GSI
+          - sophia.fuller
+          - chandlerbeon
+          - andrewliu21
+          - leishi
+          - nanamizuide
+          - saherdaredia
+          - sarah_johnson
+          - shaziakn
+          - jiyunwen
+          # See https://github.com/berkeley-dsep-infra/datahub/pull/2441
+          # PH250A & PHW250A Fall 2021 GSIs / Instructor
+          - smccoy
+          - krista_neumann
+          - lsheira
+          - julia.acker
+          - jessiiicamae
+          - natasha_harrison
+          - hcolbeth
+          - caroline.kurtz
+          - eric_stewart
+          - judytan
+          - lkamil
+  singleuser:
+    defaultUrl: /rstudio
+    nodeSelector:
+      hub.jupyter.org/pool-name: alpha-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G

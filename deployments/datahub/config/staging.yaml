@@ -8,6 +8,9 @@ jupyterhub:
       ischool-staging.datahub.berkeley.edu:
         name: ischool-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://ischool-staging.datahub.berkeley.edu/hub/oauth_callback
+      publichealth-staging.datahub.berkeley.edu:
+        name: publichealth-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://publichealth-staging.datahub.berkeley.edu/hub/oauth_callback
   scheduling:
     userPlaceholder:
       enabled: false

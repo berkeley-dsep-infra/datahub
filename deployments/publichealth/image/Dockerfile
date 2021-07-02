@@ -61,3 +61,11 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
+
+COPY class-libs.R /tmp/class-libs.R
+
+COPY r-packages/ph-290.r /tmp/r-packages/
+RUN r /tmp/r-packages/ph-290.r
+
+COPY r-packages/ph-142.r /tmp/r-packages/
+RUN r /tmp/r-packages/ph-142.r
