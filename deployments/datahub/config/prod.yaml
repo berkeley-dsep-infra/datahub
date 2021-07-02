@@ -10,6 +10,9 @@ jupyterhub:
       data8.datahub.berkeley.edu:
         name: data8.datahub.berkeley.edu
         oauth_redirect_uri: https://data8.datahub.berkeley.edu/hub/oauth_callback
+      ischool.datahub.berkeley.edu:
+        name: data8.datahub.berkeley.edu
+        oauth_redirect_uri: https://ischool.datahub.berkeley.edu/hub/oauth_callback
     db:
       pvc:
         # This also holds logs

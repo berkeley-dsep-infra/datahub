@@ -1,0 +1,34 @@
+# WARNING: Original source at scripts/infra-packages/requirements.txt
+# PLEASE DO NOT EDIT ELSEWHERE
+# After editing scripts/infra-packages/requirements.txt, please run
+# scripts/infra-packages/sync.bash.
+
+# This file pins versions of notebook related python packages we want
+# across all hubs. This makes sure we don't need to upgrade them
+# everwhere one by one.
+
+# FIXME: Freeze this to get exact versions of all dependencies
+notebook==6.4.0
+# from @chrispyles
+# i see that nbformat was unpinned. since the pin, because of the new cell id
+# parameter in notebook format v4 the notebook validation is failing whenever
+# someone opens a notebook created w/ nbformat>=5.1.0. is it possible to pin
+# below 5.1.0 while notebook patches this?
+nbformat<5.1.0
+jupyterlab==3.0.16
+nbconvert==6.1.0
+retrolab==0.2.1
+nbgitpuller==0.10.0
+jupyter-resource-usage==0.5.1
+# Matches version in images/hub/Dockerfile
+# https://github.com/jupyterhub/jupyterhub/pull/3381/ means we need to
+# match jupyterhub versions on server and client again
+git+https://github.com/jupyterhub/jupyterhub@11f00dbbe794191d328c6c2a44a9e85f7eb6ede5
+appmode==0.8.0
+ipywidgets==7.6.3
+otter-grader==2.2.0
+jupyter-tree-download==1.0.1
+git-credential-helpers==0.2
+# Enough people like this, let's load it in.
+jupyter-contrib-nbextensions==0.5.1
+jupyter_nbextensions_configurator==0.4.1
