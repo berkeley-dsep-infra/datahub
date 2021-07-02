@@ -42,7 +42,7 @@ RUN apt-get update > /dev/null && \
 
 # 1.3.959 is latest version that works with jupyter-rsession-proxy
 # See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1093-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
@@ -54,6 +54,9 @@ USER ${NB_USER}
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
