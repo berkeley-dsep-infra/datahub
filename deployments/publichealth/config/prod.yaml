@@ -1,0 +1,23 @@
+nfsPVC:
+  nfs:
+    shareName: export/ischool-2021-07-01/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - publichealth.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - publichealth.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        authorize_url: https://datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://datahub.berkeley.edu/hub/api/user
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
