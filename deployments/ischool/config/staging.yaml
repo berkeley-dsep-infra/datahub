@@ -1,0 +1,28 @@
+nfsPVC:
+  nfs:
+    shareName: export/ischool-2021-07-01/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - ischool-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - ischool-staging.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user
+      CanvasOAuthenticator:
+        client_id: '10720000000000472'
+        oauth_callback_url: 'https://ischool-staging.berkeley.edu/hub/oauth_callback'
