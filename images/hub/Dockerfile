@@ -11,6 +11,9 @@ RUN apt update > /dev/null  && apt install --yes npm > /dev/null
 # and https://github.com/jupyterhub/jupyterhub/pull/3411
 # For https://github.com/berkeley-dsep-infra/datahub/issues/2284
 # Brings in https://github.com/jupyterhub/jupyterhub/pull/3488
+# Matches version in images/hub/Dockerfile
+# https://github.com/jupyterhub/jupyterhub/pull/3381/ means we need to
+# match jupyterhub versions on server and client again
 RUN python3 -m pip install -U git+https://github.com/jupyterhub/jupyterhub@11f00dbbe794191d328c6c2a44a9e85f7eb6ede5
 
 COPY canvasauthenticator /srv/canvasauthenticator

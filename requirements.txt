@@ -1,5 +1,5 @@
 hubploy==0.2
 pygithub
 chartpress
-
+jupyter-repo2docker>=2021.3.0
 myst-parser

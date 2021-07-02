@@ -33,10 +33,6 @@ orbs:
                 python3 -m venv venv
                 source venv/bin/activate
                 pip install --upgrade -r requirements.txt
-                # Install repo2docker master to fix offline-notebook and julia
-                # See https://github.com/berkeley-dsep-infra/datahub/pull/1937
-                # See https://github.com/jupyterhub/repo2docker/pull/975
-                pip install --upgrade git+https://github.com/jupyter/repo2docker.git@968cc43a9e238916b5032edbf84e309c8d4ff35e
                 echo 'export PATH="${HOME}/repo/venv/bin:$PATH"' >> ${BASH_ENV}
 
           - unless:

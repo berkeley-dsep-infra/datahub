@@ -58,6 +58,8 @@ jupyterhub:
           - sarah_johnson
           - shaziakn
           - jiyunwen
+          # Issue 2462
+          - dhughes
           # List of other admin users
 
   singleuser:
