@@ -40,13 +40,6 @@ RUN apt-get update > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
-RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    dpkg -i /tmp/rstudio.deb && \
-    rm /tmp/rstudio.deb
-
 COPY install-miniforge.bash /tmp/install-miniforge.bash
 RUN /tmp/install-miniforge.bash
 
@@ -61,3 +54,8 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
+
+USER root
+RUN chown ${NB_USER}:${NB_USER} /var/lib/rstudio-server/rstudio.sqlite
+
+USER ${NB_USER}
