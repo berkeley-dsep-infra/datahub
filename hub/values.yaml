@@ -184,6 +184,12 @@ jupyterhub:
       # This is unfortunately still needed by canvas auth
       OAUTH2_AUTHORIZE_URL: https://bcourses.berkeley.edu/login/oauth2/auth
     extraConfig:
+      # Use 0x-<title> in `values.yaml` extraConfig values.
+      # We want these to come *before* the extraConfig values
+      # in `values.yaml`. Since these are ordered alphabetically,
+      # 1x-<title> used in `common.yaml` will come after
+      # 0x-<title> used in `values.yaml` - so config set there
+      # will override config set here.
       01-custom-attr-spawner: |
         import os
         from kubespawner import KubeSpawner
