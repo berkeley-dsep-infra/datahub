@@ -14,6 +14,18 @@ jupyterhub:
         hub.jupyter.org/pool-name: core-pool
 
   hub:
+    extraConfig:
+      # Use 1x-<title> in `common.yaml` extraConfig values.
+      # We want these to come *after* the extraConfig values
+      # in `values.yaml`. Since these are ordered alphabetically,
+      # 1x-<title> used in `common.yaml` will come after
+      # 0x-<title> used in `values.yaml` - so config set here
+      # will override config set in `values.yaml`
+      11-working-dir: |
+        # Rocker based images have 'rstudio' as user $1000
+        # so let's stick to that, and use /home/${NB_USER}
+        # consistently.
+        c.KubeSpawner.working_dir = '/home/rstudio'
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     config:
