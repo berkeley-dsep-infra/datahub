@@ -33,9 +33,7 @@ jupyterhub:
           - dhughes  # https://github.com/berkeley-dsep-infra/datahub/issues/2462
 
   singleuser:
-    defaultUrl: /rstudio/auth-sign-in?appUrl=%2F
-    extraEnv:
-      RSESSION_PROXY_RSTUDIO_1_4: "1"
+    defaultUrl: /rstudio
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
     storage:
