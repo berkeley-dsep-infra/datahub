@@ -44,11 +44,12 @@ jupyterhub:
           # PH142 GSIs, Tech GSI
           - sophia.fuller
           - chandlerbeon
-          - andrewliu21
-          - leishi
-          - nanamizuide
-          - saherdaredia
-          - sarah_johnson
+          - ajuareza
+          - antoniadlg
+          - jessiiicamae
+          - mitchell.leus
+          - ztzyz615
+          - kmaccuish
           - shaziakn
           - jiyunwen
           # See https://github.com/berkeley-dsep-infra/datahub/pull/2441
