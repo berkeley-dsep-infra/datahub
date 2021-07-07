@@ -79,20 +79,20 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Use newer version of R
-# Binary packages from packagemanager.rstudio.com work against this.
-# Base R from Focal is only 3.6.
+# Install R packages
+# Our pre-built R packages from rspm are built against system libs in focal
+# rstan takes forever to compile from source, and needs libnodejs
+# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
+# with the version of RStudio we use. So we pin R to 4.0.5
+ENV R_VERSION=4.0.5-1.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
-
-# Install R packages
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
-    r-base \
-    r-base-dev \
-    r-recommended \
-    r-cran-littler  > /dev/null
-
+    r-base=${R_VERSION} \
+    r-base-dev=${R_VERSION} \
+    r-recommended=${R_VERSION} \
+    r-cran-littler > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
