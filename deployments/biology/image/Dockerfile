@@ -53,20 +53,27 @@ RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 
+
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
+# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
+# with the version of RStudio we use. So we pin R to 4.0.5
+# Our pre-built R packages from rspm are built against system libs in focal
+# rstan takes forever to compile from source, and needs libnodejs
 # So we install older (10.x) nodejs from apt rather than newer from conda
+ENV R_VERSION=4.0.5-1.2004.0
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
-    r-base \
-    r-base-dev \
-    r-recommended \
+    r-base=${R_VERSION} \
+    r-base-dev=${R_VERSION} \
+    r-recommended=${R_VERSION} \
     r-cran-littler \
-    npm \
     libglpk-dev \
     libzmq5 \
-    nodejs
+    nodejs npm > /dev/null
 
 # Install desktop packages
 RUN apt-get update -qq --yes > /dev/null && \
@@ -120,10 +127,9 @@ RUN apt-get update -qq --yes && \
         lsb-release \
         libclang-dev  > /dev/null
 
-# Set path where R packages are installed
-# Download and install rstudio manually
-# Newer one has bug that doesn't work with jupyter-rsession-proxy
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5042-amd64.deb
+# 1.3.959 is latest version that works with jupyter-rsession-proxy
+# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
