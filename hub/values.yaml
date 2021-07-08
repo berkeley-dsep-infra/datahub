@@ -90,8 +90,15 @@ jupyterhub:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
   singleuser:
+    extraFiles:
+      popularity-contest:
+        mountPath: /opt/conda/etc/ipython/startup/000-popularity-contest.py
+        stringData: |
+          import popularity_contest.reporter
     extraEnv:
       SHELL: /bin/bash
+      PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
+      PYTHON_POPCONTEST_STATSD_PORT: '9125'
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
     extraAnnotations:
       prometheus.io/scrape: "false"
@@ -117,6 +124,12 @@ jupyterhub:
             # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
             - port: 21
               protocol: TCP
+        - ports:
+            # statsd ports
+            - port: 9125
+              protocol: TCP
+            - port: 9125
+              protocol: UDP
       # Allow ingress from promethetheus scraper in support namespace
       # This lets us get notebook metrics!
       ingress:
@@ -320,3 +333,10 @@ jupyterhub:
             'allowPrivilegeEscalation': False
           }
         }
+      07-popularity-contest: |
+        # Emit metrics for which python packages are being imported
+        import os
+        pod_namespace = os.environ['POD_NAMESPACE']
+        c.KubeSpawner.environment.update({
+          'PYTHON_POPCONTEST_STATSD_PREFIX': f'python_popcon.hub.{pod_namespace}.imported_package'
+        })
