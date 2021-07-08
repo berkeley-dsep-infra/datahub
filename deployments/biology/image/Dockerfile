@@ -67,9 +67,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
-    r-base=${R_VERSION} \
+    r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-recommended=${R_VERSION} \
     r-cran-littler \
     libglpk-dev \
     libzmq5 \
