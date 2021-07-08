@@ -123,3 +123,18 @@ grafana:
           access: proxy
           isDefault: true
           editable: false
+
+prometheus-statsd-exporter:
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9102"
+
+  statsd:
+    mappingConfig: |-
+      mappings:
+      - match: "python_popcon.hub.*.imported_package.*"
+        name: "python_popcon_imported_package"
+        labels:
+          hub: "$1"
+          package: "$2"
