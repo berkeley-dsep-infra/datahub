@@ -90,7 +90,8 @@ RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
-    r-base-dev=${R_VERSION} > /dev/null
+    r-base-dev=${R_VERSION} \
+    r-cran-littler > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
