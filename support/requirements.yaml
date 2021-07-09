@@ -1,4 +1,7 @@
 dependencies:
+ - name: prometheus-statsd-exporter
+   version: 0.3.1
+   repository: https://prometheus-community.github.io/helm-charts
  - name: prometheus
    version: 11.16.9
    repository: https://prometheus-community.github.io/helm-charts
