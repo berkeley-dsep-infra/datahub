@@ -34,4 +34,4 @@ jupyter-contrib-nbextensions==0.5.1
 jupyter_nbextensions_configurator==0.4.1
 # Measure popularity of different packages in our hubs
 # https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
-popularity-contest==0.1.1
+popularity-contest==0.2
