@@ -136,5 +136,5 @@ prometheus-statsd-exporter:
       - match: "python_popcon.hub.*.imported_package.*"
         name: "python_popcon_imported_package"
         labels:
-          hub: "$1"
+          namespace: "$1"
           package: "$2"
