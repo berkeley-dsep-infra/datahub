@@ -133,8 +133,8 @@ prometheus-statsd-exporter:
   statsd:
     mappingConfig: |-
       mappings:
-      - match: "python_popcon.hub.*.imported_package.*"
-        name: "python_popcon_imported_package"
+      - match: "python_popcon.namespace.*.library_used.*"
+        name: "python_popcon_library_used"
         labels:
           namespace: "$1"
-          package: "$2"
+          library: "$2"
