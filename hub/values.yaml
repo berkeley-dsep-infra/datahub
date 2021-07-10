@@ -95,6 +95,7 @@ jupyterhub:
         mountPath: /opt/conda/etc/ipython/startup/000-popularity-contest.py
         stringData: |
           import popularity_contest.reporter
+          popularity_contest.reporter.setup_reporter()
     extraEnv:
       SHELL: /bin/bash
       PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
@@ -330,5 +331,5 @@ jupyterhub:
         import os
         pod_namespace = os.environ['POD_NAMESPACE']
         c.KubeSpawner.environment.update({
-          'PYTHON_POPCONTEST_STATSD_PREFIX': f'python_popcon.hub.{pod_namespace}.imported_package'
+          'PYTHON_POPCONTEST_STATSD_PREFIX': f'python_popcon.namespace.{pod_namespace}'
         })
