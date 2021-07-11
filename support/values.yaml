@@ -138,3 +138,7 @@ prometheus-statsd-exporter:
         labels:
           namespace: "$1"
           library: "$2"
+      - match: "python_popcon.namespace.*.reports"
+        name: "python_popcon_reports"
+        labels:
+          namespace: "$1"
