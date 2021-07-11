@@ -91,6 +91,32 @@ jupyterhub:
         contactEmail: yuvipanda@berkeley.edu
   singleuser:
     extraFiles:
+      culling-config:
+        mountPath: /etc/jupyter/jupyter_notebook_config.json
+        data:
+          NotebookApp:
+            # shutdown the server after no 30 mins of no activity
+            shutdown_no_activity_timeout: 1800
+
+          # if a user leaves a notebook with a running kernel,
+          # the effective idle timeout will typically be CULL_TIMEOUT + CULL_KERNEL_TIMEOUT
+          # as culling the kernel will register activity,
+          # resetting the no_activity timer for the server as a whole
+          MappingKernelManager:
+            # shutdown kernels after 30 mins of no activity
+            cull_idle_timeout: 1800
+            # check for idle kernels this often
+            cull_interval: 60
+            # a kernel with open connections but no activity still counts as idle
+            # this is what allows us to shutdown servers
+            # when people leave a notebook open and wander off
+            cull_connected: true
+          NotebookNotary:
+            # Use memory for notebook notary file to workaround corrupted files on nfs
+            # https://www.sqlite.org/inmemorydb.html
+            # https://github.com/jupyter/jupyter/issues/174
+            # https://github.com/ipython/ipython/issues/9163
+            db_file: ":memory:"
       popularity-contest:
         mountPath: /opt/conda/etc/ipython/startup/000-popularity-contest.py
         stringData: |
