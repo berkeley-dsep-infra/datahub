@@ -95,6 +95,7 @@ jupyterhub:
         mountPath: /opt/conda/etc/ipython/startup/000-popularity-contest.py
         stringData: |
           import popularity_contest.reporter
+          popularity_contest.reporter.setup_reporter()
     extraEnv:
       SHELL: /bin/bash
       PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
@@ -247,7 +248,6 @@ jupyterhub:
           return members
 
         class CustomAttrSpawner(KubeSpawner):
-
           def _build_common_labels(self, extra_labels):
             labels = super()._build_common_labels(extra_labels)
             # Until https://github.com/jupyterhub/kubespawner/issues/498
@@ -307,15 +307,8 @@ jupyterhub:
             return (yield super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-        # these are for accessing canvas api
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_ACCESS_TOKEN')
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_LOGIN_ID')
-        # these are for when hub/admin supports a display name
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_NAME')
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_SORTABLE_NAME')
-        # we might not need this one
-        c.CustomAttrSpawner.env_keep.append('OAUTH2_PRIMARY_EMAIL')
-
+      02-log-file: |
+        # Keep long term logs of jupyterhub on disk
         c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
 
       03-working-dir: |
@@ -338,5 +331,5 @@ jupyterhub:
         import os
         pod_namespace = os.environ['POD_NAMESPACE']
         c.KubeSpawner.environment.update({
-          'PYTHON_POPCONTEST_STATSD_PREFIX': f'python_popcon.hub.{pod_namespace}.imported_package'
+          'PYTHON_POPCONTEST_STATSD_PREFIX': f'python_popcon.namespace.{pod_namespace}'
         })
