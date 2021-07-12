@@ -78,12 +78,7 @@ jupyterhub:
         - name: etc-gitconfig
           secret:
             secretName: user-etc-gitconfig
-        - name: etc-jupyter
-          configMap:
-            name: user-etc-jupyter
       extraVolumeMounts:
-        - name: etc-jupyter
-          mountPath: /etc/jupyter
         - name: etc-gitconfig
           mountPath: /etc/gitconfig
           subPath: gitconfig

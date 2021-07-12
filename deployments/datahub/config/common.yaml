@@ -198,15 +198,10 @@ jupyterhub:
         pvcName: home-nfs
         subPath: "{username}"
       extraVolumes:
-        - name: etc-jupyter
-          configMap:
-            name: user-etc-jupyter
         - name: etc-gitconfig
           secret:
             secretName: user-etc-gitconfig
       extraVolumeMounts:
-        - name: etc-jupyter
-          mountPath: /etc/jupyter
         - name: etc-gitconfig
           mountPath: /etc/gitconfig
           subPath: gitconfig
