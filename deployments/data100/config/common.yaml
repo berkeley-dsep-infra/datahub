@@ -14,6 +14,7 @@ jupyterhub:
           - rylo
           - yuvipanda
           - cpyles
+          - balajialwar
           # instructors & gsis (spring 2021)
           - jegonzal
           - andrewbray

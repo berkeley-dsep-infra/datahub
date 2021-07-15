@@ -26,6 +26,7 @@ jupyterhub:
           - felder
           - rylo
           - yuvipanda
+          - balajialwar
           # instructors
           - fernando.perez
           - michael_jordan

@@ -25,6 +25,7 @@ jupyterhub:
           - felder
           - rylo
           - yuvipanda
+          - balajialwar
           # regular instructors
           - adhikari
           - culler
