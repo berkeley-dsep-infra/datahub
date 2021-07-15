@@ -32,6 +32,7 @@ jupyterhub:
           - rylo
           - yuvipanda
           - felder
+          - balajialwar
           # Summmer 2021 Admins, from Yanay
           - yanayrosen
           - katherinetsai

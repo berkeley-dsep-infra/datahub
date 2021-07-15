@@ -41,6 +41,7 @@ jupyterhub:
           - rylo
           - yuvipanda
           - felder
+          - balajialwar
           # PH250WF+PH250WG Instructors, issue 882
           - jadebc
           - jcolford
