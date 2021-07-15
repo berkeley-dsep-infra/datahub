@@ -33,6 +33,7 @@ jupyterhub:
           - rylo
           - yuvipanda
           - felder
+          - balajialwar
           # List of other admin users
           - psudmant
 

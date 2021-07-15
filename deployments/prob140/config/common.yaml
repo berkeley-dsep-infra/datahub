@@ -24,6 +24,7 @@ jupyterhub:
           # infrastructure
           - rylo
           - yuvipanda
+          - balajialwar
           # instructors
           - adhikari
           # dsep staff
