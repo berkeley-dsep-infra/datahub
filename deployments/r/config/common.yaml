@@ -62,6 +62,18 @@ jupyterhub:
           # Issue 2462
           - dhughes
           # List of other admin users
+          # PH250A & PHW250A Fall 2021 GSIs / Instructor
+          - smccoy
+          - krista_neumann
+          - lsheira
+          - julia.acker
+          - jessiiicamae
+          - natasha_harrison
+          - hcolbeth
+          - caroline.kurtz
+          - eric_stewart
+          - judytan     
+          - lkamil
 
   singleuser:
     extraAnnotations:
