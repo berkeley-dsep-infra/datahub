@@ -34,4 +34,4 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 0
+    nodes: 1

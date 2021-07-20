@@ -68,7 +68,7 @@ jupyterhub:
       # We scrape only every 5 minutes, to not overwhelm the prometheus server
       prometheus.io/scrape-slow: "true"
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:
