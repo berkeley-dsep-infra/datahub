@@ -61,3 +61,8 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
+
+# Install extra R packages
+RUN install2.r --error --skipinstalled \
+    fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
+    rm -rf /tmp/downloaded_packages
