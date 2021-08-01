@@ -7,6 +7,7 @@ scipy==1.6.0
 statsmodels==0.11.1
 okpy==1.18.1
 folium==0.11
+seaborn==0.11.1
 # Otter is pulled in via infra-requirements.txt, since it's present in all hubs
 
 # Export notebooks as PDFs with Chrome
