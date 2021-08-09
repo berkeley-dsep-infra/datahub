@@ -69,7 +69,7 @@ RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler \
+    r-cran-littler=0.3.11-1.2004.0 \
     libglpk-dev \
     libzmq5 \
     nodejs npm > /dev/null
