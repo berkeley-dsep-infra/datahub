@@ -91,7 +91,7 @@ RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler > /dev/null
+    r-cran-littler=0.3.11-1.2004.0 > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
