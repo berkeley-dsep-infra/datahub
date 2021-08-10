@@ -64,6 +64,7 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 
 # Install extra R packages
 RUN install2.r --error --skipinstalled \
+    anytime # For https://github.com/berkeley-dsep-infra/datahub/issues/2523 \
     Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
     rm -rf /tmp/downloaded_packages
