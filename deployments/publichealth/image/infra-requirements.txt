@@ -20,7 +20,7 @@ jupyter-resource-usage==0.5.1
 git+https://github.com/jupyterhub/jupyterhub@11f00dbbe794191d328c6c2a44a9e85f7eb6ede5
 appmode==0.8.0
 ipywidgets==7.6.3
-otter-grader==2.2.5
+otter-grader==2.2.0
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
 # Enough people like this, let's load it in.
