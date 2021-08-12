@@ -8,16 +8,10 @@
 # everwhere one by one.
 
 # FIXME: Freeze this to get exact versions of all dependencies
-notebook==6.4.1
-# from @chrispyles
-# i see that nbformat was unpinned. since the pin, because of the new cell id
-# parameter in notebook format v4 the notebook validation is failing whenever
-# someone opens a notebook created w/ nbformat>=5.1.0. is it possible to pin
-# below 5.1.0 while notebook patches this?
-nbformat<5.1.0
-jupyterlab==3.0.17
+notebook==6.4.3
+jupyterlab==3.1.4
 nbconvert==6.1.0
-retrolab==0.2.1
+retrolab==0.2.2
 nbgitpuller==0.10.0
 jupyter-resource-usage==0.5.1
 # Matches version in images/hub/Dockerfile
