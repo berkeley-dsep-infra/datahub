@@ -29,3 +29,5 @@ jupyter_nbextensions_configurator==0.4.1
 # Measure popularity of different packages in our hubs
 # https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
 popularity-contest==0.4.1
+# RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
+RISE==5.7.1
