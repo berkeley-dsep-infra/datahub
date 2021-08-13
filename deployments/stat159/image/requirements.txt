@@ -57,7 +57,7 @@ corner==2.1.0
 pymdptoolbox==4.0b3
 #
 # data-x; DL
-tensorflow==2.4.0
+tensorflow==2.6.0
 scikit-image==0.18.1
 tables==3.6.1
 opencv-python==4.5.1.48
@@ -117,8 +117,8 @@ nlmpy==1.0.0
 
 # physics 188/288 fall, 2019
 getdist==1.1.2
-tensorflow-hub==0.11.0
-tensorflow-probability==0.12.1
+tensorflow-hub==0.12.0
+tensorflow-probability==0.13.0
 
 # mcb 163l, fall 2019
 pydot==1.4.1
