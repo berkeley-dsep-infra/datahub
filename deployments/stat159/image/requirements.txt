@@ -150,7 +150,7 @@ ipycanvas==0.8.1
 PyPDF2==1.26.0
 
 # data100 scientific packages
-ray==1.1.0
+ray==1.5.2
 xlrd==2.0.1
 
 # data100 visualization
