@@ -1,15 +1,4 @@
----
-name: Request for more RAM
-about: Request more RAM for students in your class
-title: Request more RAM for class X
-labels: support
-assignees: ''
-
----
-
-**Which hub do you want more RAM on?**
-
-For example: datahub, r hub, eecs hub, etc
+# Template Credits: 2I2C
 
 # Summary
 
