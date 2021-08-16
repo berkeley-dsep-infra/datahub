@@ -6,7 +6,7 @@ channels:
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
 dependencies:
-- python=3.8.*
+- python=3.9.*
 
 # Visual Studio Code!
 - jupyter-vscode-proxy

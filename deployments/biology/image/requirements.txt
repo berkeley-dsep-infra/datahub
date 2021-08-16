@@ -1,10 +1,10 @@
 -r infra-requirements.txt
 
 # pedagogy packages
-scipy==1.4.1
-pandas==1.1.0
-seaborn==0.10.1
+scipy==1.7.*
+pandas==1.3.*
+seaborn==0.11.1
 
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1846
-geonomics==0.0.30
-nlmpy==0.1.5
+geonomics==1.1.*
+nlmpy==1.0.1
