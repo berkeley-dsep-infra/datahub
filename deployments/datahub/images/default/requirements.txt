@@ -97,7 +97,6 @@ mpmath==1.2.1
 chart-studio==1.1.0
 csaps==1.0.4
 nbforms==0.5.1
-gmaps==0.9.0
 
 # issue #875, global 150Q/pacs 190 - fall 2019
 wordcloud==1.8.1
