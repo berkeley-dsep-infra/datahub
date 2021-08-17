@@ -1,7 +1,5 @@
 channels:
 - conda-forge
-# For jupyter-desktop-server
-- manics
 
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
