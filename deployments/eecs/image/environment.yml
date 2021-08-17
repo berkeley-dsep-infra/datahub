@@ -1,7 +1,5 @@
 channels:
 - conda-forge
-# For jupyter-desktop-server
-- manics
 
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
@@ -14,6 +12,27 @@ dependencies:
 
 # A linux desktop environment
 - websockify # from manics channel
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/2535
+# gcc, gdb, etc are newer in conda-forge than in apt, esp with Ubuntu focal
+- gcc_linux-64==11.1
+- gxx_linux-64==11.1
+- gfortran_linux-64==11.1
+- gdb==10.2
+- libopenblas==0.3.17
+- liblapack==3.9.0
+- armadillo==9.900.5
+# CS 16A
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
+- numpy==1.21.2
+- matplotlib==3.4.3
+- sympy==1.8
+
+# For EECS127/227a
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1631
+- cvxpy==1.1.15
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1936
+- scikit-learn==0.24.2
 
 - pip
 - pip:
