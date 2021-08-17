@@ -85,9 +85,6 @@ Pint==0.17
 gspread-pandas==2.3.0
 gspread==4.0.1
 
-# psych101d; fall 2019; cfrye
-Theano==1.0.5
-
 # eps 109; fall 2019
 ffmpeg-python==0.2.0
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
