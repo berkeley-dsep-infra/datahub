@@ -22,6 +22,17 @@ dependencies:
 - libopenblas==0.3.17
 - liblapack==3.9.0
 - armadillo==9.900.5
+# CS 16A
+# From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
+- numpy==1.21.2
+- matplotlib==3.4.3
+- sympy==1.8
+
+# For EECS127/227a
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1631
+- cvxpy==1.1.15
+# See https://github.com/berkeley-dsep-infra/datahub/issues/1936
+- scikit-learn==0.24.2
 
 - pip
 - pip:
