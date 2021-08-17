@@ -1,3 +1,10 @@
+etcGitConfig:
+  enabled: true
+  gitconfig: |
+    [credential "https://github.com"]
+      helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 131611
+      useHttpPath = true
+
 nfsPVC:
   enabled: true
   nfs:
@@ -92,6 +99,19 @@ jupyterhub:
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumes:
+        - name: etc-gitconfig
+          secret:
+            secretName: user-etc-gitconfig
+      extraVolumeMounts:
+        - name: etc-gitconfig
+          mountPath: /etc/gitconfig
+          subPath: gitconfig
+          readOnly: true
+        - name: etc-gitconfig
+          mountPath: /etc/github/github-app-private-key.pem
+          subPath: github-app-private-key.pem
+          readOnly: true
     memory:
       guarantee: 512M
       limit: 1G

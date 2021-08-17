@@ -2,22 +2,21 @@
 
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
-tornado>=6.1.0
-numpy==1.19.*
-matplotlib==3.3.*
-sympy==1.6.*
-lcapy==0.66.*
+numpy==1.21.*
+matplotlib==3.4.*
+sympy==1.8.*
+lcapy==0.96.*
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
-Pillow==7.*
+Pillow==8.*
 PyQt5==5.15.*
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1639
-opencv-python==4.3.*
+opencv-python==4.5.*
 
 # For desktop environment
 jupyter-desktop-server==0.1.*
 
 # For EECS127/227a
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
-cvxpy==1.1.*
+cvxpy==1.1.15
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
-scikit-learn==0.22.1
+scikit-learn==0.24.2
