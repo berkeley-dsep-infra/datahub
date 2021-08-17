@@ -2,3 +2,6 @@ dependencies:
 - nodejs==15.*
 - pip==20.2.*
 - python==3.9.*
+
+# pymc3 needs this
+- mkl-service==2.4.*
