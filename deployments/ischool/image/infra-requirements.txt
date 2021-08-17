@@ -32,3 +32,5 @@ jupyter_nbextensions_configurator==0.4.1
 popularity-contest==0.4.1
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
+# https://github.com/berkeley-dsep-infra/datahub/issues/784
+voila==0.2.10
