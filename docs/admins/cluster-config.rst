@@ -97,8 +97,8 @@ of downtime for the kubernetes API, causing new user server starts / stops to fa
 
 We request our cluster masters to have `highly available masters <https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters>`_
 with ``--region`` parameter. This specifies the region where our 3 master nodes
-will be spread across in different zones. It costs us nothing extra, so we should
-always do it.
+will be spread across in different zones. It costs us extra, but it is totally
+worth it.
 
 By default, asking for highly available masters also asks for 3x the node count,
 spread across multiple zones. We don't want that, since all our user pods have

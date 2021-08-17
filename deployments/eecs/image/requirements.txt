@@ -1,10 +1,6 @@
 -r infra-requirements.txt
 
-# CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
-numpy==1.21.2
-matplotlib==3.4.3
-sympy==1.8
 lcapy==0.96
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
 Pillow==8.3.1
@@ -14,9 +10,3 @@ opencv-python==4.5.3.56
 
 # For desktop environment
 jupyter-desktop-server==0.1.3
-
-# For EECS127/227a
-# See https://github.com/berkeley-dsep-infra/datahub/issues/1631
-cvxpy==1.1.15
-# See https://github.com/berkeley-dsep-infra/datahub/issues/1936
-scikit-learn==0.24.2
