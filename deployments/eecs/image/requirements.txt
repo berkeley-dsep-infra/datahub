@@ -2,18 +2,18 @@
 
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
-numpy==1.21.*
-matplotlib==3.4.*
-sympy==1.8.*
-lcapy==0.96.*
+numpy==1.21.2
+matplotlib==3.4.3
+sympy==1.8
+lcapy==0.96
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
-Pillow==8.*
-PyQt5==5.15.*
+Pillow==8.3.1
+PyQt5==5.15.4
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1639
-opencv-python==4.5.*
+opencv-python==4.5.3.56
 
 # For desktop environment
-jupyter-desktop-server==0.1.*
+jupyter-desktop-server==0.1.3
 
 # For EECS127/227a
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
