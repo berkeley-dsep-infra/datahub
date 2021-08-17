@@ -12,7 +12,8 @@ notebook==6.4.3
 jupyterlab==3.1.4
 nbconvert==6.1.0
 retrolab==0.2.2
-nbgitpuller==0.10.0
+# To test https://github.com/jupyterhub/nbgitpuller/pull/193
+git+https://github.com/jupyterhub/nbgitpuller@8401bd6bad8ce48cab89d69a348fe9ea42487730
 jupyter-resource-usage==0.5.1
 # Matches version in images/hub/Dockerfile
 # https://github.com/jupyterhub/jupyterhub/pull/3381/ means we need to
