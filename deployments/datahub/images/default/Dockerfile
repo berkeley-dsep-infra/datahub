@@ -238,14 +238,6 @@ RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
 
-# Hack to get PyMC3 working for Data 102 & Astro 128/256
-# These are the same versions as in requirements.txt, but
-# the import fails unless you uninstall and reinstall
-# See https://github.com/berkeley-dsep-infra/datahub/issues/2207
-RUN pip uninstall Theano Theano-PyMC pymc3 -y
-RUN pip install --no-cache 'Theano==1.0.5'
-RUN pip install --no-cache 'pymc3==3.11.0'
-
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
