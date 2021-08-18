@@ -15,10 +15,17 @@ jupyterhub:
           - yuvipanda
           - cpyles
           - balajialwar
-          # instructors & gsis (spring 2021)
-          - jegonzal
-          - andrewbray
-          - data100.instructors
+          # instructors & gsis as per request from Alvin Wan(Fall 2021)
+          - kagarwal2 
+          - parthbaokar
+          - am123
+          - andrew.lenz
+          - abadrinath
+          - agnibhoroy
+          - snhing
+          - grover.kanu
+          - fernando.perez
+          - alvinwan
   prePuller:
     extraImages:
       postgres:
