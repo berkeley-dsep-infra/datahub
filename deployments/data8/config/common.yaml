@@ -33,52 +33,103 @@ jupyterhub:
           - yuvipanda
           - felder
           - balajialwar
-          # Summmer 2021 Admins, from Yanay
-          - yanayrosen
-          - katherinetsai
-          - oscarb
-          - kylek
-          - jeshoung
-          - takaokakegawa
-          - wendykimm
+          # Fall 2021 Admins, from Meghan Wang  
+          - nellepersson
+          - meghanwang
+          - melissarwong
+          - sdjajadi
+          - carlosortiz
           - ritawang
-          - o.chang
-          - jacquelinekyu
+          - sunnyshen
+          - nicolepark
+          - joyceezheng
+          - willfurtado
+          - marmis
+          - nhanafi
+          - aarushi.k
+          - alicechen295
           - anna_zhao
-          - meiji193
-          - gprasann
-          - seanwei2001
-          - xinyueyou
-          - noah.s.tran
-          - lingjunguo
-          - jaqian
-          - kinsey.long
-          - ryanchien04
-          - stephaniex
-          - devin.sze
-          - efliu
-          - sarah.zha
-          - ellenkwok882
-          - ralui
-          - nataliegomas
-          - kanchoo
-          - stella1001wang
-          - vkarukonda
-          - pverde1
-          - lillianweng
-          - vpadma
-          - markcheunggg
-          - eunicechoi
-          - gracealtree
-          - rgoel777
-          - joannayoo
-          - graceyi89
-          - vivrd
-          - haru.yamamoto
-          - itisashwin
-          - cayanan.joshua
+          - ashika-raghavan
           - ciara.acosta
+          - efliu
+          - ellenkwok882
+          - eshadgoo972
+          - lingjunguo
+          - gracealtree
+          - graceyi89
+          - ichiachen1
+          - joshgreenberg
+          - kanchoo
+          - sjmoon21
+          - michellelou
+          - nickha
+          - o.chang
+          - oscarb
+          - vpadma
+          - ralui
+          - raymondwang
+          - rhu01
+          - selenalu
+          - shayan.ghosh
+          - stephaniex
+          - takaokakegawa
+          - jvarun
+          - wendykimm
+          - yuqiye
+          - anujalohia
+          - devarshdhanuka
+          - eshaansoman
+          - jacquelinekyu
+          - laeticiayang
+          - sydniezanone
+          - tongshen
+          - angelineyang
+          - atticus.ginsborg
+          - audreyim
+          - auroraxzeng
+          - csun457
+          - devin.sze
+          - eunicechoi
+          - haru.yamamoto
+          - jaqian
+          - joannayoo
+          - cayanan.joshua
+          - kaitlynphan
+          - karen.li
+          - katherine0806
+          - kinsey.long
+          - lillianweng
+          - mattyshen
+          - mirasharma
+          - nikaash.maheshwari
+          - noah.s.tran
+          - owensleigh
+          - Pverde1
+          - gprasann
+          - rithviksunku
+          - ryanhuntley23
+          - sahilthakur
+          - seanwei2001
+          - sofiakwee
+          - sonyak
+          - sonyashankar
+          - willchp
+          - zaidmaayah
+          - dianaqing
+          - elleanor.wong
+          - geli2001
+          - jweichert
+          - markcheunggg
+          - mlucas
+          - oswaldo1603
+          - rimikabanerjee
+          - rishabh297
+          - sabrinakma
           - sarafang
+          - tanyasjain
+          - umutuygur
+          - yiyan.hao
+
           # List of other admin users
 
   singleuser:
