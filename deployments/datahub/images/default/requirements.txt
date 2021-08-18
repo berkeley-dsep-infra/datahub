@@ -10,7 +10,8 @@ folium==0.12.1
 #
 # r
 jupyter-server-proxy==3.1.0
-jupyter-rsession-proxy==1.4
+#jupyter-rsession-proxy==1.4
+git+git://github.com/ryanlovett/jupyter-rsession-proxy@e6eff19
 jupyter-shiny-proxy==1.1
 #
 # cogsci88;
