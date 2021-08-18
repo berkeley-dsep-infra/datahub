@@ -5,8 +5,5 @@ set -euo pipefail
 mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 
-# Install JupyterLab extensions
-jupyter labextension install @jupyterlab/server-proxy
-
 jupyter contrib nbextensions install --sys-prefix --symlink
 jupyter nbextensions_configurator enable --sys-prefix
