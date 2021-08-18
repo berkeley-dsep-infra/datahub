@@ -12,8 +12,7 @@ notebook==6.4.3
 jupyterlab==3.1.4
 nbconvert==6.1.0
 retrolab==0.2.2
-# To test https://github.com/jupyterhub/nbgitpuller/pull/193
-git+https://github.com/jupyterhub/nbgitpuller@8401bd6bad8ce48cab89d69a348fe9ea42487730
+nbgitpuller==0.10.0
 jupyter-resource-usage==0.5.1
 # Matches version in images/hub/Dockerfile
 # https://github.com/jupyterhub/jupyterhub/pull/3381/ means we need to
@@ -32,3 +31,5 @@ jupyter_nbextensions_configurator==0.4.1
 popularity-contest==0.4.1
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
+# https://github.com/berkeley-dsep-infra/datahub/issues/784
+voila==0.2.10

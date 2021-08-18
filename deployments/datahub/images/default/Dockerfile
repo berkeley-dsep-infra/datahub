@@ -219,20 +219,6 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
-
-# Install jupyterlab extensions immediately after infra-requirements
-# This hopefully prevents re-installation all the time
-# `jlpm` calls out to yarn internally, and we tell it to
-# use a temporary cache. This reduces file size,
-# but also prevents strange permission errors -
-# like https://app.circleci.com/pipelines/github/berkeley-dsep-infra/datahub/1176/workflows/7f49851f-c2fc-46ca-b887-15d8e5612097/jobs/13584
-RUN jlpm cache dir && mkdir -p /tmp/yarncache && \
-    jlpm config set cache-folder /tmp/yarncache && \
-    jupyter labextension install --debug \
-        @jupyterlab/server-proxy \
-        jupyterlab-plotly@4.14.3 plotlywidget@4.14.3 \
-    rm -rf /tmp/yarncache
-
 RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
 
 COPY requirements.txt /tmp/requirements.txt
