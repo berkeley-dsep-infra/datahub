@@ -188,12 +188,6 @@ shap==0.39.0
 prob140==0.4.1.5
 sympy==1.8
 
-# stat159 2021 Spring
-cryptorandom==0.3
-git+https://github.com/statlab/permute@v0.1.a5
-pycodestyle==2.7.0
-pep257==0.7.0
-
 # cs194 2021 Spring
 ipython-sql==0.4.0
 pgspecial==1.13.0
