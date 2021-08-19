@@ -219,8 +219,6 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
-RUN pip install --no-cache numpy==1.19.5 cython==0.29.21
-
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
 
