@@ -69,3 +69,6 @@ RUN r /tmp/r-packages/ph-290.r
 
 COPY r-packages/ph-142.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-142.r
+
+COPY r-packages/ph-252.r /tmp/r-packages/
+RUN r /tmp/r-packages/ph-252.r
