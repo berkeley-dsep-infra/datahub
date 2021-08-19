@@ -19,6 +19,4 @@ RUN python3 -m pip install -U git+https://github.com/jupyterhub/jupyterhub@11f00
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
 
-RUN python3 -m pip install git+https://github.com/U4I-fedir-kryvytskyi/ltiauthenticator@8d53d4bd6957d1def30bb0058284d84174764473
-
 USER ${NB_USER}
