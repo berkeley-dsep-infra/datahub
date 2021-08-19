@@ -1,4 +1,10 @@
 # Template Credits: 2I2C
+---
+name: "🏆 New Enhancement"
+about: An improvement to something.
+labels: "type: enhancement"
+---
+
 
 # Summary
 
