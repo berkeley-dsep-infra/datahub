@@ -28,17 +28,14 @@ jupyterhub:
           - yuvipanda
           - balajialwar
           # instructors
-          - fernando.perez
-          - michael_jordan
-          # gsis
-          # data102 spring 2021, #2138
-          - anna-nguyen
-          - erika.n.mack
-          - yiwendai99
           - ramesh_s
-          - rroggenkemper
-          - xingyu.jin21
-          - yanshuo
+          - jsteinhardt
+          # gsis
+          # data102 Fall 2021 as requested by Yimen Wang
+          - wangyimeng98
+          - yiwendai99
+          - rikiiyer
+          - rdoshi99
 
 
   singleuser:
