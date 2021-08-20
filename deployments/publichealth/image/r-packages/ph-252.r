@@ -9,10 +9,10 @@ source("/tmp/class-libs.R")
 class_name = "PH 252"
 
 class_libs = c(
-  "epi", "2.44",
   "foreign", "0.8-81"
 )
 
+devtools::install_github('cran/epi', ref='06efd3f', upgrade_dependencies=FALSE, quiet=FALSE)
 devtools::install_github('kaz-yos/tableone', ref='7cfcd71', upgrade_dependencies=FALSE, quiet=FALSE)
 
 class_libs_install_version(class_name, class_libs)
