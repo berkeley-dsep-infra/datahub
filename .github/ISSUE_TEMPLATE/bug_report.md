@@ -1,0 +1,36 @@
+name: Issue Tracker
+description: Create an issue to help us improve Datahub (Credits: Prisma)
+labels: "bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to help us improve Datahub! Please follow the sections in the template and provide as much information as possible 	
+  - type: textarea
+    attributes:
+      label: Bug description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment & setup
+      description: In which environment does the problem occur
+      value: |
+        - Hub: <!--[e.g. Datahub, Data 8, Data 100, Public Health, ...]-->
+        - Language: <!--[Python, Julia, R, ...]-->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the behavior
+      value: |
+        <!--
+        1. Go to '...'
+        2. Change '....'
+        3. Run '....'
+        4. See error
+        -->
+    validations:
+      required: true
