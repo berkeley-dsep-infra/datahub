@@ -15,9 +15,7 @@ retrolab==0.2.2
 nbgitpuller==0.10.0
 jupyter-resource-usage==0.5.1
 # Matches version in images/hub/Dockerfile
-# https://github.com/jupyterhub/jupyterhub/pull/3381/ means we need to
-# match jupyterhub versions on server and client again
-git+https://github.com/jupyterhub/jupyterhub@11f00dbbe794191d328c6c2a44a9e85f7eb6ede5
+git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
 appmode==0.8.0
 ipywidgets==7.6.3
 otter-grader==2.2.0
