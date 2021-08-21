@@ -1,11 +1,10 @@
-# Template Credits: 2I2C
 ---
 name: "🏆 New Enhancement"
 about: An improvement to something.
 labels: "type: enhancement"
 ---
 
-
+# Template Credits: 2I2C
 # Summary
 
 <!-- What is the context needed to understand this enhancement -->
