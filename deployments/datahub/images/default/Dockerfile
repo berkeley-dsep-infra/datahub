@@ -196,6 +196,9 @@ RUN r /tmp/r-packages/2021-spring-espm-288.r
 COPY r-packages/ib161.r /tmp/r-packages/
 RUN r /tmp/r-packages/ib161.r
 
+COPY r-packages/ps-3.r /tmp/r-packages/
+RUN r /tmp/r-packages/ps-3.r
+
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
