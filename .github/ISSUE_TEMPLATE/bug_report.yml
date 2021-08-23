@@ -1,5 +1,5 @@
 name: Issue Tracker
-description: Create an issue to help us improve Datahub (Credits: Prisma)
+description: Raise issues here
 labels: "bug"
 body:
   - type: markdown
