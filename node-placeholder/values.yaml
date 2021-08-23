@@ -20,18 +20,18 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 1
+    nodes: 3
   beta:
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 1
+    nodes: 2
   gamma:
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 1
+    nodes: 2
