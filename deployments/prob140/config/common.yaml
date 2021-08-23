@@ -31,9 +31,10 @@ jupyterhub:
           - bacon
           - ericvd
           - ryanedw
-          # s19 prob140 gsis
-          - alanchuang
-          - dibya.ghosh
+          # Fall 2021 prob140 gsis as requested by Shahzar
+          - xinranliang
+          - shahzar
+          - wangyumeng2017
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
