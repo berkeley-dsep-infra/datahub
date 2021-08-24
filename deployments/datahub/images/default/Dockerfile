@@ -199,6 +199,9 @@ RUN r /tmp/r-packages/ib161.r
 COPY r-packages/ps-3.r /tmp/r-packages/
 RUN r /tmp/r-packages/ps-3.r
 
+COPY r-packages/stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/stat-20.r
+
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
