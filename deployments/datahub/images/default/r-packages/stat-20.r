@@ -11,9 +11,12 @@ class_libs = c(
     "infer", "1.0.0",
     "patchwork", "1.1.1",
     "tigris", "1.0",
-    "googlesheets4", "0.2.0"
+    "googlesheets4", "0.2.0",
+    "xaringanthemer", "0.4.0"
 )
 
 class_libs_install_version(class_name, class_libs)
+
+devtools::install_github("hadley/emo@3f03b11")
 
 print("Done installing packages for stat-20")
