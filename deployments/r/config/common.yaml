@@ -64,10 +64,6 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
-    extraAnnotations:
-      # Enable prometheus scraping just for R hub
-      # We scrape only every 5 minutes, to not overwhelm the prometheus server
-      prometheus.io/scrape-slow: "true"
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     storage:
