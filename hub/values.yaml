@@ -88,10 +88,6 @@ jupyterhub:
       PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
       PYTHON_POPCONTEST_STATSD_PORT: '9125'
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
-    extraAnnotations:
-      prometheus.io/scrape: "false"
-      prometheus.io/path: "/user/{username}/metrics"
-      prometheus.io/port: "8888"
     networkPolicy:
       # In clusters with NetworkPolicy enabled, do not
       # allow outbound internet access that's not DNS, FTP, HTTP or HTTPS
@@ -118,20 +114,6 @@ jupyterhub:
               protocol: TCP
             - port: 9125
               protocol: UDP
-      # Allow ingress from promethetheus scraper in support namespace
-      # This lets us get notebook metrics!
-      ingress:
-        - ports:
-            - port: 8888
-              protocol: TCP
-          from:
-            - namespaceSelector:
-                matchLabels:
-                  name: support
-              podSelector:
-                matchLabels:
-                  app: prometheus
-                  component: server
   hub:
     config:
       Pagination:
