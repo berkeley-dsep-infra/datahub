@@ -239,8 +239,6 @@ ENV NLTK_DATA ${CONDA_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 

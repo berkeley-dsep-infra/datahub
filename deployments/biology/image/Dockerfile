@@ -183,9 +183,6 @@ COPY install.R /tmp/install.R
 RUN r /tmp/install.R && \
  	rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-# Disable history.
-ADD ipython_config.py ${CONDA_PREFIX}/etc/ipython/
-
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
 RUN bash /tmp/bio1b-packages.bash 

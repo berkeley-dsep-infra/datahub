@@ -91,6 +91,13 @@ jupyterhub:
         contactEmail: yuvipanda@berkeley.edu
   singleuser:
     extraFiles:
+      ipython-config:
+        mountPath: /etc/ipython/ipython_config.json
+        data:
+          # Disable history manager, we don't really use it
+          # and by default it puts an sqlite file on NFS, which is not something we wanna do
+          HistoryManager:
+            enabled: false
       culling-config:
         mountPath: /etc/jupyter/jupyter_notebook_config.json
         data:
