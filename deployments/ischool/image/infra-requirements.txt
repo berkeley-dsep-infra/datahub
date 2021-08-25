@@ -11,10 +11,10 @@
 notebook==6.4.3
 # Seems to cause a version conflict with jupyter-server-proxy
 jupyter-client<7.0
-jupyterlab==3.1.7
+jupyterlab==3.1.9
 nbconvert==6.1.0
 retrolab==0.2.2
-nbgitpuller==0.10.1
+nbgitpuller==0.10.2
 jupyter-resource-usage==0.6.0
 # Matches version in images/hub/Dockerfile
 git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
