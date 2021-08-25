@@ -186,7 +186,6 @@ jupyterhub:
         login_service: bCourses
         scope:
           - url:GET|/api/v1/users/:user_id/profile
-          - url:GET|/api/v1/courses
         username_key: primary_email
 
     pdb:
