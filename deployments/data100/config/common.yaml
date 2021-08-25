@@ -32,6 +32,7 @@ jupyterhub:
         name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
         tag: 0.0.1-n3657.h4f7f88c
   singleuser:
+    defaultUrl: "/lab"
     extraContainers:
       - name: postgres
         image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
