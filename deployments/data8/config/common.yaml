@@ -133,7 +133,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: delta-pool
     storage:
       type: static
       static:
