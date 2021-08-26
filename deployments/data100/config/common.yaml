@@ -59,7 +59,7 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
