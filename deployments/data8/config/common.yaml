@@ -24,7 +24,6 @@ jupyterhub:
         authenticator_class: generic-oauth
       GenericOAuthenticator:
         login_service: bCourses
-        basicc_auth: false
         username_key: name
       Authenticator:
         admin_users:
