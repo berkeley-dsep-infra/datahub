@@ -32,6 +32,11 @@ RUN apt-get update -qq --yes > /dev/null && \
 #    apt-get install --yes -qq \
 #    libreadline6-dev > /dev/null
 
+## library required for fast-PCA & https://github.com/DReichLab/EIG
+RUN apt-get update -qq --yes && \
+    apt-get install --yes --no-install-recommends -qq \
+        libgsl-dev >/dev/null
+
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
