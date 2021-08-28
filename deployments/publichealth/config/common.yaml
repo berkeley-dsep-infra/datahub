@@ -59,19 +59,18 @@ jupyterhub:
           - nolanpokpongkiat
           - stephaniemholm
           - wmjilek
-          # PH142 Instructor
+          # PH142 Instructors
           - mi-suk
-          # PH142 GSIs, Tech GSI
-          - sophia.fuller
-          - chandlerbeon
-          - ajuareza
-          - antoniadlg
-          - jessiiicamae
-          - mitchell.leus
-          - ztzyz615
+          - c.riddell
+          # Fall 2021 PH142 GSIs, Tech GSI
           - kmaccuish
-          - shaziakn
-          - jiyunwen
+          - chandlerbeon
+          - tyler_mansfield
+          - keying_kuang
+          - nola
+          - noelpimentel
+          - sky.qiu
+          - xiangyu_yu
           # See https://github.com/berkeley-dsep-infra/datahub/pull/2441
           # PH250A & PHW250A Fall 2021 GSIs / Instructor
           - smccoy

@@ -183,7 +183,7 @@ jupyterhub:
           subPath: data
     nodeSelector:
       # Since data100 also has the postgres image
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: beta-pool
     memory:
       guarantee: 512M
       limit: 1G
