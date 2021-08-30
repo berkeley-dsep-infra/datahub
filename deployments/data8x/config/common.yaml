@@ -5,6 +5,9 @@ nfsPVC:
     shareName: export/data8xhomes-2020-08-31
 
 jupyterhub:
+  scheduling:
+    userScheduler:
+      enabled: true
   cull:
     # For some reason, hub users don't cull properly
     # Empty abandoned sessions stay on for days
