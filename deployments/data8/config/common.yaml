@@ -34,10 +34,10 @@ jupyterhub:
           - felder
           - balajialwar
           # Fall 2021 Admins, from Meghan Wang  
-          - daw
           - nellepersson
           - meghanwang
           - melissarwong
+          - daw
           - sdjajadi
           - carlosortiz
           - ritawang
