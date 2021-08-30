@@ -24,7 +24,6 @@ jupyterhub:
         authenticator_class: generic-oauth
       GenericOAuthenticator:
         login_service: bCourses
-        basicc_auth: false
         username_key: name
       Authenticator:
         admin_users:
@@ -135,7 +134,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: delta-pool
     storage:
       type: static
       static:
