@@ -15,13 +15,14 @@ dependencies:
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/2535
 # gcc, gdb, etc are newer in conda-forge than in apt, esp with Ubuntu focal
-- gcc_linux-64==11.1
-- gxx_linux-64==11.1
-- gfortran_linux-64==11.1
+- c-compiler==1.2.0
+- cxx-compiler==1.2.0
+- fortran-compiler==1.2.0
 - gdb==10.2
 - libopenblas==0.3.17
 - liblapack==3.9.0
 - armadillo==9.900.5
+- gperf==3.1
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
 - numpy==1.21.2

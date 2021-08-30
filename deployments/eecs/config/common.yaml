@@ -5,13 +5,6 @@ nfsPVC:
     shareName: export/homedirs-other-2020-07-29/eecs
 
 jupyterhub:
-  cull:
-    # For some reason, EECS hub users don't cull properly
-    # Empty abandoned sessions stay on for days
-    # This stops users after they have been running for 12+ hours
-    # in one go. In several weeks of looking at user pods older
-    # than this, none have been active.
-    maxAge: 43200 # 12h
   scheduling:
     userScheduler:
       nodeSelector:
@@ -70,7 +63,7 @@ jupyterhub:
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:
