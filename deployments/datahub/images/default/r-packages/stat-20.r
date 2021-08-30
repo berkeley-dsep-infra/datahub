@@ -12,7 +12,9 @@ class_libs = c(
     "patchwork", "1.1.1",
     "tigris", "1.0",
     "googlesheets4", "0.2.0",
-    "xaringanthemer", "0.4.0"
+    "xaringanthemer", "0.4.0",
+    "palmerpenguins", "0.1.0",
+    "unvotes", "0.3.0"
 )
 
 class_libs_install_version(class_name, class_libs)
