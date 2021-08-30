@@ -7,7 +7,7 @@ class_name = "stat-20"
 
 class_libs = c(
     "tidycensus", "1.0",
-    "openintro", "2.0.0",
+    "openintro", "2.2.0",
     "infer", "1.0.0",
     "patchwork", "1.1.1",
     "tigris", "1.0",
