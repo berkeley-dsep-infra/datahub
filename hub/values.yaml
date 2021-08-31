@@ -115,6 +115,8 @@ jupyterhub:
             - port: 9125
               protocol: UDP
   hub:
+    # The default of 64 is way too low for us
+    concurrentSpawnLimit: 200
     config:
       Pagination:
         # Disable pagination completely, since there's no search functionality yet
