@@ -169,7 +169,7 @@ cran_packages = c(
   "svglite", "1.2.3.2",
   "systemfonts", "0.3.2",
   "testit", "0.12",
-  "testthat", "3.0.1",
+  "testthat", "3.0.4",
   "tibble", "3.0.4",
   "tidync", "0.2.4",
   "tidyr", "1.1.2",
