@@ -23,6 +23,6 @@ class_libs = c(
 class_libs_install_version(class_name, class_libs)
 
 devtools::install_github("hadley/emo@3f03b11")
-devtools::install_github("stat-20/stat20data@772600a")
+devtools::install_github("stat-20/stat20data@ab3685a")
 
 print("Done installing packages for stat-20")
