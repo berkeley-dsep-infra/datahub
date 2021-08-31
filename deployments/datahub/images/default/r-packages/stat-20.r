@@ -14,11 +14,15 @@ class_libs = c(
     "googlesheets4", "0.2.0",
     "xaringanthemer", "0.4.0",
     "palmerpenguins", "0.1.0",
-    "unvotes", "0.3.0"
+    "unvotes", "0.3.0",
+    "janitor", "2.1.0",
+    "patchwork", "1.1.1",
+    "fivethirtyeight", "0.6.1"
 )
 
 class_libs_install_version(class_name, class_libs)
 
 devtools::install_github("hadley/emo@3f03b11")
+devtools::install_github("stat-20/stat20data@ab3685a")
 
 print("Done installing packages for stat-20")
