@@ -9,3 +9,8 @@ charts:
       # There's no way to tell Chartpress to do that now, since it overwrites values.yaml
       # So we need to manually set this, after running chartpress --push
         valuesPath: {}
+  - name: node-placeholder
+    imagePrefix: gcr.io/ucb-datahub-2018/
+    images:
+      node-placeholder-scaler:
+        valuesPath: image
