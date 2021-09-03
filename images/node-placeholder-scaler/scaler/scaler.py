@@ -74,7 +74,7 @@ def main():
 
         # Generate deployment config based on our config
         for pool_name, pool_config in config["nodePools"].items():
-            replica_count = max(pool_config["replicas"], replica_count_overrides.get(pool_name, 0))
+            replica_count = replica_count_overrides.get(pool_name, pool_config['replicas'])
             deployment = make_deployment(
                 pool_name,
                 placeholder_template,
