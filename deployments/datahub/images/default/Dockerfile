@@ -59,6 +59,8 @@ RUN apt-get update > /dev/null && \
             ffmpeg  \
             # for data100
             libpq-dev \
+            # for issue #2695, fall 2021?
+            libarmadillo-dev \
             postgresql-client > /dev/null
 
 # Install packages needed by notebook-as-pdf
