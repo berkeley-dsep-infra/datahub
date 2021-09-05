@@ -86,7 +86,7 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    replicas: 1
+    replicas: 0
   delta:
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
