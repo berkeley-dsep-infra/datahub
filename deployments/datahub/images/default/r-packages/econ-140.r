@@ -7,6 +7,6 @@ source("/tmp/class-libs.R")
 class_name = "Econ 140"
 
 print("Installing ottr...")
-devtools::install_github('ucbds-infra/ottr', ref='1.0.0', upgrade_dependencies=FALSE, quiet=FALSE)
+devtools::install_github('ucbds-infra/ottr', ref='1.1.1', upgrade_dependencies=FALSE, quiet=FALSE)
 
 print("Done installing packages for Econ 140")

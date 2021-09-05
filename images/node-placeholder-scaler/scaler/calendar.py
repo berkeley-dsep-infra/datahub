@@ -34,9 +34,9 @@ def _event_repr(event):
         return f"{event.summary} {event.start.date()}"
     else:
         if event.end.date() == event.start.date():
-            return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M')}-{event.end.strftime('%H:%M')}"
+            return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%H:%M %Z')}"
         else:
-            return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M')}-{event.end.strftime('%Y-%m-%d %H:%M')}"
+            return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%Y-%m-%d %H:%M %Z')}"
 
 
 def _get_cal_tz(content: str):
