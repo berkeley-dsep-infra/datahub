@@ -93,4 +93,4 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    replicas: 2
+    replicas: 1
