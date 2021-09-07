@@ -1,5 +1,5 @@
 ---
-name: "🏆 New Enhancement"
+name: "New Enhancement Request"
 about: An improvement to something.
 labels: "type: enhancement"
 ---
