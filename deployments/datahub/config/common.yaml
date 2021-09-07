@@ -39,6 +39,9 @@ jupyterhub:
           - ericvd
           - ktakimoto
           - ryanedw
+          #As per the request from David Broockman (Political Science Instructor)
+          - broockman
+          - castro.ian
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     initContainers:
