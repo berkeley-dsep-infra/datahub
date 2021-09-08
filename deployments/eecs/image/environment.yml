@@ -35,6 +35,10 @@ dependencies:
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
 - scikit-learn==0.24.2
 
+# For CHEM279
+# See https://github.com/berkeley-dsep-infra/datahub/issues/2717
+- git==2.33.0
+
 - pip
 - pip:
   - -r requirements.txt
