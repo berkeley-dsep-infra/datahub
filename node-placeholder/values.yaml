@@ -1,3 +1,56 @@
+replicaCount: 1
+
+image:
+  repository: gcr.io/ucb-datahub-2018/node-placeholder-scaler
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1-n4388.h9cd876ff"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+
+nodeSelector: {}
+
+
+affinity: {}
+
+rbac:
+  create: true
+
+priorityClass:
+  create: true
+
+
+tolerations:
+
+calendarUrl: https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics
+
+
 # Calculate size of node placeholder by:
 # 1. Select a node in the node pool you want to configure
 #    export NODE=<node-name>
@@ -12,7 +65,6 @@
 #
 # So we should make the memory be output of (2) - output of (3), with maybe another 256Mi wiggle room
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
-enabled: true
 nodePools:
   alpha:
     nodeSelector:
@@ -20,25 +72,25 @@ nodePools:
     resources:
       requests:
         memory: 46786Mi
-    nodes: 1
+    replicas: 1
   beta:
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 0
+    replicas: 0
   gamma:
     nodeSelector:
       hub.jupyter.org/pool-name: gamma-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 1
+    replicas: 0
   delta:
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
     resources:
       requests:
         memory: 46786Mi
-    nodes: 2
+    replicas: 1

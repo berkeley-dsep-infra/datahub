@@ -40,6 +40,8 @@ RUN apt-get update > /dev/null && \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
+            # provides FandolSong-Regular.otf for issue #2714
+            texlive-lang-chinese \
             texlive-plain-generic > /dev/null
 
 RUN apt-get update > /dev/null && \
@@ -59,6 +61,8 @@ RUN apt-get update > /dev/null && \
             ffmpeg  \
             # for data100
             libpq-dev \
+            # for issue #2695, fall 2021?
+            libarmadillo-dev \
             postgresql-client > /dev/null
 
 # Install packages needed by notebook-as-pdf

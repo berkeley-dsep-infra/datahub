@@ -1,0 +1,18 @@
+name: Open a weekly team sync issue
+on:
+  schedule:
+  # Run every Friday at 00:00AM California
+  - cron: "0 07 * * 5"
+
+  workflow_dispatch:
+
+jobs:
+  create-sync-issue:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/ISSUE_TEMPLATE/teamreport.md

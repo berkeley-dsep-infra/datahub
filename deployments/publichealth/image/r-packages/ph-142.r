@@ -23,8 +23,8 @@ class_libs = c(
   "googlesheets4", "0.2.0"
 )
 
-# https://github.com/berkeley-dsep-infra/datahub/issues/2483
 print("Installing ottr...")
+# Pinned to this version so we do not break assignments
 devtools::install_github('ucbds-infra/ottr', ref='0.1.0', upgrade_dependencies=FALSE, quiet=FALSE)
 
 class_libs_install_version(class_name, class_libs)
