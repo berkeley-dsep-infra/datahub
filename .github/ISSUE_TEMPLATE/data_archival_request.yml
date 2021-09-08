@@ -1,0 +1,22 @@
+name: Data Archival Request
+description: Retrieve my old Datahub files
+labels: "support"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please follow the sections in the template and provide us the information required to retrieve your files! 	
+  - type: textarea
+    attributes:
+      label: Email Id 
+      description: Berkeley Email Id which you used to access Datahub!
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Link to Datahub Folder
+      description: Link to the location where your archived files are kept!
+      value: |
+        - Eg: gs://ucb-datahub-archived-homedirs/spring-2021/datahub.berkeley.edu/xxx.tar.gz
+    validations:
+      required: true

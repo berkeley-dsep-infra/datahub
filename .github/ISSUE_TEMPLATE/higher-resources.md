@@ -1,5 +1,5 @@
 ---
-name: Request for more RAM
+name: RAM Request 
 about: Request more RAM for students in your class
 title: Request more RAM for class X
 labels: support
