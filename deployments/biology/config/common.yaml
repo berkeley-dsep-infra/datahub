@@ -37,6 +37,12 @@ jupyterhub:
           # List of other admin users
           - psudmant
 
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
@@ -45,6 +51,11 @@ jupyterhub:
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     memory:
       guarantee: 2056M
       limit: 4G
