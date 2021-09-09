@@ -17,7 +17,9 @@ class_libs = c(
     "unvotes", "0.3.0",
     "janitor", "2.1.0",
     "patchwork", "1.1.1",
-    "fivethirtyeight", "0.6.1"
+    "fivethirtyeight", "0.6.1",
+    "gapminder", "0.3.0",
+    "showtext", "0.9-4"
 )
 
 class_libs_install_version(class_name, class_libs)
