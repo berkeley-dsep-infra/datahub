@@ -7,7 +7,9 @@ assignees: ''
 
 ---
 
-**Which package do you want installed?**
+**Which package do you want installed? What is the required version?**
+
+**Are there specific package dependencies?**
 
 **Which hub do you want it installed on?  For example r.datahub, datahub, data100.datahub, etc.**
 
