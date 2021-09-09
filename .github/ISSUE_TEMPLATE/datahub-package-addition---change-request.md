@@ -7,7 +7,9 @@ assignees: ''
 
 ---
 
-**Which package do you want installed? What is the required version?**
+**Which package do you want installed?**
+
+Please provide more information about the package, such as the version you require, missing functionality you need, and a URL to the website for the package.
 
 **Are there specific package dependencies?**
 
