@@ -20,3 +20,6 @@ qt5-default
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/2535
 emacs
+
+# vim4ever!
+vim
