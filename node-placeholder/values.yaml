@@ -4,7 +4,7 @@ image:
   repository: gcr.io/ucb-datahub-2018/node-placeholder-scaler
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.1-n4388.h9cd876ff"
+  tag: "0.0.1-n4463.h24c87372"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -49,6 +49,11 @@ priorityClass:
 tolerations:
 
 calendarUrl: https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics
+
+grafana:
+  tags:
+    - node-placeholder-scale
+  url: https://grafana.datahub.berkeley.edu
 
 
 # Calculate size of node placeholder by:
