@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 # For https://github.com/berkeley-dsep-infra/datahub/issues/2556
 # For https://github.com/berkeley-dsep-infra/datahub/issues/2524
+# For https://github.com/berkeley-dsep-infra/datahub/issues/2748
 # Fall 2021
 print("Installing packages for PH 252")
 
@@ -9,7 +10,8 @@ source("/tmp/class-libs.R")
 class_name = "PH 252"
 
 class_libs = c(
-  "foreign", "0.8-81"
+  "foreign", "0.8-81",
+  "blm", "2013.2.4.4"
 )
 
 devtools::install_github('cran/epi', ref='06efd3f', upgrade_dependencies=FALSE, quiet=FALSE)
