@@ -20,4 +20,5 @@ dependencies:
    version: 3.23.0
    repository: https://kubernetes.github.io/ingress-nginx
  - name: node-placeholder
+   version: 0.0.1
    repository: file://../node-placeholder
