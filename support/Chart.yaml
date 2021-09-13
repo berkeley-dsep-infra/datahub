@@ -1,5 +1,23 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: '1.0'
 description: Support chart for entire cluster
 name: support
 version: 0.0.1+1750.5619aab
+dependencies:
+ - name: prometheus-statsd-exporter
+   version: 0.3.1
+   repository: https://prometheus-community.github.io/helm-charts
+ - name: prometheus
+   version: 11.16.9
+   repository: https://prometheus-community.github.io/helm-charts
+ - name: grafana
+   version: 6.2.1
+   repository: https://grafana.github.io/helm-charts
+ - name: cert-manager
+   version: v1.1.0
+   repository: https://charts.jetstack.io
+ - name: ingress-nginx
+   version: 3.23.0
+   repository: https://kubernetes.github.io/ingress-nginx
+ - name: node-placeholder
+   repository: file://../node-placeholder
