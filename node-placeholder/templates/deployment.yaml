@@ -40,6 +40,9 @@ spec:
             - --placeholder-template-file=/etc/scaler/placeholder-template.yaml
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          - name: GRAFANA_API_KEY
+            value: {{ .Values.grafana.apiKey }}
           volumeMounts:
           - name: config
             mountPath: /etc/scaler
