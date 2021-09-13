@@ -50,6 +50,11 @@ tolerations:
 
 calendarUrl: https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics
 
+grafana:
+  tags:
+  - node-placeholder-scale
+  url: https://grafana.datahub.berkeley.edu
+
 
 # Calculate size of node placeholder by:
 # 1. Select a node in the node pool you want to configure
