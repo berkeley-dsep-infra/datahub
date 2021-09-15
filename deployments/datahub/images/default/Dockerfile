@@ -242,8 +242,8 @@ ENV NLTK_DATA ${CONDA_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
-COPY connectors/2019-fall-phys-188-288.bash /usr/local/sbin/
-RUN /usr/local/sbin/2019-fall-phys-188-288.bash
+COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
+RUN /usr/local/sbin/2021-fall-phys-188-288.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
