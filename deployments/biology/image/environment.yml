@@ -17,6 +17,7 @@ dependencies:
 #- repeatmasker=4.0.9
 - trimmomatic=0.39
 - blast=2.12.0
+- fastqc=0.11.9
 
 # Packages for IB120/201/CCB210
 - sympy=1.6.2
