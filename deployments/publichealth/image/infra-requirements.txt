@@ -20,7 +20,7 @@ jupyter-resource-usage==0.6.0
 git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
 appmode==0.8.0
 ipywidgets==7.6.3
-otter-grader==3.1.0
+otter-grader==2.2.7
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
 # Enough people like this, let's load it in.
