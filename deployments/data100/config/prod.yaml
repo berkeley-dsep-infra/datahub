@@ -7,7 +7,20 @@ jupyterhub:
       - secretName: tls-cert
         hosts:
           - data100.datahub.berkeley.edu
+  proxy:
+    chp:
+      resources:
+        requests:
+          # Give data100 a lot of guaranteed CPU, prevent 503s?
+          # https://github.com/berkeley-dsep-infra/datahub/issues/2677
+          cpu: 1
+
   hub:
+    resources:
+      requests:
+        # Give data100 a lot of guaranteed CPU, prevent 503s?
+        # https://github.com/berkeley-dsep-infra/datahub/issues/2677
+        cpu: 1
     db:
       pvc:
         # This also holds logs
