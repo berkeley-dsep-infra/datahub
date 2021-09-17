@@ -196,6 +196,9 @@ COPY bio1b-packages.bash /tmp/bio1b-packages.bash
 RUN bash /tmp/bio1b-packages.bash 
 
 # install ib134L packages
-
 COPY ib134-packages.bash /tmp/ib134-packages.bash
 RUN bash /tmp/ib134-packages.bash
+
+# install ccb293 packages
+COPY ccb293-packages.bash /tmp/ccb293-packages.bash
+RUN bash /tmp/ccb293-packages.bash
