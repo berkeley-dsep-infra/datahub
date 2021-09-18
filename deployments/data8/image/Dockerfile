@@ -40,6 +40,8 @@ RUN apt-get update > /dev/null && \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
+            # provides FandolSong-Regular.otf for issue #2714
+            texlive-lang-chinese \
             texlive-plain-generic > /dev/null
 
 # Install packages needed by notebook-as-pdf
