@@ -3,6 +3,10 @@ name: "Team Datahub Weekly Updates"
 about: Align team members with an update on sprint activities and availability!
 labels: "type: team-sync"
 title: "Weekly Update - {{ date | date('dddd, MMMM Do') }}"
+assignees: 
+- balajialg
+- felder
+- yuvipanda
 ---
 
 _Copy and paste the template below, and answer questions as you wish!_
