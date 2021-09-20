@@ -1,6 +1,9 @@
 name: Issue Tracker
 description: Raise issues here
 labels: "bug"
+assignees: 
+- felder
+- balaji
 body:
   - type: markdown
     attributes:
