@@ -1,6 +1,6 @@
 name: Data Archival Request
 description: Retrieve my old Datahub files
-labels: "data retrieval"
+labels: support
 assignees:
 - felder
 body:
