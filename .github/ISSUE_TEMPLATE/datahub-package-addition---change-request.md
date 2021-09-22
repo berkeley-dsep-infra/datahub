@@ -2,9 +2,10 @@
 name:  Request/Change Package(s) 
 about: Request a package addition / change
 title: Request python package X for class Y
-labels: support
-assignees: ''
-
+labels: package-request
+assignees: 
+- felder
+- balajialg
 ---
 
 **Which package do you want installed?**
