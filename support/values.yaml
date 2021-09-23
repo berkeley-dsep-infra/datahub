@@ -34,6 +34,11 @@ ingress-nginx:
         memory: 384Mi
     service:
       loadBalancerIP: 34.69.164.86
+    metrics:
+      enabled: true
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
     podLabels:
       hub.jupyter.org/network-access-proxy-http: 'true'
 
