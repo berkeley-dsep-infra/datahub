@@ -1,32 +1,30 @@
 name: Admin Access Request
 description: Request admin access for your instance of Datahub
 labels: "support"
-assignees: 
-- balajialg
 body:
   - type: markdown
     attributes:
       value: |
         Please follow the sections in the template and share us the information required to provide admin access! 	
-  - type: textarea
+  - type: input
     attributes:
       label: Your Name
       description: 
     validations:
       required: true
-  - type: textarea
+  - type: input
     attributes:
       label: Affiliated Course Name
       description: Name of the course for which you are part of the teaching team
     validations:
       required: true
-  - type: textarea
+  - type: input
     attributes:
       label: Role
       description: Your role as part of the teaching team!
     validations:
       required: true    
-  - type: textarea
+  - type: input
     attributes:
       label: Name of the Hub
       description: Hub that you are currently using for teaching/research

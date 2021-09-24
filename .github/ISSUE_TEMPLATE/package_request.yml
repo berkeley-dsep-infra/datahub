@@ -1,6 +1,6 @@
-name: DataHub Package Addition / Change Request
+name: Package Addition/Change Request
 description: Request a package addition / change
-labels: "support"
+labels: "package-request"
 title: Request python package X for class Y
 assignees:
   - felder
