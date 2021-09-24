@@ -35,7 +35,7 @@ body:
       required: true
   - type: input
     attributes:
-      label: Course Name
+      label: Semester Details
       description: Which semester will this package be used for?
       value: |
         <!-- This helps us clean up unused packages after a term ends.-->
@@ -43,7 +43,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Course Name
+      label: Additional Information
       description: Any additional information we should know about?
       value: 
     validations:
