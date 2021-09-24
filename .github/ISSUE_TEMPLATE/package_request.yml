@@ -30,9 +30,7 @@ body:
       label: Course Name
       description: Which class will use this package?
       value: |
-        <!--
-     Include a link to appropriate entry in https://classes.berkeley.edu/ if available. If not, please mention class name & instructor.
-        -->
+        <!--Include a link to appropriate entry in https://classes.berkeley.edu/ if available. If not, please mention class name & instructor.-->
     validations:
       required: true
   - type: input
@@ -40,9 +38,7 @@ body:
       label: Course Name
       description: Which semester will this package be used for?
       value: |
-        <!--
-    This helps us clean up unused packages after a term ends.
-        -->
+        <!-- This helps us clean up unused packages after a term ends.-->
     validations:
       required: true
   - type: textarea
