@@ -9,11 +9,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and provide all the required information as possible 	
+        Please follow the sections in the template and provide all the required information as possible. We assume that i) You have installed this package in your Datahub instance, ii) Identified depedencies (if any) required by this package version and iii) Are raising those dependecies as part of this request. 	
   - type: input
     attributes:
       label: Package Name
       description: Which package do you want installed?
+      value:
     validations:
       required: true
   - type: textarea
