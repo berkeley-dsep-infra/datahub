@@ -46,6 +46,7 @@ body:
     attributes:
       label: Additional Information
       description: Any additional information we should know about?
-      value: 
+      value: |
+        <!-- When do you plan to use the package(s) as part of your course? Any specific date(s) (MM/DD) that we should know about? -->
     validations:
       required: false 
