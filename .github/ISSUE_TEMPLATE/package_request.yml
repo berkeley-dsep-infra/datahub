@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and provide all the required information as possible. Please follow the sections in the template and provide all the required information as possible. We assume that i) You have installed the requested package in your Datahub instance, ii) Identified dependencies (if any) required by this package version, and iii) Raising those dependencies as part of this request (if any).
+        Please follow the sections in the template and provide all the required information as possible. We assume that i) You have installed the requested package in your Datahub instance, ii) Identified dependencies (if any) required by this package version, and iii) Raising those dependencies as part of this request (if any).
   - type: input
     attributes:
       label: Package Name
