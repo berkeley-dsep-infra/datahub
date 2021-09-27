@@ -1,0 +1,50 @@
+name: Package Addition/Change Request
+description: Request a package addition / change
+labels: "package-request"
+title: Request python package X for class Y
+assignees:
+  - felder
+  - balajialg
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please follow the sections in the template and provide all the required information as possible 	
+  - type: input
+    attributes:
+      label: Package Name
+      description: Which package do you want installed?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Hub details
+      description: Which hub do you want it installed on? For example r.datahub, datahub, data100.datahub, etc.
+      value: |
+        - Hub: <!--[e.g. Datahub, Data 8, Data 100, Public Health, ...]-->
+        - Language: <!--[Python, Julia, R, ...]-->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Course Name
+      description: Which class will use this package?
+      value: |
+        <!--Include a link to appropriate entry in https://classes.berkeley.edu/ if available. If not, please mention class name & instructor.-->
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Semester Details
+      description: Which semester will this package be used for?
+      value: |
+        <!-- This helps us clean up unused packages after a term ends.-->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: Any additional information we should know about?
+      value: 
+    validations:
+      required: false 
