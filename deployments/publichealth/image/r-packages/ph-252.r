@@ -13,7 +13,9 @@ class_name = "PH 252"
 class_libs = c(
   "foreign", "0.8-81",
   "blm", "2013.2.4.4",
-  "geepack", "1.3-2"
+  "geepack", "1.3-2",
+  "multcomp", "1.4-7",
+  "epitools", "0.5-10.1"
 )
 
 devtools::install_github('cran/epi', ref='06efd3f', upgrade_dependencies=FALSE, quiet=FALSE)

@@ -9,11 +9,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and provide all the required information as possible 	
+        Please follow the sections in the template and provide all the required information as possible. We assume that i) You have installed the requested package in your Datahub instance, ii) Identified dependencies (if any) required by this package version, and iii) Raising those dependencies as part of this request (if any).
   - type: input
     attributes:
       label: Package Name
       description: Which package do you want installed?
+      value:
     validations:
       required: true
   - type: textarea
@@ -45,6 +46,7 @@ body:
     attributes:
       label: Additional Information
       description: Any additional information we should know about?
-      value: 
+      value: |
+        <!-- When do you plan to use the package(s) as part of your course? Any specific date(s) (MM/DD) that we should know about? -->
     validations:
       required: false 
