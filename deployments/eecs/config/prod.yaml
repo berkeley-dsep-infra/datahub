@@ -11,7 +11,7 @@ jupyterhub:
     db:
       pvc:
         # This also holds logs
-        storage: 4Gi
+        storage: 8Gi
   scheduling:
     userPlaceholder:
       enabled: false
