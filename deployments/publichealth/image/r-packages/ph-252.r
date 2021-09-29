@@ -14,7 +14,7 @@ class_libs = c(
   "foreign", "0.8-81",
   "blm", "2013.2.4.4",
   "geepack", "1.3-2",
-  "multcomp", "1.4-7",
+  "multcomp", "1.4-17",
   "epitools", "0.5-10.1"
 )
 
