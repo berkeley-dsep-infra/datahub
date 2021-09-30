@@ -63,6 +63,10 @@ jupyterhub:
           - b1b001615f9eb7254387f667569e39fb
           - c741d11d7f0bed9930e04276115b1a37
           - fd5ad8c476846392d8dfb1765d1a6ac5
+          #2813 Eric Van Dusen
+          - ericvd
+          - sean.smorris
+
   singleuser:
     initContainers:
       - name: volume-mount-hack
