@@ -105,6 +105,10 @@ jupyterhub:
             - port: 443
               protocol: TCP
         - ports:
+            # Allow outbound SSH https://github.com/berkeley-dsep-infra/datahub/issues/2814
+            - port: 22
+              protocol: TCP
+        - ports:
             # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
             - port: 21
               protocol: TCP
