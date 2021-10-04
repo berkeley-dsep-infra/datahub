@@ -5,3 +5,9 @@ dependencies:
 
 # pymc3 needs this
 - mkl-service==2.4.*
+
+# Cartopy and Shapely need this, and the versions on apt are too old
+# See https://github.com/berkeley-dsep-infra/datahub/issues/2824
+- proj==1.6
+- proj-data==1.6
+- geos==3.9.1

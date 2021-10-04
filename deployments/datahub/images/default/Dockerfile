@@ -48,11 +48,6 @@ RUN apt-get update > /dev/null && \
     apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
-            # for cartopy
-            libgeos-dev \
-            libproj-dev \
-            proj-data \
-            proj-bin \
             # For L&S22
             graphviz \
             # for phys 151
@@ -105,7 +100,7 @@ RUN apt-get update -qq --yes && \
         libapparmor1 \
         lsb-release \
         libclang-dev  > /dev/null
-            
+
 # apt packages needed for R packages
 RUN apt update --yes > /dev/null && \
     apt install --no-install-recommends --yes \
