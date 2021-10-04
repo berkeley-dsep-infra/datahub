@@ -20,8 +20,13 @@ jupyterhub:
     continuous:
       enabled: false
   proxy:
-    service:
-      loadBalancerIP: 104.197.27.164
     https:
-      hosts:
-        - staging.datahub.berkeley.edu
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - staging.datahub.berkeley.edu
