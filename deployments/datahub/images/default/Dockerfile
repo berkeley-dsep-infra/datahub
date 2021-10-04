@@ -110,8 +110,6 @@ RUN apt update --yes > /dev/null && \
     libx11-dev libglpk-dev libgmp3-dev libxml2-dev \
     # R package units
     libudunits2-dev \
-    # R package sf
-    libgdal-dev libproj-dev gdal-bin \
     # R package magick
     libmagick++-dev imagemagick > /dev/null
 
