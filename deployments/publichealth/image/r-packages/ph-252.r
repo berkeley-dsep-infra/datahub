@@ -15,12 +15,12 @@ class_libs = c(
   "blm", "2013.2.4.4",
   "geepack", "1.3-2",
   "multcomp", "1.4-17",
-  "epitools", "0.5-10.1"
+  "epitools", "0.5-10.1",
   "rms", "6.2-0",
   "lmtest","0.9-38",
   "car","3.0-11",
   "SurvRegCensCov","1.4",
-  "ProfileLikelihood","1.1"
+  "ProfileLikelihood","1.1",
   "biostat3","0.1.5"
 )
 
