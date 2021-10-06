@@ -8,7 +8,8 @@ USER root
 RUN apt update > /dev/null  && apt install --yes npm > /dev/null
 
 # Brings in https://github.com/jupyterhub/jupyterhub/pull/3579
-RUN python3 -m pip install -U git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
+# and https://github.com/jupyterhub/jupyterhub/pull/3639
+RUN python3 -m pip install -U git+https://github.com/jupyterhub/jupyterhub.git@69a1e97fbee1711e3fdb5fd795e349a4eb395060
 
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
