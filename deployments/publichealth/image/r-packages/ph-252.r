@@ -18,7 +18,7 @@ class_libs = c(
   "epitools", "0.5-10.1",
   "rms", "6.2-0",
   "lmtest","0.9-38",
-  "car","3.0-11",
+  "car","3.0-10",
   "SurvRegCensCov","1.4",
   "ProfileLikelihood","1.1",
   "biostat3","0.1.5"
