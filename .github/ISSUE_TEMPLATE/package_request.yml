@@ -44,9 +44,9 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Additional Information
-      description: Any additional information we should know about?
+      label: Installation Deadline
+      description: Which Month/Date(MM/DD) are you looking at to get the package(s) installed?
       value: |
-        <!-- When do you plan to use the package(s) as part of your course? Any specific date(s) (MM/DD) that we should know about? -->
+        <!-- Any specific date(s) (MM/DD) that we should know about to prioritize this request at our end? -->
     validations:
-      required: false 
+      required: true 
