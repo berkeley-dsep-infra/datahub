@@ -102,3 +102,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
             for k in ['login_id', 'name', 'sortable_name', 'primary_email']:
                 if k in auth_state['oauth_user']:
                     spawner.environment[f"OAUTH2_{k.upper()}"] = auth_state['oauth_user'][k]
+
+        # pass canvas courses to the environment
+        if 'courses' in auth_state:
+            spawner.environment["CANVAS_COURSES"] = auth_state['courses']
