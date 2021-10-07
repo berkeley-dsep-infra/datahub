@@ -28,7 +28,7 @@ The default is 1GB of RAM per student.
 
 A short justification for this resource request.
 
-**What is the exact date (MM/DD) by when do you want this request to be fulfilled?**
+**By when (MM/DD) do you want this request to be fulfilled?**
 This will help us with prioritization of this request.
 
 **Any additional information we should know about?**
