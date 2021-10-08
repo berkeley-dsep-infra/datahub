@@ -60,6 +60,9 @@ def get_replica_counts(events):
             except:
                 logging.error(f'Error in parsing description of {_event_repr(ev)}')
                 pass
+            if pools_replica_config is None:
+                logging.error(f'No description in event {_event_repr(ev)}')
+                continue
             for pool_name, count in pools_replica_config.items():
                 if not isinstance(count, int):
                     continue
