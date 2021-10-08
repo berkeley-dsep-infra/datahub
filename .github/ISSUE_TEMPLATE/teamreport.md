@@ -7,6 +7,8 @@ assignees:
 - balajialg
 - felder
 - yuvipanda
+- ericvd-ucb
+- ryanlovett 
 ---
 
 _Copy and paste the template below, and answer questions as you wish!_
