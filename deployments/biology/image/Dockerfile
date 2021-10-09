@@ -37,6 +37,11 @@ RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
         libgsl-dev >/dev/null
 
+## library required for running ccb293 package qiime
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq \
+    tzdata > /dev/null
+
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
