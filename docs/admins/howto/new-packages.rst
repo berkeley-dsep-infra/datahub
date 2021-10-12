@@ -55,8 +55,8 @@ Familiarize yourself with `pull requests <https://help.github.com/en/github/coll
 #. Test the changes locally using :code:`repo2docker`, then submit a PR to ``staging``.
 	* To use ``repo2docker``, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run ``repo2docker deployments/data100/image`` from the base datahub directory. 
 #. Once the PR is pulled, test it out on :code:`class-staging.datahub.berkeley.edu`.
-#. Finally, submit a pull request to merge from :code:`staging` into :code:`master`.
-    * Double check what commits are pulled in. Creating this pull request will pull in all new commits to master.
+#. Finally, submit a pull request to merge from :code:`staging` into :code:`prod`.
+    * Double check what commits are pulled in. Creating this pull request will pull in all new commits to prod.
     * If other commits are pulled into your pull request, ask the authors of those commits if they are okay with this.
     * The pull request title should be "Merge [List of commits] to prod". For example, the pr title might be "Merge #1136, #1278, #1277, #1280 to prod".
 #. Changes are only deployed to datahub once the relevant Travis CI job is completed. See `<https://circleci.com/gh/berkeley-dsep-infra/datahub>`__ to view Travis CI job statuses. 
