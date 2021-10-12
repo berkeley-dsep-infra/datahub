@@ -13,7 +13,7 @@ cirriculum support staff, or creating a new pull request. Ultimately,
 thouroughly testing changes locally and submitting a pull request will
 result in the software being rolled out to everyone much faster.
 
-Install a package in your notebook
+Install a python package in your notebook
 ==================================
 
 When testing a notebook with new version of the package, add the following line
@@ -29,7 +29,7 @@ ensure you have the version you think you have when running your code.
 To avoid complicated errors, make sure you always specify a version. You
 can find the latest version by searching on `pypi.org <https://pypi.org>`_.
 
-Find current version of package
+Find current version of a python package
 ===============================
 
 To find the current version of a particular installed package, you can
@@ -38,6 +38,34 @@ run the following in a notebook.
    .. code:: bash
 
       !pip list | grep <name-of-package>
+
+This should show you the particular package you are interested in and its
+current version.
+
+Install/Update a R package in your RStudio
+==================================
+
+When testing RStudio with new version of the R package, add the following line
+to a cell at the beginning of your notebook.
+
+   .. code:: bash
+
+      packageurl <- "Reference the CRAN URL for the R package along with the suitable version you need"
+	  install.packages(packageurl, repos=NULL, type="source")
+
+You can then execute this command in RStudio. This will ensure you have the version you think you have when running your code. 
+CRAN URL will look like `this <http://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_0.9.1.tar.gz>`_.
+You can find the latest version by searching on `CRAN <https://cran.r-project.org/>`_.
+
+Find current version of a R package
+===============================
+
+To find the current version of a particular installed package, you can
+run the following in RStudio.
+
+   .. code:: bash
+
+      packageVersion("<name-of-package>") 
 
 This should show you the particular package you are interested in and its
 current version.
