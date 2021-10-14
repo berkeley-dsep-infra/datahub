@@ -173,8 +173,8 @@ RUN r /tmp/r-packages/eep-1118.r
 COPY r-packages/ias-c188.r /tmp/r-packages
 RUN r /tmp/r-packages/ias-c188.r
 
-COPY r-packages/ph-142.r /tmp/r-packages
-RUN r /tmp/r-packages/ph-142.r
+COPY r-packages/orphaned-ph-142.r /tmp/r-packages
+RUN r /tmp/r-packages/orphaned-ph-142.r
 
 COPY r-packages/stat-131a.r /tmp/r-packages
 RUN r /tmp/r-packages/stat-131a.r
@@ -185,8 +185,8 @@ RUN r /tmp/r-packages/2020-spring-envecon-c118.r
 COPY r-packages/econ-140.r /tmp/r-packages/
 RUN r /tmp/r-packages/econ-140.r
 
-COPY r-packages/ph-290.r /tmp/r-packages/
-RUN r /tmp/r-packages/ph-290.r
+COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-ph-290.r
 
 COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-phw-272a.r
