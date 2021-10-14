@@ -1,4 +1,8 @@
 #!/usr/bin/env Rscript
+
+# This file should be removed at the end of 2021 Fall
+# PH courses have moved to the publichealth hub
+
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1921
 print("Installing packages for PH 290W")
 

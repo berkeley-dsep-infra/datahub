@@ -1,4 +1,8 @@
 #!/usr/bin/env Rscript
+
+# This file should be removed at the end of 2021 Fall
+# PH courses have moved to the publichealth hub
+
                                         # From https://github.com/berkeley-dsep-infra/datahub/issues/881
 print("Installing packages for PH142")
 
@@ -12,7 +16,6 @@ class_libs = c(
   "googlesheets", "0.3.0",
   "googledrive", "1.0.1",
   "ggrepel", "0.9.0",
-  "infer", "0.5.3",
   "janitor", "2.1.0",
   "latex2exp", "0.4.0",
   "measurements", "1.4.0",
