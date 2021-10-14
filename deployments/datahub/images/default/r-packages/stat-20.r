@@ -24,6 +24,7 @@ class_libs = c(
 
 class_libs_install_version(class_name, class_libs)
 
+devtools::install_version("infer", "1.0.0")
 devtools::install_github("hadley/emo@3f03b11")
 devtools::install_github("stat-20/stat20data@48b57a2")
 devtools::install_github("andrewpbray/boxofdata@8afd934")
