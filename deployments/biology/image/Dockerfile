@@ -209,4 +209,4 @@ RUN bash /tmp/ib134-packages.bash
 COPY ccb293-packages.bash /tmp/ccb293-packages.bash
 RUN bash /tmp/ccb293-packages.bash
 
-ENTRYPOINT ["/tini", "--"]
+ENTRYPOINT ["tini", "--"]
