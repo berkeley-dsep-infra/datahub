@@ -292,69 +292,66 @@ jupyterhub:
             # custom.canvas_courses
             auth_state = await self.user.get_auth_state()
 
+            # a list of the user's canvas courses specified by some identifier
             user_canvas_courses_identifiers = []
-            if auth_state is None:
-              self.log.warning("no auth_state.")
-            else:
-              if 'courses' in auth_state:
-                try:
-                  # this is retrieved by the authenticator
-                  # TODO: retrieve using self.authenticator if the
-                  # authenticator's type is canvasauthenticator
-                  user_canvas_courses = auth_state['courses']
-                  # see https://canvas.instructure.com/doc/api/courses.html
-                except Exception as e:
-                  self.log.warning(f"Could not get auth state: {e}.")
-                else:
-                  # the key we use to uniquely identify courses. different
-                  # deployments could use different keys, depending on their
-                  # canvas usage e.g. 'sis_course_id' or 'name'
-                  # TODO: this can be a traitlet within canvasauthenticator
-                  canvas_course_key = 'id'
-                  # get a list of the user's canvas course identifiers
-                  # TODO: this can be a function within canvasauthenticator
-                  user_canvas_courses_identifiers = list(
-                    map(
-                      lambda x: x.get(canvas_course_key, ''),
-                      user_canvas_courses
-                    )
-                  )
 
-                # get our customizations for our specified canvas courses
-                canvas_course_customizations = z2jh.get_config('custom.canvas_courses', {})
-                self.log.info(f'customizations: {canvas_course_customizations}')
-                is_student = False
-                is_instructor = False
-                for course, customizations in canvas_course_customizations.items():
-                  self.log.info(f'customizing for {course}')
-                  # we apply customizations if the user is in the course
-                  if not course in user_canvas_courses_identifiers:
-                    continue
-                  # the canvas data for our customized course
-                  # TODO: move canvas_course_data to canvasauthenticator
-                  canvas_course = canvas_course_data(canvas_course_key, course, user_canvas_courses)
-                  # set admin status based on their enrollment type
-                  enrollments = canvas_course.get('enrollments', [])
-                  for enrollment in enrollments:
-                    is_student |= (enrollment['type'] in ['teacher', 'ta'])
-                    is_instructor |= (enrollment['type'] == 'student')
+            if auth_state is not None and 'courses' in auth_state:
+              # this is retrieved by the authenticator
+              # TODO: retrieve using self.authenticator if the
+              # authenticator's type is canvasauthenticator
+              user_canvas_courses = auth_state.get('courses', [])
+              # see https://canvas.instructure.com/doc/api/courses.html
 
-                  self.volumes += customizations.get('extraVolumes', [])
-                  self.volume_mounts += customizations.get('extraVolumeMounts', [])
-                  # set new mem thresholds if specified are bigger than current
-                  if 'mem_limit' in customizations and \
-                  mem_cmp(customizations['mem_limit'], self.mem_limit) == 1:
-                    self.mem_limit = customizations['mem_limit']
-                  if 'mem_guarantee' in customizations and \
-                  mem_cmp(customizations['mem_guarantee'], self.mem_guarantee) == 1:
-                    self.mem_guarantee = customizations['mem_guarantee']
+              # the key we use to uniquely identify courses. different
+              # deployments could use different keys, depending on their
+              # canvas usage e.g. 'sis_course_id' or 'name'
+              # TODO: this can be a traitlet within canvasauthenticator
+              canvas_course_key = 'id'
+              # get a list of the user's canvas course identifiers
+              # TODO: this can be a function within canvasauthenticator
+              user_canvas_courses_identifiers = list(
+                map(
+                  # we convert to string to be agnostic about how to handle
+                  # matches in custom.canvas_courses
+                  lambda x: str(x.get(canvas_course_key, '')),
+                  user_canvas_courses
+                )
+              )
 
-                # if the user is a student in any course specified by a profile,
-                # they never get to be an admin
-                if is_student:
-                  self.user.admin = False
-                elif is_instructor:
-                  self.user.admin = True
+              # get our customizations for our specified canvas courses
+              canvas_course_customizations = z2jh.get_config('custom.canvas_courses', {})
+              is_student = False
+              is_instructor = False
+              for course, customizations in canvas_course_customizations.items():
+                # we apply customizations if the user is in the course
+                if not course in user_canvas_courses_identifiers:
+                  continue
+
+                self.log.info(f'user in {course}')
+                # the canvas data for our customized course
+                canvas_course = canvas_course_data(canvas_course_key, course, user_canvas_courses)
+                # set admin status based on their enrollment type
+                enrollments = canvas_course.get('enrollments', [])
+                for enrollment in enrollments:
+                  is_student |= (enrollment['type'] in ['teacher', 'ta'])
+                  is_instructor |= (enrollment['type'] == 'student')
+
+                self.volumes += customizations.get('extraVolumes', [])
+                self.volume_mounts += customizations.get('extraVolumeMounts', [])
+                # set new mem thresholds if specified are bigger than current
+                if 'mem_limit' in customizations and \
+                mem_cmp(customizations['mem_limit'], self.mem_limit) == 1:
+                  self.mem_limit = customizations['mem_limit']
+                if 'mem_guarantee' in customizations and \
+                mem_cmp(customizations['mem_guarantee'], self.mem_guarantee) == 1:
+                  self.mem_guarantee = customizations['mem_guarantee']
+
+              # if the user is a student in any course specified by a profile,
+              # they never get to be an admin
+              if is_student:
+                self.user.admin = False
+              elif is_instructor:
+                self.user.admin = True
 
             # custom.admin
             custom_admin = z2jh.get_config('custom.admin', {})
