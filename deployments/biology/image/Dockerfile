@@ -26,7 +26,7 @@ RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
         libpython2.7 > /dev/null
 
-## libraries required for mothur 
+## libraries required for mothur
 ## libreadline6 required
 #RUN apt-get update -qq --yes > /dev/null && \
 #    apt-get install --yes -qq \
@@ -55,6 +55,7 @@ RUN apt-get update -qq --yes && \
         tmux \
         wget \
         vim \
+        tini \
         locales > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
@@ -160,7 +161,7 @@ RUN apt-get update && \
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
-# Needed by Rhtslib 
+# Needed by Rhtslib
 RUN apt-get update -qq --yes && \
     apt-get install --yes  -qq \
         libcurl4-openssl-dev > /dev/null
@@ -182,7 +183,7 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 
 #install rsession proxy
 RUN pip install --no-cache-dir \
-        jupyter-rsession-proxy==1.2 
+        jupyter-rsession-proxy==1.2
 
 # Install IRKernel
 RUN r -e "install.packages('IRkernel', version='1.1.1')" && \
@@ -198,7 +199,7 @@ ADD ipython_config.py ${CONDA_PREFIX}/etc/ipython/
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
-RUN bash /tmp/bio1b-packages.bash 
+RUN bash /tmp/bio1b-packages.bash
 
 # install ib134L packages
 COPY ib134-packages.bash /tmp/ib134-packages.bash
@@ -207,3 +208,5 @@ RUN bash /tmp/ib134-packages.bash
 # install ccb293 packages
 COPY ccb293-packages.bash /tmp/ccb293-packages.bash
 RUN bash /tmp/ccb293-packages.bash
+
+ENTRYPOINT ["/tini", "--"]

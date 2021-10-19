@@ -27,6 +27,7 @@ RUN apt-get -qq update --yes && \
             vim \
             micro \
             mc \
+            tini \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -105,7 +106,7 @@ RUN apt-get update -qq --yes && \
         libapparmor1 \
         lsb-release \
         libclang-dev  > /dev/null
-            
+
 # apt packages needed for R packages
 RUN apt update --yes > /dev/null && \
     apt install --no-install-recommends --yes \
@@ -254,5 +255,6 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
-
 EXPOSE 8888
+
+ENTRYPOINT ["/tini", "--"]
