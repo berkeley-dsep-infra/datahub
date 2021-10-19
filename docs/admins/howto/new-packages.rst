@@ -45,17 +45,13 @@ current version.
 Install/Update a R package in your RStudio
 ==================================
 
-When testing RStudio with new version of the R package, add the following line
-to a cell at the beginning of your notebook.
+When the required version of package is missing in the R Studio, Try the following command to check whether the default installation repo contains the package (and the version) required.
+ 
+ .. code:: bash
 
-   .. code:: bash
+    install.packages("packagename")
 
-      packageurl <- "Reference the CRAN URL for the R package along with the suitable version you need"
-	  install.packages(packageurl, repos=NULL, type="source")
-
-You can then execute this command in RStudio. This will ensure you have the version you think you have when running your code. 
-CRAN URL will look like `this <http://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_0.9.1.tar.gz>`_.
-You can find the latest version by searching on `CRAN <https://cran.r-project.org/>`_.
+This should install the particular package you are interested in and its latest version. You can find the latest version of a R package by searching on `CRAN <https://cran.r-project.org/>`_.
 
 Find current version of a R package
 ===============================
