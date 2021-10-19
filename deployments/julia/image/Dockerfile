@@ -27,6 +27,7 @@ RUN apt-get update -qq --yes && \
         tmux \
         wget \
         vim \
+        tini \
         build-essential \
         locales > /dev/null
 
@@ -62,3 +63,5 @@ RUN JUPYTER_DATA_DIR=${CONDA_DIR}/share/jupyter julia -e 'using Pkg; Pkg.add("IJ
 
 COPY install-julia-packages.jl /tmp/install-julia-packages.jl
 RUN /tmp/install-julia-packages.jl
+
+ENTRYPOINT ["/tini", "--"]

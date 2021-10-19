@@ -26,6 +26,7 @@ RUN apt-get -qq update --yes && \
             vim \
             micro \
             mc \
+            tini \
             build-essential \
             locales > /dev/null
 
@@ -90,3 +91,5 @@ ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
 
 EXPOSE 8888
+
+ENTRYPOINT ["/tini", "--"]
