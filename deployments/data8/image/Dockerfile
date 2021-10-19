@@ -92,4 +92,4 @@ RUN pyppeteer-install
 
 EXPOSE 8888
 
-ENTRYPOINT ["/tini", "--"]
+ENTRYPOINT ["tini", "--"]

@@ -257,4 +257,4 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 EXPOSE 8888
 
-ENTRYPOINT ["/tini", "--"]
+ENTRYPOINT ["tini", "--"]
