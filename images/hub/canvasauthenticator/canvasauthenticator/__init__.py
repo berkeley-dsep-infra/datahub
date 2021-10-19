@@ -78,7 +78,6 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         user['auth_state']['courses'] = await self.get_courses(
             user['auth_state']['access_token']
         )
-        print(user)
         return user
 
     def normalize_username(self, username):
