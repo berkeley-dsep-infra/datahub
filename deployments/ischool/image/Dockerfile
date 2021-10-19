@@ -36,6 +36,7 @@ RUN apt-get update > /dev/null && \
             libssl1.1 \
             fonts-symbola \
             gdebi-core \
+            tini \
             nodejs npm > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -68,3 +69,6 @@ RUN install2.r --error --skipinstalled \
     Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
     rm -rf /tmp/downloaded_packages
+
+
+ENTRYPOINT ["tini", "--"]

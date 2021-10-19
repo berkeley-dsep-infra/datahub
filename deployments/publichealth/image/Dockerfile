@@ -36,6 +36,7 @@ RUN apt-get update > /dev/null && \
             libssl1.1 \
             fonts-symbola \
             gdebi-core \
+            tini \
             nodejs npm > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -72,3 +73,5 @@ RUN r /tmp/r-packages/ph-142.r
 
 COPY r-packages/ph-252.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-252.r
+
+ENTRYPOINT ["tini", "--"]
