@@ -38,7 +38,8 @@ jupyterhub:
         pvcName: home-nfs
         subPath: "{username}"
     memory:
-      guarantee: 512M
-      limit: 1G
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2803
+      guarantee: 768M
+      limit: 2G
     image:
       name: gcr.io/ucb-datahub-2018/julia-user-image
