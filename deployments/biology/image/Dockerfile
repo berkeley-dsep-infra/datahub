@@ -210,3 +210,6 @@ COPY ccb293-packages.bash /tmp/ccb293-packages.bash
 RUN bash /tmp/ccb293-packages.bash
 
 ENTRYPOINT ["tini", "--"]
+
+USER root
+RUN timedatectl set-timezone UTC
