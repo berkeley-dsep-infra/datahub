@@ -212,4 +212,5 @@ RUN bash /tmp/ccb293-packages.bash
 ENTRYPOINT ["tini", "--"]
 
 USER root
-RUN timedatectl set-timezone UTC
+RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+RUN echo UTC > /etc/timezone
