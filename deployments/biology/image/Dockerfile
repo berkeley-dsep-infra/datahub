@@ -1,5 +1,8 @@
 FROM buildpack-deps:focal-scm
 
+ENV TZ=UTC
+RUN ln -snf /usr/share/zoneinfo/Etc/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
@@ -38,9 +41,9 @@ RUN apt-get update -qq --yes && \
         libgsl-dev >/dev/null
 
 ## library required for running ccb293 package qiime
-RUN apt-get update -qq --yes > /dev/null && \
-    apt-get install --yes -qq \
-    tzdata > /dev/null
+#RUN apt-get update -qq --yes > /dev/null && \
+#    apt-get install --yes -qq \
+#    tzdata > /dev/null
 
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
@@ -210,7 +213,3 @@ COPY ccb293-packages.bash /tmp/ccb293-packages.bash
 RUN bash /tmp/ccb293-packages.bash
 
 ENTRYPOINT ["tini", "--"]
-
-USER root
-RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
-RUN echo UTC > /etc/timezone
