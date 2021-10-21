@@ -210,3 +210,7 @@ COPY ccb293-packages.bash /tmp/ccb293-packages.bash
 RUN bash /tmp/ccb293-packages.bash
 
 ENTRYPOINT ["tini", "--"]
+
+USER root
+RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+RUN echo UTC > /etc/timezone
