@@ -193,3 +193,10 @@ jupyterhub:
           - name: home
             mountPath: /home/jovyan/shared-rw/course/eps-130
             subPath: _shared/course/eps-130
+
+    canvas_courses:
+      # POLSCI 88 001 Fall 2021 ; remove after 2021-12-15
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2848
+      1509087:
+        mem_limit: 4096M
+        mem_guarantee: 2048M
