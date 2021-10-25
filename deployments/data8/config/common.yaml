@@ -4,6 +4,12 @@ nfsPVC:
     serverIP: nfsserver-01
 
 jupyterhub:
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /srv/homes
+
   scheduling:
     userScheduler:
       nodeSelector:
