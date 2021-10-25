@@ -362,26 +362,22 @@ jupyterhub:
             return (await super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-      02-log-file: |
-        # Keep long term logs of jupyterhub on disk
-        c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
-
-      03-working-dir: |
+      02-working-dir: |
         # Make sure working directory is ${HOME}
         # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
         c.KubeSpawner.working_dir = '/home/jovyan'
-      05-prometheus: |
+      03-prometheus: |
         # Allow unauthenticated prometheus requests
         # Otherwise our prometheus server can't get to these
         c.JupyterHub.authenticate_prometheus = False
-      06-no-setuid: |
+      04-no-setuid: |
         c.KubeSpawner.extra_container_config = {
           'securityContext': {
             # Explicitly disallow setuid binaries from working inside the container
             'allowPrivilegeEscalation': False
           }
         }
-      07-popularity-contest: |
+      05-popularity-contest: |
         # Emit metrics for which python packages are being imported
         import os
         pod_namespace = os.environ['POD_NAMESPACE']
