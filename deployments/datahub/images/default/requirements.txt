@@ -89,7 +89,7 @@ gspread==4.0.1
 # eps 109; fall 2019
 ffmpeg-python==0.2.0
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
-Cartopy==0.19.0.post1 --no-binary Cartopy
+Cartopy==0.20.0 --no-binary Cartopy
 
 # data 88e; spring 2021
 plotly==5.2.1

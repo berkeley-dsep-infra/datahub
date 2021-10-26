@@ -49,11 +49,6 @@ RUN apt-get update > /dev/null && \
     apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
-            # for cartopy
-            libgeos-dev \
-            libproj-dev \
-            proj-data \
-            proj-bin \
             # For L&S22
             graphviz \
             # for phys 151
@@ -116,8 +111,6 @@ RUN apt update --yes > /dev/null && \
     libx11-dev libglpk-dev libgmp3-dev libxml2-dev \
     # R package units
     libudunits2-dev \
-    # R package sf
-    libgdal-dev libproj-dev gdal-bin \
     # R package magick
     libmagick++-dev imagemagick > /dev/null
 
