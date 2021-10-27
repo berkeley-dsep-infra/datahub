@@ -127,9 +127,9 @@ RUN apt-get update -qq --yes > /dev/null && \
 
 WORKDIR /home/jovyan
 
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN chmod 777 /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN chmod 777 /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
