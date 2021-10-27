@@ -70,9 +70,9 @@ ENV PATH ${CONDA_DIR}/bin:$PATH
 
 USER root
 
-# Install miniforge as root - the script chowns to $NB_USER by the end
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+# Install mambaforgeas root - the script chowns to $NB_USER by the end
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
