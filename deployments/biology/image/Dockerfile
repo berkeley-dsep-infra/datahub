@@ -175,7 +175,7 @@ COPY environment.yml /tmp/
 COPY requirements.txt /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
