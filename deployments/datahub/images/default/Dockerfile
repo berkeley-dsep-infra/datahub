@@ -49,7 +49,7 @@ RUN apt-get update > /dev/null && \
     apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
-            # for cartopy
+            # for R sf packages
             libgeos-dev \
             libproj-dev \
             proj-data \
