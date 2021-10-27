@@ -48,8 +48,8 @@ RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 

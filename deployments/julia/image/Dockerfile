@@ -38,8 +38,8 @@ RUN mkdir -p ${JULIA_DIR} && chown ${NB_USER}:${NB_USER} ${JULIA_DIR}
 
 WORKDIR /home/jovyan
 
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 

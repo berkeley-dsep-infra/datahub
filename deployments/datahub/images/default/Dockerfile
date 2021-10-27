@@ -213,10 +213,10 @@ ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 WORKDIR /home/${NB_USER}
 
-# Install miniforge as root
+# Install mambaforge as root
 USER root
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 # Install conda environment as our user
 USER ${NB_USER}
