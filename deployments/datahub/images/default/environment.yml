@@ -22,23 +22,11 @@ dependencies:
 - spacy=3.1.*
 - nltk=3.6.*
 
-# data-x; DL
-- tensorflow=2.6.*
-- scikit-image=0.18.*
-
 # EPS88, data100
 # https://github.com/berkeley-dsep-infra/datahub/issues/1796
 # https://github.com/berkeley-dsep-infra/datahub/issues/2824
 - shapely=1.8.*
 - cartopy=0.20.*
-# data100, geog88
-# https://github.com/berkeley-dsep-infra/datahub/issues/2838
-- geopandas=0.10.*
-- geopy=2.2.*
-- pysal=2.5.*
-- rtree=0.9.*
-- netcdf4=1.5.*
-- mplleaflet=0.0.5
 
 # ls 88-3; neuro
 - pillow=8.3.*
