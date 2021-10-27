@@ -192,3 +192,5 @@ ipython-sql==0.4.0
 metpy==1.1.0
 pooch==1.5.2
 
+# PS88 https://github.com/berkeley-dsep-infra/datahub/issues/2925
+linearmodels==4.24
