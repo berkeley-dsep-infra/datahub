@@ -108,6 +108,21 @@ jupyterhub:
               protocol: TCP
             - port: 80
               protocol: TCP
+        # datahub.berkeley.edu is still not using the ingress provider, so
+        # we have to explicitly allow access to it from our user pods.
+        - to:
+          - podSelector:
+              matchLabels:
+                app: jupyterhub
+                component: autohttps
+            namespaceSelector:
+              matchLabels:
+                name: datahub-prod
+          ports:
+            - port: http
+              protocol: TCP
+            - port: https
+              protocol: TCP
         # Allow user code to send packets to statsd for python-popularity-contest
         - to:
           - namespaceSelector:
