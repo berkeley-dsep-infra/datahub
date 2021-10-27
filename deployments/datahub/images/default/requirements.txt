@@ -97,7 +97,6 @@ hdbscan==0.8.27
 
 # espm 125/bio 105; fall 2019
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
-pyvcf==0.6.8
 bitarray==2.3.0
 nlmpy==1.0.1
 
