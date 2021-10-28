@@ -89,35 +89,65 @@ jupyterhub:
       PYTHON_POPCONTEST_STATSD_PORT: '9125'
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
     networkPolicy:
-      # In clusters with NetworkPolicy enabled, do not
-      # allow outbound internet access that's not DNS, FTP, HTTP or HTTPS
-      # We can override this on a case to case basis where
-      # required.
       enabled: true
-      # NOTE: This needs to be repeated in r/config/common.yaml, since we can't
-      # add an item to a list. It needs external ssh access, something I don't
-      # want to allow in general as an anti-abuse measure.
+      # We enable all outgoing access to the broader internet, but not to private IP ranges
+      # of pods and services inside the cluster - except for outbound UDP and TCP to statsd,
+      # for python-popularity-package.
       egress:
-        - ports:
-            - port: 80
-              protocol: TCP
-        - ports:
+        # Allow code in hubs to talk to ingress provider, so they can talk to the hub via its
+        # public URL
+        - to:
+          - namespaceSelector:
+              matchLabels:
+                name: support
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: ingress-nginx
+          ports:
             - port: 443
               protocol: TCP
-        - ports:
-            # Allow outbound SSH https://github.com/berkeley-dsep-infra/datahub/issues/2814
-            - port: 22
+            - port: 80
               protocol: TCP
-        - ports:
-            # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
-            - port: 21
+        # datahub.berkeley.edu is still not using the ingress provider, so
+        # we have to explicitly allow access to it from our user pods.
+        - to:
+          - podSelector:
+              matchLabels:
+                app: jupyterhub
+                component: autohttps
+            namespaceSelector:
+              matchLabels:
+                name: datahub-prod
+          ports:
+            - port: http
               protocol: TCP
-        - ports:
+            - port: https
+              protocol: TCP
+        # Allow user code to send packets to statsd for python-popularity-contest
+        - to:
+          - namespaceSelector:
+              matchLabels:
+                name: support
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: prometheus-statsd-exporter
+          ports:
             # statsd ports
             - port: 9125
               protocol: TCP
             - port: 9125
               protocol: UDP
+        - to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
+              except:
+              # Don't allow network access to private IP ranges
+              # Listed in https://datatracker.ietf.org/doc/html/rfc1918
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+              # Don't allow network access to the metadata IP
+              - 169.254.169.254/32
   hub:
     # The default of 64 is way too low for us
     concurrentSpawnLimit: 200
