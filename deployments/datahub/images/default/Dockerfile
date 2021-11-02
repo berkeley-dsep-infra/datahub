@@ -233,6 +233,14 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache -r /tmp/requirements.txt
 
+# Temporarily install httplib2 from a PR until a new release is made
+# https://github.com/berkeley-dsep-infra/datahub/issues/2950
+# Undo this and require a higher version of httplib2 once it is merged and released
+# As we have other modules using pyparsing, installing this small patch over the
+# existing version is much safer than pinning to an older one
+RUN pip install -U --force git+https://github.com/busunkim96/httplib2.git@pp-downcaseTokens
+
+
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
