@@ -17,7 +17,7 @@ retrolab==0.3.5
 nbgitpuller==0.10.2
 jupyter-resource-usage==0.6.0
 # Matches version in images/hub/Dockerfile
-git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
+jupyterhub==1.5.0
 appmode==0.8.0
 ipywidgets==7.6.3
 otter-grader==3.1.4
@@ -31,5 +31,3 @@ jupyter_nbextensions_configurator==0.4.1
 popularity-contest==0.4.1
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
-# Remove once https://github.com/pypa/setuptools/issues/2849 is fixed
-setuptools<=58.4
