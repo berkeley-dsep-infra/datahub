@@ -1,5 +1,5 @@
 images:
-  image_name: gcr.io/ucb-datahub-2018/julia-user-image
+  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/julia-user-image
   registry:
     provider: gcloud
     gcloud:
