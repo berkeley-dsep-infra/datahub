@@ -62,6 +62,11 @@ orbs:
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
               - run:
+                  name: Configure credential helper for Google Artifact Registry
+                  command: |
+                    gcloud auth configure-docker us-central1-docker.pkg.dev
+
+              - run:
                   name: Install sops
                   command: |
                     echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
