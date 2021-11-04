@@ -31,3 +31,5 @@ jupyter_nbextensions_configurator==0.4.1
 popularity-contest==0.4.1
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
+# Remove once https://github.com/pypa/setuptools/issues/2849 is fixed
+setuptools<=58.4
