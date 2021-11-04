@@ -9,7 +9,7 @@ RUN apt update > /dev/null  && apt install --yes npm > /dev/null
 
 # Brings in https://github.com/jupyterhub/jupyterhub/pull/3579
 # and https://github.com/jupyterhub/jupyterhub/pull/3639
-RUN python3 -m pip install --no-cache --force-reinstall --upgrade git+https://github.com/jupyterhub/jupyterhub.git@69a1e97fbee1711e3fdb5fd795e349a4eb395060
+RUN python3 -m pip install --no-cache --force-reinstall --upgrade jupyterhub==1.5.0
 
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
