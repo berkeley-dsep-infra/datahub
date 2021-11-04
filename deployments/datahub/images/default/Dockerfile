@@ -228,7 +228,7 @@ RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 
 # Remove once https://github.com/pypa/setuptools/issues/2849 is fixed
-RUN pip install --force 'setuptools<=58.4'
+RUN pip install --force 'setuptools<=57'
 
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \

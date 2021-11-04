@@ -81,7 +81,7 @@ COPY environment.yml /tmp/environment.yml
 RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 # Remove once https://github.com/pypa/setuptools/issues/2849 is fixed
-RUN pip install --force 'setuptools<=58.4'
+RUN pip install --force 'setuptools<=57'
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
