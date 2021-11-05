@@ -49,8 +49,7 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/prob140-user-image
+    image: {}
 
   # read by z2jh.get_config() in hub/values.yaml
   # course for testing canvas course support

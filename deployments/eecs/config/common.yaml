@@ -82,5 +82,4 @@ jupyterhub:
       limit: 1
       # Set tiny request to prevent k8s from setting limit == request
       guarantee: 0.01
-    image:
-      name: gcr.io/ucb-datahub-2018/eecs-user-image
+    image: {}
