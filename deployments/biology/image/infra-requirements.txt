@@ -9,6 +9,8 @@
 
 # FIXME: Freeze this to get exact versions of all dependencies
 notebook==6.4.5
+# FIXME: Conflicts with jupyter-server-proxy somehow
+jupyter-client<7.0
 jupyterlab==3.2.2
 nbconvert==6.1.0
 retrolab==0.3.12
