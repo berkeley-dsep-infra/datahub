@@ -73,8 +73,7 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
-    image:
-      name: gcr.io/ucb-datahub-2018/data100-user-image
+    image: {}
 
   custom:
     admin:

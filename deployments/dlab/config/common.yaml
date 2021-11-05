@@ -42,5 +42,4 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
-    image:
-      name: gcr.io/ucb-datahub-2018/dlab-user-image
+    image: {}

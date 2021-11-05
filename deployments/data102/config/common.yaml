@@ -49,6 +49,5 @@ jupyterhub:
     memory:
       guarantee: 1G
       limit: 2G
-    image:
-      name: gcr.io/ucb-datahub-2018/data102-user-image
+    image: {}
     defaultUrl: "/lab"
