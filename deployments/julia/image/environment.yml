@@ -2,3 +2,21 @@ dependencies:
 - nodejs==15.*
 - pip==20.2.*
 - python==3.9.*
+# From infra-requirements.txt
+- notebook==6.4.5
+- jupyter_client<7.0
+- jupyterlab==3.2.2
+- nbconvert==6.1.0
+- retrolab==0.3.12
+- nbgitpuller==1.0.2
+- jupyter-resource-usage==0.6.0
+#- jupyterhub==1.5.0
+- appmode==0.8.0
+- ipywidgets==7.6.3
+#- otter-grader==3.1.4
+#- jupyter-tree-download==1.0.1
+#- git-credential-helpers==0.2 
+- jupyter_contrib_nbextensions==0.5.1
+- jupyter_nbextensions_configurator==0.4.1
+#- popularity-contest==0.4.1
+- RISE==5.7.1
