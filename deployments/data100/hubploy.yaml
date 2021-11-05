@@ -1,6 +1,6 @@
 images:
   images:
-    - name: gcr.io/ucb-datahub-2018/primary-user-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/primary-user-image
       path: ../datahub/images/default
 
   registry:

@@ -117,10 +117,9 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/primary-user-image
+    image: {}
 
-  
+
   # read by z2jh.get_config() in hub/values.yaml
   # formerly jupyterhub.hub.extraConfigMap
   custom:

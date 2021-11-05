@@ -94,8 +94,7 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/r-user-image
+    image: {}
   custom:
     # this should be migrated to custom.profiles when that works
     profiles:

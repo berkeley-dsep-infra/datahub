@@ -140,12 +140,16 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: delta-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
+    cpu:
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2966
+      guarantee: 0.5
+      limit: 0.5
     memory:
       guarantee: 512M
       limit: 1G
