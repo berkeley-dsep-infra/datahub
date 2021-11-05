@@ -1,6 +1,6 @@
 charts:
   - name: hub
-    imagePrefix: us-central1-docker.pkg.dev/ucb-datahub-2018/core/
+    imagePrefix: gcr.io/ucb-datahub-2018/jupyterhub-
     images:
       hub:
         valuesPath: jupyterhub.hub.image
