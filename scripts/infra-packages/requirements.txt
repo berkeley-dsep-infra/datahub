@@ -13,7 +13,7 @@ notebook==6.4.5
 jupyter-client<7.0
 jupyterlab==3.2.2
 nbconvert==6.1.0
-retrolab==0.3.12
+retrolab==0.3.13
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.0
 # Matches version in images/hub/Dockerfile

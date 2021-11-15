@@ -54,11 +54,11 @@ orbs:
                   name: Install google cloud sdk
                   command: |
                     export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
-                    curl -sSL $GCLOUD_URL | tar -xzf -
+                    curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
                     # Be careful with quote ordering here. ${PATH} must not be expanded
                     # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
                     # Always use full PATHs in PATH!
-                    echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+                    echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
 
@@ -113,9 +113,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+            - v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.7-dependencies-gcloud-265-
+            - v3.7-dependencies-gcloud-363-
 
       - run:
           name: install dependencies
@@ -131,11 +131,11 @@ jobs:
             pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
 
             export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
-            curl -sSL $GCLOUD_URL | tar -xzf -
+            curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
-            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
             curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o venv/bin/sops
             chmod 755 venv/bin/sops
@@ -143,7 +143,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+          key: v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
@@ -258,11 +258,11 @@ jobs:
           name: install google-cloud-sdk
           command: |
             export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
-            curl -sSL $GCLOUD_URL | tar -xzf -
+            curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
-            echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
           name: Setup helm3
@@ -314,11 +314,11 @@ jobs:
           name: install google-cloud-sdk
           command: |
             export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
-            curl -sSL $GCLOUD_URL | tar -xzf -
+            curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
-            echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
           name: Install sops
