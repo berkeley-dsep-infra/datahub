@@ -2,3 +2,6 @@ dependencies:
 - nodejs==15.*
 - pip==20.2.*
 - python==3.9.*
+
+# from requirements.txt
+- matplotlib==3.4.3
