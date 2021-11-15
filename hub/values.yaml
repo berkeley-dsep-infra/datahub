@@ -356,6 +356,7 @@ jupyterhub:
                   user_canvas_courses
                 )
               )
+              self.log.info(f'num canvas courses: {len(user_canvas_courses_identifiers)}')
 
               # get our customizations for our specified canvas courses
               canvas_course_customizations = z2jh.get_config('custom.canvas_courses', {})
@@ -366,7 +367,7 @@ jupyterhub:
                 if not course in user_canvas_courses_identifiers:
                   continue
 
-                self.log.info(f'user in {course}')
+                self.log.info(f'user in canvas course: {self.user.name} {course}')
                 # the canvas data for our customized course
                 canvas_course = canvas_course_data(canvas_course_key, course, user_canvas_courses)
                 # set admin status based on their enrollment type
