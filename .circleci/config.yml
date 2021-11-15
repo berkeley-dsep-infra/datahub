@@ -113,9 +113,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+            - v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.7-dependencies-gcloud-265-
+            - v3.7-dependencies-gcloud-363-
 
       - run:
           name: install dependencies
@@ -143,7 +143,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+          key: v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
