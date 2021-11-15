@@ -356,7 +356,7 @@ jupyterhub:
                   user_canvas_courses
                 )
               )
-              self.log.info(f'num canvas courses: {len(user_canvas_courses_identifiers)}')
+              self.log.info(f'num canvas courses: {self.user.name} {len(user_canvas_courses_identifiers)}')
 
               # get our customizations for our specified canvas courses
               canvas_course_customizations = z2jh.get_config('custom.canvas_courses', {})
