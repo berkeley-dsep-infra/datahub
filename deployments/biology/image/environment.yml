@@ -23,6 +23,8 @@ dependencies:
 - fastqc=0.11.9
 - phyml=3.3.20200621
 - sra-tools=2.11
+- hisat2=2.2.1
+- subread=2.0.1
 
 # Packages for IB120/201/CCB210
 - sympy=1.6.2
