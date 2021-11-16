@@ -35,5 +35,16 @@ dependencies:
 - raxml=8.2.*
 - muscle=3.8.*
 - dendropy=4.4.*
+
+# requirements.txt
+# pedagogy packages
+- scipy==1.7.1
+- pandas==1.3.2
+- seaborn==0.11.2
+
+# For https://github.com/berkeley-dsep-infra/datahub/issues/1846
+# Conda does not have these 
 - pip:
-  - -r requirements.txt
+  - geonomics==1.1.9
+  - nlmpy==1.0.1
+  - -r infra-requirements.txt

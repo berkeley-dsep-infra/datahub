@@ -1,7 +1,7 @@
 FROM buildpack-deps:focal-scm
 
-ENV TZ=UTC
-RUN ln -snf /usr/share/zoneinfo/Etc/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -172,7 +172,6 @@ RUN apt-get update -qq --yes && \
 USER ${NB_USER}
 
 COPY environment.yml /tmp/
-COPY requirements.txt /tmp/
 COPY infra-requirements.txt /tmp/
 
 RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml
