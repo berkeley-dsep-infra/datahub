@@ -55,7 +55,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
             'client_secret': self.client_secret
         }
 
-    async def get_canvas_items(self, token, url)
+    async def get_canvas_items(self, token, url):
         """
         Get paginated items from Canvas.
         https://canvas.instructure.com/doc/api/file.pagination.html
