@@ -13,6 +13,9 @@ ENV JULIA_DIR /opt/julia
 
 ENV PATH ${JULIA_DIR}/bin:${CONDA_DIR}/bin:$PATH
 
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 # Useful utils that folks sort of take for granted
@@ -50,9 +53,6 @@ COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
-
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache -r /tmp/requirements.txt
 
 COPY install-julia.bash /tmp/install-julia.bash
 RUN /tmp/install-julia.bash
