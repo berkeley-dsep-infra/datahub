@@ -21,7 +21,7 @@ cran_packages <- c(
   "plotly","4.9.3",
   "mixtools","1.2.0",
   "mclust","5.4.7",
-  "pheatmap","1.0.12"
+  "pheatmap","1.0.12",
   "phangorn","2.7.1"
 )
 
