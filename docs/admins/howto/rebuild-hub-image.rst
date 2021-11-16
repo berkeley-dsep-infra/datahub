@@ -15,6 +15,10 @@ the JupyterHub image used in the `Zero to JupyterHub <https://z2jh.jupyter.og>`_
 build the image and update ``hub/values.yaml`` with the new image
 version.
 
+#. Run ``gcloud auth configure-docker us-central1-docker.pkg.dev``
+   *once per machine* to setup docker for authentication with
+   the `gcloud credential helper <https://cloud.google.com/artifact-registry/docs/docker/authentication>`_.
+
 #. Modify the image in ``images/hub`` and make a git commit.
 
 #. Run ``chartpress --push``. This will build and push the hub image,

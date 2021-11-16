@@ -59,3 +59,8 @@ jupyterhub:
     memory:
       guarantee: 2056M
       limit: 4G
+    cpu:
+      # Biology hub users can consume quite a bit of CPU at times, starving out other
+      # users on the nodes. So we reduce the max amount of CPU available to them, from 7
+      # (defined in hub/values.yaml) to 4.
+      limit: 4
