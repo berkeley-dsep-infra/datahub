@@ -63,7 +63,7 @@ jupyterhub:
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: gamma-pool
     storage:
       type: static
       static:
@@ -73,13 +73,7 @@ jupyterhub:
       guarantee: 512M
       limit: 2G
     cpu:
-      # Limit EECS users to 1 CPU
-      # They had a lab running that used a lot of CPU.
-      # It's over, but students might still end up running high
-      # CPU tasks, causing issues for other students. This should
-      # hopefully prevent users from stomping on users from other
-      # hubs on the same nodes
-      limit: 1
-      # Set tiny request to prevent k8s from setting limit == request
-      guarantee: 0.01
+      # Limit and guarantee EECS users to 2 CPU, until Nov 23
+      limit: 2
+      guarantee: 2
     image: {}
