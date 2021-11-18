@@ -12,19 +12,19 @@ body:
   - type: textarea
     attributes:
       label: Reason for the request
-      description: Detail the issue faced which resulted in this request to increase CPU resources! Your request may have financial implications at our end!
-    validations:
-      required: true
-  - type: input
-    attributes:
-      label: Duration for this request
-      description: Share the date(s)(MM/DD)/time (if applicable) for this request. 
+      description: Detail the issue faced which resulted in this request! Your request may have financial implications at our end!
     validations:
       required: true
   - type: input
     attributes:
       label: Student Count
-      description: Total number of students affected by this issue
+      description: Total number of students affected by the issue
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Duration for this request
+      description: Share the date(s)(MM/DD) & time (if applicable) for this request. 
     validations:
       required: true
   - type: input
