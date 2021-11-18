@@ -19,27 +19,23 @@ body:
     attributes:
       label: Duration for this request
       description: Share the date(s)(MM/DD)/time (if applicable) for this request. 
-      value: |
     validations:
       required: true
   - type: input
     attributes:
       label: Student Count
       description: Total number of students affected by this issue
-      value: |
     validations:
       required: true
   - type: input
     attributes:
       label: Deadline for this request
       description: When do you want this request to get resolved?
-      value: |
     validations:
       required: true
   - type: textarea
     attributes:
       label: Additional inputs
       description: Any other additional information we need to know about?
-      value: |
     validations:
       required: true
