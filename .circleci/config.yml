@@ -205,7 +205,7 @@ jobs:
       - run:
           name: Deploy biology
           command: |
-            hubploy deploy biology hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 15m biology hub ${CIRCLE_BRANCH}
 
       - run:
           name: Deploy julia
