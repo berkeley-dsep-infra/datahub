@@ -24,13 +24,13 @@ body:
   - type: input
     attributes:
       label: Duration for this request
-      description: Share the date(s)(MM/DD) & time (if applicable) for this request. 
+      description: Share the specific date(s)(MM/DD) & time (if applicable) when you require additional CPU resources. 
     validations:
       required: true
   - type: input
     attributes:
       label: Deadline for this request
-      description: When do you want this request to get resolved?
+      description: When do you want this request to get fulfilled?
     validations:
       required: true
   - type: textarea
