@@ -175,8 +175,9 @@ jobs:
       - run:
           name: Deploy datahub
           command: |
-            hubploy deploy datahub hub ${CIRCLE_BRANCH}
-
+            hubploy deploy --timeout 15m datahub hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+  
       - run:
           name: Deploy data8
           command: |
@@ -206,6 +207,7 @@ jobs:
           name: Deploy biology
           command: |
             hubploy deploy --timeout 15m biology hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy julia
