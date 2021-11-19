@@ -256,8 +256,8 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # Temporarily install newer version of jupyterlab-link-share
-# https://github.com/jupyterlab-contrib/jupyterlab-link-share/pull/21
-RUN pip install git+https://github.com/yuvipanda/jupyterlab-link-share@7aaae98f3243a19e0755c966c2b018e3369e4611
+# Move this back to just installing off infra-requirements once we are a bit stable
+RUN pip install -U jupyterlab-link-share==0.2.3
 
 EXPOSE 8888
 
