@@ -175,79 +175,92 @@ jobs:
       - run:
           name: Deploy datahub
           command: |
-            hubploy deploy --timeout 15m datahub hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m datahub hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
   
       - run:
           name: Deploy data8
           command: |
-            hubploy deploy data8 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy ischool
           command: |
-            hubploy deploy ischool hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m ischool hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy publichealth
           command: |
-            hubploy deploy publichealth hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m publichealth hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy highschool hub
           command: |
-            hubploy deploy highschool hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m highschool hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy prob140
           command: |
-            hubploy deploy prob140 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m prob140 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy biology
           command: |
-            hubploy deploy --timeout 15m biology hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m biology hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
           name: Deploy julia
           command: |
-            hubploy deploy julia hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m julia hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy R
           command: |
-            hubploy deploy r hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m r hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy dlab
           command: |
-            hubploy deploy dlab hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m dlab hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data8x
           command: |
-            hubploy deploy data8x hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data8x hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data102
           command: |
-            hubploy deploy data102 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data102 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data100
           command: |
-            hubploy deploy data100 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data100 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy workshop
           command: |
-            hubploy deploy workshop hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m workshop hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy eecs
           command: |
-            hubploy deploy eecs hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m eecs hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
   deploy-node-placeholder:
     docker:
