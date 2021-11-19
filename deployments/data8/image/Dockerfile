@@ -89,4 +89,8 @@ RUN pyppeteer-install
 
 EXPOSE 8888
 
+# Temporarily install newer version of jupyterlab-link-share
+# Move this back to just installing off infra-requirements once we are a bit stable
+RUN pip install -U jupyterlab-link-share==0.2.3
+
 ENTRYPOINT ["tini", "--"]
