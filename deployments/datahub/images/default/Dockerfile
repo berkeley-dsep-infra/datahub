@@ -255,6 +255,10 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
+# Temporarily install newer version of jupyterlab-link-share
+# https://github.com/jupyterlab-contrib/jupyterlab-link-share/pull/21
+RUN pip install git+https://github.com/yuvipanda/jupyterlab-link-share@7aaae98f3243a19e0755c966c2b018e3369e4611
+
 EXPOSE 8888
 
 ENTRYPOINT ["tini", "--"]
