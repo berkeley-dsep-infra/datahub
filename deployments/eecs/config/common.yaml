@@ -73,7 +73,6 @@ jupyterhub:
       guarantee: 512M
       limit: 2G
     cpu:
-      # Limit and guarantee EECS users to 2 CPU, until Nov 23
-      limit: 2
-      guarantee: 2
+      limit: 1
+      guarantee: 0.33
     image: {}
