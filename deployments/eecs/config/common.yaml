@@ -72,7 +72,8 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
+    # eecs 16a needs this until December 10.
     cpu:
-      limit: 1
-      guarantee: 0.33
+      limit: 2
+      guarantee: 2
     image: {}
