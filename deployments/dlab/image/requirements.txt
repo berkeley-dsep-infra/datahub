@@ -1,5 +1,0 @@
--r infra-requirements.txt
-
-# Temporarily install newer version of jupyterlab-link-share
-# Move this back to just installing off infra-requirements once we are a bit stable
-jupyterlab-link-share==0.2.3
