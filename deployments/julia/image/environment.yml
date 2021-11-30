@@ -5,3 +5,5 @@ dependencies:
 
 # from requirements.txt
 - matplotlib==3.4.3
+# Required for issue #3057
+- xlrd==2.0.1
