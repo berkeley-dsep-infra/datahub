@@ -19,6 +19,9 @@ dependencies:
 - spacy=3.1.*
 - nltk=3.6.*
 
+# pymc3 needs this
+- mkl-service==2.4.0
+  
 # EPS88, data100
 # https://github.com/berkeley-dsep-infra/datahub/issues/1796
 # https://github.com/berkeley-dsep-infra/datahub/issues/2824
@@ -28,9 +31,7 @@ dependencies:
 # ls 88-3; neuro
 - pillow=8.3.*
 
-- scs==2.1.4
-
-# requirements.txt
+# requirements.txt =============================================================
 
 # r
 - jupyter-server-proxy==3.1.0
@@ -102,8 +103,6 @@ dependencies:
 # issue 954, EPS24 - fall 2019
 - xarray==0.19.0
 
-# issue 1001, Physics 188/288 - fall 2019
-- umap-learn==0.5.1
 - hdbscan==0.8.27
 
 # espm 125/bio 105; fall 2019
@@ -155,7 +154,6 @@ dependencies:
 - cytoolz==0.11.0
 - pyro-ppl==1.7.0
 - lime==0.2.0.1
-- shap==0.39.0
 
 # prob140 2021 Spring
 - sympy==1.8
@@ -176,6 +174,9 @@ dependencies:
 # https://github.com/berkeley-dsep-infra/datahub/issues/2950
 # Needed to work with a new enough version of httplib2
 - httplib2>=0.20.2
+
+# pip errors out if this is not added
+- scs==2.1.4
 
 - pip:
 # data8; foundation
@@ -220,6 +221,8 @@ dependencies:
   - getdist==1.3.1
   - tensorflow-hub==0.12.0
   - tensorflow-probability==0.13.0
+# issue 1001, Physics 188/288 - fall 2019
+  - umap-learn==0.5.1
 
 # mcb 163l, fall 2019
   - allensdk==2.12.2
@@ -233,7 +236,11 @@ dependencies:
   
 # data100 scientific packages
   - ray==1.5.2
-  
+# data100, fall 2021 - https://github.com/berkeley-dsep-infra/datahub/issues/2767
+  - ipython-sql==0.4.0
+# data100, geog88
+# https://github.com/berkeley-dsep-infra/datahub/issues/2838
+  - pysal==2.5.*  
 # data100 teaching
   - jassign==0.0.7
   - dsassign==0.0.8
@@ -242,6 +249,7 @@ dependencies:
   - keras-vis==0.4.1
   - plotly-express==0.4.1
   - dask==2021.8.0
+  - shap==0.39.0
   
 # prob140 2021 Spring
   - prob140==0.4.1.5
@@ -252,22 +260,14 @@ dependencies:
 # IB 105 / ESPM 125, Fall 2021 - https://github.com/berkeley-dsep-infra/datahub/issues/2696
   - geonomics==1.3.0
   
-# data100, fall 2021 - https://github.com/berkeley-dsep-infra/datahub/issues/2767
-  - ipython-sql==0.4.0
-  
 # LBL summer research internship in materials informatics. Jupyter Book curriculum at https://enze-chen.github.io/mi-book/
   - pymatgen==2022.0.11
   - matminer==0.7.4
   
 # ls 88-3; neuro
   - mne==0.23.0
-
-# data100, geog88
-# https://github.com/berkeley-dsep-infra/datahub/issues/2838
-  - pysal==2.5.*
   
 # cogsci88;
   - ggplot==0.11.5
+  
 
-# pymc3 needs this
-  - mkl-service==2.4.0
