@@ -230,9 +230,6 @@ RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache -r /tmp/requirements.txt
-
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
