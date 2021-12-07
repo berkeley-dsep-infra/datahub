@@ -22,7 +22,7 @@ jupyterhub:
   hub:
     services:
       gofer_nb:
-        url: http://35.239.20.122:10101
+        url: http://grading.data8x.berkeley.edu:10101
     config:
       JupyterHub:
         authenticator_class: ltiauthenticator.LTIAuthenticator
