@@ -46,6 +46,9 @@ jupyterhub:
           - dhughes  # https://github.com/berkeley-dsep-infra/datahub/issues/2462
 
   singleuser:
+    cmd:
+    - jupyterhub-singleuser
+    - --LabApp.collaborative=true
     defaultUrl: /rstudio
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool

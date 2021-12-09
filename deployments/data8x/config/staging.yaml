@@ -1,4 +1,8 @@
 jupyterhub:
+  hub:
+    services:
+      gofer_nb:
+        url: http://grading.data8x.berkeley.edu:10101
   prePuller:
     continuous:
       enabled: false
