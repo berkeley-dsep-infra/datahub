@@ -61,6 +61,11 @@ jupyterhub:
       # is often the case. 7 seems a reasonable compromise here.
       limit: 7
     extraFiles:
+      lab-config:
+        mountPath: /etc/jupyter/labconfig/page_config.json
+        data:
+          disabledExtensions:
+            jupyterlab-link-share: true
       culling-config:
         mountPath: /etc/jupyter/jupyter_notebook_config.json
         data:
