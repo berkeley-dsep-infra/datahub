@@ -32,7 +32,12 @@ RUN apt-get update -qq --yes && \
         vim \
         tini \
         build-essential \
-        locales > /dev/null
+        locales \
+        dbus-x11 \
+        xorg \
+        xubuntu-icon-theme \
+        xfce4 \
+        > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
     locale-gen
