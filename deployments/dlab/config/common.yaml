@@ -32,6 +32,12 @@ jupyterhub:
             # List of other admin users
 
   singleuser:
+    # Enable jupyterlab-link-share so people can share links for RTC
+    extraFiles:
+      lab-config:
+        data:
+          disabledExtensions:
+            jupyterlab-link-share: false
     cmd:
     - jupyterhub-singleuser
     - --LabApp.collaborative=true
