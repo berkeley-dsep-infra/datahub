@@ -139,9 +139,6 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
-    cmd:
-    - jupyterhub-singleuser
-    - --LabApp.collaborative=true
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
     storage:

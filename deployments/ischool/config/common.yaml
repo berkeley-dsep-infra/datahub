@@ -46,6 +46,12 @@ jupyterhub:
           - dhughes  # https://github.com/berkeley-dsep-infra/datahub/issues/2462
 
   singleuser:
+    # Enable jupyterlab-link-share so people can share links for RTC
+    extraFiles:
+      lab-config:
+        data:
+          disabledExtensions:
+            jupyterlab-link-share: false
     cmd:
     - jupyterhub-singleuser
     - --LabApp.collaborative=true
