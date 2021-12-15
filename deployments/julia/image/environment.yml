@@ -7,3 +7,8 @@ dependencies:
 - matplotlib==3.4.3
 # Required for issue #3057
 - xlrd==2.0.1
+
+# For https://github.com/berkeley-dsep-infra/datahub/issues/3079
+- websockify
+- pip:
+  - jupyter-desktop-server
