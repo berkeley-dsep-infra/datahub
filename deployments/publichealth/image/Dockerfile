@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.0.5
+FROM rocker/geospatial:4.1.2
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -41,13 +41,6 @@ RUN apt-get update > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
-RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    dpkg -i /tmp/rstudio.deb && \
-    rm /tmp/rstudio.deb
-
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
 
@@ -58,6 +51,9 @@ RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Support latest RStudio
+RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
