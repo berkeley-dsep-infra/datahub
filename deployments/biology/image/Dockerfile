@@ -71,19 +71,15 @@ RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
-# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
-# with the version of RStudio we use. So we pin R to 4.0.5
-# Our pre-built R packages from rspm are built against system libs in focal
-# rstan takes forever to compile from source, and needs libnodejs
 # So we install older (10.x) nodejs from apt rather than newer from conda
-ENV R_VERSION=4.0.5-1.2004.0
+ENV R_VERSION=4.1.2-1.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.11-1.2004.0 \
+    r-cran-littler=0.3.14-1.2004.0 \
     libglpk-dev \
     libzmq5 \
     nodejs npm > /dev/null
@@ -140,9 +136,7 @@ RUN apt-get update -qq --yes && \
         lsb-release \
         libclang-dev  > /dev/null
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
@@ -185,10 +179,10 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 
 #install rsession proxy
 RUN pip install --no-cache-dir \
-        jupyter-rsession-proxy==1.2
+        jupyter-rsession-proxy==2.0.1
 
 # Install IRKernel
-RUN r -e "install.packages('IRkernel', version='1.1.1')" && \
+RUN r -e "install.packages('IRkernel', version='1.2')" && \
     r -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install R packages, cleanup temp package download location
