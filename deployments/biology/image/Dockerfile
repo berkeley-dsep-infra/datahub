@@ -134,7 +134,8 @@ RUN apt-get update -qq --yes && \
         sudo \
         libapparmor1 \
         lsb-release \
-        libclang-dev  > /dev/null
+        libclang-dev \
+        libpq5 > /dev/null
 
 ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
