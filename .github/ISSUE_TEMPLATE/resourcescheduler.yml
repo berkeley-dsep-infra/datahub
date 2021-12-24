@@ -1,0 +1,46 @@
+name: Scheduling events to increase compute requirements
+description: Schedule specific dates/times when your coursework requires higher computing resources
+labels: "support"
+title: Increase compute resources for Course XXX between specific date(s)/time(s) 
+assignees:
+  - felder
+  - balajialg
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please follow the sections in the template and provide all the required information for us to to validate and allocate increased compute for your class.
+  - type: textarea
+    attributes:
+      label: Course Name
+      description: What is the name of the course?
+      value: |
+        <!--Include a link to appropriate entry in https://classes.berkeley.edu/ if available. If not, please mention class name & instructor.-->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Detailed Requirements
+      description: Rationale for requesting increased compute
+      value: |
+        - <!--Eg: Conducting Live Workshops/Exams/Flipped Clasroom(s) or due to Deadline for Compute Intensive Assignment-->
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Semester Details
+      description: Is this request for the current semester?
+      options:
+      - "Yes"
+      - "No"
+      - Not Sure
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Request Deadline 
+      description: Sepcify the time duration for which you are expecting this increase in compute
+      value: |
+        <!-- Specify the start date/time and end date/time -->
+    validations:
+      required: true
