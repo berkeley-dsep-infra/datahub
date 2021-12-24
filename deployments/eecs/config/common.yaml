@@ -63,7 +63,7 @@ jupyterhub:
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
