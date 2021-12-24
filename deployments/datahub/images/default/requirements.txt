@@ -4,8 +4,8 @@ okpy==1.18.1
 folium==0.12.1
 #
 # r
-jupyter-server-proxy==3.1.0
-jupyter-rsession-proxy==1.4
+jupyter-server-proxy==3.2.0
+jupyter-rsession-proxy==2.0.1
 jupyter-shiny-proxy==1.1
 #
 # cogsci88;
