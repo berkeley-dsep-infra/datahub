@@ -1,6 +1,8 @@
 # data8; foundation
 datascience==0.17.0
-okpy==1.18.1
+#okpy==1.18.1
+# install the yuvipanda PR that unpins the requirements in okpy
+git+git://github.com/okpy/ok-client@31b0b8a36a4f0736dab43fe8d92c7ecb058132fe
 folium==0.12.1
 #
 # r
@@ -24,7 +26,8 @@ lxml==4.6.3
 tqdm==4.62.1
 mne==0.23.0
 nibabel==3.2.1
-h5py==3.3.0
+# allensdk conflict with h5py>3. Consider a PR to unpin https://github.com/AllenInstitute/AllenSDK
+h5py>=2.8.0
 numexpr==2.7.3
 openpyxl==3.0.7
 nilearn==0.8.0
@@ -38,7 +41,7 @@ rtree==0.9.*
 netcdf4==1.5.*
 mplleaflet==0.0.5
 # phys 151;
-emcee==3.1.0
+emcee==3.1.1
 daft==0.1.2
 corner==2.2.1
 #
@@ -46,26 +49,26 @@ corner==2.2.1
 pymdptoolbox==4.0-b3
 #
 # data-x; DL
-tensorflow==2.6.*
-scikit-image==0.18.*
+tensorflow>=2.6.*
+scikit-image>=0.18.1
 tables==3.6.1
 opencv-python==4.5.3.56
 
 # astr 128/256; spring 2021
 astroquery==0.4.3
 astropy==4.3.1
-dustmaps==1.0.9
+dustmaps>=1.0.9
 george==0.4.0
 exoplanet==0.5.1
-torch==1.9.0
-torchvision==0.10.0
+torch>=1.9.0
+torchvision>=0.10.0
 pyvo==1.1
-joblib==1.0.1
-theano-pymc==1.1.2
-pymc3==3.11.2
+joblib>=1.1.0
+pymc3>=3.11.4
+aesara>=2.3.3
 
 # eep 153; spring 2019
-requests==2.26.0
+requests>=2.26.0
 Pint==0.17
 # Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
 gspread-pandas==2.3.0
@@ -79,7 +82,7 @@ plotly==5.2.1
 mpmath==1.2.1
 # sympy==1.6.2
 chart-studio==1.1.0
-csaps==1.0.4
+csaps==1.1.0
 nbforms==0.5.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
@@ -89,7 +92,7 @@ wordcloud==1.8.1
 pyreadstat==1.1.2
 
 # issue 954, EPS24 - fall 2019
-xarray==0.19.0
+xarray>=0.19.0
 
 # issue 1001, Physics 188/288 - fall 2019
 umap-learn==0.5.1
@@ -107,7 +110,10 @@ tensorflow-probability==0.13.0
 
 # mcb 163l, fall 2019
 pydot==1.4.2
-allensdk==2.12.2
+# the allensdk has a number of restrictive dependencies that are incompatible
+# with other requirements. Consider a PR to that project
+# to relax the restrictions
+# allensdk==2.12.2
 
 # cs16A/B, spring 2020
 lcapy==0.96
@@ -123,41 +129,41 @@ google-auth-oauthlib==0.4.5
 google==3.0.0
 
 # issue 1847; LS 22 spring 2021
-graphviz==0.17
+graphviz>=0.19.1
 
 # issue #1903, data h195A fall 2020
 habanero==0.7.4
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/1981
-ipycanvas==0.9.0
+ipycanvas>=0.10.2
 
 # Issue #1222, for PH 142 - Spring 2020
 PyPDF2==1.26.0
 
 # data100 scientific packages
-ray==1.5.2
-xlrd==2.0.1
+ray>=1.5.2
+xlrd>=2.0.1
 
 # data100 visualization
 colorlover==0.3.0
 cufflinks==0.17.3
-altair==4.1.0
+altair>=4.2.0
 
 # data100 tools to access things
 tweepy==3.10.0
 pytz==2021.1
-psycopg2==2.9.1
+psycopg2>=2.9.1
 
 # data100 teaching
 jassign==0.0.7
 dsassign==0.0.8
 
 # data102
-dask==2021.8.0
-distributed==2021.8.0
+dask>=2021.12.0
+distributed>=2021.12.0
 keras-applications==1.0.8
 keras-preprocessing==1.1.2
-keras==2.6.0
+keras>=2.7.0
 keras-vis==0.4.1
 plotly-express==0.4.1
 cytoolz==0.11.0
@@ -167,13 +173,13 @@ shap==0.39.0
 
 # prob140 2021 Spring
 prob140==0.4.1.5
-sympy==1.8
+sympy>=1.9
 
 # ESPM 167 - https://github.com/berkeley-dsep-infra/datahub/issues/2278
 contextily==1.1.0
 
 # INDENG 142 Spring 2021 (future semesters as well) - https://github.com/berkeley-dsep-infra/datahub/issues/2314
-fancyimpute==0.6.0
+fancyimpute==0.7.0
 
 # JupyterLab pypi extensions
 jupyterlab-geojson==3.1.2
@@ -198,3 +204,19 @@ linearmodels==4.24
 # https://github.com/berkeley-dsep-infra/datahub/issues/2950
 # Needed to work with a new enough version of httplib2
 httplib2>=0.20.2
+
+# ay250 2022 Spring - Bloom
+jaxlib>=0.1.75
+torch>=1.10.1+cpu
+torchvision>=0.11.2+cpu
+torchaudio>=0.10.1+cpu
+pytorch-lightning>=1.5.7
+tensorflow>=2.7.*
+ray>=1.9.1
+SQLAlchemy>=1.4.29
+xarray>=0.20.2
+nose2>=0.10.0
+dask-ml>=2021.11.30
+nltk>=3.6.7
+seaborn>=0.11.2
+bqplot>=0.12.31 
