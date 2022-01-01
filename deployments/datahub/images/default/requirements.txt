@@ -60,8 +60,6 @@ astropy==4.3.1
 dustmaps>=1.0.9
 george==0.4.0
 exoplanet==0.5.1
-torch>=1.9.0
-torchvision>=0.10.0
 pyvo==1.1
 joblib>=1.1.0
 pymc3>=3.11.4
@@ -211,10 +209,10 @@ torch>=1.10.1+cpu
 torchvision>=0.11.2+cpu
 torchaudio>=0.10.1+cpu
 pytorch-lightning>=1.5.7
-tensorflow>=2.7.*
+#tensorflow>=2.7.*
 ray>=1.9.1
 SQLAlchemy>=1.4.29
-xarray>=0.20.2
+# xarray>=0.20.2
 nose2>=0.10.0
 dask-ml>=2021.11.30
 nltk>=3.6.7
