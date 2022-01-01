@@ -2,7 +2,7 @@
 datascience==0.17.0
 #okpy==1.18.1
 # install the yuvipanda PR that unpins the requirements in okpy
-git+git://github.com/okpy/ok-client@31b0b8a36a4f0736dab43fe8d92c7ecb058132fe
+git+https://github.com/profjsb/ok-client.git@unpin_dependencies#egg=okpy
 folium==0.12.1
 #
 # r
