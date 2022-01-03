@@ -14,7 +14,7 @@ jupyter-client<7.0
 jupyterlab==3.2.4
 jupyterlab-link-share==0.2.1
 nbconvert==6.1.0
-retrolab==0.3.13
+retrolab==0.3.15
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.0
 # Matches version in images/hub/Dockerfile
