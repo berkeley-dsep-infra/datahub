@@ -36,6 +36,7 @@ jupyterhub:
           - balajialwar
           # List of other admin users
           - psudmant
+          - ingolia
 
   custom:
     admin:
