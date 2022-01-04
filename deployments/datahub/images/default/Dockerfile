@@ -185,9 +185,6 @@ RUN r /tmp/r-packages/econ-140.r
 COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/orphaned-ph-290.r
 
-COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-phw-272a.r
-
 COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-stat-20.r
 
