@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+jupyter contrib nbextensions install --sys-prefix --symlink
+jupyter nbextensions_configurator enable --sys-prefix

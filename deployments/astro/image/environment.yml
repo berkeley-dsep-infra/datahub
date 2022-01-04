@@ -1,0 +1,30 @@
+channels:
+- conda-forge
+
+dependencies:
+- python=3.10.*
+
+# A linux desktop environment
+- websockify
+
+- numpy==1.22.*
+- matplotlib==3.5.1
+- jaxlib>=0.1.75
+- torch>=1.10.1+cpu
+- torchvision>=0.11.2+cpu
+- torchaudio>=0.10.1+cpu
+- pytorch-lightning>=1.5.7
+- tensorflow>=2.7.*
+- ray>=1.9.1
+- SQLAlchemy>=1.4.29
+- xarray>=0.20.2
+- nose2>=0.10.0
+- dask-ml>=2021.11.30
+- nltk>=3.6.7
+- seaborn>=0.11.2
+- bqplot>=0.12.31
+
+- pip
+- pip:
+  - jupyter-desktop-server==0.1.3
+  - -r infra-requirements.txt
