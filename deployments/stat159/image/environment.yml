@@ -1,0 +1,11 @@
+channels:
+- conda-forge
+
+dependencies:
+- python=3.9.*
+
+- numpy==1.22.*
+- matplotlib==3.5.*
+- pip
+- pip:
+  - -r infra-requirements.txt
