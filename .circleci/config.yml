@@ -191,6 +191,12 @@ jobs:
           no_output_timeout: 30m
 
       - run:
+          name: Deploy stat159
+          command: |
+            hubploy deploy --timeout 30m stat159 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
           name: Deploy ischool
           command: |
             hubploy deploy --timeout 30m ischool hub ${CIRCLE_BRANCH}
@@ -415,6 +421,15 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: stat159
+          name: stat159 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: ischool
           name: ischool image build
           # Filters can only be per-job? wtf
@@ -500,6 +515,15 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
+          deployment: stat159
+          name: stat159 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
           deployment: ischool
           name: ischool image build
           push: true
@@ -562,6 +586,7 @@ workflows:
               - datahub image build
               - data8 image build
               - astro image build
+              - stat159 image build
               - ischool image build
               - publichealth image build
               - biology image build

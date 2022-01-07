@@ -19,6 +19,9 @@ jupyterhub:
       publichealth.datahub.berkeley.edu:
         name: publichealth.datahub.berkeley.edu
         oauth_redirect_uri: https://publichealth.datahub.berkeley.edu/hub/oauth_callback
+      stat159.datahub.berkeley.edu:
+        name: stat159.datahub.berkeley.edu
+        oauth_redirect_uri: https://stat159.datahub.berkeley.edu/hub/oauth_callback
     db:
       pvc:
         # This also holds logs
