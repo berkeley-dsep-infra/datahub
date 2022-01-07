@@ -43,6 +43,7 @@ jupyterhub:
             jupyterlab-link-share: false
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
+    defaultUrl: /lab
     storage:
       type: static
       static:
