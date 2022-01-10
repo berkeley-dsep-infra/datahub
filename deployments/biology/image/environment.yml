@@ -27,7 +27,7 @@ dependencies:
 - subread=2.0.1
 
 # Packages for MCB280A
-- macs2=2.2.7.1
+#- macs2=2.2.7.1
 
 # Packages for IB120/201/CCB210
 - sympy=1.6.2
