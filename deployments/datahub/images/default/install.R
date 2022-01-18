@@ -84,7 +84,7 @@ cran_packages = c(
   "globals", "0.14.0",
   "glue", "1.4.2",
   "gstat", "2.0-6",
-  "haven", "2.3.1",
+  "haven", "2.4.3",
   "hdf5r", "1.3.3",
   "here", "1.0.1",
   "highr", "0.8",
