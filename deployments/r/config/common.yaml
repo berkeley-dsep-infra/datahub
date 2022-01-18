@@ -112,8 +112,34 @@ jupyterhub:
         mem_limit: 8192M
         mem_guarantee: 4096M
 
+	  # Read-write access to the Stat 20 shared directory. We put it under
+      # "shared-rw" to avoid the read-only mount under "shared". The
+      # read-only mount is in the canvas_courses section below.
+      stat-20-admins:
+        users:
+          - andrewbray
+          - rylo
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared-rw/course/stat-20
+            subPath: _shared/course/stat-20
     canvas_courses:
-      # ESPM 157 https://github.com/berkeley-dsep-infra/datahub/issues/2784
-      1508997:
-        mem_limit: 4096M
-        mem_guarantee: 1024M
+      # Stat 20 (three lectures)
+      1512190:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared/course/stat-20
+            subPath: _shared/course/stat-20
+            readOnly: true
+      1512191:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared/course/stat-20
+            subPath: _shared/course/stat-20
+            readOnly: true
+      1512192:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared/course/stat-20
+            subPath: _shared/course/stat-20
+            readOnly: true

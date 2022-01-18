@@ -211,6 +211,12 @@ USER root
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
 
+# append stat 20 to R_LIBS_USER
+# we may want to put a shell function in here which could easily
+# append several shared course directories when needed
+RUN sed -e -i '/^R_LIBS_USER/s@$@:/home/jovyan/shared/course/stat-20@' \
+	/etc/R/Renviron
+
 # Install conda environment as our user
 USER ${NB_USER}
 
