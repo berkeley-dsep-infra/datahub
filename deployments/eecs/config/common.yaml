@@ -63,7 +63,7 @@ jupyterhub:
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: delta-pool
     storage:
       type: static
       static:
@@ -72,8 +72,7 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
-    # eecs 16a needs this until December 10.
     cpu:
       limit: 2
-      guarantee: 2
+      guarantee: 0.1
     image: {}
