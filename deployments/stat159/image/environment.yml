@@ -89,6 +89,8 @@ dependencies:
   - xarray=0.20.2
   - xlrd=2.0.1
 
+  - micro=2.0.8
+
   - pip
   - pip:
     - -r infra-requirements.txt
