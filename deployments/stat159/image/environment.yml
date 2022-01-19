@@ -1,11 +1,105 @@
+name: stat159-s22
+
 channels:
-- conda-forge
+  - conda-forge
 
 dependencies:
-- python=3.9.*
+  - python=3.9.9
 
-- numpy==1.22.*
-- matplotlib==3.5.*
-- pip
-- pip:
-  - -r infra-requirements.txt
+  - altair=4.2.0
+  - beautifulsoup4=4.10.0
+  - black=21.12b0
+  - bokeh=2.4.2
+  - bqplot=0.12.32
+  - coverage=6.2
+  - cython=0.29.26
+  - dask=2022.1.0
+  - dask-core=2022.1.0
+  - dask-labextension=5.2.0
+  - flake8=4.0.1
+  - fortran-magic=0.7
+  - gdal=3.4.1
+  - geopandas=0.10.2
+  - geopandas-base=0.10.2
+  - geos=3.10.1
+  - geotiff=1.7.0
+  - h5netcdf=0.13.0
+  - h5py=3.6.0
+  - hdf4=4.2.15
+  - hdf5=1.12.1
+  - intake=0.6.5
+  - intake-esm=2021.8.17
+  - intake-xarray=0.5.0
+  - ipycanvas=0.10.2
+  - ipydatagrid=1.1.8
+  - ipykernel=6.7.0
+  - ipympl=0.8.6
+  - ipyparallel=8.1.0
+  - ipython=8.0.0
+  - ipython_genutils=0.2.0
+  - ipywidgets=7.6.5
+  - jupyter-book=0.12.1
+  - jupyter-repo2docker=2021.8.0
+  - jupyter-resource-usage=0.5.1
+  - jupyter-sphinx=0.3.2
+  - jupyter_bokeh=3.0.4
+  - jupyterlab=3.2.8
+  - jupyterlab-drawio=0.9.0
+  - jupyterlab-geojson=3.2.0
+  - jupyterlab-git=0.34.2
+  - jupyterlab-link-share==0.2.4
+  - jupyterlab-system-monitor=0.8.0
+  - jupyterlab-topbar=0.6.1
+  - jupyterlab-variableinspector=3.0.9
+  - jupyterlab_pygments=0.1.2
+  - jupyterlab_server=2.10.3
+  - jupyterlab_widgets=1.0.2
+  - jupytext=1.11.5
+  - mamba=0.19.1
+  - markdown-it-py=1.1.0
+  - markupsafe=2.0.1
+  - matplotlib=3.5.1
+  - matplotlib-inline=0.1.3
+  - mdit-py-plugins=0.2.8
+  - mock=4.0.3
+  - myst-nb=0.13.1
+  - myst-parser=0.15.2
+  - nbconvert=6.4.0
+  - nbdime=3.1.1
+  - nbformat=5.1.3
+  - nbgitpuller==1.0.2
+  - networkx=2.6.3
+  - notebook=6.4.7
+  - numba=0.55.0
+  - numpy=1.21.5
+  - pandas=1.3.5
+  - pandoc=2.17.0.1
+  - pandocfilters=1.5.0
+  - pep8=1.7.1
+  - pillow=8.4.0
+  - plotly=5.5.0
+  - pooch=1.5.2
+  - proj=8.2.1
+  - pyproj=3.3.0
+  - pytables=3.6.1
+  - pytest=6.2.5
+  - pytest-cov=3.0.0
+  - requests=2.27.1
+  - retrolab=0.3.16
+  - rise=5.7.1
+  - scikit-image=0.19.1
+  - scikit-learn=1.0.2
+  - scipy=1.7.3
+  - seaborn=0.11.2
+  - sphinx=4.4.0
+  - sphinx-jupyterbook-latex=0.4.6
+  - statsmodels=0.13.1
+  - sympy=1.9
+  - tqdm=4.62.3
+  - xarray=0.20.2
+  - xlrd=2.0.1
+
+  - pip
+  - pip:
+    - -r infra-requirements.txt
+    - -r book-requirements.txt
