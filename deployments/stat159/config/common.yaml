@@ -52,6 +52,18 @@ jupyterhub:
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     memory:
       guarantee: 512M
       limit: 1G
+
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared
