@@ -30,6 +30,9 @@ jupyterhub:
           - felder
           - balajialwar
           # List of other admin users
+          # Instructor and GSI
+          - fernando.perez
+          - fsapienza
 
   singleuser:
     # Enable RTC and jupyterlab-link-share

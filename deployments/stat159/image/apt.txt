@@ -1,0 +1,27 @@
+# Some linux packages for basic terminal work, particularly
+# oriented at newer users
+
+# Download tools
+curl
+wget
+
+# A couple of CLI editors that are easier than vim
+# micro  # currently not working on 18.04
+nano
+
+# Basic Emacs configuration for general development.
+emacs-nox 
+python-mode 
+emacs-goodies-el
+
+# powerful terminal-based file manager, better than the one in JLab
+mc
+
+# Regular build tools for compiling common stuff
+build-essential 
+gfortran
+
+# Dependencies for nbconvert
+texlive-xetex 
+texlive-fonts-recommended 
+texlive-plain-generic
