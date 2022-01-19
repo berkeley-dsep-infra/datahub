@@ -1,0 +1,58 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      JupyterHub:
+        authenticator_class: generic-oauth
+      GenericOAuthenticator:
+        login_service: bCourses
+        username_key: name
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+          - andrewbray
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    defaultUrl: /rstudio
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/rstudio/shared
+          subPath: _shared
+          readOnly: true
+    memory:
+      guarantee: 512M
+      limit: 1G
+
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/rstudio/shared-readwrite
+          subPath: _shared
