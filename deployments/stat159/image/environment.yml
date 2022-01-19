@@ -44,8 +44,6 @@ dependencies:
   - jupyterlab-geojson=3.2.0
   - jupyterlab-git=0.34.2
   - jupyterlab-link-share==0.2.4
-  - jupyterlab-system-monitor=0.8.0
-  - jupyterlab-topbar=0.6.1
   - jupyterlab-variableinspector=3.0.9
   - jupyterlab_pygments=0.1.2
   - jupyterlab_widgets=1.0.2
