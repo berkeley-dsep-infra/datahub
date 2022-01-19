@@ -185,8 +185,8 @@ RUN r /tmp/r-packages/econ-140.r
 COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/orphaned-ph-290.r
 
-COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-stat-20.r
+COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/2022-spring-stat-20.r
 
 COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-espm-288.r
@@ -197,8 +197,8 @@ RUN r /tmp/r-packages/ib161.r
 COPY r-packages/ps-3.r /tmp/r-packages/
 RUN r /tmp/r-packages/ps-3.r
 
-COPY r-packages/stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/stat-20.r
+#COPY r-packages/stat-20.r /tmp/r-packages/
+#RUN r /tmp/r-packages/stat-20.r
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
@@ -210,12 +210,6 @@ WORKDIR /home/${NB_USER}
 USER root
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
-
-# append stat 20 to R_LIBS_USER
-# we may want to put a shell function in here which could easily
-# append several shared course directories when needed
-RUN sed -e -i '/^R_LIBS_USER/s@$@:/home/jovyan/shared/course/stat-20@' \
-	/etc/R/Renviron
 
 # Install conda environment as our user
 USER ${NB_USER}
