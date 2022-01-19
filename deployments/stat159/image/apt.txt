@@ -9,6 +9,10 @@ wget
 # micro  # currently not working on 18.04
 nano
 
+# Basic clipboard support
+xclip
+xsel
+
 # Basic Emacs configuration for general development.
 emacs-nox 
 python-mode 
