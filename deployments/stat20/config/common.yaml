@@ -42,7 +42,7 @@ jupyterhub:
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan/shared
+          mountPath: /home/rstudio/shared
           subPath: _shared
           readOnly: true
     memory:
@@ -53,5 +53,5 @@ jupyterhub:
     admin:
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan/shared-readwrite
+          mountPath: /home/rstudio/shared-readwrite
           subPath: _shared
