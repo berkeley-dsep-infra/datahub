@@ -52,9 +52,6 @@ RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Support latest RStudio
-RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
-
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
