@@ -8,19 +8,19 @@
 # everwhere one by one.
 
 # FIXME: Freeze this to get exact versions of all dependencies
-notebook==6.4.5
+notebook==6.4.7
 # FIXME: Conflicts with jupyter-server-proxy somehow
 jupyter-client<7.0
-jupyterlab==3.2.4
-jupyterlab-link-share==0.2.1
-nbconvert==6.1.0
-retrolab==0.3.15
+jupyterlab==3.2.8
+jupyterlab-link-share==0.2.4
+nbconvert==6.4.0
+retrolab==0.3.16
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.0
 # Matches version in images/hub/Dockerfile
 jupyterhub==1.5.0
 appmode==0.8.0
-ipywidgets==7.6.3
+ipywidgets==7.6.5
 otter-grader==3.1.4
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
