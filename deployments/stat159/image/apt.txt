@@ -1,8 +1,12 @@
 # Some linux packages for basic terminal work, particularly
 # oriented at newer users
 
+# Download tools
+curl
+wget
+
 # A couple of CLI editors that are easier than vim
-micro
+# micro  # currently not working on 18.04
 nano
 
 # Basic Emacs configuration for general development.
