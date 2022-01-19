@@ -36,7 +36,7 @@ dependencies:
   - ipywidgets=7.6.5
   - jupyter-book=0.12.1
   - jupyter-repo2docker=2021.8.0
-  - jupyter-resource-usage=0.6.0
+  - jupyter-resource-usage=0.6.1
   - jupyter-sphinx=0.3.2
   - jupyter_bokeh=3.0.4
   - jupyterlab=3.2.8
