@@ -537,6 +537,7 @@ workflows:
           filters:
               branches:
                 only:
+                - staging
       - hubploy/build-image:
           deployment: stat20
           name: stat20 image build
