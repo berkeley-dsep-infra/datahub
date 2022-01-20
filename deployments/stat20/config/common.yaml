@@ -30,23 +30,12 @@ jupyterhub:
           - felder
           - balajialwar
           # List of other admin users
-          # Instructor and GSI
-          - fernando.perez
-          - fsapienza
+          - andrewbray
 
   singleuser:
-    # Enable RTC and jupyterlab-link-share
-    cmd:
-    - jupyterhub-singleuser
-    - --LabApp.collaborative=true
-    extraFiles:
-      lab-config:
-        data:
-          disabledExtensions:
-            jupyterlab-link-share: false
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
-    defaultUrl: /lab
+    defaultUrl: /rstudio
     storage:
       type: static
       static:
@@ -54,7 +43,7 @@ jupyterhub:
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan/shared
+          mountPath: /opt/shared
           subPath: _shared
           readOnly: true
     memory:
@@ -65,5 +54,5 @@ jupyterhub:
     admin:
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan/shared-readwrite
+          mountPath: /opt/shared-readwrite
           subPath: _shared
