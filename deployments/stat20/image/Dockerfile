@@ -61,4 +61,33 @@ COPY class-libs.R /tmp/class-libs.R
 COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2022-spring-stat-20.r
 
+RUN tlmgr install \
+	amsmath \
+	auxhook \
+	bigintcalc \
+	bitset \
+	etexcmds \
+	etoolbox \
+	geometry \
+	gettitlestring \
+	hycolor \
+	hyperref \
+	iftex \
+	infwarerr \
+	intcalc \
+	kvdefinekeys \
+	kvoptions \
+	kvsetkeys \
+	latex-amsmath-dev \
+	letltxmacro \
+	ltxcmds \
+	pdfescape \
+	pdftexcmds \
+	refcount \
+	rerunfilecheck \
+	stringenc \
+	uniquecounter \
+	xcolor \
+	zapfding
+
 ENTRYPOINT ["tini", "--"]
