@@ -62,6 +62,8 @@ jupyterhub:
           # PH142 Instructors
           - mi-suk
           - c.riddell
+          - hogenegin # https://github.com/berkeley-dsep-infra/datahub/issues/3168
+          # PHW142 Lead GSI
           # Fall 2021 PH142 GSIs, Tech GSI
           - kmaccuish
           - chandlerbeon
