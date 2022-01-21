@@ -70,4 +70,8 @@ RUN r /tmp/r-packages/ph-142.r
 COPY r-packages/ph-252.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-252.r
 
+COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
+RUN r /tmp/r-packages/2021-spring-phw-272a.r
+
+
 ENTRYPOINT ["tini", "--"]

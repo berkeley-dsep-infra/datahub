@@ -15,49 +15,18 @@ jupyterhub:
           - yuvipanda
           - cpyles
           - balajialwar
-          # instructors & gsis as per request from Alvin Wan(Fall 2021)
+          # instructors & gsis as per request from Dominic Liu(Spring 2022)
           - kagarwal2 
           - parthbaokar
-          - am123
           - andrew.lenz
           - abadrinath
-          - agnibhoroy
           - snhing
           - grover.kanu
           - fernando.perez
-          - alvinwan
-  prePuller:
-    extraImages:
-      postgres:
-        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
-        tag: 0.0.1-n3657.h4f7f88c
+          - fgeng
+          - hangxingliu
   singleuser:
     defaultUrl: "/lab"
-    extraContainers:
-      - name: postgres
-        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
-        resources:
-          limits:
-            # Best effort only. No more than 1 CPU
-            memory: 512Mi
-            cpu: 1.0
-          requests:
-            # If we don't set requests, k8s sets requests == limits!
-            memory: 64Mi
-            cpu: 0.01
-        env:
-        - name: POSTGRES_HOST_AUTH_METHOD
-          value: "trust"
-        - name: POSTGRES_USER
-          value: "jovyan"
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
-        - name: home
-          mountPath: /home/jovyan/shared
-          subPath: _shared
-          readOnly: true
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
     storage:

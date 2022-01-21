@@ -62,15 +62,14 @@ jupyterhub:
           # PH142 Instructors
           - mi-suk
           - c.riddell
-          # Fall 2021 PH142 GSIs, Tech GSI
+          # Spring 2022 PH142 GSIs, Tech GSI
           - kmaccuish
           - chandlerbeon
-          - tyler_mansfield
-          - keying_kuang
           - nola
           - noelpimentel
-          - sky.qiu
-          - xiangyu_yu
+          - brian.aldana
+          - antoniadlg
+          - jane.yliu21
           # See https://github.com/berkeley-dsep-infra/datahub/pull/2441
           # PH250A & PHW250A Fall 2021 GSIs / Instructor
           - smccoy

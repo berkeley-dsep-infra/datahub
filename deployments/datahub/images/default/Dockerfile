@@ -87,16 +87,14 @@ RUN apt-get update && \
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
-# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
-# with the version of RStudio we use. So we pin R to 4.0.5
-ENV R_VERSION=4.0.5-1.2004.0
+ENV R_VERSION=4.1.2-1.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.11-1.2004.0 > /dev/null
+    r-cran-littler=0.3.14-1.2004.0 > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -121,14 +119,12 @@ RUN apt update --yes > /dev/null && \
     # R package magick
     libmagick++-dev imagemagick > /dev/null
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.15.953-amd64.deb
+ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
     dpkg -i /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
@@ -188,9 +184,6 @@ RUN r /tmp/r-packages/econ-140.r
 
 COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/orphaned-ph-290.r
-
-COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-phw-272a.r
 
 COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-stat-20.r
