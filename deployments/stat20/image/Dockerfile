@@ -66,6 +66,7 @@ RUN tlmgr install \
 	auxhook \
 	bigintcalc \
 	bitset \
+	epstopdf-pkg \
 	etexcmds \
 	etoolbox \
 	geometry \
