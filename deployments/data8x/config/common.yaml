@@ -64,8 +64,8 @@ jupyterhub:
           - c741d11d7f0bed9930e04276115b1a37
           - fd5ad8c476846392d8dfb1765d1a6ac5
           # 2813 Eric Van Dusen
+          # sean morris
           - bd1e7c64c6f5faddbf6b32af3010cf75
-          # sean.smorris
           - 261821b22ba97d73f571bf396c2ecb0a
   singleuser:
     networkPolicy:
