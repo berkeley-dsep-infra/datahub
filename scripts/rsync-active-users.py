@@ -13,7 +13,9 @@ import os
 import requests
 from dateutil.parser import parse
 from datetime import datetime, timedelta, timezone
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import argparse
+import time
 import subprocess
 
 # Copied from https://github.com/minrk/escapism/blob/d1d406c69b9ab0b14aa562d98a9e198adf9c047a/escapism.py
@@ -96,6 +98,23 @@ def get_all_users(hub_url, token):
     return users
 
 
+def rsync(user, src_basedir, dest_basedir, dry_run):
+    start_time = time.perf_counter()
+    safe_chars = set(string.ascii_lowercase + string.digits)
+    homedir = escape(user, safe_chars, '-').lower()
+    src_homedir = os.path.join(src_basedir, homedir)
+    if not os.path.exists(src_homedir):
+        print(f"Directory {src_homedir} does not exist for user {user}, aborting")
+        sys.exit(1)
+    rsync_cmd = [
+        'rsync', '-av',
+        '--delete', '--ignore-errors',
+        src_homedir, dest_basedir
+    ]
+    if not dry_run:
+        subprocess.check_output(rsync_cmd)
+    return user, time.perf_counter() - start_time
+
 def main():
     argparser = argparse.ArgumentParser()
 
@@ -116,6 +135,11 @@ def main():
         action='store_true',
         help="Actually run rsync, otherwise we just dry-run"
     )
+    argparser.add_argument('--concurrency',
+        type=int,
+        help='How many parallel rsyncs to run',
+        default=16
+    )
 
     args = argparser.parse_args()
 
@@ -132,23 +156,25 @@ def main():
             if user['last_activity'] >= time_since:
                 users_since.append(user['name'])
 
-    safe_chars = set(string.ascii_lowercase + string.digits)
+
+    pool = ThreadPoolExecutor(max_workers=args.concurrency)
+    futures = []
+    completed_futures = 0
+
     for user in users_since:
         # Escaping logic from https://github.com/jupyterhub/kubespawner/blob/0eecad35d8829d8d599be876ee26c192d622e442/kubespawner/spawner.py#L1340
-        homedir = escape(user, safe_chars, '-').lower()
-        src_homedir = os.path.join(args.src_basedir, homedir)
-        if not os.path.exists(src_homedir):
-            print(f"Directory {src_homedir} does not exist for user {user}, aborting")
-            sys.exit(1)
-        dest_homedir = os.path.join(args.dest_basedir, homedir)
-        rsync_cmd = [
-            'rsync', '-av',
-            '--delete', '--ignore-errors',
-            src_homedir, args.dest_basedir
-        ]
-        print('Running ' + ' '.join(rsync_cmd))
-        if args.actually_run_rsync:
-            subprocess.check_call(rsync_cmd)
+        # tarring is CPU bound, so we can parallelize trivially.
+        # FIXME: This should be tuneable, or at least default to some multiple of number of cores on the system
+
+        future = pool.submit(rsync,
+            user, args.src_basedir, args.dest_basedir, not args.actually_run_rsync
+        )
+        futures.append(future)
+
+    for future in as_completed(futures):
+        completed_user, duration = future.result()
+        completed_futures += 1
+        print(f'Finished {completed_futures} of {len(users_since)} in {duration:0.3f} - user {completed_user}')
 
     if not args.actually_run_rsync:
         print("No rsync commands were actually performed")

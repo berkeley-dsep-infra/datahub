@@ -66,6 +66,22 @@ jupyterhub:
           # 2813 Eric Van Dusen
           - bd1e7c64c6f5faddbf6b32af3010cf75 #sean.smorris
   singleuser:
+    networkPolicy:
+      # We only allow outbound HTTP, HTTPS and DNS access
+      enabled: true
+      egress:
+        - ports:
+            - port: 80
+              protocol: TCP
+        - ports:
+            - port: 443
+              protocol: TCP
+        - ports:
+            # statsd ports
+            - port: 9125
+              protocol: TCP
+            - port: 9125
+              protocol: UDP
     initContainers:
       - name: volume-mount-hack
         image: busybox
@@ -84,5 +100,4 @@ jupyterhub:
     memory:
       guarantee: 256M
       limit: 1G
-    image:
-      name: gcr.io/data8x-scratch/data8x-user-image
+    image: {}

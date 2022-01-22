@@ -1,0 +1,19 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/astro/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - astro.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - astro.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        authorize_url: https://datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://datahub.berkeley.edu/hub/api/user

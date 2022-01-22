@@ -10,7 +10,7 @@ charts:
       # So we need to manually set this, after running chartpress --push
         valuesPath: {}
   - name: node-placeholder
-    imagePrefix: gcr.io/ucb-datahub-2018/
+    imagePrefix: us-central1-docker.pkg.dev/ucb-datahub-2018/core/
     images:
       node-placeholder-scaler:
         valuesPath: image

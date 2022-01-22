@@ -5,12 +5,21 @@ jupyterhub:
       data8-staging.datahub.berkeley.edu:
         name: data8-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://data8-staging.datahub.berkeley.edu/hub/oauth_callback
+      astro-staging.datahub.berkeley.edu:
+        name: astro-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://astro-staging.datahub.berkeley.edu/hub/oauth_callback
       ischool-staging.datahub.berkeley.edu:
         name: ischool-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://ischool-staging.datahub.berkeley.edu/hub/oauth_callback
       publichealth-staging.datahub.berkeley.edu:
         name: publichealth-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://publichealth-staging.datahub.berkeley.edu/hub/oauth_callback
+      stat159-staging.datahub.berkeley.edu:
+        name: stat159-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://stat159-staging.datahub.berkeley.edu/hub/oauth_callback
+      stat20-staging.datahub.berkeley.edu:
+        name: stat20-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://stat20-staging.datahub.berkeley.edu/hub/oauth_callback
   scheduling:
     userPlaceholder:
       enabled: false
@@ -20,8 +29,13 @@ jupyterhub:
     continuous:
       enabled: false
   proxy:
-    service:
-      loadBalancerIP: 104.197.27.164
     https:
-      hosts:
-        - staging.datahub.berkeley.edu
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - staging.datahub.berkeley.edu

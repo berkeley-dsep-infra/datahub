@@ -20,7 +20,8 @@ class_libs = c(
   "cowplot", "1.1.1",
   "patchwork", "1.1.1",
   "tigris", "1.0",
-  "googlesheets4", "0.2.0"
+  "googlesheets4", "1.0.0",
+  "coxed", "0.3.3"
 )
 
 print("Installing ottr...")
