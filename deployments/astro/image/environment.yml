@@ -9,6 +9,8 @@ dependencies:
 # A linux desktop environment
 - websockify
 
+- syncthing==1.18.6
+
 - numpy==1.22.*
 - matplotlib==3.5.*
 - graphviz>=2.50.0

@@ -49,6 +49,8 @@ USER ${NB_USER}
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 
+RUN mamba install -c conda-forge syncthing==1.18.6
+
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
