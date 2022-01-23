@@ -47,6 +47,14 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     defaultUrl: /lab
+    extraFiles:
+      gitconfig:
+        mountPath: /etc/gitconfig
+        stringData: |
+          [credential "https://github.com"]
+          helper = store --file=/tmp/github-app-git-credentials
+    extraEnv:
+      GITHUB_APP_CLIENT_ID: Iv1.28ac6d8f60ed35ac
     storage:
       type: static
       static:

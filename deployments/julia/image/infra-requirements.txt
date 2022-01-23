@@ -9,8 +9,6 @@
 
 # FIXME: Freeze this to get exact versions of all dependencies
 notebook==6.4.7
-# FIXME: Conflicts with jupyter-server-proxy somehow
-jupyter-client<7.0
 jupyterlab==3.2.8
 jupyterlab-link-share==0.2.4
 nbconvert==6.4.0
