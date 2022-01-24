@@ -32,3 +32,6 @@ dependencies:
 
 # ls 88-3; neuro
 - pillow=8.3.*
+
+# music 30, spring 2022, #3180
+- pysoundfile==0.10.3.post1
