@@ -55,19 +55,33 @@ class CanvasOAuthenticator(GenericOAuthenticator):
             'client_secret': self.client_secret
         }
 
-    async def get_courses(self, token):
+    async def get_canvas_items(self, token, url):
         """
-        Get list of courses enrolled by the current user
+        Get paginated items from Canvas.
+        https://canvas.instructure.com/doc/api/file.pagination.html
         """
         headers = dict(Authorization = f"Bearer {token}")
-        url = f"{self.canvas_url}/api/v1/courses"
         data = []
 
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers, params=self.extra_params) as r:
                 if r.status != 200:
-                    raise Exception(f"error fetching course info for {self.username}: {r.status} -- {r.text()}")
+                    raise Exception(f"error fetching items for {self.username}: {url} -- {r.status} -- {r.text()}")
                 data = await r.json()
+                if 'next' in r.links.keys():
+                    url = r.links['next']['url']
+                    data += await self.get_canvas_items(token, url)
+
+        return data
+
+    async def get_courses(self, token):
+        """
+        Get list of courses enrolled by the current user
+        """
+        url = f"{self.canvas_url}/api/v1/courses"
+
+        data = await self.get_canvas_items(token, url)
+
         return data
 
     async def authenticate(self, handler, data=None):
@@ -78,7 +92,6 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         user['auth_state']['courses'] = await self.get_courses(
             user['auth_state']['access_token']
         )
-        print(user)
         return user
 
     def normalize_username(self, username):

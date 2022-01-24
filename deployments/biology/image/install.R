@@ -20,7 +20,9 @@ cran_packages <- c(
   "pwr","1.3" ,
   "plotly","4.9.3",
   "mixtools","1.2.0",
-  "mclust","5.4.7"
+  "mclust","5.4.7",
+  "pheatmap","1.0.12",
+  "phangorn","2.7.1"
 )
 
 for (i in seq(1, length(cran_packages), 2)) {
@@ -40,3 +42,6 @@ BiocManager::install("dada2")
 BiocManager::install("phyloseq")
 BiocManager::install("Biostrings")
 BiocManager::install("cummeRbund")
+BiocManager::install("DESeq2")
+BiocManager::install("apeglm")
+BiocManager::install('EnhancedVolcano')

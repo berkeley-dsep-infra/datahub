@@ -1,0 +1,25 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/astro/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - astro-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - astro-staging.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user

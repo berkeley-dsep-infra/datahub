@@ -15,7 +15,13 @@ class_libs = c(
   "blm", "2013.2.4.4",
   "geepack", "1.3-2",
   "multcomp", "1.4-17",
-  "epitools", "0.5-10.1"
+  "epitools", "0.5-10.1",
+  "rms", "6.2-0",
+  "lmtest","0.9-38",
+  "car","3.0-10",
+  "SurvRegCensCov","1.4",
+  "ProfileLikelihood","1.1",
+  "biostat3","0.1.5"
 )
 
 devtools::install_github('cran/epi', ref='06efd3f', upgrade_dependencies=FALSE, quiet=FALSE)
