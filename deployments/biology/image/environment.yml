@@ -5,7 +5,7 @@ dependencies:
 - python=3.9.*
 - pip=20.2.*
 
-# Package to allow Jupyter Notebook or JupyterLab applications in one conda env to access other kernels (e.g. qiime2) 
+# Package to allow Jupyter Notebook or JupyterLab applications in one conda env to access other kernels (e.g. qiime2)
 - nb_conda_kernels=2.3.1
 
 # Packages from bioconda for IB134L
@@ -26,6 +26,7 @@ dependencies:
 - hisat2=2.2.1
 - subread=2.0.1
 
+- syncthing==1.18.6
 
 # Packages for IB120/201/CCB210
 - sympy=1.6.2
@@ -45,7 +46,7 @@ dependencies:
 - seaborn==0.11.2
 
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1846
-# Conda does not have these 
+# Conda does not have these
 - pip:
 # MCB280A, Spring 2022
   - macs2==2.2.7.1

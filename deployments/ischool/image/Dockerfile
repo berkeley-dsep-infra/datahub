@@ -46,6 +46,8 @@ RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
+RUN mamba install -c conda-forge syncthing==1.18.6
+
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 

@@ -3,6 +3,8 @@ dependencies:
 - pip==20.2.*
 - python==3.9.*
 
+- syncthing==1.18.6
+
 # data8
 - matplotlib==3.4.3
 - ipympl==0.7.0
