@@ -1,6 +1,9 @@
 # Some linux packages for basic terminal work, particularly
 # oriented at newer users
 
+# Basic unix tools
+man
+
 # Download tools
 curl
 wget
@@ -8,6 +11,7 @@ wget
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
 nano
+jed
 
 # Basic clipboard support
 xclip
@@ -29,3 +33,6 @@ gfortran
 texlive-xetex 
 texlive-fonts-recommended 
 texlive-plain-generic
+
+# Some useful git utilities use basic Ruby
+ruby
