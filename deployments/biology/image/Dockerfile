@@ -169,7 +169,7 @@ USER ${NB_USER}
 COPY environment.yml /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
