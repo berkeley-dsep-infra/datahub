@@ -92,6 +92,10 @@ jupyterhub:
             # https://github.com/jupyter/jupyter/issues/174
             # https://github.com/ipython/ipython/issues/9163
             db_file: ":memory:"
+          # Allow jupyterlab option to show hidden files in browser
+          # https://github.com/berkeley-dsep-infra/datahub/issues/3160
+          ContentsManager:
+            allow_hidden: true
       popularity-contest:
         mountPath: /opt/conda/etc/ipython/startup/000-popularity-contest.py
         stringData: |
