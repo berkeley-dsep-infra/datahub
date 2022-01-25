@@ -27,6 +27,7 @@ RUN apt-get -qq update --yes && \
             vim \
             micro \
             mc \
+            tini \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -48,7 +49,7 @@ RUN apt-get update > /dev/null && \
     apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
-            # for cartopy
+            # for R sf packages
             libgeos-dev \
             libproj-dev \
             proj-data \
@@ -86,16 +87,14 @@ RUN apt-get update && \
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
-# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
-# with the version of RStudio we use. So we pin R to 4.0.5
-ENV R_VERSION=4.0.5-1.2004.0
+ENV R_VERSION=4.1.2-1.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.11-1.2004.0 > /dev/null
+    r-cran-littler=0.3.14-1.2004.0 > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -105,7 +104,7 @@ RUN apt-get update -qq --yes && \
         libapparmor1 \
         lsb-release \
         libclang-dev  > /dev/null
-            
+
 # apt packages needed for R packages
 RUN apt update --yes > /dev/null && \
     apt install --no-install-recommends --yes \
@@ -120,14 +119,12 @@ RUN apt update --yes > /dev/null && \
     # R package magick
     libmagick++-dev imagemagick > /dev/null
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.15.953-amd64.deb
+ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
     dpkg -i /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
@@ -173,8 +170,8 @@ RUN r /tmp/r-packages/eep-1118.r
 COPY r-packages/ias-c188.r /tmp/r-packages
 RUN r /tmp/r-packages/ias-c188.r
 
-COPY r-packages/ph-142.r /tmp/r-packages
-RUN r /tmp/r-packages/ph-142.r
+COPY r-packages/orphaned-ph-142.r /tmp/r-packages
+RUN r /tmp/r-packages/orphaned-ph-142.r
 
 COPY r-packages/stat-131a.r /tmp/r-packages
 RUN r /tmp/r-packages/stat-131a.r
@@ -185,14 +182,12 @@ RUN r /tmp/r-packages/2020-spring-envecon-c118.r
 COPY r-packages/econ-140.r /tmp/r-packages/
 RUN r /tmp/r-packages/econ-140.r
 
-COPY r-packages/ph-290.r /tmp/r-packages/
-RUN r /tmp/r-packages/ph-290.r
+COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-ph-290.r
 
-COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-phw-272a.r
-
-COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-stat-20.r
+# remove after Spring '22 semester
+COPY r-packages/orphaned-2021-spring-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-2021-spring-stat-20.r
 
 COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-espm-288.r
@@ -203,8 +198,9 @@ RUN r /tmp/r-packages/ib161.r
 COPY r-packages/ps-3.r /tmp/r-packages/
 RUN r /tmp/r-packages/ps-3.r
 
-COPY r-packages/stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/stat-20.r
+# remove after Spring '22 semester
+COPY r-packages/orphaned-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-stat-20.r
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
@@ -212,17 +208,17 @@ ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 WORKDIR /home/${NB_USER}
 
-# Install miniforge as root
+# Install mambaforge as root
 USER root
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 # Install conda environment as our user
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
 
-RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
@@ -254,5 +250,10 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 # install QGrid notebook extension
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
+# Temporarily install newer version of jupyterlab-link-share
+# Move this back to just installing off infra-requirements once we are a bit stable
+RUN pip install -U jupyterlab-link-share==0.2.3
 
 EXPOSE 8888
+
+ENTRYPOINT ["tini", "--"]

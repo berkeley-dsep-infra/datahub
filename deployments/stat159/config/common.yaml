@@ -1,0 +1,77 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      JupyterHub:
+        authenticator_class: generic-oauth
+      GenericOAuthenticator:
+        login_service: bCourses
+        username_key: name
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+          # Instructor and GSI
+          - fernando.perez
+          - fsapienza
+
+  singleuser:
+    # Enable RTC and jupyterlab-link-share
+    cmd:
+    - jupyterhub-singleuser
+    - --LabApp.collaborative=true
+    extraFiles:
+      lab-config:
+        data:
+          disabledExtensions:
+            jupyterlab-link-share: false
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    defaultUrl: /lab
+    extraFiles:
+      gitconfig:
+        mountPath: /etc/gitconfig
+        stringData: |
+          [credential "https://github.com"]
+          helper = store --file=/tmp/github-app-git-credentials
+    extraEnv:
+      GITHUB_APP_CLIENT_ID: Iv1.28ac6d8f60ed35ac
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
+    memory:
+      guarantee: 512M
+      limit: 1G
+
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared

@@ -30,6 +30,10 @@ jupyterhub:
             # List of other admin users
 
   singleuser:
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     storage:
@@ -38,7 +42,7 @@ jupyterhub:
         pvcName: home-nfs
         subPath: "{username}"
     memory:
-      guarantee: 512M
-      limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/julia-user-image
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2803
+      guarantee: 768M
+      limit: 2G
+    image: {}

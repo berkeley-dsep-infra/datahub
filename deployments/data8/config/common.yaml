@@ -4,6 +4,12 @@ nfsPVC:
     serverIP: nfsserver-01
 
 jupyterhub:
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /srv/homes
+
   scheduling:
     userScheduler:
       nodeSelector:
@@ -32,7 +38,7 @@ jupyterhub:
           - yuvipanda
           - felder
           - balajialwar
-          # Fall 2021 Admins, from Meghan Wang  
+          # Fall 2021 Admins, from Meghan Wang
           - daw
           - nellepersson
           - meghanwang
@@ -133,6 +139,10 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    # Stop reporting event progress individually to users temporarily
+    # Mostly to collect data on how this affects server startup performance
+    # see https://github.com/jupyterhub/kubespawner/pull/559
+    events: false
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
     storage:
@@ -140,6 +150,10 @@ jupyterhub:
       static:
         pvcName: home-nfs
         subPath: "{username}"
+    cpu:
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2966
+      guarantee: 0.05
+      limit: 1
     memory:
       guarantee: 512M
       limit: 1G
