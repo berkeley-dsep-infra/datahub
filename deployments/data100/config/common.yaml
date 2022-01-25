@@ -25,6 +25,8 @@ jupyterhub:
           - fernando.perez
           - fgeng
           - hangxingliu
+          - yanlisa #https://github.com/berkeley-dsep-infra/datahub/issues/3198
+          - hug
   prePuller:
     extraImages:
       postgres:
