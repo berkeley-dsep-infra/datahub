@@ -1,6 +1,9 @@
 # Some linux packages for basic terminal work, particularly
 # oriented at newer users
 
+# Basic unix tools
+man
+
 # Download tools
 curl
 wget
