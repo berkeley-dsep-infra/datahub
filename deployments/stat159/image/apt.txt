@@ -24,8 +24,8 @@ xsel
 
 # Basic Emacs configuration for general development.
 emacs-nox 
-python-mode 
 emacs-goodies-el
+python-mode
 
 # powerful terminal-based file manager, better than the one in JLab
 mc
