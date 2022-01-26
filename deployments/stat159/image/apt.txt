@@ -47,7 +47,6 @@ latexdiff
 ruby
 
 # Other niceties for command-line work and life
-fzf   # fuzzy file finder
 pydf  # colorized disk usage
 tmux
 screen
@@ -57,6 +56,9 @@ zsh
 rsync
 tig  # console UI for git
 multitail
-#browsh # text-based web browser, occasionally handy - not in 18.04
-dasel  # json/yml/csv/etc data wrangling at the terminal
+
+# For later, these are not available in 18.04
+#browsh # text-based web browser, occasionally handy
+#dasel  # json/yml/csv/etc data wrangling at the terminal
+#fzf   # fuzzy file finder
 
