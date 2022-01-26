@@ -1,5 +1,5 @@
 # Some linux packages for basic terminal work, particularly
-# oriented at newer users
+# oriented at users new to Unix/cmd line work.
 
 # Basic unix tools
 man
@@ -61,4 +61,3 @@ multitail
 #browsh # text-based web browser, occasionally handy
 #dasel  # json/yml/csv/etc data wrangling at the terminal
 #fzf   # fuzzy file finder
-
