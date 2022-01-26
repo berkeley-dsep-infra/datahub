@@ -145,6 +145,7 @@ jupyterhub:
     events: false
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
+    defaultUrl: /retro
     storage:
       type: static
       static:
