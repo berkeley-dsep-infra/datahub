@@ -159,48 +159,48 @@ RUN mkdir -p /tmp/r-packages
 
 # pdftools
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
-RUN r /tmp/r-packages/dlab-ctawg.r
+RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2019-fall-stat-131a.r /tmp/r-packages
-RUN r /tmp/r-packages/2019-fall-stat-131a.r
+RUN r /tmp/r-packages/2019-fall-stat-131a.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/eep-1118.r /tmp/r-packages
-RUN r /tmp/r-packages/eep-1118.r
+RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ias-c188.r /tmp/r-packages
-RUN r /tmp/r-packages/ias-c188.r
+RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/orphaned-ph-142.r /tmp/r-packages
-RUN r /tmp/r-packages/orphaned-ph-142.r
+RUN r /tmp/r-packages/orphaned-ph-142.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/stat-131a.r /tmp/r-packages
-RUN r /tmp/r-packages/stat-131a.r
+RUN r /tmp/r-packages/stat-131a.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
-RUN r /tmp/r-packages/2020-spring-envecon-c118.r
+RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/econ-140.r /tmp/r-packages/
-RUN r /tmp/r-packages/econ-140.r
+RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
-RUN r /tmp/r-packages/orphaned-ph-290.r
+RUN r /tmp/r-packages/orphaned-ph-290.r && rm -rf /tmp/downloaded_packages
 
 # remove after Spring '22 semester
 COPY r-packages/orphaned-2021-spring-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/orphaned-2021-spring-stat-20.r
+RUN r /tmp/r-packages/orphaned-2021-spring-stat-20.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-espm-288.r
+RUN r /tmp/r-packages/2021-spring-espm-288.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ib161.r /tmp/r-packages/
-RUN r /tmp/r-packages/ib161.r
+RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ps-3.r /tmp/r-packages/
-RUN r /tmp/r-packages/ps-3.r
+RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
 
 # remove after Spring '22 semester
 COPY r-packages/orphaned-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/orphaned-stat-20.r
+RUN r /tmp/r-packages/orphaned-stat-20.r && rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
