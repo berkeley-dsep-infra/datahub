@@ -3,6 +3,10 @@
 
 # Basic unix tools
 man
+man-db
+manpages-posix
+manpages-dev
+manpages-posix-dev
 
 # Download tools
 curl
