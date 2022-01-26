@@ -12,6 +12,7 @@ wget
 # micro  # currently not working on 18.04
 nano
 jed
+jed-extra
 
 # Basic clipboard support
 xclip
@@ -34,5 +35,24 @@ texlive-xetex
 texlive-fonts-recommended 
 texlive-plain-generic
 
+# Other useful document-related tools
+pandoc
+latexdiff
+
 # Some useful git utilities use basic Ruby
 ruby
+
+# Other niceties for command-line work and life
+fzf   # fuzzy file finder
+pydf  # colorized disk usage
+tmux
+screen
+htop
+nnn   # cmd line file manager
+zsh
+rsync
+tig  # console UI for git
+multitail
+browsh # text-based web browser, occasionally handy
+dasel  # json/yml/csv/etc data wrangling at the terminal
+
