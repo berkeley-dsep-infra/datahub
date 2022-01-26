@@ -57,6 +57,6 @@ zsh
 rsync
 tig  # console UI for git
 multitail
-browsh # text-based web browser, occasionally handy
+#browsh # text-based web browser, occasionally handy - not in 18.04
 dasel  # json/yml/csv/etc data wrangling at the terminal
 
