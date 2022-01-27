@@ -1,5 +1,5 @@
 # Some linux packages for basic terminal work, particularly
-# oriented at users new to Unix/cmd line work.
+# oriented at users new to Unix/cmd line environments.
 
 # Basic unix tools
 man
