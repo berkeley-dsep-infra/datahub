@@ -12,20 +12,18 @@ manpages-posix-dev
 curl
 wget
 
+# Core text editors on a *nix box: vim and emacs
+vim
+emacs-nox
+emacs-goodies-el
+python-mode
+
+
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
 nano
 jed
 jed-extra
-
-# Basic clipboard support
-xclip
-xsel
-
-# Basic Emacs configuration for general development.
-emacs-nox 
-emacs-goodies-el
-python-mode
 
 # powerful terminal-based file manager, better than the one in JLab
 mc
@@ -42,6 +40,10 @@ texlive-plain-generic
 # Other useful document-related tools
 pandoc
 latexdiff
+
+# Basic clipboard support
+xclip
+xsel
 
 # Some useful git utilities use basic Ruby
 ruby
