@@ -84,7 +84,9 @@ dependencies:
   - xlrd=2.0.1
 
   - micro=2.0.8
+  - websockify
 
   - pip
   - pip:
     - -r infra-requirements.txt
+    - jupyter-desktop-server
