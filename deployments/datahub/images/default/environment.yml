@@ -37,5 +37,5 @@ dependencies:
 - pysoundfile==0.10.3.post1
 
 # ds100, spring 2022, #3208
-- kaleido-core==0.2.1
+- python-kaleido==0.2.1
 
