@@ -52,7 +52,7 @@ RUN /tmp/install-mambaforge.bash
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
-RUN mamba env update -p ${CONDA_DIR}  -f /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR}  -f /tmp/environment.yml && mamba clean -afy
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
