@@ -46,27 +46,51 @@ RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
-RUN mamba install -c conda-forge syncthing==1.18.6
-
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 
+RUN mamba install -c conda-forge syncthing==1.18.6
+
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
-
-# Support latest RStudio
-RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
-# Install extra R packages
-RUN install2.r --error --skipinstalled \
-    anytime # For https://github.com/berkeley-dsep-infra/datahub/issues/2523 \
-    Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
-    fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
-    rm -rf /tmp/downloaded_packages
+COPY class-libs.R /tmp/class-libs.R
 
+COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/2022-spring-stat-20.r
+
+RUN tlmgr install \
+	amsmath \
+	auxhook \
+	bigintcalc \
+	bitset \
+	epstopdf-pkg \
+	etexcmds \
+	etoolbox \
+	geometry \
+	gettitlestring \
+	hycolor \
+	hyperref \
+	iftex \
+	infwarerr \
+	intcalc \
+	kvdefinekeys \
+	kvoptions \
+	kvsetkeys \
+	latex-amsmath-dev \
+	letltxmacro \
+	ltxcmds \
+	pdfescape \
+	pdftexcmds \
+	refcount \
+	rerunfilecheck \
+	stringenc \
+	uniquecounter \
+	xcolor \
+	zapfding
 
 ENTRYPOINT ["tini", "--"]

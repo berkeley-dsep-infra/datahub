@@ -3,6 +3,8 @@ dependencies:
 - pip=20.2.*
 - python=3.9.*
 
+- syncthing==1.18.6
+
 # pymc3 needs this
 - mkl-service=2.4.*
 
@@ -30,3 +32,6 @@ dependencies:
 
 # ls 88-3; neuro
 - pillow=8.3.*
+
+# music 30, spring 2022, #3180
+- pysoundfile==0.10.3.post1

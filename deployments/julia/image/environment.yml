@@ -3,6 +3,8 @@ dependencies:
 - pip==20.2.*
 - python==3.9.*
 
+- syncthing==1.18.6
+
 # from requirements.txt
 - matplotlib==3.4.3
 # Required for issue #3057

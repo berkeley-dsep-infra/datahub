@@ -10,6 +10,8 @@ dependencies:
 - jupyter-vscode-proxy
 - code-server
 
+- syncthing==1.18.6
+
 # A linux desktop environment
 - websockify # from manics channel
 

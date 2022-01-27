@@ -5,6 +5,8 @@ channels:
 
 dependencies:
   - python=3.9.9
+  - syncthing==1.18.6
+  - git
 
   - altair=4.2.0
   - beautifulsoup4=4.10.0
@@ -90,3 +92,5 @@ dependencies:
   - pip:
     - -r infra-requirements.txt
     - jupyter-desktop-server
+    # For push authentication to GitHub
+    - github-app-user-auth==1.1

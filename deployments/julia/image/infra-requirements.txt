@@ -9,12 +9,10 @@
 
 # FIXME: Freeze this to get exact versions of all dependencies
 notebook==6.4.7
-# FIXME: Conflicts with jupyter-server-proxy somehow
-jupyter-client<7.0
 jupyterlab==3.2.8
 jupyterlab-link-share==0.2.4
 nbconvert==6.4.0
-retrolab==0.3.16
+retrolab==0.3.18
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
@@ -32,3 +30,5 @@ jupyter_nbextensions_configurator==0.4.1
 popularity-contest==0.4.1
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
+# syncthing for dropbox-like functionality
+jupyter-syncthing-proxy==1.0.1

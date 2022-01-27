@@ -42,6 +42,8 @@ jupyterhub:
           #As per the request from David Broockman (Political Science Instructor)
           - broockman
           - castro.ian
+          #As per the request from Leila Njee Bugha (GSI for ENVECON 118 - Sp 22)
+          - le.njeeb
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     initContainers:

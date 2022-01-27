@@ -35,6 +35,10 @@ jupyterhub:
           - fsapienza
 
   singleuser:
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
     # Enable RTC and jupyterlab-link-share
     cmd:
     - jupyterhub-singleuser
@@ -44,18 +48,39 @@ jupyterhub:
         data:
           disabledExtensions:
             jupyterlab-link-share: false
-    extraEnv:
-      # Tell code where to display GUIs
-      # The VNC /desktop link must be opened already for this to work
-      DISPLAY: ":1.0"
+      culling-config:
+        data:
+          # Allow jupyterlab option to show hidden files in browser
+          # https://github.com/berkeley-dsep-infra/datahub/issues/3160
+          ContentsManager:
+            allow_hidden: true
+      gitconfig:
+        mountPath: /etc/gitconfig
+        stringData: |
+          [credential "https://github.com"]
+          helper = store --file=/tmp/github-app-git-credentials          
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     defaultUrl: /lab
+    extraEnv:
+      GITHUB_APP_CLIENT_ID: Iv1.28ac6d8f60ed35ac
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
     memory:
       guarantee: 512M
       limit: 1G
+
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared
