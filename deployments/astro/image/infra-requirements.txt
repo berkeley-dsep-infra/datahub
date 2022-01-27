@@ -12,7 +12,7 @@ notebook==6.4.7
 jupyterlab==3.2.8
 jupyterlab-link-share==0.2.4
 nbconvert==6.4.0
-retrolab==0.3.17
+retrolab==0.3.18
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
