@@ -44,15 +44,20 @@ jupyterhub:
         data:
           disabledExtensions:
             jupyterlab-link-share: false
-    nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
-    defaultUrl: /lab
-    extraFiles:
+      culling-config:
+        data:
+          # Allow jupyterlab option to show hidden files in browser
+          # https://github.com/berkeley-dsep-infra/datahub/issues/3160
+          ContentsManager:
+            allow_hidden: true
       gitconfig:
         mountPath: /etc/gitconfig
         stringData: |
           [credential "https://github.com"]
           helper = store --file=/tmp/github-app-git-credentials
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    defaultUrl: /lab
     extraEnv:
       GITHUB_APP_CLIENT_ID: Iv1.28ac6d8f60ed35ac
     storage:
