@@ -18,7 +18,6 @@ emacs-nox
 emacs-goodies-el
 python-mode
 
-
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
 nano
@@ -41,14 +40,11 @@ texlive-plain-generic
 pandoc
 latexdiff
 
-# Basic clipboard support
-xclip
-xsel
-
 # Some useful git utilities use basic Ruby
 ruby
 
 # Other niceties for command-line work and life
+ack   # powerful grep-like tool
 pydf  # colorized disk usage
 tmux
 screen
@@ -63,3 +59,25 @@ multitail
 #browsh # text-based web browser, occasionally handy
 #dasel  # json/yml/csv/etc data wrangling at the terminal
 #fzf   # fuzzy file finder
+
+## This section adds tools for desktop environment usage
+dbus-x11
+xorg
+xubuntu-icon-theme
+xfce4
+xfce4-goodies
+xclip
+xsel
+firefox
+chromium-browser
+
+# GUI text editors
+emacs
+vim-gtk3
+gedit
+
+# Git clients and tools
+git-gui
+gitg
+qgit
+meld

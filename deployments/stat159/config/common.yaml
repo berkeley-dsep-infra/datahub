@@ -35,6 +35,10 @@ jupyterhub:
           - fsapienza
 
   singleuser:
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
     # Enable RTC and jupyterlab-link-share
     cmd:
     - jupyterhub-singleuser
@@ -54,7 +58,7 @@ jupyterhub:
         mountPath: /etc/gitconfig
         stringData: |
           [credential "https://github.com"]
-          helper = store --file=/tmp/github-app-git-credentials
+          helper = store --file=/tmp/github-app-git-credentials          
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     defaultUrl: /lab
