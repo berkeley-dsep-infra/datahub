@@ -157,6 +157,9 @@ RUN /tmp/install.R && \
 
 RUN mkdir -p /tmp/r-packages
 
+COPY r-packages/econ-140.r /tmp/r-packages/
+RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
+
 # pdftools
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
 RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
@@ -178,9 +181,6 @@ RUN r /tmp/r-packages/stat-131a.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
 RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
-
-COPY r-packages/econ-140.r /tmp/r-packages/
-RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/orphaned-ph-290.r && rm -rf /tmp/downloaded_packages
