@@ -91,10 +91,10 @@ These are good things that happened to us but not because we had planned for the
 These are only sample subheadings. Every action item should have a GitHub issue
 (even a small skeleton of one) attached to it, so these do not get forgotten. These issues don't have to be in `infrastructure/`, they can be in other repositories.
 
-### Process improvements
+### Process/Policy improvements
 
-1. {{ [Develop manual testing process](https://github.com/berkeley-dsep-infra/datahub/issues/2953) whenever a PR gets merged to staging of the major hubs (atleast till automated test suites are written). Every major PR  merged in staging should get assigned to a tester who manually checks the sanity of the services before it gets merged to prod (atleast mandatorily in datahub and R hubs which get used across multiple classes)}} [link to github issue](https://github.com/berkeley-dsep-infra/datahub/issues/2953)]
-2. {{ Include notes from conversation with Stat 20 instructor Andrew Bray }} [link to github issue]
+1. {{[Develop manual testing process](https://github.com/berkeley-dsep-infra/datahub/issues/2953) whenever a PR gets merged to staging of the major hubs (till automated test suites are written)}} [link to github issue](https://github.com/berkeley-dsep-infra/datahub/issues/2953)]
+2. Develop a policy around when to create a new hub and what type of changes get deployed to Datahub! 
 
 ### Documentation improvements
 
@@ -103,10 +103,10 @@ These are only sample subheadings. Every action item should have a GitHub issue
 
 ### Technical improvements
 
-1. {{(We provide what our instructors want us to provide. Guiding question for the technical improvement is "How can we ensure that both instructors like Andrew Bray AND Fernando Perez can thrive in the suite of offerings we provide. Considering that, Segmenting Datahub into 2 different hubs focused on 2 different needs. One hub undergoes change on a regular basis while the other hub remains the same for the entire semester except for changes at the start and end of the semester. That way, instructors requesting regular changes can use the changing hub and share the risks of this approach with us. While instructors who like the stable version of Datahub, can use that without worrying about continous improvement and its impact on the hub's stability"))}}[]
-2. {{Enabling logging mechanism across R hubs (Yuvi to fill in with required details)}}[]
-3. {{ Develop automated test cases that check the sanity of the different services whenever a PR gets merged in staging}} [link to github issue]
-4. {{ Investigate the reason why pager duty did not throw an alert for 5xx errors when the hubs went down. Fix the alerting mechanism so that they notify all kind of errors }} [link to github issue]
+1. {{ Enabling logging mechanism across all hubs to track future outages }}
+2. {{ Adapt 2I2C testing suite to develop automated test cases that check the sanity of the different services whenever a PR gets merged in staging}} [link to github issue]
+3. {{ Investigate the reason why pager duty did not throw an alert for 5xx errors when the hubs went down. Fix the alerting mechanism so that they notify all kind of errors }} [link to github issue]
+4. {{ Adding R Studio as part of Repo2Docker}} [link to github issue]
 
 # Actions
 
