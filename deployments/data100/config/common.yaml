@@ -28,11 +28,11 @@ jupyterhub:
           #https://github.com/berkeley-dsep-infra/datahub/issues/3198
           - yanlisa 
           - hug
-  prePuller:
-    extraImages:
-      postgres:
-        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
-        tag: 0.0.1-n3657.h4f7f88c
+#  prePuller:
+#    extraImages:
+#      postgres:
+#        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+#        tag: 0.0.1-n3657.h4f7f88c
   singleuser:
     defaultUrl: "/lab"
     nodeSelector:
