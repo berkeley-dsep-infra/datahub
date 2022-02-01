@@ -150,12 +150,11 @@ RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
 USER ${NB_USER}
 
 COPY class-libs.R /tmp/class-libs.R
+RUN mkdir -p /tmp/r-packages
+
 # Install all our base R packages
 COPY install.R  /tmp/install.R
-RUN /tmp/install.R && \
-    rm -rf /tmp/downloaded_packages
-
-RUN mkdir -p /tmp/r-packages
+RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
 # pdftools
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
@@ -178,9 +177,6 @@ RUN r /tmp/r-packages/stat-131a.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
 RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
-
-COPY r-packages/econ-140.r /tmp/r-packages/
-RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/orphaned-ph-290.r && rm -rf /tmp/downloaded_packages

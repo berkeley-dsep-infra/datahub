@@ -35,6 +35,8 @@ jupyterhub:
           - xinranliang
           - shahzar
           - wangyumeng2017
+          # Spring 2022 prob140 gsi requested by xinranliang
+          - hphuang
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
