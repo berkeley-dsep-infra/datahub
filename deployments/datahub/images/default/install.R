@@ -1,10 +1,12 @@
 #!/usr/bin/env r
 
-
 # Install devtools so we can install versioned packages
 install.packages("devtools")
 
 source("/tmp/class-libs.R")
+
+# install ottr, needs to go first issue #3216
+devtools::install_github('ucbds-infra/ottr', ref='1.1.1', upgrade_dependencies=FALSE, quiet=FALSE)
 
 # dplyr package + backends
 # From https://github.com/rocker-org/rocker-versioned2/blob/b8d23396468c5dc73115cce6c5716424d80ffcb0/scripts/install_tidyverse.sh#L30
