@@ -4,10 +4,15 @@ ENV NB_USER rstudio
 ENV NB_UID 1000
 ENV CONDA_DIR /srv/conda
 
+# Set up common env variables
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Set ENV for all programs...
 ENV PATH ${CONDA_DIR}/bin:$PATH
 
 # And set ENV for R! It doesn't read from the environment...
+RUN echo "TZ=${TZ}" >> /usr/local/lib/R/etc/Renviron.site
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron.site
 
 # Add PATH to /etc/profile so it gets picked up by the terminal
