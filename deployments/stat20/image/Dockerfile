@@ -4,12 +4,11 @@ ENV NB_USER rstudio
 ENV NB_UID 1000
 ENV CONDA_DIR /srv/conda
 
-# Set up common env variables
-ENV TZ=America/Los_Angeles
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 # Set ENV for all programs...
 ENV PATH ${CONDA_DIR}/bin:$PATH
+
+# Pick up rocker's default TZ
+ENV TZ=Etc/UTC
 
 # And set ENV for R! It doesn't read from the environment...
 RUN echo "TZ=${TZ}" >> /usr/local/lib/R/etc/Renviron.site
