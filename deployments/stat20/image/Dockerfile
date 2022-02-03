@@ -7,7 +7,11 @@ ENV CONDA_DIR /srv/conda
 # Set ENV for all programs...
 ENV PATH ${CONDA_DIR}/bin:$PATH
 
+# Pick up rocker's default TZ
+ENV TZ=Etc/UTC
+
 # And set ENV for R! It doesn't read from the environment...
+RUN echo "TZ=${TZ}" >> /usr/local/lib/R/etc/Renviron.site
 RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron.site
 
 # Add PATH to /etc/profile so it gets picked up by the terminal
