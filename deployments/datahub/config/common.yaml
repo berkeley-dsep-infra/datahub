@@ -44,6 +44,8 @@ jupyterhub:
           - castro.ian
           #As per the request from Leila Njee Bugha (GSI for ENVECON 118 - Sp 22)
           - le.njeeb
+          #As per the request from James Sears (Environmental Econ GSI) - https://github.com/berkeley-dsep-infra/datahub/issues/3229
+          - lenjb
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     initContainers:
