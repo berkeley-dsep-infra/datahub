@@ -63,7 +63,8 @@ dependencies:
   - vega3>=0.13.0
   - pytz>=2021.3
   - keras==2.7.*
-  - keras-preprocessing>=1.1
+  - keras-preprocessing>=1.1.0
+  - tensorflow-io-gcs-filesystem>=0.23.0
   - lightkurve
   - ipyparallel>=8.1.0
   - jupyter-tensorboard>=0.2.0
@@ -83,3 +84,13 @@ dependencies:
   - jax
   - watermark
   - autopep8
+   - datashader==0.13.0
+   - holoviews==1.14.7
+   - hvplot==0.7.3
+   - vega_datasets
+   - vega
+   - pandas-bokeh
+   - pythreejs
+   - ipywidgets
+   - ipyvolume
+   - pandas-bokeh
