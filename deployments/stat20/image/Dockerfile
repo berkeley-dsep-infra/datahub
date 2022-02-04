@@ -75,6 +75,8 @@ RUN tlmgr install \
 	epstopdf-pkg \
 	etexcmds \
 	etoolbox \
+	fancyvrb \
+	framed \
 	geometry \
 	gettitlestring \
 	hycolor \
