@@ -84,13 +84,13 @@ dependencies:
   - jax
   - watermark
   - autopep8
-   - datashader==0.13.0
-   - holoviews==1.14.7
-   - hvplot==0.7.3
-   - vega_datasets
-   - vega
-   - pandas-bokeh
-   - pythreejs
-   - ipywidgets
-   - ipyvolume
-   - pandas-bokeh
+  - datashader==0.13.0
+  - holoviews==1.14.7
+  - hvplot==0.7.3
+  - vega_datasets
+  - vega
+  - pandas-bokeh
+  - pythreejs
+  - ipywidgets
+  - ipyvolume
+  - pandas-bokeh
