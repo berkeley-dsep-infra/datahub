@@ -93,7 +93,6 @@ dependencies:
   - pythreejs
   - ipywidgets
   - ipyvolume
-  - pandas-bokeh
   - cartopy
   - click
   - fire
