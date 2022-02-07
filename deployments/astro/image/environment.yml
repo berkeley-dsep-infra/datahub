@@ -19,6 +19,7 @@ dependencies:
 - pytorch-lightning
 - pyaudio==0.2.11
 - cython
+- cartopy
 - protobuf
 - mpich
 - mpi4py
@@ -93,7 +94,6 @@ dependencies:
   - pythreejs
   - ipywidgets
   - ipyvolume
-  - cartopy
   - click
   - fire
   - pycodestyle
