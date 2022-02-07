@@ -17,7 +17,7 @@ dependencies:
 - psycopg2==2.9.*
 - pytorch>=1.10.0
 - pytorch-lightning
-- pyaudio==0.2.*
+- pyaudio==0.2.11
 - cython
 - protobuf
 - mpich
@@ -94,3 +94,11 @@ dependencies:
   - ipywidgets
   - ipyvolume
   - pandas-bokeh
+  - cartopy
+  - click
+  - fire
+  - pycodestyle
+  - flake8
+  - nb_black
+  - pycodestyle_magic
+  - twine
