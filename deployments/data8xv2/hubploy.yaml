@@ -1,5 +1,7 @@
 images:
-  image_name: gcr.io/data8x-scratch/data8x-user-image
+  images:
+    - name: gcr.io/data8x-scratch/data8x-user-image
+      path: ../data8x/image
   registry:
     provider: gcloud
     gcloud:
