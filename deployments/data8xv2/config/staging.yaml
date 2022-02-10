@@ -1,8 +1,4 @@
 jupyterhub:
-  hub:
-    services:
-      gofer_nb:
-        url: http://34.70.18.176:10101
   prePuller:
     continuous:
       enabled: false
@@ -11,4 +7,4 @@ jupyterhub:
       loadBalancerIP: 104.198.75.230
     https:
       hosts:
-        - staging-hub.data8x.berkeley.edu
+        - staging-hubv2.data8x.berkeley.edu

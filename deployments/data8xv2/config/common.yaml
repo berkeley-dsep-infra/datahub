@@ -22,7 +22,7 @@ jupyterhub:
   hub:
     services:
       gofer_nb:
-        url: http://35.239.20.122:10101
+        url: http://34.70.18.176:10101
     config:
       JupyterHub:
         authenticator_class: ltiauthenticator.LTIAuthenticator
