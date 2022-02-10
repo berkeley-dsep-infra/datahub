@@ -67,7 +67,8 @@ COPY class-libs.R /tmp/class-libs.R
 COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2022-spring-stat-20.r
 
-RUN tlmgr install \
+RUN tlmgr update --self && \
+    tlmgr install \
 	amsmath \
 	auxhook \
 	bigintcalc \
