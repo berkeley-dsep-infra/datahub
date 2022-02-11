@@ -48,7 +48,7 @@ RUN apt-get update > /dev/null && \
 # google-chrome is for pagedown; chromium doesn't work nicely with it (snap?)
 RUN wget --quiet -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get update > /dev/null && \
-    apt -y install /tmp/google-chrome-stable_current_amd64.deb && \
+    apt -y install /tmp/google-chrome-stable_current_amd64.deb > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
