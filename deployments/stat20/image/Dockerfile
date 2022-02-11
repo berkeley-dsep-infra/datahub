@@ -46,8 +46,11 @@ RUN apt-get update > /dev/null && \
     rm -rf /var/lib/apt/lists/*
 
 # google-chrome is for pagedown; chromium doesn't work nicely with it (snap?)
-RUN wget -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    apt -y install /tmp/google-chrome-stable_current_amd64.deb
+RUN wget --quiet -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get update > /dev/null && \
+    apt -y install /tmp/google-chrome-stable_current_amd64.deb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
