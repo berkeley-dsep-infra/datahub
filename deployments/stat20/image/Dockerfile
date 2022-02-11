@@ -25,7 +25,6 @@ WORKDIR ${HOME}
 # Install packages needed by notebook-as-pdf
 # nodejs for installing notebook / jupyterhub from source
 # libarchive-dev for https://github.com/berkeley-dsep-infra/datahub/issues/1997
-# chromium-browser for pagedown
 RUN apt-get update > /dev/null && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -42,8 +41,14 @@ RUN apt-get update > /dev/null && \
             fonts-symbola \
             gdebi-core \
             tini \
-            chromium-browser \
             nodejs npm > /dev/null && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# google-chrome is for pagedown; chromium doesn't work nicely with it (snap?)
+RUN wget --quiet -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get update > /dev/null && \
+    apt -y install /tmp/google-chrome-stable_current_amd64.deb > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
