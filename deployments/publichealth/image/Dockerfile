@@ -62,6 +62,10 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 COPY class-libs.R /tmp/class-libs.R
+RUN mkdir -p /tmp/r-packages
+
+COPY install.R /tmp/install.R
+RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-290.r
