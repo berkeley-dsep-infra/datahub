@@ -24,10 +24,6 @@ class_libs = c(
   "coxed", "0.3.3"
 )
 
-print("Installing ottr...")
-# Pinned to this version so we do not break assignments
-devtools::install_github('ucbds-infra/ottr', ref='0.1.0', upgrade_dependencies=FALSE, quiet=FALSE)
-
 class_libs_install_version(class_name, class_libs)
 
 print("Done installing packages for PH142")
