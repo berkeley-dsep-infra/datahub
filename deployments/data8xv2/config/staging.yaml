@@ -4,7 +4,7 @@ jupyterhub:
       enabled: false
   proxy:
     service:
-      loadBalancerIP: 104.198.75.230
+      loadBalancerIP: 34.135.56.190
     https:
       hosts:
         - staging-hubv2.data8x.berkeley.edu
