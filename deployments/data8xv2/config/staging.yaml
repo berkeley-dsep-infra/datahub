@@ -7,4 +7,4 @@ jupyterhub:
       loadBalancerIP: 34.135.56.190
     https:
       hosts:
-        - staging-hubv2.data8x.berkeley.edu
+        - hubv2-staging.data8x.berkeley.edu
