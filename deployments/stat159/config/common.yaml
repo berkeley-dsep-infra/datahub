@@ -76,7 +76,7 @@ jupyterhub:
           readOnly: true
     memory:
       guarantee: 512M
-      limit: 1G
+      limit: 4G
 
   custom:
     admin:
