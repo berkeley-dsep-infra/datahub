@@ -27,6 +27,11 @@ jed-extra
 # powerful terminal-based file manager, better than the one in JLab
 mc
 
+# for easily managing multiple repositories with one command (perl-doc
+# is needed for its help pages to work)
+mr
+perl-doc
+
 # Regular build tools for compiling common stuff
 build-essential 
 gfortran
@@ -35,6 +40,7 @@ gfortran
 texlive-xetex 
 texlive-fonts-recommended 
 texlive-plain-generic
+lmodern
 
 # Other useful document-related tools
 pandoc
