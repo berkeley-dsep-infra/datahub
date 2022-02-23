@@ -84,6 +84,8 @@ dependencies:
   - tqdm=4.62.3
   - xarray=0.20.2
   - xlrd=2.0.1
+  # https://github.com/berkeley-dsep-infra/datahub/issues/3277
+  - cartopy=0.20.2
 
   - micro=2.0.8
   - websockify
