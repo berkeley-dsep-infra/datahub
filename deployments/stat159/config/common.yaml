@@ -39,10 +39,6 @@ jupyterhub:
       # Tell code where to display GUIs
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
-    # Enable RTC and jupyterlab-link-share
-    cmd:
-    - jupyterhub-singleuser
-    - --LabApp.collaborative=true
     extraFiles:
       lab-config:
         data:
