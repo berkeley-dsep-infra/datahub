@@ -40,10 +40,6 @@ jupyterhub:
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
     extraFiles:
-      lab-config:
-        data:
-          disabledExtensions:
-            jupyterlab-link-share: false
       culling-config:
         data:
           # Allow jupyterlab option to show hidden files in browser
