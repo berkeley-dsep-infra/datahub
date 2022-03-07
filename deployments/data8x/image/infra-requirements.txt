@@ -9,7 +9,7 @@
 
 # FIXME: Freeze this to get exact versions of all dependencies
 notebook==6.4.7
-jupyterlab==3.2.8
+jupyterlab==3.3.0
 jupyterlab-link-share==0.2.4
 nbconvert==6.4.0
 retrolab==0.3.18

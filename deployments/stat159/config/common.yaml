@@ -50,7 +50,7 @@ jupyterhub:
         mountPath: /etc/gitconfig
         stringData: |
           [credential "https://github.com"]
-          helper = store --file=/tmp/github-app-git-credentials          
+          helper = store --file=/tmp/github-app-git-credentials
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     defaultUrl: /lab
