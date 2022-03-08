@@ -67,8 +67,8 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     memory:
-      guarantee: 2G
-      limit: 4G
+      guarantee: 8G
+      limit: 8G
 
   custom:
     admin:
