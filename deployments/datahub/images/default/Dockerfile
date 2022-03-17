@@ -64,8 +64,6 @@ RUN apt-get update > /dev/null && \
             libpq-dev \
             # for issue #2695, fall 2021?
             libarmadillo-dev \
-            # for issue #3305, spring 2022
-            fenics \
             postgresql-client > /dev/null
 
 # Install packages needed by notebook-as-pdf
