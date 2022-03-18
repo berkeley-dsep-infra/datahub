@@ -41,3 +41,4 @@ dependencies:
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/3305, spring 2022
 - fenics==2019.1.0
+- mshr==2019.1.0
