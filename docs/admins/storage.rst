@@ -12,7 +12,7 @@ Why NFS?
 NFS isn't a particularly cloud-native technology. It isn't highly available
 nor fault tolerant by default, and is a single point of failure. However,
 it is currently the best of the alternatives available for user home directories,
-and so we use it.
+and so we use it. 
 
 #. Home directories need to be fully POSIX compliant file systems that work
    with minimal edge cases, since this is what most instructional code assumes.
@@ -21,8 +21,8 @@ and so we use it.
 #. Users don't usually need guaranteed space or IOPS, so providing them each
    a `persistent cloud disk <https://cloud.google.com/persistent-disk/>`_ gets
    unnecessarily expensive - since we are paying for it wether it is used or
-   not.
-
+   not. 
+   
    When we did use one persistent disk per user, the storage cost
    dwarfed everything else by an order of magnitude for no apparent benefit.
 
@@ -38,7 +38,7 @@ NFS Server
 We currently have two approaches to running NFS Servers.
 
 #. Run a hand-maintained NFS Server with `ZFS <https://en.wikipedia.org/wiki/ZFS>`_
-   SSD disks.
+   SSD disks. 
 
    This gives us control over performance, size and most importantly, server options.
    We use ``anonuid=1000``, so all reads / writes from the cluster are treated as if
@@ -73,8 +73,28 @@ allows us to use the same NFS share for many number of hubs.
 NFS Client
 ==========
 
-We use the `Kubernetes NFS Volume <https://kubernetes.io/docs/concepts/storage/volumes/#nfs>`_
-provider to mount user home directories.
+We currently have two approaches for mounting the user's home directory
+into each user's pod.
+
+#. Mount the NFS Share once per node to a well known location, and use
+   `hostpath <https://kubernetes.io/docs/concepts/storage/volumes/#hostpath>`_
+   volumes with a `subpath <https://kubernetes.io/docs/concepts/storage/volumes/#using-subpath>`_
+   on the user pod to mount the correct directory on the user pod.
+
+   This lets us get away with one NFS mount per node, rather than one per
+   pod. See ``hub/templates/nfs-mounter.yaml`` to see how we mount this on the
+   nodes. It's a bit of a hack, and if we want to keep using this method should
+   be turned into a `CSI Driver <https://kubernetes-csi.github.io/>`_ instead.
+
+#. Use the `Kubernetes NFS Volume <https://kubernetes.io/docs/concepts/storage/volumes/#nfs>`_
+   provider.
+
+   This doesn't require hacks, but leads to at least 2 NFS mounts *per user* per node,
+   often leading to hundreds of NFS mounts per node. This might or might not
+   be a problem.
+
+Most hubs use the first method, while ``data8x`` is trialing the second method. If it
+goes well, we might switch to using the second method for everything.
 
 We also try to mount everything as ``soft``, since we would rather have a write
 fail than have processes go into uninterruptible sleep mode (D) where they
