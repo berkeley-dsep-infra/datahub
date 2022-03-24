@@ -76,7 +76,7 @@ prometheus:
         memory: 8Gi
       limits:
         cpu: 3
-        memory: 12Gi
+        memory: 16Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
