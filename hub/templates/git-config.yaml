@@ -1,0 +1,17 @@
+{{ if .Values.etcGitConfig.enabled }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-etc-gitconfig
+  labels:
+    app: jupyterhub
+    component: etc-gitconfig
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+type: Opaque
+stringData:
+  gitconfig: |
+    {{- .Values.etcGitConfig.gitconfig | nindent 4 }}
+  github-app-private-key.pem: |
+    {{- .Values.etcGitConfig.githubAppPrivateKey | nindent 4 }}
+{{ end  }}
