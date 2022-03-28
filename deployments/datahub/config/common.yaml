@@ -128,6 +128,14 @@ jupyterhub:
   # formerly jupyterhub.hub.extraConfigMap
   custom:
     profiles:
+      # CE C133, Spring 2022, issue 3317
+      2022-spring-22718
+        mem_limit: 4096M
+        mem_guarantee: 4096M
+      # ME C180, Spring 2022, issue 3317
+      2022-spring-22015
+        mem_limit: 4096M
+        mem_guarantee: 4096M
       # POLSCI 88 001 Fall 2021 ; remove after 2021-12-15
       2021-fall-32244:
         mem_limit: 4096M
