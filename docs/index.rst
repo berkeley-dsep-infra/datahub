@@ -2,7 +2,7 @@
 UC Berkeley's JupyterHubs
 =========================
 
-This repository contains configuration and documentation for the many
+This repository contains configuration and documentation (including policies) for the many
 JupyterHubs used by various organizations in UC Berkeley.
 
 Using DataHub
@@ -26,3 +26,12 @@ is built by a diverse array of people.
 
    admins/index
    admins/howto/index
+
+DataHub Policies
+================
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 2
+
+   policy/index.md
