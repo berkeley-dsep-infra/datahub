@@ -46,6 +46,12 @@ RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
+COPY class-libs.R /tmp/class-libs.R
+RUN mkdir -p /tmp/r-packages
+
+COPY install.R /tmp/install.R
+RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
+
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 
@@ -56,12 +62,6 @@ RUN mamba install -c conda-forge syncthing==1.18.6
 
 # Support latest RStudio
 RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
-
-COPY class-libs.R /tmp/class-libs.R
-RUN mkdir -p /tmp/r-packages
-
-COPY install.R /tmp/install.R
-RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
