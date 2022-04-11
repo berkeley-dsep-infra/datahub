@@ -74,8 +74,10 @@ COPY class-libs.R /tmp/class-libs.R
 COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2022-spring-stat-20.r
 
-RUN tlmgr update --self && \
-    tlmgr install \
+RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr --verify-repo=none update --self && \
+    tlmgr --verify-repo=none install \
 	amsmath \
 	auxhook \
 	bigintcalc \
