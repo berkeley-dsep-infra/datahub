@@ -68,5 +68,9 @@ RUN install2.r --error --skipinstalled \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
     rm -rf /tmp/downloaded_packages
 
+# fix texlive issue 3338
+RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr --verify-repo=none update --self
 
 ENTRYPOINT ["tini", "--"]
