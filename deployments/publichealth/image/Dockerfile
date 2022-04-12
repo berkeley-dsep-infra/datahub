@@ -64,8 +64,11 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 COPY class-libs.R /tmp/class-libs.R
 RUN mkdir -p /tmp/r-packages
 
-COPY install.R /tmp/install.R
-RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
+# Workaround to install ottr, issue 3342
+RUN wget https://github.com/ucbds-infra/ottr/archive/refs/tags/0.1.0.tar.gz -O /tmp/ottr.tar.gz && R CMD INSTALL /tmp/ottr.tar.gz && rm /tmp/ottr.tar.gz
+
+#COPY install.R /tmp/install.R
+#RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-290.r
@@ -79,5 +82,37 @@ RUN r /tmp/r-packages/ph-252.r
 COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-phw-272a.r
 
+RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr --verify-repo=none update --self && \
+    tlmgr --verify-repo=none install \
+        amsmath \
+        latex-amsmath-dev \
+        iftex \
+        kvoptions \
+        ltxcmds \
+        kvsetkeys \
+        etoolbox \
+        xcolor \
+        auxhook \
+        bigintcalc \
+        bitset \
+        etexcmds \
+        gettitlestring \
+        hycolor \
+        hyperref \
+        intcalc \
+        kvdefinekeys \
+        letltxmacro \
+        pdfescape \
+        refcount \
+        rerunfilecheck \
+        stringenc \
+        uniquecounter \
+        zapfding \
+        pdftexcmds \
+        infwarerr \
+        geometry \
+        epstopdf-pkg
 
 ENTRYPOINT ["tini", "--"]
