@@ -50,12 +50,12 @@ jupyterhub:
         mountPath: /etc/gitconfig
         stringData: |
           [credential "https://github.com"]
-          helper = store --file=/tmp/github-app-git-credentials
+          helper = store --file=/tmp/gh-scoped-creds
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     defaultUrl: /lab
     extraEnv:
-      GITHUB_APP_CLIENT_ID: Iv1.28ac6d8f60ed35ac
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac
     storage:
       type: static
       static:
