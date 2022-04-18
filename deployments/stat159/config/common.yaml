@@ -46,11 +46,6 @@ jupyterhub:
           # https://github.com/berkeley-dsep-infra/datahub/issues/3160
           ContentsManager:
             allow_hidden: true
-      gitconfig:
-        mountPath: /etc/gitconfig
-        stringData: |
-          [credential "https://github.com"]
-          helper = store --file=/tmp/gh-scoped-creds
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     defaultUrl: /lab
