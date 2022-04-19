@@ -70,6 +70,7 @@ dependencies:
   - pillow=8.4.0
   - plotly=5.5.0
   - pooch=1.5.2
+  - pyarrow=7.0.0
   - pytables=3.6.1
   - pytest=6.2.5
   - pytest-cov=3.0.0
