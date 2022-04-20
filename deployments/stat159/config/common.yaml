@@ -51,6 +51,7 @@ jupyterhub:
     defaultUrl: /lab
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/stat159-berkeley-datahub-access
     storage:
       type: static
       static:
