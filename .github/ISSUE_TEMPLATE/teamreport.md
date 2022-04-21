@@ -8,7 +8,8 @@ assignees:
 - felder
 - yuvipanda
 - ericvd-ucb
-- ryanlovett 
+- ryanlovett
+- sean-morris 
 ---
 
 _Copy and paste the template below, and answer questions as you wish!_
