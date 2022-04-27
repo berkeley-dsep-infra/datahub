@@ -98,4 +98,4 @@ dependencies:
     - -r infra-requirements.txt
     - jupyter-desktop-server
     # For push authentication to GitHub
-    - gh-scoped-creds==4.0
+    - gh-scoped-creds==4.1
