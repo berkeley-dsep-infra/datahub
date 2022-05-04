@@ -8,3 +8,7 @@ jupyterhub:
     https:
       hosts:
         - hubv2-staging.data8x.berkeley.edu
+  hub:
+    services:
+      gofer_nb:
+        url: http://grader-staging.data8x.berkeley.edu:10101
