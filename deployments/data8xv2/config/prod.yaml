@@ -10,3 +10,6 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 40Gi
+    services:
+      gofer_nb:
+        url: http://grader-prod.data8x.berkeley.edu:10101
