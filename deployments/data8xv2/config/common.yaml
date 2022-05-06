@@ -20,9 +20,6 @@ jupyterhub:
     service:
       type: LoadBalancer
   hub:
-    services:
-      gofer_nb:
-        url: http://34.70.18.176:10101
     config:
       JupyterHub:
         authenticator_class: ltiauthenticator.LTIAuthenticator
