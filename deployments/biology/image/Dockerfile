@@ -121,6 +121,10 @@ RUN apt-get update -qq --yes > /dev/null && \
         ncompress \
         pbzip2 > /dev/null
 
+# Install openjdk for nextflow - https://github.com/berkeley-dsep-infra/datahub/issues/3382
+RUN apt-get update -qq --yes > /dev/null && \
+    apt-get install --yes -qq openjdk-11-jdk > /dev/null
+
 WORKDIR /home/jovyan
 
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
