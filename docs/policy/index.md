@@ -8,4 +8,6 @@ The primary objective of this documentation is to codify varied policies of the 
 create_policy.md
 policy_create_hubs.md
 policy_deploy_mainhubs.md
+storage_policy.md
+storage_retention.rst
 ```
