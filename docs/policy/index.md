@@ -5,6 +5,7 @@ The primary objective of this documentation is to codify varied policies of the 
 ```{toctree}
 :maxdepth: 2
 :caption: Policies
+policy_principles.md
 create_policy.md
 policy_create_hubs.md
 policy_deploy_mainhubs.md
