@@ -10,8 +10,7 @@ Policy
 Criteria
 --------
 
-No non-hidden files in the user's home directory have been modified in
-the last 12 months.
+No non-hidden files in the user's home directory that have been modified in the last 6 months.
 
 Archival
 --------
@@ -30,7 +29,7 @@ these users used datahub in previous semesters, have not logged in
 for a long time, and will probably never log in again. This costs us
 a lot of money in disk space - we will have to forever expand disk space.
 
-By cleaning it up after 12 months of non-usage, we will not affect any
+By cleaning it up after 6 months of non-usage, we will not affect any
 current users - just folks who haven't logged in for a long time. Archiving
 the contents would make sure people still have access to their old work,
 without leaving the burden of maintaining it forever on us.
@@ -38,8 +37,6 @@ without leaving the burden of maintaining it forever on us.
 Why Google Drive?
 =================
 
-For UC Berkeley users, Google Drive offers `Unlimited Free Space
-<https://bconnected.berkeley.edu/collaboration-services/google/bdrive>`_.
 We can also perform access control easily with Google Drive.
 
 Alternatives
@@ -53,4 +50,3 @@ Alternatives
    link to the users. We will need to probably clean this up every 18 months
    or so for cost reasons. This is the viable alternative, if we decide to
    not use Google Drive
-
