@@ -1,4 +1,4 @@
-# Communicating with our end users
+# Automated communications with our end users
 
 Currently, we do not have a mechanism to communicate our *expectations* of
 end users to our end users. This is done in an ad-hoc way through talks with
@@ -7,6 +7,10 @@ files have been archived. Users do not have clear guidance on how to be good
 citizens of the hub. It is important we provide this at crucial junctures,
 rather than have them find that they have run afoul of some policy unintentionally
 *after* the fact.
+
+This policy only accounts for *automated* communication with our users,
+triggered by specific events (such as login, archival, etc) - not manually
+triggered emails sent out as newsletters.
 
 ## Welcome email
 
