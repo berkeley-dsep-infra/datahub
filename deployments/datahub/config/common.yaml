@@ -123,68 +123,27 @@ jupyterhub:
       limit: 1G
     image: {}
 
-
   # read by z2jh.get_config() in hub/values.yaml
   # formerly jupyterhub.hub.extraConfigMap
   custom:
     profiles:
-      # EE120, Spring 2022, issue 3343
-      2022-spring-21882:
+      # Needed until June, 25 2022 see issue 3397
+      issue-3397:
+        users:
+          - ana303
+          - luismflores99
+          - slamorte
+          - jessemed023
+          - asimonova
+          - chenze
+          - mdasta
         mem_limit: 4096M
         mem_guarantee: 4096M
-      # ENVECON 153, Spring 2022, issue 3330
-      2022-spring-21369:
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      # CE C133, Spring 2022, issue 3317
-      2022-spring-22718:
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      # ME C180, Spring 2022, issue 3317
-      2022-spring-22015:
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      # POLSCI 88 001 Fall 2021 ; remove after 2021-12-15
-      2021-fall-32244:
-        mem_limit: 4096M
-        mem_guarantee: 2048M
-      # ART W32AC 101 Summer 2021 Issue 2330
-      2021-summer-14368:
-        mem_limit: 2048M
-        mem_guarantee: 1024M
       niemeyer-issue-2330:
         users:
           - niemeyer
         mem_limit: 8192M
         mem_guarantee: 4096M
-      # INDENG142 Spring 2021 Issue 2315
-      2021-spring-31201:
-        mem_limit: 2048M
-        mem_guarantee: 1024M
-      # ENVECON153 (EEP153) Spring 2021 Issue 2013
-      2021-spring-27844:
-        mem_limit: 4096M
-        mem_guarantee: 1024M
-      # Shared dataset volumes for astr 128 / 256
-      # See https://github.com/berkeley-dsep-infra/datahub/issues/827
-      # astr 256, issue 2083
-      2021-spring-25995:
-        mem_limit: 4096M
-        mem_guarantee: 1024M
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/shared/course/astr-128-256
-            subPath: _shared/course/astr-128-256
-            readOnly: true
-      # astr 128, issue 2083
-      2021-spring-25880:
-        mem_limit: 4096M
-        mem_guarantee: 1024M
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/shared/course/astr-128-256
-            subPath: _shared/course/astr-128-256
-            readOnly: true
       # Read-write access to the astro shared directory
       # HACK: Different mountPath to prevent mounting two volumeMounts
       # at the same path.
@@ -199,14 +158,6 @@ jupyterhub:
           - name: home
             mountPath: /home/jovyan/shared-rw/course/astr-128-256
             subPath: _shared/course/astr-128-256
-      # Shared drive for EPS 130
-      # https://github.com/berkeley-dsep-infra/datahub/issues/2123
-      2021-spring-22110:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/shared/course/eps-130
-            subPath: _shared/course/eps-130
-            readOnly: true
       eps-130-admins:
         users:
           - yuvipanda
@@ -216,10 +167,3 @@ jupyterhub:
           - name: home
             mountPath: /home/jovyan/shared-rw/course/eps-130
             subPath: _shared/course/eps-130
-
-    canvas_courses:
-      # POLSCI 88 001 Fall 2021 ; remove after 2021-12-15
-      # https://github.com/berkeley-dsep-infra/datahub/issues/2848
-      1509087:
-        mem_limit: 4096M
-        mem_guarantee: 2048M
