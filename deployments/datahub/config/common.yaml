@@ -127,7 +127,7 @@ jupyterhub:
   # formerly jupyterhub.hub.extraConfigMap
   custom:
     profiles:
-      # Needied until June, 25 2022 see issue 3397
+      # Needed until June, 25 2022 see issue 3397
       issue-3397:
         users:
           - ana303
