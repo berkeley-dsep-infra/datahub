@@ -65,10 +65,13 @@ COPY class-libs.R /tmp/class-libs.R
 RUN mkdir -p /tmp/r-packages
 
 # Workaround to install ottr, issue 3342
-RUN wget https://github.com/ucbds-infra/ottr/archive/refs/tags/0.1.0.tar.gz -O /tmp/ottr.tar.gz && R CMD INSTALL /tmp/ottr.tar.gz && rm /tmp/ottr.tar.gz
+#RUN wget https://github.com/ucbds-infra/ottr/archive/refs/tags/0.1.0.tar.gz -O /tmp/ottr.tar.gz && R CMD INSTALL /tmp/ottr.tar.gz && rm /tmp/ottr.tar.gz
 
 #COPY install.R /tmp/install.R
 #RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
+
+COPY r-packages/ottr.r /tmp/r-packages/
+RUN r /tmp/r-packages/ottr.r
 
 COPY r-packages/ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-290.r
