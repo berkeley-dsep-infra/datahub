@@ -103,6 +103,8 @@ jupyterhub:
           popularity_contest.reporter.setup_reporter()
     extraEnv:
       SHELL: /bin/bash
+      # until https://github.com/jupyterhub/jupyterhub/pull/3918 or equivalent lands
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
       PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
       PYTHON_POPCONTEST_STATSD_PORT: '9125'
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
