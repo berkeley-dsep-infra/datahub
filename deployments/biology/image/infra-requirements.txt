@@ -11,7 +11,6 @@
 notebook==6.4.11
 jupyterlab==3.4.2
 jupyterlab-link-share==0.2.4
-nbconvert==6.4.0
 retrolab==0.3.21
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.1
