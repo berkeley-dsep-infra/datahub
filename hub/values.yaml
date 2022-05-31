@@ -51,6 +51,10 @@ jupyterhub:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
   singleuser:
+    cmd:
+      # Explicitly define this, as it's no longer set by z2jh
+      # https://github.com/jupyterhub/zero-to-jupyterhub-k8s/pull/2449
+      - jupyterhub-singleuser
     cpu:
       # Make sure all users get at least 5% of CPU, so other users can't starve them
       # so much that they crash
