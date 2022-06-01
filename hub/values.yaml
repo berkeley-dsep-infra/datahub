@@ -178,11 +178,15 @@ jupyterhub:
         max_per_page: 30000
       JupyterHub:
         authenticator_class: canvasauthenticator.CanvasOAuthenticator
-        # Return 424, not 503, when requests go to a stopped server
-        # Keeps our 503 error graphs clearer
-        use_legacy_stopped_server_status_code: false
+        # Allow unauthenticated prometheus requests
+        # Otherwise our prometheus server can't get to these
+        authenticate_prometheus: false
       Authenticator:
         enable_auth_state: true
+      KubeSpawner:
+        # Make sure working directory is ${HOME}
+        # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
+        working_dir: '/home/jovyan'
       CanvasOAuthenticator:
         canvas_url: https://bcourses.berkeley.edu/
         strip_email_domain: berkeley.edu
@@ -413,22 +417,7 @@ jupyterhub:
             return (await super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-      02-working-dir: |
-        # Make sure working directory is ${HOME}
-        # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
-        c.KubeSpawner.working_dir = '/home/jovyan'
-      03-prometheus: |
-        # Allow unauthenticated prometheus requests
-        # Otherwise our prometheus server can't get to these
-        c.JupyterHub.authenticate_prometheus = False
-      04-no-setuid: |
-        c.KubeSpawner.extra_container_config = {
-          'securityContext': {
-            # Explicitly disallow setuid binaries from working inside the container
-            'allowPrivilegeEscalation': False
-          }
-        }
-      05-popularity-contest: |
+      02-popularity-contest: |
         # Emit metrics for which python packages are being imported
         import os
         pod_namespace = os.environ['POD_NAMESPACE']

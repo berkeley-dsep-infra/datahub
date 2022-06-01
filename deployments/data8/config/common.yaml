@@ -139,10 +139,6 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
-    # Stop reporting event progress individually to users temporarily
-    # Mostly to collect data on how this affects server startup performance
-    # see https://github.com/jupyterhub/kubespawner/pull/559
-    events: false
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
     defaultUrl: /retro
