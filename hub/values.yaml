@@ -178,6 +178,13 @@ jupyterhub:
         default_per_page: 30000
         max_per_page: 30000
       JupyterHub:
+        load_roles:
+          - name: user
+            scopes:
+            # Allow all users access to 'services', which include the hubs that
+            # use the main datahub for auth
+            - access:services
+            - self
         authenticator_class: canvasauthenticator.CanvasOAuthenticator
         # Return 424, not 503, when requests go to a stopped server
         # Keeps our 503 error graphs clearer
