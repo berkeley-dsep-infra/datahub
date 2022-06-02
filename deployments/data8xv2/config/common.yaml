@@ -22,7 +22,7 @@ jupyterhub:
   hub:
     config:
       JupyterHub:
-        authenticator_class: ltiauthenticator.LTIAuthenticator
+        authenticator_class: ltiauthenticator.LTI11Authenticator
       Authenticator:
         admin_users:
           # unknown, not found in any issues
