@@ -37,6 +37,7 @@ jupyterhub:
           # List of other admin users
           - psudmant
           - ingolia
+          - stacy-l
 
   custom:
     admin:
