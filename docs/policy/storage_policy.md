@@ -24,7 +24,7 @@ Another user had a core.rsession file whose size was around 785 GB. She had this
 
 Accumulated file sizes of all such home directories would run into to few TB. Inorder to avoid such scenarios, we need to proactively communicate our policies to users and on a monthly basis run jobs to measure and visualize disk size. It will help us to identify and provide useful feedback to users (**who do not have any systematic way of knowing whether their home directory size violates a storage policy**) about their storage.
 
-Policy recommendation is to **not archive any user's home directories whose files size are greater than 100 GB**. Infra team should reach out to the concerned user(s) to inform them about their current storage status and request them to back up their data within 30 days.
+The policy recommendation is to **Run an archival job every week and archive any user's home directories with a size greater than 100 GB which is not yet been accessed for the past 90 days**. Infra team should reach out to the concerned user(s) to inform them about their current storage status.
 
 In addition, Infra team should communicate our storage policies proactively to all users (including instructors/GSIs) through a welcome message when they log in to Datahub.
 
