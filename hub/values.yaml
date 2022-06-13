@@ -360,6 +360,16 @@ jupyterhub:
               user_canvas_courses = auth_state.get('courses', [])
               # see https://canvas.instructure.com/doc/api/courses.html
 
+              ## Inspect and log SIS course IDs, e.g. CRS:STAT-21-2021-D
+              sis_course_ids = list(
+                map(
+                  lambda x: str(x.get('sis_course_id', '')),
+                  user_canvas_courses
+                )
+              )
+              self.log.info(f'SIS course IDs: {sis_course_ids}')
+              ## end: log sis course IDS
+
               # the key we use to uniquely identify courses. different
               # deployments could use different keys, depending on their
               # canvas usage e.g. 'sis_course_id' or 'name'
@@ -375,7 +385,6 @@ jupyterhub:
                   user_canvas_courses
                 )
               )
-              self.log.info(f'num canvas courses: {self.user.name} {len(user_canvas_courses_identifiers)}')
 
               # get our customizations for our specified canvas courses
               canvas_course_customizations = z2jh.get_config('custom.canvas_courses', {})
