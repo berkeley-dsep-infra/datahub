@@ -9,7 +9,7 @@ dependencies:
    version: 6.24.1
    repository: https://grafana.github.io/helm-charts
  - name: cert-manager
-   version: v1.1.0
+   version: v1.8.1
    repository: https://charts.jetstack.io
  - name: ingress-nginx
    version: 3.23.0
