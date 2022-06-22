@@ -241,6 +241,7 @@ jupyterhub:
       # will override config set here.
       01-custom-attr-spawner: |
         import os
+        import time
         from kubespawner import KubeSpawner
         from tornado import gen
         import z2jh
@@ -361,13 +362,29 @@ jupyterhub:
               # see https://canvas.instructure.com/doc/api/courses.html
 
               ## Inspect and log SIS course IDs, e.g. CRS:STAT-21-2021-D
-              sis_course_ids = list(
-                map(
-                  lambda x: str(x.get('sis_course_id', '')),
-                  user_canvas_courses
-                )
-              )
+              sis_course_ids = []
+              course_codes = []
+              for user_canvas_course in user_canvas_courses:
+                sis_course_id = user_canvas_course.get('sis_course_id', None)
+                # skip empty IDs or projects
+                if sis_course_id is None or not sis_course_id.startswith('CRS:'):
+                  continue
+                # check whether the course has ended already
+                end_at = user_canvas_course.get('end_at', None)
+                if end_at is None:
+                  continue
+                try:
+                  # 2014-08-26T17:16:00Z
+                  end_at_p = time.strptime(end_at[:10], '%Y-%m-%d')
+                except Exception as e:
+                  self.log.info(f'SIS course end: {e}')
+                  self.log.info(f'SIS course end: {end_at}')
+                  continue
+                if end_at_p > time.localtime():
+                  course_codes.append(user_canvas_course.get('course_code', ''))
+                  sis_course_ids.append(sis_course_id)
               self.log.info(f'SIS course IDs: {sis_course_ids}')
+              self.log.info(f'SIS course codes: {course_codes}')
               ## end: log sis course IDS
 
               # the key we use to uniquely identify courses. different
