@@ -172,29 +172,23 @@ jupyterhub:
   hub:
     # The default of 64 is way too low for us
     concurrentSpawnLimit: 200
+    loadRoles:
+      # Should use this, not hub.config.JupyterHub.load_roles - that will
+      # override any existing load_roles set by z2jh
+      user-login:
+        name: user
+        scopes:
+        # Allow all users access to 'services', which include the hubs that
+        # use the main datahub for auth
+        - access:services
+        - self
+
     config:
       Pagination:
         # Disable pagination completely, since there's no search functionality yet
         default_per_page: 30000
         max_per_page: 30000
       JupyterHub:
-        load_roles:
-          - name: user
-            scopes:
-            # Allow all users access to 'services', which include the hubs that
-            # use the main datahub for auth
-            - access:services
-            - self
-          # We shouldn't need to explicitly set it, but since load_roles is a list,
-          # I think us setting it here resets the permissions that z2jh sets for
-          # idle-culler.
-          # See https://github.com/jupyterhub/jupyterhub/issues/3956
-          - name: jupyterhub-idle-culler
-            scopes:
-            - list:users
-            - read:users:activity
-            - read:servers
-            - delete:servers
         authenticator_class: canvasauthenticator.CanvasOAuthenticator
         # Return 424, not 503, when requests go to a stopped server
         # Keeps our 503 error graphs clearer
