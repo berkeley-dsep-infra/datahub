@@ -30,7 +30,13 @@ jupyterhub:
             - felder
             - balajialwar
             # List of other admin users
-
+            - rbarreto
+            - pratik.sachdeva
+            - aculich
+            - cheng.ren
+            - emily_grabowski
+            - klganter
+            - cvacano
   singleuser:
     # Enable jupyterlab-link-share so people can share links for RTC
     extraFiles:
