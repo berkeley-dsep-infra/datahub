@@ -20,6 +20,15 @@ jupyterhub:
     service:
       type: LoadBalancer
   hub:
+    loadRoles:
+      read-users:
+        name: read-user
+        scopes:
+        - access:services
+        - read:users
+        - list:users
+        services:
+        - gofer_nb
     config:
       JupyterHub:
         authenticator_class: ltiauthenticator.LTIAuthenticator
@@ -64,6 +73,7 @@ jupyterhub:
           # sean morris
           - bd1e7c64c6f5faddbf6b32af3010cf75
           - 261821b22ba97d73f571bf396c2ecb0a
+          - 594aed203b01b16a7a025c2f3e037933
   singleuser:
     networkPolicy:
       # We only allow outbound HTTP, HTTPS and DNS access
