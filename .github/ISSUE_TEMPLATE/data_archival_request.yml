@@ -1,5 +1,4 @@
 name: Data Archival Request
-title: Request retrieval of my Datahub files
 description: Retrieve my old Datahub files
 labels: support
 assignees:
@@ -8,13 +7,31 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and provide us the information required to retrieve your files! 	
+        Please follow the sections in the template and provide us the required information to retrieve your files! There are more than 10+ hubs serving diverse instructional needs of the campus community. We require you to identify the correct URL to your files in the exact hub used as part of your course.  
   - type: textarea
     attributes:
       label: Email Id 
-      description: Berkeley Email Id which you used to access Datahub!
+      description: Share the Berkeley Email Id which you used to access Datahub!
     validations:
       required: true
+  - type: input
+    attributes:
+      label: Graduation Details
+      description: Did you already graduate?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Term/Year
+      description: Identify the term of the semester (Fall/Spring/Summer) and the year of your course enrollment
+    validations:
+      required: true     
+  - type: input
+    attributes:
+      label: Login Detail
+      description: When was the last time you logged in to the hub?
+    validations:
+      required: true 
   - type: textarea
     attributes:
       label: Link to Datahub Folder
