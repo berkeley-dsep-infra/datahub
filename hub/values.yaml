@@ -190,11 +190,15 @@ jupyterhub:
         max_per_page: 30000
       JupyterHub:
         authenticator_class: canvasauthenticator.CanvasOAuthenticator
-        # Return 424, not 503, when requests go to a stopped server
-        # Keeps our 503 error graphs clearer
-        use_legacy_stopped_server_status_code: false
+        # Allow unauthenticated prometheus requests
+        # Otherwise our prometheus server can't get to these
+        authenticate_prometheus: false
       Authenticator:
         enable_auth_state: true
+      KubeSpawner:
+        # Make sure working directory is ${HOME}
+        # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
+        working_dir: '/home/jovyan'
       CanvasOAuthenticator:
         canvas_url: https://bcourses.berkeley.edu/
         strip_email_domain: berkeley.edu
@@ -251,7 +255,6 @@ jupyterhub:
         import z2jh
 
         hosted_domain = 'berkeley.edu'
-        course_profile_tmpl = '/srv/jupyterhub/profiles.d/{}-{}.txt'
 
         def memparse(val):
           '''Parse memory for relative comparisons.'''
@@ -267,25 +270,6 @@ jupyterhub:
           x = memparse(a)
           y = memparse(b)
           return (x > y) - (x < y)
-
-        def course_profile_filename(course, constituent):
-          return course_profile_tmpl.format(course, constituent)
-
-        def course_members(course, constituent, hd=None):
-          '''Extracts usernames from files containing email addresses.'''
-          members = []
-          filename = course_profile_filename(course, constituent)
-          if not os.path.exists(filename): return members
-          with open(filename) as f:
-            line = f.readline()
-            while line != '':
-              email = line.strip()
-              if hd and email.endswith('@' + hd):
-                members.append(email.split('@')[0])
-              elif not hd:
-                members.append(email)
-              line = f.readline()
-          return members
 
         # TODO: move canvas_course_data to canvasauthenticator
         def canvas_course_data(course_key, course_val, user_canvas_courses):
@@ -321,20 +305,10 @@ jupyterhub:
 
             # custom.profiles
             custom_profiles = z2jh.get_config('custom.profiles', {})
-            is_student = False
-            is_instructor = False
-            for course, profile_data in custom_profiles.items():
+            for profile, profile_data in custom_profiles.items():
               customize = False
               if 'users' in profile_data and self.user.name in profile_data['users']:
-                customize = True
-              else:
-                students = course_members(course, 'students', hosted_domain)
-                instructors = course_members(course, 'instructors', hosted_domain)
-                is_student |= (self.user.name in students)
-                is_instructor |= (self.user.name in instructors)
-                customize = self.user.name in students or self.user.name in instructors
-              if customize:
-                self.log.warning(f'using profile {course}')
+                self.log.warning(f'using profile {profile}')
                 self.volumes += profile_data.get('extraVolumes', [])
                 self.volume_mounts += profile_data.get('extraVolumeMounts', [])
                 # set new mem thresholds if specified are bigger than current
@@ -344,13 +318,6 @@ jupyterhub:
                 if 'mem_guarantee' in profile_data and \
                 mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
                   self.mem_guarantee = profile_data['mem_guarantee']
-
-            # if the user is a student in any course specified by a profile,
-            # they never get to be an admin
-            if is_student:
-              self.user.admin = False
-            elif is_instructor:
-              self.user.admin = True
 
             # custom.canvas_courses
             auth_state = await self.user.get_auth_state()
@@ -451,22 +418,7 @@ jupyterhub:
             return (await super().start())
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-      02-working-dir: |
-        # Make sure working directory is ${HOME}
-        # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
-        c.KubeSpawner.working_dir = '/home/jovyan'
-      03-prometheus: |
-        # Allow unauthenticated prometheus requests
-        # Otherwise our prometheus server can't get to these
-        c.JupyterHub.authenticate_prometheus = False
-      04-no-setuid: |
-        c.KubeSpawner.extra_container_config = {
-          'securityContext': {
-            # Explicitly disallow setuid binaries from working inside the container
-            'allowPrivilegeEscalation': False
-          }
-        }
-      05-popularity-contest: |
+      02-popularity-contest: |
         # Emit metrics for which python packages are being imported
         import os
         pod_namespace = os.environ['POD_NAMESPACE']
