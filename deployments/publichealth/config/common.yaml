@@ -63,28 +63,13 @@ jupyterhub:
           - mi-suk
           - c.riddell
           - hogenegin # https://github.com/berkeley-dsep-infra/datahub/issues/3168
-          # PHW142 Lead GSI
-          # Spring 2022 PH142 GSIs, Tech GSI
-          - kmaccuish
-          - chandlerbeon
+          # PH 142 Summer Instructors - https://github.com/berkeley-dsep-infra/datahub/issues/3491
+          - irisyen
+          - ajuareza
           - nola
-          - noelpimentel
-          - brian.aldana
-          - antoniadlg
-          - jane.yliu21
-          # See https://github.com/berkeley-dsep-infra/datahub/pull/2441
-          # PH250A & PHW250A Fall 2021 GSIs / Instructor
-          - smccoy
-          - krista_neumann
-          - lsheira
-          - julia.acker
-          - jessiiicamae
-          - natasha_harrison
-          - hcolbeth
-          - caroline.kurtz
-          - eric_stewart
-          - judytan
-          - lkamil
+          - sylvia-cheng
+          - psrivastava
+          - dyilmaz
   singleuser:
     defaultUrl: /rstudio
 
