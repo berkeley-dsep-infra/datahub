@@ -53,7 +53,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         self.extra_params = {
             'client_id': self.client_id,
             'client_secret': self.client_secret,
-            'replace_tokens': 'true', # to prevent tokens from accumulating
+            'replace_tokens': 1, # to prevent tokens from accumulating
         }
 
     async def get_canvas_items(self, token, url):
