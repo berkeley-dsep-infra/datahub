@@ -36,6 +36,19 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         """
     )
 
+    course_key = Unicode(
+        '',
+        config=True,
+        help="""
+        Key to lookup course identifier from Canvas course data.
+
+        This might be sis_course_id, course_code, id, etc.
+
+        sis_course_id examples: CRS:MATH-98-2021-C, CRS:CHEM-1A-2021-D, CRS:PHYSICS-77-2022-C
+        course_code examples: "Math 98", "Chem 1A Fall 2021", "PHYSICS 77-LEC-001"
+        """
+    )
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -78,6 +91,8 @@ class CanvasOAuthenticator(GenericOAuthenticator):
     async def get_courses(self, token):
         """
         Get list of courses enrolled by the current user
+
+        See https://canvas.instructure.com/doc/api/courses.html#method.courses.index
         """
         url = f"{self.canvas_url}/api/v1/courses"
 
@@ -85,14 +100,47 @@ class CanvasOAuthenticator(GenericOAuthenticator):
 
         return data
 
+    def format_group(course_identifier, enrollment_type):
+        if enrollment_type is None:
+            return f'canvas::{course_identifier}'
+        else
+            return f'canvas::{course_identifier}::{enrollment_type}'
+
+    def extract_course_groups(courses):
+        '''
+        Extract course identifiers for each course the user is enrolled in
+        and format them as group names.
+        '''
+        groups = []
+
+        for course in user['auth_state']['courses']:
+            course_id = course.get(self.course_key, None)
+            if course_id is None:
+                continue
+
+            # examples: [{'enrollment_state': 'active', 'role': 'TeacherEnrollment', 'role_id': 1773, 'type': 'teacher', 'user_id': 12345}],
+            # https://canvas.instructure.com/doc/api/courses.html#method.courses.index
+            # there may be multiple enrollments per course
+            enrollment_types = list(
+                map(
+                    lambda x: x.get('type', None), course.get('enrollments', [])
+                )
+            )
+
+            for enrollment_type in enrollment_types:
+                groups.append(format_group(course_id, enrollment_type)
+
+        return groups
+
     async def authenticate(self, handler, data=None):
         """
         Augment base user auth info with course info
         """
         user = await super().authenticate(handler, data)
-        user['auth_state']['courses'] = await self.get_courses(
-            user['auth_state']['access_token']
-        )
+        courses = await self.get_courses(user['auth_state']['access_token'])
+        user['auth_state']['courses'] = courses
+        user['groups'] = self.extract_course_groups(courses)
+
         return user
 
     def normalize_username(self, username):
