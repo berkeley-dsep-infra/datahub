@@ -82,7 +82,7 @@ jupyterhub:
       04-custom-theme: |
         c.JupyterHub.template_paths = ['/usr/local/share/jupyterhub/custom_templates/']
       logoConfig: |
-        c.JupyterHub.logo_file = '/srv/jupyterhub/logos/dlab-logo-with-url.svg'
+        c.JupyterHub.logo_file = '/srv/logos/dlab-logo-with-url.svg'
 
   proxy:
     service:
