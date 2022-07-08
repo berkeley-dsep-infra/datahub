@@ -7,6 +7,6 @@ USER root
 COPY canvasauthenticator /srv/canvasauthenticator
 RUN python3 -m pip install --no-cache /srv/canvasauthenticator
 
-COPY logos /srv/jupyterhub/logos
+COPY logos /srv/logos
 
 USER ${NB_USER}
