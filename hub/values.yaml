@@ -319,6 +319,9 @@ jupyterhub:
                 mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
                   self.mem_guarantee = profile_data['mem_guarantee']
 
+            # groups
+            self.log.warning(f'groups: {self.user.groups}')
+
             # custom.canvas_courses
             auth_state = await self.user.get_auth_state()
 
@@ -354,8 +357,8 @@ jupyterhub:
                 if end_at_p > time.localtime():
                   course_codes.append(user_canvas_course.get('course_code', ''))
                   sis_course_ids.append(sis_course_id)
-              self.log.info(f'SIS course IDs: {sis_course_ids}')
-              self.log.info(f'SIS course codes: {course_codes}')
+              self.log.info(f'sis_course_ids: {sis_course_ids}')
+              self.log.info(f'course_codes: {course_codes}')
               ## end: log sis course IDS
 
               # the key we use to uniquely identify courses. different
