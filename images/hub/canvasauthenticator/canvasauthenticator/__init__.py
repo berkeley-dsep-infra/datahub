@@ -125,7 +125,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         groups = []
 
         for course in courses:
-            course_id = course.get(self.course_key, None)
+            course_id = course.get(self.canvas_course_key, None)
             if course_id is None:
                 continue
 
