@@ -50,7 +50,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         """
     )
 
-    @default('canvas_course_code')
+    @default('canvas_course_key')
     def _default_canvas_course_key(self):
         """
         The default is 'course_code' because it should contain human-readable
