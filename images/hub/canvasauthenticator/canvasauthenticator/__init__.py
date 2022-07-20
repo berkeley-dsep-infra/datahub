@@ -111,13 +111,13 @@ class CanvasOAuthenticator(GenericOAuthenticator):
 
         return data
 
-    def format_group(course_identifier, enrollment_type):
+    def format_group(self, course_identifier, enrollment_type):
         if enrollment_type is None:
             return f'canvas::{course_identifier}'
         else:
             return f'canvas::{course_identifier}::{enrollment_type}'
 
-    def extract_course_groups(courses):
+    def extract_course_groups(self, courses):
         '''
         Extract course identifiers for each course the user is enrolled in
         and format them as group names.
@@ -139,7 +139,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
             )
 
             for enrollment_type in enrollment_types:
-                groups.append(format_group(course_id, enrollment_type))
+                groups.append(self.format_group(course_id, enrollment_type))
 
         return groups
 
