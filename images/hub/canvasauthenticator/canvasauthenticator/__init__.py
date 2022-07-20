@@ -125,6 +125,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         groups = []
 
         for course in courses:
+            self.log.info(f'course: {course}')
             course_id = course.get(self.canvas_course_key, None)
             if course_id is None:
                 continue
@@ -152,6 +153,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         user['auth_state']['courses'] = courses
         user['groups'] = self.extract_course_groups(courses)
 
+        self.log.info(f'user groups: {user["groups"]}')
         return user
 
     def normalize_username(self, username):
