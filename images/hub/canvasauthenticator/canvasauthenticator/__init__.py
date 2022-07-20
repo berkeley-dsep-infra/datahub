@@ -1,4 +1,4 @@
-from traitlets import List, Unicode
+from traitlets import List, Unicode, default
 from oauthenticator.generic import GenericOAuthenticator
 import aiohttp
 
@@ -36,19 +36,28 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         """
     )
 
-    course_key = Unicode(
+    canvas_course_key = Unicode(
         '',
         config=True,
         help="""
         Key to lookup course identifier from Canvas course data.
+        See https://canvas.instructure.com/doc/api/courses.html.
 
-        This might be sis_course_id, course_code, id, etc.
+        This might be 'sis_course_id', 'course_code', 'id', etc.
 
         sis_course_id examples: CRS:MATH-98-2021-C, CRS:CHEM-1A-2021-D, CRS:PHYSICS-77-2022-C
         course_code examples: "Math 98", "Chem 1A Fall 2021", "PHYSICS 77-LEC-001"
         """
     )
 
+    @default('canvas_course_code')
+    def _default_canvas_course_key(self):
+        """
+        The default is 'course_code' because it should contain human-readable
+        information, it cannot be overridden by nicknames, and the user won't be
+        excluded from reading it, unlike the possibility of some sis_ attributes.
+        """
+        return 'course_code'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -105,7 +114,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
     def format_group(course_identifier, enrollment_type):
         if enrollment_type is None:
             return f'canvas::{course_identifier}'
-        else
+        else:
             return f'canvas::{course_identifier}::{enrollment_type}'
 
     def extract_course_groups(courses):
@@ -130,7 +139,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
             )
 
             for enrollment_type in enrollment_types:
-                groups.append(format_group(course_id, enrollment_type)
+                groups.append(format_group(course_id, enrollment_type))
 
         return groups
 
