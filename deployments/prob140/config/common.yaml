@@ -20,6 +20,8 @@ jupyterhub:
   hub:
     config:
       Authenticator:
+        # https://jupyterhub.readthedocs.io/en/stable/reference/authenticators.html#authenticator-managed-group-membership
+        manage_groups: True
         admin_users:
           # infrastructure
           - rylo

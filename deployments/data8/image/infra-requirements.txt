@@ -10,7 +10,6 @@
 # FIXME: Freeze this to get exact versions of all dependencies
 notebook==6.4.11
 jupyterlab==3.4.2
-jupyterlab-link-share==0.2.4
 retrolab==0.3.21
 nbgitpuller==1.0.2
 jupyter-resource-usage==0.6.1
