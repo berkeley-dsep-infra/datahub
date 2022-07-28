@@ -7,4 +7,3 @@ cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
 
 # Install vscode extension
 code-server --install-extension ms-python.python
-code-server --install-extension ms-toolsai.jupyter
