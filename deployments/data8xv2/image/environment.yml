@@ -4,6 +4,11 @@ dependencies:
   - scipy==1.2.0
   - numpy==1.16.0
   - pip
+
+  # Visual Studio Code!
+  - jupyter-vscode-proxy
+  - code-server
+
   - pip:
     - nbforms==0.5.1
     - datascience==0.15.4
