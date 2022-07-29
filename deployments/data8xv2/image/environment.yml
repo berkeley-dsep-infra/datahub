@@ -1,5 +1,7 @@
+channels:
+- conda-forge
+
 dependencies:
-  - nodejs==16.16
   - matplotlib==3.0.2
   - pandas==0.23.4
   - scipy==1.2.0
