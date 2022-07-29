@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 set -euo pipefail
 
 # Create ipython config directory if it doesn't exist
