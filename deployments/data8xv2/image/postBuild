@@ -1,6 +1,10 @@
 #!/bin/bash -l
 set -euo pipefail
 
+# Code Server needs nodejs 16+ but nodejs is pinned in
+# repo2docker working this out
+mamba install -n notebook -c conda-forge nodejs==16.* code-server>4.5
+
 # Create ipython config directory if it doesn't exist
 mkdir -p ${CONDA_DIR}/etc/ipython
 cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py

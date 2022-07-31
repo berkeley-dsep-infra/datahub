@@ -7,7 +7,6 @@ dependencies:
 
   # Visual Studio Code!
   - jupyter-vscode-proxy
-  - code-server
 
   - pip:
     - nbforms==0.5.1
