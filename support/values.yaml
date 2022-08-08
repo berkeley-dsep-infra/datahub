@@ -70,6 +70,11 @@ prometheus:
     enabled: false
   rbac:
     create: true
+  # make sure we collect metrics on pods by app/component at least
+  kube-state-metrics:
+    metricLabelsAllowlist:
+      - pods=[app,component,hub.jupyter.org/username,app.kubernetes.io/component]
+      - nodes=[*]
   server:
     resources:
       # Without this, prometheus can easily starve users
