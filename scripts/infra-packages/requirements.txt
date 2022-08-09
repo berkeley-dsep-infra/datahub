@@ -11,7 +11,7 @@
 notebook==6.4.11
 jupyterlab==3.4.2
 retrolab==0.3.21
-nbgitpuller==1.0.2
+nbgitpuller==1.1.0
 jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
 jupyterhub==2.3.0
