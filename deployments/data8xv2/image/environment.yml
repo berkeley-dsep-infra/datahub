@@ -16,6 +16,5 @@ dependencies:
     - nbforms==0.5.1
     - datascience==0.17.0
 # For grading
-    - git+https://github.com/ucbds-infra/Gofer-Grader.git@dbf3500
-    - gofer-submit==0.4
+    - otter-submit==0.5
     - -r infra-requirements.txt
