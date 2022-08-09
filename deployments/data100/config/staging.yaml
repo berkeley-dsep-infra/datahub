@@ -10,3 +10,12 @@ jupyterhub:
       - secretName: tls-cert
         hosts:
           - data100-staging.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        extra_params:
+          client_id: service-data100-staging.datahub.berkeley.edu
+        client_id: service-data100-staging.datahub.berkeley.edu
+        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user
