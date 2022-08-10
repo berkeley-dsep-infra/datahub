@@ -2,22 +2,50 @@ jupyterhub:
 
   hub:
     services:
-      data8-staging.datahub.berkeley.edu:
-        name: data8-staging.datahub.berkeley.edu
-        oauth_client_id: service-data8-staging.datahub.berkeley.edu
-        oauth_redirect_uri: https://data8-staging.datahub.berkeley.edu/hub/oauth_callback
       astro-staging.datahub.berkeley.edu:
         name: astro-staging.datahub.berkeley.edu
         oauth_client_id: service-astro-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://astro-staging.datahub.berkeley.edu/hub/oauth_callback
+      data8-staging.datahub.berkeley.edu:
+        name: data8-staging.datahub.berkeley.edu
+        oauth_client_id: service-data8-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://data8-staging.datahub.berkeley.edu/hub/oauth_callback
+      data100-staging.datahub.berkeley.edu:
+        name: data100-staging.datahub.berkeley.edu
+        oauth_client_id: service-data100-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://data100-staging.datahub.berkeley.edu/hub/oauth_callback
+      data102-staging.datahub.berkeley.edu:
+        name: data102-staging.datahub.berkeley.edu
+        oauth_client_id: service-data102-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://data102-staging.datahub.berkeley.edu/hub/oauth_callback
+      dlab-staging.datahub.berkeley.edu:
+        name: dlab-staging.datahub.berkeley.edu
+        oauth_client_id: service-dlab-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://dlab-staging.datahub.berkeley.edu/hub/oauth_callback
+      eecs-staging.datahub.berkeley.edu:
+        name: eecs-staging.datahub.berkeley.edu
+        oauth_client_id: service-eecs-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://eecs-staging.datahub.berkeley.edu/hub/oauth_callback
       ischool-staging.datahub.berkeley.edu:
         name: ischool-staging.datahub.berkeley.edu
         oauth_client_id: service-ischool-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://ischool-staging.datahub.berkeley.edu/hub/oauth_callback
+      julia-staging.datahub.berkeley.edu:
+        name: julia-staging.datahub.berkeley.edu
+        oauth_client_id: service-julia-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://julia-staging.datahub.berkeley.edu/hub/oauth_callback
+      prob140-staging.datahub.berkeley.edu:
+        name: prob140-staging.datahub.berkeley.edu
+        oauth_client_id: service-prob140-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://prob140-staging.datahub.berkeley.edu/hub/oauth_callback
       publichealth-staging.datahub.berkeley.edu:
         name: publichealth-staging.datahub.berkeley.edu
         oauth_client_id: service-publichealth-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://publichealth-staging.datahub.berkeley.edu/hub/oauth_callback
+      r-staging.datahub.berkeley.edu:
+        name: r-staging.datahub.berkeley.edu
+        oauth_client_id: service-r-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://r-staging.datahub.berkeley.edu/hub/oauth_callback
       stat159-staging.datahub.berkeley.edu:
         name: stat159-staging.datahub.berkeley.edu
         oauth_client_id: service-stat159-staging.datahub.berkeley.edu
