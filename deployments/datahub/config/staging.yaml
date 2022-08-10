@@ -42,6 +42,10 @@ jupyterhub:
         name: publichealth-staging.datahub.berkeley.edu
         oauth_client_id: service-publichealth-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://publichealth-staging.datahub.berkeley.edu/hub/oauth_callback
+      r-staging.datahub.berkeley.edu:
+        name: r-staging.datahub.berkeley.edu
+        oauth_client_id: service-r-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://r-staging.datahub.berkeley.edu/hub/oauth_callback
       stat159-staging.datahub.berkeley.edu:
         name: stat159-staging.datahub.berkeley.edu
         oauth_client_id: service-stat159-staging.datahub.berkeley.edu
