@@ -198,12 +198,6 @@ jupyterhub:
         working_dir: '/home/jovyan'
       CanvasOAuthenticator:
         canvas_url: https://bcourses.berkeley.edu/
-        # canvas_course_key
-        #   examples, by identifier: (in bcourses)
-        #   sis_course_id: CRS:MATH-98-2021-C, CRS:CHEM-1A-2021-D
-        #   course_code: "Math 98", "STAT W21 - WBL 001"
-        #   id: 12345, 68402 (shows up in the URL)
-        canvas_course_key: sis_course_id
         strip_email_domain: berkeley.edu
         login_service: bCourses
         scope:

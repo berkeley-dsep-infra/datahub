@@ -1,5 +1,3 @@
-import logging
-
 import aiohttp
 
 from traitlets import List, Unicode, default
@@ -48,6 +46,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
 
         This might be 'sis_course_id', 'course_code', 'id', etc.
 
+        id examples: 12345, 23456
         sis_course_id examples: CRS:MATH-98-2021-C, CRS:CHEM-1A-2021-D, CRS:PHYSICS-77-2022-C
         course_code examples: "Math 98", "Chem 1A Fall 2021", "PHYSICS 77-LEC-001"
         """
@@ -56,11 +55,18 @@ class CanvasOAuthenticator(GenericOAuthenticator):
     @default('canvas_course_key')
     def _default_canvas_course_key(self):
         """
-        The default is 'course_code' because it should contain human-readable
-        information, it cannot be overridden by nicknames, and the user won't be
-        excluded from reading it, unlike the possibility of some sis_ attributes.
+        The default is 'id', an integer which doesn't convey anything about the
+        course, though it is present in the course URL.
+
+        'sis_course_id' is the most useful, in that it is predictable and human
+        readable, but some student enrollment types cannot read it in common
+        deployments.
+
+        'course_code' contain human-readable information, cannot be overridden
+        by nicknames, and the user won't be excluded from reading it, but it is
+        not garanteed to be unique.
         """
-        return 'course_code'
+        return 'id'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
