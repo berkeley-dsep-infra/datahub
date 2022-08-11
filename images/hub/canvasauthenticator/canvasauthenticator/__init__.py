@@ -85,7 +85,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         _debug_filename = '/srv/jupyterhub/courses.log'
         self.debug_logger = logging.getLogger('courses')
         self.debug_logger.setLevel(logging.INFO)
-        self.debug_logger.addHandler(logging.FileHandler(_debug_filename)
+        self.debug_logger.addHandler(logging.FileHandler(_debug_filename))
 
     async def get_canvas_items(self, token, url):
         """
