@@ -1,6 +1,7 @@
+import aiohttp
+import logging
 from traitlets import List, Unicode, default
 from oauthenticator.generic import GenericOAuthenticator
-import aiohttp
 
 class CanvasOAuthenticator(GenericOAuthenticator):
     """
@@ -80,6 +81,12 @@ class CanvasOAuthenticator(GenericOAuthenticator):
             'replace_tokens': 1,
         }
 
+        # temporary course logging
+        _debug_filename = '/srv/jupyterhub/courses.log'
+        self.debug_logger = logging.getLogger('courses')
+        self.debug_logger.setLevel(logging.INFO)
+        self.debug_logger.addHandler(logging.FileHandler(_debug_filename))
+
     async def get_canvas_items(self, token, url):
         """
         Get paginated items from Canvas.
@@ -149,10 +156,10 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         """
         user = await super().authenticate(handler, data)
         courses = await self.get_courses(user['auth_state']['access_token'])
+        self.debug_logger.info(f"{user['name']} = {courses}")
         user['auth_state']['courses'] = courses
         user['groups'] = self.extract_course_groups(courses)
 
-        self.log.info(f'user groups: {user["groups"]}')
         return user
 
     def normalize_username(self, username):
