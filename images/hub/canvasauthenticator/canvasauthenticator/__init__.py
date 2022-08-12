@@ -159,8 +159,7 @@ class CanvasOAuthenticator(GenericOAuthenticator):
         user = await super().authenticate(handler, data)
         courses = await self.get_courses(user['auth_state']['access_token'])
         user['auth_state']['courses'] = courses
-        user['groups'] = self.extract_course_groups(courses)
-
+        #user['groups'] = self.extract_course_groups(courses)
         return user
 
     def normalize_username(self, username):
