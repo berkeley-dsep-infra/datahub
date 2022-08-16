@@ -46,7 +46,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: alpha-pool
     defaultUrl: /rstudio
     storage:
       # Rocker based images have 'rstudio' as user $1000

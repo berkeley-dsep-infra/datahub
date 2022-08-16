@@ -90,7 +90,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: delta-pool
+      hub.jupyter.org/pool-name: alpha-pool
     defaultUrl: /retro
     storage:
       type: static
