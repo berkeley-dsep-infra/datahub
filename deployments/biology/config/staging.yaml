@@ -1,3 +1,7 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/biology/staging
+
 jupyterhub:
   scheduling:
     userScheduler:
