@@ -1,6 +1,6 @@
 name: Data Archival Request
 title: Request retrieval of my Datahub files
-description: Retrieve my old Datahub files
+description: Retrieve your old Datahub files by using this template. Retrieve your old Datahub files by raising this file request. Please keep in mind that you can use this template only when you are redirected by a text file in your home directory. If that is not the case then please raise a separate request [here](https://github.com/berkeley-dsep-infra/datahub/issues/new).
 labels: support
 assignees:
 - felder
@@ -8,11 +8,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and provide us the information required to retrieve your files! 	
+        Please follow the sections in the template and provide us the required information to retrieve your files! Please do share the correct URL to your files in the hub you used in your course. FYI - There are more than 10+ hubs serving diverse instructional needs of the campus community so identifying the right URL will make it easy for us to serve you better.
   - type: textarea
     attributes:
       label: Email Id 
-      description: Berkeley Email Id which you used to access Datahub!
+      description: Berkeley EmailId used to access Datahub!
     validations:
       required: true
   - type: textarea
