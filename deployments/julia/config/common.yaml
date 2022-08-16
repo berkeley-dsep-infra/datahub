@@ -40,7 +40,7 @@ jupyterhub:
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
