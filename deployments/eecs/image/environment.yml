@@ -7,46 +7,46 @@ dependencies:
 - python=3.9.*
 
 # Visual Studio Code!
-- jupyter-vscode-proxy
-- code-server
+- jupyter-vscode-proxy=0.1
+- code-server=4.5.2
 
-- syncthing==1.18.6
+- syncthing=1.18.6
 
 # A linux desktop environment
 - websockify # from manics channel
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/2535
 # gcc, gdb, etc are newer in conda-forge than in apt, esp with Ubuntu focal
-- c-compiler
-- cxx-compiler
-- fortran-compiler
-- gdb
-- libopenblas==0.3.17
-- liblapack==3.9.0
-- armadillo==9.900.5
-- gperf==3.1
+- c-compiler=1.4.2
+- cxx-compiler=1.4.2
+- fortran-compiler=1.4.2
+- gdb=11.2
+- libopenblas=0.3.17
+- liblapack=3.9.0
+- armadillo=9.900.5
+- gperf=3.1
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
-- numpy==1.21.2
-- matplotlib==3.4.3
-- sympy==1.8
+- numpy=1.21.2
+- matplotlib=3.4.3
+- sympy=1.8
 
 # For EECS127/227a
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
-- cvxpy
+- cvxpy=1.2.1
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
-- scikit-learn==0.24.2
+- scikit-learn=0.24.2
 
 # For CHEM279
 # See https://github.com/berkeley-dsep-infra/datahub/issues/2717
-- git==2.33.0
+- git=2.33.0
 
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
-- Pillow==8.3.1
+- Pillow=8.3.1
 
 # For ELENG 120 https://github.com/berkeley-dsep-infra/datahub/issues/3566
-- scipy
-- gcc
+- scipy=1.9.0
+- gcc=10.4.0
 
 - pip
 - pip:
