@@ -17,10 +17,10 @@ dependencies:
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/2535
 # gcc, gdb, etc are newer in conda-forge than in apt, esp with Ubuntu focal
-- c-compiler==1.2.0
-- cxx-compiler==1.2.0
-- fortran-compiler==1.2.0
-- gdb==10.2
+- c-compiler
+- cxx-compiler
+- fortran-compiler
+- gdb
 - libopenblas==0.3.17
 - liblapack==3.9.0
 - armadillo==9.900.5
@@ -33,7 +33,7 @@ dependencies:
 
 # For EECS127/227a
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
-- cvxpy==1.1.15
+- cvxpy
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
 - scikit-learn==0.24.2
 
@@ -45,7 +45,8 @@ dependencies:
 - Pillow==8.3.1
 
 # For ELENG 120 https://github.com/berkeley-dsep-infra/datahub/issues/3566
-- scipy=1.9.*
+- scipy
+- gcc
 
 - pip
 - pip:
