@@ -14,6 +14,7 @@ to your students, you can do so.
    1. [R Hub](https://github.com/apps/berkeley-r-hub-private-repo)
    2. [DataHub](https://github.com/apps/berkeley-datahub-private-repo)
    3. [PublicHealth Hub](https://github.com/apps/public-health-datahub-private-repo)
+   4. [Biology Hub](https://github.com/apps/berkeley-biology-hub-private-repo)
    3. [Open an issue](https://github.com/berkeley-dsep-infra/datahub/issues) if you
       want more hubs supported.
 
