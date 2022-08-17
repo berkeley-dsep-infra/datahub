@@ -90,3 +90,9 @@ jupyterhub:
       limit: 2
       guarantee: 0.1
     image: {}
+
+  custom:
+    canvas_courses:
+      1517338: # ELENG 120, Fall 2022, Issue 3566
+        mem_limit: 4096M
+        mem_guarantee: 4096M
