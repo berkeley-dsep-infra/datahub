@@ -45,8 +45,8 @@ dependencies:
 - Pillow==8.3.1
 
 # For ELENG 120 https://github.com/berkeley-dsep-infra/datahub/issues/3566
-- scipy=1.9.0
-- gcc=12.1.0
+- scipy
+- gcc
 
 - pip
 - pip:
