@@ -45,6 +45,20 @@ jupyterhub:
           mountPath: /home/jovyan/shared-readwrite
           subPath: _shared
   singleuser:
+    extraFiles:
+      git-credential-helper:
+        mountPath: /etc/gitconfig
+        stringData: |
+          [credential "https://github.com"]
+            helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 229235
+            useHttpPath = true
+      git-credential-helper-private-key:
+        mountPath: /etc/github/github-app-private-key.pem
+        # data in secret file
+
+
+
+
     nodeSelector:
       hub.jupyter.org/pool-name: alpha-pool
     storage:
