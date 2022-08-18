@@ -21,12 +21,18 @@ dependencies:
 - bokeh=2.3.*
 - decorator=5.0.*
 - networkx=2.6.*
-- spacy=3.3.1
+- spacy=3.4.1
 - nltk=3.6.*
 
 # dlab, dssj, summer 2022, issues 3472, 3473, 3474
 - gensim=4.2.0
-- spacy-model-en_core_web_sm=3.3.0
+
+# 3577, L&S 22, Spring 2023
+- spacy-model-en_core_web_sm=3.4.0
+- spacy-model-en_core_web_lg=3.4.0
+- spacy-model-en_core_web_md=3.4.0
+- spacy-model-en_core_web_trf=3.4.0
+- lemminflect=0.2.2
 
 # EPS88, data100
 # https://github.com/berkeley-dsep-infra/datahub/issues/1796
