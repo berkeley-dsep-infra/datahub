@@ -42,7 +42,7 @@ jupyterhub:
               annotations=annotations
           )
 
-        make_db_pvc = partial(make_extra_pvc, 'db-storage', 'db-{username}', 'ssd', '1G')
+        make_db_pvc = partial(make_extra_pvc, 'db-storage', 'db-{username}', 'standard', '1G')
 
         pvc_makers = (make_db_pvc, )
         async def ensure_db_pvc(spawner):
