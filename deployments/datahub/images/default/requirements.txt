@@ -49,7 +49,7 @@ pymdptoolbox==4.0-b3
 # data-x; DL
 tensorflow==2.9.*
 scikit-image==0.18.*
-tables==3.6.1
+tables==3.7.0
 opencv-python==4.5.3.56
 
 # astr 128/256; spring 2021
