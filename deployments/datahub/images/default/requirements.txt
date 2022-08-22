@@ -1,6 +1,7 @@
 # data8; foundation
 datascience==0.17.0
-okpy==1.18.1
+# Until https://github.com/okpy/ok-client/pull/473 is merged
+git+https://github.com/yuvipanda/ok-client@6961d778741fe61911be4d00beff9bd8afc1edf7
 folium==0.12.1
 #
 # r
