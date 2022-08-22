@@ -158,7 +158,7 @@ dask==2021.8.0
 distributed==2021.8.0
 keras-applications==1.0.8
 keras-preprocessing==1.1.2
-keras==2.6.0
+keras==2.9.0
 keras-vis==0.4.1
 plotly-express==0.4.1
 cytoolz==0.11.0
