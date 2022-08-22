@@ -25,7 +25,7 @@ lxml==4.6.3
 tqdm==4.62.1
 mne==0.23.0
 nibabel==3.2.1
-h5py==3.3.0
+h5py==3.7.0
 numexpr==2.7.3
 openpyxl==3.0.7
 nilearn==0.8.0
@@ -47,7 +47,7 @@ corner==2.2.1
 pymdptoolbox==4.0-b3
 #
 # data-x; DL
-tensorflow==2.6.*
+tensorflow==2.9.*
 scikit-image==0.18.*
 tables==3.6.1
 opencv-python==4.5.3.56
