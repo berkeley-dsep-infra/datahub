@@ -243,9 +243,6 @@ RUN /usr/local/sbin/2021-fall-phys-188-288.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
-# install QGrid notebook extension
-RUN jupyter nbextension enable --py --sys-prefix qgrid
-
 # Temporarily install newer version of jupyterlab-link-share
 # Move this back to just installing off infra-requirements once we are a bit stable
 RUN pip install -U jupyterlab-link-share==0.2.3
