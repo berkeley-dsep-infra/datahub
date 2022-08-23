@@ -80,7 +80,7 @@ plotly==5.2.1
 mpmath==1.2.1
 # sympy==1.6.2
 chart-studio==1.1.0
-csaps==1.0.4
+csaps==1.1.0
 nbforms==0.5.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
@@ -108,13 +108,13 @@ tensorflow-probability==0.13.0
 
 # mcb 163l, fall 2019
 pydot==1.4.2
-allensdk==2.12.2
+allensdk==2.13.*
 
 # cs16A/B, spring 2020
 lcapy==0.96
 
 # EPS 256, https://github.com/berkeley-dsep-infra/datahub/issues/1775
-obspy==1.2.2
+obspy==1.3.0
 
 # ds198 mch infodemiology, fall 2020/spring 2021
 # google apis
@@ -190,7 +190,7 @@ metpy==1.1.0
 pooch==1.5.2
 
 # PS88 https://github.com/berkeley-dsep-infra/datahub/issues/2925
-linearmodels==4.24
+linearmodels==4.27
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/2950
 # Needed to work with a new enough version of httplib2
