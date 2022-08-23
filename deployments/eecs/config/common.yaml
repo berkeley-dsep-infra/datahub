@@ -77,7 +77,7 @@ jupyterhub:
       git-credential-helper-private-key:
         mountPath: /etc/github/github-app-private-key.pem
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: delta-pool
     storage:
       type: static
       static:
