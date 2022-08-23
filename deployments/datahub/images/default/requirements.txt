@@ -170,7 +170,7 @@ sympy==1.8
 contextily==1.1.0
 
 # INDENG 142 Spring 2021 (future semesters as well) - https://github.com/berkeley-dsep-infra/datahub/issues/2314
-fancyimpute==0.6.0
+fancyimpute==0.7.0
 
 # JupyterLab pypi extensions
 jupyterlab-geojson==3.1.2
