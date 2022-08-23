@@ -106,10 +106,6 @@ getdist==1.3.1
 tensorflow-hub==0.12.0
 tensorflow-probability==0.13.0
 
-# mcb 163l, fall 2019
-pydot==1.4.2
-allensdk==2.13.*
-
 # cs16A/B, spring 2020
 lcapy==0.96
 
