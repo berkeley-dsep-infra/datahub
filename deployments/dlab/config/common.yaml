@@ -42,7 +42,7 @@ jupyterhub:
             - cvacano
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: beta-pool
     storage:
       type: static
       static:
