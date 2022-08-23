@@ -3,7 +3,7 @@ channels:
 - conda-forge
 dependencies:
 - python=3.9.*
-- pip=20.2.*
+- pip=22.2.*
 
 # Package to allow Jupyter Notebook or JupyterLab applications in one conda env to access other kernels (e.g. qiime2)
 - nb_conda_kernels=2.3.1
