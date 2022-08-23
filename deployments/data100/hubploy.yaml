@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/primary-user-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat159-user-image
       path: ../stat159/image
 
   registry:
