@@ -87,14 +87,14 @@ RUN apt-get update && \
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
-ENV R_VERSION=4.1.2-1.2004.0
+ENV R_VERSION=4.2.1-2.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.14-1.2004.0 > /dev/null
+    r-cran-littler=0.3.15-1.2004.0 > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -119,7 +119,7 @@ RUN apt update --yes > /dev/null && \
     # R package magick
     libmagick++-dev imagemagick > /dev/null
 
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.1-554-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
@@ -128,6 +128,14 @@ ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-ser
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
     dpkg -i /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
+
+# For 2022 Fall ESPM 157, but probably others will use it later
+ENV QUARTO_VERSION="0.9.522"
+RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
+    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
+    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
+	rm /tmp/quarto.tar.gz && \
+	ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
 
 # Set CRAN mirror to rspm before we install anything
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
