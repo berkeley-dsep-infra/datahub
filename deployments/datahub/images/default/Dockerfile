@@ -251,9 +251,9 @@ RUN /usr/local/sbin/2021-fall-phys-188-288.bash
 
 ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 
-# Temporarily install newer version of jupyterlab-link-share
-# Move this back to just installing off infra-requirements once we are a bit stable
-RUN pip install -U jupyterlab-link-share==0.2.3
+# Used by MCB32, but incompatible with ipywidgets 8.x
+RUN pip install --no-cache qgrid==1.3.1
+RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 EXPOSE 8888
 
