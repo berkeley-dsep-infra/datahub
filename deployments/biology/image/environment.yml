@@ -47,7 +47,6 @@ dependencies:
 - scipy==1.7.1
 - pandas==1.3.2
 - seaborn==0.11.2
-- datascience==0.17.2
 
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1846
 # Conda does not have these
@@ -57,4 +56,5 @@ dependencies:
   - macs2==2.2.7.1
   - geonomics==1.1.9
   - nlmpy==1.0.1
+  - datascience==0.17.0
   - -r infra-requirements.txt
