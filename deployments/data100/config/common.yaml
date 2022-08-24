@@ -20,7 +20,7 @@ jupyterhub:
           - cpyles
           - balajialwar
           # instructors & gsis as per request from Dominic Liu(Spring 2022)
-          - kagarwal2 
+          - kagarwal2
           - parthbaokar
           - andrew.lenz
           - abadrinath
@@ -30,7 +30,7 @@ jupyterhub:
           - fgeng
           - hangxingliu
           #https://github.com/berkeley-dsep-infra/datahub/issues/3198
-          - yanlisa 
+          - yanlisa
           - hug
 #  prePuller:
 #    extraImages:
