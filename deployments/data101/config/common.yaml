@@ -43,8 +43,9 @@ jupyterhub:
           )
 
         make_db_pvc = partial(make_extra_pvc, 'db-storage', 'db-{username}', 'standard', '1G')
+        make_mongo_pvc = partial(make_extra_pvc, 'mongo-storage', 'mongo-{username}', 'standard', '2G')
 
-        pvc_makers = (make_db_pvc, )
+        pvc_makers = (make_db_pvc, make_mongo_pvc)
         async def ensure_db_pvc(spawner):
           """"
           Ensure a PVC is created for this user's database volume
@@ -79,6 +80,30 @@ jupyterhub:
 
   singleuser:
     extraContainers:
+      - name: mongo
+        image: mongo:5.0.11
+        args:
+          # We run mongodb without authentication, but only listening on localhost
+          # This matches what we do for postgres
+          - --bind_ip
+          - 127.0.0.1
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "{username}"
+        - name: mongodb
+          mountPath: /data/db
+        securityContext:
+          runAsUser: 1000
+        resources:
+          limits:
+            # Best effort only. No more than 1 CPU
+            memory: 512Mi
+            cpu: 1.0
+          requests:
+            # If we don't set requests, k8s sets requests == limits!
+            memory: 64Mi
+            cpu: 0.01
       - name: postgres
         image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n5296.hdee70868
         resources:
@@ -135,6 +160,17 @@ jupyterhub:
         - name: postgres-db
           persistentVolumeClaim:
             claimName: 'db-{username}'
+        - name: mongodb
+          persistentVolumeClaim:
+            claimName: 'mongo-{username}'
+      extraVolumeMounts:
+        - name: postgres-db
+          mountPath: /var/lib/postgresql/data
+          # postgres recommends against mounting a volume directly here
+          # So we put data in a subpath
+          subPath: data
+        - name: mongodb
+          mountPath: /data/db
     memory:
       guarantee: 512M
       limit: 1G
