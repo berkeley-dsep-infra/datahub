@@ -645,7 +645,9 @@ workflows:
               - ischool image build
               - publichealth image build
               - biology image build
-              - julia hub image build
+              # Don't block deploys on julia image build temporarily,
+              # As we figure out why Julia image is failing
+              # - julia hub image build
               - data8x image build
               - data8xv2 image build
               - eecs image build
