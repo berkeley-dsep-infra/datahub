@@ -1,4 +1,6 @@
 dependencies:
+  - r-base=3.6
+  - r-tidyverse
   - python==3.9.*
   - pip==20.2.*
   - matplotlib==3.5.2
