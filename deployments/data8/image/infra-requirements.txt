@@ -16,7 +16,7 @@ jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
 jupyterhub==2.3.1
 appmode==0.8.0
-ipywidgets==8.0.1
+ipywidgets==7.7.2
 otter-grader==3.1.4
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
