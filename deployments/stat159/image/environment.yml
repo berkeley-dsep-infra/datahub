@@ -21,6 +21,7 @@ dependencies:
 - geopandas
 - geos
 - geotiff
+- fiona==1.8.21
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
