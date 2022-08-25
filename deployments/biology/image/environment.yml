@@ -56,4 +56,5 @@ dependencies:
   - macs2==2.2.7.1
   - geonomics==1.1.9
   - nlmpy==1.0.1
+  - datascience==0.17.5
   - -r infra-requirements.txt
