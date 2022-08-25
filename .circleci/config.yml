@@ -232,11 +232,12 @@ jobs:
             hubploy deploy --timeout 30m biology hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-      - run:
-          name: Deploy julia
-          command: |
-            hubploy deploy --timeout 30m julia hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
+      # Temporarily stop deploying Julia hub, as the image doens't build atm
+      # - run:
+      #     name: Deploy julia
+      #     command: |
+      #       hubploy deploy --timeout 30m julia hub ${CIRCLE_BRANCH}
+      #     no_output_timeout: 30m
 
       - run:
           name: Deploy R
