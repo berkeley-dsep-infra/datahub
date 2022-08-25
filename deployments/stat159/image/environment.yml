@@ -21,7 +21,7 @@ dependencies:
 - geopandas
 - geos
 - geotiff
-- fiona==1.8.21
+- cartopy
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
@@ -79,7 +79,6 @@ dependencies:
 - tqdm==4.64.0
 - xarray==2022.6.0
 - xlrd==2.0.1
-- cartopy==0.20.3
 - micro==2.0.8
 - websockify
 - pip
