@@ -16,7 +16,6 @@ dependencies:
 - cython==0.29.32
 - dask==2022.8.1
 - dask-labextension==5.3.0
-- flake8==5.0.4
 - fortran-magic==0.7
 - geopandas==0.11.1
 - geos==3.11.0
@@ -32,8 +31,6 @@ dependencies:
 - ipydatagrid==1.1.12
 - ipympl==0.9.2
 - ipyparallel==8.4.1
-- ipython==8.4.0
-- ipywidgets==8.0.1
 - jupyter-book==0.13.1
 - jupyter-repo2docker==2022.2.0
 - jupyter-resource-usage==0.6.1
@@ -55,14 +52,9 @@ dependencies:
 - matplotlib-inline==0.1.6
 - mdit-py-plugins==0.3.0
 - mock==4.0.3
-- myst-nb==0.16.0
-- myst-parser==0.18.0
-- nbconvert==7.0.0
 - nbdime==3.1.1
-- nbgitpuller==1.1.0
 - networkx==2.8.6
-- notebook==6.4.12
-- numba==0.55.2
+- numba
 - numpy==1.23.2
 - pandas==1.4.3
 - pandoc==2.19.2
