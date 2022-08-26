@@ -59,3 +59,6 @@ dependencies:
 # LBL summer research internship in materials informatics. Jupyter Book curriculum at https://enze-chen.github.io/mi-book/
 - pymatgen=2022.0.11
 - matminer=0.7.4
+
+# data101, Fall 2022, https://github.com/berkeley-dsep-infra/datahub/issues/3646
+- pgspecial=2.0.1
