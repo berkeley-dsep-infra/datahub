@@ -144,6 +144,11 @@ jupyterhub:
           - niemeyer
         mem_limit: 8192M
         mem_guarantee: 4096M
+        
+      canvas_courses:
+        1517761: # Legal Studies 190, Fall 2022
+          mem_limit: 2048M
+          mem_guarantee: 1024M
       # Read-write access to the astro shared directory
       # HACK: Different mountPath to prevent mounting two volumeMounts
       # at the same path.
