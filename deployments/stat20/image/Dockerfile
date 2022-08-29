@@ -104,6 +104,8 @@ RUN tlmgr --verify-repo=none update --self && \
     latex-amsmath-dev \
     letltxmacro \
     ltxcmds \
+    mdwtools \
+    oberdiek \
     pdfescape \
     pdftexcmds \
     pgf \
