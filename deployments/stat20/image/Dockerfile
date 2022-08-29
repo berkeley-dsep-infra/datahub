@@ -87,10 +87,8 @@ RUN tlmgr --verify-repo=none update --self && \
     epstopdf-pkg \
     etexcmds \
     etoolbox \
-    expl3 \
     fancyvrb \
     float \
-    footnote \
     framed \
     geometry \
     gettitlestring \
@@ -106,7 +104,6 @@ RUN tlmgr --verify-repo=none update --self && \
     latex-amsmath-dev \
     letltxmacro \
     ltxcmds \
-    pdfcol \
     pdfescape \
     pdftexcmds \
     pgf \
