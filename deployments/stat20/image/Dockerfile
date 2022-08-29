@@ -74,39 +74,46 @@ COPY class-libs.R /tmp/class-libs.R
 COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2022-spring-stat-20.r
 
-#RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-#RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
 RUN tlmgr --verify-repo=none update --self && \
     tlmgr --verify-repo=none install \
 	amsmath \
-	auxhook \
-	bigintcalc \
-	bitset \
-	epstopdf-pkg \
-	etexcmds \
-	etoolbox \
-	fancyvrb \
-	framed \
-	geometry \
-	gettitlestring \
-	hycolor \
-	hyperref \
-	iftex \
-	infwarerr \
-	intcalc \
-	kvdefinekeys \
-	kvoptions \
-	kvsetkeys \
-	latex-amsmath-dev \
-	letltxmacro \
-	ltxcmds \
-	pdfescape \
-	pdftexcmds \
-	refcount \
-	rerunfilecheck \
-	stringenc \
-	uniquecounter \
-	xcolor \
-	zapfding
+    auxhook \
+    bigintcalc \
+    bitset \
+    bookmark \
+    booktabs \
+    caption \
+    environ \
+    epstopdf-pkg \
+    etexcmds \
+    etoolbox \
+    fancyvrb \
+    float \
+    framed \
+    geometry \
+    gettitlestring \
+    hycolor \
+    hyperref \
+    iftex \
+    infwarerr \
+    intcalc \
+    koma-script \
+    kvdefinekeys \
+    kvoptions \
+    kvsetkeys \
+    latex-amsmath-dev \
+    letltxmacro \
+    ltxcmds \
+    pdfescape \
+    pdftexcmds \
+    pgf \
+    refcount \
+    rerunfilecheck \
+    stringenc \
+    uniquecounter \
+    unicode-math \
+    tcolorbox \
+    xcolor \
+    zapfding
 
 ENTRYPOINT ["tini", "--"]
