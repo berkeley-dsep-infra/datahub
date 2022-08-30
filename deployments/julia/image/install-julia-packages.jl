@@ -5,7 +5,7 @@ using Pkg;
 Pkg.Registry.add(RegistrySpec(url = "https://github.com/mimiframework/MimiRegistry.git"));
 
 Pkg.add.([
-    Pkg.PackageSpec(;name="MimiFUND", version="3.8.6"),
+    Pkg.PackageSpec(;name="MimiFUND", version="3.13.0"),
     Pkg.PackageSpec(;name="MimiIWG", version="1.1.0"),
     Pkg.PackageSpec(;name="MimiDICE2010", version="1.0.1"),
     Pkg.PackageSpec(;name="MimiDICE2013", version="1.0.2"),
