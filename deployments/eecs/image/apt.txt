@@ -4,10 +4,7 @@ xfce4
 xfce4-panel
 xfce4-session
 xfce4-settings
-xorg
-xserver-xorg
-xserver-xorg-core
-xserver-xorg-input-all
+#xorg
 xubuntu-icon-theme
 # You definitely need a browser
 firefox
