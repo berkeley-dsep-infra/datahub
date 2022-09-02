@@ -4,7 +4,7 @@ xfce4
 xfce4-panel
 xfce4-session
 xfce4-settings
-xorg
+#xorg
 xubuntu-icon-theme
 # You definitely need a browser
 firefox
@@ -23,3 +23,6 @@ emacs
 
 # vim4ever!
 vim
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/3679
+texlive-xetex
