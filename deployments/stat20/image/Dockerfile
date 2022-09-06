@@ -46,6 +46,7 @@ RUN apt-get update && \
             tini \
             pandoc \
             texlive-xetex \
+            texlive-latex-extra \
             texlive-fonts-recommended \
             # provides FandolSong-Regular.otf for issue #2714
             texlive-lang-chinese \
