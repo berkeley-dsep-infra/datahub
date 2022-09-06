@@ -42,7 +42,7 @@ jupyterhub:
               annotations=annotations
           )
 
-        make_db_pvc = partial(make_extra_pvc, 'db-storage', 'db-{username}', 'standard', '1G')
+        make_db_pvc = partial(make_extra_pvc, 'db-storage', 'db-{username}', 'standard', '2G')
         make_mongo_pvc = partial(make_extra_pvc, 'mongo-storage', 'mongo-{username}', 'standard', '2G')
 
         pvc_makers = (make_db_pvc, make_mongo_pvc)
