@@ -28,7 +28,7 @@ WORKDIR ${HOME}
 # texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
 # We use Ubuntu's TeX because rocker's doesn't have most packages by default, 
 # and we don't want them to be downloaded on demand by students.
-RUN apt-get update > /dev/null && \
+RUN apt-get update && \
     apt-get install --yes \
             libx11-xcb1 \
             libxtst6 \
