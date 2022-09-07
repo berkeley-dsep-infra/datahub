@@ -99,3 +99,10 @@ nodePools:
       requests:
         memory: 46786Mi
     replicas: 1
+  theta:
+    nodeSelector:
+      hub.jupyter.org/pool-name: theta-pool
+    resources:
+      requests:
+        memory: 46786Mi
+    replicas: 1
