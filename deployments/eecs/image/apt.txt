@@ -29,3 +29,4 @@ texlive-xetex
 # https://github.com/berkeley-dsep-infra/datahub/issues/3721
 texlive-fonts-recommended
 texlive-plain-generic
+texlive-lang-chinese
