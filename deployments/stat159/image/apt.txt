@@ -33,13 +33,15 @@ mr
 perl-doc
 
 # Regular build tools for compiling common stuff
-build-essential 
+build-essential
 gfortran
 
 # Dependencies for nbconvert
-texlive-xetex 
-texlive-fonts-recommended 
+texlive-xetex
+texlive-fonts-recommended
 texlive-plain-generic
+# https://github.com/berkeley-dsep-infra/datahub/issues/3719
+texlive-lang-chinese
 lmodern
 
 # Other useful document-related tools
