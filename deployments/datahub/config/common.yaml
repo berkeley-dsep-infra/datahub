@@ -127,8 +127,8 @@ jupyterhub:
   custom:
     canvas_courses:
       1517761: # Legal Studies 190, Fall 2022
-        mem_limit: 2048M
-        mem_guarantee: 1024M
+        mem_limit: 3072M
+        mem_guarantee: 3072M
     profiles:
       # Needed until June, 25 2022 see issue 3397
       issue-3397:
