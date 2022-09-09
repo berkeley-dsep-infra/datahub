@@ -26,3 +26,5 @@ vim
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/3679
 texlive-xetex
+# https://github.com/berkeley-dsep-infra/datahub/issues/3721
+texlive-fonts-recommended
