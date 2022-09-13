@@ -16,14 +16,14 @@ jupyterhub:
       pvc:
         # This also holds logs
         storage: 4Gi
-    config:
-      GenericOAuthenticator:
-        extra_params:
-          client_id: service-eecs.datahub.berkeley.edu
-        client_id: service-eecs.datahub.berkeley.edu
-        authorize_url: https://datahub.berkeley.edu/hub/api/oauth2/authorize
-        token_url: https://datahub.berkeley.edu/hub/api/oauth2/token
-        userdata_url: https://datahub.berkeley.edu/hub/api/user
+    #config:
+    #  GenericOAuthenticator:
+    #    extra_params:
+    #      client_id: service-eecs.datahub.berkeley.edu
+    #    client_id: service-eecs.datahub.berkeley.edu
+    #    authorize_url: https://datahub.berkeley.edu/hub/api/oauth2/authorize
+    #    token_url: https://datahub.berkeley.edu/hub/api/oauth2/token
+    #    userdata_url: https://datahub.berkeley.edu/hub/api/user
   scheduling:
     userPlaceholder:
       enabled: false
