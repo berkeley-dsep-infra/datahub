@@ -64,6 +64,8 @@ jupyterhub:
           - jiyunwen
           # Issue 2462
           - dhughes
+          # ESPM 142, Fall 2022, Issue 3738
+          - rachel.weinberg
           # List of other admin users
 
   singleuser:
