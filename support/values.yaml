@@ -26,7 +26,7 @@ ingress-nginx:
       proxy-send-timeout: "7200"
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
-    replicaCount: 2
+    replicaCount: 3
     resources:
       limits:
         cpu: 2
