@@ -171,6 +171,9 @@ RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
 COPY r-packages/2019-fall-stat-131a.r /tmp/r-packages
 RUN r /tmp/r-packages/2019-fall-stat-131a.r && rm -rf /tmp/downloaded_packages
 
+COPY r-packages/econ-140.r /tmp/r-packages
+RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
+
 COPY r-packages/eep-1118.r /tmp/r-packages
 RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 
