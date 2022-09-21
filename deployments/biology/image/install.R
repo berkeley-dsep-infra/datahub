@@ -22,7 +22,8 @@ cran_packages <- c(
   "mixtools","1.2.0",
   "mclust","5.4.7",
   "pheatmap","1.0.12",
-  "phangorn","2.7.1"
+  "phangorn","2.7.1",
+  "qqman, "0.1.8"
 )
 
 for (i in seq(1, length(cran_packages), 2)) {
