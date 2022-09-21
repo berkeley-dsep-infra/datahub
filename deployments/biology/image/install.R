@@ -23,7 +23,7 @@ cran_packages <- c(
   "mclust","5.4.7",
   "pheatmap","1.0.12",
   "phangorn","2.7.1",
-  "qqman, "0.1.8"
+  "qqman","0.1.8"
 )
 
 for (i in seq(1, length(cran_packages), 2)) {
