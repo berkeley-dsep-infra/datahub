@@ -25,6 +25,7 @@ dependencies:
 - sra-tools=2.11
 - hisat2=2.2.1
 - subread=2.0.1
+- plink=1.90b6.21
 
 - syncthing==1.18.6
 
