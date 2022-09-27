@@ -177,6 +177,8 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
 # RStudio needs its own config
 COPY rsession.conf /etc/rstudio/rsession.conf
+# Use simpler locking strategy
+COPY file-locks /etc/rstudio/file-locks
 
 #install rsession proxy
 RUN pip install --no-cache-dir \
