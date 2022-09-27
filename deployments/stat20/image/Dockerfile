@@ -84,6 +84,9 @@ COPY class-libs.R /tmp/class-libs.R
 COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2022-spring-stat-20.r
 
+# Configure locking behavior
+COPY file-locks /etc/rstudio/file-locks
+
 # RUN tlmgr --verify-repo=none update --self && \
 #     tlmgr --verify-repo=none install \
 # 	amsmath \
