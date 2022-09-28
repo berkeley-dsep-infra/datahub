@@ -73,4 +73,7 @@ RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texl
 RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
 RUN tlmgr --verify-repo=none update --self
 
+# Use simpler locking strategy
+COPY file-locks /etc/rstudio/file-locks
+
 ENTRYPOINT ["tini", "--"]
