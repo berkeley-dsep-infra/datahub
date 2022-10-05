@@ -261,6 +261,12 @@ ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
 RUN pip install --no-cache qgrid==1.3.1
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
+# clear out /tmp
+USER root
+RUN rm -rf /tmp/*
+
+USER ${NB_USER}
+
 EXPOSE 8888
 
 ENTRYPOINT ["tini", "--"]
