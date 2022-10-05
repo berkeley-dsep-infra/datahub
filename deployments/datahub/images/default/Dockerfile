@@ -121,12 +121,15 @@ RUN apt update --yes > /dev/null && \
 
 ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.1-554-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    dpkg -i /tmp/rstudio.deb && \
+#    dpkg -i /tmp/rstudio.deb && \
+    apt install --no-install-recommends --yes /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb
+#ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb
+ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.19.995-amd64.deb
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
-    dpkg -i /tmp/shiny-server.deb && \
+#    dpkg -i /tmp/shiny-server.deb && \
+    apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
 
 # For 2022 Fall ESPM 157, but probably others will use it later
