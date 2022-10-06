@@ -1,0 +1,16 @@
+channels:
+- conda-forge
+
+# Almost all libraries should be added in requirements.txt
+# Only libraries *not* available in PyPI should be here
+dependencies:
+- python=3.9.*
+
+# A linux desktop environment
+- websockify
+
+- pip
+- pip:
+# For desktop environment
+  - jupyter-desktop-server==0.1.3
+  - -r infra-requirements.txt
