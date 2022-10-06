@@ -9,8 +9,6 @@ dependencies:
 # Needed for linux desktop environment
 - websockify
 
-- qgis=3.22.*
-
 - pip
 - pip:
 # For desktop environment
