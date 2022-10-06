@@ -32,6 +32,7 @@ jupyterhub:
           # List of other admin users
 
   singleuser:
+    defaultUrl: /desktop
     nodeSelector:
       hub.jupyter.org/pool-name: beta-pool
     storage:
