@@ -276,6 +276,12 @@ jobs:
           no_output_timeout: 30m
 
       - run:
+          name: Deploy cee
+          command: |
+            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
           name: Deploy data101
           command: |
             hubploy deploy --timeout 30m data101 hub ${CIRCLE_BRANCH}
@@ -467,6 +473,15 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: cee
+          name: cee image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: publichealth
           name: publichealth image build
           # Filters can only be per-job? wtf
@@ -527,6 +542,15 @@ workflows:
           # workshop hub also uses this image
           deployment: datahub
           name: datahub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: cee
+          name: cee image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -645,6 +669,7 @@ workflows:
               - stat20 image build
               - ischool image build
               - publichealth image build
+              - cee image build
               - biology image build
               # Don't block deploys on julia image build temporarily,
               # As we figure out why Julia image is failing

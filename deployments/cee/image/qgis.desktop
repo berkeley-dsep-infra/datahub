@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=qgis
+Exec=qgis
+Icon=/srv/conda/envs/notebook/share/qgis/images/icons/qgis-icon-512x512.png
