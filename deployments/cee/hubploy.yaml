@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/civeng-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/cee-image
       path: image/
   registry:
     provider: gcloud

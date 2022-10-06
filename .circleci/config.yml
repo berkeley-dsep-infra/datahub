@@ -276,9 +276,9 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy civeng
+          name: Deploy cee
           command: |
-            hubploy deploy --timeout 30m civeng hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
@@ -473,8 +473,8 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: civeng
-          name: civeng image build
+          deployment: cee
+          name: cee image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -549,8 +549,8 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: civeng
-          name: civeng image build
+          deployment: cee
+          name: cee image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -669,7 +669,7 @@ workflows:
               - stat20 image build
               - ischool image build
               - publichealth image build
-              - civeng image build
+              - cee image build
               - biology image build
               # Don't block deploys on julia image build temporarily,
               # As we figure out why Julia image is failing
