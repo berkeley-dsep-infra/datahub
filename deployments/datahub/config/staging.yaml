@@ -5,6 +5,10 @@ nfsPVC:
 jupyterhub:
   hub:
     services:
+      cee-staging.datahub.berkeley.edu:
+        name: cee-staging.datahub.berkeley.edu
+        oauth_client_id: service-cee-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://cee-staging.datahub.berkeley.edu/hub/oauth_callback
       astro-staging.datahub.berkeley.edu:
         name: astro-staging.datahub.berkeley.edu
         oauth_client_id: service-astro-staging.datahub.berkeley.edu

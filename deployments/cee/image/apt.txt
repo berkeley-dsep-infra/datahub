@@ -1,0 +1,27 @@
+# For desktop environment
+dbus-x11
+xfce4
+xfce4-panel
+xfce4-session
+xfce4-settings
+xubuntu-icon-theme
+xauth
+# You definitely need a browser
+firefox
+# And a text editor
+gedit
+# And a terminal
+xfce4-terminal
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/2535
+emacs
+
+# vim4ever!
+vim
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/3679
+texlive-xetex
+# https://github.com/berkeley-dsep-infra/datahub/issues/3721
+texlive-fonts-recommended
+texlive-plain-generic
+texlive-lang-chinese
