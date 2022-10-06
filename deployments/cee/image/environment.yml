@@ -6,8 +6,10 @@ channels:
 dependencies:
 - python=3.9.*
 
-# A linux desktop environment
+# Needed for linux desktop environment
 - websockify
+
+- qgis=3.22.*
 
 - pip
 - pip:
