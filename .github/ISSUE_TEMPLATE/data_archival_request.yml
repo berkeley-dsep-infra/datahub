@@ -1,6 +1,6 @@
 name: Data Archival Request
 title: Request retrieval of my Datahub files
-description: Retrieve my old files stored in my Datahub account. This request is not related to notebook files stored in Github repositories.
+description: Retrieve my old files stored in my Datahub account. This request is no way related to retrieving files stored in Github repositories.
 labels: support
 assignees:
 - felder
