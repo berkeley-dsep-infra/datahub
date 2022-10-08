@@ -1,6 +1,6 @@
 hubploy==0.2
 pygithub
 chartpress
-git+https://github.com/jupyterhub/repo2docker.git@d688997aeec52ff1898265bccf1bbfd5a56f6a3f
+git+https://github.com/yuvipanda/repo2docker.git@efb5aa653b8f3497e7c4ce15f36848dbf94967b9
 myst-parser
 chardet
