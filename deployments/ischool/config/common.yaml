@@ -56,7 +56,7 @@ jupyterhub:
       homeMountPath: /home/rstudio
       type: static
       static:
-        pvcName: home-nfs-v3
+        pvcName: home-nfs
         subPath: "{username}"
     memory:
       guarantee: 1G

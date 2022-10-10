@@ -30,7 +30,6 @@ spec:
     requests:
       storage: 1Mi
 ---
-{{ if .Values.nfsPVC.useV3 }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -61,5 +60,4 @@ spec:
   resources:
     requests:
       storage: 1Mi
-{{- end }}
 {{ end }}
