@@ -26,4 +26,5 @@ texlive-fonts-recommended
 texlive-plain-generic
 texlive-lang-chinese
 
-qgis
+# Needed for qgis maybe? https://github.com/conda-forge/pygridgen-feedstock/issues/10
+libgl1-mesa-glx
