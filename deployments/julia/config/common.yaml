@@ -43,7 +43,7 @@ jupyterhub:
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
       # https://github.com/berkeley-dsep-infra/datahub/issues/2803

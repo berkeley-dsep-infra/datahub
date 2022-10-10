@@ -97,7 +97,7 @@ jupyterhub:
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "home/{username}"
     memory:
       guarantee: 256M
