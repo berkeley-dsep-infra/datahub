@@ -11,6 +11,9 @@ dependencies:
 
 - qgis=3.22.*
 
+# Maybe needed for qgis? https://github.com/conda-forge/qgis-feedstock/issues/263
+- pyopencl
+
 - pip
 - pip:
 # For desktop environment
