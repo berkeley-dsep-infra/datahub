@@ -85,7 +85,7 @@ jupyterhub:
       homeMountPath: /home/rstudio
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
       extraVolumes:
         - name: etc-gitconfig
