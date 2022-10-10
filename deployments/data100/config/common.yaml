@@ -50,7 +50,7 @@ jupyterhub:
     storage:
       type: static
       static:
-        pvcName: home-nfs-v3
+        pvcName: home-nfs
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
