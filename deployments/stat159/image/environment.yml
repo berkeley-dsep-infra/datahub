@@ -12,6 +12,7 @@ dependencies:
 - black==22.6.0
 - bokeh==2.4.3
 - bqplot==0.12.34
+- cartopy==0.21.0
 - coverage==6.4.4
 - cython==0.29.32
 - dask==2022.8.1
