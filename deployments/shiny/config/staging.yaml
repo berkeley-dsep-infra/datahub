@@ -1,0 +1,28 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/shiny/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - shiny-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - shiny-staging.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user
+      CanvasOAuthenticator:
+        client_id: '10720000000000472'
+        oauth_callback_url: 'https://shiny-staging.berkeley.edu/hub/oauth_callback'
