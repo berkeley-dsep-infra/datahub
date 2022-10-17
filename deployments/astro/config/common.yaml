@@ -30,8 +30,10 @@ jupyterhub:
           - felder
           - balajialwar
           # List of other admin users
-          - ellianna
+          - nsabrams
           - joshbloom
+          - aparsons
+          - jlu-astro
 
   singleuser:
     nodeSelector:

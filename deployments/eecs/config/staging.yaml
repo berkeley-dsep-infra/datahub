@@ -1,3 +1,7 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/eecs/staging
+
 jupyterhub:
   scheduling:
     userScheduler:
@@ -13,12 +17,12 @@ jupyterhub:
       - secretName: tls-cert
         hosts:
           - eecs-staging.datahub.berkeley.edu
-  hub:
-    config:
-      GenericOAuthenticator:
-        extra_params:
-          client_id: service-eecs-staging.datahub.berkeley.edu
-        client_id: service-eecs-staging.datahub.berkeley.edu
-        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
-        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
-        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user
+  #hub:
+  #  config:
+  #    GenericOAuthenticator:
+  #      extra_params:
+  #        client_id: service-eecs-staging.datahub.berkeley.edu
+  #      client_id: service-eecs-staging.datahub.berkeley.edu
+  #      authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
+  #      token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
+  #      userdata_url: https://staging.datahub.berkeley.edu/hub/api/user

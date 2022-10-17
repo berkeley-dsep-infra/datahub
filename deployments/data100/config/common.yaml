@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/data100homes-2020-08-04/homes/prod/home
 
 jupyterhub:
   hub:
@@ -21,7 +20,7 @@ jupyterhub:
           - cpyles
           - balajialwar
           # instructors & gsis as per request from Dominic Liu(Spring 2022)
-          - kagarwal2 
+          - kagarwal2
           - parthbaokar
           - andrew.lenz
           - abadrinath
@@ -31,8 +30,11 @@ jupyterhub:
           - fgeng
           - hangxingliu
           #https://github.com/berkeley-dsep-infra/datahub/issues/3198
-          - yanlisa 
+          - yanlisa
           - hug
+          #https://github.com/berkeley-dsep-infra/datahub/issues/3714 (Fall 2022)
+          - rohan.jha
+          - shiangyi.andrea.lin
 #  prePuller:
 #    extraImages:
 #      postgres:
@@ -40,8 +42,11 @@ jupyterhub:
 #        tag: 0.0.1-n3657.h4f7f88c
   singleuser:
     defaultUrl: "/lab"
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.f79b4903c7ea2847
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: theta-pool
     storage:
       type: static
       static:

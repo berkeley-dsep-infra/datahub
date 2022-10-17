@@ -46,7 +46,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: epsilon-pool
     defaultUrl: /rstudio
     storage:
       # Rocker based images have 'rstudio' as user $1000
@@ -63,8 +63,8 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     memory:
-      guarantee: 512M
-      limit: 1G
+      guarantee: 2048M
+      limit: 2048M
 
   custom:
     admin:

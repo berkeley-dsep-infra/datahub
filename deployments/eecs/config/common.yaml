@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/eecs
 
 jupyterhub:
   scheduling:
@@ -21,11 +20,12 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     config:
-      JupyterHub:
-        authenticator_class: generic-oauth
-      GenericOAuthenticator:
-        login_service: bCourses
-        username_key: name
+      # temporarily disabled for Fall 2022
+      #JupyterHub:
+      #  authenticator_class: generic-oauth
+      #GenericOAuthenticator:
+      #  login_service: bCourses
+      #  username_key: name
       Authenticator:
         admin_users:
           # infrastructure
@@ -66,6 +66,17 @@ jupyterhub:
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
+    extraFiles:
+      git-credential-helper:
+        # Move back to /etc/gitconfig if https://github.com/conda-forge/git-feedstock/issues/113
+        # ever gets fixed, or if we start using git from apt again
+        mountPath: /srv/conda/envs/notebook/etc/gitconfig
+        stringData: |
+          [credential "https://github.com"]
+            helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 229239
+            useHttpPath = true
+      git-credential-helper-private-key:
+        mountPath: /etc/github/github-app-private-key.pem
     nodeSelector:
       hub.jupyter.org/pool-name: delta-pool
     storage:
@@ -80,3 +91,9 @@ jupyterhub:
       limit: 2
       guarantee: 0.1
     image: {}
+
+  custom:
+    canvas_courses:
+      1517338: # ELENG 120, Fall 2022, Issue 3566
+        mem_limit: 4096M
+        mem_guarantee: 4096M

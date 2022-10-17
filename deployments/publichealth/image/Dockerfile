@@ -118,4 +118,7 @@ RUN tlmgr --verify-repo=none update --self && \
         geometry \
         epstopdf-pkg
 
+# Use simpler locking strategy
+COPY file-locks /etc/rstudio/file-locks
+
 ENTRYPOINT ["tini", "--"]

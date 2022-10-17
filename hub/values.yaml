@@ -62,8 +62,8 @@ jupyterhub:
       # We use CPUs with 8 cores, and want to make sure that a single user can't take
       # over a node (more than one still can). But we also want to give users the
       # option of using as much CPU as they need if nobody else is using the node, as
-      # is often the case. 7 seems a reasonable compromise here.
-      limit: 7
+      # is often the case. 4 seems a reasonable compromise here.
+      limit: 4
     extraFiles:
       culling-config:
         mountPath: /etc/jupyter/jupyter_notebook_config.json

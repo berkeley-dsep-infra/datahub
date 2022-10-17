@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/datahubhomes-2020-07-29/homes
 
 etcGitConfig:
   enabled: true
@@ -65,6 +64,8 @@ jupyterhub:
           - jiyunwen
           # Issue 2462
           - dhughes
+          # ESPM 142, Fall 2022, Issue 3738
+          - rachel.weinberg
           # List of other admin users
 
   singleuser:

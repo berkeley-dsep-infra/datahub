@@ -1,7 +1,14 @@
-jupyterhub:
+nfsPVC:
+  nfs:
+    shareName: export/datahubhomes-2020-07-29/datahub/staging
 
+jupyterhub:
   hub:
     services:
+      cee-staging.datahub.berkeley.edu:
+        name: cee-staging.datahub.berkeley.edu
+        oauth_client_id: service-cee-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://cee-staging.datahub.berkeley.edu/hub/oauth_callback
       astro-staging.datahub.berkeley.edu:
         name: astro-staging.datahub.berkeley.edu
         oauth_client_id: service-astro-staging.datahub.berkeley.edu
@@ -14,6 +21,10 @@ jupyterhub:
         name: data100-staging.datahub.berkeley.edu
         oauth_client_id: service-data100-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://data100-staging.datahub.berkeley.edu/hub/oauth_callback
+      data101-staging.datahub.berkeley.edu:
+        name: data101-staging.datahub.berkeley.edu
+        oauth_client_id: service-data101-staging.datahub.berkeley.edu
+        oauth_redirect_uri: https://data101-staging.datahub.berkeley.edu/hub/oauth_callback
       data102-staging.datahub.berkeley.edu:
         name: data102-staging.datahub.berkeley.edu
         oauth_client_id: service-data102-staging.datahub.berkeley.edu
