@@ -27,16 +27,19 @@ Monitoring
 You can monitor the scaling by watching for events:
 
    .. code:: bash
+
       kubectl -n node-placeholder get events -w
 
 And by tailing the logs of the pod with the scalar process:
 
    .. code:: bash
+
       kubectl -n node-placeholder logs -l app.kubernetes.io/name=node-placeholder-scaler -f
 
 For example if you set `epsilon: 2`, you might see in the pod logs:
 
    .. code:: bash
+
       2022-10-17 21:36:45,440 Found event Stat20/Epsilon test 2 2022-10-17 14:21 PDT to 15:00 PDT
       2022-10-17 21:36:45,441 Overrides: {'epsilon': 2}
       2022-10-17 21:36:46,475 Setting epsilon to have 2 replicas
