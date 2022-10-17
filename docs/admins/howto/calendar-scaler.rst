@@ -1,8 +1,8 @@
 .. _howto/calendar-scheduler:
 
-================-=-================
+===================================
 Scale Node Pools in Google Calendar
-================-=-================
+===================================
 
 
 Why scale node pools with Google Calendar?
