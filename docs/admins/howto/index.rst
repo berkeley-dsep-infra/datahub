@@ -11,3 +11,4 @@ Common Administrator Tasks
    rebuild-hub-image
    new-packages
    course-config
+   calendar-scaler
