@@ -53,7 +53,7 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     memory:
-      guarantee: 4G
+      guarantee: 4G #Revert back to previous state (guarantee: 512M and limit: 4GB) by 11/2
       limit: 4G
     image: {}
 
