@@ -106,7 +106,7 @@ nodePools:
       requests:
         memory: 46786Mi
     replicas: 1
-  theta:
+  epsilon:
     nodeSelector:
       hub.jupyter.org/pool-name: epsilon-pool
     resources:
