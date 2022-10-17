@@ -1,6 +1,7 @@
 # data8; foundation
 datascience==0.17.0
-okpy==1.18.1
+# Until https://github.com/okpy/ok-client/pull/473 is merged
+git+https://github.com/yuvipanda/ok-client@6961d778741fe61911be4d00beff9bd8afc1edf7
 folium==0.12.1
 #
 # r
@@ -16,7 +17,6 @@ nose==1.3.7
 #
 # modules
 beautifulsoup4==4.9.3
-qgrid==1.3.1
 nb2pdf==0.6.2
 #
 # ls 88-3; neuro
@@ -24,7 +24,7 @@ lxml==4.6.3
 tqdm==4.62.1
 mne==0.23.0
 nibabel==3.2.1
-h5py==3.3.0
+h5py==3.7.0
 numexpr==2.7.3
 openpyxl==3.0.7
 nilearn==0.8.0
@@ -35,7 +35,7 @@ geopandas==0.10.*
 geopy==2.2.*
 pysal==2.5.*
 rtree==0.9.*
-netcdf4==1.5.*
+netcdf4==1.6.*
 mplleaflet==0.0.5
 # phys 151;
 emcee==3.1.0
@@ -46,19 +46,19 @@ corner==2.2.1
 pymdptoolbox==4.0-b3
 #
 # data-x; DL
-tensorflow==2.6.*
-scikit-image==0.18.*
-tables==3.6.1
-opencv-python==4.5.3.56
+tensorflow==2.9.*
+scikit-image==0.19.*
+tables==3.7.0
+opencv-python==4.6.0.66
 
 # astr 128/256; spring 2021
-astroquery==0.4.3
-astropy==4.3.1
+astroquery==0.4.6
+astropy==5.1
 dustmaps==1.0.9
 george==0.4.0
-exoplanet==0.5.1
-torch==1.9.0
-torchvision==0.10.0
+exoplanet==0.5.2
+torch==1.12.1
+torchvision==0.13.1
 pyvo==1.1
 joblib==1.0.1
 theano-pymc==1.1.2
@@ -79,7 +79,7 @@ plotly==5.2.1
 mpmath==1.2.1
 # sympy==1.6.2
 chart-studio==1.1.0
-csaps==1.0.4
+csaps==1.1.0
 nbforms==0.5.1
 
 # issue #875, global 150Q/pacs 190 - fall 2019
@@ -105,15 +105,11 @@ getdist==1.3.1
 tensorflow-hub==0.12.0
 tensorflow-probability==0.13.0
 
-# mcb 163l, fall 2019
-pydot==1.4.2
-allensdk==2.12.2
-
 # cs16A/B, spring 2020
 lcapy==0.96
 
 # EPS 256, https://github.com/berkeley-dsep-infra/datahub/issues/1775
-obspy==1.2.2
+obspy==1.3.0
 
 # ds198 mch infodemiology, fall 2020/spring 2021
 # google apis
@@ -135,7 +131,7 @@ ipycanvas==0.9.0
 PyPDF2==1.26.0
 
 # data100 scientific packages
-ray==1.5.2
+ray==1.13.*
 xlrd==2.0.1
 
 # data100 visualization
@@ -157,7 +153,7 @@ dask==2021.8.0
 distributed==2021.8.0
 keras-applications==1.0.8
 keras-preprocessing==1.1.2
-keras==2.6.0
+keras==2.9.0
 keras-vis==0.4.1
 plotly-express==0.4.1
 cytoolz==0.11.0
@@ -173,7 +169,7 @@ sympy==1.8
 contextily==1.1.0
 
 # INDENG 142 Spring 2021 (future semesters as well) - https://github.com/berkeley-dsep-infra/datahub/issues/2314
-fancyimpute==0.6.0
+fancyimpute==0.7.0
 
 # JupyterLab pypi extensions
 jupyterlab-geojson==3.1.2
@@ -189,7 +185,7 @@ metpy==1.1.0
 pooch==1.5.2
 
 # PS88 https://github.com/berkeley-dsep-infra/datahub/issues/2925
-linearmodels==4.24
+linearmodels==4.27
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/2950
 # Needed to work with a new enough version of httplib2

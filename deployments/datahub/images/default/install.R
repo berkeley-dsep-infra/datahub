@@ -136,6 +136,7 @@ cran_packages = c(
   "pryr", "0.1.4",
   "rapportools", "1.0",
   "raster", "3.4-5",
+  "rdrobust", "2.0.2",
   "readr", "1.4.0",
   "readxl", "1.3.1",
   "redland", "1.0.17-14",

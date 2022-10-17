@@ -1,0 +1,46 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      JupyterHub:
+        authenticator_class: generic-oauth
+      GenericOAuthenticator:
+        login_service: bCourses
+        username_key: name
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+
+  singleuser:
+    defaultUrl: /desktop
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+    memory:
+      # Give them more resources as linux desktop is primary used here
+      guarantee: 2G
+      limit: 4G

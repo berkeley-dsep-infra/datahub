@@ -1,0 +1,13 @@
+# https://docs.rstudio.com/ide/server-pro/load_balancing/configuration.html#file-locking
+
+# rocker sets this to advisory, but this might be causing NFS issues.
+# lets set it to the default (default: linkbased)
+lock-type=linkbased
+
+# we'll also reduce the frequency by 1/3
+refresh-rate=60
+timeout-interval=90
+
+# log attempts
+# enable-logging=1
+# log-file=/tmp/rstudio-locking.log

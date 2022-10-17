@@ -29,4 +29,35 @@ spec:
   resources:
     requests:
       storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Name }}-home-nfs-v3
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - soft
+    - noatime
+    - vers=3
+  nfs:
+    server: {{ .Values.nfsPVC.nfs.serverIP | quote}}
+    path: "/{{ .Values.nfsPVC.nfs.shareName }}"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-nfs-v3
+spec:
+  accessModes:
+    - ReadWriteMany
+  # Match name of PV
+  volumeName: {{ .Release.Name }}-home-nfs-v3
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Mi
 {{ end }}
