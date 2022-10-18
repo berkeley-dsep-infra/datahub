@@ -39,6 +39,7 @@ jupyterhub:
       static:
         pvcName: home-nfs
         subPath: "{username}"
+    defaultUrl: "/shiny"
     memory:
       guarantee: 512M
       limit: 1G
