@@ -43,10 +43,17 @@ we provide that sets up a blank hub that can be customized.
    a directory with the name of the hub you provided with a skeleton configuration.
    It'll also generate all the secrets necessary.
 
-#. You need to log into the NFS server, and create a directory owned by
-   ``1000:1000`` under ``/export/homedirs-other-2020-07-29/<hubname>``. The path
-   *might* differ if your hub has special home directory storage needs. Consult
-   admins if that's the case.
+#. You need to log into the NFS server, and create ``staging`` and ``prod``
+   directories owned by ``1000:1000`` under
+   ``/export/homedirs-other-2020-07-29/<hubname>``. The path *might* differ if
+   your hub has special home directory storage needs. Consult admins if that's
+   the case.
+
+   .. code:: bash
+
+      install -d -o 1000 -g 1000 \
+        /export/homedirs-other-2020-07-29/<hubname>/staging \
+        /export/homedirs-other-2020-07-29/<hubname>/prod
 
 #. (Old) Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_.
    We have two canvas OAuth2 clients setup in bcourses for us - one for all
