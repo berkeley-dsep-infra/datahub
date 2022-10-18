@@ -43,13 +43,20 @@ we provide that sets up a blank hub that can be customized.
    a directory with the name of the hub you provided with a skeleton configuration.
    It'll also generate all the secrets necessary.
 
-#. You need to log into the NFS server, and create a directory owned by
-   ``1000:1000`` under ``/export/homedirs-other-2020-07-29/<hubname>``. The path
-   *might* differ if your hub has special home directory storage needs. Consult
-   admins if that's the case.
+#. You need to log into the NFS server, and create ``staging`` and ``prod``
+   directories owned by ``1000:1000`` under
+   ``/export/homedirs-other-2020-07-29/<hubname>``. The path *might* differ if
+   your hub has special home directory storage needs. Consult admins if that's
+   the case.
 
-#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_. We
-   have two canvas OAuth2 clients setup in bcourses for us - one for all
+   .. code:: bash
+
+      install -d -o 1000 -g 1000 \
+        /export/homedirs-other-2020-07-29/<hubname>/staging \
+        /export/homedirs-other-2020-07-29/<hubname>/prod
+
+#. (Old) Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_.
+   We have two canvas OAuth2 clients setup in bcourses for us - one for all
    production hubs and one for all staging hubs. The secret keys for these are
    already in the generated secrets config. However, you need to add the new
    hubs to the authorized callback list maintained in bcourses.
@@ -61,6 +68,11 @@ we provide that sets up a blank hub that can be customized.
 
    Please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is
    not available) to set this up.
+
+#. (New) Set up authentication via datahub. Deployment-specific configuration
+   will be added through the cookiecutter configuration, however you will need
+   to edit staging.yaml and prod.yaml in both ``deployments/datahub/config``
+   and ``deployments/datahub/secrets``, inserting stanzas for the new hub.
 
 #. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
    be under the ``deploy`` job, and look something like this:
@@ -77,9 +89,9 @@ we provide that sets up a blank hub that can be customized.
 
 #. Commit the hub directory, and make a PR to the the ``staging`` branch in the
    GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
-   might take a few minutes for HTTPS to work, but after that you
-   can log into it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out
-   and make sure things work as you think they should.
+   might take a few minutes for HTTPS to work, but after that you can log into
+   it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out and make
+   sure things work as you think they should.
 
 #. Make a PR from the ``staging`` branch to the ``prod`` branch. When this PR is
    merged, it'll deploy the production hub. It might take a few minutes for HTTPS

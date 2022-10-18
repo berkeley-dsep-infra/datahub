@@ -1,0 +1,26 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/shiny/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - shiny.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - shiny.datahub.berkeley.edu
+  hub:
+    config:
+      GenericOAuthenticator:
+        extra_params:
+          client_id: service-shiny.datahub.berkeley.edu
+        client_id: service-shiny.datahub.berkeley.edu
+        authorize_url: https://datahub.berkeley.edu/hub/api/oauth2/authorize
+        token_url: https://datahub.berkeley.edu/hub/api/oauth2/token
+        userdata_url: https://datahub.berkeley.edu/hub/api/user
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
