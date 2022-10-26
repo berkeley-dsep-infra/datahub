@@ -77,6 +77,7 @@ jupyterhub:
           - felder
           - balajialwar
           # List of other admin users
+          - lukeliu
 
   singleuser:
     extraContainers:
