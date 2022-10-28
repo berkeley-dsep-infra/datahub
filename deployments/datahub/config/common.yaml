@@ -21,6 +21,7 @@ jupyterhub:
         auto_login_oauth2_authorize: True
         admin_users:
           # infrastructure
+          - sknapp
           - felder
           - rylo
           - yuvipanda
