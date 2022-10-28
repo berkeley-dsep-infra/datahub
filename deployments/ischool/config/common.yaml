@@ -38,6 +38,7 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder

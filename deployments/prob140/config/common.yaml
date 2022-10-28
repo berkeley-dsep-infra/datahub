@@ -27,6 +27,7 @@ jupyterhub:
         # https://jupyterhub.readthedocs.io/en/stable/reference/authenticators.html#authenticator-managed-group-membership
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - balajialwar
