@@ -304,6 +304,13 @@ jobs:
           command: |
             hubploy deploy --timeout 30m eecs hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
+          
+      - run:
+          name: Deploy accessibility
+          command: |
+            hubploy deploy --timeout 30m accessibility hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
 
   deploy-node-placeholder:
     docker:

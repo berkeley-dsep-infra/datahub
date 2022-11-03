@@ -75,6 +75,10 @@ jupyterhub:
         name: shiny.datahub.berkeley.edu
         oauth_client_id: service-shiny.datahub.berkeley.edu
         oauth_redirect_uri: https://shiny.datahub.berkeley.edu/hub/oauth_callback
+      accessibility.datahub.berkeley.edu:
+        name: accessibility.datahub.berkeley.edu
+        oauth_client_id: service-accessibility.datahub.berkeley.edu
+        oauth_redirect_uri: https://accessibility.datahub.berkeley.edu/hub/oauth_callback
     db:
       pvc:
         # This also holds logs
