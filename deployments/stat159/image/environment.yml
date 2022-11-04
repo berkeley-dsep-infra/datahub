@@ -12,7 +12,7 @@ dependencies:
 - black==22.6.0
 - bokeh==2.4.3
 - bqplot==0.12.34
-- cartopy==0.20.2
+- cartopy==0.21.0
 - coverage==6.4.4
 - cython==0.29.32
 - dask==2022.8.1
@@ -22,7 +22,7 @@ dependencies:
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
-- hdf5==1.12.1
+- hdf5==1.12.2
 - intake==0.6.5
 - intake-esm==2021.8.17
 - intake-xarray==0.6.0
@@ -90,3 +90,4 @@ dependencies:
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - otter-grader==4.0.1
   - ipython-sql==0.4.1
+  - geopandas==0.12.1
