@@ -18,6 +18,7 @@ dependencies:
 - dask==2022.8.1
 - dask-labextension==5.3.0
 - fortran-magic==0.7
+- geopandas==0.12.1
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
