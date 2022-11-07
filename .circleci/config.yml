@@ -305,11 +305,11 @@ jobs:
             hubploy deploy --timeout 30m eecs hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
           
-      - run:
-          name: Deploy a11y
-          command: |
-            hubploy deploy --timeout 30m a11y hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m    
+#      - run:
+#          name: Deploy a11y
+#          command: |
+#            hubploy deploy --timeout 30m a11y hub ${CIRCLE_BRANCH}
+#          no_output_timeout: 30m    
 
   deploy-node-placeholder:
     docker:
