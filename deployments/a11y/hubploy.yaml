@@ -5,13 +5,13 @@ images:
   registry:
     provider: gcloud
     gcloud:
-      project: a11y
+      project: ucb-datahub-2018
       service_key: gcr-key.json
 
 cluster:
   provider: gcloud
   gcloud:
-    project: a11y
+    project: ucb-datahub-2018
     service_key: gke-key.json
-    cluster: a11y
+    cluster: fall-2019
     zone: us-central1
