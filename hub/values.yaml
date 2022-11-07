@@ -66,7 +66,7 @@ jupyterhub:
       limit: 4
     extraFiles:
       no-nfs-config:
-        mountPath: /etc/jupyter/ipython_kernel_config.json
+        mountPath: /etc/ipython/ipython_kernel_config.json
         data:
           HistoryManager:
             # We do not need to keep around history for IPython, and especially not on NFS
