@@ -89,3 +89,4 @@ dependencies:
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - otter-grader==4.0.1
   - ipython-sql==0.4.1
+  - geopandas==0.12.1
