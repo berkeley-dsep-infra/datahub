@@ -65,6 +65,12 @@ jupyterhub:
       # is often the case. 4 seems a reasonable compromise here.
       limit: 4
     extraFiles:
+      no-nfs-config:
+        mountPath: /etc/jupyter/ipython_kernel_config.json
+        data:
+          HistoryManager:
+            # We do not need to keep around history for IPython, and especially not on NFS
+            enabled: false
       culling-config:
         mountPath: /etc/jupyter/jupyter_notebook_config.json
         data:
