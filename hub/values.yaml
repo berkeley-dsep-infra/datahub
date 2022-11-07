@@ -109,6 +109,9 @@ jupyterhub:
       JUPYTERHUB_SINGLEUSER_APP: "notebook.notebookapp.NotebookApp"
       PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
       PYTHON_POPCONTEST_STATSD_PORT: '9125'
+      # Set RUNTIME_DIR to live under /tmp, as these need not persist across container restarts
+      # This doesn't cause a *lot* of NFS traffic, but does cause *some*
+      JUPYTER_RUNTIME_DIR: /tmp/jupyter-runtime
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
     networkPolicy:
       enabled: true
