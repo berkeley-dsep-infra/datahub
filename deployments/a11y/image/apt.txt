@@ -2,11 +2,11 @@
 # oriented at users new to Unix/cmd line environments.
 
 # Basic unix tools
-man
-man-db
-manpages-posix
-manpages-dev
-manpages-posix-dev
+# man
+# man-db
+# manpages-posix
+# manpages-dev
+# manpages-posix-dev
 
 # Download tools
 curl
@@ -14,18 +14,18 @@ wget
 
 # Core text editors on a *nix box: vim and emacs
 vim
-emacs-nox
-emacs-goodies-el
+# emacs-nox
+# emacs-goodies-el
 python-mode
 
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
-nano
-jed
-jed-extra
+# nano
+# jed
+# jed-extra
 
 # powerful terminal-based file manager, better than the one in JLab
-mc
+# mc
 
 # for easily managing multiple repositories with one command (perl-doc
 # is needed for its help pages to work)
@@ -52,16 +52,16 @@ latexdiff
 ruby
 
 # Other niceties for command-line work and life
-ack   # powerful grep-like tool
-pydf  # colorized disk usage
-tmux
-screen
-htop
-nnn   # cmd line file manager
-zsh
+# ack   # powerful grep-like tool
+# pydf  # colorized disk usage
+# tmux
+# screen
+# htop
+# nnn   # cmd line file manager
+# zsh
 rsync
-tig  # console UI for git
-multitail
+# tig  # console UI for git
+# multitail
 
 # For later, these are not available in 18.04
 #browsh # text-based web browser, occasionally handy
@@ -70,22 +70,22 @@ multitail
 
 ## This section adds tools for desktop environment usage
 dbus-x11
-xorg
-xubuntu-icon-theme
-xfce4
-xfce4-goodies
-xclip
-xsel
-firefox
+# xorg
+# xubuntu-icon-theme
+# xfce4
+# xfce4-goodies
+# xclip
+# xsel
+# firefox
 chromium-browser
 
 # GUI text editors
-emacs
+# emacs
 vim-gtk3
-gedit
+# gedit
 
 # Git clients and tools
-git-gui
-gitg
-qgit
-meld
+# git-gui
+# gitg
+# qgit
+# meld
