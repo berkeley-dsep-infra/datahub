@@ -24,6 +24,10 @@ dependencies:
 - spacy=3.4.1
 - nltk=3.6.*
 
+# data 88e, fall 2022, issue 3915
+- yfinance=0.1.85
+- quantstats=0.0.59
+
 # dlab, dssj, summer 2022, issues 3472, 3473, 3474
 - gensim=4.2.0
 
