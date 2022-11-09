@@ -556,6 +556,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
+      - hubploy/build-image:
+          deployment: a11y
+          name: a11y image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
 
   deploy:
     jobs:
@@ -686,6 +695,16 @@ workflows:
               branches:
                 only:
                 - staging
+       - hubploy/build-image:
+          deployment: a11y
+          name: a11y image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging                
+              
       # Build images only during the staging deploy. All merges
       # to prod need to go via staging, so prod should *never*
       # use images not built for staging. By enforcing this at the
@@ -708,6 +727,7 @@ workflows:
               - data8x image build
               - data8xv2 image build
               - eecs image build
+              - a11y image build
           filters:
             branches:
               only:
