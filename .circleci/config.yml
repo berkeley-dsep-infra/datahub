@@ -695,7 +695,8 @@ workflows:
               branches:
                 only:
                 - staging
-       - hubploy/build-image:
+       
+      - hubploy/build-image:
           deployment: a11y
           name: a11y image build
           push: true
