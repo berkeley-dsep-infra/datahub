@@ -134,7 +134,7 @@ grafana:
           url: http://support-prometheus-server
           access: proxy
           isDefault: true
-          editable: false
+          editable: true
 
 prometheus-statsd-exporter:
   service:
