@@ -80,10 +80,10 @@ prometheus:
       # Without this, prometheus can easily starve users
       requests:
         cpu: 6
-        memory: 27Gi
+        memory: 24Gi
       limits:
         cpu: 6
-        memory: 27Gi
+        memory: 24Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
