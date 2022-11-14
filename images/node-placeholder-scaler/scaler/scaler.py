@@ -55,8 +55,8 @@ def get_replica_counts(events):
     for ev in events:
         logging.info(f'Found event {_event_repr(ev)}')
         if ev.description:
-			# initialize
-			pools_replica_config = None
+            # initialize
+            pools_replica_config = None
             try:
                 pools_replica_config = yaml.load(ev.description)
             except:
