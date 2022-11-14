@@ -4,7 +4,7 @@ image:
   repository: us-central1-docker.pkg.dev/ucb-datahub-2018/core/node-placeholder-scaler
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.1-n5576.hf6caa899"
+  tag: "0.0.1-n5578.h61ec24d1"
 
 imagePullSecrets: []
 nameOverride: ""
