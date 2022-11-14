@@ -55,10 +55,13 @@ def get_replica_counts(events):
     for ev in events:
         logging.info(f'Found event {_event_repr(ev)}')
         if ev.description:
+            # initialize
+            pools_replica_config = None
             try:
                 pools_replica_config = yaml.load(ev.description)
             except:
                 logging.error(f'Error in parsing description of {_event_repr(ev)}')
+                logging.error(f'{ev.description=}')
                 pass
             if pools_replica_config is None:
                 logging.error(f'No description in event {_event_repr(ev)}')
