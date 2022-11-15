@@ -4,14 +4,14 @@ channels:
 - conda-forge
 
 dependencies:
-- python==3.9
-- syncthing==1.20.4
+#- python==3.9
+#- syncthing==1.20.4
 - git
 #- altair==4.2.0
 #- beautifulsoup4==4.11.1
 #- black==22.6.0
 #- bokeh==2.4.3
-- bqplot==0.12.34
+#- bqplot==0.12.34
 #- cartopy==0.21.0
 - coverage==6.4.4
 #- cython==0.29.32
@@ -25,36 +25,36 @@ dependencies:
 #- intake==0.6.5
 #- intake-esm==2021.8.17
 #- intake-xarray==0.6.0
-- ipycanvas==0.12.1
-- ipydatagrid==1.1.12
-- ipympl==0.9.2
+#- ipycanvas==0.12.1
+#- ipydatagrid==1.1.12
+#- ipympl==0.9.2
 #- ipyparallel==8.4.1
 - jupyter-book==0.13.1
 - jupyter-repo2docker==2022.2.0
 - jupyter-resource-usage==0.6.1
-- jupyter_bokeh==3.0.4
-- jupyterlab-drawio==0.9.0
-- jupyterlab-favorites==3.0.0
-- jupyterlab-geojson==3.2.0
-- jupyterlab-git==0.39.0
-- jupyterlab-link-share==0.2.4
-- jupyterlab-variableinspector==3.0.9
-- jupyterlab_pygments==0.2.2
-- jupyterlab_widgets==3.0.2
-- jupytext==1.14.0
-- matplotlib==3.5.3
-- matplotlib-inline==0.1.6
-- mock==4.0.3
-- nbdime==3.1.1
+#- jupyter_bokeh==3.0.4
+#- jupyterlab-drawio==0.9.0
+#- jupyterlab-favorites==3.0.0
+#- jupyterlab-geojson==3.2.0
+#- jupyterlab-git==0.39.0
+- jupyterlab-link-share
+#- jupyterlab-variableinspector==3.0.9
+#- jupyterlab_pygments==0.2.2
+#- jupyterlab_widgets==3.0.2
+#- jupytext==1.14.0
+- matplotlib
+#- matplotlib-inline==0.1.6
+#- mock==4.0.3
+#- nbdime==3.1.1
 #- networkx==2.8.6
-- numba
-- numpy==1.23.2
-- pandas==1.4.3
-- pandoc==2.19.2
-- pandocfilters==1.5.0
+#- numba
+- numpy
+#- pandas==1.4.3
+#- pandoc==2.19.2
+#- pandocfilters==1.5.0
 #- pep8==1.7.1
 #- pillow==9.2.0
-#- plotly==5.10.0
+- plotly
 #- pooch==1.6.0
 #- prettytable==3.4.1
 #- pyarrow==9.0.0
@@ -64,28 +64,49 @@ dependencies:
 #- pytest-cov==3.0.0
 #- pytest-notebook==0.6.1
 #- python-pdfkit==1.0.0 
-- requests==2.28.1
+#- requests==2.28.1
 #- scikit-image==0.19.3
 #- scikit-learn==1.1.2
 #- scipy==1.9.0
 #- seaborn==0.11.2
-- sphinx-jupyterbook-latex==0.4.6
+#- sphinx-jupyterbook-latex==0.4.6
 #- sqlparse==0.4.3
 #- statsmodels==0.13.2
 #- sympy==1.10.1
 #- tqdm==4.64.0
 #- xarray==2022.6.0
 #- xlrd==2.0.1
-- micro==2.0.8
+#- micro==2.0.8
 - websockify
 - pip
 - pip:
-  - -r infra-requirements.txt
-  - jupyter-desktop-server
-    # For push authentication to GitHub
-#  - gh-scoped-creds==4.1
+  #- -r infra-requirements.txt
+  #- jupyter-desktop-server
+  # For push authentication to GitHub
+  # - gh-scoped-creds==4.1
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
-  - jupyterlab>=4.0.0a30
-  - otter-grader==4.0.1
- # - ipython-sql==0.4.1
+  - notebook==7.0.0a7
+  #- otter-grader==4.0.1
+  #- ipython-sql==0.4.1
+  # ###
+  # The items below are from infra-requirements, however lab conflicts with the alpha notebook.
+  # We disable infre-requirements.txt above and manually enable some of what it provides below.
+  # ###
+  - nbgitpuller==1.1.0
+  - jupyter-resource-usage==0.6.1
+  # Matches version in images/hub/Dockerfile
+  - jupyterhub==2.3.1
+  # - appmode==0.8.0
+  # - ipywidgets==7.7.2
+  # - jupyter-tree-download==1.0.1
+  # - git-credential-helpers==0.2
+  # - jupyter-contrib-nbextensions==0.5.1
+  # - jupyter_nbextensions_configurator==0.4.1
+  # Measure popularity of different packages in our hubs
+  # https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
+  # - popularity-contest==0.4.1
+  # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
+  # - RISE==5.7.1
+  # syncthing for dropbox-like functionality
+  # - jupyter-syncthing-proxy==1.0.3
