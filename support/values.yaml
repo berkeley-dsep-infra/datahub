@@ -79,11 +79,11 @@ prometheus:
     resources:
       # Without this, prometheus can easily starve users
       requests:
-        cpu: 2
-        memory: 8Gi
+        cpu: 6
+        memory: 24Gi
       limits:
-        cpu: 3
-        memory: 16Gi
+        cpu: 6
+        memory: 24Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
@@ -134,7 +134,7 @@ grafana:
           url: http://support-prometheus-server
           access: proxy
           isDefault: true
-          editable: false
+          editable: true
 
 prometheus-statsd-exporter:
   service:
