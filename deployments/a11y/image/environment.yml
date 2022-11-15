@@ -4,7 +4,7 @@ channels:
 - conda-forge
 
 dependencies:
-#- python==3.9
+- python==3.9
 #- syncthing==1.20.4
 - git
 #- altair==4.2.0
@@ -59,6 +59,7 @@ dependencies:
 #- prettytable==3.4.1
 #- pyarrow==9.0.0
 #- pypdf2==2.10.4
+- pyopenssl==22.1.0
 #- pytables==3.7.0
 #- pytest==7.1.2
 #- pytest-cov==3.0.0
@@ -87,6 +88,7 @@ dependencies:
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - notebook==7.0.0a7
+  - jupyterlab==4.0.0a30
   #- otter-grader==4.0.1
   #- ipython-sql==0.4.1
   # ###
