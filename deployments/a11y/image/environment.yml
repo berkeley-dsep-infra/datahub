@@ -33,7 +33,6 @@ dependencies:
 - jupyter-repo2docker==2022.2.0
 - jupyter-resource-usage==0.6.1
 - jupyter_bokeh==3.0.4
-- jupyterlab>=4.0.0a30
 - jupyterlab-drawio==0.9.0
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
@@ -87,5 +86,6 @@ dependencies:
 #  - gh-scoped-creds==4.1
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
+  - jupyterlab>=4.0.0a30
   - otter-grader==4.0.1
  # - ipython-sql==0.4.1
