@@ -64,6 +64,8 @@ RUN apt-get update > /dev/null && \
             libpq-dev \
             # for issue #2695, fall 2021?
             libarmadillo-dev \
+            # needed for #3942 to build allensdk
+            libhdf5-dev \
             postgresql-client > /dev/null
 
 # Install packages needed by notebook-as-pdf
