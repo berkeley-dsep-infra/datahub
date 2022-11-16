@@ -48,7 +48,7 @@ pymdptoolbox==4.0-b3
 # data-x; DL
 tensorflow==2.9.*
 scikit-image==0.19.*
-tables==3.7.0
+tables
 opencv-python==4.6.0.66
 
 # astr 128/256; spring 2021
@@ -193,4 +193,4 @@ httplib2>=0.20.2
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/3942
 # mcb-160L, fall 2022
-allensdk==2.13.6
+allensdk
