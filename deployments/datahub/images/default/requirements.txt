@@ -190,3 +190,7 @@ linearmodels==4.27
 # https://github.com/berkeley-dsep-infra/datahub/issues/2950
 # Needed to work with a new enough version of httplib2
 httplib2>=0.20.2
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/3942
+# mcb-160L, fall 2022
+allensdk==2.13.6
