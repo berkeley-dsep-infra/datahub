@@ -59,4 +59,4 @@ dependencies:
   - nlmpy==1.0.1
   - -r infra-requirements.txt
 # Packages for MCB-160L iss #3942
-  - allensdk==0.14.4
+  - allensdk==2.13.6
