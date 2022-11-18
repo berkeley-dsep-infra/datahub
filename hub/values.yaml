@@ -520,7 +520,7 @@ jupyterhub:
 
               if break_while_loop:
                 break
-              time += 1
+              timer += 1
               await asyncio.sleep(1)
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
