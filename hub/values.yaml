@@ -484,6 +484,9 @@ jupyterhub:
                   # 30 50 63 72 78 82 84 86 87 88 88 89
                   progress += (90 - progress) / 3
 
+                  # check the timer, and if we're over 60sec ask the user to be
+                  # patient
+                  # https://github.com/berkeley-dsep-infra/datahub/issues/3845
                   if timer >= self.spawn_launcher_timer:
                     patience_message = """
                       Server launch is taking longer than expected (%i seconds).
