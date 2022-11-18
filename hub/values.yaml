@@ -444,8 +444,10 @@ jupyterhub:
             and here is the specification of events that is relevant to understand:
               ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#event-v1-core
 
-            sknapp:  adding timer to display a message asking for patience
-            (https://github.com/berkeley-dsep-infra/datahub/issues/3845)
+            most of this code is directly copied from:
+              https://github.com/jupyterhub/kubespawner/blob/main/kubespawner/spawner.py#L2326
+            adding timer to display a message asking for patience:
+              https://github.com/berkeley-dsep-infra/datahub/issues/3845
             """
             if not self.events_enabled:
               return
