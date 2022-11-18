@@ -302,6 +302,18 @@ jupyterhub:
           """
         )
 
+        spawn_launcher_timer_message = Unicode(
+          """
+          Server launch is taking longer than expected.
+          Please be patient and do not restart your server as you will be placed
+          at the end of the queue.
+          """,
+          config=True,
+          help="""
+          The injected 'please be patient' message to display to the user.
+          """
+        )
+
         class CustomAttrSpawner(KubeSpawner):
           def _build_common_labels(self, extra_labels):
             labels = super()._build_common_labels(extra_labels)
@@ -490,12 +502,9 @@ jupyterhub:
                   # patient
                   # https://github.com/berkeley-dsep-infra/datahub/issues/3845
                   if timer >= self.spawn_launcher_timer:
-                    patience_message = """
-                      Server launch is taking longer than expected (%i seconds).
-                      Please be patient and do not restart your server as you
-                      will be placed at the end of the queue.
-                    """ % timer
-                    event["message"] += textwrap.dedent(patience_message)
+                    patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
+                    patience_massage += "\nCurrent time spend waiting: %i seconds"
+                    event["message"] += patience_message
 
                   yield {
                     'progress': int(progress),
