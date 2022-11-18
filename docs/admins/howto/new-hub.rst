@@ -1,3 +1,4 @@
+
 .. _howto/new-hub:
 
 ================
@@ -39,7 +40,7 @@ we provide that sets up a blank hub that can be customized.
       cookiecutter template/
 
 #. Cookiecutter template prompts you to answer 3 questions which will be about a) name of the project, 
-   b) cluster name and c) your hub name. Enter "ucb-datahub-2018" for the project name, "fall-2019" for the 
+   b) cluster name and c) your hub name. Enter ``ucb-datahub-201`` for the project name, ``fall-2019`` for the 
    cluster name and whatever you want as your hubname. It should generate a directory with the name of 
    the hub you provided with a skeleton configuration. It'll also generate all the necessary secrets.
 
@@ -49,10 +50,10 @@ we provide that sets up a blank hub that can be customized.
 	
 	``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
    
-   Or alternatively launch console.cloud.google.com ->  Select "ucb-datahub-2018" as the project name. 
-   Click on the three horizontal bar icon at the top left corner
-   Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
-   Select "Open in browser window" option to access NFS server via GUI.
+   #. Or alternatively, Launch console.cloud.google.com ->  Select "ucb-datahub-2018" as the project name. 
+   #. Click on the three horizontal bar icon at the top left corner.
+   #. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
+   #. Select "Open in browser window" option to access NFS server via GUI.
 	
    Create ``staging`` and ``prod``  directories owned by ``1000:1000`` under
    ``/export/homedirs-other-2020-07-29/<hubname>``. The path *might* differ if
@@ -84,8 +85,8 @@ we provide that sets up a blank hub that can be customized.
    #. ``staging.datahub.berkeley.edu/hub/oauth_callback`` added to the
       production hub client (id 10720000000000472)
 
-   Please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is
-   not available) to set this up.
+    Please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is
+    not available) to set this up.
 
 #. (Archived) Set up authentication via datahub. Generate secrets for the hub using the following command,
    
@@ -115,23 +116,23 @@ we provide that sets up a blank hub that can be customized.
    .. code:: yaml
   
      - hubploy/build-image:
-          deployment: <hub-name>
-          name: <hub-name> image build
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod  
+         deployment: <hub-name>
+         name: <hub-name> image build
+         filters:
+             branches:
+               ignore:
+               - staging
+               - prod  
 
 	
        - hubploy/build-image:
-          deployment:  <hub-name>
-          name:  <hub-name> image build
-          push: true
-          filters:
-              branches:
-                only:
-                - staging
+           deployment:  <hub-name>
+           name:  <hub-name> image build
+           push: true
+           filters:
+               branches:
+                 only:
+                  - staging
 				
 
        -  <hub-name> image build
@@ -157,6 +158,9 @@ we provide that sets up a blank hub that can be customized.
 #. You may want to customize the docker image for the hub based on your unique 
    requirements. Navigate to deployments/'Project Name'/image and review 
    environment.yml file and identify packages that you want to add from 
-   the [conda repository](https://anaconda.org/).
+   the ``conda repository`` <https://anaconda.org/>. You can copy the image manifest
+   files from another deployment. It is recommended to use a repo2docker-style image 
+   build, without a Dockerfile, if possible. That format will probably serve as the '
+   basis for self-service user-created images in the future.
    
 #. All done.
