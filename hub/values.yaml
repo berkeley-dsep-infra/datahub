@@ -503,7 +503,7 @@ jupyterhub:
                   # https://github.com/berkeley-dsep-infra/datahub/issues/3845
                   if timer >= self.spawn_launcher_timer:
                     patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
-                    patience_massage += "\nCurrent time spent waiting: %i seconds"
+                    patience_massage += "\nCurrent time spent waiting: %i seconds" % timer
                     event["message"] += patience_message
 
                   yield {
