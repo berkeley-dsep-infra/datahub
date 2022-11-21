@@ -257,7 +257,6 @@ jupyterhub:
         import os
         import time
         from kubespawner import KubeSpawner
-        from time import sleep # for testing 3963 only, remove before merging
         from tornado import gen
         import textwrap
         import z2jh
@@ -295,20 +294,17 @@ jupyterhub:
             return {}
 
         spawn_launcher_timer = Integer(
-          30,
-          # 60,  #uncomment before merging 3963 to prod
+          60,
           config=True,
           help="""
-          Time to wait before injecting a 'please be patient' message to display
+          Time in seconds to wait before injecting a 'please be patient' message to display
           to the user.
           """
         )
 
         spawn_launcher_timer_message = Unicode(
           """
-          Server launch is taking longer than expected.
-          Please be patient and do not restart your server as you will be placed
-          at the end of the queue.
+          Server launch is taking longer than expected. Please be patient!
           """,
           config=True,
           help="""
@@ -490,6 +486,17 @@ jupyterhub:
               if start_future and start_future.done():
                 break_while_loop = True
 
+              # check the timer, and if we're over 60sec ask the user to be
+              # patient
+              # https://github.com/berkeley-dsep-infra/datahub/issues/3845
+              if timer >= self.spawn_launcher_timer:
+                if timer % 10 == 0:
+                  # display only every 10 seconds
+                  patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
+                  patience_message += "\nCurrent time spent waiting: %i seconds" % timer
+                  event["message"] = patience_message
+                  yield { 'message': event["message"], }
+
               events = self.events
               len_events = len(events)
               if next_event < len_events:
@@ -501,14 +508,6 @@ jupyterhub:
                   # each event gets 33% closer to 90%:
                   # 30 50 63 72 78 82 84 86 87 88 88 89
                   progress += (90 - progress) / 3
-
-                  # check the timer, and if we're over 60sec ask the user to be
-                  # patient
-                  # https://github.com/berkeley-dsep-infra/datahub/issues/3845
-                  if timer >= self.spawn_launcher_timer:
-                    patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
-                    patience_massage += "\nCurrent time spent waiting: %i seconds" % timer
-                    event["message"] += patience_message
 
                   yield {
                     'progress': int(progress),
