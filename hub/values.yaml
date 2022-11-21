@@ -491,7 +491,7 @@ jupyterhub:
                 if timer % 10 == 0:
                   # display only every 10 seconds
                   patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
-                  patience_message += "\nCurrent time spent waiting: %i seconds" % timer
+                  patience_message += " Current time spent waiting: %i seconds" % timer
                   event["message"] = patience_message
                   yield { 'message': event["message"], }
 
