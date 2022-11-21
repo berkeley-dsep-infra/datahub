@@ -321,8 +321,6 @@ jupyterhub:
             return labels
 
           async def start(self):
-            # TODO: REMOVE BEFORE MERGING 3963 TO PROD!!!!!!!!!
-            await asyncio.sleep(45)
             # custom.memory
             custom_memory = z2jh.get_config('custom.memory', {})
             for attr, users in custom_memory.items():
