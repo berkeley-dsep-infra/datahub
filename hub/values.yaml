@@ -257,6 +257,7 @@ jupyterhub:
         import os
         import time
         from kubespawner import KubeSpawner
+        from time import sleep # for testing 3963 only, remove before merging
         from tornado import gen
         import textwrap
         import z2jh
@@ -294,7 +295,8 @@ jupyterhub:
             return {}
 
         spawn_launcher_timer = Integer(
-          60,
+          30,
+          # 60,  #uncomment before merging 3963 to prod
           config=True,
           help="""
           Time to wait before injecting a 'please be patient' message to display
@@ -323,6 +325,8 @@ jupyterhub:
             return labels
 
           async def start(self):
+            # TODO: REMOVE BEFORE MERGING 3963 TO PROD!!!!!!!!!
+            sleep(45)
             # custom.memory
             custom_memory = z2jh.get_config('custom.memory', {})
             for attr, users in custom_memory.items():
