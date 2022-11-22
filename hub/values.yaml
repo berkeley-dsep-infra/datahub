@@ -302,6 +302,14 @@ jupyterhub:
           """
         )
 
+        spawn_launcher_timer_frequency = Integer(
+          5,
+          config=True,
+          help="""
+          Display the patience message every 5 seconds.
+          """
+        )
+
         spawn_launcher_timer_message = Unicode(
           """
           Server launch is taking longer than expected. Please be patient!
@@ -488,7 +496,7 @@ jupyterhub:
               # patient
               # https://github.com/berkeley-dsep-infra/datahub/issues/3845
               if timer >= self.spawn_launcher_timer:
-                if timer % 10 == 0:
+                if timer % self.spawn_launcher_timer_frequency == 0:
                   # display only every 10 seconds
                   patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
                   patience_message += " Current time spent waiting: %i seconds" % timer
