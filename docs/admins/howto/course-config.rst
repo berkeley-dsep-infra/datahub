@@ -9,7 +9,7 @@ datahub knows which bCourse courses that users are affiliated with, and can assi
 Defining course profiles
 ========================
 
-#. Obtain the bCourses course ID from course staff. This ID is found in the course's URL, e.g. https://bcourses.berkeley.edu/courses/{identifier}. It should be a large integer.
+#. Obtain the bCourses course ID from course staff. This ID is found in the course's URL, e.g. `https://bcourses.berkeley.edu/courses/12345`. It should be a large integer.
 
 #. Edit datahub/config/common.yaml.
 
@@ -18,10 +18,10 @@ Defining course profiles
    .. code:: yaml
 
         canvas_courses:
-          {identifier}: # Name of Class 123, Fall '22
+          123456: # Name of Class 100, Fall '22
             mem_limit: 4096M
             mem_guarantee: 2048M
-          {identifier}: # Some other class 234, Spring '23
+          234567: # Some other class 200, Spring '23
             extraVolumeMounts:
             - mountPath: /home/rstudio/.ssh
               name: home
