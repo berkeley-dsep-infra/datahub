@@ -497,7 +497,7 @@ jupyterhub:
               # https://github.com/berkeley-dsep-infra/datahub/issues/3845
               if timer >= self.spawn_launcher_timer:
                 if timer % self.spawn_launcher_timer_frequency == 0:
-                  # display only every 10 seconds
+                  # display only every X seconds
                   patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
                   patience_message += " Current time spent waiting: %i seconds" % timer
                   yield { 'message': patience_message, }
