@@ -9,9 +9,9 @@ datahub knows which bCourse courses that users are affiliated with, and can assi
 Defining course profiles
 ========================
 
-#. Obtain the bCourses course ID from course staff. This ID is found in the course's URL, e.g. `https://bcourses.berkeley.edu/courses/12345`. It should be a large integer.
+#. Obtain the bCourses course ID from course staff. This ID is found in the course's URL, e.g. `https://bcourses.berkeley.edu/courses/123456`. It should be a large integer.
 
-#. Edit datahub/config/common.yaml.
+#. Edit `deployments/{deployment}/config/common.yaml`.
 
 #. Find an existing stantax, or create a new one, for `hub.custom.canvas_courses` and insert yaml of the form:
 
@@ -28,11 +28,11 @@ Defining course profiles
               subPath: _stat131a/_ssh
               readOnly: true
 
-   where `{identifier}` is the integer from the first step. Memory
-   limits and extra volume mounts are specified as in the examples
-   above. It is recommended that you provide a comment indicating
-   the name and term of the course so that they can be easily
-   identified and removed after the course is over.
+   where `123456` and `234567` are example integers from the first step.
+   Memory limits and extra volume mounts are specified as in the examples
+   above. It is recommended that you provide a comment indicating the name
+   and term of the course so that they can be easily identified and removed
+   after the course is over.
 
 #. Commit the change, then ask course staff to verify the increased allocation on staging. It is recommended that they simulate completing a notebook or run through the assignment which requires extra resources.
 
