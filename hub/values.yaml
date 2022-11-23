@@ -258,6 +258,7 @@ jupyterhub:
         import time
         from kubespawner import KubeSpawner
         from tornado import gen
+        from traitlets import ( Int, Unicode )
         import textwrap
         import z2jh
 
@@ -293,34 +294,34 @@ jupyterhub:
           except StopIteration:
             return {}
 
-        spawn_launcher_timer = Integer(
-          60,
-          config=True,
-          help="""
-          Time in seconds to wait before injecting a 'please be patient' message to display
-          to the user.
-          """
-        )
-
-        spawn_launcher_timer_frequency = Integer(
-          5,
-          config=True,
-          help="""
-          Display the patience message every 5 seconds.
-          """
-        )
-
-        spawn_launcher_timer_message = Unicode(
-          """
-          Server launch is taking longer than expected. Please be patient!
-          """,
-          config=True,
-          help="""
-          The injected 'please be patient' message to display to the user.
-          """
-        )
-
         class CustomAttrSpawner(KubeSpawner):
+          spawn_launcher_timer = Int(
+            5,
+            config=True,
+            help="""
+            Time in seconds to wait before injecting a 'please be patient' message to display
+            to the user.
+            """
+          )
+
+          spawn_launcher_timer_frequency = Int(
+            5,
+            config=True,
+            help="""
+            Display the patience message every 5 seconds.
+            """
+          )
+
+          spawn_launcher_timer_message = Unicode(
+            """
+            Server launch is taking longer than expected. Please be patient!
+            """,
+            config=True,
+            help="""
+            The injected 'please be patient' message to display to the user.
+            """
+          )
+
           def _build_common_labels(self, extra_labels):
             labels = super()._build_common_labels(extra_labels)
             # Until https://github.com/jupyterhub/kubespawner/issues/498
@@ -329,6 +330,7 @@ jupyterhub:
             return labels
 
           async def start(self):
+            await asyncio.sleep(10)
             # custom.memory
             custom_memory = z2jh.get_config('custom.memory', {})
             for attr, users in custom_memory.items():
