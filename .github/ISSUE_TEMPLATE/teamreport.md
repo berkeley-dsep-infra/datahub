@@ -6,7 +6,6 @@ title: "Weekly Update - {{ date | date('dddd, MMMM Do') }}"
 assignees: 
 - balajialg
 - felder
-- yuvipanda
 - ericvd-ucb
 - ryanlovett
 - sean-morris 
