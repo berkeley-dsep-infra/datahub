@@ -28,6 +28,8 @@ RUN apt-get -qq update --yes && \
             micro \
             mc \
             tini \
+# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979			
+			zip \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
