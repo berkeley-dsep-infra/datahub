@@ -40,12 +40,12 @@ we provide that sets up a blank hub that can be customized.
       cookiecutter template/
 
 #. Cookiecutter template prompts you to answer 3 questions which will be about a) name of the project, 
-   b) cluster name and c) your hub name. Enter ``ucb-datahub-201`` for the project name, ``fall-2019`` for the 
+   b) cluster name and c) your hub name. Enter ``ucb-datahub-2018`` for the project name, ``fall-2019`` for the 
    cluster name and whatever you want as your hubname. It should generate a directory with the name of 
    the hub you provided with a skeleton configuration. It'll also generate all the necessary secrets.
 
 #. You need to log into the NFS server and provide directories with appropriate permissions for the hub. 
-   This will allow users to store their files in home directories.    You can run the following command 
+   This will allow users to store their files in home directories. You can run the following command 
    in gcloud terminal to log in to the NFS server. 
 	
 	``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
@@ -99,9 +99,11 @@ we provide that sets up a blank hub that can be customized.
    added through the cookiecutter configuration, however you will need to edit staging.yaml 
    and prod.yaml in both ``deployments/datahub/config``
    and ``deployments/datahub/secrets``, inserting stanzas for the new hub. You
-   also need to insert to insert the same generated stanza in the secrets directory
+   also need to insert the same generated stanza in the secrets directory
    of the project that you created. Navigate to your project and check
-   config/secrets directory whether the newly generated secrets are added.
+    whether the newly generated secrets are added to config/secrets directory. You should also 
+   ensure that gcr-key.json and gce-key.json files are copied from other hub directories
+   and added to your hub directory's secrets folder ``deployments/template/{{cookiecutter.hub_name}}/secrets``.
 
 #. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
    be under the ``deploy`` job, and look something like this:
