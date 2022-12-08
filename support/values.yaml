@@ -1,7 +1,13 @@
 cert-manager:
+  nodeSelector:
+    hub.jupyter.org/pool-name: support-pool
   installCRDs: true
-  webhooks:
-    enabled: false
+  cainjector:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
+  webhook:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
   # # Our cluster-internal DNS seems to cache aggressively in
   # # some cases. The cache is also more likely to be warm,
   # # causing issues when cert-manager tries to verify
@@ -72,18 +78,22 @@ prometheus:
     create: true
   # make sure we collect metrics on pods by app/component at least
   kube-state-metrics:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
     metricLabelsAllowlist:
       - pods=[app,component,hub.jupyter.org/username,app.kubernetes.io/component]
       - nodes=[*]
   server:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
     resources:
       # Without this, prometheus can easily starve users
       requests:
         cpu: 6
         memory: 24Gi
       limits:
-        cpu: 6
-        memory: 24Gi
+        cpu: 7
+        memory: 48Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
@@ -98,6 +108,8 @@ prometheus:
       type: ClusterIP
 
 grafana:
+  nodeSelector:
+    hub.jupyter.org/pool-name: support-pool
   deploymentStrategy:
     type: Recreate
 
@@ -137,6 +149,8 @@ grafana:
           editable: true
 
 prometheus-statsd-exporter:
+  nodeSelector:
+    hub.jupyter.org/pool-name: support-pool
   service:
     annotations:
       prometheus.io/scrape: "true"
