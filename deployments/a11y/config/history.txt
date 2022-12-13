@@ -1,0 +1,26 @@
+ 2920  [2022-12-13 15:50:24] vi filestore-flags.json
+ 2921  [2022-12-13 15:53:22] vi filestore-flags.json
+ 2922  [2022-12-13 15:56:29] cat filestore-flags.json
+ 2923  [2022-12-13 15:58:33] gcloud filestore instances update test-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2924  [2022-12-13 15:59:08] gcloud filestore instances update test-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json --file-share=name="shares"
+ 2925  [2022-12-13 15:59:30] vi filestore-flags.json
+ 2926  [2022-12-13 16:00:17] gcloud filestore instances update test-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2927  [2022-12-13 16:00:43] vi filestore-flags.json
+ 2928  [2022-12-13 16:02:41] gcloud filestore instances update test-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2929  [2022-12-13 16:03:24] gcloud config set account felder@berkeley.edu
+ 2930  [2022-12-13 16:03:28] gcloud filestore instances update test-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2931  [2022-12-13 16:03:42] gcloud filestore instances list
+ 2932  [2022-12-13 16:03:59] gcloud filestore instances update testing-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2933  [2022-12-13 16:05:07] gcloud filestore instances describe testing-2022-12-13 --zone=us-central1-b
+ 2934  [2022-12-13 16:05:24] cat filestore-flags.json
+ 2935  [2022-12-13 16:05:50] vi filestore-flags.json
+ 2936  [2022-12-13 16:06:44] gcloud filestore instances describe testing-2022-12-13 --zone=us-central1-b
+ 2937  [2022-12-13 16:06:48] gcloud filestore instances update testing-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2938  [2022-12-13 16:07:08] vi filestore-flags.json
+ 2939  [2022-12-13 16:07:31] gcloud filestore instances update testing-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2940  [2022-12-13 16:09:53] cat filestore-flags.json
+ 2941  [2022-12-13 16:14:15] gcloud filestore instances create --tier=BASIC_HDD testing-2-2022-12-13 --zone=us-central1-b --flags-file=filestore-flags.json
+ 2942  [2022-12-13 16:16:13] gcloud filestore instances create --tier=BASIC_HDD testing-2-2022-12-13 --zone=us-central1-b --network=name="default" --flags-file=filestore-flags.json
+ 2943  [2022-12-13 16:16:37] cat filestore-flags.json
+ 2944  [2022-12-13 16:18:26] vi filestore-flags.json
+ 2945  [2022-12-13 16:18:45] gcloud filestore instances create --tier=BASIC_HDD testing-2-2022-12-13 --zone=us-central1-b --network=name="default" --flags-file=filestore-flags.json
