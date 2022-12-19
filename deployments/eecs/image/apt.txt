@@ -30,3 +30,6 @@ texlive-xetex
 texlive-fonts-recommended
 texlive-plain-generic
 texlive-lang-chinese
+
+# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979			
+zip

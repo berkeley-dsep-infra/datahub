@@ -28,3 +28,6 @@ texlive-lang-chinese
 
 # Needed for qgis maybe? https://github.com/conda-forge/pygridgen-feedstock/issues/10
 libgl1-mesa-glx
+
+# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979			
+zip

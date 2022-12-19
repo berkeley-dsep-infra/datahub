@@ -5,6 +5,7 @@ Common Administrator Tasks
 .. toctree::
    :maxdepth: 1
 
+   preview-local
    admin
    dns
    new-hub
