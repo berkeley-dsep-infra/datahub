@@ -4,12 +4,9 @@ channels:
 - conda-forge
 
 dependencies:
-- python==3.10
 - git
 - coverage==6.4.4
-- jupyter-book==0.13.1
 - jupyter-repo2docker==2022.10.0
-- jupyter-resource-usage==0.6.1
 - jupyterlab-link-share
 - matplotlib
 - numpy
@@ -23,14 +20,14 @@ dependencies:
   #- -r infra-requirements.txt
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
-  - notebook==7.0.0a9
-  - jupyterlab==4.0.0a31
+  - notebook==7.0.0a7
+  - jupyterlab==4.0.0a30
   # ###
   # The items below are from infra-requirements, however lab conflicts with the alpha notebook.
   # We disable infre-requirements.txt above and manually enable some of what it provides below.
   # ###
-  - nbgitpuller==1.1.0
-  - jupyter-resource-usage==0.6.1
+  - nbgitpuller
+  #- jupyter-resource-usage==0.6.1
   # Matches version in images/hub/Dockerfile
   - jupyterhub==3.1.0
   # - appmode==0.8.0
