@@ -1,6 +1,6 @@
 hubploy==0.2
 pygithub
 chartpress
-jupyterhub-repo2docker==2022.10.0
+jupyter-repo2docker==2022.10.0
 myst-parser
 chardet
