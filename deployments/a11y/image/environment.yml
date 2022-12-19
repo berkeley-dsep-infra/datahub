@@ -4,11 +4,11 @@ channels:
 - conda-forge
 
 dependencies:
-- python==3.11
+- python==3.10
 - git
 - coverage==6.4.4
 - jupyter-book==0.13.1
-- jupyter-repo2docker==2022.2.0
+- jupyter-repo2docker==2022.10.0
 - jupyter-resource-usage==0.6.1
 - jupyterlab-link-share
 - matplotlib
