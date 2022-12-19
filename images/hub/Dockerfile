@@ -1,10 +1,9 @@
 # Should match the hub image used by version of chart in hub/requirements.yaml
 # If that changes, this should be changed too!
-FROM jupyterhub/k8s-hub:1.1.3-n554.hfa81c67f
+FROM jupyterhub/k8s-hub:2.0.1-0.dev.git.5959.h65c52001
 
 USER root
 
-COPY canvasauthenticator /srv/canvasauthenticator
-RUN python3 -m pip install --no-cache /srv/canvasauthenticator
+RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/canvasoauthenticator@f5b3d24
 
 USER ${NB_USER}
