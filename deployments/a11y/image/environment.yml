@@ -4,6 +4,7 @@ channels:
 - conda-forge
 
 dependencies:
+- python=3.9.*
 - git
 - coverage==6.4.4
 - jupyter-repo2docker==2022.10.0
