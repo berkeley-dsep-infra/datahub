@@ -7,7 +7,9 @@ dependencies:
 - python=3.9.*
 - git
 - coverage==6.4.4
+- jupyter-book==0.13.1
 - jupyter-repo2docker==2022.10.0
+- jupyter-resource-usage==0.6.1
 - jupyterlab-link-share
 - matplotlib
 - numpy
@@ -27,7 +29,7 @@ dependencies:
   # The items below are from infra-requirements, however lab conflicts with the alpha notebook.
   # We disable infre-requirements.txt above and manually enable some of what it provides below.
   # ###
-  - nbgitpuller
+  - nbgitpuller==1.1.0
   #- jupyter-resource-usage==0.6.1
   # Matches version in images/hub/Dockerfile
   - jupyterhub==3.1.0
