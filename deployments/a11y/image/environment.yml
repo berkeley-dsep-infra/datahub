@@ -12,6 +12,7 @@ dependencies:
 - jupyter-resource-usage==0.6.1
 - jupyterlab-link-share
 - matplotlib
+- nbclassic==0.4.8
 - numpy
 - plotly
 - pyopenssl==22.1.0
