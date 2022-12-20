@@ -96,7 +96,7 @@ dependencies:
   # The items below are from infra-requirements, however lab conflicts with the alpha notebook.
   # We disable infre-requirements.txt above and manually enable some of what it provides below.
   # ###
-  - nbgitpuller==1.1.0
+  - nbgitpuller==1.1.1
   - jupyter-resource-usage==0.6.1
   # Matches version in images/hub/Dockerfile
   - jupyterhub==3.1.0
