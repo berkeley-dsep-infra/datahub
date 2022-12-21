@@ -17,15 +17,3 @@ jupyterhub:
       - secretName: tls-cert
         hosts:
           - ischool-staging.datahub.berkeley.edu
-  hub:
-    config:
-      GenericOAuthenticator:
-        extra_params:
-          client_id: service-ischool-staging.datahub.berkeley.edu
-        client_id: service-ischool-staging.datahub.berkeley.edu
-        authorize_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/authorize
-        token_url: https://staging.datahub.berkeley.edu/hub/api/oauth2/token
-        userdata_url: https://staging.datahub.berkeley.edu/hub/api/user
-      CanvasOAuthenticator:
-        client_id: '10720000000000472'
-        oauth_callback_url: 'https://ischool-staging.berkeley.edu/hub/oauth_callback'
