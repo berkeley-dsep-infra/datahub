@@ -11,7 +11,3 @@ jupyterhub:
       - secretName: tls-cert
         hosts:
           - stat20.datahub.berkeley.edu
-  hub:
-    config:
-      CanvasOAuthenticator:
-        oauth_callback_url: https://stat20.datahub.berkeley.edu/hub/api/oauth2/authorize
