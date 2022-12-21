@@ -18,11 +18,6 @@ jupyterhub:
 
   hub:
     config:
-      JupyterHub:
-        authenticator_class: generic-oauth
-      GenericOAuthenticator:
-        login_service: bCourses
-        username_key: name
       Authenticator:
         # https://jupyterhub.readthedocs.io/en/stable/reference/authenticators.html#authenticator-managed-group-membership
         admin_users:
