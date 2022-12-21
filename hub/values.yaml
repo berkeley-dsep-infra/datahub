@@ -199,7 +199,6 @@ jupyterhub:
         authenticate_prometheus: false
       Authenticator:
         enable_auth_state: true
-        # When we turn this on for all hubs
         manage_groups: true
       KubeSpawner:
         # Make sure working directory is ${HOME}
@@ -280,21 +279,6 @@ jupyterhub:
           y = memparse(b)
           return (x > y) - (x < y)
 
-        # TODO: move canvas_course_data to canvasoauthenticator
-        def canvas_course_data(course_key, course_val, user_canvas_courses):
-          '''
-             Return a user's canvas course data given a list of all their
-             courses, the key to find the course, and value of the key
-             we are looking for.
-          '''
-          try:
-            return next(
-              item for item in user_canvas_courses if \
-                item.get(course_key, '') == course_val
-            )
-          except StopIteration:
-            return {}
-
         class CustomAttrSpawner(KubeSpawner):
           spawn_launcher_timer = Int(
             60,
@@ -330,6 +314,19 @@ jupyterhub:
             del labels['hub.jupyter.org/username']
             return labels
 
+          def apply_override(self, override):
+            '''Apply a dictionary of KubeSpawner settings.'''
+            self.volumes += override.get('extraVolumes', [])
+            self.volume_mounts += override.get('extraVolumeMounts', [])
+            self.init_containers += override.get('initContainers', [])
+            # set new mem thresholds if specified are bigger than current
+            if 'mem_limit' in override and \
+            mem_cmp(override['mem_limit'], self.mem_limit) == 1:
+              self.mem_limit = override['mem_limit']
+            if 'mem_guarantee' in override and \
+            mem_cmp(override['mem_guarantee'], self.mem_guarantee) == 1:
+              self.mem_guarantee = override['mem_guarantee']
+
           async def start(self):
             # custom.memory
             custom_memory = z2jh.get_config('custom.memory', {})
@@ -341,118 +338,42 @@ jupyterhub:
 
             # custom.profiles
             custom_profiles = z2jh.get_config('custom.profiles', {})
-            for profile, profile_data in custom_profiles.items():
-              customize = False
-              if 'users' in profile_data and self.user.name in profile_data['users']:
+            for profile, override in custom_profiles.items():
+              if 'users' in override and self.user.name in override['users']:
                 self.log.warning(f'using profile {profile}')
-                self.volumes += profile_data.get('extraVolumes', [])
-                self.volume_mounts += profile_data.get('extraVolumeMounts', [])
-                # set new mem thresholds if specified are bigger than current
-                if 'mem_limit' in profile_data and \
-                mem_cmp(profile_data['mem_limit'], self.mem_limit) == 1:
-                  self.mem_limit = profile_data['mem_limit']
-                if 'mem_guarantee' in profile_data and \
-                mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
-                  self.mem_guarantee = profile_data['mem_guarantee']
+                self.apply_override(override)
 
-            # groups
-            self.log.info(f'self.user.groups: {self.user.groups}')
+            # custom.group_profiles
+            #self.log.info(f'self.user.groups: {self.user.groups}')
 
-            # custom.canvas_courses
-            auth_state = await self.user.get_auth_state()
+            group_profiles = z2jh.get_config('custom.group_profiles', {})
 
-            # a list of the user's canvas courses specified by some identifier
-            user_canvas_courses_identifiers = []
+            is_student = False
+            is_instructor = False
+            for group in self.user.groups:
+              # group format is 'canvas::{canvas_id}::{role}'
+              _, group_course, group_role = group.name.split('::', 2)
+              if not group_course in group_profiles:
+                continue
 
-            if auth_state is not None and 'courses' in auth_state:
-              # this is retrieved by the authenticator
-              # TODO: retrieve using self.authenticator if the
-              # authenticator's type is canvasoauthenticator
-              user_canvas_courses = auth_state.get('courses', [])
-              # see https://canvas.instructure.com/doc/api/courses.html
+              self.log.info(f'user {self.user.name} in group profile {group_course}')
+              override = group_profiles.get(group_course, {})
+              self.apply_override(override)
 
-              ## Inspect and log SIS course IDs, e.g. CRS:STAT-21-2021-D
-              sis_course_ids = []
-              course_codes = []
-              for user_canvas_course in user_canvas_courses:
-                sis_course_id = user_canvas_course.get('sis_course_id', None)
-                # skip empty IDs or projects
-                if sis_course_id is None or not sis_course_id.startswith('CRS:'):
-                  continue
-                # check whether the course has ended already
-                end_at = user_canvas_course.get('end_at', None)
-                if end_at is None:
-                  continue
-                try:
-                  # 2014-08-26T17:16:00Z
-                  end_at_p = time.strptime(end_at[:10], '%Y-%m-%d')
-                except Exception as e:
-                  self.log.info(f'SIS course end: {e}')
-                  self.log.info(f'SIS course end: {end_at}')
-                  continue
-                if end_at_p > time.localtime():
-                  course_codes.append(user_canvas_course.get('course_code', ''))
-                  sis_course_ids.append(sis_course_id)
-              self.log.info(f'sis_course_ids: {sis_course_ids}')
-              self.log.info(f'course_codes: {course_codes}')
-              ## end: log sis course IDS
+              is_instructor |= group_role in ['teacher', 'ta']
+              is_student |= group_role in ['student', 'observer']
 
-              # the key we use to uniquely identify courses. different
-              # deployments could use different keys, depending on their
-              # canvas usage e.g. 'sis_course_id' or 'name'
-              # TODO: this can be a traitlet within canvasoauthenticator
-              canvas_course_key = 'id'
-              # get a list of the user's canvas course identifiers
-              # TODO: this can be a function within canvasoauthenticator
-              user_canvas_courses_identifiers = list(
-                map(
-                  # we convert to string to be agnostic about how to handle
-                  # matches in custom.canvas_courses
-                  lambda x: str(x.get(canvas_course_key, '')),
-                  user_canvas_courses
-                )
-              )
-
-              # get our customizations for our specified canvas courses
-              canvas_course_customizations = z2jh.get_config('custom.canvas_courses', {})
-              is_student = False
-              is_instructor = False
-              for course, customizations in canvas_course_customizations.items():
-                # we apply customizations if the user is in the course
-                if not course in user_canvas_courses_identifiers:
-                  continue
-
-                self.log.info(f'user in canvas course: {self.user.name} {course}')
-                # the canvas data for our customized course
-                canvas_course = canvas_course_data(canvas_course_key, course, user_canvas_courses)
-                # set admin status based on their enrollment type
-                enrollments = canvas_course.get('enrollments', [])
-                for enrollment in enrollments:
-                  is_student |= (enrollment['type'] in ['teacher', 'ta'])
-                  is_instructor |= (enrollment['type'] == 'student')
-
-                self.volumes += customizations.get('extraVolumes', [])
-                self.volume_mounts += customizations.get('extraVolumeMounts', [])
-                # set new mem thresholds if specified are bigger than current
-                if 'mem_limit' in customizations and \
-                mem_cmp(customizations['mem_limit'], self.mem_limit) == 1:
-                  self.mem_limit = customizations['mem_limit']
-                if 'mem_guarantee' in customizations and \
-                mem_cmp(customizations['mem_guarantee'], self.mem_guarantee) == 1:
-                  self.mem_guarantee = customizations['mem_guarantee']
-
-              # if the user is a student in any course specified by a profile,
-              # they never get to be an admin
-              if is_student:
-                self.user.admin = False
-              elif is_instructor:
-                self.user.admin = True
+            # if the user is a student in any course specified by a profile,
+            # they never get to be an admin
+            if is_student:
+              self.user.admin = False
+            elif is_instructor:
+              self.user.admin = True
 
             # custom.admin
             custom_admin = z2jh.get_config('custom.admin', {})
             if custom_admin and self.user.admin:
-              self.init_containers += custom_admin.get('initContainers', [])
-              self.volume_mounts += custom_admin.get('extraVolumeMounts', [])
+              self.apply_override(custom_admin)
 
             return (await super().start())
 
