@@ -60,8 +60,8 @@ jupyterhub:
 
   custom:
     admin:
-      mem_limit: 4096M
-      mem_guarantee: 20484M
+      mem_limit: 4G
+      mem_guarantee: 2G
       extraVolumeMounts:
         - name: home
           mountPath: /srv/homes
