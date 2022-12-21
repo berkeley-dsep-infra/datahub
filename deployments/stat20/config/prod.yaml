@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/homedirs-other-2020-07-29/stat20/prod
+    shareName: shares/stat20/prod
 
 jupyterhub:
   ingress:
