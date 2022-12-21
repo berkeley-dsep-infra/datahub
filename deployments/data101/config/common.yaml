@@ -64,11 +64,6 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
     config:
 
-      JupyterHub:
-        authenticator_class: generic-oauth
-      GenericOAuthenticator:
-        login_service: bCourses
-        username_key: name
       Authenticator:
         admin_users:
           # infrastructure
