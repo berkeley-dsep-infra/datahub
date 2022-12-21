@@ -53,11 +53,3 @@ jupyterhub:
       guarantee: 512M
       limit: 1G
     image: {}
-
-  # read by z2jh.get_config() in hub/values.yaml
-  # course for testing canvas course support
-  custom:
-    canvas_courses:
-      1507757: # CRS:STAT-243-2021-D
-        mem_limit: 4096M
-        mem_guarantee: 3072M
