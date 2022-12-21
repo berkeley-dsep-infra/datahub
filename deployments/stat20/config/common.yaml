@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.240.85.114
 
 jupyterhub:
   scheduling:
@@ -51,7 +51,7 @@ jupyterhub:
       homeMountPath: /home/rstudio
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
