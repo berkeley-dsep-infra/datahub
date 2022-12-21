@@ -76,34 +76,17 @@ we provide that sets up a blank hub that can be customized.
 
 #. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_.
    We have two canvas OAuth2 clients setup in bcourses for us - one for all
-   production hubs and one for all staging hubs. The secret keys for these are
-   already in the generated secrets config. However, you need to add the new
-   hubs to the authorized callback list maintained in bcourses.
+   production hubs and one for all staging hubs. The configuration and secrets
+   for these are provided by the cookiecutter template, however the new hubs
+   need to be added to the authorized callback list maintained in bcourses.
 
    #. ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` added to
-      the staging hub client (id 10720000000000471)
+      the staging hub client (id 10720000000000594)
    #. ``staging.datahub.berkeley.edu/hub/oauth_callback`` added to the
       production hub client (id 10720000000000472)
 
-    Please reach out to Jonathan Felder (or bcourseshelp@berkeley.edu if he is
-    not available) to set this up.
-
-#. (Archived) Set up authentication via datahub. Generate secrets for the hub using the following command,
-   
-   .. code:: bash
-	
-	openssl rand -hex 32
-
-   This generates an alphanumeric text which you need to update across the secrets file in 
-   Datahub directory and the project you created. Deployment-specific configuration will be 
-   added through the cookiecutter configuration, however you will need to edit staging.yaml 
-   and prod.yaml in both ``deployments/datahub/config``
-   and ``deployments/datahub/secrets``, inserting stanzas for the new hub. You
-   also need to insert the same generated stanza in the secrets directory
-   of the project that you created. Navigate to your project and check
-    whether the newly generated secrets are added to config/secrets directory. You should also 
-   ensure that gcr-key.json and gce-key.json files are copied from other hub directories
-   and added to your hub directory's secrets folder ``deployments/template/{{cookiecutter.hub_name}}/secrets``.
+    Please reach out to Jonathan Felder to set this up, or
+    bcourseshelp@berkeley.edu if he is not available.
 
 #. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
    be under the ``deploy`` job, and look something like this:
