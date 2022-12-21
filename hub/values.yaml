@@ -200,7 +200,7 @@ jupyterhub:
       Authenticator:
         enable_auth_state: true
         # When we turn this on for all hubs
-        #manage_groups: true
+        manage_groups: true
       KubeSpawner:
         # Make sure working directory is ${HOME}
         # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
