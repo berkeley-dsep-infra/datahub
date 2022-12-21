@@ -29,18 +29,18 @@ Defining course profiles
 
    .. code:: yaml
 
-      hub:
-        custom:
-          group_profiles:
-            123456: # Name of Class 100, Fall '22; requested in #98765
-              mem_limit: 4096M
-              mem_guarantee: 2048M
-            234567: # Some other class 200, Spring '23; requested in #98776
-              extraVolumeMounts:
-              - mountPath: /home/rstudio/.ssh
-                name: home
-                subPath: _stat131a/_ssh
-                readOnly: true
+        hub:
+          custom:
+            group_profiles:
+              123456: # Name of Class 100, Fall '22; requested in #98765
+                mem_limit: 4096M
+                mem_guarantee: 2048M
+              234567: # Some other class 200, Spring '23; requested in #98776
+                extraVolumeMounts:
+                - mountPath: /home/rstudio/.ssh
+                  name: home
+                  subPath: _stat131a/_ssh
+                  readOnly: true
 
    where `123456` and `234567` are example integers from the first step.
    Memory limits and extra volume mounts are specified as in the examples
