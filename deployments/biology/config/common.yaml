@@ -21,11 +21,6 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
 
     config:
-      JupyterHub:
-        authenticator_class: oauthenticator.google.GoogleOAuthenticator
-      GoogleOAuthenticator:
-        hosted_domain:
-          - berkeley.edu
       Authenticator:
         admin_users:
           # infrastructure
