@@ -13,3 +13,4 @@ Common Administrator Tasks
    new-packages
    course-config
    calendar-scaler
+   prometheus-forward
