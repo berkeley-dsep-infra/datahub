@@ -257,8 +257,6 @@ RUN /usr/local/sbin/connector-text.bash
 COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
 RUN /usr/local/sbin/2021-fall-phys-188-288.bash
 
-ADD ipython_config.py ${IPYTHONDIR}/ipython_config.py
-
 # Used by MCB32, but incompatible with ipywidgets 8.x
 RUN pip install --no-cache qgrid==1.3.1
 RUN jupyter nbextension enable --py --sys-prefix qgrid
