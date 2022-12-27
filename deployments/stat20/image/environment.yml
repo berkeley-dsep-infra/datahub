@@ -1,0 +1,12 @@
+name: stat20
+
+channels:
+- conda-forge
+
+dependencies:
+- syncthing==1.22.2
+- jupyter-rsession-proxy==2.1.0
+- pip:
+  - -r /tmp/infra-requirements.txt
+    # For push authentication to GitHub
+  - gh-scoped-creds==4.1
