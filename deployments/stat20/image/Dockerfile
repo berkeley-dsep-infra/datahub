@@ -1,4 +1,5 @@
-FROM rocker/geospatial:4.2.1
+FROM rocker/geospatial:4.2.2
+# https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_e06f866673fa
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -24,23 +25,15 @@ WORKDIR ${HOME}
 
 # Install packages needed by notebook-as-pdf
 # nodejs for installing notebook / jupyterhub from source
-# libarchive-dev for https://github.com/berkeley-dsep-infra/datahub/issues/1997
 # texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
 # We use Ubuntu's TeX because rocker's doesn't have most packages by default, 
 # and we don't want them to be downloaded on demand by students.
 RUN apt-get update && \
     apt-get install --yes \
-            libx11-xcb1 \
-            libxtst6 \
             libxrandr2 \
-            libasound2 \
-            libpangocairo-1.0-0 \
             libatk1.0-0 \
             libatk-bridge2.0-0 \
             libgtk-3-0 \
-            libnss3 \
-            libxss1 \
-            libssl1.1 \
             fonts-symbola \
             gdebi-core \
             tini \
@@ -51,7 +44,9 @@ RUN apt-get update && \
             # provides FandolSong-Regular.otf for issue #2714
             texlive-lang-chinese \
             texlive-plain-generic \
-            nodejs npm > /dev/null && \
+            nodejs \
+            npm \
+            > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -86,49 +81,5 @@ RUN r /tmp/r-packages/2022-spring-stat-20.r
 
 # Configure locking behavior
 COPY file-locks /etc/rstudio/file-locks
-
-# RUN tlmgr --verify-repo=none update --self && \
-#     tlmgr --verify-repo=none install \
-# 	amsmath \
-#     auxhook \
-#     bigintcalc \
-#     bitset \
-#     bookmark \
-#     booktabs \
-#     caption \
-#     environ \
-#     epstopdf-pkg \
-#     etexcmds \
-#     etoolbox \
-#     fancyvrb \
-#     float \
-#     framed \
-#     geometry \
-#     gettitlestring \
-#     hycolor \
-#     hyperref \
-#     iftex \
-#     infwarerr \
-#     intcalc \
-#     koma-script \
-#     kvdefinekeys \
-#     kvoptions \
-#     kvsetkeys \
-#     latex-amsmath-dev \
-#     letltxmacro \
-#     ltxcmds \
-#     mdwtools \
-#     oberdiek \
-#     pdfescape \
-#     pdftexcmds \
-#     pgf \
-#     refcount \
-#     rerunfilecheck \
-#     stringenc \
-#     uniquecounter \
-#     unicode-math \
-#     tcolorbox \
-#     xcolor \
-#     zapfding
 
 ENTRYPOINT ["tini", "--"]
