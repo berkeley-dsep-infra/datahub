@@ -7,13 +7,11 @@ class_name = "2022 Spring Stat 20"
 class_libs = c(
     "fivethirtyeight", "0.6.2",
     "gapminder", "0.3.0",
-    "googlesheets4", "1.0.0",
     "infer", "1.0.0",
     "janitor", "2.1.0",
     "openintro", "2.2.0",
     "pagedown", "0.16",
     "palmerpenguins", "0.1.0",
-    "patchwork", "1.1.1",
     "patchwork", "1.1.1",
     "showtext", "0.9-4",
     "swirl", "2.4.5",
