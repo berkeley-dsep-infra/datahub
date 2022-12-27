@@ -8,19 +8,16 @@
 # everwhere one by one.
 
 # FIXME: Freeze this to get exact versions of all dependencies
-notebook==6.4.3
-# Seems to cause a version conflict with jupyter-server-proxy
-jupyter-client<7.0
-jupyterlab==3.1.4
-nbconvert==6.1.0
-retrolab==0.2.2
-nbgitpuller==0.10.0
-jupyter-resource-usage==0.5.1
+notebook==6.4.12
+jupyterlab==3.4.5
+retrolab==0.3.21
+nbgitpuller==1.1.0
+jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
-git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
+jupyterhub==3.1.0
 appmode==0.8.0
-ipywidgets==7.6.3
-otter-grader==3.0.1
+ipywidgets==7.7.2
+otter-grader==3.1.4
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
 # Enough people like this, let's load it in.
@@ -31,5 +28,5 @@ jupyter_nbextensions_configurator==0.4.1
 popularity-contest==0.4.1
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
-# https://github.com/berkeley-dsep-infra/datahub/issues/784
-voila==0.2.10
+# syncthing for dropbox-like functionality
+jupyter-syncthing-proxy==1.0.3

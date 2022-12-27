@@ -1,10 +1,13 @@
 #!/usr/bin/env r
 
-
 # Install devtools so we can install versioned packages
 install.packages("devtools")
 
 source("/tmp/class-libs.R")
+
+# install ottr, needs to go first issue #3216
+# install ottr, 1.1.4, issue #3403
+devtools::install_version("ottr", version = "1.1.4", repos = "https://cran.r-project.org", upgrade = "never", quiet = FALSE)
 
 # dplyr package + backends
 # From https://github.com/rocker-org/rocker-versioned2/blob/b8d23396468c5dc73115cce6c5716424d80ffcb0/scripts/install_tidyverse.sh#L30
@@ -133,6 +136,7 @@ cran_packages = c(
   "pryr", "0.1.4",
   "rapportools", "1.0",
   "raster", "3.4-5",
+  "rdrobust", "2.0.2",
   "readr", "1.4.0",
   "readxl", "1.3.1",
   "redland", "1.0.17-14",
@@ -169,7 +173,7 @@ cran_packages = c(
   "svglite", "1.2.3.2",
   "systemfonts", "0.3.2",
   "testit", "0.12",
-  "testthat", "3.0.1",
+  "testthat", "3.0.4",
   "tibble", "3.0.4",
   "tidync", "0.2.4",
   "tidyr", "1.1.2",

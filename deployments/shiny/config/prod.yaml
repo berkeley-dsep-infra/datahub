@@ -1,0 +1,18 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/shiny/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - shiny.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - shiny.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

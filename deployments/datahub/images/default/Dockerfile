@@ -27,6 +27,9 @@ RUN apt-get -qq update --yes && \
             vim \
             micro \
             mc \
+            tini \
+# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979			
+			zip \
             locales > /dev/null
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -40,13 +43,15 @@ RUN apt-get update > /dev/null && \
             pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
+            # provides FandolSong-Regular.otf for issue #2714
+            texlive-lang-chinese \
             texlive-plain-generic > /dev/null
 
 RUN apt-get update > /dev/null && \
     apt-get -qq install --yes \
             # for LS88-5 and modules basemap
             libspatialindex-dev \
-            # for cartopy
+            # for R sf packages
             libgeos-dev \
             libproj-dev \
             proj-data \
@@ -59,6 +64,8 @@ RUN apt-get update > /dev/null && \
             ffmpeg  \
             # for data100
             libpq-dev \
+            # for issue #2695, fall 2021?
+            libarmadillo-dev \
             postgresql-client > /dev/null
 
 # Install packages needed by notebook-as-pdf
@@ -82,16 +89,14 @@ RUN apt-get update && \
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
-# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
-# with the version of RStudio we use. So we pin R to 4.0.5
-ENV R_VERSION=4.0.5-1.2004.0
+ENV R_VERSION=4.2.1-2.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.11-1.2004.0 > /dev/null
+    r-cran-littler=0.3.15-1.2004.0 > /dev/null
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -101,7 +106,7 @@ RUN apt-get update -qq --yes && \
         libapparmor1 \
         lsb-release \
         libclang-dev  > /dev/null
-            
+
 # apt packages needed for R packages
 RUN apt update --yes > /dev/null && \
     apt install --no-install-recommends --yes \
@@ -116,17 +121,26 @@ RUN apt update --yes > /dev/null && \
     # R package magick
     libmagick++-dev imagemagick > /dev/null
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.1-554-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    dpkg -i /tmp/rstudio.deb && \
+#    dpkg -i /tmp/rstudio.deb && \
+    apt install --no-install-recommends --yes /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
 
-ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.15.953-amd64.deb
+#ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.17.973-amd64.deb
+ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.19.995-amd64.deb
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
-    dpkg -i /tmp/shiny-server.deb && \
+#    dpkg -i /tmp/shiny-server.deb && \
+    apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
+
+# For 2022 Fall ESPM 157, but probably others will use it later
+ENV QUARTO_VERSION="0.9.522"
+RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
+    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
+    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
+	rm /tmp/quarto.tar.gz && \
+	ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
 
 # Set CRAN mirror to rspm before we install anything
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
@@ -149,55 +163,56 @@ RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
 USER ${NB_USER}
 
 COPY class-libs.R /tmp/class-libs.R
+RUN mkdir -p /tmp/r-packages
+
 # Install all our base R packages
 COPY install.R  /tmp/install.R
-RUN /tmp/install.R && \
-    rm -rf /tmp/downloaded_packages
-
-RUN mkdir -p /tmp/r-packages
+RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
 # pdftools
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
-RUN r /tmp/r-packages/dlab-ctawg.r
+RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2019-fall-stat-131a.r /tmp/r-packages
-RUN r /tmp/r-packages/2019-fall-stat-131a.r
+RUN r /tmp/r-packages/2019-fall-stat-131a.r && rm -rf /tmp/downloaded_packages
+
+COPY r-packages/econ-140.r /tmp/r-packages
+RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/eep-1118.r /tmp/r-packages
-RUN r /tmp/r-packages/eep-1118.r
+RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ias-c188.r /tmp/r-packages
-RUN r /tmp/r-packages/ias-c188.r
+RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
 
-COPY r-packages/ph-142.r /tmp/r-packages
-RUN r /tmp/r-packages/ph-142.r
+COPY r-packages/orphaned-ph-142.r /tmp/r-packages
+RUN r /tmp/r-packages/orphaned-ph-142.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/stat-131a.r /tmp/r-packages
-RUN r /tmp/r-packages/stat-131a.r
+RUN r /tmp/r-packages/stat-131a.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
-RUN r /tmp/r-packages/2020-spring-envecon-c118.r
+RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
 
-COPY r-packages/econ-140.r /tmp/r-packages/
-RUN r /tmp/r-packages/econ-140.r
+COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-ph-290.r && rm -rf /tmp/downloaded_packages
 
-COPY r-packages/ph-290.r /tmp/r-packages/
-RUN r /tmp/r-packages/ph-290.r
-
-COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-phw-272a.r
-
-COPY r-packages/2021-spring-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-stat-20.r
+# remove after Spring '22 semester
+COPY r-packages/orphaned-2021-spring-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-2021-spring-stat-20.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
-RUN r /tmp/r-packages/2021-spring-espm-288.r
+RUN r /tmp/r-packages/2021-spring-espm-288.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ib161.r /tmp/r-packages/
-RUN r /tmp/r-packages/ib161.r
+RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
 
 COPY r-packages/ps-3.r /tmp/r-packages/
-RUN r /tmp/r-packages/ps-3.r
+RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
+
+# remove after Spring '22 semester
+COPY r-packages/orphaned-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/orphaned-stat-20.r && rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
@@ -205,17 +220,17 @@ ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 WORKDIR /home/${NB_USER}
 
-# Install miniforge as root
+# Install mambaforge as root
 USER root
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 # Install conda environment as our user
 USER ${NB_USER}
 
 COPY environment.yml /tmp/environment.yml
 
-RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
@@ -239,8 +254,19 @@ ENV NLTK_DATA ${CONDA_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
 RUN /usr/local/sbin/connector-text.bash
 
-# install QGrid notebook extension
+COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
+RUN /usr/local/sbin/2021-fall-phys-188-288.bash
+
+# Used by MCB32, but incompatible with ipywidgets 8.x
+RUN pip install --no-cache qgrid==1.3.1
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
+# clear out /tmp
+USER root
+RUN rm -rf /tmp/*
+
+USER ${NB_USER}
 
 EXPOSE 8888
+
+ENTRYPOINT ["tini", "--"]

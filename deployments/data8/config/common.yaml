@@ -4,6 +4,12 @@ nfsPVC:
     serverIP: nfsserver-01
 
 jupyterhub:
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /srv/homes
+
   scheduling:
     userScheduler:
       nodeSelector:
@@ -20,126 +26,77 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     config:
-      JupyterHub:
-        authenticator_class: generic-oauth
-      GenericOAuthenticator:
-        login_service: bCourses
-        basicc_auth: false
-        username_key: name
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder
           - balajialwar
-          # Fall 2021 Admins, from Meghan Wang  
+          # Summer 2022 Admins, from Data 8 Instructors Kevin Miao and Ellen Persson
+          - daw
           - nellepersson
-          - meghanwang
-          - melissarwong
-          - sdjajadi
-          - carlosortiz
-          - ritawang
-          - sunnyshen
-          - nicolepark
-          - joyceezheng
-          - willfurtado
-          - marmis
-          - nhanafi
-          - aarushi.k
-          - alicechen295
-          - anna_zhao
-          - ashika-raghavan
-          - ciara.acosta
-          - efliu
-          - ellenkwok882
-          - eshadgoo972
+          - kevinmiao
           - lingjunguo
-          - gracealtree
-          - graceyi89
-          - ichiachen1
-          - joshgreenberg
-          - kanchoo
-          - sjmoon21
-          - michellelou
-          - nickha
-          - o.chang
+          - cayanan.joshua
           - oscarb
           - vpadma
-          - ralui
-          - raymondwang
-          - rhu01
-          - selenalu
-          - shayan.ghosh
-          - stephaniex
-          - takaokakegawa
-          - jvarun
-          - wendykimm
-          - yuqiye
-          - anujalohia
-          - devarshdhanuka
-          - eshaansoman
-          - jacquelinekyu
-          - laeticiayang
-          - sydniezanone
-          - tongshen
-          - angelineyang
-          - atticus.ginsborg
-          - audreyim
-          - auroraxzeng
-          - csun457
-          - devin.sze
-          - eunicechoi
-          - haru.yamamoto
-          - jaqian
-          - joannayoo
-          - cayanan.joshua
-          - kaitlynphan
-          - karen.li
-          - katherine0806
-          - kinsey.long
-          - lillianweng
-          - mattyshen
-          - mirasharma
-          - nikaash.maheshwari
-          - noah.s.tran
-          - owensleigh
-          - Pverde1
           - gprasann
-          - rithviksunku
-          - ryanhuntley23
-          - sahilthakur
-          - seanwei2001
-          - sofiakwee
-          - sonyak
-          - sonyashankar
-          - willchp
-          - zaidmaayah
-          - dianaqing
-          - elleanor.wong
-          - geli2001
-          - jweichert
-          - markcheunggg
-          - mlucas
-          - oswaldo1603
-          - rimikabanerjee
-          - rishabh297
-          - sabrinakma
+          - guanangela
+          - atticus.ginsborg
+          - xjeffreychen12
+          - katherine0806
+          - kelseyley
+          - kinsey.long
+          - noah.s.tran
+          - paul.loisel
+          - yifengwang
+          - samihasingh
           - sarafang
-          - tanyasjain
-          - umutuygur
           - yiyan.hao
+          - ekchien04
+          - jonathanferrari
+          - karen.li
+          - lisaycliu
+          - nataliechan
+          - nikil
+          - ralui
+          - rhu01
+          - zayankhanmd
+          - andreawang
+          - ahlin
+          - aarushiwalia
+          - carrie.hu
+          - ekandell
+          - jacobaldrich11
+          - juliannalee
+          - kevintnguyen
+          - kvitolo
+          - lucytran
+          - mangai
+          - mingshamo
+          - richardsoong
+          - liuwenjin021011
+          - stephen.liu
+          - vaidehi-b
+          - zachmackin
 
           # List of other admin users
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: delta-pool
+    defaultUrl: /retro
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
+    cpu:
+      # https://github.com/berkeley-dsep-infra/datahub/issues/2966
+      guarantee: 0.05
+      limit: 1
     memory:
       guarantee: 512M
       limit: 1G

@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/workshop
 
 jupyterhub:
   prePuller:
@@ -39,9 +38,7 @@ jupyterhub:
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image
       hub.jupyter.org/pool-name: alpha-pool
-    image:
-      # Matches datahub image
-      name: gcr.io/ucb-datahub-2018/primary-user-image
+    image: {}
     storage:
       type: static
       static:

@@ -1,44 +1,7 @@
-etcJupyter:
-  jupyter_notebook_config.json:
-    # if a user leaves a notebook with a running kernel,
-    # the effective idle timeout will typically be CULL_TIMEOUT + CULL_KERNEL_TIMEOUT
-    # as culling the kernel will register activity,
-    # resetting the no_activity timer for the server as a whole
-    MappingKernelManager:
-      # shutdown kernels after no activity
-      cull_idle_timeout: 3600
-      # check for idle kernels this often
-      cull_interval: 300
-      # a kernel with open connections but no activity still counts as idle
-      # this is what allows us to shutdown servers
-      # when people leave a notebook open and wander off
-      cull_connected: true
-    NotebookNotary:
-      # Use memory for notebook notary file to workaround corrupted files on nfs
-      # https://www.sqlite.org/inmemorydb.html
-      # https://github.com/jupyter/jupyter/issues/174
-      # https://github.com/ipython/ipython/issues/9163
-      db_file: ":memory:"
-    NotebookApp:
-      # Allow scraping metrics from Prometheus server
-      authenticate_prometheus: false
-      # Stop notebook when there's no activity
-      # This adds an additional layer to the idle culler, which is sometimes screwed up
-      # via connected websockets and /metrics calls. I'm not sure if this will actually help,
-      # but we can try and find out! See https://github.com/jupyterhub/jupyterhub/issues/3099
-      # for more example
-      # 1h, same as culler.
-      shutdown_no_activity_timeout: 3600
-    ResourceUseDisplay:
-      disable_legacy_endpoint: true
-    WebPDFExporter:
-      disable_sandbox: true
-
 etcGitConfig:
   enabled: false
 nfsPVC:
   enabled: true
-
 
 jupyterhub:
   prePuller:
@@ -57,7 +20,7 @@ jupyterhub:
       defaultPriority: 0
       userPlaceholderPriority: -10
     userScheduler:
-      enabled: true
+      enabled: false
       resources:
         requests:
           # FIXME: Just unset this?
@@ -77,8 +40,6 @@ jupyterhub:
           memory: 64Mi
         limits:
           memory: 1Gi
-      pdb:
-        enabled: false
     traefik:
       resources:
         requests:
@@ -90,13 +51,25 @@ jupyterhub:
       letsencrypt:
         contactEmail: yuvipanda@berkeley.edu
   singleuser:
+    cmd:
+      # Explicitly define this, as it's no longer set by z2jh
+      # https://github.com/jupyterhub/zero-to-jupyterhub-k8s/pull/2449
+      - jupyterhub-singleuser
+    cpu:
+      # Make sure all users get at least 5% of CPU, so other users can't starve them
+      # so much that they crash
+      guarantee: 0.05
+      # We use CPUs with 8 cores, and want to make sure that a single user can't take
+      # over a node (more than one still can). But we also want to give users the
+      # option of using as much CPU as they need if nobody else is using the node, as
+      # is often the case. 4 seems a reasonable compromise here.
+      limit: 4
     extraFiles:
-      ipython-config:
-        mountPath: /etc/ipython/ipython_config.json
+      no-nfs-config:
+        mountPath: /etc/ipython/ipython_kernel_config.json
         data:
-          # Disable history manager, we don't really use it
-          # and by default it puts an sqlite file on NFS, which is not something we wanna do
           HistoryManager:
+            # We do not need to keep around history for IPython, and especially not on NFS
             enabled: false
       culling-config:
         mountPath: /etc/jupyter/jupyter_notebook_config.json
@@ -131,62 +104,106 @@ jupyterhub:
           popularity_contest.reporter.setup_reporter()
     extraEnv:
       SHELL: /bin/bash
+      # until https://github.com/jupyterhub/jupyterhub/pull/3918 or equivalent lands
+      # Also, with jupyter server the 'Control Panel' is not being displayed
+      JUPYTERHUB_SINGLEUSER_APP: "notebook.notebookapp.NotebookApp"
       PYTHON_POPCONTEST_STATSD_HOST: 'support-prometheus-statsd-exporter.support'
       PYTHON_POPCONTEST_STATSD_PORT: '9125'
+      # Set RUNTIME_DIR to live under /tmp, as these need not persist across container restarts
+      # This doesn't cause a *lot* of NFS traffic, but does cause *some*
+      JUPYTER_RUNTIME_DIR: /tmp/jupyter-runtime
     startTimeout: 600 # 10 mins, because sometimes we have too many new nodes coming up together
-    extraAnnotations:
-      prometheus.io/scrape: "false"
-      prometheus.io/path: "/user/{username}/metrics"
-      prometheus.io/port: "8888"
     networkPolicy:
-      # In clusters with NetworkPolicy enabled, do not
-      # allow outbound internet access that's not DNS, FTP, HTTP or HTTPS
-      # We can override this on a case to case basis where
-      # required.
       enabled: true
-      # NOTE: This needs to be repeated in r/config/common.yaml, since we can't
-      # add an item to a list. It needs external ssh access, something I don't
-      # want to allow in general as an anti-abuse measure.
+      # We enable all outgoing access to the broader internet, but not to private IP ranges
+      # of pods and services inside the cluster - except for outbound UDP and TCP to statsd,
+      # for python-popularity-package.
       egress:
-        - ports:
-            - port: 80
-              protocol: TCP
-        - ports:
-            - port: 443
-              protocol: TCP
-        - ports:
-            # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
-            - port: 21
-              protocol: TCP
-        - ports:
-            # statsd ports
-            - port: 9125
-              protocol: TCP
-            - port: 9125
-              protocol: UDP
-      # Allow ingress from promethetheus scraper in support namespace
-      # This lets us get notebook metrics!
-      ingress:
-        - ports:
-            - port: 8888
-              protocol: TCP
-          from:
+        # Allow code in hubs to talk to ingress provider, so they can talk to the hub via its
+        # public URL
+        - to:
             - namespaceSelector:
                 matchLabels:
                   name: support
               podSelector:
                 matchLabels:
-                  app: prometheus
-                  component: server
+                  app.kubernetes.io/name: ingress-nginx
+          ports:
+            - port: 443
+              protocol: TCP
+            - port: 80
+              protocol: TCP
+        # datahub.berkeley.edu is still not using the ingress provider, so
+        # we have to explicitly allow access to it from our user pods.
+        - to:
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: autohttps
+              namespaceSelector:
+                matchLabels:
+                  name: datahub-prod
+          ports:
+            - port: http
+              protocol: TCP
+            - port: https
+              protocol: TCP
+        # Allow user code to send packets to statsd for python-popularity-contest
+        - to:
+            - namespaceSelector:
+                matchLabels:
+                  name: support
+              podSelector:
+                matchLabels:
+                  app.kubernetes.io/name: prometheus-statsd-exporter
+          ports:
+            # statsd ports
+            - port: 9125
+              protocol: TCP
+            - port: 9125
+              protocol: UDP
+        - to:
+            - ipBlock:
+                cidr: 0.0.0.0/0
+                except:
+              # Don't allow network access to private IP ranges
+              # Listed in https://datatracker.ietf.org/doc/html/rfc1918
+                  - 10.0.0.0/8
+                  - 172.16.0.0/12
+                  - 192.168.0.0/16
+              # Don't allow network access to the metadata IP
+                  - 169.254.169.254/32
   hub:
+    # The default of 64 is way too low for us
+    concurrentSpawnLimit: 200
+    loadRoles:
+      # Should use this, not hub.config.JupyterHub.load_roles - that will
+      # override any existing load_roles set by z2jh
+      user-login:
+        name: user
+        scopes:
+        # Allow all users access to 'services', which include the hubs that
+        # use the main datahub for auth
+          - access:services
+          - self
+
     config:
       Pagination:
         # Disable pagination completely, since there's no search functionality yet
         default_per_page: 30000
         max_per_page: 30000
       JupyterHub:
-        authenticator_class: canvasauthenticator.CanvasOAuthenticator
-
+        authenticator_class: canvasoauthenticator.CanvasOAuthenticator
+        # Allow unauthenticated prometheus requests
+        # Otherwise our prometheus server can't get to these
+        authenticate_prometheus: false
+      Authenticator:
+        enable_auth_state: true
+        manage_groups: true
+      KubeSpawner:
+        # Make sure working directory is ${HOME}
+        # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
+        working_dir: '/home/jovyan'
       CanvasOAuthenticator:
         canvas_url: https://bcourses.berkeley.edu/
         strip_email_domain: berkeley.edu
@@ -196,12 +213,10 @@ jupyterhub:
           - url:GET|/api/v1/courses
         username_key: primary_email
 
-    pdb:
-      enabled: false
     # Generated by chartpress
     image:
       name: gcr.io/ucb-datahub-2018/jupyterhub-hub
-      tag: '0.0.1-n4282.h190b8b78'
+      tag: '0.0.1-n5702.h3399ceff'
     networkPolicy:
       enabled: true
       ingress:
@@ -238,13 +253,16 @@ jupyterhub:
       # 0x-<title> used in `values.yaml` - so config set there
       # will override config set here.
       01-custom-attr-spawner: |
+        import asyncio
         import os
+        import time
         from kubespawner import KubeSpawner
         from tornado import gen
+        from traitlets import ( Int, Unicode )
+        import textwrap
         import z2jh
 
         hosted_domain = 'berkeley.edu'
-        course_profile_tmpl = '/srv/jupyterhub/profiles.d/{}-{}.txt'
 
         def memparse(val):
           '''Parse memory for relative comparisons.'''
@@ -261,26 +279,34 @@ jupyterhub:
           y = memparse(b)
           return (x > y) - (x < y)
 
-        def course_profile_filename(course, constituent):
-          return course_profile_tmpl.format(course, constituent)
-
-        def course_members(course, constituent, hd=None):
-          '''Extracts usernames from files containing email addresses.'''
-          members = []
-          filename = course_profile_filename(course, constituent)
-          if not os.path.exists(filename): return members
-          with open(filename) as f:
-            line = f.readline()
-            while line != '':
-              email = line.strip()
-              if hd and email.endswith('@' + hd):
-                members.append(email.split('@')[0])
-              elif not hd:
-                members.append(email)
-              line = f.readline()
-          return members
-
         class CustomAttrSpawner(KubeSpawner):
+          spawn_launcher_timer = Int(
+            60,
+            config=True,
+            help="""
+            Time in seconds to wait before injecting a 'please be patient' message to display
+            to the user.
+            """
+          )
+
+          spawn_launcher_timer_frequency = Int(
+            5,
+            config=True,
+            help="""
+            Display the patience message every 5 seconds.
+            """
+          )
+
+          spawn_launcher_timer_message = Unicode(
+            """
+            Server launch is taking longer than expected. Please be patient!
+            """,
+            config=True,
+            help="""
+            The injected 'please be patient' message to display to the user.
+            """
+          )
+
           def _build_common_labels(self, extra_labels):
             labels = super()._build_common_labels(extra_labels)
             # Until https://github.com/jupyterhub/kubespawner/issues/498
@@ -288,8 +314,20 @@ jupyterhub:
             del labels['hub.jupyter.org/username']
             return labels
 
-          @gen.coroutine
-          def start(self):
+          def apply_override(self, override):
+            '''Apply a dictionary of KubeSpawner settings.'''
+            self.volumes += override.get('extraVolumes', [])
+            self.volume_mounts += override.get('extraVolumeMounts', [])
+            self.init_containers += override.get('initContainers', [])
+            # set new mem thresholds if specified are bigger than current
+            if 'mem_limit' in override and \
+            mem_cmp(override['mem_limit'], self.mem_limit) == 1:
+              self.mem_limit = override['mem_limit']
+            if 'mem_guarantee' in override and \
+            mem_cmp(override['mem_guarantee'], self.mem_guarantee) == 1:
+              self.mem_guarantee = override['mem_guarantee']
+
+          async def start(self):
             # custom.memory
             custom_memory = z2jh.get_config('custom.memory', {})
             for attr, users in custom_memory.items():
@@ -300,29 +338,30 @@ jupyterhub:
 
             # custom.profiles
             custom_profiles = z2jh.get_config('custom.profiles', {})
+            for profile, override in custom_profiles.items():
+              if 'users' in override and self.user.name in override['users']:
+                self.log.warning(f'using profile {profile}')
+                self.apply_override(override)
+
+            # custom.group_profiles
+            #self.log.info(f'self.user.groups: {self.user.groups}')
+
+            group_profiles = z2jh.get_config('custom.group_profiles', {})
+
             is_student = False
             is_instructor = False
-            for course, profile_data in custom_profiles.items():
-              customize = False
-              if 'users' in profile_data and self.user.name in profile_data['users']:
-                customize = True
-              else:
-                students = course_members(course, 'students', hosted_domain)
-                instructors = course_members(course, 'instructors', hosted_domain)
-                is_student |= (self.user.name in students)
-                is_instructor |= (self.user.name in instructors)
-                customize = self.user.name in students or self.user.name in instructors
-              if customize:
-                self.log.warning(f'using profile {course}')
-                self.volumes += profile_data.get('extraVolumes', [])
-                self.volume_mounts += profile_data.get('extraVolumeMounts', [])
-                # set new mem thresholds if specified are bigger than current
-                if 'mem_limit' in profile_data and \
-                mem_cmp(profile_data['mem_limit'], self.mem_limit) == 1:
-                  self.mem_limit = profile_data['mem_limit']
-                if 'mem_guarantee' in profile_data and \
-                mem_cmp(profile_data['mem_guarantee'], self.mem_guarantee) == 1:
-                  self.mem_guarantee = profile_data['mem_guarantee']
+            for group in self.user.groups:
+              # group format is 'canvas::{canvas_id}::{role}'
+              _, group_course, group_role = group.name.split('::', 2)
+              if not group_course in group_profiles:
+                continue
+
+              self.log.info(f'user {self.user.name} in group profile {group_course}')
+              override = group_profiles.get(group_course, {})
+              self.apply_override(override)
+
+              is_instructor |= group_role in ['teacher', 'ta']
+              is_student |= group_role in ['student', 'observer']
 
             # if the user is a student in any course specified by a profile,
             # they never get to be an admin
@@ -334,32 +373,89 @@ jupyterhub:
             # custom.admin
             custom_admin = z2jh.get_config('custom.admin', {})
             if custom_admin and self.user.admin:
-              self.init_containers += custom_admin.get('initContainers', [])
-              self.volume_mounts += custom_admin.get('extraVolumeMounts', [])
+              self.apply_override(custom_admin)
 
-            return (yield super().start())
+            return (await super().start())
+
+          async def progress(self):
+            """
+            This function is reporting back the progress of spawning a pod until
+            self._start_future has fired.
+            This is working with events parsed by the python kubernetes client,
+            and here is the specification of events that is relevant to understand:
+              ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#event-v1-core
+
+            most of this code is directly copied from:
+              https://github.com/jupyterhub/kubespawner/blob/main/kubespawner/spawner.py#L2326
+            adding timer to display a message asking for patience:
+              https://github.com/berkeley-dsep-infra/datahub/issues/3845
+            """
+            if not self.events_enabled:
+              return
+
+            self.log.debug('progress generator: %s', self.pod_name)
+            start_future = self._start_future
+            progress = 0
+            next_event = 0
+            timer = 0
+
+            break_while_loop = False
+            while True:
+              # This logic avoids a race condition. self._start() will be invoked by
+              # self.start() and almost directly set self._start_future. But,
+              # progress() will be invoked via self.start(), so what happen first?
+              # Due to this, the logic below is to avoid making an assumption that
+              # self._start_future was set before this function was called.
+              if start_future is None and self._start_future:
+                start_future = self._start_future
+
+              # Ensure we capture all events by inspecting events a final time
+              # after the start_future signal has fired, we could have been in
+              # .sleep() and missed something.
+              if start_future and start_future.done():
+                break_while_loop = True
+
+              # check the timer, and if we're over 60sec ask the user to be
+              # patient
+              # https://github.com/berkeley-dsep-infra/datahub/issues/3845
+              if timer >= self.spawn_launcher_timer:
+                if timer % self.spawn_launcher_timer_frequency == 0:
+                  # display only every X seconds
+                  patience_message = textwrap.dedent(self.spawn_launcher_timer_message)
+                  patience_message += " Current time spent waiting: %i seconds" % timer
+                  yield { 'message': patience_message, }
+
+              events = self.events
+              len_events = len(events)
+              if next_event < len_events:
+                for i in range(next_event, len_events):
+                  event = events[i]
+                  # move the progress bar.
+                  # Since we don't know how many events we will get,
+                  # asymptotically approach 90% completion with each event.
+                  # each event gets 33% closer to 90%:
+                  # 30 50 63 72 78 82 84 86 87 88 88 89
+                  progress += (90 - progress) / 3
+
+                  yield {
+                    'progress': int(progress),
+                    'raw_event': event,
+                    'message': "%s [%s] %s"
+                    % (
+                       event["lastTimestamp"] or event["eventTime"],
+                       event["type"],
+                       event["message"],
+                      ),
+                    }
+                next_event = len_events
+
+              if break_while_loop:
+                break
+              timer += 1
+              await asyncio.sleep(1)
 
         c.JupyterHub.spawner_class = CustomAttrSpawner
-      02-log-file: |
-        # Keep long term logs of jupyterhub on disk
-        c.JupyterHub.extra_log_file = '/srv/jupyterhub/jupyterhub.log'
-
-      03-working-dir: |
-        # Make sure working directory is ${HOME}
-        # hubploy has a bug where it unconditionally puts workingdir to be /srv/repo
-        c.KubeSpawner.working_dir = '/home/jovyan'
-      05-prometheus: |
-        # Allow unauthenticated prometheus requests
-        # Otherwise our prometheus server can't get to these
-        c.JupyterHub.authenticate_prometheus = False
-      06-no-setuid: |
-        c.KubeSpawner.extra_container_config = {
-          'securityContext': {
-            # Explicitly disallow setuid binaries from working inside the container
-            'allowPrivilegeEscalation': False
-          }
-        }
-      07-popularity-contest: |
+      02-popularity-contest: |
         # Emit metrics for which python packages are being imported
         import os
         pod_namespace = os.environ['POD_NAMESPACE']

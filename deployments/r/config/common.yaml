@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/datahubhomes-2020-07-29/homes
 
 etcGitConfig:
   enabled: true
@@ -28,11 +27,11 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-
     config:
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder
@@ -61,15 +60,13 @@ jupyterhub:
           - jiyunwen
           # Issue 2462
           - dhughes
+          # ESPM 142, Fall 2022, Issue 3738
+          - rachel.weinberg
           # List of other admin users
 
   singleuser:
-    extraAnnotations:
-      # Enable prometheus scraping just for R hub
-      # We scrape only every 5 minutes, to not overwhelm the prometheus server
-      prometheus.io/scrape-slow: "true"
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
@@ -98,43 +95,4 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/r-user-image
-    networkPolicy:
-      enabled: true
-      # NOTE: This is a partial repetition of what's in hub/values.yaml,
-      # add an item to a list. We add external ssh access here, something I don't
-      # want to allow in general as an anti-abuse measure.
-      egress:
-        - ports:
-            - port: 80
-              protocol: TCP
-        - ports:
-            - port: 443
-              protocol: TCP
-        - ports:
-            # Allow FTP access https://github.com/berkeley-dsep-infra/datahub/issues/1789
-            - port: 21
-              protocol: TCP
-        # enabling ssh for private git repos
-        - ports:
-            - port: 22
-              protocol: TCP
-        - ports:
-            # statsd ports
-            - port: 9125
-              protocol: TCP
-            - port: 9125
-              protocol: UDP
-  custom:
-    # this should be migrated to custom.profiles when that works
-    profiles:
-      # ESPM 157 https://github.com/berkeley-dsep-infra/datahub/issues/1849
-      2020-fall-27267:
-        mem_limit: 4096M
-        mem_guarantee: 1024M
-      # espm 288 - https://github.com/berkeley-dsep-infra/datahub/issues/2137
-      # Big limit OK since they only have 12 students
-      2021-spring-27769:
-        mem_limit: 8192M
-        mem_guarantee: 4096M
+    image: {}

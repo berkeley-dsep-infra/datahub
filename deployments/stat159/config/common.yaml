@@ -1,0 +1,70 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - sknapp
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+          # Instructor and GSI
+          - fernando.perez
+          - fsapienza
+
+  singleuser:
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
+    extraFiles:
+      culling-config:
+        data:
+          # Allow jupyterlab option to show hidden files in browser
+          # https://github.com/berkeley-dsep-infra/datahub/issues/3160
+          ContentsManager:
+            allow_hidden: true
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    defaultUrl: /lab
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/stat159-berkeley-datahub-access
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
+    memory:
+      guarantee: 8G
+      limit: 8G
+
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared

@@ -1,16 +1,9 @@
 # Should match the hub image used by version of chart in hub/requirements.yaml
 # If that changes, this should be changed too!
-FROM jupyterhub/k8s-hub:1.1.2
+FROM jupyterhub/k8s-hub:2.0.1-0.dev.git.5959.h65c52001
 
 USER root
 
-# npm is needed to install JupyterHub from source
-RUN apt update > /dev/null  && apt install --yes npm > /dev/null
-
-# Brings in https://github.com/jupyterhub/jupyterhub/pull/3579
-RUN python3 -m pip install -U git+https://github.com/meeseeksmachine/jupyterhub@auto-backport-of-pr-3488-on-1.4.x
-
-COPY canvasauthenticator /srv/canvasauthenticator
-RUN python3 -m pip install --no-cache /srv/canvasauthenticator
+RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/canvasoauthenticator@3e0c90f
 
 USER ${NB_USER}

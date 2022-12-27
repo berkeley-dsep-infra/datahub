@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/highschool
 
 jupyterhub:
   scheduling:
@@ -36,7 +35,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:

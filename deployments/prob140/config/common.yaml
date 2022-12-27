@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/prob140
 
 jupyterhub:
   scheduling:
@@ -20,8 +19,10 @@ jupyterhub:
   hub:
     config:
       Authenticator:
+        # https://jupyterhub.readthedocs.io/en/stable/reference/authenticators.html#authenticator-managed-group-membership
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - balajialwar
@@ -35,12 +36,14 @@ jupyterhub:
           - xinranliang
           - shahzar
           - wangyumeng2017
+          # Spring 2022 prob140 gsi requested by xinranliang
+          - hphuang
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
@@ -49,5 +52,4 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-    image:
-      name: gcr.io/ucb-datahub-2018/prob140-user-image
+    image: {}

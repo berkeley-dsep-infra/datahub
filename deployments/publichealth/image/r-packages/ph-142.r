@@ -20,12 +20,9 @@ class_libs = c(
   "cowplot", "1.1.1",
   "patchwork", "1.1.1",
   "tigris", "1.0",
-  "googlesheets4", "0.2.0"
+  "googlesheets4", "1.0.0",
+  "coxed", "0.3.3"
 )
-
-# https://github.com/berkeley-dsep-infra/datahub/issues/2483
-print("Installing ottr...")
-devtools::install_github('ucbds-infra/ottr', ref='0.1.0', upgrade_dependencies=FALSE, quiet=FALSE)
 
 class_libs_install_version(class_name, class_libs)
 

@@ -1,17 +1,25 @@
 cert-manager:
+  nodeSelector:
+    hub.jupyter.org/pool-name: support-pool
   installCRDs: true
-  # Our cluster-internal DNS seems to cache aggressively in
-  # some cases. The cache is also more likely to be warm,
-  # causing issues when cert-manager tries to verify
-  # that the ACME http-01 challenge will succeed. Since
-  # Let's encrypt itself isn't going to use our cluster-local
-  # DNS, this causes false negatives - cert-manager thinks the
-  # challenge will fail, but in reality it will most likely not.
-  podDnsPolicy: None
-  podDnsConfig:
-    nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+  cainjector:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
+  webhook:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
+  # # Our cluster-internal DNS seems to cache aggressively in
+  # # some cases. The cache is also more likely to be warm,
+  # # causing issues when cert-manager tries to verify
+  # # that the ACME http-01 challenge will succeed. Since
+  # # Let's encrypt itself isn't going to use our cluster-local
+  # # DNS, this causes false negatives - cert-manager thinks the
+  # # challenge will fail, but in reality it will most likely not.
+  # podDnsPolicy: None
+  # podDnsConfig:
+  #   nameservers:
+  #     - 1.1.1.1
+  #     - 8.8.8.8
 ingress-nginx:
   controller:
     config:
@@ -24,7 +32,7 @@ ingress-nginx:
       proxy-send-timeout: "7200"
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
-    replicaCount: 2
+    replicaCount: 3
     resources:
       limits:
         cpu: 2
@@ -34,6 +42,11 @@ ingress-nginx:
         memory: 384Mi
     service:
       loadBalancerIP: 34.69.164.86
+    metrics:
+      enabled: true
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
     podLabels:
       hub.jupyter.org/network-access-proxy-http: 'true'
 
@@ -63,15 +76,24 @@ prometheus:
     enabled: false
   rbac:
     create: true
+  # make sure we collect metrics on pods by app/component at least
+  kube-state-metrics:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
+    metricLabelsAllowlist:
+      - pods=[app,component,hub.jupyter.org/username,app.kubernetes.io/component]
+      - nodes=[*]
   server:
+    nodeSelector:
+      hub.jupyter.org/pool-name: support-pool
     resources:
       # Without this, prometheus can easily starve users
       requests:
-        cpu: 2
-        memory: 8Gi
+        cpu: 6
+        memory: 24Gi
       limits:
-        cpu: 3
-        memory: 12Gi
+        cpu: 7
+        memory: 48Gi
     labels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
@@ -86,6 +108,8 @@ prometheus:
       type: ClusterIP
 
 grafana:
+  nodeSelector:
+    hub.jupyter.org/pool-name: support-pool
   deploymentStrategy:
     type: Recreate
 
@@ -122,9 +146,11 @@ grafana:
           url: http://support-prometheus-server
           access: proxy
           isDefault: true
-          editable: false
+          editable: true
 
 prometheus-statsd-exporter:
+  nodeSelector:
+    hub.jupyter.org/pool-name: support-pool
   service:
     annotations:
       prometheus.io/scrape: "true"

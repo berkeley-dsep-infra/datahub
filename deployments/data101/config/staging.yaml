@@ -1,0 +1,19 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/data101/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - data101-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - data101-staging.datahub.berkeley.edu

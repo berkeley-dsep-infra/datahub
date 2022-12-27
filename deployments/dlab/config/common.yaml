@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/dlab
 
 jupyterhub:
   scheduling:
@@ -20,27 +19,32 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-
     config:
       Authenticator:
         admin_users:
             # infrastructure
+            - sknapp
             - rylo
             - yuvipanda
             - felder
             - balajialwar
             # List of other admin users
-
+            - rbarreto
+            - pratik.sachdeva
+            - aculich
+            - cheng.ren
+            - emily_grabowski
+            - klganter
+            - cvacano
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: beta-pool
     storage:
       type: static
       static:
         pvcName: home-nfs
         subPath: "{username}"
     memory:
-      guarantee: 512M
-      limit: 2G
-    image:
-      name: gcr.io/ucb-datahub-2018/dlab-user-image
+      guarantee: 4G
+      limit: 8G
+    image: {}

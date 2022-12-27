@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.0.5
+FROM rocker/geospatial:4.1.2
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -36,19 +36,13 @@ RUN apt-get update > /dev/null && \
             libssl1.1 \
             fonts-symbola \
             gdebi-core \
+            tini \
             nodejs npm > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
-RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    dpkg -i /tmp/rstudio.deb && \
-    rm /tmp/rstudio.deb
-
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
@@ -58,11 +52,26 @@ RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+RUN mamba install -c conda-forge syncthing==1.18.6
+
+# Support latest RStudio
+RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
+
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 COPY class-libs.R /tmp/class-libs.R
+RUN mkdir -p /tmp/r-packages
+
+# Workaround to install ottr, issue 3342
+#RUN wget https://github.com/ucbds-infra/ottr/archive/refs/tags/0.1.0.tar.gz -O /tmp/ottr.tar.gz && R CMD INSTALL /tmp/ottr.tar.gz && rm /tmp/ottr.tar.gz
+
+#COPY install.R /tmp/install.R
+#RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
+
+COPY r-packages/ottr.r /tmp/r-packages/
+RUN r /tmp/r-packages/ottr.r
 
 COPY r-packages/ph-290.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-290.r
@@ -72,3 +81,44 @@ RUN r /tmp/r-packages/ph-142.r
 
 COPY r-packages/ph-252.r /tmp/r-packages/
 RUN r /tmp/r-packages/ph-252.r
+
+COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
+RUN r /tmp/r-packages/2021-spring-phw-272a.r
+
+RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr --verify-repo=none update --self && \
+    tlmgr --verify-repo=none install \
+        amsmath \
+        latex-amsmath-dev \
+        iftex \
+        kvoptions \
+        ltxcmds \
+        kvsetkeys \
+        etoolbox \
+        xcolor \
+        auxhook \
+        bigintcalc \
+        bitset \
+        etexcmds \
+        gettitlestring \
+        hycolor \
+        hyperref \
+        intcalc \
+        kvdefinekeys \
+        letltxmacro \
+        pdfescape \
+        refcount \
+        rerunfilecheck \
+        stringenc \
+        uniquecounter \
+        zapfding \
+        pdftexcmds \
+        infwarerr \
+        geometry \
+        epstopdf-pkg
+
+# Use simpler locking strategy
+COPY file-locks /etc/rstudio/file-locks
+
+ENTRYPOINT ["tini", "--"]

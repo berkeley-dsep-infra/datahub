@@ -1,5 +1,3 @@
-# Template Credits: 2I2C
-
 # Summary
 
 <!-- What is the context needed to understand this enhancement -->

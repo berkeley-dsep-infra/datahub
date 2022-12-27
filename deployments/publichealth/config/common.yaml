@@ -36,15 +36,10 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     config:
-      JupyterHub:
-        authenticator_class: generic-oauth
-      GenericOAuthenticator:
-        login_service: bCourses
-        basic_auth: false
-        username_key: name
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder
@@ -59,37 +54,25 @@ jupyterhub:
           - nolanpokpongkiat
           - stephaniemholm
           - wmjilek
-          # PH142 Instructor
+          # PH142 Instructors
           - mi-suk
-          # PH142 GSIs, Tech GSI
-          - sophia.fuller
-          - chandlerbeon
-          - ajuareza
-          - antoniadlg
-          - jessiiicamae
-          - mitchell.leus
-          - ztzyz615
-          - kmaccuish
-          - shaziakn
-          - jiyunwen
-          # See https://github.com/berkeley-dsep-infra/datahub/pull/2441
-          # PH250A & PHW250A Fall 2021 GSIs / Instructor
-          - smccoy
-          - krista_neumann
-          - lsheira
-          - julia.acker
-          - jessiiicamae
-          - natasha_harrison
-          - hcolbeth
-          - caroline.kurtz
-          - eric_stewart
-          - judytan
-          - lkamil
+          - c.riddell
+          - hogenegin # https://github.com/berkeley-dsep-infra/datahub/issues/3168
+          # PH 142 Fall Instructors - https://github.com/berkeley-dsep-infra/datahub/issues/3565
+          - hubbard
+          - brian.aldana
+          - irisyen
+          - noelpimentel
+          - tyler_mansfield
+          - xinzhou
+          - emendoza97
+          - shuyiyang
+          - psrivastava
   singleuser:
     defaultUrl: /rstudio
 
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: beta-pool
     storage:
       # Rocker based images have 'rstudio' as user $1000
       # so let's stick to that, and use /home/${NB_USER}

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "node-placeholder-scaler.fullname" . }}
+  labels:
+    {{- include "node-placeholder-scaler.labels" . | nindent 4 }}
+data:
+  placeholder-template.yaml: {{ include "node-placeholder-scaler.placeholderTemplate" . | quote }}
+  config.yaml: {{ .Values | toJson | quote }}

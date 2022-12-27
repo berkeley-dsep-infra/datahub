@@ -1,0 +1,19 @@
+images:
+  images:
+    - name: gcr.io/data8x-scratch/data8xv2-user-image
+      path: ../data8xv2/image
+  registry:
+    provider: gcloud
+    gcloud:
+      project: data8x-scratch
+      service_key: gcloud-service-key.json
+
+cluster:
+  provider: gcloud
+  gcloud:
+    project: data8x-scratch
+    service_key: gcloud-service-key.json
+    cluster: data8x-2019-02-20
+    zone: us-central1
+
+

@@ -3,3 +3,5 @@ creation_rules:
     gcp_kms: projects/ucb-datahub-2018/locations/global/keyRings/datahub/cryptoKeys/sops
   - path_regex: support/secrets.yaml
     gcp_kms: projects/ucb-datahub-2018/locations/global/keyRings/datahub/cryptoKeys/sops
+  - path_regex: node-placeholder/secrets.yaml
+    gcp_kms: projects/ucb-datahub-2018/locations/global/keyRings/datahub/cryptoKeys/sops

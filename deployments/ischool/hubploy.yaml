@@ -1,6 +1,6 @@
 images:
   images:
-    - name: gcr.io/ucb-datahub-2018/ischool-user-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/ischool-user-image
       path: image
   registry:
     provider: gcloud

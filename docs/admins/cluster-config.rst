@@ -46,18 +46,18 @@ the currently favored configuration.
 
     gcloud container node-pools create  \
         --machine-type n1-highmem-8 \
-        --num-nodes 2 \
+        --num-nodes 1 \
         --enable-autoscaling \
         --min-nodes 1 --max-nodes 20 \
-        --node-labels hub.jupyter.org/pool-name=beta-pool \
+        --node-labels hub.jupyter.org/pool-name=<pool-name>-pool \
         --node-taints hub.jupyter.org_dedicated=user:NoSchedule \
         --region=us-central1 \
-        --image-type=cos \
+        --image-type=cos_containerd \
         --disk-size=200 --disk-type=pd-balanced \
         --no-enable-autoupgrade \
         --tags=hub-cluster \
         --cluster=fall-2019 \
-        user-pool-<pool-name>-<yyyy>-<mm>-<dd>
+        user-<pool-name>-<yyyy>-<mm>-<dd>
 
 
 IP Aliasing

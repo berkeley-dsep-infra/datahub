@@ -63,10 +63,6 @@ Try without Berkeley.edu account: [![Binder](https://mybinder.org/badge_logo.svg
 
 Try with Berkeley.edu account: [EECS DataHub](https://eecs.datahub.berkeley.edu/hub/user-redirect/vscode/)
 
-### SSH & SFTP (Experimental)
-
-You can access the same environments and home directories via the terminal, using traditional `ssh` and `sftp` programs. See [here](ssh) for more documentation.
-
 ### More?
 
 If you have a web based environment, we can almost certainly make it run under

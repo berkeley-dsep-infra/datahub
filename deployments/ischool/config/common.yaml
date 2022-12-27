@@ -29,15 +29,10 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     config:
-      JupyterHub:
-        authenticator_class: generic-oauth
-      GenericOAuthenticator:
-        login_service: bCourses
-        basic_auth: false
-        username_key: name
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder
@@ -48,7 +43,7 @@ jupyterhub:
   singleuser:
     defaultUrl: /rstudio
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: beta-pool
     storage:
       # Rocker based images have 'rstudio' as user $1000
       # so let's stick to that, and use /home/${NB_USER}
@@ -59,5 +54,5 @@ jupyterhub:
         pvcName: home-nfs
         subPath: "{username}"
     memory:
-      guarantee: 512M
-      limit: 1G
+      guarantee: 1G
+      limit: 2G

@@ -1,0 +1,13 @@
+nfsPVC:
+  nfs:
+    shareName: shares/stat20/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - stat20.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - stat20.datahub.berkeley.edu

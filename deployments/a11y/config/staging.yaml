@@ -1,0 +1,19 @@
+nfsPVC:
+  nfs:
+    shareName: shares/a11y/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - a11y-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - a11y-staging.datahub.berkeley.edu

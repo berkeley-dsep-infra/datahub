@@ -53,13 +53,19 @@ orbs:
               - run:
                   name: Install google cloud sdk
                   command: |
-                    curl -sSL  https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
+                    export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+                    curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
                     # Be careful with quote ordering here. ${PATH} must not be expanded
                     # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
                     # Always use full PATHs in PATH!
-                    echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+                    echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
+
+              - run:
+                  name: Configure credential helper for Google Artifact Registry
+                  command: |
+                    gcloud auth configure-docker us-central1-docker.pkg.dev
 
               - run:
                   name: Install sops
@@ -75,7 +81,7 @@ orbs:
               # fixes a docker permission problem
               # https://support.circleci.com/hc/en-us/articles/360050934711
               # https://circleci.com/docs/2.0/building-docker-images/
-              version: 19.03.13
+              version: 20.10.17
           - save_cache:
               paths:
                 - ./venv
@@ -107,9 +113,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+            - v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.7-dependencies-gcloud-265-
+            - v3.7-dependencies-gcloud-363-
 
       - run:
           name: install dependencies
@@ -124,11 +130,12 @@ jobs:
             # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
             pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
 
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -C venv/ -xzf -
+            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+            curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
-            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/repo/venv/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/repo/venv/bin:${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
             curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o venv/bin/sops
             chmod 755 venv/bin/sops
@@ -136,7 +143,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.7-dependencies-gcloud-265-{{ checksum "requirements.txt" }}
+          key: v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
@@ -147,7 +154,7 @@ jobs:
       - run:
           name: Install helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
@@ -168,82 +175,141 @@ jobs:
       - run:
           name: Deploy datahub
           command: |
-            hubploy deploy datahub hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m datahub hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data8
           command: |
-            hubploy deploy data8 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy astro
+          command: |
+            hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy stat159
+          command: |
+            hubploy deploy --timeout 30m stat159 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy stat20
+          command: |
+            hubploy deploy --timeout 30m stat20 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy ischool
           command: |
-            hubploy deploy ischool hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m ischool hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy publichealth
           command: |
-            hubploy deploy publichealth hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m publichealth hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy highschool hub
           command: |
-            hubploy deploy highschool hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m highschool hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy prob140
           command: |
-            hubploy deploy prob140 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m prob140 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy biology
           command: |
-            hubploy deploy biology hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m biology hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
-      - run:
-          name: Deploy julia
-          command: |
-            hubploy deploy julia hub ${CIRCLE_BRANCH}
+      # Temporarily stop deploying Julia hub, as the image doens't build atm
+      # - run:
+      #     name: Deploy julia
+      #     command: |
+      #       hubploy deploy --timeout 30m julia hub ${CIRCLE_BRANCH}
+      #     no_output_timeout: 30m
 
       - run:
           name: Deploy R
           command: |
-            hubploy deploy r hub ${CIRCLE_BRANCH}
-
-      - run:
-          name: Deploy cs194
-          command: |
-            hubploy deploy cs194 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m r hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy dlab
           command: |
-            hubploy deploy dlab hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m dlab hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data8x
           command: |
-            hubploy deploy data8x hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data8x hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy data8xv2
+          command: |
+            hubploy deploy --timeout 30m data8xv2 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data102
           command: |
-            hubploy deploy data102 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data102 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy data100
           command: |
-            hubploy deploy data100 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data100 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy shiny
+          command: |
+            hubploy deploy --timeout 30m shiny hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy cee
+          command: |
+            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy data101
+          command: |
+            hubploy deploy --timeout 30m data101 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy workshop
           command: |
-            hubploy deploy workshop hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m workshop hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy eecs
           command: |
-            hubploy deploy eecs hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m eecs hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+          
+      - run:
+          name: Deploy a11y
+          command: |
+            hubploy deploy --timeout 30m a11y hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m    
 
   deploy-node-placeholder:
     docker:
@@ -255,11 +321,12 @@ jobs:
       - run:
           name: install google-cloud-sdk
           command: |
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
+            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+            curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
-            echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
           name: Setup helm3
@@ -294,9 +361,11 @@ jobs:
       - run:
           name: Deploy node placeholder chart
           command: |
+            sops -d -i node-placeholder/secrets.yaml
             helm upgrade \
               --install --wait \
-              --namespace=node-placeholder node-placeholder node-placeholder
+              --namespace=node-placeholder node-placeholder node-placeholder \
+              -f node-placeholder/secrets.yaml
 
   deploy-support:
     docker:
@@ -308,11 +377,12 @@ jobs:
       - run:
           name: install google-cloud-sdk
           command: |
-            curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-265.0.0-linux-x86_64.tar.gz | tar -xzf -
+            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+            curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
             # Always use full PATHs in PATH!
-            echo 'export PATH="${HOME}/repo/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
+            echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
           name: Install sops
@@ -327,7 +397,7 @@ jobs:
       - run:
           name: Setup helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -379,8 +449,53 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: astro
+          name: astro image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: stat159
+          name: stat159 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: stat20
+          name: stat20 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: ischool
           name: ischool image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: shiny
+          name: shiny image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: cee
+          name: cee image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -424,8 +539,26 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
+          deployment: data8xv2
+          name: data8xv2 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
           deployment: eecs
           name: eecs image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: a11y
+          name: a11y image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -446,8 +579,53 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
+          deployment: shiny
+          name: shiny image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: cee
+          name: cee image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
           deployment: data8
           name: data8 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: astro
+          name: astro image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: stat159
+          name: stat159 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: stat20
+          name: stat20 image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -500,8 +678,26 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
+          deployment: data8xv2
+          name: data8xv2 image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
           deployment: eecs
           name: eecs image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: a11y
+          name: a11y image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -516,12 +712,21 @@ workflows:
           requires:
               - datahub image build
               - data8 image build
+              - astro image build
+              - stat159 image build
+              - stat20 image build
               - ischool image build
               - publichealth image build
+              - cee image build
+              - shiny image build
               - biology image build
-              - julia hub image build
+              # Don't block deploys on julia image build temporarily,
+              # As we figure out why Julia image is failing
+              # - julia hub image build
               - data8x image build
+              - data8xv2 image build
               - eecs image build
+              - a11y image build
           filters:
             branches:
               only:

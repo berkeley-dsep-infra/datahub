@@ -1,0 +1,13 @@
+nfsPVC:
+  nfs:
+    shareName: export/homedirs-other-2020-07-29/stat159/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - stat159.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - stat159.datahub.berkeley.edu

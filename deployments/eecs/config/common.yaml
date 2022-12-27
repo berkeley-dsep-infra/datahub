@@ -2,16 +2,8 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/eecs
 
 jupyterhub:
-  cull:
-    # For some reason, EECS hub users don't cull properly
-    # Empty abandoned sessions stay on for days
-    # This stops users after they have been running for 12+ hours
-    # in one go. In several weeks of looking at user pods older
-    # than this, none have been active.
-    maxAge: 43200 # 12h
   scheduling:
     userScheduler:
       nodeSelector:
@@ -27,11 +19,11 @@ jupyterhub:
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
-
     config:
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder
@@ -69,8 +61,19 @@ jupyterhub:
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
     defaultUrl: "/lab"
+    extraFiles:
+      git-credential-helper:
+        # Move back to /etc/gitconfig if https://github.com/conda-forge/git-feedstock/issues/113
+        # ever gets fixed, or if we start using git from apt again
+        mountPath: /srv/conda/envs/notebook/etc/gitconfig
+        stringData: |
+          [credential "https://github.com"]
+            helper = !git-credential-github-app --app-key-file /etc/github/github-app-private-key.pem --app-id 229239
+            useHttpPath = true
+      git-credential-helper-private-key:
+        mountPath: /etc/github/github-app-private-key.pem
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: delta-pool
     storage:
       type: static
       static:
@@ -80,14 +83,6 @@ jupyterhub:
       guarantee: 512M
       limit: 2G
     cpu:
-      # Limit EECS users to 1 CPU
-      # They had a lab running that used a lot of CPU.
-      # It's over, but students might still end up running high
-      # CPU tasks, causing issues for other students. This should
-      # hopefully prevent users from stomping on users from other
-      # hubs on the same nodes
-      limit: 1
-      # Set tiny request to prevent k8s from setting limit == request
-      guarantee: 0.01
-    image:
-      name: gcr.io/ucb-datahub-2018/eecs-user-image
+      limit: 2
+      guarantee: 0.1
+    image: {}

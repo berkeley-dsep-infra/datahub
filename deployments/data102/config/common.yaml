@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/homedirs-other-2020-07-29/data102
 
 jupyterhub:
   scheduling:
@@ -23,6 +22,7 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - felder
           - rylo
           - yuvipanda
@@ -40,7 +40,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
+      hub.jupyter.org/pool-name: alpha-pool
     storage:
       type: static
       static:
@@ -49,6 +49,5 @@ jupyterhub:
     memory:
       guarantee: 1G
       limit: 2G
-    image:
-      name: gcr.io/ucb-datahub-2018/data102-user-image
+    image: {}
     defaultUrl: "/lab"

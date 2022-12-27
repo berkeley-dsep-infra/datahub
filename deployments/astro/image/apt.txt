@@ -1,0 +1,23 @@
+# For desktop environment
+dbus-x11
+xfce4
+xfce4-panel
+xfce4-session
+xfce4-settings
+xorg
+xubuntu-icon-theme
+# You definitely need a browser
+firefox
+# And a text editor
+gedit
+# And a terminal
+xfce4-terminal
+
+# https://github.com/berkeley-dsep-infra/datahub/issues/2535
+emacs
+
+# vim4ever!
+vim
+
+# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979			
+zip

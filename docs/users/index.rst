@@ -9,4 +9,3 @@ Using DataHub
    hubs
    authentication
    storage-retention
-   ssh

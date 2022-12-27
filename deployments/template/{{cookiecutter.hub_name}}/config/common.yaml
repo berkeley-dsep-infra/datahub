@@ -9,8 +9,9 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
   proxy:
-    nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
 
   hub:
     nodeSelector:
@@ -19,6 +20,7 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - rylo
           - yuvipanda
           - felder

@@ -1,0 +1,58 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: nfsserver-01
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - sknapp
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+          - nsabrams
+          - joshbloom
+          - aparsons
+          - jlu-astro
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: beta-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
+    memory:
+      guarantee: 1024M
+      limit: 4096M
+
+  # read by z2jh.get_config() in hub/values.yaml
+  # formerly jupyterhub.hub.extraConfigMap
+  custom:
+    admin:
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared

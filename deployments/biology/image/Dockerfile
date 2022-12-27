@@ -1,5 +1,8 @@
 FROM buildpack-deps:focal-scm
 
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
@@ -26,11 +29,21 @@ RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
         libpython2.7 > /dev/null
 
-## libraries required for mothur 
+## libraries required for mothur
 ## libreadline6 required
 #RUN apt-get update -qq --yes > /dev/null && \
 #    apt-get install --yes -qq \
 #    libreadline6-dev > /dev/null
+
+## library required for fast-PCA & https://github.com/DReichLab/EIG
+RUN apt-get update -qq --yes && \
+    apt-get install --yes --no-install-recommends -qq \
+        libgsl-dev >/dev/null
+
+## library required for running ccb293 package qiime
+#RUN apt-get update -qq --yes > /dev/null && \
+#    apt-get install --yes -qq \
+#    tzdata > /dev/null
 
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
@@ -45,6 +58,7 @@ RUN apt-get update -qq --yes && \
         tmux \
         wget \
         vim \
+        tini \
         locales > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
@@ -57,19 +71,15 @@ RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc
 # Install R packages
 # Our pre-built R packages from rspm are built against system libs in focal
 # rstan takes forever to compile from source, and needs libnodejs
-# We don't want R 4.1 yet - the graphics protocol version it has is incompatible
-# with the version of RStudio we use. So we pin R to 4.0.5
-# Our pre-built R packages from rspm are built against system libs in focal
-# rstan takes forever to compile from source, and needs libnodejs
 # So we install older (10.x) nodejs from apt rather than newer from conda
-ENV R_VERSION=4.0.5-1.2004.0
+ENV R_VERSION=4.1.2-1.2004.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
     r-base-core=${R_VERSION} \
     r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.11-1.2004.0 \
+    r-cran-littler=0.3.14-1.2004.0 \
     libglpk-dev \
     libzmq5 \
     nodejs npm > /dev/null
@@ -113,9 +123,9 @@ RUN apt-get update -qq --yes > /dev/null && \
 
 WORKDIR /home/jovyan
 
-COPY install-miniforge.bash /tmp/install-miniforge.bash
-RUN chmod 777 /tmp/install-miniforge.bash
-RUN /tmp/install-miniforge.bash
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN chmod 777 /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
@@ -124,11 +134,10 @@ RUN apt-get update -qq --yes && \
         sudo \
         libapparmor1 \
         lsb-release \
-        libclang-dev  > /dev/null
+        libclang-dev \
+        libpq5 > /dev/null
 
-# 1.3.959 is latest version that works with jupyter-rsession-proxy
-# See https://github.com/jupyterhub/jupyter-rsession-proxy/issues/93#issuecomment-725874693
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.959-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     dpkg -i /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
@@ -150,7 +159,7 @@ RUN apt-get update && \
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
-# Needed by Rhtslib 
+# Needed by Rhtslib
 RUN apt-get update -qq --yes && \
     apt-get install --yes  -qq \
         libcurl4-openssl-dev > /dev/null
@@ -158,10 +167,9 @@ RUN apt-get update -qq --yes && \
 USER ${NB_USER}
 
 COPY environment.yml /tmp/
-COPY requirements.txt /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN conda env update -p ${CONDA_DIR} -f /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
@@ -169,13 +177,15 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
 # RStudio needs its own config
 COPY rsession.conf /etc/rstudio/rsession.conf
+# Use simpler locking strategy
+COPY file-locks /etc/rstudio/file-locks
 
 #install rsession proxy
 RUN pip install --no-cache-dir \
-        jupyter-rsession-proxy==1.2 
+        jupyter-rsession-proxy==2.0.1
 
 # Install IRKernel
-RUN r -e "install.packages('IRkernel', version='1.1.1')" && \
+RUN r -e "install.packages('IRkernel', version='1.2')" && \
     r -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install R packages, cleanup temp package download location
@@ -185,9 +195,14 @@ RUN r /tmp/install.R && \
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
-RUN bash /tmp/bio1b-packages.bash 
+RUN bash /tmp/bio1b-packages.bash
 
 # install ib134L packages
-
 COPY ib134-packages.bash /tmp/ib134-packages.bash
 RUN bash /tmp/ib134-packages.bash
+
+# install ccb293 packages
+COPY ccb293-packages.bash /tmp/ccb293-packages.bash
+RUN bash /tmp/ccb293-packages.bash
+
+ENTRYPOINT ["tini", "--"]

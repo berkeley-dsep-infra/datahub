@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p $HOME/Desktop
+
+cp $REPO_DIR/*.desktop $HOME/Desktop/
+
+exec "$@"

@@ -2,7 +2,6 @@ nfsPVC:
   enabled: true
   nfs:
     serverIP: nfsserver-01
-    shareName: export/data100homes-2020-08-04/homes/prod/home
 
 jupyterhub:
   hub:
@@ -10,55 +9,40 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
+          - sknapp
           - felder
           - rylo
           - yuvipanda
           - cpyles
           - balajialwar
-          # instructors & gsis as per request from Alvin Wan(Fall 2021)
-          - kagarwal2 
+          # instructors & gsis as per request from Dominic Liu(Spring 2022)
+          - kagarwal2
           - parthbaokar
-          - am123
           - andrew.lenz
           - abadrinath
-          - agnibhoroy
           - snhing
           - grover.kanu
           - fernando.perez
-          - alvinwan
-  prePuller:
-    extraImages:
-      postgres:
-        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
-        tag: 0.0.1-n3657.h4f7f88c
+          - fgeng
+          - hangxingliu
+          #https://github.com/berkeley-dsep-infra/datahub/issues/3198
+          - yanlisa
+          - hug
+          #https://github.com/berkeley-dsep-infra/datahub/issues/3714 (Fall 2022)
+          - rohan.jha
+          - shiangyi.andrea.lin
+#  prePuller:
+#    extraImages:
+#      postgres:
+#        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+#        tag: 0.0.1-n3657.h4f7f88c
   singleuser:
-    extraContainers:
-      - name: postgres
-        image: gcr.io/ucb-datahub-2018/jupyterhub-postgres:0.0.1-n3657.h4f7f88c
-        resources:
-          limits:
-            # Best effort only. No more than 1 CPU
-            memory: 512Mi
-            cpu: 1.0
-          requests:
-            # If we don't set requests, k8s sets requests == limits!
-            memory: 64Mi
-            cpu: 0.01
-        env:
-        - name: POSTGRES_HOST_AUTH_METHOD
-          value: "trust"
-        - name: POSTGRES_USER
-          value: "jovyan"
-        volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
-        - name: home
-          mountPath: /home/jovyan/shared
-          subPath: _shared
-          readOnly: true
+    defaultUrl: "/lab"
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.f79b4903c7ea2847
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: data100-pool
     storage:
       type: static
       static:
@@ -72,13 +56,12 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 2G
-    image:
-      name: gcr.io/ucb-datahub-2018/data100-user-image
+    image: {}
 
   custom:
     admin:
-      mem_limit: 4096M
-      mem_guarantee: 20484M
+      mem_limit: 4G
+      mem_guarantee: 2G
       extraVolumeMounts:
         - name: home
           mountPath: /srv/homes

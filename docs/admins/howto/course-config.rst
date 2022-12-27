@@ -1,73 +1,54 @@
 .. _howto/course-config:
 
-===========================
-Configuring course profiles
-===========================
+============================
+Allocate per-class resources
+============================
 
-We fetch per-course enrollment from the Student Information System
-when we need to configure user servers based on course affiliations.
-We periodically use this to set per-user resource limits, attach extra
-volumes to user servers, and automatically add or remove admin roles.
+It is possible to allocate additional resources (such as memory or extra volumes) to user servers based on users' class enrollments. The hub must be configured to use the `CanvasOAuthenticator <https://github.com/berkeley-dsep-infra/canvasauthenticator>`_ which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.
 
-This is implemented with a hub sidecar container which fetches
-enrollment data and shares it with the hub. The sidecar container's
-image is located in ``images/fetch-course-emails`` and the hub reads
-these rosters in our custom KubeSpawner in ``hub/values.yaml``. The
-rosters are saved into the files:
 
-   .. code:: bash
+Implementation
+==============
+The authenticator reads users Canvas enrollments when they login, and then assigns them to JupyterHub groups based on those affiliations. Groups are named with the format "canvas::{canvas_id}::{canvas_role}", e.g. "canvas::123456::teacher" or "canvas::234567::student". Our custom kubespawner, which we define in `hub/values.yaml`, reads users' group memberships prior to spawning. It then overrides various KubeSpawner paramters based on configuration we define, using the canvas ID as the key. (see below)
 
-      /srv/jupyterhub/profiles.d/{year}-{term}-{class_section_id}-students.txt
-      /srv/jupyterhub/profiles.d/{year}-{term}-{class_section_id}-instructors.txt
+Note that if a user is assigned to a new Canvas group (e.g. by the instructor manually, or by an automated Canvas/SIS system) while their server is already running, they will need to logout and then log back in in order for the authenticator to see the new affiliations. Restarting the user server is not sufficient.
 
+The canvas ID is somewhat opaque to hub staff -- we cannot look it up ourselves nor predict what it would be based on the name of the course. There are a number of other Canvas course attributes we could have substituted for the ID, but all had various drawbacks. An SIS ID attribute uses a consistent format that is relatively easy to predict, however it is only exposed to instructor accounts on hub login. In testing, when the Canvas admin configured student accounts to be able to read the SIS ID, we discovered that other protected SIS attributes would have been visible to all members of the course in the Canvas UI. Various friendly name attributes (e.g. "Statistics 123, Spring '24") were inconsistent in structure or were modifiable by the instructor. So while the Canvas ID is not predictable or easily discoverable by hub staff, it is immutable and the instructor can find it in the URL for their course.
 
 Defining course profiles
 ========================
 
-We indicate which courses we're interested in by defining them as
-profiles in a given deployment's hub configuration at
-`jupyterhub.hub.extraConfigMap.profiles`. Courses are specified as
-keys of the form {year}-{term}-{class_section_id} in the helm config.
-For example:
+#. Require course staff to request additional resources through a `github issue <https://github.com/berkeley-dsep-infra/datahub/issues/new/choose>_`.
 
+#. Obtain the bCourses course ID from the github issue. This ID is found in the course's URL, e.g. `https://bcourses.berkeley.edu/courses/123456`. It should be a large integer.
+
+
+#. Edit `deployments/{deployment}/config/common.yaml`.
+
+#. Duplicate an existing stanza, or create a new one under `hub.custom.group_profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        profiles:
-          2019-summer-15798: {}
-          2019-spring-25622:
-            mem_limit: 4096M
-            mem_guarantee: 2048M
-          2019-fall-23970:
-            extraVolumeMounts:
-            - mountPath: /home/rstudio/.ssh
-              name: home
-              subPath: _stat131a/_ssh
-              readOnly: true
+        hub:
+          custom:
+            group_profiles:
+              123456: # Name of Class 100, Fall '22; requested in #98765
+                mem_limit: 4096M
+                mem_guarantee: 2048M
+              234567: # Some other class 200, Spring '23; requested in #98776
+                extraVolumeMounts:
+                - mountPath: /home/rstudio/.ssh
+                  name: home
+                  subPath: _stat131a/_ssh
+                  readOnly: true
 
+   where `123456` and `234567` are example integers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
 
-See https://classes.berkeley.edu for class section IDs.
+#. Add a comment associating the profile identifier with a friendly name of the course. Also link to the github issue where the instructor requested the resources. This helps us to cull old configuration during maintenance windows.
 
-Specifying empty profiles is sufficient to ensure that any student
-enrolled in a course cannot also be an admin. This is important if
-an enrolled student is a member of the course staff of another course
-on the same hub, and they've been given admin access.
+#. Commit the change, then ask course staff to verify the increased allocation on staging. It is recommended that they simulate completing a notebook or run through the assignment which requires extra resources.
 
-Memory limits and extra volume mounts are specified as in the example
-above.
+Housekeeping
+============
 
-
-Cleaning Up
-===========
-
-Remember to remove a course profile after the course is over. This
-prevents the sidecar container from fetching unnecessary enrollment
-data. Two semesters is probably a sufficient amount of time to retain
-the profiles in the event students want to revisit assignments or
-instructors want to re-evaluate them. For example if a profile was
-specified for 2019 Fall, consider removing it by 2020 Summer.
-
-If a student is in a course with a specified profile, and they become
-a member of course staff the next semester, the old course profile
-will need to be removed to ensure the new GSI/UGSI has sufficient
-admin access.
+Group profiles should be removed at the end of every term because course affiliations are not necessarily removed from each person's Canvas account. So even if a user's class was over, the hub would grant additional resources for as long as the config persisted in both Canvas and the hub.
