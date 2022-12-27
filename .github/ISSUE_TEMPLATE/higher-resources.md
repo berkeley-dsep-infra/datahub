@@ -14,13 +14,21 @@ For example: datahub, r hub, eecs hub, etc
 
 **Which class is this request for?**
 
-You **must** include a link to your class for the correct semester in https://classes.berkeley.edu. 
+For example, "2025 Spring, Robot Studies 101".
+
+**What is the Academic Guide URL for this class?**
+
+For example, https://classes.berkeley.edu/content/2025-spring-robot-101-001-lec-001
+
+**What is the bCourses URL for this class?**
+
+For example, https://bcourses.berkeley.edu/courses/9876543
 
 **How many students do you expect in this class?**
 
 An approximate number would do.
 
-**How much RAM does this class need?**
+**How much RAM per user is needed?**
 
 The default is 1GB of RAM per student.
 
@@ -28,7 +36,7 @@ The default is 1GB of RAM per student.
 
 A short justification for this resource request.
 
-**By when (MM/DD) do you want this request to be fulfilled?**
+**By what date (MM/DD) do you want this request to be fulfilled?**
 
 This will help us with prioritization of this request.
 
