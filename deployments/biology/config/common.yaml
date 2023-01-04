@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.120.80.242
 
 jupyterhub:
   scheduling:
@@ -56,11 +56,11 @@ jupyterhub:
 
 
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: biology-pool
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
