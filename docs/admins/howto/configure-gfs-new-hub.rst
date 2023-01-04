@@ -1,4 +1,4 @@
-.. _howto/configure-gfs-cli:
+.. _howto/configure-gfs-new-hub:
 
 ================
 How to deploy google filestore for a hub
