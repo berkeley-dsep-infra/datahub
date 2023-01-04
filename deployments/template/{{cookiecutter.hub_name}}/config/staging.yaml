@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: {{cookiecutter.hub_filestore_share}}/{{cookiecutter.hub_name}}/prod
+    shareName: {{cookiecutter.hub_filestore_share}}/{{cookiecutter.hub_name}}/staging
 
 jupyterhub:
   scheduling:
