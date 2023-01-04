@@ -14,4 +14,3 @@ Common Administrator Tasks
    course-config
    calendar-scaler
    prometheus-forward
-   configure-gfs-new-hub
