@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/homedirs-other-2020-07-29/{{cookiecutter.hub_name}}/prod
+    shareName: {{cookiecutter.hub_filestore_share}}/{{cookiecutter.hub_name}}/prod
 
 jupyterhub:
   ingress:

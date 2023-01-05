@@ -14,3 +14,4 @@ Common Administrator Tasks
    course-config
    calendar-scaler
    prometheus-forward
+   remove-users-orm

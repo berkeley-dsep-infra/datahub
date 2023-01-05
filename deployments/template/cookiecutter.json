@@ -1,5 +1,8 @@
 {
     "hub_name": "dns-valid-hub-name",
     "project_name": "ucb-datahub-2018",
-    "cluster_name": "fall-2019"
+    "cluster_name": "fall-2019",
+    "hub_filestore_share": "shares",
+    "hub_filestore_ip": "ip-address-of-fileshare-instance",
+    "hub_filestore_capacity": "desired-capacity"
 }
