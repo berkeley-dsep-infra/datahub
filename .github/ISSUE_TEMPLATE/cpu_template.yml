@@ -3,7 +3,7 @@ description: Raise more CPU for students in your class
 labels: "support"
 assignees: 
 - felder
-- yuvipanda
+- shaneknapp
 body:
   - type: markdown
     attributes:
