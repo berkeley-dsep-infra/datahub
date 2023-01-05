@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/ischool-2021-07-01/publichealth/prod
+    shareName: shares/publichealth/prod
 
 jupyterhub:
   ingress:

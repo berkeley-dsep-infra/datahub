@@ -8,7 +8,7 @@ etcGitConfig:
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.204.227.122
 
 jupyterhub:
   scheduling:
@@ -72,7 +72,7 @@ jupyterhub:
     defaultUrl: /rstudio
 
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: publichealth-pool
     storage:
       # Rocker based images have 'rstudio' as user $1000
       # so let's stick to that, and use /home/${NB_USER}
@@ -80,7 +80,7 @@ jupyterhub:
       homeMountPath: /home/rstudio
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
       extraVolumes:
         - name: etc-gitconfig
