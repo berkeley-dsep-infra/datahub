@@ -92,12 +92,12 @@ we provide that sets up a blank hub that can be customized.
 
    #. Now we need to set ``ROOT_SQUASH`` on the newly created mount. In the 
       ``datahub/deployments/<hubname>/config/filestore/`` directory is a file named 
-      ``<hub-name>-squash-flags.json``. You will use this file when running the following ``gcloud`` 
+      ``squash-flags.json``. You will use this file when running the following ``gcloud`` 
       command to apply the changes:
 
    ..code:: bash
 
-     gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b --flags-file=<hubname>-squash-flags.json
+     gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b --flags-file=squash-flags.json
 
 #. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_.
    We have two canvas OAuth2 clients setup in bcourses for us - one for all
