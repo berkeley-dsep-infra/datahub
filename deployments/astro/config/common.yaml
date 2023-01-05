@@ -33,7 +33,7 @@ jupyterhub:
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: astro-pool
     storage:
       type: static
       static:
