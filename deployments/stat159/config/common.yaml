@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.206.227.218
 
 jupyterhub:
   scheduling:
@@ -43,7 +43,7 @@ jupyterhub:
           ContentsManager:
             allow_hidden: true
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: ischool-pool
     defaultUrl: /lab
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac
@@ -51,7 +51,7 @@ jupyterhub:
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
