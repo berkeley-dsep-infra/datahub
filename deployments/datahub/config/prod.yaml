@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/datahubhomes-2020-07-29/datahub/prod
+    shareName: shares/datahub/prod
 
 jupyterhub:
   proxy:

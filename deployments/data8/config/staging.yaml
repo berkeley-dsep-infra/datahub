@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/data8homes-2022-08-08/data8/staging
+    shareName: shares/data8/staging
 
 jupyterhub:
   scheduling:
