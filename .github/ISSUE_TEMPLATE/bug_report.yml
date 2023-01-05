@@ -4,6 +4,7 @@ labels: "bug"
 assignees: 
 - felder
 - balajialg
+- shaneknapp
 body:
   - type: markdown
     attributes:

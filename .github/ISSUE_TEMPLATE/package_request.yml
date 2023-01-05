@@ -5,6 +5,7 @@ title: Request python package X for class Y
 assignees:
   - felder
   - balajialg
+  - shaneknapp
 body:
   - type: markdown
     attributes:

@@ -70,7 +70,7 @@ orbs:
               - run:
                   name: Install sops
                   command: |
-                    echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+                    echo $SOPS_ACCOUNT_KEY > ${HOME}/repo/sops.key
                     echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
                     mkdir -p ${HOME}/repo/bin
                     curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
@@ -148,7 +148,7 @@ jobs:
       - run:
           name: Authenticating with google service account for kms/sops
           command: |
-            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo $SOPS_ACCOUNT_KEY > ${HOME}/repo/sops.key
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
 
       - run:
@@ -339,7 +339,7 @@ jobs:
       - run:
           name: Install sops
           command: |
-            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo $SOPS_ACCOUNT_KEY > ${HOME}/repo/sops.key
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
             mkdir -p ${HOME}/repo/bin
             curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
@@ -387,7 +387,7 @@ jobs:
       - run:
           name: Install sops
           command: |
-            echo $SOPSACCOUNT_KEY > ${HOME}/repo/sops.key
+            echo $SOPS_ACCOUNT_KEY > ${HOME}/repo/sops.key
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
             mkdir -p ${HOME}/repo/bin
             curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
