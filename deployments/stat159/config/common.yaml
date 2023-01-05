@@ -43,7 +43,7 @@ jupyterhub:
           ContentsManager:
             allow_hidden: true
     nodeSelector:
-      hub.jupyter.org/pool-name: ischool-pool
+      hub.jupyter.org/pool-name: stat159-pool
     defaultUrl: /lab
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac
