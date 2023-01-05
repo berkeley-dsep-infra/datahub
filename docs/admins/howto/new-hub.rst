@@ -12,6 +12,8 @@ Why create a new hub?
 The major reasons for making a new hub are:
 
 #. A new course wants to join the Berkeley Datahub community!
+#. Some of your *students* are *admins* on another hub,
+   so they can see other students' work there.
 #. You want to use a different kind of authenticator.
 #. You are running in a different cloud, or using a different
    billing account.
