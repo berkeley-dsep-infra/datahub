@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/homedirs-other-2020-07-29/dlab/prod
+    shareName: shares/dlab/prod
 
 jupyterhub:
   ingress:
