@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/ischool-2021-07-01/publichealth/staging
+    shareName: shares/publichealth/staging
 
 jupyterhub:
   scheduling:
