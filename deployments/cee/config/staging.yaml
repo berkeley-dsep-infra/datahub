@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: staging/cee/staging
+    shareName: shares/cee/staging
 
 jupyterhub:
   scheduling:
