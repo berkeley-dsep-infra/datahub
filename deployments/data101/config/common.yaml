@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.156.140.2
 
 jupyterhub:
   scheduling:
@@ -146,12 +146,12 @@ jupyterhub:
           # So we put data in a subpath
           subPath: data
     nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: data101-pool
     defaultUrl: /lab
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
       extraVolumes:
         - name: postgres-db

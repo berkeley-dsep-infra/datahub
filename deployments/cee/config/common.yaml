@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.238.120.106
 
 jupyterhub:
   scheduling:
@@ -30,11 +30,11 @@ jupyterhub:
   singleuser:
     defaultUrl: /desktop
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: cee-pool
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
       # Give them more resources as linux desktop is primary used here

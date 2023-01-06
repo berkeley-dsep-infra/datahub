@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: export/homedirs-other-2020-07-29/data101/staging
+    shareName: shares/data101/staging
 
 jupyterhub:
   scheduling:
