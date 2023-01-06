@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.185.238.42
 
 jupyterhub:
   prePuller:
@@ -37,12 +37,12 @@ jupyterhub:
   singleuser:
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image
-      hub.jupyter.org/pool-name: alpha-pool
+      hub.jupyter.org/pool-name: datahub-pool
     image: {}
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
       # As low a guarantee as possible

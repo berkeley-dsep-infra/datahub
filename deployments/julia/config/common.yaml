@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.185.238.42
 
 jupyterhub:
   scheduling:
@@ -35,11 +35,11 @@ jupyterhub:
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: small-courses-pool
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
       # https://github.com/berkeley-dsep-infra/datahub/issues/2803
