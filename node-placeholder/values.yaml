@@ -71,34 +71,6 @@ grafana:
 # So we should make the memory be output of (2) - output of (3), with maybe another 256Mi wiggle room
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
 nodePools:
-  alpha:
-    nodeSelector:
-      hub.jupyter.org/pool-name: alpha-pool
-    resources:
-      requests:
-        memory: 46786Mi
-    replicas: 1
-  beta:
-    nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
-    resources:
-      requests:
-        memory: 46786Mi
-    replicas: 1
-  gamma:
-    nodeSelector:
-      hub.jupyter.org/pool-name: gamma-pool
-    resources:
-      requests:
-        memory: 13000Mi
-    replicas: 0
-  delta:
-    nodeSelector:
-      hub.jupyter.org/pool-name: delta-pool
-    resources:
-      requests:
-        memory: 46786Mi
-    replicas: 1
   data100:
     nodeSelector:
       hub.jupyter.org/pool-name: data100-pool
@@ -106,18 +78,4 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 48404844Ki
-    replicas: 1
-  theta:
-    nodeSelector:
-      hub.jupyter.org/pool-name: theta-pool
-    resources:
-      requests:
-        memory: 46786Mi
-    replicas: 0
-  epsilon:
-    nodeSelector:
-      hub.jupyter.org/pool-name: epsilon-pool
-    resources:
-      requests:
-        memory: 46786Mi
     replicas: 1
