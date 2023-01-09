@@ -77,7 +77,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   astro:
     nodeSelector:
@@ -85,7 +85,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   biology:
     nodeSelector:
@@ -93,7 +93,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   cee:
     nodeSelector:
@@ -101,7 +101,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   data100:
     nodeSelector:
@@ -109,7 +109,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 207869800448
+        memory: 207314055168
     replicas: 1
   data101:
     nodeSelector:
@@ -117,7 +117,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   data102:
     nodeSelector:
@@ -125,7 +125,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   data8:
     nodeSelector:
@@ -133,7 +133,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   datahub:
     nodeSelector:
@@ -141,7 +141,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   dlab:
     nodeSelector:
@@ -149,7 +149,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   eecs:
     nodeSelector:
@@ -157,7 +157,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   ischool:
     nodeSelector:
@@ -165,7 +165,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   publichealth:
     nodeSelector:
@@ -173,7 +173,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   stat159:
     nodeSelector:
@@ -181,7 +181,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   stat20:
     nodeSelector:
@@ -189,7 +189,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   r:
     nodeSelector:
@@ -197,7 +197,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
   small-courses:
     nodeSelector:
@@ -205,5 +205,5 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61485400064
+        memory: 60929654784
     replicas: 1
