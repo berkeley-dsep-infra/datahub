@@ -60,9 +60,9 @@ grafana:
 # 1. Select a node in the node pool you want to configure
 #    export NODE=<node-name>
 # 2. Get total amount of memory allocatable to pods on this node
-#    k get node $NODE -o jsonpath='{.status.allocatable.memory}'
+#    kubectl get node $NODE -o jsonpath='{.status.allocatable.memory}'
 # 3. Get total amount of memory used by non-user pods on the node.
-#    k get -A pod -l 'component!=user-placeholder' --field-selector spec.nodeName=$NODE -o jsonpath='{.items[*].spec.containers[*].resources.requests.memory}'
+#    kubectl get -A pod -l 'component!=user-placeholder' --field-selector spec.nodeName=$NODE -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' | egrep -v 'pause|notebook' | sort
 #    This will return memory units you'll need to sum yourself
 #
 # The node placeholder pod should be 'big' enough that it needs to be kicked out to get even a single
@@ -109,7 +109,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 48404844Ki
+        memory: 207869800448
     replicas: 1
   data101:
     nodeSelector:
@@ -117,7 +117,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 61351182336
+        memory: 61485400064
     replicas: 1
   data102:
     nodeSelector:
