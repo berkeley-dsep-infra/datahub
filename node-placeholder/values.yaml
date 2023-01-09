@@ -71,6 +71,38 @@ grafana:
 # So we should make the memory be output of (2) - output of (3), with maybe another 256Mi wiggle room
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
 nodePools:
+  a11y:
+    nodeSelector:
+      hub.jupyter.org/pool-name: a11y-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60948529152
+    replicas: 1
+  astro:
+    nodeSelector:
+      hub.jupyter.org/pool-name: astro-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60411658240
+    replicas: 1
+  biology:
+    nodeSelector:
+      hub.jupyter.org/pool-name: biology-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 59329527808
+    replicas: 1
+  cee:
+    nodeSelector:
+      hub.jupyter.org/pool-name: cee-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 59337916416
+    replicas: 1
   data100:
     nodeSelector:
       hub.jupyter.org/pool-name: data100-pool
@@ -78,4 +110,100 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 48404844Ki
+    replicas: 1
+  data101:
+    nodeSelector:
+      hub.jupyter.org/pool-name: data101-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60814311424
+    replicas: 1
+  data102:
+    nodeSelector:
+      hub.jupyter.org/pool-name: data102-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60411658240
+    replicas: 1
+  data8:
+    nodeSelector:
+      hub.jupyter.org/pool-name: data8-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60411658240
+    replicas: 1
+  datahub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: datahub-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 56116690944
+    replicas: 1
+  dlab:
+    nodeSelector:
+      hub.jupyter.org/pool-name: dlab-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 57190432768
+    replicas: 1
+  eecs:
+    nodeSelector:
+      hub.jupyter.org/pool-name: eecs-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60948529152
+    replicas: 1
+  ischool:
+    nodeSelector:
+      hub.jupyter.org/pool-name: ischool-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 53969207296
+    replicas: 1
+  publichealth:
+    nodeSelector:
+      hub.jupyter.org/pool-name: publichealth-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 59337916416
+    replicas: 1
+  stat159:
+    nodeSelector:
+      hub.jupyter.org/pool-name: stat159-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 52895465472
+    replicas: 1
+  stat20:
+    nodeSelector:
+      hub.jupyter.org/pool-name: stat20-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60411658240
+    replicas: 1
+  r:
+    nodeSelector:
+      hub.jupyter.org/pool-name: r-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60948529152
+    replicas: 1
+  small-courses:
+    nodeSelector:
+      hub.jupyter.org/pool-name: small-courses-pool
+    resources:
+      requests:
+        # Some value slightly lower than allocatable RAM on the nodepool
+        memory: 60948529152
     replicas: 1
