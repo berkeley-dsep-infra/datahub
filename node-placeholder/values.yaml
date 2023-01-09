@@ -77,7 +77,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60948529152
+        memory: 61485400064
     replicas: 1
   astro:
     nodeSelector:
@@ -85,7 +85,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60411658240
+        memory: 61485400064
     replicas: 1
   biology:
     nodeSelector:
@@ -93,7 +93,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 59329527808
+        memory: 61485400064
     replicas: 1
   cee:
     nodeSelector:
@@ -101,7 +101,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 59337916416
+        memory: 61485400064
     replicas: 1
   data100:
     nodeSelector:
@@ -117,7 +117,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60814311424
+        memory: 61351182336
     replicas: 1
   data102:
     nodeSelector:
@@ -125,7 +125,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60411658240
+        memory: 61485400064
     replicas: 1
   data8:
     nodeSelector:
@@ -133,7 +133,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60411658240
+        memory: 61485400064
     replicas: 1
   datahub:
     nodeSelector:
@@ -141,7 +141,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 56116690944
+        memory: 61485400064
     replicas: 1
   dlab:
     nodeSelector:
@@ -149,7 +149,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 57190432768
+        memory: 61485400064
     replicas: 1
   eecs:
     nodeSelector:
@@ -157,7 +157,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60948529152
+        memory: 61485400064
     replicas: 1
   ischool:
     nodeSelector:
@@ -165,7 +165,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 53969207296
+        memory: 61485400064
     replicas: 1
   publichealth:
     nodeSelector:
@@ -173,7 +173,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 59337916416
+        memory: 61485400064
     replicas: 1
   stat159:
     nodeSelector:
@@ -181,7 +181,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 52895465472
+        memory: 61485400064
     replicas: 1
   stat20:
     nodeSelector:
@@ -189,7 +189,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60411658240
+        memory: 61485400064
     replicas: 1
   r:
     nodeSelector:
@@ -197,7 +197,7 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60948529152
+        memory: 61485400064
     replicas: 1
   small-courses:
     nodeSelector:
@@ -205,5 +205,5 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60948529152
+        memory: 61485400064
     replicas: 1
