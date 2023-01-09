@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: nfsserver-01
+    serverIP: 10.50.250.234
 
 jupyterhub:
   scheduling:
@@ -38,11 +38,11 @@ jupyterhub:
             - cvacano
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: beta-pool
+      hub.jupyter.org/pool-name: dlab-pool
     storage:
       type: static
       static:
-        pvcName: home-nfs
+        pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
       guarantee: 4G
