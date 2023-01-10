@@ -25,139 +25,196 @@ The major reasons for making a new hub are:
 
 If your reason is something else, it probably needs some justification :)
 
+Prereqs
+=======
+Working installs of the following utilities:
+  - sops
+  - hubploy
+  - gcloud/kubectl
+  - `cookiecutter <https://github.com/audreyr/cookiecutter>`_
 
-Setting up a new hub structure
-==============================
+Setting up a new hub
+====================
 
-There's a simple `cookiecutter <https://github.com/audreyr/cookiecutter>`_
-we provide that sets up a blank hub that can be customized.
+Name the hub
+------------
+Choose the ``<hubname>`` (typically the course or department). This is permanent.
 
-#. Make sure you have the following python packages installed: ``cookiecutter``
+Determine deployment needs
+--------------------------
+Before creating a new hub, have a discussion with the instructor about the system requirements,
+frequency of assignments and how much storage will be required for the course. Typically, there
+are three general "types" of hub:  Heavy usage, general and small courses.  Small courses will
+usually have one or two assignments per semester, general courses are used much more frequently
+but don't have large amount of data or require different compute resources. Small courses may
+only have 20 or fewer users, and general courses less than 500. Heavy usage classes can potentially
+have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.
 
-#. In the ``deployments`` directory, run cookiecutter:
+Small courses (and some general usage courses) can use either or both of a shared nodepool and
+filestore to save money (Basic HDD filestore instances start at 1T).
 
-   .. code:: bash
+If you're going to use an existing nodepool and/or filestore instance, you can skip either or both of
+the following steps and pick back up at the ``cookiecutter``.
 
-      cookiecutter template/
+Creating a new nodepool
+-----------------------
+Create the nodepool:
 
-#. Cookiecutter template prompts you to answer 3 questions which will be about a) name of the project, 
-   b) cluster name and c) your hub name. Enter ``ucb-datahub-2018`` for the project name, ``fall-2019`` for the 
-   cluster name and whatever you want as your hubname. It should generate a directory with the name of 
-   the hub you provided with a skeleton configuration. It'll also generate all the necessary secrets.
+.. code:: bash
 
-#. In the web console, click on the horizontal bar icon at the top left corner.
-   #. Access "Filestore" -> "Instances" and click on "Create Instance".
-   #. Name the instance ``<course>-YYYY-MM-DD``
-   #. Instance Type is ``Basic``, Storage Type is ``HDD``.
-   #. Set the region to ``us-central1`` and Zone to ``us-central1-b``.
-   #. Set the VPC network to ``default``.
-   #. Set the File share name to ``shares``.
-   #. Click "Create" and wait for it to be deployed.
-   #. Once it's deployed, select the instance and copy the "NFS mount point".
-#. You now need to log into the NFS server and provide directories with appropriate permissions for the hub. 
-   This will allow users to store their files in home directories. You can run the following command 
-   in gcloud terminal to log in to the NFS server. 
-	
-	``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
+   gcloud beta container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
+     --node-labels hub.jupyter.org/pool-name=<hubname>-pool --machine-type "n2-highmem-8"  \
+     --enable-autoscaling --min-nodes "0" --max-nodes "3" \
+     --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
+     --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \
+     --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "200"  \
+     --metadata disable-legacy-endpoints=true \
+     --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
+     --no-enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node "110"
+
+Creating a new filestore instance
+---------------------------------
+In the web console, click on the horizontal bar icon at the top left corner.
+
+#. Access "Filestore" -> "Instances" and click on "Create Instance".
+#. Name the instance ``<hubname>-YYYY-MM-DD``
+#. Instance Type is ``Basic``, Storage Type is ``HDD``.
+#. Set the region to ``us-central1`` and Zone to ``us-central1-b``.
+#. Set the VPC network to ``default``.
+#. Set the File share name to ``shares``.
+#. Click "Create" and wait for it to be deployed.
+#. Once it's deployed, select the instance and copy the "NFS mount point".
+
+You now need to log into the NFS server and provide directories with appropriate permissions for the hub. 
+This will allow users to store their files in home directories. You can run the following command 
+in gcloud terminal to log in to the NFS server.
+
+``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
    
-   #. Or alternatively, Launch console.cloud.google.com ->  Select "ucb-datahub-2018" as the project name. 
-   #. Click on the three horizontal bar icon at the top left corner.
-   #. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
-   #. Select "Open in browser window" option to access NFS server via GUI.
-   #. Back in the NFS server shell, mount the new share:
+Alternatively, launch console.cloud.google.com ->  Select "ucb-datahub-2018" as the project name. 
 
-   .. code:: bash
+#. Click on the three horizontal bar icon at the top left corner.
+#. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
+#. Select "Open in browser window" option to access NFS server via GUI.
 
-      mkdir /export/<hubname>-filestore
-      mount <filestore share IP>/shares /export/<hubname>-filestore
+Back in the NFS server shell, mount the new share:
 
-   #. Create ``staging`` and ``prod``  directories owned by ``1000:1000`` under
-   ``/export/<hubname>-filestore/<hubname>``. The path *might* differ if
-   your hub has special home directory storage needs. Consult admins if that's
-   the case. Here is the command to create the directory with appropriate permissions:
+.. code:: bash
+
+   mkdir /export/<hubname>-filestore
+   mount <filestore share IP>/shares /export/<hubname>-filestore
+
+Create ``staging`` and ``prod``  directories owned by ``1000:1000`` under
+``/export/<hubname>-filestore/<hubname>``. The path *might* differ if
+your hub has special home directory storage needs. Consult admins if that's
+the case. Here is the command to create the directory with appropriate permissions:
    
-   .. code:: bash
+.. code:: bash
 
-      install -d -o 1000 -g 1000 \
-        /export/<hubname>-filestore/<hubname>/staging \
-        /export/<hubname>-filestore/<hubname>/prod
+   install -d -o 1000 -g 1000 \
+     /export/<hubname>-filestore/<hubname>/staging \
+     /export/<hubname>-filestore/<hubname>/prod
 		
-   #. Check whether the directories have permissions similar to the below directories:
+Check whether the directories have permissions similar to the below directories:
 
-   .. code:: bash
+.. code:: bash
 
-         drwxr-xr-x 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore
-	 drwxr-xr-x 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore
-	 drwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore
+   drwxr-xr-x 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore
+   drwxr-xr-x 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore
+   drwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore
 
-   #. Now we need to set ``ROOT_SQUASH`` on the newly created mount. In the 
-      ``datahub/deployments/<hubname>/config/filestore/`` directory is a file named 
-      ``squash-flags.json``. You will use this file when running the following ``gcloud`` 
-      command to apply the changes:
+Create the hub deployment locally
+---------------------------------
+In the ``datahub/deployments`` directory, run ``cookiecutter``. This sets up the hub's configuration directory:
 
-   ..code:: bash
+.. code:: bash
 
-     gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b --flags-file=squash-flags.json
+   cookiecutter template/
 
-#. Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_.
-   We have two canvas OAuth2 clients setup in bcourses for us - one for all
-   production hubs and one for all staging hubs. The configuration and secrets
-   for these are provided by the cookiecutter template, however the new hubs
-   need to be added to the authorized callback list maintained in bcourses.
+The cookiecutter template will prompt you to provide the following information:
+ - ``<hub_name>``: Enter the chosen name of the hub.
+ - ``<project_name>``: Default is ``ucb-datahub-2018``, do not change.
+ - ``<cluster_name>``: Default is ``fall-2019``, do not change.
+ - ``<pool_name>``: Name of the nodepool (shared or individual) to deploy on.
+ - ``hub_filestore_share``: Default is ``shares``, do not change.
+ - ``hub_filestore_ip``: Enter the IP address of the filestore instance. This is available from the web console.
+ - ``hub_filestore_capacity``: Enter the allocated storage capacity. This is available from the web console.
 
-   #. ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` added to
+This will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.
+
+If you have created a new filestore instance, you will now need to apply the ``ROOT_SQUASH`` settings.
+Skip this step if you are using an existing/shared filestore.
+
+.. code:: bash
+
+   gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
+          --flags-file=<<hubname>/config/filestore/squash-flags.json>
+
+Authentication
+--------------
+Set up authentication via `bcourses <https://bcourses.berkeley.edu>`_.
+We have two canvas OAuth2 clients setup in bcourses for us - one for all
+production hubs and one for all staging hubs. The configuration and secrets
+for these are provided by the cookiecutter template, however the new hubs
+need to be added to the authorized callback list maintained in bcourses.
+
+#. ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` added to
       the staging hub client (id 10720000000000594)
-   #. ``staging.datahub.berkeley.edu/hub/oauth_callback`` added to the
+#. ``staging.datahub.berkeley.edu/hub/oauth_callback`` added to the
       production hub client (id 10720000000000472)
 
     Please reach out to Jonathan Felder to set this up, or
     bcourseshelp@berkeley.edu if he is not available.
 
-#. Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
-   be under the ``deploy`` job, and look something like this:
+CircleCI
+--------
+Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
+be under the ``deploy`` job, and look something like this:
 
-   .. code:: yaml
+.. code:: yaml
 
-      - run:
-          name: Deploy <hub-name>
-          command: |
-            hubploy deploy <hub-name> hub ${CIRCLE_BRANCH}
+   - run:
+       name: Deploy <hubname>
+         command: |
+           hubploy deploy <hubname> hub ${CIRCLE_BRANCH}
 		
-   .. code:: yaml
+.. code:: yaml
   
-     - hubploy/build-image:
-         deployment: <hub-name>
-         name: <hub-name> image build
-         filters:
-             branches:
-               ignore:
-               - staging
-               - prod  
+   - hubploy/build-image:
+       deployment: <hubname>
+       name: <hubname> image build
+       filters:
+         branches:
+           ignore:
+             - staging
+             - prod  
 
 	
-       - hubploy/build-image:
-           deployment:  <hub-name>
-           name:  <hub-name> image build
-           push: true
-           filters:
-               branches:
-                 only:
-                  - staging
+     - hubploy/build-image:
+         deployment:  <hubname>
+         name:  <hubname> image build
+         push: true
+         filters:
+           branches:
+             only:
+               - staging
 				
 
-       -  <hub-name> image build
+       -  <hubname> image build
 	
-#. Review hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,
+Review hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,
 	
-   .. code:: yaml
+.. code:: yaml
 	  
-	  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
+   image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
 
-#. Commit the hub directory, and make a PR to the the ``staging`` branch in the
-   GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
-   might take a few minutes for HTTPS to work, but after that you can log into
-   it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out and make
-   sure things work as you think they should.
+Commit and deploy staging
+-------------------------
+Commit the hub directory, and make a PR to the the ``staging`` branch in the
+GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
+might take a few minutes for HTTPS to work, but after that you can log into
+it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out and make
+sure things work as you think they should.
 
 #. Make a PR from the ``staging`` branch to the ``prod`` branch. When this PR is
    merged, it'll deploy the production hub. It might take a few minutes for HTTPS
