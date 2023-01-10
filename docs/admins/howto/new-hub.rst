@@ -33,6 +33,11 @@ Working installs of the following utilities:
   - gcloud/kubectl
   - `cookiecutter <https://github.com/audreyr/cookiecutter>`_
 
+Proper access to the following systems:
+  - Google Cloud IAM:  owner
+  - Write access to the `datahub repo <https://github.com/berkeley-dsep-infra/datahub>`_
+  - CircleCI account linked to our org
+
 Setting up a new hub
 ====================
 
