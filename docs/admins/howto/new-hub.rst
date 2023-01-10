@@ -53,6 +53,10 @@ have thousands of users, require upgraded node specs and/or have Terabytes of da
 Small courses (and some general usage courses) can use either or both of a shared nodepool and
 filestore to save money (Basic HDD filestore instances start at 1T).
 
+This is also a good time to determine if there are any specific software packages/libraries that
+need to be installed, as well as what language(s) the course will be using. This will determine
+which image to use, and if we will need to add additional packages to the image build.
+
 If you're going to use an existing nodepool and/or filestore instance, you can skip either or both of
 the following steps and pick back up at the ``cookiecutter``.
 
