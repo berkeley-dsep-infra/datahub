@@ -208,6 +208,64 @@ Review hubploy.yaml file inside your project directory and update the image name
 	  
    image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
 
+Create placeholder nodepool
+---------------------------
+If you are deploying to a shared nodepool, there is no need to perform this step.
+
+Otherwise, you'll need to add the placeholder settings in ``node-placeholder/values.yaml``.
+
+The node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can't run on a node where other system pods are running! To do this, we'll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of "wiggle room".  This final number will be used to allocate RAM for the node placeholder.
+
+#. Launch a server on https://<hubname>.datahub.berkeley.edu
+#. Get the node name (it will look something like ``gke-fall-2019-user-datahub-2023-01-04-fc70ea5b-67zs``): ``kubectl get nodes | grep <hubname> | awk '{print$1}'``
+#. Get the total amount of memory allocatable to pods on this node and convert to bytes: ``kubectl get node <nodename> -o jsonpath='{.status.allocatable.memory}'``
+#. Get the total memory used by non-user pods/containers on this node. We explicitly ignore ``notebook`` and ``pause``. Convert to bytes and get the sum:
+
+.. code:: bash
+   
+   kubectl get -A pod -l 'component!=user-placeholder' \
+          --field-selector spec.nodeName=<nodename> \
+          -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \
+          | egrep -v 'pause|notebook'
+
+#. Subract the second number from the first, and then subtract another 277872640 bytes (256Mi) for "wiggle room".
+#. Add an entry for the new placeholder node config in ``values.yaml``:
+
+.. code:: yaml
+   
+   data102:
+     nodeSelector:
+       hub.jupyter.org/pool-name: data102-pool
+     resources:
+       requests:
+         # Some value slightly lower than allocatable RAM on the nodepool
+         memory: 60929654784
+     replicas: 1
+
+For reference, here's example output from collecting and calculating the values for ``data102``:
+
+.. code:: bash
+
+          (gcpdev) ➜  ~ kubectl get nodes | grep data102 | awk '{print$1}'
+          gke-fall-2019-user-data102-2023-01-05-e02d4850-t478
+          (gcpdev) ➜  ~ kubectl get node gke-fall-2019-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes
+          60055600Ki%
+          (gcpdev) ➜  ~ kubectl get -A pod -l 'component!=user-placeholder' \
+          --field-selector spec.nodeName=gke-fall-2019-user-data102-2023-01-05-e02d4850-t478 \
+          -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \
+          | egrep -v 'pause|notebook' # convert all values to bytes, sum them
+          calico-node
+          fluentbit       100Mi
+          fluentbit-gke   100Mi
+          gke-metrics-agent       60Mi
+          ip-masq-agent   16Mi
+          kube-proxy
+          prometheus-node-exporter
+          (gcpdev) ➜  ~ # subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room
+          (gcpdev) ➜  ~ # in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi
+          (gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784
+
+
 Commit and deploy staging
 -------------------------
 Commit the hub directory, and make a PR to the the ``staging`` branch in the
