@@ -49,11 +49,18 @@ Determine deployment needs
 --------------------------
 Before creating a new hub, have a discussion with the instructor about the system requirements,
 frequency of assignments and how much storage will be required for the course. Typically, there
-are three general "types" of hub:  Heavy usage, general and small courses.  Small courses will
-usually have one or two assignments per semester, general courses are used much more frequently
-but don't have large amount of data or require different compute resources. Small courses may
-only have 20 or fewer users, and general courses less than 500. Heavy usage classes can potentially
-have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.
+are three general "types" of hub:  Heavy usage, general and small courses.
+
+Small courses will usually have one or two assignments per semester, and may only have 20 or
+fewer users.
+
+General courses have up to ~500 users, but don't have large amount of data or require upgraded
+compute resources.
+
+Heavy usage courses can potentially have thousands of users, require upgraded node specs and/or
+have Terabytes of data each semester.
+
+Both general and heavy usage courses typically have weekly assignments.
 
 Small courses (and some general usage courses) can use either or both of a shared nodepool and
 filestore to save money (Basic HDD filestore instances start at 1T).
