@@ -157,7 +157,7 @@ Skip this step if you are using an existing/shared filestore.
 .. code:: bash
 
    gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
-          --flags-file=<<hubname>/config/filestore/squash-flags.json>
+          --flags-file=<hubname>/config/filestore/squash-flags.json
 
 Authentication
 --------------
