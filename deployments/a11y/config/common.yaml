@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: 10.114.22.74
+    serverIP: 10.185.238.42
 
 jupyterhub:
   scheduling:
@@ -32,7 +32,7 @@ jupyterhub:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
-      hub.jupyter.org/pool-name: a11y-pool
+      hub.jupyter.org/pool-name: small-courses-pool
     storage:
       type: static
       static:
