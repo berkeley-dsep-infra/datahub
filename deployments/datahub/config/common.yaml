@@ -130,3 +130,12 @@ jupyterhub:
       1519998: # Legal Studies 123, Spring 2023, issue #3718
         mem_limit: 3072M
         mem_guarantee: 3072M
+      
+      1521830: # ENVECON 153, Spring 2023, issue #3982
+        mem_limit: 3072M
+        mem_guarantee: 3072M
+        
+      1521412: # ARE 21, Spring 2023, issue #4057
+        mem_limit: 4096M
+        mem_guarantee: 4096M
+      
