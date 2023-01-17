@@ -79,4 +79,7 @@ RUN r /tmp/r-packages/2022-spring-stat-20.r
 # Configure locking behavior
 COPY file-locks /etc/rstudio/file-locks
 
+# Disable visual markdown editing by default
+COPY rstudio-prefs.json /etc/rstudio/rstudio-prefs.json
+
 ENTRYPOINT ["tini", "--"]
