@@ -104,7 +104,7 @@ cran_packages = c(
   "leaflet", "2.0.3",
   "leafpop", "0.0.6",
   "leafsync", "0.1.0",
-  "learnr", "0.10.1",
+  "learnr", "0.11.2",
   "linprog", "0.9-2",
   "listenv", "0.8.0",
   "lpSolve", "5.6.15",
