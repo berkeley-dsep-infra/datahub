@@ -188,9 +188,6 @@ RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
 COPY r-packages/orphaned-ph-142.r /tmp/r-packages
 RUN r /tmp/r-packages/orphaned-ph-142.r && rm -rf /tmp/downloaded_packages
 
-COPY r-packages/stat-131a.r /tmp/r-packages
-RUN r /tmp/r-packages/stat-131a.r && rm -rf /tmp/downloaded_packages
-
 COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
 RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
 
@@ -213,6 +210,9 @@ RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
 # remove after Spring '22 semester
 COPY r-packages/orphaned-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/orphaned-stat-20.r && rm -rf /tmp/downloaded_packages
+
+COPY r-packages/2023-spring-stat-135.r /tmp/r-packages/
+RUN r /tmp/r-packages/2023-spring-stat-135.r && rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
