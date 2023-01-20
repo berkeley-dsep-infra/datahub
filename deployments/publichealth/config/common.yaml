@@ -58,16 +58,15 @@ jupyterhub:
           - mi-suk
           - c.riddell
           - hogenegin # https://github.com/berkeley-dsep-infra/datahub/issues/3168
-          # PH 142 Fall Instructors - https://github.com/berkeley-dsep-infra/datahub/issues/3565
-          - hubbard
+          # PH 142 Spring 23 Instructors - https://github.com/berkeley-dsep-infra/datahub/issues/4110
           - brian.aldana
           - irisyen
-          - noelpimentel
-          - tyler_mansfield
-          - xinzhou
           - emendoza97
-          - shuyiyang
           - psrivastava
+          - acabulong
+          - ruben.vargas
+          - hillary_nguyen
+          - jeshim
   singleuser:
     defaultUrl: /rstudio
 
