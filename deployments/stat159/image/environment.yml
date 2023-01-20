@@ -90,7 +90,6 @@ dependencies:
   - python-pdfkit==1.0.0 
 
   - pip:
-    - jupyter-desktop-server==0.1.3
+    - jupyter-remote-desktop-proxy==1.0.0
     - ipython-sql==0.4.1
     - jupyterlab_mystjs==0.1.1
-    
