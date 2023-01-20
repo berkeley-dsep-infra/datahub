@@ -105,3 +105,5 @@ dependencies:
     # If installing this environment on a personal machine, 
     # comment these out
     - jupyter-remote-desktop-proxy==1.0.0
+    # syncthing for dropbox-like functionality
+    - jupyter-syncthing-proxy==1.0.3
