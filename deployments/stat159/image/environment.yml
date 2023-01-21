@@ -108,10 +108,4 @@ dependencies:
     - jupyter-remote-desktop-proxy==1.0.0
     # syncthing for dropbox-like functionality
     - jupyter-syncthing-proxy==1.0.3
-
-    # Packages needed only on the hub (mostly linux)
-    # If installing this environment on a personal machine, 
-    # comment these out
-    - jupyter-remote-desktop-proxy==1.0.0
-    # syncthing for dropbox-like functionality
-    - jupyter-syncthing-proxy==1.0.3
+    
