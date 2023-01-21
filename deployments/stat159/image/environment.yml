@@ -6,7 +6,6 @@ channels:
 dependencies:
   - python==3.10.8
 
-
   - altair==4.2.0
   - beautifulsoup4==4.11.1
   - black==22.12.0
@@ -108,4 +107,3 @@ dependencies:
     - jupyter-remote-desktop-proxy==1.0.0
     # syncthing for dropbox-like functionality
     - jupyter-syncthing-proxy==1.0.3
-    
