@@ -86,3 +86,11 @@ jupyterhub:
       limit: 2
       guarantee: 0.1
     image: {}
+
+  # read by z2jh.get_config() in hub/values.yaml
+  # formerly jupyterhub.hub.extraConfigMap
+  custom:
+    group_profiles:
+      1522650: # EE 120, Spring 2023, issue #4106
+        mem_limit: 4096M
+        mem_guarantee: 4096M
