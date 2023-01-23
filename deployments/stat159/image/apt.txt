@@ -8,9 +8,10 @@ manpages-posix
 manpages-dev
 manpages-posix-dev
 
-# Download tools
+# Download/compression tools
 curl
 wget
+zip
 
 # Core text editors on a *nix box: vim and emacs
 vim
@@ -89,6 +90,3 @@ git-gui
 gitg
 qgit
 meld
-
-# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979			
-zip
