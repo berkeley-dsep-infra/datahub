@@ -49,6 +49,7 @@ dependencies:
   - mock==5.0.1
   - nbconvert==6.5.3
   - nbdime==3.1.1
+  - nbgitpuller==1.1.1
   - networkx==3.0
   - numba==0.56.4
   - numpy==1.23.5
