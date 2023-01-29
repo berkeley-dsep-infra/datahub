@@ -79,6 +79,7 @@ dependencies:
 - xlrd==2.0.1
 - micro==2.0.8
 - websockify
+- folium==0.14.0
 - pip
 - pip:
   - -r infra-requirements.txt
