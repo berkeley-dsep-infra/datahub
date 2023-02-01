@@ -285,7 +285,7 @@ For reference, here's example output from collecting and calculating the values 
           (gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784
 
 
-Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, `calendar events <https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html>`_. This is useful for large courses when can have placeholder nodes set aside for the predicatable periods of heavy ramp up.
+Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, `calendar events <https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html>`_. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.
 
 Commit and deploy staging
 -------------------------
