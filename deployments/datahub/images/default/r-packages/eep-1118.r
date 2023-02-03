@@ -9,8 +9,8 @@ source("/tmp/class-libs.R")
 class_name="EEP 1118"
 class_libs = c(
     "car", "3.0-10",
-	"psych", "2.2.9",
-	"pacman", "0.5.1"
+    "psych", "2.2.9",
+    "pacman", "0.5.1"
 )
 
 class_libs_install_version(class_name, class_libs)
