@@ -32,26 +32,13 @@ jupyterhub:
           # ISG Staff
           - finsen
           - lindah
-          # EECS16A - Retain till the end of Fall 2020
-          - lakabuli
-          - Quizenger
-          - onibrow
-          - panzarkos
-          - sweismann
-          - gracekuo01
-          - urmita
-          - neeleshkr
-          - msswn
-          - dsaba123
-          - dshika14
-          - dixun-cui
-          - miyukiweldon
-          - mbharadwaj13
-          - lilybhattacharjee5
-          - spencerkent
-          - rohansood10
-          - christosadamo
-          - boosoba
+          # Requested by Yimo - Instructor for CS 170
+          - manuel.conner.g
+          - jdeloye
+          - jonnypei
+          - lmathias
+          - nosliw
+          - xuyimo
 
   singleuser:
     extraEnv:
