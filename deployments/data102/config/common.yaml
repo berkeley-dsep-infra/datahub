@@ -25,17 +25,14 @@ jupyterhub:
           - sknapp
           - felder
           - rylo
-          - yuvipanda
           - balajialwar
           # instructors
           - ramesh_s
           - jsteinhardt
           # gsis
-          # data102 Fall 2021 as requested by Yimen Wang
-          - wangyimeng98
-          - yiwendai99
-          - rikiiyer
-          - rdoshi99
+          # data102 Spring 2023 as requested by Ramesh Sridharan
+          - hangxingliu
+          - alanjian131
 
 
   singleuser:

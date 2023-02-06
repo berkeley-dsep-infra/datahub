@@ -8,9 +8,9 @@ assignees:
 
 ---
 
-**Which hub do you want more RAM on?**
+**Which hub do you want more RAM on? Please link the URL to the hub while specifying the hub name**
 
-For example: datahub, r hub, eecs hub, etc
+For example: Datahub (datahub.berkeley,edu), R Hub (r.datahub.berkeley.edu hub), Data 100 Hub (data100.hub.berkeley.edu), EECS hub (eecs.datahub.berkeley.edu), etc
 
 **Which class is this request for?**
 
