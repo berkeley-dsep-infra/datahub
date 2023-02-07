@@ -31,6 +31,9 @@ jupyterhub:
           - fsapienza
 
   singleuser:
+    cmd:
+      - jupyterhub-singleuser
+      - --LabApp.collaborative=true
     extraEnv:
       # Tell code where to display GUIs
       # The VNC /desktop link must be opened already for this to work
