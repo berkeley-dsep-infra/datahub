@@ -20,7 +20,7 @@ and so we use it.
 
 #. Users don't usually need guaranteed space or IOPS, so providing them each
    a `persistent cloud disk <https://cloud.google.com/persistent-disk/>`_ gets
-   unnecessarily expensive - since we are paying for it wether it is used or
+   unnecessarily expensive - since we are paying for it whether it is used or
    not. 
    
    When we did use one persistent disk per user, the storage cost
@@ -30,7 +30,6 @@ and so we use it.
    Google Cloud, and much longer on Azure. NFS mounts pretty quickly, getting
    this down to a second or less.
 
-We'll probably be on some form of NFS for the foreseeable future.
 
 NFS Server
 ==========
@@ -50,14 +49,15 @@ We currently have two approaches to running NFS Servers.
 #. Use a hosted NFS service like `Google Cloud Filestore <https://cloud.google.com/filestore/>`_.
 
    We do not have to perform any maintenance if we use this - but we have no control
-   over the host machine either. This necessitates some extra work to deal with the
-   permission issues - see ``jupyterhub.singleuser.initContainers`` in the ``common.yaml``
-   of a hub that uses this method.
+   over the host machine either. 
 
-Right now, every hub except ``data8x`` is using the first approach - primarily because
-Google Cloud Filestore was not available when they were first set up. ``data8x`` is
-using the second approach, and if proven reliable we will switch everything to it
-the next semester.
+After running our own NFS server from 2020 through the end of 2022, we decided to move
+wholesale to `Google Cloud Filestore <https://cloud.google.com/filestore/>`_. This was
+mostly due to NFS daemon stability issues, which caused many outages and impacted thousands
+of our users and courses.
+
+Currently each hub has it's own filestore instance, except for a few small courses that
+share one. This has proven to be much more stable and able to handle the load.
 
 Home directory paths
 ====================
@@ -66,9 +66,8 @@ Each user on each hub gets their own directory on the server that gets treated
 as their home directory. The staging & prod servers share home directory paths, so
 users get the same home directories on both.
 
-For most hubs, the user's home directory path relative to the exported NFS directory
-is ``<hub-name>/home/<user-name>``. Prefixing the path with the name of the hub
-allows us to use the same NFS share for many number of hubs.
+For most hubs, the user's home directory path relative to the exported filestore share
+is ``<hub-name>-filestore/<hub-name>/<prod|staging>/home/<user-name>``.
 
 NFS Client
 ==========
@@ -82,20 +81,4 @@ into each user's pod.
    on the user pod to mount the correct directory on the user pod.
 
    This lets us get away with one NFS mount per node, rather than one per
-   pod. See ``hub/templates/nfs-mounter.yaml`` to see how we mount this on the
-   nodes. It's a bit of a hack, and if we want to keep using this method should
-   be turned into a `CSI Driver <https://kubernetes-csi.github.io/>`_ instead.
-
-#. Use the `Kubernetes NFS Volume <https://kubernetes.io/docs/concepts/storage/volumes/#nfs>`_
-   provider.
-
-   This doesn't require hacks, but leads to at least 2 NFS mounts *per user* per node,
-   often leading to hundreds of NFS mounts per node. This might or might not
-   be a problem.
-
-Most hubs use the first method, while ``data8x`` is trialing the second method. If it
-goes well, we might switch to using the second method for everything.
-
-We also try to mount everything as ``soft``, since we would rather have a write
-fail than have processes go into uninterruptible sleep mode (D) where they
-can not usually be killed when NFS server runs into issues.
+   pod.
