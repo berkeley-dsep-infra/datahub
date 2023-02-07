@@ -6,7 +6,7 @@ channels:
 dependencies:
   - python==3.10.8
 
-  - altair==4.2.0
+  - altair==4.2.2
   - beautifulsoup4==4.11.1
   - black==22.12.0
   - bokeh==3.0.3
@@ -29,7 +29,7 @@ dependencies:
   - ipydatagrid==1.1.14
   - ipympl==0.9.2
   - ipyparallel==8.4.1
-  - jupyter-book==0.13.1
+  - jsonschema==4.17.3
   - jupyter-repo2docker==2022.10.0
   - jupyter-resource-usage==0.7.0
   - jupyter_bokeh==3.0.5
@@ -109,3 +109,5 @@ dependencies:
     - jupyter-remote-desktop-proxy==1.0.0
     # syncthing for dropbox-like functionality
     - jupyter-syncthing-proxy==1.0.3
+    # need a version that is compatible with jsonschema >= 4
+    - git+https://github.com/executablebooks/jupyter-book@de46e27
