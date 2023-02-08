@@ -38,6 +38,8 @@ jupyterhub:
       # Tell code where to display GUIs
       # The VNC /desktop link must be opened already for this to work
       DISPLAY: ":1.0"
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     extraFiles:
       culling-config:
         data:
