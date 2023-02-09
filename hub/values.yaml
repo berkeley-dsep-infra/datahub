@@ -280,6 +280,15 @@ jupyterhub:
           return (x > y) - (x < y)
 
         class CustomAttrSpawner(KubeSpawner):
+          spawn_launcher_delay = Int(
+            0,
+            config=True
+            help="""
+            Time in seconds to delay a server launch, useful for debugging.  If set to zero,
+            no delay will take place.
+            """
+          )
+
           spawn_launcher_timer = Int(
             60,
             config=True,
@@ -328,6 +337,10 @@ jupyterhub:
               self.mem_guarantee = override['mem_guarantee']
 
           async def start(self):
+            # delay if testing, see https://github.com/berkeley-dsep-infra/datahub/issues/4237
+            if self.spawn_launcher_delay:
+              await asyncio.sleep(self.spawn_launcher_delay)
+
             # custom.memory
             custom_memory = z2jh.get_config('custom.memory', {})
             for attr, users in custom_memory.items():
