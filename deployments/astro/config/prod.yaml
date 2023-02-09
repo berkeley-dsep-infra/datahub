@@ -11,3 +11,8 @@ jupyterhub:
       - secretName: tls-cert
         hosts:
           - astro.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
