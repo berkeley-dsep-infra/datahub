@@ -12,17 +12,6 @@ jupyterhub:
         hosts:
           - a11y.datahub.berkeley.edu
   hub:
-    config:
-      GenericOAuthenticator:
-        extra_params:
-          client_id: service-a11y.datahub.berkeley.edu
-        client_id: service-a11y.datahub.berkeley.edu
-        authorize_url: https://datahub.berkeley.edu/hub/api/oauth2/authorize
-        token_url: https://datahub.berkeley.edu/hub/api/oauth2/token
-        userdata_url: https://datahub.berkeley.edu/hub/api/user
-      CanvasOAuthenticator:
-        client_id: '10720000000000472'
-        oauth_callback_url: 'https://a11y.berkeley.edu/hub/oauth_callback'
     db:
       pvc:
         # This also holds logs
