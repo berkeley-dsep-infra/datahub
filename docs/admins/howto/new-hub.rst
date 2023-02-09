@@ -62,19 +62,19 @@ have Terabytes of data each semester.
 
 Both general and heavy usage courses typically have weekly assignments.
 
-Small courses (and some general usage courses) can use either or both of a shared nodepool and
+Small courses (and some general usage courses) can use either or both of a shared node pool and
 filestore to save money (Basic HDD filestore instances start at 1T).
 
 This is also a good time to determine if there are any specific software packages/libraries that
 need to be installed, as well as what language(s) the course will be using. This will determine
 which image to use, and if we will need to add additional packages to the image build.
 
-If you're going to use an existing nodepool and/or filestore instance, you can skip either or both of
+If you're going to use an existing node pool and/or filestore instance, you can skip either or both of
 the following steps and pick back up at the ``cookiecutter``.
 
-Creating a new nodepool
------------------------
-Create the nodepool:
+Creating a new node pool
+------------------------
+Create the node pool:
 
 .. code:: bash
 
@@ -87,6 +87,7 @@ Create the nodepool:
      --metadata disable-legacy-endpoints=true \
      --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
      --no-enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node "110"
+
 
 Creating a new filestore instance
 ---------------------------------
@@ -151,7 +152,7 @@ The cookiecutter template will prompt you to provide the following information:
  - ``<hub_name>``: Enter the chosen name of the hub.
  - ``<project_name>``: Default is ``ucb-datahub-2018``, do not change.
  - ``<cluster_name>``: Default is ``fall-2019``, do not change.
- - ``<pool_name>``: Name of the nodepool (shared or individual) to deploy on.
+ - ``<pool_name>``: Name of the node pool (shared or individual) to deploy on.
  - ``hub_filestore_share``: Default is ``shares``, do not change.
  - ``hub_filestore_ip``: Enter the IP address of the filestore instance. This is available from the web console.
  - ``hub_filestore_capacity``: Enter the allocated storage capacity. This is available from the web console.
@@ -224,9 +225,11 @@ Review hubploy.yaml file inside your project directory and update the image name
 	  
    image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
 
-Create placeholder nodepool
----------------------------
-If you are deploying to a shared nodepool, there is no need to perform this step.
+Create placeholder node pool
+----------------------------
+Node pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.
+
+If you are deploying to a shared node pool, there is no need to perform this step.
 
 Otherwise, you'll need to add the placeholder settings in ``node-placeholder/values.yaml``.
 
@@ -254,7 +257,7 @@ The node placeholder pod should have enough RAM allocated to it that it needs to
        hub.jupyter.org/pool-name: data102-pool
      resources:
        requests:
-         # Some value slightly lower than allocatable RAM on the nodepool
+         # Some value slightly lower than allocatable RAM on the node pool
          memory: 60929654784
      replicas: 1
 
@@ -281,6 +284,8 @@ For reference, here's example output from collecting and calculating the values 
           (gcpdev) ➜  ~ # in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi
           (gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784
 
+
+Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, `calendar events <https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html>`_. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.
 
 Commit and deploy staging
 -------------------------
