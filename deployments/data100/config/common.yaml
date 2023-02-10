@@ -54,8 +54,8 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     memory:
-      guarantee: 4G
-      limit: 4G
+      guarantee: 512M
+      limit: 2G
     image: {}
 
   custom:
