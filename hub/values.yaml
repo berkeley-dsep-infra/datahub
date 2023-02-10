@@ -282,7 +282,7 @@ jupyterhub:
         class CustomAttrSpawner(KubeSpawner):
           spawn_launcher_delay = Int(
             180,
-            config=True
+            config=True,
             help="""
             Time in seconds to delay a server launch, useful for debugging.  If set to zero,
             no delay will take place.
