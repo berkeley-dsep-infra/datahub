@@ -1,13 +1,11 @@
 name: Data Retrieval Request
-title: Request my old files stored in Datahub
+title: "Request my old files stored in Datahub"
 description: Retrieve my old files stored in my Datahub account. This request is no way related to retrieving files stored in Github repositories.
-labels: 
-- support
-- data retrieval
+labels: ["support", "data retrieval"]
 assignees:
-- felder
-- cesarvh
-- shaneknapp
+  - felder
+  - cesarvh
+  - shaneknapp
 body:
   - type: markdown
     attributes:
