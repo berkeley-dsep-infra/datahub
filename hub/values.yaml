@@ -257,12 +257,23 @@ jupyterhub:
         import os
         import time
         from kubespawner import KubeSpawner
+        from prometheus_client import Histogram
+        from jupyterhub import metrics
         from tornado import gen
         from traitlets import ( Int, Unicode )
         import textwrap
         import z2jh
 
         hosted_domain = 'berkeley.edu'
+
+        metrics.SERVER_SPAWN_DURATION_SECONDS = Histogram(
+          'jupyterhub_server_spawn_duration_seconds',
+          'time taken for server spawning operation',
+          ['status'],
+          # Use custom bucket sizes, since the default bucket ranges
+          # are meant for quick running processes. Spawns can take a while!
+          buckets=[0.5, 1, 2.5, 5, 10, 15, 30, 60, 120, 180, 300, 600, float("inf")],
+        )
 
         def memparse(val):
           '''Parse memory for relative comparisons.'''
