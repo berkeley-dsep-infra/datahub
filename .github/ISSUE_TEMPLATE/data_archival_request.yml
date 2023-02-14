@@ -20,7 +20,7 @@ body:
   - type: textarea
     attributes:
       label: Link to Datahub Folder
-      description: Link to the location where your archived files are kept!
+      description: Paste the link to the location where your archived files are kept!
       value: |
         - Eg: gs://ucb-datahub-archived-homedirs/spring-2021/datahub.berkeley.edu/xxx.tar.gz
     validations:
