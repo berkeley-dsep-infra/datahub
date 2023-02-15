@@ -74,6 +74,9 @@ dependencies:
 # Econ 148, Spring 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4067
 - ipykernel = 6.19.4
 
+# Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4251
+- sqlalchemy==1.4.46
+
 # Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4093
 - pip:
   - pycountry-convert==0.7.2
