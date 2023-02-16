@@ -112,3 +112,4 @@ dependencies:
     - jupyter-remote-desktop-proxy==1.0.0
     # syncthing for dropbox-like functionality
     - jupyter-syncthing-proxy==1.0.3
+    - git+https://github.com/berkeley-dsep-infra/tmpystore.git@84765e1
