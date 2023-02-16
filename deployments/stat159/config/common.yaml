@@ -34,6 +34,16 @@ jupyterhub:
     cmd:
       - jupyterhub-singleuser
       - --LabApp.collaborative=true
+      # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration
+      - --YDocExtension.ystore_class=tmpystore.TmpYStore
+    #lifecycleHooks:
+    #  postStart:
+    #    exec:
+    #      command:
+    #        - "bash"
+    #        - "-c"
+    #        - >
+    #          if [ -f ${HOME}/.jupyter_ystore.db ]; then mv -f ${HOME}/.jupyter_ystore.db /tmp/ ; elif [ -s ${HOME}/.jupyter_ystore.db ]; then rm -f ${HOME}/.jupyter_ystore.db ; touch /tmp/.jupyter_ystore.db ; else touch /tmp/.jupyter_ystore.db ; fi ; ln -s /tmp/.jupyter_ystore.db ${HOME}/.jupyter_ystore.db
     extraFiles:
       culling-config:
         data:
