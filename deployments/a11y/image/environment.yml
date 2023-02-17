@@ -7,8 +7,9 @@ dependencies:
 - python==3.10.8
 - git==2.39.0
 - coverage==6.4.4
+- jupyter_server==2.2.1
 - jupyter-book==0.13.1
-- jupyter-resource-usage==0.6.1
+- jupyter-resource-usage==0.7.1
 - jupyterlab-link-share
 - matplotlib==3.6.2
 - numpy==1.24.0
