@@ -5,6 +5,7 @@ channels:
 
 dependencies:
   - python==3.10.8
+  - nodejs=18
 
   - altair==4.2.2
   - beautifulsoup4==4.11.1
@@ -104,7 +105,7 @@ dependencies:
 # Packages not available on conda-forge, installed through pip
   - pip:
     - ipython-sql==0.4.1
-    - jupyterlab_mystjs==0.1.4
+    - jupyterlab_myst==1.0.1
     
     # Packages needed only on the hub (mostly linux)
     # If installing this environment on a personal machine, 
