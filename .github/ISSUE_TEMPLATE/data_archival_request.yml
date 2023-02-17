@@ -1,13 +1,11 @@
 name: Data Retrieval Request
-title: Request my old files stored in Datahub
 description: Retrieve my old files stored in my Datahub account. This request is no way related to retrieving files stored in Github repositories.
-labels: 
-- support
-- data retrieval
+title: "Request my old files stored in Datahub"
+labels: ["support", "data retrieval"]
 assignees:
-- felder
-- cesarvh
-- shaneknapp
+  - felder
+  - cesarvh
+  - shaneknapp
 body:
   - type: markdown
     attributes:
@@ -15,15 +13,13 @@ body:
         Please follow the sections in the template and provide us the information required to retrieve your files! 	
   - type: textarea
     attributes:
-      label: Email Id 
-      description: Berkeley Email Id which you used to access Datahub!
+      label: Your UC Berkeley Email Address
+      description: "Please enter your official UC Berkeley email address! eg: oski@berkeley.edu. Instructions on how to retrieve your files will be sent to this email address."
     validations:
       required: true
   - type: textarea
     attributes:
-      label: Link to Datahub Folder
-      description: Link to the location where your archived files are kept!
-      value: |
-        - Eg: gs://ucb-datahub-archived-homedirs/spring-2021/datahub.berkeley.edu/xxx.tar.gz
+      label: Link to Your Datahub Folder
+      description: "Please enter the link to your datahub folder. You can find the link at the bottom of the WHERE-ARE-MY-FILES.txt file in your Datahub home directory. Eg: gs://ucb-datahub-archived-homedirs/spring-2021/datahub.berkeley.edu/xxx.tar.gz"
     validations:
       required: true
