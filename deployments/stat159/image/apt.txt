@@ -37,10 +37,11 @@ perl-doc
 build-essential
 gfortran
 
-# Dependencies for nbconvert
+# Dependencies for nbconvert and myst
 texlive-xetex
 texlive-fonts-recommended
 texlive-plain-generic
+latexmk
 # https://github.com/berkeley-dsep-infra/datahub/issues/3719
 texlive-lang-chinese
 lmodern
