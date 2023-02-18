@@ -40,15 +40,16 @@ gfortran
 # Dependencies for nbconvert and myst
 # Latex tools
 texlive-xetex
-texlive-fonts-recommended
 texlive-plain-generic
+texlive-fonts-extra
+texlive-fonts-recommended
+texlive-lang-chinese
 latexmk
 lmodern
-texlive-lang-chinese # https://github.com/berkeley-dsep-infra/datahub/issues/3719
+latexdiff
 
 # Other useful document-related tools
 pandoc
-latexdiff
 imagemagick
 # /end nbconvert/myst tools
 
