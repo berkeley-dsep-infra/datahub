@@ -138,4 +138,9 @@ jupyterhub:
       1521412: # ARE 21, Spring 2023, issue #4057
         mem_limit: 4096M
         mem_guarantee: 4096M
+        
+      1522114: # ECON 148, Spring 2023, issue #4261
+        mem_limit: 2048M
+        mem_guarantee: 2048M
+        
       
