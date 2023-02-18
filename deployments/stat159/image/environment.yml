@@ -31,7 +31,6 @@ dependencies:
   - ipympl==0.9.2
   - ipyparallel==8.4.1
   - jupyter-book==0.13.2
-  - jupyter-repo2docker==2022.10.0
   - jupyter-resource-usage==0.7.1
   - jupyter_bokeh==3.0.5
   - jupyter_server==2.2.1
