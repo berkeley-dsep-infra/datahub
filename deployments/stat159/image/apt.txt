@@ -44,14 +44,14 @@ texlive-plain-generic
 texlive-fonts-extra
 texlive-fonts-recommended
 texlive-lang-chinese
+texlive-science
 latexmk
 lmodern
 latexdiff
 
 # Other useful document-related tools
 pandoc
-imagemagick
-# /end nbconvert/myst tools
+imagemagick# /end nbconvert/myst tools
 
 
 # Some useful git utilities use basic Ruby
