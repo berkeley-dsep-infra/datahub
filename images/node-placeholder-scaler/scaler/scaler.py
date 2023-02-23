@@ -71,11 +71,14 @@ def get_replica_counts(events):
                 continue
             for pool_name, count in pools_replica_config.items():
                 if not isinstance(count, int):
+                    logging.info(f"Count {count} not an integer.")
                     continue
                 if pool_name not in replica_counts:
                     replica_counts[pool_name] = count
                 else:
                     replica_counts[pool_name] = max(replica_counts[pool_name], count)
+        else:
+            logging.error(f"Event has no description: {_event_repr(ev)}")
     return replica_counts
 
 
@@ -99,7 +102,9 @@ def main():
         with open(args.placeholder_template_file) as f:
             placeholder_template = yaml.load(f)
 
-        replica_count_overrides = get_replica_counts(get_events(config["calendarUrl"]))
+        events = get_events(config["calendarUrl"])
+        logging.info(f"Found {len(events)} events at {config['calendarUrl']}.")
+        replica_count_overrides = get_replica_counts(events)
         logging.info(f"Overrides: {replica_count_overrides}")
 
         actions_taken = []
