@@ -364,7 +364,9 @@ jupyterhub:
             is_student = False
             is_instructor = False
             for group in self.user.groups:
-              # group format is 'canvas::{canvas_id}::{role}'
+              # group format is sometimes 'canvas::{canvas_id}::{role}'
+              if group.name.count('::') != 2:
+                continue
               _, group_course, group_role = group.name.split('::', 2)
               if not group_course in group_profiles:
                 continue
