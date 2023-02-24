@@ -51,6 +51,16 @@ jupyterhub:
           # https://github.com/berkeley-dsep-infra/datahub/issues/3160
           ContentsManager:
             allow_hidden: true
+      jupyter_server_config.json:
+        mountPath: /usr/local/etc/jupyter/jupyter_server_config.json
+        data:
+          # Via @yuvipanda in 2i2c-org/infrastructure##2247 :
+          # Move the sqlite file used by https://github.com/jupyter-server/jupyter_server_fileid
+          # off the default path, which is under ~/.local/share/jupyter.
+          # That is NFS, and sqlite + NFS don't go well together. In addition,
+          # it uses WAL mode of sqlite, and that is completely unsupported on NFS
+          BaseFileIdManager: &server_config_base_file_id_manager
+            db_path: /tmp/file_id_manager.db
     nodeSelector:
       hub.jupyter.org/pool-name: stat159-pool
     defaultUrl: /lab
