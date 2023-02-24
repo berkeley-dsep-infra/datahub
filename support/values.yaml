@@ -85,7 +85,7 @@ prometheus:
       - nodes=[*]
   server:
     nodeSelector:
-      hub.jupyter.org/pool-name: support-pool
+      hub.jupyter.org/pool-name: prometheus-pool
     resources:
       # Without this, prometheus can easily starve users
       requests:
