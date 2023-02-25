@@ -38,12 +38,16 @@ build-essential
 gfortran
 
 # Dependencies for nbconvert and myst
-# Latex tools
+# LaTeX tools
 texlive-xetex
 texlive-plain-generic
 texlive-fonts-extra
 texlive-fonts-recommended
 texlive-lang-chinese
+texlive-latex-extra
+texlive-latex-recommended
+texlive-humanities
+texlive-music
 texlive-science
 latexmk
 lmodern
@@ -51,8 +55,8 @@ latexdiff
 
 # Other useful document-related tools
 pandoc
-imagemagick# /end nbconvert/myst tools
-
+imagemagick
+# /end nbconvert/myst tools
 
 # Some useful git utilities use basic Ruby
 ruby
