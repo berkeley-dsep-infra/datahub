@@ -41,6 +41,7 @@ dependencies:
   - jupyterlab-git==0.41.0
   - jupyterlab-link-share==0.2.5
   - jupyterlab-variableinspector==3.0.9
+  - jupyterlab-myst==1.1.0
   - jupyterlab_pygments==0.2.2
   - jupyterlab_server==2.19.0
   - jupyterlab_widgets==3.0.5
@@ -104,7 +105,6 @@ dependencies:
 # Packages not available on conda-forge, installed through pip
   - pip:
     - ipython-sql==0.4.1
-    - jupyterlab_myst==1.0.1
     
     # Packages needed only on the hub (mostly linux)
     # If installing this environment on a personal machine, 
