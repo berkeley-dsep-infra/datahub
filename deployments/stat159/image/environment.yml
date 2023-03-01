@@ -30,7 +30,7 @@ dependencies:
   - ipydatagrid==1.1.14
   - ipympl==0.9.2
   - ipyparallel==8.4.1
-#  - ipykernel==6.21.2 # build not working
+#  - ipykernel==6.21.2 # build not working 
   - ipywidgets==8.0.4
 
   # Temporarily disable jupyter-book as build isn't resolving.
@@ -48,7 +48,7 @@ dependencies:
   - jupyterlab-git==0.41.0
   - jupyterlab-link-share==0.2.5
   - jupyterlab-variableinspector==3.0.9
-  - jupyterlab-myst==1.1.0
+  - jupyterlab-myst==1.1.1
   - jupyterlab_pygments==0.2.2
   - jupyterlab_server==2.19.0
   - jupyterlab_widgets==3.0.5
