@@ -2,13 +2,18 @@
 import logging
 import datetime
 
-import icalendar
+#import ical
+from ical.calendar_stream import IcsCalendarStream
+
+import zoneinfo
+
+#import icalendar
 import requests
-from icalevents import icalevents
+#from icalevents import icalevents
 
 # imports needed for vendored _get_cal_tz:
-from dateutil.tz import gettz
-from pytz import timezone
+#from dateutil.tz import gettz
+#from pytz import timezone
 
 from ruamel.yaml import YAML
 
@@ -30,16 +35,17 @@ def _event_repr(event):
 
     For use in logging. Shows title and time.
     """
-    if event.all_day:
-        return f"{event.summary} {event.start.date()}"
+    if event.computed_duration.days >= 1:
+        start = str(event.start)
+        return f"{event.summary} {start}"
     else:
-        if event.end.date() == event.start.date():
+        if str(event.end.date()) == str(event.start.date()):
             return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%H:%M %Z')}"
         else:
             return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%Y-%m-%d %H:%M %Z')}"
 
 
-def _get_cal_tz(content: str):
+def _get_cal_tz(calendar):
     """
     Get the calendar timezone
 
@@ -48,33 +54,31 @@ def _get_cal_tz(content: str):
 
     License: MIT
     """
-    calendar = icalendar.Calendar.from_ical(content)
-
     # BEGIN PATCH: support X-WR-Timezone, which google sets as calendar default timezone
-    if calendar.get("x-wr-timezone"):
-        return gettz(str(calendar["x-wr-timezone"]))
+    if len(calendar.timezones) == 1:
+        return zoneinfo.ZoneInfo(calendar.timezones[0].tz_id)
     # END PATCH
 
     # Keep track of the timezones defined in the calendar
-    timezones = {}
-    for c in calendar.walk("VTIMEZONE"):
-        name = str(c["TZID"])
-        try:
-            timezones[name] = c.to_tz()
-        except IndexError:
-            # This happens if the VTIMEZONE doesn't
-            # contain start/end times for daylight
-            # saving time. Get the system pytz
-            # value from the name as a fallback.
-            timezones[name] = timezone(name)
+    # timezones = {}
+    # for c in calendar.walk("VTIMEZONE"):
+    #     name = str(c["TZID"])
+    #     try:
+    #         timezones[name] = c.to_tz()
+    #     except IndexError:
+    #         # This happens if the VTIMEZONE doesn't
+    #         # contain start/end times for daylight
+    #         # saving time. Get the system pytz
+    #         # value from the name as a fallback.
+    #         timezones[name] = timezone(name)
 
-    # If there's exactly one timezone in the file,
-    # assume it applies globally, otherwise UTC
-    if len(timezones) == 1:
-        cal_tz = gettz(list(timezones)[0])
-    else:
-        cal_tz = UTC
-    return cal_tz
+    # # If there's exactly one timezone in the file,
+    # # assume it applies globally, otherwise UTC
+    # if len(timezones) == 1:
+    #     cal_tz = gettz(list(timezones)[0])
+    # else:
+    #     cal_tz = UTC
+    # return cal_tz
 
 
 def get_events(url: str):
@@ -83,31 +87,32 @@ def get_events(url: str):
 
     Mostly to deal with weird issues around url parsing and timezones
     """
-
     if url.startswith("file://"):
         path = url.split("://", 1)[1]
         with open(path) as f:
-            content = f.read()
+            calendar = IcsCalendarStream.calendar_from_ics(f.read())
     elif "://" not in url:
         path = url
         with open(path) as f:
-            content = f.read()
+            calendar = IcsCalendarStream.calendar_from_ics(f.read())
     else:
         r = requests.get(url)
         r.raise_for_status()
-        content = r.text
+        calendar = IcsCalendarStream.calendar_from_ics(r.text)
 
-    cal_tz = _get_cal_tz(content)
-
-    now = utcnow()
-    events = icalevents.parse_events(content, start=now, end=now)
-    for event in events:
-        # fix timezone for all-day events
-        if not event.start.tzinfo:
-            log.info(
-                f"Using calendar default timezone {cal_tz} for {_event_repr(event)}"
-            )
-            event.start = event.start.replace(tzinfo=cal_tz)
-        if not event.end.tzinfo:
-            event.end = event.end.replace(tzinfo=cal_tz)
+    cal_tz = _get_cal_tz(calendar)
+    #print(cal_tz)
+    #now = utcnow()
+    now = datetime.datetime(2023, 3, 2, 20, 0, 0, 0, tzinfo=cal_tz)
+    #events = icalevents.parse_events(content, start=now, end=now)
+    events = calendar.timeline.at_instant(now)
+    # for event in events:
+        # # fix timezone for all-day events
+        # if not event.dtstart.tzinfo:
+        #     log.info(
+        #         f"Using calendar default timezone {cal_tz} for {_event_repr(event)}"
+        #     )
+        #     new_start = datetime.datetime(event.dtstart.year, event.dtstart.month, event.dtstart.day, tzinfo=cal_tz)
+        # if not event.dtend.tzinfo:
+        #     event.dtend = cal_tz
     return events
