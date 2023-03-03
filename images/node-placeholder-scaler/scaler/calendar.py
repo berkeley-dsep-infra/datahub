@@ -35,12 +35,9 @@ def _event_repr(event):
 
 def _get_cal_tz(calendar):
     """
-    Get the calendar timezone
+    Get the calendar timezone.
 
-    This code is extracted from icalevents.icalparser
-    It's not in an importable form over there, so copy it outright
-
-    License: MIT
+    Returns zoneinfo.ZoneInfo()
     """
     # if there's exactly one TZ in the calendar, assume it's the
     # right one to use
@@ -48,14 +45,13 @@ def _get_cal_tz(calendar):
         return zoneinfo.ZoneInfo(calendar.timezones[0].tz_id)
     # ...otherwise return UTC
     else:
-        cal_tz = UTC
-    return cal_tz
+        return zoneinfo.ZoneInfo("UTC")
 
-def get_events(url: str):
+def get_calendar(url: str):
     """
-    Wrapper for icalevents.events
+    Get a calendar from local file or URL.
 
-    Mostly to deal with weird issues around url parsing and timezones
+    Returns an ical.Calendar object.
     """
     if url.startswith("file://"):
         path = url.split("://", 1)[1]
@@ -70,8 +66,19 @@ def get_events(url: str):
         r.raise_for_status()
         calendar = IcsCalendarStream.calendar_from_ics(r.text)
 
-    cal_tz = _get_cal_tz(calendar)
+    if calendar:
+        return calendar
+    else:
+        logging.error(f"Unable to get calendar from resource: {url}")
 
+def get_events(calendar):
+    """
+    Get events from a calendar.
+
+    Returns a list of currently happening ical.Event objects.
+    """
+    cal_tz = _get_cal_tz(calendar)
     now = datetime.datetime.now(tz=cal_tz)
     events_iter = calendar.timeline.at_instant(now)
+
     return [x for x in events_iter]
