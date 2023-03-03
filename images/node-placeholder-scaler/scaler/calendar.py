@@ -54,31 +54,14 @@ def _get_cal_tz(calendar):
 
     License: MIT
     """
-    # BEGIN PATCH: support X-WR-Timezone, which google sets as calendar default timezone
+    # if there's exactly one TZ in the calendar, assume it's the
+    # right one to use
     if len(calendar.timezones) == 1:
         return zoneinfo.ZoneInfo(calendar.timezones[0].tz_id)
-    # END PATCH
-
-    # Keep track of the timezones defined in the calendar
-    # timezones = {}
-    # for c in calendar.walk("VTIMEZONE"):
-    #     name = str(c["TZID"])
-    #     try:
-    #         timezones[name] = c.to_tz()
-    #     except IndexError:
-    #         # This happens if the VTIMEZONE doesn't
-    #         # contain start/end times for daylight
-    #         # saving time. Get the system pytz
-    #         # value from the name as a fallback.
-    #         timezones[name] = timezone(name)
-
-    # # If there's exactly one timezone in the file,
-    # # assume it applies globally, otherwise UTC
-    # if len(timezones) == 1:
-    #     cal_tz = gettz(list(timezones)[0])
-    # else:
-    #     cal_tz = UTC
-    # return cal_tz
+    # ...otherwise return UTC
+    else:
+        cal_tz = UTC
+    return cal_tz
 
 
 def get_events(url: str):
