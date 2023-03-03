@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 import logging
 import datetime
-
-from ical.calendar_stream import IcsCalendarStream
 import requests
 import zoneinfo
 
-from ruamel.yaml import YAML
-
-yaml = YAML(typ="safe")
-
-UTC = datetime.timezone.utc
+from ical.calendar_stream import IcsCalendarStream
 
 log = logging.getLogger(__name__)
 
