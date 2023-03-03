@@ -72,6 +72,6 @@ def get_events(url: str):
 
     cal_tz = _get_cal_tz(calendar)
 
-    now = datetime.datetime.now(tzinfo=cal_tz)
+    now = datetime.datetime.now(tz=cal_tz)
     events_iter = calendar.timeline.at_instant(now)
     return [x for x in events_iter]
