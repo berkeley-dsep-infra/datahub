@@ -2,18 +2,9 @@
 import logging
 import datetime
 
-#import ical
 from ical.calendar_stream import IcsCalendarStream
-
-import zoneinfo
-
-#import icalendar
 import requests
-#from icalevents import icalevents
-
-# imports needed for vendored _get_cal_tz:
-#from dateutil.tz import gettz
-#from pytz import timezone
+import zoneinfo
 
 from ruamel.yaml import YAML
 
