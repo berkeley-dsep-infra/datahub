@@ -8,10 +8,6 @@ from ical.calendar_stream import IcsCalendarStream
 
 log = logging.getLogger(__name__)
 
-def utcnow():
-    """Standalone function for easier mocking"""
-    return datetime.datetime.now(tz=datetime.timezone.utc)
-
 def _event_repr(event):
     """
     Simple repr of a calenar event
