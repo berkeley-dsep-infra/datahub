@@ -18,8 +18,6 @@ def utcnow():
     """Standalone function for easier mocking"""
     return datetime.datetime.now(tz=datetime.timezone.utc)
 
-
-
 def _event_repr(event):
     """
     Simple repr of a calenar event
@@ -34,7 +32,6 @@ def _event_repr(event):
             return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%H:%M %Z')}"
         else:
             return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%Y-%m-%d %H:%M %Z')}"
-
 
 def _get_cal_tz(calendar):
     """
@@ -53,7 +50,6 @@ def _get_cal_tz(calendar):
     else:
         cal_tz = UTC
     return cal_tz
-
 
 def get_events(url: str):
     """
@@ -75,18 +71,7 @@ def get_events(url: str):
         calendar = IcsCalendarStream.calendar_from_ics(r.text)
 
     cal_tz = _get_cal_tz(calendar)
-    #print(cal_tz)
-    #now = utcnow()
-    now = datetime.datetime(2023, 3, 2, 20, 0, 0, 0, tzinfo=cal_tz)
-    #events = icalevents.parse_events(content, start=now, end=now)
-    events = calendar.timeline.at_instant(now)
-    # for event in events:
-        # # fix timezone for all-day events
-        # if not event.dtstart.tzinfo:
-        #     log.info(
-        #         f"Using calendar default timezone {cal_tz} for {_event_repr(event)}"
-        #     )
-        #     new_start = datetime.datetime(event.dtstart.year, event.dtstart.month, event.dtstart.day, tzinfo=cal_tz)
-        # if not event.dtend.tzinfo:
-        #     event.dtend = cal_tz
-    return events
+
+    now = datetime.datetime.now(tzinfo=cal_tz)
+    events_iter = calendar.timeline.at_instant(now)
+    return [x for x in events_iter]
