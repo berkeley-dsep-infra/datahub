@@ -33,9 +33,7 @@ dependencies:
 #  - ipykernel==6.21.2 # build not working 
   - ipywidgets==8.0.4
 
-  # Temporarily disable jupyter-book as build isn't resolving.
-  # We neeed https://github.com/executablebooks/jupyter-book/pull/1842
-  # to be merged before we can add it back.
+  # Using from pypi as current version isn't on conda yet
   #- jupyter-book==0.13.2
 
   - jupyter-resource-usage==0.7.1
@@ -112,6 +110,7 @@ dependencies:
 # Packages not available on conda-forge, installed through pip
   - pip:
     - ipython-sql==0.4.1
+    - jupyter-book==0.14.0
     
     # Packages needed only on the hub (mostly linux)
     # If installing this environment on a personal machine, 
