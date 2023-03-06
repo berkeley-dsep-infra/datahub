@@ -61,14 +61,18 @@ def get_calendar(url: str):
     else:
         logging.error(f"Unable to get calendar from resource: {url}")
 
-def get_events(calendar):
+def get_events(calendar, time=None):
     """
-    Get events from a calendar.
+    Get events from a calendar.  If no time is passed, assume now.
+
+    Args:  ical.calendar object, datetime.datetime
 
     Returns a list of currently happening ical.Event objects.
     """
     cal_tz = _get_cal_tz(calendar)
-    now = datetime.datetime.now(tz=cal_tz)
-    events_iter = calendar.timeline.at_instant(now)
+    if time is None:
+        time = datetime.datetime.now(tz=cal_tz)
+
+    events_iter = calendar.timeline.at_instant(time)
 
     return [x for x in events_iter]
