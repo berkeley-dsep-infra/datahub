@@ -111,6 +111,7 @@ dependencies:
     - ipython-sql==0.4.1
     - jupyter-book==0.14.0
     - ipytest==0.13.0
+    - nbval==0.10.0
     
     # Packages needed only on the hub (mostly linux)
     # If installing this environment on a personal machine, 
