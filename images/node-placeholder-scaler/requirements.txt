@@ -8,6 +8,8 @@ certifi==2021.5.30
     # via requests
 charset-normalizer==2.0.4
     # via requests
+datetime==5.0
+    # via -r requirements.in
 emoji==2.2.0
     # via ical
 ical==4.2.9
@@ -20,6 +22,8 @@ pyparsing==3.0.9
     # via ical
 python-dateutil==2.8.2
     # via ical
+pytz==2022.7.1
+    # via datetime
 requests==2.26.0
     # via -r requirements.in
 ruamel-yaml==0.17.16
@@ -34,3 +38,8 @@ tzdata==2022.7
     # via ical
 urllib3==1.26.6
     # via requests
+zope-interface==5.5.2
+    # via datetime
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
