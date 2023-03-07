@@ -69,8 +69,8 @@ RUN install2.r --error --skipinstalled \
     rm -rf /tmp/downloaded_packages
 
 # fix texlive issue 3338
-RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
+RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
+RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
 RUN tlmgr --verify-repo=none update --self
 
 # Use simpler locking strategy
