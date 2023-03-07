@@ -1,4 +1,4 @@
-icalendar
-icalevents
+datetime
+ical
 requests
 ruamel.yaml

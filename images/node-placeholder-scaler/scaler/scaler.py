@@ -9,14 +9,10 @@ import os
 from copy import deepcopy
 import time
 
-from .calendar import get_events, _event_repr
+from .calendar import get_calendar, get_events, _event_repr
 
-# imports needed for vendored _get_cal_tz:
 from ruamel.yaml import YAML
-
 yaml = YAML(typ="safe")
-
-UTC = datetime.timezone.utc
 
 
 def make_deployment(pool_name, template, node_selector, resources, replicas):
@@ -102,8 +98,10 @@ def main():
         with open(args.placeholder_template_file) as f:
             placeholder_template = yaml.load(f)
 
-        events = get_events(config["calendarUrl"])
+        calendar = get_calendar(config["calendarUrl"])
+        events = get_events(calendar)
         logging.info(f"Found {len(events)} events at {config['calendarUrl']}.")
+
         replica_count_overrides = get_replica_counts(events)
         logging.info(f"Overrides: {replica_count_overrides}")
 

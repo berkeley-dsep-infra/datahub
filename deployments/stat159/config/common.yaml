@@ -18,6 +18,7 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
     config:
       Authenticator:
+        manage_groups: false
         admin_users:
           # infrastructure
           - sknapp
@@ -29,21 +30,36 @@ jupyterhub:
           # Instructor and GSI
           - fernando.perez
           - fsapienza
+    extraConfig:
+      25-roles-and-shared-accounts: |
+        for collab_group, members in collab_groups.items():
+          #print(f"Add group '{collab_group}' with members: {members}")
+          #c.JupyterHub.load_groups[collab_group] = members
 
+          # Add user associated with collab group
+          collab_user = f"collab-{collab_group}"
+
+          # Anyone who in a collab_group can admin and access the
+          # user server, and can list users, of that group.
+          print(f"Add role for '{collab_user}'")
+          c.JupyterHub.load_roles.append(
+            {
+              "name": f"collab-access-{collab_group}",
+              "scopes": [
+                "admin-ui",
+                f"list:users!user={collab_user}",
+                f"admin:servers!user={collab_user}",
+                f"access:servers!user={collab_user}",
+              ],
+              "groups": [collab_group],
+            }
+          )
   singleuser:
     cmd:
       - jupyterhub-singleuser
       - --LabApp.collaborative=true
       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration
       - --YDocExtension.ystore_class=tmpystore.TmpYStore
-    #lifecycleHooks:
-    #  postStart:
-    #    exec:
-    #      command:
-    #        - "bash"
-    #        - "-c"
-    #        - >
-    #          if [ -f ${HOME}/.jupyter_ystore.db ]; then mv -f ${HOME}/.jupyter_ystore.db /tmp/ ; elif [ -s ${HOME}/.jupyter_ystore.db ]; then rm -f ${HOME}/.jupyter_ystore.db ; touch /tmp/.jupyter_ystore.db ; else touch /tmp/.jupyter_ystore.db ; fi ; ln -s /tmp/.jupyter_ystore.db ${HOME}/.jupyter_ystore.db
     extraFiles:
       culling-config:
         data:
