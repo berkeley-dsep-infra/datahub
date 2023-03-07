@@ -66,12 +66,15 @@ RUN install2.r --error --skipinstalled \
     anytime # For https://github.com/berkeley-dsep-infra/datahub/issues/2523 \
     Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
+    tinytex # manage latex through tinytex
     rm -rf /tmp/downloaded_packages
 
+RUN R --quiet -e "tinytex::install_tinytex()"
+
 # fix texlive issue 3338
-RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
-RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
-RUN tlmgr --verify-repo=none update --self
+# RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
+# RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
+# RUN tlmgr --verify-repo=none update --self
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
