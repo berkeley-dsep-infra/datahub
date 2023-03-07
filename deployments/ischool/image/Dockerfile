@@ -67,9 +67,9 @@ RUN install2.r --error --skipinstalled \
     Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
     tinytex # manage latex through tinytex
-    rm -rf /tmp/downloaded_packages
 
-RUN R --quiet -e "tinytex::install_tinytex()"
+# Install TinyTex 
+RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
 
 # fix texlive issue 3338
 # RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2022
