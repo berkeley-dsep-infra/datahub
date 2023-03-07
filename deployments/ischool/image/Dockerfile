@@ -68,7 +68,6 @@ RUN install2.r --error --skipinstalled \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
     tinytex # manage latex through tinytex
 
-# Install TinyTex 
 RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
 
 # Use simpler locking strategy
