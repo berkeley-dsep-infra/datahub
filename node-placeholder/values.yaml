@@ -78,7 +78,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   biology:
     nodeSelector:
       hub.jupyter.org/pool-name: biology-pool
@@ -94,7 +94,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   data100:
     nodeSelector:
       hub.jupyter.org/pool-name: data100-pool
@@ -110,7 +110,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   data102:
     nodeSelector:
       hub.jupyter.org/pool-name: data102-pool
