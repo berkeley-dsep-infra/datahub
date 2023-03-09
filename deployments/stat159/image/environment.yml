@@ -8,6 +8,7 @@ dependencies:
   - nodejs=18
 
   - altair==4.2.2
+  - bash_kernel==0.9.0
   - beautifulsoup4==4.11.1
   - black==22.12.0
   - bokeh==2.4.3
