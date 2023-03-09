@@ -34,6 +34,11 @@ RUN apt-get update > /dev/null && \
             libnss3 \
             libxss1 \
             libssl1.1 \
+            texlive-xetex \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-lang-chinese \
+            texlive-plain-generic \
             fonts-symbola \
             gdebi-core \
             tini \
@@ -66,9 +71,6 @@ RUN install2.r --error --skipinstalled \
     anytime # For https://github.com/berkeley-dsep-infra/datahub/issues/2523 \
     Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
     fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
-    tinytex # manage latex through tinytex
-
-RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
