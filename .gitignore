@@ -1,0 +1,4 @@
+**/*.lock
+**/*.tgz
+**/*.swp
+**/__pycache__
