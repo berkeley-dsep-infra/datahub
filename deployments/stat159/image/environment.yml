@@ -17,6 +17,7 @@ dependencies:
   - cython==0.29.33
   - dask==2023.1.1
   - dask-labextension==6.0.0
+  - datascience==0.17.6
   - fortran-magic==0.7
   - gh-scoped-creds==4.1
   - h5netcdf==1.1.0
@@ -48,6 +49,7 @@ dependencies:
   - jupyterlab-myst==1.1.1
   - jupyterlab_pygments==0.2.2
   - jupyterlab_server==2.19.0
+  - jupyterlab-spellchecker==0.7.2
   - jupyterlab_widgets==3.0.5
   - jupytext==1.14.4
   - mamba==1.2.0
