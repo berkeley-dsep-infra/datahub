@@ -31,7 +31,7 @@ dependencies:
 #- ipyparallel==8.4.1
 - jupyter-book==0.13.1
 - jupyter-repo2docker==2022.2.0
-- jupyter-resource-usage==0.6.1
+- jupyter-resource-usage==0.6.1  
 #- jupyter_bokeh==3.0.4
 #- jupyterlab-drawio==0.9.0
 #- jupyterlab-favorites==3.0.0
@@ -42,6 +42,7 @@ dependencies:
 #- jupyterlab_pygments==0.2.2
 #- jupyterlab_widgets==3.0.2
 #- jupytext==1.14.0
+- jupyter_server==2.4.0
 - matplotlib
 #- matplotlib-inline==0.1.6
 #- mock==4.0.3
@@ -88,8 +89,8 @@ dependencies:
   # - gh-scoped-creds==4.1
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
-  - notebook==7.0.0a7
-  - jupyterlab==4.0.0a30
+  - notebook==7.0.0a15
+  - jupyterlab==4.0.0a35
   #- otter-grader==4.0.1
   #- ipython-sql==0.4.1
   # ###
