@@ -42,7 +42,7 @@ orbs:
                     name: Determine range of commits we are building
                     command: |
                         # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
-                        COMMIT_RANGE=$(./.circleci/get-commit-range.py 2> /tmp/commit-range-err.txt)
+                        COMMIT_RANGE=$(./.circleci/get-commit-range.py 2> /tmp/commit-range-err.txt || true)
                         if [ -s /tmp/commit-range-err.txt ]; then
                             echo "Unable to get commit range."
                             cat /tmp/commit-range-err.txt
