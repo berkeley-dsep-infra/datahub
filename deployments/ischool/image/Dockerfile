@@ -23,6 +23,7 @@ WORKDIR ${HOME}
 # libarchive-dev for https://github.com/berkeley-dsep-infra/datahub/issues/1997
 RUN apt-get update > /dev/null && \
     apt-get install --yes \
+            fonts-symbola \
             libx11-xcb1 \
             libxtst6 \
             libxrandr2 \
@@ -34,10 +35,14 @@ RUN apt-get update > /dev/null && \
             libnss3 \
             libxss1 \
             libssl1.1 \
-            fonts-symbola \
-            gdebi-core \
-            tini \
-            nodejs npm > /dev/null && \
+            nodejs \
+            npm \
+            texlive-xetex \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-lang-chinese \
+            texlive-plain-generic \
+            tini > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -63,15 +68,39 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 
 # Install extra R packages
 RUN install2.r --error --skipinstalled \
-    anytime # For https://github.com/berkeley-dsep-infra/datahub/issues/2523 \
-    Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
-    fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
-    rm -rf /tmp/downloaded_packages
-
-# fix texlive issue 3338
-RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr --verify-repo=none update --self
+    ## general interest 
+    anytime    \
+    Hmisc      \
+    lmtest     \
+    lubridate  \
+    latex2exp  \
+    MASS       \
+    patchwork  \
+    stargazer  \
+    tidymodels \
+    wooldridge \
+    ## machine learning
+    caret      \
+    parsnip    \
+    torch      \
+    ## 241
+    AER        \
+    randomizr  \
+    ri         \
+    ## 271
+    fable      \
+    feasts     \
+    fpp3       \
+    gamlr      \
+    plm        \
+    lme4       \
+    Quandl     \
+    quantmod   \
+    tseries    \
+    tsibble    \
+    vcd        \
+    vars       \
+    zoo
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
