@@ -36,13 +36,14 @@ RUN apt-get update > /dev/null && \
             libnss3 \
             libxss1 \
             libssl1.1 \
-            nodejs npm > /dev/null \
+            nodejs \
+            npm \
             texlive-xetex \
             texlive-latex-extra \
             texlive-fonts-recommended \
             texlive-lang-chinese \
             texlive-plain-generic \
-            tini && \
+            tini > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
