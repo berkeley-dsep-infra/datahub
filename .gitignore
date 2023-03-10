@@ -1,4 +1,11 @@
+# hubploy, chartpress
+docs/_build
+hub/charts
 **/*.lock
 **/*.tgz
+
+# vi
 **/*.swp
+
+# python
 **/__pycache__
