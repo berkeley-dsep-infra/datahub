@@ -68,9 +68,39 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 
 # Install extra R packages
 RUN install2.r --error --skipinstalled \
-    anytime # For https://github.com/berkeley-dsep-infra/datahub/issues/2523 \
-    Hmisc plm patchwork # For https://github.com/berkeley-dsep-infra/datahub/issues/2519 \
-    fpp3 # For https://github.com/berkeley-dsep-infra/datahub/issues/2510 && \
+    ## general interest 
+    anytime    \
+    Hmisc      \
+    lmtest     \
+    lubridate  \
+    latex2exp  \
+    MASS       \
+    patchwork  \
+    stargazer  \
+    tidymodels \
+    wooldridge \
+    ## machine learning
+    caret      \
+    parsnip    \
+    torch      \
+    ## 241
+    AER        \
+    randomizr  \
+    ri         \
+    ## 271
+    fable      \
+    feasts     \
+    fpp3       \
+    gamlr      \
+    plm        \
+    lme4       \
+    Quandl     \
+    quantmod   \
+    tseries    \
+    tsibble    \
+    vcd        \
+    vars       \
+    zoo
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
