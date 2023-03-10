@@ -32,9 +32,13 @@ jupyterhub:
           - fsapienza
     extraConfig:
       25-roles-and-shared-accounts: |
+        c.Authenticator.manage_groups = False
         for collab_group, members in collab_groups.items():
-          #print(f"Add group '{collab_group}' with members: {members}")
-          #c.JupyterHub.load_groups[collab_group] = members
+          try:
+            c.JupyterHub.load_groups[collab_group] = members
+            print(f"Added group '{collab_group}' with members: {members}")
+          except Exception as e:
+            print(f"Exception while adding group '{collab_group}' with members {members} -- {e}")
 
           # Add user associated with collab group
           collab_user = f"collab-{collab_group}"
