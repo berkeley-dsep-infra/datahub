@@ -6,7 +6,7 @@ channels:
 dependencies:
   # Base language runtimes
   - python==3.10.8
-  - nodejs=18
+  - nodejs=16 # code-server requires node < 17
 
   # VS Code support
   - jupyter-vscode-proxy==0.2
