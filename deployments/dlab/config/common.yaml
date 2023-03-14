@@ -40,6 +40,8 @@ jupyterhub:
     cmd:
       - jupyterhub-singleuser
       - --LabApp.collaborative=true
+      # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration
+      - --YDocExtension.ystore_class=tmpystore.TmpYStore
     # Enable jupyterlab-link-share so people can share links for RTC
     extraFiles:
       lab-config:
