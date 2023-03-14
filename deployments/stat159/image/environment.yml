@@ -6,11 +6,7 @@ channels:
 dependencies:
   # Base language runtimes
   - python==3.10.8
-  - nodejs=16 # code-server requires node < 17
-
-  # VS Code support
-  - jupyter-vscode-proxy==0.2
-  - code-server==4.10.1
+  - nodejs=16 # VS code-server requires node < 17
 
   # Other user-facing Python packages
   - altair==4.2.2
@@ -101,7 +97,7 @@ dependencies:
   - xarray==2023.1.0
   - xlrd==2.0.1
 
-  # Packages for Jupyter book - these are normal packages, but we put them in a
+  # Packages for Jupyter book. These are normal packages, but we put them in a
   # separate section so they are easier to manually sync between the main
   # environment.yml file and a pip requirements file that _only_ builds
   # jupyterbook sites using Github Actions.
@@ -127,6 +123,10 @@ dependencies:
   - python-pdfkit==1.0.0 
   - syncthing==1.23.0
   - websockify==0.11.0
+
+  # VS Code support
+  - jupyter-vscode-proxy==0.2
+  - code-server==4.10.1
 
 # Packages not available on conda-forge, installed through pip
   - pip:
