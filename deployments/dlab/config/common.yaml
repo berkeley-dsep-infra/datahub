@@ -37,6 +37,15 @@ jupyterhub:
             - klganter
             - cvacano
   singleuser:
+    cmd:
+      - jupyterhub-singleuser
+      - --LabApp.collaborative=true
+    # Enable jupyterlab-link-share so people can share links for RTC
+    extraFiles:
+      lab-config:
+        data:
+          disabledExtensions:
+            jupyterlab-link-share: false
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
     storage:
