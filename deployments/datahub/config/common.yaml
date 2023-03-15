@@ -131,7 +131,7 @@ jupyterhub:
         mem_limit: 3072M
         mem_guarantee: 3072M
       
-      1521830: # ENVECON 153, Spring 2023, issue #3982
+      1522696: # ENVECON 153, Spring 2023, issue #3982
         mem_limit: 3072M
         mem_guarantee: 3072M
         
@@ -142,5 +142,3 @@ jupyterhub:
       1522114: # ECON 148, Spring 2023, issue #4261
         mem_limit: 2048M
         mem_guarantee: 2048M
-        
-      
