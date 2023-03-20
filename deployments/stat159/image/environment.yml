@@ -135,7 +135,8 @@ dependencies:
     - nbval==0.10.0
     # nbdime 3.1.1 is incompatible with jupyter server 2.0
     # See https://github.com/jupyter/nbdime/pull/649, remove once newer release available.
-    - git+https://github.com/jupyter/nbdime.git@2da614b
+    # nbdime not building ATM - https://github.com/jupyter/nbdime/issues/653
+    #- git+https://github.com/jupyter/nbdime.git@2da614b
 
     # ----------------- Hub-only section ----------------------------
 
