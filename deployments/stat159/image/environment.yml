@@ -27,6 +27,7 @@ dependencies:
   - h5py==3.7.0
   - hdf4==4.2.15
   - hdf5==1.12.2
+  - hypothesis==6.70.0
   - intake==0.6.6
   - intake-esm==2022.9.18
   - intake-xarray==0.6.1
@@ -37,8 +38,8 @@ dependencies:
   - ipywidgets==8.0.4
   - jupyter-resource-usage==0.7.1
   - jupyter_bokeh==3.0.5
-  - jupyter_server==2.2.1
-  - jupyterlab==3.6.1
+  - jupyter_server==2.5.0
+  - jupyterlab==3.6.2
   - jupyterlab-drawio==0.9.0
   - jupyterlab-favorites==3.1.1
   - jupyterlab-geojson==3.3.1
@@ -50,6 +51,7 @@ dependencies:
   - jupyterlab_server==2.19.0
   - jupyterlab-spellchecker==0.7.3
   - jupyterlab_widgets==3.0.5
+  - jupyter_server_ydoc==0.8.0
   - jupytext==1.14.4
   - mamba==1.2.0
   - matplotlib==3.6.3
@@ -111,7 +113,7 @@ dependencies:
   # (apt, homebrew, etc) but we bring them through here for better
   # reproducibility
   - git==2.39.1
-  - pandoc==2.19.2
+  - pandoc==3.1.1
   - pandocfilters==1.5.0
 
   # ----------------- Hub-only section ----------------------------
