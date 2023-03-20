@@ -6,11 +6,7 @@ channels:
 dependencies:
   # Base language runtimes
   - python==3.10.8
-  - nodejs=16 # code-server requires node < 17
-
-  # VS Code support
-  - jupyter-vscode-proxy==0.2
-  - code-server==4.10.1
+  - nodejs=16 # VS code-server requires node < 17
 
   # Other user-facing Python packages
   - altair==4.2.2
@@ -31,6 +27,7 @@ dependencies:
   - h5py==3.7.0
   - hdf4==4.2.15
   - hdf5==1.12.2
+  - hypothesis==6.70.0
   - intake==0.6.6
   - intake-esm==2022.9.18
   - intake-xarray==0.6.1
@@ -39,11 +36,10 @@ dependencies:
   - ipympl==0.9.2
   - ipyparallel==8.4.1
   - ipywidgets==8.0.4
-  - jupyter-book==0.15.0
   - jupyter-resource-usage==0.7.1
   - jupyter_bokeh==3.0.5
-  - jupyter_server==2.2.1
-  - jupyterlab==3.6.1
+  - jupyter_server==2.5.0
+  - jupyterlab==3.6.2
   - jupyterlab-drawio==0.9.0
   - jupyterlab-favorites==3.1.1
   - jupyterlab-geojson==3.3.1
@@ -55,6 +51,7 @@ dependencies:
   - jupyterlab_server==2.19.0
   - jupyterlab-spellchecker==0.7.3
   - jupyterlab_widgets==3.0.5
+  - jupyter_server_ydoc==0.8.0
   - jupytext==1.14.4
   - mamba==1.2.0
   - matplotlib==3.6.3
@@ -73,8 +70,6 @@ dependencies:
   - numba==0.56.4
   - numpy==1.23.5
   - pandas==1.5.3
-  - pandoc==2.19.2
-  - pandocfilters==1.5.0
   - pep8==1.7.1
   - pillow==9.4.0
   - pip==22.3.1
@@ -93,7 +88,6 @@ dependencies:
   - scikit-learn==1.2.0
   - scipy==1.10.0
   - seaborn==0.12.2
-  - sphinx-jupyterbook-latex==0.5.2
   - sqlparse==0.4.3
   - statsmodels==0.13.5
   - sympy==1.11.1
@@ -103,20 +97,36 @@ dependencies:
   - xarray==2023.1.0
   - xlrd==2.0.1
 
+  # Packages for Jupyter book. These are normal packages, but we put them in a
+  # separate section so they are easier to manually sync between the main
+  # environment.yml file and a pip requirements file that _only_ builds
+  # jupyterbook sites using Github Actions.
+  - jupyter-book==0.15.0
+  - jupyter-sphinx==0.4.0
+  - markdown-it-py==2.2.0
+  - markupsafe==2.1.2
+  - myst-nb==0.17.1
+
   # Packages that could be installed via the system package manager
   # (apt, homebrew, etc) but we bring them through here for better
   # reproducibility
   - git==2.39.1
-  - pandoc==2.19.2
+  - pandoc==3.1.1
   - pandocfilters==1.5.0
+
+  # ----------------- Hub-only section ----------------------------
 
   # Packages needed only on the hub (mostly linux)
   # If installing this environment on a personal machine, 
   # comment these out (but not the pip section below)
-  - syncthing==1.23.0
   - micro==2.0.8
-  - websockify==0.11.0
   - python-pdfkit==1.0.0 
+  - syncthing==1.23.0
+  - websockify==0.11.0
+
+  # VS Code support
+  - jupyter-vscode-proxy==0.2
+  - code-server==4.10.1
 
 # Packages not available on conda-forge, installed through pip
   - pip:
@@ -125,7 +135,10 @@ dependencies:
     - nbval==0.10.0
     # nbdime 3.1.1 is incompatible with jupyter server 2.0
     # See https://github.com/jupyter/nbdime/pull/649, remove once newer release available.
-    - git+https://github.com/jupyter/nbdime.git@2da614b
+    # nbdime not building ATM - https://github.com/jupyter/nbdime/issues/653
+    #- git+https://github.com/jupyter/nbdime.git@2da614b
+
+    # ----------------- Hub-only section ----------------------------
 
     # Packages needed only on the hub (mostly linux)
     # If installing this environment on a personal machine, 
@@ -133,4 +146,5 @@ dependencies:
     - jupyter-remote-desktop-proxy==1.0.0
     # syncthing for dropbox-like functionality
     - jupyter-syncthing-proxy==1.0.3
+    # Needed for RTC on NFS-backed hubs
     - git+https://github.com/berkeley-dsep-infra/tmpystore.git@84765e1
