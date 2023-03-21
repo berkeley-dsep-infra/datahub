@@ -112,6 +112,9 @@ dependencies:
   - markupsafe==2.1.2
   - myst-nb==0.17.1
 
+  # Userland small TeX (similar to tinytex)
+  - tectonic==0.12.0
+
   # Packages that could be installed via the system package manager
   # (apt, homebrew, etc) but we bring them through here for better
   # reproducibility
@@ -132,6 +135,10 @@ dependencies:
   # VS Code support
   - jupyter-vscode-proxy==0.2
   - code-server==4.10.1
+
+  # Companions to tectonic, not yet available for desktop
+  - texlab==5.4.0
+  - chktex==1.7.8
 
 # Packages not available on conda-forge, installed through pip
   - pip:
