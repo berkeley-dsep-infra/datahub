@@ -138,7 +138,7 @@ dependencies:
 
   # Companions to tectonic, not yet available for desktop
   - texlab==5.4.0
-  - chtex==1.7.8
+  - chktex==1.7.8
 
 # Packages not available on conda-forge, installed through pip
   - pip:
