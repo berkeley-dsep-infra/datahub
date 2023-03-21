@@ -44,9 +44,14 @@ dependencies:
   - jupyterlab-favorites==3.1.1
   - jupyterlab-geojson==3.3.1
   - jupyterlab-git==0.41.0
+
+  # LSP for JupyterLab/Python - enhanced completions/language support
+  - jupyterlab-lsp==4.0.0
+  - python-lsp-server==1.7.0
+  
   - jupyterlab-link-share==0.2.5
   - jupyterlab-variableinspector==3.0.9
-  - jupyterlab-myst==1.1.1
+  - jupyterlab-myst==1.1.2
   - jupyterlab_pygments==0.2.2
   - jupyterlab_server==2.19.0
   - jupyterlab-spellchecker==0.7.3
@@ -107,6 +112,9 @@ dependencies:
   - markupsafe==2.1.2
   - myst-nb==0.17.1
 
+  # Userland small TeX (similar to tinytex)
+  - tectonic==0.12.0
+
   # Packages that could be installed via the system package manager
   # (apt, homebrew, etc) but we bring them through here for better
   # reproducibility
@@ -127,6 +135,10 @@ dependencies:
   # VS Code support
   - jupyter-vscode-proxy==0.2
   - code-server==4.10.1
+
+  # Companions to tectonic, not yet available for desktop
+  - texlab==5.4.0
+  - chktex==1.7.8
 
 # Packages not available on conda-forge, installed through pip
   - pip:
