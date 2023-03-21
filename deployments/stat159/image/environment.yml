@@ -44,6 +44,11 @@ dependencies:
   - jupyterlab-favorites==3.1.1
   - jupyterlab-geojson==3.3.1
   - jupyterlab-git==0.41.0
+
+  # LSP for JupyterLab/Python - enhanced completions/language support
+  - jupyterlab-lsp==4.0.0
+  - python-lsp-server==1.7.0
+  
   - jupyterlab-link-share==0.2.5
   - jupyterlab-variableinspector==3.0.9
   - jupyterlab-myst==1.1.1
