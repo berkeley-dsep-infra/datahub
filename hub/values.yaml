@@ -49,7 +49,7 @@ jupyterhub:
     https:
       enabled: true
       letsencrypt:
-        contactEmail: yuvipanda@berkeley.edu
+        contactEmail: datahub-support@berkeley.edu
   singleuser:
     cmd:
       # Explicitly define this, as it's no longer set by z2jh
