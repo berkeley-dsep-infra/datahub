@@ -97,11 +97,29 @@ Create the node pool:
 
 Creating a new filestore instance
 ---------------------------------
-In the web console, click on the horizontal bar icon at the top left corner.
+Before you create a new filestore instance, be sure you know the capacity
+required.  The smallest amount you can allocate is 1T, but larger hubs may
+require more.  Confer with the admins and people instructing the course and
+determine how much they think they will need.
+
+We can easily scale capacity up, but not down.
+
+From the command line, fill in ``hubname`` and ``capacity``, and then execute
+the following command:
+.. code:: bash
+
+   gcloud filestore instances create <hubname>-YYYY-MM-DD> \
+     --zone "us-central1-b" --tier="BASIC_HDD" \
+     --file-share=capacity=<capacity>,name=shares \
+     --network=name=default,connect-mode=DIRECT_PEERING
+
+Or, from the web console, click on the horizontal bar icon at the top left
+corner.
 
 #. Access "Filestore" -> "Instances" and click on "Create Instance".
 #. Name the instance ``<hubname>-YYYY-MM-DD``
 #. Instance Type is ``Basic``, Storage Type is ``HDD``.
+#. Allocate capacity.
 #. Set the region to ``us-central1`` and Zone to ``us-central1-b``.
 #. Set the VPC network to ``default``.
 #. Set the File share name to ``shares``.
