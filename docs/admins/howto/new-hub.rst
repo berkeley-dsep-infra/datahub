@@ -72,13 +72,19 @@ which image to use, and if we will need to add additional packages to the image 
 If you're going to use an existing node pool and/or filestore instance, you can skip either or both of
 the following steps and pick back up at the ``cookiecutter``.
 
+When creating a new hub, we also make sure to label the filestore and
+GKE/node pool resouces with both ``hub`` and
+``<nodepool|filestore>-deployment``.  99.999% of the time, the values for both
+of these labels will be ``<hubname>``.
+
 Creating a new node pool
 ------------------------
 Create the node pool:
 
 .. code:: bash
 
-   gcloud beta container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
+   gcloud container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
+     --labels=hub=<hubname>,nodepool-deployment=<hubname> \
      --node-labels hub.jupyter.org/pool-name=<hubname>-pool --machine-type "n2-highmem-8"  \
      --enable-autoscaling --min-nodes "0" --max-nodes "3" \
      --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
@@ -165,6 +171,7 @@ Skip this step if you are using an existing/shared filestore.
 .. code:: bash
 
    gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
+          --update-labels=hub=<hubname>,filestore-deployment=<hubname> \
           --flags-file=<hubname>/config/filestore/squash-flags.json
 
 Authentication
