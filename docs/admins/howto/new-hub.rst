@@ -74,8 +74,8 @@ the following steps and pick back up at the ``cookiecutter``.
 
 When creating a new hub, we also make sure to label the filestore and
 GKE/node pool resouces with both ``hub`` and
-``<nodepool|filestore>-deployment``.  99.999% of the time, the values for both
-of these labels will be ``<hubname>``.
+``<nodepool|filestore>-deployment``.  99.999% of the time, the values for all
+three of these labels will be ``<hubname>``.
 
 Creating a new node pool
 ------------------------
