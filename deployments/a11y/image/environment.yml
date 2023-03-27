@@ -7,11 +7,10 @@ dependencies:
 - python==3.10.8
 - git==2.39.0
 - coverage==6.4.4
-- jupyter_server==2.2.1
+- jupyter_server==2.5.0
 - jupyter-book==0.13.1
 - jupyter-resource-usage==0.7.1
 - jupyterhub==3.1.0
-- jupyterlab-link-share
 - matplotlib==3.6.2
 - nbgitpuller==1.1.1
 - numpy==1.24.0
@@ -25,8 +24,8 @@ dependencies:
   #- -r infra-requirements.txt
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
-  - notebook==7.0.0a13
-  - jupyterlab==4.0.0a34
+  - notebook==7.0.0a15
+  - jupyterlab==4.0.0a35
   # ###
   # The items below are from infra-requirements, however lab conflicts with the
   # alpha notebook.
