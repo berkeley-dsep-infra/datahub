@@ -14,10 +14,9 @@ retrolab==0.3.21
 nbgitpuller==1.1.0
 jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
-jupyterhub==3.1.0
+jupyterhub==4.0.0b2
 appmode==0.8.0
 ipywidgets==7.7.2
-otter-grader==3.1.4
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
 # Enough people like this, let's load it in.
