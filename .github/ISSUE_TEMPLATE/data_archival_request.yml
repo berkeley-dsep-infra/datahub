@@ -17,7 +17,8 @@ body:
       description: "Please enter your official UC Berkeley email address! eg: oski@berkeley.edu. Instructions on how to retrieve your files will be sent to this email address."
     validations:
       required: true
-  - type: textarea
+  - id: link
+    type: textarea
     attributes:
       label: Link to Your Datahub Folder
       description: "Please enter the link to your datahub folder. You can find the link at the bottom of the WHERE-ARE-MY-FILES.txt file in your Datahub home directory. Eg: gs://ucb-datahub-archived-homedirs/spring-2021/datahub.berkeley.edu/xxx.tar.gz"
