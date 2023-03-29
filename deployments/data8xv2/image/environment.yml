@@ -17,5 +17,6 @@ dependencies:
     - nbformat==5.2.0
     - datascience==0.17.5
 # For grading
-    - gofer-submit==0.5.1
     - -r infra-requirements.txt
+    - otter-grader==3.1.4
+    - gofer-submit==0.5.1

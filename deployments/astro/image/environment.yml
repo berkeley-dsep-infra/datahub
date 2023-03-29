@@ -102,3 +102,4 @@ dependencies:
   - nb_black
   - pycodestyle_magic
   - twine
+  - otter-grader==3.1.4
