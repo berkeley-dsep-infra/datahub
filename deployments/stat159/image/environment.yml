@@ -62,7 +62,7 @@ dependencies:
   - matplotlib==3.6.3
   - matplotlib-inline==0.1.6
   - mock==5.0.1
-  - nbconvert==6.5.3
+  - nbconvert==7.2.10
   
   # nbdime 3.1.1 is incompatible with jupyter server 2.0
   # See https://github.com/jupyter/nbdime/pull/649.
