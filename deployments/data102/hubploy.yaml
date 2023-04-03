@@ -1,8 +1,5 @@
 images:
-  images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/primary-user-image
-      path: ../image/
-
+  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data102-user-image
   registry:
     provider: gcloud
     gcloud:
