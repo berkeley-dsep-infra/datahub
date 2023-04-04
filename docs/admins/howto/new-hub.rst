@@ -72,13 +72,19 @@ which image to use, and if we will need to add additional packages to the image 
 If you're going to use an existing node pool and/or filestore instance, you can skip either or both of
 the following steps and pick back up at the ``cookiecutter``.
 
+When creating a new hub, we also make sure to label the filestore and
+GKE/node pool resouces with both ``hub`` and
+``<nodepool|filestore>-deployment``.  99.999% of the time, the values for all
+three of these labels will be ``<hubname>``.
+
 Creating a new node pool
 ------------------------
 Create the node pool:
 
 .. code:: bash
 
-   gcloud beta container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
+   gcloud container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
+     --labels=hub=<hubname>,nodepool-deployment=<hubname> \
      --node-labels hub.jupyter.org/pool-name=<hubname>-pool --machine-type "n2-highmem-8"  \
      --enable-autoscaling --min-nodes "0" --max-nodes "3" \
      --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
@@ -91,11 +97,29 @@ Create the node pool:
 
 Creating a new filestore instance
 ---------------------------------
-In the web console, click on the horizontal bar icon at the top left corner.
+Before you create a new filestore instance, be sure you know the capacity
+required.  The smallest amount you can allocate is 1T, but larger hubs may
+require more.  Confer with the admins and people instructing the course and
+determine how much they think they will need.
+
+We can easily scale capacity up, but not down.
+
+From the command line, first fill in the instance name (``<hubname>-<YYYY-MM-DD>``)
+and ``<capacity>``, and then execute the following command:
+.. code:: bash
+
+   gcloud filestore instances create <hubname>-<YYYY-MM-DD> \
+     --zone "us-central1-b" --tier="BASIC_HDD" \
+     --file-share=capacity=<capacity>,name=shares \
+     --network=name=default,connect-mode=DIRECT_PEERING
+
+Or, from the web console, click on the horizontal bar icon at the top left
+corner.
 
 #. Access "Filestore" -> "Instances" and click on "Create Instance".
-#. Name the instance ``<hubname>-YYYY-MM-DD``
+#. Name the instance ``<hubname>-<YYYY-MM-DD>``
 #. Instance Type is ``Basic``, Storage Type is ``HDD``.
+#. Allocate capacity.
 #. Set the region to ``us-central1`` and Zone to ``us-central1-b``.
 #. Set the VPC network to ``default``.
 #. Set the File share name to ``shares``.
@@ -165,6 +189,7 @@ Skip this step if you are using an existing/shared filestore.
 .. code:: bash
 
    gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
+          --update-labels=hub=<hubname>,filestore-deployment=<hubname> \
           --flags-file=<hubname>/config/filestore/squash-flags.json
 
 Authentication

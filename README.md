@@ -33,3 +33,9 @@ to merge the change from staging branch to production. Create another PR,
 this time with the `base` set to prod and the `head` set to staging. This
 PR will trigger a similar Travis process. Test your change on production
 for good measure.
+
+## SSL: LetsEncrypt Strategy
+The Berkeley-based SPA email address, datahub-support@berkeley.edu, is the
+contact email used to create the SSL certificate for the datahub at [LetsEncrypt](https://letsencrypt.org/). The address is only used by LetsEncrypt when there is a problem renewing the certificate.
+
+The SPA email address is connected to anyone in ds-infrastructure@lists.berkeley.edu.

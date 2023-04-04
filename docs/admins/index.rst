@@ -18,3 +18,5 @@ Contributing to DataHub
    :maxdepth: 2
 
    howto/index
+
+   deployments/index

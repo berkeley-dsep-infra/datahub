@@ -31,10 +31,18 @@ jupyterhub:
           - fernando.perez
           - fsapienza
     extraConfig:
+      15-initalize-shared-groups: |
+        # Initialize collab_groups, but override in secrets, before
+        # extraConfig 25 below.
+        collab_groups = {}
+
       25-roles-and-shared-accounts: |
+        # Initialize load_groups, so that we can assign to it later.
+        c.JupyterHub.load_groups = {}
+
         for collab_group, members in collab_groups.items():
-          #print(f"Add group '{collab_group}' with members: {members}")
-          #c.JupyterHub.load_groups[collab_group] = members
+          c.JupyterHub.load_groups[collab_group] = members
+          print(f"Added group '{collab_group}' with members: {members}")
 
           # Add user associated with collab group
           collab_user = f"collab-{collab_group}"

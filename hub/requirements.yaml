@@ -1,5 +1,8 @@
 dependencies:
  - name: jupyterhub
    # REMEMBER TO CHANGE BASE IMAGE OF images/hub/ WHEN CHANGING THIS
-   version: 2.0.1-0.dev.git.5959.h65c52001
+   # get the helm chart version from here:  https://github.com/jupyterhub/helm-chart
+   # correlate the helm chart version w/jupyterhub here:
+   # https://hub.jupyter.org/helm-chart/#development-releases-jupyterhub
+   version: 2.0.1-0.dev.git.6085.h59225bad
    repository: https://jupyterhub.github.io/helm-chart/

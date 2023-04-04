@@ -42,8 +42,12 @@ orbs:
                     name: Determine range of commits we are building
                     command: |
                         # CircleCI doesn't have equivalent to Travis' COMMIT_RANGE
-                        COMMIT_RANGE=$(./.circleci/get-commit-range.py)
-                        echo ${COMMIT_RANGE}
+                        COMMIT_RANGE=$(./.circleci/get-commit-range.py 2> /tmp/commit-range-err.txt || true)
+                        if [ -s /tmp/commit-range-err.txt ]; then
+                            echo "Unable to get commit range."
+                            cat /tmp/commit-range-err.txt
+                        fi
+                        echo COMMIT_RANGE: ${COMMIT_RANGE}
                         echo "export COMMIT_RANGE='${COMMIT_RANGE}'" >> ${BASH_ENV}
 
           - when:
@@ -90,7 +94,7 @@ orbs:
           - run:
               name: Build image if needed
               command: |
-                if [ "<< parameters.push >>" == "true" ]; then
+                if [ "<< parameters.push >>" == "true" -o -z "${COMMIT_RANGE}" ]; then
                   HUBPLOY_ARGS="--check-registry --push"
                 else
                   HUBPLOY_ARGS="--commit-range ${COMMIT_RANGE}"
@@ -184,11 +188,11 @@ jobs:
             hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-      - run:
-          name: Deploy astro
-          command: |
-            hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
+#      - run:
+#          name: Deploy astro
+#          command: |
+#            hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
+#          no_output_timeout: 30m
 
       - run:
           name: Deploy stat159
@@ -281,17 +285,17 @@ jobs:
             hubploy deploy --timeout 30m shiny hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-      - run:
-          name: Deploy cee
-          command: |
-            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
+#      - run:
+#          name: Deploy cee
+#          command: |
+#            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
+#          no_output_timeout: 30m
 
-      - run:
-          name: Deploy data101
-          command: |
-            hubploy deploy --timeout 30m data101 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
+#      - run:
+#          name: Deploy data101
+#          command: |
+#            hubploy deploy --timeout 30m data101 hub ${CIRCLE_BRANCH}
+#          no_output_timeout: 30m
 
       - run:
           name: Deploy workshop
@@ -448,15 +452,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
-      - hubploy/build-image:
-          deployment: astro
-          name: astro image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
+#      - hubploy/build-image:
+#          deployment: astro
+#          name: astro image build
+#          # Filters can only be per-job? wtf
+#          filters:
+#              branches:
+#                ignore:
+#                - staging
+#                - prod
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
@@ -502,15 +506,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
-      - hubploy/build-image:
-          deployment: cee
-          name: cee image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
+#      - hubploy/build-image:
+#          deployment: cee
+#          name: cee image build
+#          # Filters can only be per-job? wtf
+#          filters:
+#              branches:
+#                ignore:
+#                - staging
+#                - prod
       - hubploy/build-image:
           deployment: publichealth
           name: publichealth image build
@@ -529,15 +533,17 @@ workflows:
                 ignore:
                 - staging
                 - prod
-      - hubploy/build-image:
-          deployment: julia
-          name: julia hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
+      # temporarily stop building julia
+      # https://github.com/berkeley-dsep-infra/datahub/pull/4406
+      #- hubploy/build-image:
+      #    deployment: julia
+      #    name: julia hub image build
+      #    # Filters can only be per-job? wtf
+      #    filters:
+      #        branches:
+      #          ignore:
+      #          - staging
+      #          - prod
       - hubploy/build-image:
           deployment: data8x
           name: data8x image build
@@ -596,15 +602,15 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: cee
-          name: cee image build
-          push: true
+#      - hubploy/build-image:
+#          deployment: cee
+#          name: cee image build
+#          push: true
           # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
+#          filters:
+#              branches:
+#                only:
+#                - staging
       - hubploy/build-image:
           deployment: data8
           name: data8 image build
@@ -614,15 +620,15 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: astro
-          name: astro image build
-          push: true
+#      - hubploy/build-image:
+#          deployment: astro
+#          name: astro image build
+#          push: true
           # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
+#          filters:
+#              branches:
+#                only:
+#                - staging
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
@@ -677,15 +683,17 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: julia
-          name: julia hub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
+      # temporarily stop building julia
+      # https://github.com/berkeley-dsep-infra/datahub/pull/4406
+      #- hubploy/build-image:
+      #    deployment: julia
+      #    name: julia hub image build
+      #    push: true
+      #    # Filters can only be per-job? wtf
+      #    filters:
+      #        branches:
+      #          only:
+      #          - staging
       - hubploy/build-image:
           deployment: data8x
           name: data8x image build
@@ -731,12 +739,12 @@ workflows:
               - datahub image build
               - data8 image build
               - data100 image build
-              - astro image build
+#              - astro image build
               - stat159 image build
               - stat20 image build
               - ischool image build
               - publichealth image build
-              - cee image build
+#              - cee image build
               - shiny image build
               - biology image build
               # Don't block deploys on julia image build temporarily,
