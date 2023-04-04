@@ -126,9 +126,11 @@ corner.
 #. Click "Create" and wait for it to be deployed.
 #. Once it's deployed, select the instance and copy the "NFS mount point".
 
-You now need to log into the NFS server and provide directories with appropriate permissions for the hub. 
-This will allow users to store their files in home directories. You can run the following command 
-in gcloud terminal to log in to the NFS server.
+Your new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for
+NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore,
+and create & configure the required directories.
+
+You can run the following command in gcloud terminal to log in to the NFS utility VM:
 
 ``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
    
@@ -138,7 +140,7 @@ Alternatively, launch console.cloud.google.com ->  Select "ucb-datahub-2018" as 
 #. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
 #. Select "Open in browser window" option to access NFS server via GUI.
 
-Back in the NFS server shell, mount the new share:
+Back in the NFS utility VM shell, mount the new share:
 
 .. code:: bash
 
