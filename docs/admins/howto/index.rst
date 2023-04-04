@@ -15,3 +15,4 @@ Common Administrator Tasks
    calendar-scaler
    prometheus-forward
    remove-users-orm
+   delete-hub

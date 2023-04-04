@@ -31,6 +31,8 @@ jupyterhub:
           #https://github.com/berkeley-dsep-infra/datahub/issues/3714 (Fall 2022)
           - rohan.jha
           - shiangyi.andrea.lin
+          - ehao
+          - miroyan.mihran
 #  prePuller:
 #    extraImages:
 #      postgres:
