@@ -22,7 +22,9 @@ If the hub is using a shared filestore, skip all filestore steps.
 
 If the hub is using a shared node pool, skip all namespace and node pool steps.
 
-#. Create filestore backup
+#. Scale the node pool to zero: ``kubectl -n <hubname-prod|staging> scale --replicas=0 deployment/hub``
+#. Kill any remaining users' servers.  Find any running servers with ``kubectl -n <hubname-prod|staging> get pods | grep jupyter`` and then ``kubectl -n <hubname-prod|staging> delete pod <pod name>`` to stop them.
+#. Create filestore backup:  ``gcloud filestore backups create <hubname>-backup-YYYY-MM-DD --file-share=shares --instance=<hubname-YYYY-MM-DD> --region "us-central1" --labels=filestore-backup=<hub name>,hub=<hub name>``
 #. Log in to ``nfsserver-01`` and unmount filestore from nfsserver: ``sudo umount /export/<hubname>-filestore``
 #. Comment out the hub build steps out in ``.circleci/config.yaml`` (deploy and build steps)
 #. Comment hub entries out of ``datahub/node-placeholder/values.yaml``

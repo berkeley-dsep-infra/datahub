@@ -28,9 +28,12 @@ If your reason is something else, it probably needs some justification :)
 Prereqs
 =======
 Working installs of the following utilities:
-  - sops
-  - hubploy
-  - gcloud/kubectl
+  - `sops <https://github.com/mozilla/sops/releases>`_
+  - `hubploy <https://pypi.org/project/hubploy/>`_
+     - `hubploy docs <https://hubploy.readthedocs.io/en/latest/index.html>`_
+     - ``pip install hubploy`` 
+  - `gcloud <https://cloud.google.com/sdk/docs/install>`_
+  - `kubectl <https://kubernetes.io/docs/tasks/tools/>`_
   - `cookiecutter <https://github.com/audreyr/cookiecutter>`_
 
 Proper access to the following systems:
@@ -126,9 +129,11 @@ corner.
 #. Click "Create" and wait for it to be deployed.
 #. Once it's deployed, select the instance and copy the "NFS mount point".
 
-You now need to log into the NFS server and provide directories with appropriate permissions for the hub. 
-This will allow users to store their files in home directories. You can run the following command 
-in gcloud terminal to log in to the NFS server.
+Your new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for
+NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore,
+and create & configure the required directories.
+
+You can run the following command in gcloud terminal to log in to the NFS utility VM:
 
 ``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
    
@@ -138,7 +143,7 @@ Alternatively, launch console.cloud.google.com ->  Select "ucb-datahub-2018" as 
 #. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
 #. Select "Open in browser window" option to access NFS server via GUI.
 
-Back in the NFS server shell, mount the new share:
+Back in the NFS utility VM shell, mount the new share:
 
 .. code:: bash
 
