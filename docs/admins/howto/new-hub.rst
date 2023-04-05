@@ -28,9 +28,12 @@ If your reason is something else, it probably needs some justification :)
 Prereqs
 =======
 Working installs of the following utilities:
-  - sops
-  - hubploy
-  - gcloud/kubectl
+  - `sops <https://github.com/mozilla/sops/releases>`_
+  - `hubploy <https://pypi.org/project/hubploy/>`_
+     - `hubploy docs <https://hubploy.readthedocs.io/en/latest/index.html>`_
+     - ``pip install hubploy`` 
+  - `gcloud <https://cloud.google.com/sdk/docs/install>`_
+  - `kubectl <https://kubernetes.io/docs/tasks/tools/>`_
   - `cookiecutter <https://github.com/audreyr/cookiecutter>`_
 
 Proper access to the following systems:
