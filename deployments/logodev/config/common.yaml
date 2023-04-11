@@ -22,14 +22,14 @@ jupyterhub:
           # infrastructure
           - sknapp
           - rylo
-          - yuvipanda
+          - gmerritt
           - felder
           - balajialwar
           # List of other admin users
 
   singleuser:
     nodeSelector:
-      hub.jupyter.org/pool-name: user-logodev-2023-04-11
+      hub.jupyter.org/pool-name: small-courses-pool
     storage:
       type: static
       static:
