@@ -48,6 +48,10 @@ dependencies:
 - scipy=1.9.0
 - gcc=10.4.0
 
+# https://github.com/berkeley-dsep-infra/datahub/issues/4460
+- sk-video=1.1.10
+- ffmpeg=5.1.2
+
 - pip
 - pip:
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1639
