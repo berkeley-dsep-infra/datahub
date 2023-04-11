@@ -1,0 +1,40 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.185.238.42
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - sknapp
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+
+  singleuser:
+    nodeSelector:
+      hub.jupyter.org/pool-name: user-logodev-2023-04-11
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs-v3
+        subPath: "{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G

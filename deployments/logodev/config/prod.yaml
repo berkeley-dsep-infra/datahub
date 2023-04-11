@@ -1,0 +1,18 @@
+nfsPVC:
+  nfs:
+    shareName: shares/logodev/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - logodev.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - logodev.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
