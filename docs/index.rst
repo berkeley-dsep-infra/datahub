@@ -14,7 +14,7 @@ Using DataHub
 
    users/index
 
-Modifying DataHub to fit your needs
+Modifying DataHub to fit your needs properly
 ===================================
 
 Our infrastructure can serve the diverse needs of our students only if it
