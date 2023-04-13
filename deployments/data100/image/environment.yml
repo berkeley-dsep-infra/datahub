@@ -92,3 +92,4 @@ dependencies:
   - otter-grader==4.0.1
   - ipython-sql==0.4.1
   - geopandas==0.12.1
+  - iwut==0.0.4

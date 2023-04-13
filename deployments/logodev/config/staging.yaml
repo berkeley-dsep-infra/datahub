@@ -1,0 +1,19 @@
+nfsPVC:
+  nfs:
+    shareName: shares/logodev/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - logodev-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - logodev-staging.datahub.berkeley.edu
