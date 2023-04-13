@@ -64,4 +64,4 @@ Defining course profiles
 Housekeeping
 ============
 
-Group profiles should be removed at the end of every term because course affiliations are not necessarily removed from each person's Canvas account. So even if a user's class ended, the hub ill grant additional resources for as long as the config persisted in both Canvas and the hub.
+Group profiles should be removed at the end of every term because course affiliations are not necessarily removed from each person's Canvas account. So even if a user's class ended, the hub will grant additional resources for as long as the config persisted in both Canvas and the hub.
