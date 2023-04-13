@@ -365,23 +365,35 @@ jupyterhub:
             is_student = False
             is_instructor = False
             for group in self.user.groups:
-              if group.name.count('::') not in [2, 3]:
+              # Apply an override for the full group name, if it exists
+              # under group_profiles.
+              if group.name in group_profiles:
+                self.apply_override(group_profiles.get(group.name))
+
+              # We should alter the authenticator to just add people to
+              # 'course::{canvas_id}' too. This obviates the need for
+              # some of the code below.
+
+              # canvas authenticator creates groups of the form a::b::c::d.
+              # ignore any that don't have that form.
+              if group.name.count('::') != 3:
                 continue
-              if group.name.count('::') == 2:
-                # CanvasOAuthenticator == v0.1dev
-                # group format is 'canvas::{canvas_id}::{role}'
-                _, group_course, group_role = group.name.split('::', 2)
 
-              elif group.name.count('::') == 3:
-                # CanvasOAuthenticator >= v0.1
-                # group format is:
-                #   'course::{canvas_id}::enrollment_type::{role}'
-                #   'course::{canvas_id}::group::{name}'
-                _, group_course, gkey, gval = group.name.split('::', 3)
-                if gkey != 'enrollment_type':
-                  continue
-                group_role = gval
+              # group format in CanvasOAuthenticator >= v0.1 is
+              #   'course::{canvas_id}::enrollment_type::{role}'
+              #   'course::{canvas_id}::group::{name}'
 
+              # This prepares an override for just the bcourse ID,
+              # which we might deprecate at some point. While it is easier
+              # to apply a profile using just the bcourse ID as a key,
+              # it somewhat complicates the parsing.
+              _, group_course, gkey, gval = group.name.split('::', 3)
+              if gkey != 'enrollment_type':
+                continue
+              group_role = gval
+
+              # Skip if this user's group if it is not among the bcourse IDs
+              # in the group_profiles config.
               if not group_course in group_profiles:
                 continue
               self.log.info(f'user {self.user.name} in group profile {group_course}')
