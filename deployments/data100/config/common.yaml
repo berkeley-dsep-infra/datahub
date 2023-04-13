@@ -73,4 +73,4 @@ jupyterhub:
     group_profiles:
       1521765: # Data 200, Spring 2023, issue #4472
         mem_limit: 8192M
-        mem_guarantee: 8192MM
+        mem_guarantee: 8192M
