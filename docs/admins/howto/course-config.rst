@@ -51,7 +51,7 @@ Defining course profiles
 
               # Example: a fully specified CanvasOAuthenticator group name
               # Name of Class 100, Fall '22; requested in #98770
-              course:123456::group::lab4-bigdata
+              course::123456::group::lab4-bigdata
                 mem_limit: 2048M
                 mem_guarantee: 2048M
 
