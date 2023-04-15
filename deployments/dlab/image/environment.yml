@@ -1,4 +1,4 @@
-name: dlab-sp23
+name: dlab
 
 channels:
   - conda-forge
