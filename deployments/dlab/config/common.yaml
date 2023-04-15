@@ -36,6 +36,38 @@ jupyterhub:
             - emily_grabowski
             - klganter
             - cvacano
+    extraConfig:
+      15-initalize-shared-groups: |
+        # Initialize collab_groups, but override in secrets, before
+        # extraConfig 25 below.
+        collab_groups = {}
+
+      25-roles-and-shared-accounts: |
+        # Initialize load_groups, so that we can assign to it later.
+        c.JupyterHub.load_groups = {}
+
+        for collab_group, members in collab_groups.items():
+          c.JupyterHub.load_groups[collab_group] = members
+          print(f"Added group '{collab_group}' with members: {members}")
+
+          # Add user associated with collab group
+          collab_user = f"collab-{collab_group}"
+
+          # Anyone who in a collab_group can admin and access the
+          # user server, and can list users, of that group.
+          print(f"Add role for '{collab_user}'")
+          c.JupyterHub.load_roles.append(
+            {
+              "name": f"collab-access-{collab_group}",
+              "scopes": [
+                "admin-ui",
+                f"list:users!user={collab_user}",
+                f"admin:servers!user={collab_user}",
+                f"access:servers!user={collab_user}",
+              ],
+              "groups": [collab_group],
+            }
+          )
   singleuser:
     cmd:
       - jupyterhub-singleuser
