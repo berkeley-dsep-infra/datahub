@@ -1,0 +1,17 @@
+kubeletConfig:
+  cpuManagerPolicy: static
+linuxConfig:
+ sysctl:
+   # tune the ipv4 settings to not cause nginx to use all of the tcp memory
+   # addresses: https://jira-secure.berkeley.edu/browse/DH-3
+   #
+   # Figures below are in bytes, and gleaned from the following articles:
+   # https://www.ibm.com/docs/en/linux-on-systems?topic=tuning-tcpip-ipv4-settings
+   # https://www.ibm.com/docs/en/linux-on-systems?topic=tuning-network-stack-settings
+   #
+   # here be dragons.
+   net.core.netdev_max_backlog: '30000'
+   net.core.rmem_max: '32768000'
+   net.core.wmem_max: '32768000'
+   net.ipv4.tcp_rmem: '4096 87380 16384000'
+   net.ipv4.tcp_wmem: '4096 87380 16384000'
