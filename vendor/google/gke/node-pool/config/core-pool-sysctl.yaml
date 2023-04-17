@@ -5,7 +5,10 @@ linuxConfig:
    # tune the ipv4 settings to not cause nginx to use all of the tcp memory
    # addresses: https://jira-secure.berkeley.edu/browse/DH-3
    #
-   # Figures below are in bytes, and gleaned from the following articles:
+   # following this process:
+   # https://cloud.google.com/kubernetes-engine/docs/how-to/node-system-config
+   #
+   # figures below are in bytes, and gleaned from the following articles:
    # https://www.ibm.com/docs/en/linux-on-systems?topic=tuning-tcpip-ipv4-settings
    # https://www.ibm.com/docs/en/linux-on-systems?topic=tuning-network-stack-settings
    #
