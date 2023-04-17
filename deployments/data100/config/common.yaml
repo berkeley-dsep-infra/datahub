@@ -70,3 +70,7 @@ jupyterhub:
         - name: home
           mountPath: /home/jovyan/shared-readwrite
           subPath: _shared
+    group_profiles:
+      1521765: # Data 200, Spring 2023, issue #4472
+        mem_limit: 4096M
+        mem_guarantee: 4096M
