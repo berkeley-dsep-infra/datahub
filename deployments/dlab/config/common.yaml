@@ -67,6 +67,13 @@ jupyterhub:
             }
           )
   singleuser:
+    defaultUrl: "/lab"
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     cmd:
       - jupyterhub-singleuser
       - --LabApp.collaborative=true
@@ -91,13 +98,6 @@ jupyterhub:
             db_path: /tmp/file_id_manager.db
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
-    defaultUrl: /lab
-    extraEnv:
-      # Tell code where to display GUIs
-      # The VNC /desktop link must be opened already for this to work
-      DISPLAY: ":1.0"
-      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
-      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     storage:
       type: static
       static:
