@@ -18,7 +18,6 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool
     config:
       Authenticator:
-        manage_groups: false
         admin_users:
           # infrastructure
           - sknapp
