@@ -12,30 +12,29 @@ jupyterhub:
     chp:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
-    traefik:
-      nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
 
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
     config:
       Authenticator:
+        manage_groups: false
         admin_users:
-            # infrastructure
-            - sknapp
-            - rylo
-            - yuvipanda
-            - felder
-            - balajialwar
-            # List of other admin users
-            - rbarreto
-            - pratik.sachdeva
-            - aculich
-            - cheng.ren
-            - emily_grabowski
-            - klganter
-            - cvacano
+          # infrastructure
+          - sknapp
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+          # Instructor and GSI
+          - rbarreto
+          - pratik.sachdeva
+          - aculich
+          - cheng.ren
+          - emily_grabowski
+          - klganter
+          - cvacano
     extraConfig:
       15-initalize-shared-groups: |
         # Initialize collab_groups, but override in secrets, before
@@ -74,8 +73,32 @@ jupyterhub:
       - --LabApp.collaborative=true
       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration
       - --YDocExtension.ystore_class=tmpystore.TmpYStore
+    extraFiles:
+      culling-config:
+        data:
+          # Allow jupyterlab option to show hidden files in browser
+          # https://github.com/berkeley-dsep-infra/datahub/issues/3160
+          ContentsManager:
+            allow_hidden: true
+      jupyter_server_config.json:
+        mountPath: /usr/local/etc/jupyter/jupyter_server_config.json
+        data:
+          # Via @yuvipanda in 2i2c-org/infrastructure##2247 :
+          # Move the sqlite file used by https://github.com/jupyter-server/jupyter_server_fileid
+          # off the default path, which is under ~/.local/share/jupyter.
+          # That is NFS, and sqlite + NFS don't go well together. In addition,
+          # it uses WAL mode of sqlite, and that is completely unsupported on NFS
+          BaseFileIdManager: &server_config_base_file_id_manager
+            db_path: /tmp/file_id_manager.db
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
+    defaultUrl: /lab
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     storage:
       type: static
       static:
@@ -83,5 +106,4 @@ jupyterhub:
         subPath: "{username}"
     memory:
       guarantee: 4G
-      limit: 8G
-    image: {}
+      limit: 4G
