@@ -37,17 +37,26 @@ perl-doc
 build-essential
 gfortran
 
-# Dependencies for nbconvert
+# Dependencies for nbconvert and myst
+# LaTeX tools
 texlive-xetex
-texlive-fonts-recommended
 texlive-plain-generic
-# https://github.com/berkeley-dsep-infra/datahub/issues/3719
+texlive-fonts-extra
+texlive-fonts-recommended
 texlive-lang-chinese
+texlive-latex-extra
+texlive-latex-recommended
+texlive-humanities
+texlive-music
+texlive-science
+latexmk
 lmodern
+latexdiff
 
 # Other useful document-related tools
 pandoc
-latexdiff
+imagemagick
+# /end nbconvert/myst tools
 
 # Some useful git utilities use basic Ruby
 ruby
