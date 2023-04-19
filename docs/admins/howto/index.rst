@@ -8,6 +8,7 @@ Common Administrator Tasks
    preview-local
    admin
    dns
+   core-pool
    new-hub
    rebuild-hub-image
    new-packages
