@@ -37,4 +37,5 @@ Run the following commend to create the node pool:
 
 
 The ``system-config-from-file`` argument is important, as we need to tune the
-kernel TCP settings to handle large numbers of concurrent users.
+kernel TCP settings to handle large numbers of concurrent users and keep nginx
+from using up all of the TCP ram.
