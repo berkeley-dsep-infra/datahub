@@ -82,6 +82,7 @@ dependencies:
 - folium==0.14.0
 - sqlalchemy==1.4.29
 - tensorflow-mkl==2.5.0
+- _tflow_select==2.2.0
 - pip
 - pip:
   - -r infra-requirements.txt
