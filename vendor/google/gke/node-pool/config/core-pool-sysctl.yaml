@@ -13,12 +13,22 @@ linuxConfig:
    #
    # figures below are measured in units of system page size (4096B), 
    # and gleaned from the following articles:
+   # https://cromwell-intl.com/open-source/performance-tuning/tcp.html
    # https://www.ibm.com/docs/en/linux-on-systems?topic=tuning-tcpip-ipv4-settings
    # https://www.ibm.com/docs/en/linux-on-systems?topic=tuning-network-stack-settings
    #
    # here be dragons.
+   #
+   # original values:
+   # net.core.netdev_max_backlog=1000
+   # net.core.rmem_max=212992
+   # net.core.wmem_max=212992
+   # net.ipv4.tcp_mem 359562 479418 719124
+   # net.ipv4.tcp_rmem=4096 87380 6291456
+   # net.ipv4.tcp_wmem=4096 16384 4194304
    net.core.netdev_max_backlog: '30000'
    net.core.rmem_max: '3276800'
    net.core.wmem_max: '3276800'
-   net.ipv4.tcp_rmem: '4096 87380 1638400'
-   net.ipv4.tcp_wmem: '4096 87380 1638400'
+   net.ipv4.tcp_mem: '4096 87380 1638400'
+   net.ipv4.tcp_rmem: '4096 87380 16777216'
+   net.ipv4.tcp_wmem: '4096 87380 16777216'
