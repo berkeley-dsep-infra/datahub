@@ -1,5 +1,5 @@
 
-.. _howto/support-pool:
+.. _howto/core-pool:
 
 ================
 Creating and managing the core node pool
