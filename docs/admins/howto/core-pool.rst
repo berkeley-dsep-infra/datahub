@@ -7,7 +7,7 @@ Creating and managing the core node pool
 
 
 What is the core node pool?
-=====================
+---------------------------
 
 The core node pool is the primary entrypoint for all hubs we host.  It manages
 all incoming traffic, and redirects said traffic (via the nginx ingress
@@ -17,7 +17,7 @@ It also does other stuff.
 
 
 Deploying a new core node pool
-==============================
+------------------------------
 
 Run the following commend to create the node pool:
 
