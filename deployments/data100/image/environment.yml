@@ -81,8 +81,6 @@ dependencies:
 - websockify
 - folium==0.14.0
 - sqlalchemy==1.4.29
-- tensorflow-mkl==2.5.0
-- _tflow_select==2.2.0
 - pip
 - pip:
   - -r infra-requirements.txt
@@ -95,3 +93,4 @@ dependencies:
   - ipython-sql==0.4.1
   - geopandas==0.12.1
   - iwut==0.0.4
+  - tensorflow-cpu==2.12.0
