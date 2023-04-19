@@ -26,6 +26,9 @@ jupyterhub:
           - felder
           - balajialwar
           # List of other admin users
+    extraConfig:
+      20-logoConfig: |
+        c.JupyterHub.logo_file = '/srv/logos/dlab-logo-notebook.png'
 
   singleuser:
     nodeSelector:
