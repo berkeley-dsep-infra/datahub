@@ -144,6 +144,7 @@ dependencies:
   - pip:
     - ipython-sql==0.4.1
     - ipytest==0.13.0
+    - jupyterhub==4.0.0b2
     - nbval==0.10.0
     # nbdime 3.1.1 is incompatible with jupyter server 2.0
     # See https://github.com/jupyter/nbdime/pull/649, remove once newer release available.

@@ -6,4 +6,6 @@ USER root
 
 RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/canvasoauthenticator@77ac07a
 
+COPY logos /srv/logos
+
 USER ${NB_USER}
