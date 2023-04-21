@@ -93,3 +93,4 @@ dependencies:
   - ipython-sql==0.4.1
   - geopandas==0.12.1
   - iwut==0.0.4
+  - tensorflow-cpu==2.12.0
