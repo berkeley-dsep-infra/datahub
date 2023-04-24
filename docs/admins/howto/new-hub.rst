@@ -171,7 +171,11 @@ Check whether the directories have permissions similar to the below directories:
 
 Create the hub deployment locally
 ---------------------------------
-In the ``datahub/deployments`` directory, run ``cookiecutter``. This sets up the hub's configuration directory:
+In the ``datahub/deployments`` directory, run ``cookiecutter``. This sets up the hub's configuration directory.
+You may do this interactively, responding to prompts, or you may do this non-interactively by providing the settings
+in a hub-specific configuration file.
+
+**Interactively:**
 
 .. code:: bash
 
@@ -187,6 +191,27 @@ The cookiecutter template will prompt you to provide the following information:
  - ``hub_filestore_capacity``: Enter the allocated storage capacity. This is available from the web console.
 
 This will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.
+
+**Non-interactively:**
+
+You may create a custom, hub-specific ``cookiecutter.json`` file for your hub and pass it to ``cookiecutter``
+to run non-interactively.
+
+Here is a mini-workflow that edits the default ``cookiecutter.json``, runs ``cookiecutter``, stores a copy of
+your hub-specific ``cookicutter.json`` file into the config directory of your new hub, and then
+does a ``git restore`` to reset the repository's default ``cookiecutter.json`` template in
+``deployments/template``:
+
+.. code:: bash
+
+   cd deployments/template/
+   vi cookiecutter.json
+   cd ..
+   cookiecutter --no-input template/
+   cd template
+   cp cookiecutter.json ~/logodev/datahub/deployments/logodev/config/
+
+**Regardless of cookiecutter interactivity mode:**
 
 If you have created a new filestore instance, you will now need to apply the ``ROOT_SQUASH`` settings.
 Skip this step if you are using an existing/shared filestore.
@@ -215,8 +240,13 @@ need to be added to the authorized callback list maintained in bcourses.
 
 CircleCI
 --------
-Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
-be under the ``deploy`` job, and look something like this:
+The CircleCI configuration file ``.circleci/config.yml`` will need to include directives for building
+and deploying your new hub at several phases of the CircleCI process.
+Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub,
+find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub.
+Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.
+
+Here is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:
 
 .. code:: yaml
 

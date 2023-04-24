@@ -1,7 +1,7 @@
 .. _howto/rebuild-hub-image:
 
 ============================
-Rebuild the custom hub image
+Rebuild a custom hub image
 ============================
 
 We use a customized JupyterHub image so we can use versions of
@@ -13,7 +13,7 @@ the JupyterHub image used in the `Zero to JupyterHub <https://z2jh.jupyter.og>`_
 
 `chartpress <https://github.com/jupyterhub/chartress>`_ is used to
 build the image and update ``hub/values.yaml`` with the new image
-version.
+version. ``chartpress`` may be installed locally with ``pip install chartpress``.
 
 #. Run ``gcloud auth configure-docker us-central1-docker.pkg.dev``
    *once per machine* to setup docker for authentication with
@@ -28,6 +28,16 @@ version.
    name and tag are comitted.
 
 #. Proceed to deployment as normal.
+
+Some of the following commands may be required to configure your environment to run 
+the above chartpress workflow successfully:
+
+* ``gcloud auth login``
+* ``gcloud auth configure-docker us-central1-docker.pkg.dev``
+* ``gcloud auth application-default login``
+* sometimes running ``gcloud auth login`` additional time(s) may fix issues
+* ``sudo usermod -a -G docker ${USER}``
+* ``gcloud auth configure-docker``
 
 =================================
 Rebuild the custom postgres image
