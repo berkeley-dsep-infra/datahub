@@ -5,7 +5,7 @@ Preview documentation changes locally
 ======================================
 
 
-Strategy 1: convert to html
+Strategy 1: convert to html (method 1)
 ======================================
 
 #. Create a virtual environment (Recommendation is to create conda environment)
@@ -25,12 +25,21 @@ Strategy 1: convert to html
 
 #. Have fun making changes to the documentation based on the HTML preview.
 
-Strategy 2: free online previewer
+Strategy 2: convert to html (method 2)
+======================================
+
+
+   .. code:: bash
+
+      $ conda install sphinx
+      $ rst2html.py <filename>.rst > <filename>.html
+
+Strategy 3: free online previewer
 ======================================
 
 Use a free, online, in-line converter such as: https://www.tutorialspoint.com/online_restructure_editor.php
 
-Strategy 3: Visual Studio code extension
+Strategy 4: Visual Studio code extension
 ========================================
 
 The VSCode extension `RSTPreview
