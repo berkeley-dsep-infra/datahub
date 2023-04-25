@@ -171,11 +171,7 @@ Check whether the directories have permissions similar to the below directories:
 
 Create the hub deployment locally
 ---------------------------------
-In the ``datahub/deployments`` directory, run ``cookiecutter``. This sets up the hub's configuration directory.
-You may do this interactively, responding to prompts, or you may do this non-interactively by providing the settings
-in a hub-specific configuration file.
-
-**Interactively:**
+In the ``datahub/deployments`` directory, run ``cookiecutter``. This sets up the hub's configuration directory:
 
 .. code:: bash
 
@@ -191,27 +187,6 @@ The cookiecutter template will prompt you to provide the following information:
  - ``hub_filestore_capacity``: Enter the allocated storage capacity. This is available from the web console.
 
 This will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.
-
-**Non-interactively:**
-
-You may create a custom, hub-specific ``cookiecutter.json`` file for your hub and pass it to ``cookiecutter``
-to run non-interactively.
-
-Here is a mini-workflow that edits the default ``cookiecutter.json``, runs ``cookiecutter``, stores a copy of
-your hub-specific ``cookicutter.json`` file into the config directory of your new hub, and then
-does a ``git restore`` to reset the repository's default ``cookiecutter.json`` template in
-``deployments/template``:
-
-.. code:: bash
-
-   cd deployments/template/
-   vi cookiecutter.json
-   cd ..
-   cookiecutter --no-input template/
-   cd template
-   cp cookiecutter.json ~/logodev/datahub/deployments/logodev/config/
-
-**Regardless of cookiecutter interactivity mode:**
 
 If you have created a new filestore instance, you will now need to apply the ``ROOT_SQUASH`` settings.
 Skip this step if you are using an existing/shared filestore.
