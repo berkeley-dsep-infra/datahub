@@ -215,8 +215,13 @@ need to be added to the authorized callback list maintained in bcourses.
 
 CircleCI
 --------
-Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
-be under the ``deploy`` job, and look something like this:
+The CircleCI configuration file ``.circleci/config.yml`` will need to include directives for building
+and deploying your new hub at several phases of the CircleCI process.
+Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub,
+find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub.
+Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.
+
+Here is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:
 
 .. code:: yaml
 
