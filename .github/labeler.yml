@@ -3,6 +3,11 @@ documentation:
   - "docs/**"
   - "**/*.md"
 
+# add build-infra label to any .github or circleci changes
+build-infra:
+  - ".circleci/**"
+  - ".github/**"
+
 # add hub-specific labels for deployment changes
 a11y:
   - "deployments/a11y/**"
