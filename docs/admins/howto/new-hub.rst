@@ -260,6 +260,18 @@ Review hubploy.yaml file inside your project directory and update the image name
 	  
    image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
 
+Add hub to the github labeler workflow
+--------------------------------------
+The new hub will now need to be added to the github labeler workflow.
+
+Edit the file ``.github/labeler.yml`` and add an entry for this hub (alphabetically) in the
+``# add build-infra label to any .github or circleci changes`` block:
+
+.. code:: yaml
+
+   <hubname>:
+     - deployments/<hubname>/**"
+   
 Create placeholder node pool
 ----------------------------
 Node pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.
