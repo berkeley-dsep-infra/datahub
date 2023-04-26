@@ -270,7 +270,7 @@ Edit the file ``.github/labeler.yml`` and add an entry for this hub (alphabetica
 .. code:: yaml
 
    <hubname>:
-     - deployments/<hubname>/**"
+     - "deployments/<hubname>/**"
    
 Create placeholder node pool
 ----------------------------
