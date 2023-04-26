@@ -1,3 +1,6 @@
 documentation:
   - "docs/**"
   - "**/*.md"
+
+stat20:
+  - "deployments/stat20/**"
