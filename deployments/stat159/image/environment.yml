@@ -146,10 +146,7 @@ dependencies:
     - ipytest==0.13.0
     - jupyterhub==4.0.0b2
     - nbval==0.10.0
-    # nbdime 3.1.1 is incompatible with jupyter server 2.0
-    # See https://github.com/jupyter/nbdime/pull/649, remove once newer release available.
-    # nbdime not building ATM - https://github.com/jupyter/nbdime/issues/653
-    #- git+https://github.com/jupyter/nbdime.git@2da614b
+    - nbdime==3.2.0
 
     # ----------------- Hub-only section ----------------------------
 

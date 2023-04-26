@@ -1,0 +1,59 @@
+# add labels to docs
+documentation:
+  - "docs/**"
+  - "**/*.md"
+
+# add build-infra label to any .github or circleci changes
+build-infra:
+  - ".circleci/**"
+  - ".github/**"
+
+# add hub-specific labels for deployment changes
+a11y:
+  - "deployments/a11y/**"
+astro:
+  - "deployments/astro/**"
+biology:
+  - "deployments/biology/**"
+cee:
+  - "deployments/cee/**"
+data100:
+  - "deployments/data100/**"
+data101:
+  - "deployments/data101/**"
+data102:
+  - "deployments/data102/**"
+data8:
+  - "deployments/data8/**"
+data8x:
+  - "deployments/data8x/**"
+data8xv2:
+  - "deployments/data8xv2/**"
+datahub:
+  - "deployments/datahub/**"
+dlab:
+  - "deployments/dlab/**"
+eecs:
+  - "deployments/eecs/**"
+highschool:
+  - "deployments/highschool/**"
+ischool:
+  - "deployments/ischool/**"
+julia:
+  - "deployments/julia/**"
+logodev:
+  - "deployments/logodev/**"
+prob140:
+  - "deployments/prob140/**"
+publichealth:
+  - "deployments/publichealth/**"
+r:
+  - "deployments/r/**"
+shiny:
+  - "deployments/shiny/**"
+stat159:
+  - "deployments/stat159/**"
+stat20:
+  - "deployments/stat20/**"
+workshop:
+  - "deployments/workshop/**"

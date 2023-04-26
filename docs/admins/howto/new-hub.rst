@@ -215,8 +215,13 @@ need to be added to the authorized callback list maintained in bcourses.
 
 CircleCI
 --------
-Add an entry in ``.circleci/config.yml`` to deploy the hub via CI. It should
-be under the ``deploy`` job, and look something like this:
+The CircleCI configuration file ``.circleci/config.yml`` will need to include directives for building
+and deploying your new hub at several phases of the CircleCI process.
+Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub,
+find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub.
+Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.
+
+Here is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:
 
 .. code:: yaml
 
@@ -255,6 +260,18 @@ Review hubploy.yaml file inside your project directory and update the image name
 	  
    image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
 
+Add hub to the github labeler workflow
+--------------------------------------
+The new hub will now need to be added to the github labeler workflow.
+
+Edit the file ``.github/labeler.yml`` and add an entry for this hub (alphabetically) in the
+``# add build-infra label to any .github or circleci changes`` block:
+
+.. code:: yaml
+
+   <hubname>:
+     - "deployments/<hubname>/**"
+   
 Create placeholder node pool
 ----------------------------
 Node pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.
