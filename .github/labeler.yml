@@ -1,7 +1,7 @@
 # add labels for code changes
 python:
   - "**/*.py"
-R:
+R-code:
   - "**/*.R"
   - "**/*.r"
 bash:
