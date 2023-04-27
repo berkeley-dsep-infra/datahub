@@ -6,7 +6,9 @@ source("/tmp/class-libs.R")
 class_name = "2023 Spring Stat 20"
 
 class_libs = c(
-    "DT", "0.26"
+    "DT", "0.26",
+    "shinyFiles", "0.9.3",
+    "shinyTime", "1.0.3"
 )
 
 class_libs_install_version(class_name, class_libs)
