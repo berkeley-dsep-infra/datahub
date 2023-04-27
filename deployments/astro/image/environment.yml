@@ -29,7 +29,7 @@ dependencies:
 - pip:
   - jupyter-desktop-server==0.1.3
   - -r infra-requirements.txt
-  - tensorflow>=2.7.*
+  - tensorflow==2.11.1
   - opencv-python>=4.5.5.62
   - nose2>=0.10.0
   - sympy
@@ -55,7 +55,7 @@ dependencies:
   - astropy>=5.0
   - dustmaps>=1.0.9
   - pyvo>=1.2
-  - joblib>=1.1.0
+  - joblib==1.1.1
   - aesara>=2.3.4
   - mkl-service
   - pymc3>=3.11.4
