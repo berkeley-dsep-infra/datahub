@@ -1,3 +1,31 @@
+# add labels for code changes
+python:
+  - "**/*.py"
+R-code:
+  - "**/*.R"
+bash:
+  - "**/*.sh"
+  - "**/*.bash"
+  - "**/postBuild"
+
+# add labels for config changes
+configuration:
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.json"
+  - "**/*.r"
+  - "**/Dockerfile"
+  - "**/*.conf"
+  - "**/requirements.in"
+  - "**/requirements.txt"
+  - "**/infra-requirements.txt"
+  - "**/*.site"
+  - "**/*.jl"
+
+# images
+images:
+  - "**/*.png"
+
 # add labels to docs
 documentation:
   - "docs/**"
