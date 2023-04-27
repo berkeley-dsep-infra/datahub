@@ -27,6 +27,7 @@ If the hub is using a shared node pool, skip all namespace and node pool steps.
 #. Create filestore backup:  ``gcloud filestore backups create <hubname>-backup-YYYY-MM-DD --file-share=shares --instance=<hubname-YYYY-MM-DD> --region "us-central1" --labels=filestore-backup=<hub name>,hub=<hub name>``
 #. Log in to ``nfsserver-01`` and unmount filestore from nfsserver: ``sudo umount /export/<hubname>-filestore``
 #. Comment out the hub build steps out in ``.circleci/config.yaml`` (deploy and build steps)
+#. Comment out GitHub label action for this hub in ``.github/labeler.yml``
 #. Comment hub entries out of ``datahub/node-placeholder/values.yaml``
 #. Delete k8s namespace:  ``kubectl delete namespace <hubname>-staging <hubname>-prod``
 #. Delete k8s node pool:  ``gcloud container node-pools delete <hubname> --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1"``
