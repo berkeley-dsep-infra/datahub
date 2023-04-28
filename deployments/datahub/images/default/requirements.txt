@@ -58,7 +58,7 @@ dustmaps==1.0.9
 george==0.4.0
 exoplanet==0.5.2
 torch==1.13.1
-torchvision==0.13.1
+torchvision==0.14.0
 pyvo==1.1
 joblib==1.0.1
 theano-pymc==1.1.2
