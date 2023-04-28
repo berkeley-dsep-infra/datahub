@@ -265,7 +265,7 @@ Add hub to the github labeler workflow
 The new hub will now need to be added to the github labeler workflow.
 
 Edit the file ``.github/labeler.yml`` and add an entry for this hub (alphabetically) in the
-``# add `hub-specific labels for deployment changes`` block:
+``# add hub-specific labels for deployment changes`` block:
 
 .. code:: yaml
 
