@@ -4,8 +4,10 @@
 #
 #    pip-compile requirements.in
 #
-certifi==2021.5.30
-    # via requests
+certifi==2022.12.7
+    # via
+    #   -r requirements.in
+    #   requests
 charset-normalizer==2.0.4
     # via requests
 datetime==5.0

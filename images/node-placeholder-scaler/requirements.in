@@ -1,4 +1,4 @@
-certifi=2022.12.07
+certifi==2022.12.07
 datetime
 ical
 requests
