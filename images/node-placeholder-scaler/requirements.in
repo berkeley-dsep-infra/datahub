@@ -1,5 +1,5 @@
 certifi==2022.12.07
-datetime
+DateTime
 ical
 requests
 ruamel.yaml

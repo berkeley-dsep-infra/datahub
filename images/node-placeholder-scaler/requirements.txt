@@ -8,27 +8,27 @@ certifi==2022.12.7
     # via
     #   -r requirements.in
     #   requests
-charset-normalizer==2.0.4
+charset-normalizer==3.1.0
     # via requests
-datetime==5.0
+datetime==5.1
     # via -r requirements.in
 emoji==2.2.0
     # via ical
-ical==4.2.9
+ical==4.5.2
     # via -r requirements.in
-idna==3.2
+idna==3.4
     # via requests
-pydantic==1.10.5
+pydantic==1.10.7
     # via ical
 pyparsing==3.0.9
     # via ical
 python-dateutil==2.8.2
     # via ical
-pytz==2022.7.1
+pytz==2023.3
     # via datetime
-requests==2.26.0
+requests==2.29.0
     # via -r requirements.in
-ruamel-yaml==0.17.16
+ruamel-yaml==0.17.21
     # via -r requirements.in
 ruamel-yaml-clib==0.2.7
     # via ruamel-yaml
@@ -36,11 +36,11 @@ six==1.16.0
     # via python-dateutil
 typing-extensions==4.5.0
     # via pydantic
-tzdata==2022.7
+tzdata==2023.3
     # via ical
-urllib3==1.26.6
+urllib3==1.26.15
     # via requests
-zope-interface==5.5.2
+zope-interface==6.0
     # via datetime
 
 # The following packages are considered to be unsafe in a requirements file:
