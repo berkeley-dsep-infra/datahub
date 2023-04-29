@@ -1,3 +1,39 @@
+# add labels for code changes
+python:
+  - "**/*.py"
+R-code:
+  - "**/*.R"
+  - "**/*.r"
+bash:
+  - "**/*.sh"
+  - "**/*.bash"
+  - "**/postBuild"
+dockerfile:
+  - "**/Dockerfile"
+
+# add labels for non-singleuser image config changes
+configuration:
+  - "!deployments/**/image/**"
+  - "!deployments/**/images/**"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.json"
+  - "**/requirements.txt"
+
+# catch all singleuser image config changes
+singleuser-image:
+  - "deployments/**/image/**"
+  - "deployments/**/images/**"
+
+# changes to hub images
+hub-images:
+  - "images/**"
+    
+# images
+images:
+  - "**/*.png"
+  - "**/*.svg"
+
 # add labels to docs
 documentation:
   - "docs/**"
@@ -9,51 +45,51 @@ build-infra:
   - ".github/**"
 
 # add hub-specific labels for deployment changes
-a11y:
+"hub: a11y":
   - "deployments/a11y/**"
-astro:
+"hub: astro":
   - "deployments/astro/**"
-biology:
+"hub: biology":
   - "deployments/biology/**"
-cee:
+"hub: cee":
   - "deployments/cee/**"
-data100:
+"hub: data100":
   - "deployments/data100/**"
-data101:
+"hub: data101":
   - "deployments/data101/**"
-data102:
+"hub: data102":
   - "deployments/data102/**"
-data8:
+"hub: data8":
   - "deployments/data8/**"
-data8x:
+"hub: data8x":
   - "deployments/data8x/**"
-data8xv2:
+"hub: data8xv2":
   - "deployments/data8xv2/**"
-datahub:
+"hub: datahub":
   - "deployments/datahub/**"
-dlab:
+"hub: dlab":
   - "deployments/dlab/**"
-eecs:
+"hub: eecs":
   - "deployments/eecs/**"
-highschool:
+"hub: highschool":
   - "deployments/highschool/**"
-ischool:
+"hub: ischool":
   - "deployments/ischool/**"
-julia:
+"hub: julia":
   - "deployments/julia/**"
-logodev:
+"hub: logodev":
   - "deployments/logodev/**"
-prob140:
+"hub: prob140":
   - "deployments/prob140/**"
-publichealth:
+"hub: publichealth":
   - "deployments/publichealth/**"
-r:
+"hub: r":
   - "deployments/r/**"
-shiny:
+"hub: shiny":
   - "deployments/shiny/**"
-stat159:
+"hub: stat159":
   - "deployments/stat159/**"
-stat20:
+"hub: stat20":
   - "deployments/stat20/**"
-workshop:
+"hub: workshop":
   - "deployments/workshop/**"
