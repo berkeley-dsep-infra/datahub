@@ -20,7 +20,7 @@ beautifulsoup4==4.9.3
 nb2pdf==0.6.2
 #
 # ls 88-3; neuro
-lxml==4.6.5
+lxml==4.9.1
 tqdm==4.62.1
 mne==0.23.0
 nibabel==3.2.1
@@ -60,7 +60,7 @@ exoplanet==0.5.2
 torch==1.13.1
 torchvision==0.14.1
 pyvo==1.1
-joblib==1.0.1
+joblib==1.1.1
 theano-pymc==1.1.2
 pymc3==3.11.2
 
