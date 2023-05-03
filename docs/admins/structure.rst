@@ -69,4 +69,4 @@ Documentation
 Documentation is under the ``docs/`` folder, and is generated with the `sphinx
 <http://www.sphinx-doc.org/>`_ project. It is written with the `reStructuredText (rst)
 <http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_
-format. Documentation is automatically published to https://ucb-jupyterhubs.readthedocs.io/.
+format. Documentation is automatically published to https://uc-berkeley-jupyterhubs.readthedocs.io/ and https://docs.datahub.berkeley.edu/. This is performed via a `webhook <https://github.com/berkeley-dsep-infra/datahub/settings/hooks>`_ in the github repo.
