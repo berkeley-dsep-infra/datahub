@@ -90,9 +90,9 @@ git push origin <branch name>
 
 Once you've pushed to your fork, you can go to the
 [Datahub repo](https://github.com/berkeley-dsep-infra/datahub) and there
-should be a big green button on the top asking if you're like to create a pull
-request.  Click on that, edit the title and description and click `Create pull
-request`.
+should be a big green button on the top that says `Compare and pull request`.
+Click on that, check out the commits and file diffs, edit the title and
+description if needed and then click `Create pull request`.
 
 If you're having issues, you can refer to the [github documentation for pull
 requests](https://help.github.com/articles/about-pull-requests/).
