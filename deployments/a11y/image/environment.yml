@@ -21,6 +21,7 @@ dependencies:
 - urllib3==1.26.15
 - websockify==0.11.0
 - pip==23.0.1
+- jupyterthemes==0.20.0
 - pip:
   #- -r infra-requirements.txt
   # Upgrade separate from what everyone else uses for now
