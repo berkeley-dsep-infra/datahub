@@ -1,3 +1,2 @@
 myst_parser[sphinx]
 pydata-sphinx-theme
-pyopenssl==19.0.0
