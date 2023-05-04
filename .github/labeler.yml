@@ -13,6 +13,7 @@ dockerfile:
 
 # add labels for non-singleuser image config changes
 configuration:
+  - "!**/*.md" # exclude markdown files coz labeler be broken?
   - "!deployments/**/image/**"
   - "!deployments/**/images/**"
   - "**/*.yml"
