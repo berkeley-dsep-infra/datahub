@@ -1,5 +1,3 @@
-asdfasdfasdf
-
 fetch-course-emails
 -------------------
 
