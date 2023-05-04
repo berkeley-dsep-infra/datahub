@@ -16,7 +16,6 @@ configuration:
   - "!deployments/**/image/**"
   - "!deployments/**/images/**"
   - "!**/*.md" # exclude markdown files coz labeler be broken?
-  - "!**/*.txt" # exclude txt files, unless its one of:
   - "**/apt.txt"
   - "**/infra-requirements.txt"
   - "**/requirements.txt"
