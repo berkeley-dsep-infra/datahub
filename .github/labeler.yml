@@ -13,13 +13,17 @@ dockerfile:
 
 # add labels for non-singleuser image config changes
 configuration:
-  - "!**/*.md" # exclude markdown files coz labeler be broken?
   - "!deployments/**/image/**"
   - "!deployments/**/images/**"
+  - "!**/*.md" # exclude markdown files coz labeler be broken?
+  - "!**/*.txt" # exclude txt files, unless its one of:
+  - "**/apt.txt"
+  - "**/infra-requirements.txt"
+  - "**/requirements.txt"
+  - "**/runtime.txt"
+  - "**/*.json"
   - "**/*.yml"
   - "**/*.yaml"
-  - "**/*.json"
-  - "**/requirements.txt"
 
 # catch all singleuser image config changes
 singleuser-image:
@@ -37,6 +41,11 @@ images:
 
 # add labels to docs
 documentation:
+  - "**/*.txt" # include txt files, unless its one of:
+  - "!**/apt.txt"
+  - "!**/infra-requirements.txt"
+  - "!**/requirements.txt"
+  - "!**/runtime.txt"
   - "docs/**"
   - "**/*.md"
 
