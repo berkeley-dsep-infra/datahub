@@ -22,7 +22,6 @@ jupyterhub:
           # infrastructure
           - sknapp
           - rylo
-          - yuvipanda
           - felder
           - balajialwar
           # List of other admin users

@@ -5,7 +5,7 @@ git+https://github.com/yuvipanda/ok-client@6961d778741fe61911be4d00beff9bd8afc1e
 folium==0.12.1
 #
 # r
-jupyter-server-proxy==3.2.0
+jupyter-server-proxy==3.2.1
 jupyter-rsession-proxy==2.0.1
 jupyter-shiny-proxy==1.1
 #
@@ -20,7 +20,7 @@ beautifulsoup4==4.9.3
 nb2pdf==0.6.2
 #
 # ls 88-3; neuro
-lxml==4.6.3
+lxml==4.9.1
 tqdm==4.62.1
 mne==0.23.0
 nibabel==3.2.1
@@ -46,7 +46,7 @@ corner==2.2.1
 pymdptoolbox==4.0-b3
 #
 # data-x; DL
-tensorflow==2.9.*
+tensorflow==2.11.1
 scikit-image==0.19.*
 tables==3.7.0
 opencv-python==4.6.0.66
@@ -57,10 +57,10 @@ astropy==5.1
 dustmaps==1.0.9
 george==0.4.0
 exoplanet==0.5.2
-torch==1.12.1
-torchvision==0.13.1
+torch==1.13.1
+torchvision==0.14.1
 pyvo==1.1
-joblib==1.0.1
+joblib==1.1.1
 theano-pymc==1.1.2
 pymc3==3.11.2
 
@@ -128,7 +128,7 @@ habanero==0.7.4
 ipycanvas==0.9.0
 
 # Issue #1222, for PH 142 - Spring 2020
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 
 # data100 scientific packages
 ray==1.13.*
@@ -149,11 +149,11 @@ jassign==0.0.7
 dsassign==0.0.8
 
 # data102
-dask==2021.8.0
-distributed==2021.8.0
+dask==2021.10.0
+distributed==2021.10.0
 keras-applications==1.0.8
 keras-preprocessing==1.1.2
-keras==2.9.0
+keras==2.11.0
 keras-vis==0.4.1
 plotly-express==0.4.1
 cytoolz==0.11.0
