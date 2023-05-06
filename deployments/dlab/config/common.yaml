@@ -12,9 +12,6 @@ jupyterhub:
     chp:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool
-    traefik:
-      nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
 
   hub:
     nodeSelector:
@@ -22,21 +19,83 @@ jupyterhub:
     config:
       Authenticator:
         admin_users:
-            # infrastructure
-            - sknapp
-            - rylo
-            - yuvipanda
-            - felder
-            - balajialwar
-            # List of other admin users
-            - rbarreto
-            - pratik.sachdeva
-            - aculich
-            - cheng.ren
-            - emily_grabowski
-            - klganter
-            - cvacano
+          # infrastructure
+          - sknapp
+          - rylo
+          - yuvipanda
+          - felder
+          - balajialwar
+          # List of other admin users
+          # Instructor and GSI
+          - rbarreto
+          - pratik.sachdeva
+          - aculich
+          - cheng.ren
+          - emily_grabowski
+          - klganter
+          - cvacano
+    extraConfig:
+      15-initalize-shared-groups: |
+        # Initialize collab_groups, but override in secrets, before
+        # extraConfig 25 below.
+        collab_groups = {}
+
+      25-roles-and-shared-accounts: |
+        # Initialize load_groups, so that we can assign to it later.
+        c.JupyterHub.load_groups = {}
+
+        for collab_group, members in collab_groups.items():
+          c.JupyterHub.load_groups[collab_group] = members
+          print(f"Added group '{collab_group}' with members: {members}")
+
+          # Add user associated with collab group
+          collab_user = f"collab-{collab_group}"
+
+          # Anyone who in a collab_group can admin and access the
+          # user server, and can list users, of that group.
+          print(f"Add role for '{collab_user}'")
+          c.JupyterHub.load_roles.append(
+            {
+              "name": f"collab-access-{collab_group}",
+              "scopes": [
+                "admin-ui",
+                f"list:users!user={collab_user}",
+                f"admin:servers!user={collab_user}",
+                f"access:servers!user={collab_user}",
+              ],
+              "groups": [collab_group],
+            }
+          )
   singleuser:
+    defaultUrl: "/lab"
+    extraEnv:
+      # Tell code where to display GUIs
+      # The VNC /desktop link must be opened already for this to work
+      DISPLAY: ":1.0"
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+    cmd:
+      - jupyterhub-singleuser
+      - --LabApp.collaborative=true
+      # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration
+      - --YDocExtension.ystore_class=tmpystore.TmpYStore
+    extraFiles:
+      culling-config:
+        data:
+          # Allow jupyterlab option to show hidden files in browser
+          # https://github.com/berkeley-dsep-infra/datahub/issues/3160
+          ContentsManager:
+            allow_hidden: true
+      jupyter_server_config.json:
+        mountPath: /usr/local/etc/jupyter/jupyter_server_config.json
+        data:
+          # Via @yuvipanda in 2i2c-org/infrastructure##2247 :
+          # Move the sqlite file used by https://github.com/jupyter-server/jupyter_server_fileid
+          # off the default path, which is under ~/.local/share/jupyter.
+          # That is NFS, and sqlite + NFS don't go well together. In addition,
+          # it uses WAL mode of sqlite, and that is completely unsupported on NFS
+          BaseFileIdManager: &server_config_base_file_id_manager
+            db_path: /tmp/file_id_manager.db
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
     storage:
@@ -46,5 +105,4 @@ jupyterhub:
         subPath: "{username}"
     memory:
       guarantee: 4G
-      limit: 8G
-    image: {}
+      limit: 4G
