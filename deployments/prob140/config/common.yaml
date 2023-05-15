@@ -22,22 +22,17 @@ jupyterhub:
         # https://jupyterhub.readthedocs.io/en/stable/reference/authenticators.html#authenticator-managed-group-membership
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
           - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # instructors
           - adhikari
           # dsep staff
-          - bacon
           - ericvd
           - ryanedw
-          # Fall 2021 prob140 gsis as requested by Shahzar
-          - xinranliang
-          - shahzar
-          - wangyumeng2017
-          # Spring 2022 prob140 gsi requested by xinranliang
-          - hphuang
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 

@@ -29,60 +29,11 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
-          # Summer 2022 Admins, from Data 8 Instructors Kevin Miao and Ellen Persson
-          - daw
-          - nellepersson
-          - kevinmiao
-          - lingjunguo
-          - cayanan.joshua
-          - oscarb
-          - vpadma
-          - gprasann
-          - guanangela
-          - atticus.ginsborg
-          - xjeffreychen12
-          - katherine0806
-          - kelseyley
-          - kinsey.long
-          - noah.s.tran
-          - paul.loisel
-          - yifengwang
-          - samihasingh
-          - sarafang
-          - yiyan.hao
-          - ekchien04
-          - jonathanferrari
-          - karen.li
-          - lisaycliu
-          - nataliechan
-          - nikil
-          - ralui
-          - rhu01
-          - zayankhanmd
-          - andreawang
-          - ahlin
-          - aarushiwalia
-          - carrie.hu
-          - ekandell
-          - jacobaldrich11
-          - juliannalee
-          - kevintnguyen
-          - kvitolo
-          - lucytran
-          - mangai
-          - mingshamo
-          - richardsoong
-          - liuwenjin021011
-          - stephen.liu
-          - vaidehi-b
-          - zachmackin
-
-          # List of other admin users
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
 
   singleuser:
     nodeSelector:
