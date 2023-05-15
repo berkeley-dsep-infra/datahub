@@ -43,18 +43,20 @@ Defining group profiles
                 mem_guarantee: 2048M
 
 
-              # Example: additional volume mount for instructors.
-              # Other enrollment types are `student`, `ta`, `observer`,
-              # `designer`.
+              # Example: grant admin rights to course staff.
+              # Enrollment types returned by the Canvas API are `teacher`,
+              # `student`, `ta`, `observer`, and `designer`.
               # https://canvas.instructure.com/doc/api/enrollments.html
 
               # Some other class 200, Spring '23; requested in #98776
               course::234567::enrollment_type::teacher:
-                extraVolumeMounts:
-                - mountPath: /home/rstudio/.ssh
-                  name: home
-                  subPath: _stat131a/_ssh
-                  readOnly: true
+                admin: true
+                mem_limit: 2096M
+                mem_guarantee: 2048M
+              course::234567::enrollment_type::ta:
+                admin: true
+                mem_limit: 2096M
+                mem_guarantee: 2048M
 
 
               # Example: a fully specified CanvasOAuthenticator group name.
@@ -65,8 +67,10 @@ Defining group profiles
 
               # Name of Class 100, Fall '22; requested in #98770
               course::123456::group::lab4-bigdata:
-                mem_limit: 2048M
-                mem_guarantee: 2048M
+                - mountPath: /home/rstudio/.ssh
+                  name: home
+                  subPath: _some_directory/_ssh
+                  readOnly: true
 
 
    `123456` and `234567` are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
