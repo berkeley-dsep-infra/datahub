@@ -336,6 +336,8 @@ jupyterhub:
             if 'mem_guarantee' in override and \
             mem_cmp(override['mem_guarantee'], self.mem_guarantee) == 1:
               self.mem_guarantee = override['mem_guarantee']
+            if override.get('admin', False):
+              self.user.admin = override['admin']
 
           async def start(self):
             # delay if testing, see https://github.com/berkeley-dsep-infra/datahub/issues/4237
