@@ -32,13 +32,15 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
-          # List of other admin users
-          - dhughes  # https://github.com/berkeley-dsep-infra/datahub/issues/2462
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
+          # https://github.com/berkeley-dsep-infra/datahub/issues/2462
+          # Perpetual instructor
+          - dhughes
 
   singleuser:
     defaultUrl: /rstudio

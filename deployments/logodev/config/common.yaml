@@ -20,11 +20,12 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - gmerritt
-          - felder
           - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # List of other admin users
     extraConfig:
       20-logoConfig: |

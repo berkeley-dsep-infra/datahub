@@ -22,11 +22,12 @@ jupyterhub:
       Authenticator:
         admin_users:
             # infrastructure
-            - sknapp
-            - rylo
-            - yuvipanda
-            - felder
             - balajialwar
+            - felder
+            - gmerritt
+            - rylo
+            - sknapp
+
             # List of other admin users
 
   singleuser:
@@ -43,6 +44,7 @@ jupyterhub:
         subPath: "{username}"
     memory:
       # https://github.com/berkeley-dsep-infra/datahub/issues/2803
+      # Needed for Julia
       guarantee: 768M
       limit: 2G
     image: {}

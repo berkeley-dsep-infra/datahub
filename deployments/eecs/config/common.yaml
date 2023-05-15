@@ -23,11 +23,12 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # List of other admin users
           # ISG Staff
           - finsen

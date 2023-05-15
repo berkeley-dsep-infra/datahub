@@ -21,13 +21,14 @@ jupyterhub:
         manage_groups: false
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # List of other admin users
-          # Instructor and GSI
+          # Perpetual instructor
           - fernando.perez
           - fsapienza
     extraConfig:
