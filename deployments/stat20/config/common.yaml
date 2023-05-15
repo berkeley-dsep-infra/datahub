@@ -32,12 +32,13 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
-          # List of other admin users
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
+          # Perpetual instructor
           - andrewbray
 
   singleuser:

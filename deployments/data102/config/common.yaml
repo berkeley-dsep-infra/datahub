@@ -22,18 +22,11 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - felder
-          - rylo
           - balajialwar
-          # instructors
-          - ramesh_s
-          - jsteinhardt
-          # gsis
-          # data102 Spring 2023 as requested by Ramesh Sridharan
-          - hangxingliu
-          - alanjian131
-
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
 
   singleuser:
     nodeSelector:

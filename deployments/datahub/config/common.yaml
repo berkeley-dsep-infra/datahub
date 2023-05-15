@@ -21,11 +21,12 @@ jupyterhub:
         auto_login_oauth2_authorize: True
         admin_users:
           # infrastructure
-          - sknapp
-          - felder
-          - rylo
-          - yuvipanda
           - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # regular instructors
           - adhikari
           - culler
@@ -42,8 +43,6 @@ jupyterhub:
           #As per the request from David Broockman (Political Science Instructor)
           - broockman
           - castro.ian
-          #As per the request from Leila Njee Bugha (GSI for ENVECON 118 - Sp 22)
-          - le.njeeb
           #As per the request from James Sears (Environmental Econ GSI) - https://github.com/berkeley-dsep-infra/datahub/issues/3229
           - lenjb
     nodeSelector:
@@ -124,25 +123,8 @@ jupyterhub:
     image: {}
 
   # read by z2jh.get_config() in hub/values.yaml
-  # formerly jupyterhub.hub.extraConfigMap
-  custom:
-    group_profiles:
-      1519998: # Legal Studies 123, Spring 2023, issue #3718
-        mem_limit: 3072M
-        mem_guarantee: 3072M
-      
-      1522696: # ENVECON 153, Spring 2023, issue #3982
-        mem_limit: 3072M
-        mem_guarantee: 3072M
-        
-      1521412: # ARE 21, Spring 2023, issue #4057
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-        
-      1522114: # ECON 148, Spring 2023, issue #4261
-        mem_limit: 2048M
-        mem_guarantee: 2048M
-
-      1523121: # DEMOG 175, Spring 2023, issue #4513
-        mem_limit: 8192M
-        mem_guarantee: 8192M
+  #custom:
+  #  group_profiles:
+  #    canvas::1519998: # Legal Studies 123, Spring 2023, issue #3718
+  #      mem_limit: 3072M
+  #      mem_guarantee: 3072M

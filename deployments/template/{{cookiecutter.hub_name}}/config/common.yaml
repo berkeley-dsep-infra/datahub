@@ -20,10 +20,12 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - felder
           - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # List of other admin users
 
   singleuser:
