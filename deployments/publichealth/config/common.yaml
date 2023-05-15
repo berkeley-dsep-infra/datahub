@@ -39,34 +39,12 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
-          # PH250WF+PH250WG Instructors, issue 882
-          - jadebc
-          - jcolford
-          # PH250WF+PH250WG student assistants, issue 882
-          - anna-nguyen
-          - lucascarlton
-          - m.ruiz
-          - nolanpokpongkiat
-          - stephaniemholm
-          - wmjilek
-          # PH142 Instructors
-          - mi-suk
-          - c.riddell
-          - hogenegin # https://github.com/berkeley-dsep-infra/datahub/issues/3168
-          # PH 142 Spring 23 Instructors - https://github.com/berkeley-dsep-infra/datahub/issues/4110
-          - brian.aldana
-          - irisyen
-          - emendoza97
-          - psrivastava
-          - acabulong
-          - ruben.vargas
-          - hillary_nguyen
-          - jeshim
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
   singleuser:
     defaultUrl: /rstudio
 

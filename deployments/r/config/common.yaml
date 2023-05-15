@@ -31,37 +31,12 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
-          # PH250WF+PH250WG Instructors, issue 882
-          - jadebc
-          - jcolford
-          # PH250WF+PH250WG student assistants, issue 882
-          - anna-nguyen
-          - lucascarlton
-          - m.ruiz
-          - nolanpokpongkiat
-          - stephaniemholm
-          - wmjilek
-          # PH142 Instructor
-          - mi-suk
-          # PH142 GSIs, Tech GSI
-          - sophia.fuller
-          - chandlerbeon
-          - andrewliu21
-          - leishi
-          - nanamizuide
-          - saherdaredia
-          - sarah_johnson
-          - shaziakn
-          - jiyunwen
-          # Issue 2462
-          - dhughes
-          # ESPM 142, Fall 2022, Issue 3738
-          - rachel.weinberg
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
           # List of other admin users
 
   singleuser:

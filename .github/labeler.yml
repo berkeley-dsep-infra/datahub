@@ -13,16 +13,13 @@ dockerfile:
 
 # add labels for non-singleuser image config changes
 configuration:
-  - "!deployments/**/image/**"
-  - "!deployments/**/images/**"
-  - "!**/*.md" # exclude markdown files coz labeler be broken?
-  - "**/apt.txt"
-  - "**/infra-requirements.txt"
-  - "**/requirements.txt"
-  - "**/runtime.txt"
-  - "**/*.json"
-  - "**/*.yml"
-  - "**/*.yaml"
+  - '**/apt.txt'
+  - '**/infra-requirements.txt'
+  - '**/requirements.txt'
+  - '**/runtime.txt'
+  - '**/*.json'
+  - '**/*.yml'
+  - '**/*.yaml'
 
 # catch all singleuser image config changes
 singleuser-image:
@@ -40,13 +37,13 @@ images:
 
 # add labels to docs
 documentation:
-  - "**/*.txt" # include txt files, unless its one of:
-  - "!**/apt.txt"
-  - "!**/infra-requirements.txt"
-  - "!**/requirements.txt"
-  - "!**/runtime.txt"
-  - "docs/**"
-  - "**/*.md"
+  - '**/*.txt'
+  - 'docs/**'
+  - '**/*.md'
+  - '!**/apt.txt'
+  - '!**/infra-requirements.txt'
+  - '!**/requirements.txt'
+  - '!**/runtime.txt'
 
 # add build-infra label to any .github or circleci changes
 build-infra:

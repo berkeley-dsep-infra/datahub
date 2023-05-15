@@ -67,13 +67,11 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - rylo
-          - yuvipanda
-          - felder
           - balajialwar
-          # List of other admin users
-          - lukeliu
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
 
   singleuser:
 ##    extraContainers:
