@@ -353,6 +353,7 @@ jupyterhub:
                 break
 
             # custom.profiles
+            # Apply overrides for specific users.
             custom_profiles = z2jh.get_config('custom.profiles', {})
             for profile, override in custom_profiles.items():
               if 'users' in override and self.user.name in override['users']:
@@ -364,15 +365,25 @@ jupyterhub:
 
             group_profiles = z2jh.get_config('custom.group_profiles', {})
 
-            is_student = False
-            is_instructor = False
+            # Initialize for the loop below.
+            # 20230515 - Disabled when we bypassed it in the loop.
+            #is_student = False
+            #is_instructor = False
+
             for group in self.user.groups:
               # Apply an override for the full group name, if it exists
               # under group_profiles.
               if group.name in group_profiles:
                 self.apply_override(group_profiles.get(group.name))
 
-              # We should alter the authenticator to just add people to
+              # 20230515 - We skip the rest of the code below since there
+              # should no longer be a need to parse group names. If a
+              # particular group should have additional resources or rights,
+              # set that in the group stanza in the configuration. Remove the
+              # rest of code when this proves itself.
+              continue
+
+              # We have altered the authenticator to just add people to
               # 'course::{canvas_id}' too. This obviates the need for
               # some of the code below.
 
@@ -380,10 +391,6 @@ jupyterhub:
               # ignore any that don't have that form.
               if group.name.count('::') != 3:
                 continue
-
-              # group format in CanvasOAuthenticator >= v0.1 is
-              #   'course::{canvas_id}::enrollment_type::{role}'
-              #   'course::{canvas_id}::group::{name}'
 
               # This prepares an override for just the bcourse ID,
               # which we might deprecate at some point. While it is easier
@@ -405,14 +412,8 @@ jupyterhub:
               is_instructor |= group_role in ['teacher', 'ta']
               is_student |= group_role in ['student', 'observer']
 
-            # if the user is a student in any course specified by a profile,
-            # they never get to be an admin
-            if is_student:
-              self.user.admin = False
-            elif is_instructor:
-              self.user.admin = True
-
             # custom.admin
+            # This applies overrides for those who have self.user.admin set.
             custom_admin = z2jh.get_config('custom.admin', {})
             if custom_admin and self.user.admin:
               self.apply_override(custom_admin)
