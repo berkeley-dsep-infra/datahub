@@ -4,10 +4,7 @@
 # Download tools
 curl
 wget
-
-# Core text editors on a *nix box: vim and emacs
 vim
-python-mode
 
 # for easily managing multiple repositories with one command (perl-doc
 # is needed for its help pages to work)
@@ -16,7 +13,6 @@ perl-doc
 
 # Regular build tools for compiling common stuff
 build-essential
-gfortran
 
 # Dependencies for nbconvert
 texlive-xetex
