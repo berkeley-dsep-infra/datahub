@@ -9,30 +9,12 @@ jupyterhub:
       Authenticator:
         admin_users:
           # infrastructure
-          - sknapp
-          - felder
-          - rylo
-          - yuvipanda
-          - cpyles
           - balajialwar
-          # instructors & gsis as per request from Dominic Liu(Spring 2022)
-          - kagarwal2
-          - parthbaokar
-          - andrew.lenz
-          - abadrinath
-          - snhing
-          - grover.kanu
-          - fernando.perez
-          - fgeng
-          - hangxingliu
-          #https://github.com/berkeley-dsep-infra/datahub/issues/3198
-          - yanlisa
-          - hug
-          #https://github.com/berkeley-dsep-infra/datahub/issues/3714 (Fall 2022)
-          - rohan.jha
-          - shiangyi.andrea.lin
-          - ehao
-          - miroyan.mihran
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
 #  prePuller:
 #    extraImages:
 #      postgres:
@@ -70,7 +52,3 @@ jupyterhub:
         - name: home
           mountPath: /home/jovyan/shared-readwrite
           subPath: _shared
-    group_profiles:
-      1521765: # Data 200, Spring 2023, issue #4472
-        mem_limit: 8192M
-        mem_guarantee: 8192M
