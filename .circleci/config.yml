@@ -12,11 +12,14 @@ orbs:
             default: false
 
         docker:
-          - image: cimg/python:3.11.3
+          - image: python:3.7-slim-bullseye
         working_directory: ~/repo
         steps:
           - checkout
-
+          - run:
+              name: Install git & curl
+              command: |
+                apt-get update && apt-get install --yes --no-install-recommends git curl
           - restore_cache:
               keys:
                 - v3.7-dependencies-{{ checksum "requirements.txt" }}
@@ -102,14 +105,14 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: cimg/python:3.11.3
+      - image: python:3.8-slim-bullseye
     working_directory: ~/repo
     steps:
-#      - run:
-#          name: Install base apt packages
-#          command: |
-#            apt-get update -qq --yes
-#            apt-get install -qq --yes git curl lsb-release apt-transport-https
+      - run:
+          name: Install base apt packages
+          command: |
+            apt-get update -qq --yes
+            apt-get install -qq --yes git curl lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
