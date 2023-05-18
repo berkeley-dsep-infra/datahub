@@ -106,10 +106,10 @@ jobs:
     working_directory: ~/repo
     steps:
       - run:
-          name: Install base apt packages
-          command: |
-            apt-get update -qq --yes
-            apt-get install -qq --yes git curl lsb-release apt-transport-https
+#          name: Install base apt packages
+#          command: |
+#            apt-get update -qq --yes
+#            apt-get install -qq --yes git curl lsb-release apt-transport-https
       - checkout
       # Download and cache dependencies
       - restore_cache:
