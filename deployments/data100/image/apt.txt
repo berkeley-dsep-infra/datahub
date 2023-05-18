@@ -16,7 +16,6 @@ wget
 vim
 emacs-nox
 emacs-goodies-el
-python-mode
 
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
