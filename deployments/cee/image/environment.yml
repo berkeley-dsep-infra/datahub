@@ -6,17 +6,17 @@ channels:
 dependencies:
 - python=3.9.*
 #adding math functionality 
-- matplotlib
-- scipy
-- mpld3
+- matplotlib=3.7.*
+- scipy=1.10.*
+- mpld3=0.5.*
 
 # Needed for linux desktop environment
-- websockify
+- websockify=0.11.0
 
 - qgis=3.22.*
 
 # Maybe needed for qgis? https://github.com/conda-forge/qgis-feedstock/issues/263
-- pyopencl
+- pyopencl=2023.1
 
 - pip
 - pip:
