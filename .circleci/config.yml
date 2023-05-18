@@ -12,7 +12,7 @@ orbs:
             default: false
 
         docker:
-          - image: python:3.7-slim-buster
+          - image: cimg/python:3.11.3
         working_directory: ~/repo
         steps:
           - checkout
@@ -106,7 +106,7 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: python:3.7-slim-buster
+      - image: cimg/python:3.11.3
     working_directory: ~/repo
     steps:
       - run:
