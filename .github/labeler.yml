@@ -36,14 +36,14 @@ images:
   - "**/*.svg"
 
 # add labels to docs
-documentation:
-  - '**/*.txt'
-  - 'docs/**'
-  - '**/*.md'
-  - '!**/apt.txt'
-  - '!**/infra-requirements.txt'
-  - '!**/requirements.txt'
-  - '!**/runtime.txt'
+# documentation:
+#   - '**/*.txt'
+#   - 'docs/**'
+#   - '**/*.md'
+#   - '!**/apt.txt'
+#   - '!**/infra-requirements.txt'
+#   - '!**/requirements.txt'
+#   - '!**/runtime.txt'
 
 # add build-infra label to any .github or circleci changes
 build-infra:
