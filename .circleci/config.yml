@@ -16,10 +16,6 @@ orbs:
         working_directory: ~/repo
         steps:
           - checkout
-          - run:
-              name: Install git & curl
-              command: |
-                apt-get update && apt-get install --yes --no-install-recommends git curl
 
           - restore_cache:
               keys:
