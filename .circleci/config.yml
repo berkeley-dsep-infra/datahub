@@ -12,7 +12,7 @@ orbs:
             default: false
 
         docker:
-          - image: python:3.7-slim-buster
+          - image: python:3.7-slim-bullseye
         working_directory: ~/repo
         steps:
           - checkout
@@ -20,7 +20,6 @@ orbs:
               name: Install git & curl
               command: |
                 apt-get update && apt-get install --yes --no-install-recommends git curl
-
           - restore_cache:
               keys:
                 - v3.7-dependencies-{{ checksum "requirements.txt" }}
@@ -106,7 +105,7 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: python:3.7-slim-buster
+      - image: python:3.8-slim-bullseye
     working_directory: ~/repo
     steps:
       - run:
@@ -128,9 +127,6 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade -r requirements.txt
-
-            # Keep same repo2docker version in build & deploy jobs
-            pip install --upgrade git+https://github.com/jupyter/repo2docker.git@968cc43a9e238916b5032edbf84e309c8d4ff35e
 
             # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
             pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf

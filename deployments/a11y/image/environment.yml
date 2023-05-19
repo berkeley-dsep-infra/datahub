@@ -32,6 +32,6 @@ dependencies:
   # The items below are from infra-requirements, however lab conflicts with the
   # alpha notebook.
   # We disable infre-requirements.txt above and manually enable some of what it
-  # provides below.
+  # provides below. 
   # ###
   # Matches version in images/hub/Dockerfile
