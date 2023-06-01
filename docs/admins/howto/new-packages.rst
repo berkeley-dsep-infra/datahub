@@ -80,7 +80,7 @@ Familiarize yourself with `pull requests <https://help.github.com/en/github/coll
 	* Note that package versions for :code:`conda` are specified using :code:`=`, while in :code:`pip` they are specified using :code:`==`
 #. Test the changes locally using :code:`repo2docker`, then submit a PR to ``staging``.
 	* To use ``repo2docker``, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run ``repo2docker deployments/data100/image`` from the base datahub directory.
-#. Commit and push your changes to your fork of the datahub repo, and create a new pull request at `https://github.com/berkeley-dsep-infra/datahub/`__.
+#. Commit and push your changes to your fork of the datahub repo, and create a new pull request at `<https://github.com/berkeley-dsep-infra/datahub/>`__.
 #. Once the PR is merged to staging, you can test it out on :code:`class-staging.datahub.berkeley.edu`.
 #. Changes are only deployed to datahub once the relevant Travis CI job is completed. See `<https://circleci.com/gh/berkeley-dsep-infra/datahub>`__ to view Travis CI job statuses. 
 
