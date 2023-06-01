@@ -72,17 +72,16 @@ Submitting a pull request
 
 Familiarize yourself with `pull requests <https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests>`_ and `repo2docker <https://github.com/jupyter/repo2docker>`_ , and create a fork of the `datahub staging branch <https://github.com/berkeley-dsep-infra/datahub>`_.
 
-#. Find the correct :file:`environment.yml` file for your class. This should be under ``\deployments\class\image\``
-#. In :file:`environment.yml`, packages listed under :code:`dependencies` are installed using :code:`conda`, while packages under :code:`pip` are installed using :code:`pip`. Any packages that need to be installed via :code:`apt` must be added to ``\deployments\class\image\Dockerfile``.
-#. Add any packages necessary. :code:`Pip` will almost always have the latest version of a package, but :code:`conda` may only contain older versions.
+#. Set up your git/dev environment by `following the instructions here <https://github.com/berkeley-dsep-infra/datahub/#setting-up-your-fork-and-clones>`_.
+#. Create a new branch for this PR.
+#. Find the correct :file:`environment.yml` file for your class. This should be under ``datahub/deployments/<class or hub name>/image``
+#. In :file:`environment.yml`, packages listed under :code:`dependencies` are installed using :code:`conda`, while packages under :code:`pip` are installed using :code:`pip`. Any packages that need to be installed via :code:`apt` must be added to either ``datahub/deployments/<class or hub name>/image/Dockerfile`` or ``datahub/deployments/<class or hub name>/image/Dockerfile``.
+#. Add any packages necessary.  We typically prefer using :code:`conda` packages, and :code:`pip` only if necessary.  Please pin to a specific version (no wildards, etc).
 	* Note that package versions for :code:`conda` are specified using :code:`=`, while in :code:`pip` they are specified using :code:`==`
 #. Test the changes locally using :code:`repo2docker`, then submit a PR to ``staging``.
-	* To use ``repo2docker``, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run ``repo2docker deployments/data100/image`` from the base datahub directory. 
-#. Once the PR is pulled, test it out on :code:`class-staging.datahub.berkeley.edu`.
-#. Finally, submit a pull request to merge from :code:`staging` into :code:`prod`.
-    * Double check what commits are pulled in. Creating this pull request will pull in all new commits to prod.
-    * If other commits are pulled into your pull request, ask the authors of those commits if they are okay with this.
-    * The pull request title should be "Merge [List of commits] to prod". For example, the pr title might be "Merge #1136, #1278, #1277, #1280 to prod".
+	* To use ``repo2docker``, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run ``repo2docker deployments/data100/image`` from the base datahub directory.
+#. Commit and push your changes to your fork of the datahub repo, and create a new pull request at `https://github.com/berkeley-dsep-infra/datahub/`__.
+#. Once the PR is merged to staging, you can test it out on :code:`class-staging.datahub.berkeley.edu`.
 #. Changes are only deployed to datahub once the relevant Travis CI job is completed. See `<https://circleci.com/gh/berkeley-dsep-infra/datahub>`__ to view Travis CI job statuses. 
 
 Tips for Upgrading Package
