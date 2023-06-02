@@ -75,7 +75,7 @@ Familiarize yourself with `pull requests <https://help.github.com/en/github/coll
 #. Set up your git/dev environment by `following the instructions here <https://github.com/berkeley-dsep-infra/datahub/#setting-up-your-fork-and-clones>`_.
 #. Create a new branch for this PR.
 #. Find the correct :file:`environment.yml` file for your class. This should be under ``datahub/deployments/<class or hub name>/image``
-#. In :file:`environment.yml`, packages listed under :code:`dependencies` are installed using :code:`conda`, while packages under :code:`pip` are installed using :code:`pip`. Any packages that need to be installed via :code:`apt` must be added to either ``datahub/deployments/<class or hub name>/image/Dockerfile`` or ``datahub/deployments/<class or hub name>/image/Dockerfile``.
+#. In :file:`environment.yml`, packages listed under :code:`dependencies` are installed using :code:`conda`, while packages under :code:`pip` are installed using :code:`pip`. Any packages that need to be installed via :code:`apt` must be added to either ``datahub/deployments/<class or hub name>/image/apt.txt`` or ``datahub/deployments/<class or hub name>/image/Dockerfile``.
 #. Add any packages necessary.  We typically prefer using :code:`conda` packages, and :code:`pip` only if necessary.  Please pin to a specific version (no wildards, etc).
 	* Note that package versions for :code:`conda` are specified using :code:`=`, while in :code:`pip` they are specified using :code:`==`
 #. Test the changes locally using :code:`repo2docker`, then submit a PR to ``staging``.
