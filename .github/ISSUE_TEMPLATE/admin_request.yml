@@ -40,14 +40,11 @@ body:
         - <!-- Eg: Datahub/Data 8/Data 100 etc.. -->
     validations:
       required: true
-  - type: textarea
+  - type: markdown
     attributes:
       label: Usernames of folks not listed in bcourses
-      description: Usernames of the teaching staff whose enrollment type is neither "teacher" nor "ta" in their bcourses account of the course being taught
       value: |
-        - <!-- If possible, Remove @berkeley.edu as part of the shared usernames -->
-    validations:
-      required: true
+        - <!-- Remove @berkeley.edu as part of the shared usernames and send them to ds-infrastructure@lists.berkeley.edu -->
   - type: textarea
     attributes:
       label: End Date
