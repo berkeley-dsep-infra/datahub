@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and share us the information required to provide admin access! 	
+        Please follow the sections in the template below and share the required information for providing admin access! If you are curious to understand the process through which we assign admin users, please refer to this documentation - https://docs.datahub.berkeley.edu/en/latest/admins/howto/course-config.html#defining-group-profiles 	
   - type: input
     attributes:
       label: Your Name
@@ -18,6 +18,12 @@ body:
     attributes:
       label: Affiliated Course Name
       description: Name of the course for which you are part of the teaching team
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Bcourses Id
+      description: bcourses id for the course you are teaching eg: 234567
     validations:
       required: true
   - type: input
@@ -34,14 +40,11 @@ body:
         - <!-- Eg: Datahub/Data 8/Data 100 etc.. -->
     validations:
       required: true
-  - type: textarea
+  - type: markdown
     attributes:
-      label: List of Usernames
-      description: Usernames of the teaching staff requiring admin access
+      label: Usernames of folks not listed in bcourses
       value: |
-        - <!-- If possible, Remove @berkeley.edu as part of the shared usernames -->
-    validations:
-      required: true
+        - <!-- Remove @berkeley.edu as part of the shared usernames and send them to ds-infrastructure@lists.berkeley.edu -->
   - type: textarea
     attributes:
       label: End Date
