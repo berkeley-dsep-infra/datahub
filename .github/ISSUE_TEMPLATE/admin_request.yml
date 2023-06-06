@@ -23,7 +23,7 @@ body:
   - type: input
     attributes:
       label: Bcourses Id
-      description: bcourses id for the course you are teaching eg: 234567
+      description: bcourses id for the course you are teaching. You can find that in the URL to your course (It is a six digit number)
     validations:
       required: true
   - type: input
