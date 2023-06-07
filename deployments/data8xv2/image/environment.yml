@@ -18,5 +18,5 @@ dependencies:
     - datascience==0.17.5
 # For grading
     - -r infra-requirements.txt
-    - otter-grader==3.1.4
+    - otter-grader==4.1.0
     - gofer-submit==0.5.1
