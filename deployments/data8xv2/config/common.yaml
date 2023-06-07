@@ -31,7 +31,7 @@ jupyterhub:
         - gofer_nb
     config:
       JupyterHub:
-        authenticator_class: ltiauthenticator.LTIAuthenticator
+        authenticator_class: ltiauthenticator.lti11.auth.LTI11Authenticator
       Authenticator:
         admin_users:
           # unknown, not found in any issues
