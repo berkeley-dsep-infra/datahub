@@ -51,3 +51,9 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
+    custom:
+      group_profiles:
+        course::1525580::enrollment_type::teacher:
+          admin: true
+        course::1525580::enrollment_type::ta:
+          admin: true
