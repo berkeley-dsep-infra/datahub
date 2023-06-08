@@ -65,7 +65,7 @@ theano-pymc==1.1.2
 pymc3==3.11.2
 
 # eep 153; spring 2019
-requests==2.26.0
+requests==2.31.0
 Pint==0.17
 # Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
 gspread-pandas==2.3.0
