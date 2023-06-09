@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.11
 
 # This is to normalize all day events, which don't have a timezone.
 ENV TZ=America/Los_Angeles
