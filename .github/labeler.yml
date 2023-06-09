@@ -46,6 +46,13 @@ build-infra:
   - ".circleci/**"
   - ".github/**"
 
+# node placeholder/scaler labels
+node-placeholder:
+  - "node-placeholder/**"
+
+node-placeholder-scaler:
+  - "images/node-placeholder-scaler/**"
+
 # add hub-specific labels for deployment changes
 "hub: a11y":
   - "deployments/a11y/**"
