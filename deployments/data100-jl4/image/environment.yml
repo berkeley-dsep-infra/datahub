@@ -38,7 +38,7 @@ dependencies:
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
 - jupyterlab-git==0.39.0
-- jupyterlab-link-share==0.2.4
+- jupyterlab-link-share==0.3.0
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
 - jupyterlab_widgets
