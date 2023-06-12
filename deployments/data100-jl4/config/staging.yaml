@@ -1,0 +1,16 @@
+nfsPVC:
+  nfs:
+    shareName: shares/data100-jl4/staging
+
+jupyterhub:
+  prePuller:
+    continuous:
+      enabled: false
+  ingress:
+    enabled: true
+    hosts:
+      - data100-jl4-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - data100-jl4-staging.datahub.berkeley.edu
