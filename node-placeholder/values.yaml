@@ -4,7 +4,7 @@ image:
   repository: us-central1-docker.pkg.dev/ucb-datahub-2018/core/node-placeholder-scaler
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.1-n6174.hbc222d8e"
+  tag: "0.0.1-0.dev.git.6283.he29ee6d0"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -86,7 +86,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   # cee:
   #   nodeSelector:
   #     hub.jupyter.org/pool-name: cee-pool
@@ -118,7 +118,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   data8:
     nodeSelector:
       hub.jupyter.org/pool-name: data8-pool
@@ -150,7 +150,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   ischool:
     nodeSelector:
       hub.jupyter.org/pool-name: ischool-pool
@@ -158,7 +158,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   publichealth:
     nodeSelector:
       hub.jupyter.org/pool-name: publichealth-pool
@@ -166,7 +166,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   stat159:
     nodeSelector:
       hub.jupyter.org/pool-name: stat159-pool
@@ -174,7 +174,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   stat20:
     nodeSelector:
       hub.jupyter.org/pool-name: stat20-pool
@@ -182,7 +182,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   r:
     nodeSelector:
       hub.jupyter.org/pool-name: r-pool
@@ -190,7 +190,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
   small-courses:
     nodeSelector:
       hub.jupyter.org/pool-name: small-courses-pool
@@ -198,4 +198,4 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 0
