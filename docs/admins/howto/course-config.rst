@@ -27,11 +27,11 @@ Defining group profiles
 
 #. Edit `deployments/{deployment}/config/common.yaml`.
 
-#. Duplicate an existing stanza, or create a new one under `hub.custom.group_profiles` by inserting yaml of the form:
+#. Duplicate an existing stanza, or create a new one under `jupyterhub.custom.group_profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        hub:
+        jupyterhub:
           custom:
             group_profiles:
 
@@ -73,6 +73,8 @@ Defining group profiles
                   readOnly: true
 
 
+   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>_`.
+
    `123456` and `234567` are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
 
 #. Add a comment associating the profile identifier with a friendly name of the course. Also link to the github issue where the instructor requested the resources. This helps us to cull old configuration during maintenance windows.
@@ -86,11 +88,11 @@ It may be necessary to assign additional resources to specific users, if it is t
 
 #. Edit `deployments/{deployment}/config/common.yaml`.
 
-#. Duplicate an existing stanza, or create a new one under `hub.custom.profiles` by inserting yaml of the form:
+#. Duplicate an existing stanza, or create a new one under `jupyterhub.custom.profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        hub:
+        jupyterhub:
           custom:
             profiles:
 
