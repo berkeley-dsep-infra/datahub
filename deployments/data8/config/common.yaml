@@ -34,8 +34,13 @@ jupyterhub:
           - gmerritt
           - rylo
           - sknapp
-#    custom:
-#      group_profiles:
+    custom:
+      group_profiles:
+        # Data 8, Summer 2023; #4613
+        course::1525580::enrollment_type::teacher:
+          admin: true
+        course::1525580::enrollment_type::ta:
+          admin: true
 
   singleuser:
     nodeSelector:
@@ -53,11 +58,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-
-  custom:
-    group_profiles:
-      # Data 8, Summer 2023
-      course::1525580::enrollment_type::teacher:
-        admin: true
-      course::1525580::enrollment_type::ta:
-        admin: true
