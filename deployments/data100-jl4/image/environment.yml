@@ -33,7 +33,6 @@ dependencies:
 - jupyter-repo2docker==2022.2.0
 - jupyter-resource-usage==0.6.1
 - jupyter_bokeh
-- jupyter_collaboration
 - jupyterlab==4.0.2
 - jupyterlab-drawio==0.9.0
 - jupyterlab-favorites==3.0.0
@@ -95,3 +94,4 @@ dependencies:
   - geopandas==0.12.1
   - iwut==0.0.4
   - tensorflow-cpu==2.12.0
+  - jupyter_collaboration
