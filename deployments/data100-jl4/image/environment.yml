@@ -7,7 +7,7 @@ dependencies:
 - python==3.9
 - syncthing==1.20.4
 - git
-- altair==4.2.0
+- altair==5.0.1
 - beautifulsoup4==4.11.1
 - black==22.6.0
 - bokeh==2.4.3
@@ -29,7 +29,7 @@ dependencies:
 - ipydatagrid==1.1.12
 - ipympl==0.9.2
 - ipyparallel==8.4.1
-- jsonschema==4.17
+- jsonschema==4.17.3
 - jupyter-book==0.15.1
 - jupyter-repo2docker==2022.2.0
 - jupyter-resource-usage==0.6.1
