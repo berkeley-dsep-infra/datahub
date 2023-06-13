@@ -17,7 +17,7 @@ dependencies:
 - cython==0.29.32
 - dask==2022.8.1
 - dask-labextension==6.1.0
-- distributed==2022.8.1
+- distributed==2023.6.0
 - fortran-magic==0.7
 - h5netcdf==1.0.2
 - h5py==3.7.0
