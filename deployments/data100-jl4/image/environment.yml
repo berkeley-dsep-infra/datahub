@@ -44,6 +44,7 @@ dependencies:
 - jupyterlab_server==2.23.0
 - jupyterlab_widgets
 - jupytext==1.14.0
+- jupyter_server==2.6.0
 - matplotlib==3.5.3
 - matplotlib-inline==0.1.6
 - mock==4.0.3
