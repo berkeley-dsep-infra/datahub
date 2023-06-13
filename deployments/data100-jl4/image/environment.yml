@@ -15,7 +15,7 @@ dependencies:
 - cartopy==0.21.0
 - coverage==6.4.4
 - cython==0.29.32
-- dask==2022.8.1
+- dask==2023.6.0
 - dask-labextension==6.1.0
 - distributed==2023.6.0
 - fortran-magic==0.7
