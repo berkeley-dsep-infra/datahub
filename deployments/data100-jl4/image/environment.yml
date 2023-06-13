@@ -41,6 +41,7 @@ dependencies:
   # - jupyterlab-link-share==0.3.0
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
+- jupyterlab_server==2.23.0
 - jupyterlab_widgets
 - jupytext==1.14.0
 - matplotlib==3.5.3
@@ -85,7 +86,6 @@ dependencies:
 - pip:
   - -r infra-requirements.txt
   - jupyter-desktop-server
-  - jupyterlab_server==2.23.0
     # For push authentication to GitHub
   - gh-scoped-creds==4.1
   # Upgrade separate from what everyone else uses for now
