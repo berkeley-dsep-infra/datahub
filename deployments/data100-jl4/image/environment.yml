@@ -33,12 +33,13 @@ dependencies:
 - jupyter-repo2docker==2022.2.0
 - jupyter-resource-usage==0.6.1
 - jupyter_bokeh
+- jupyter_collaboration
 - jupyterlab==4.0.2
 - jupyterlab-drawio==0.9.0
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
 - jupyterlab-git==0.39.0
-- jupyterlab-link-share==0.3.0
+  # - jupyterlab-link-share==0.3.0
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
 - jupyterlab_widgets
