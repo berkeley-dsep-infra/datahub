@@ -97,6 +97,7 @@ The method for testing `scaler/scaler.py` is similar to above, but the only
 things you'll be able test locally are the `make_deployment()` and `get_replica_counts()` functions.
 
 When you're ready, create a PR.  The deployment workflow is as follows:
+
 #. Get all authed-up for `chartpress` by performing the steps listed `here <https://docs.datahub.berkeley.edu/en/latest/admins/howto/rebuild-hub-image.html#>`_.
 #. Run `chartpress --push` from the root `datahub/` directory.  If this succeeds, check your `git status` and add `datahub/node-placeholder/Chart.yaml` and `datahub/node-placeholder/values.yml` to your PR.
 #. Merge to `staging` and then `prod`.
@@ -104,6 +105,7 @@ When you're ready, create a PR.  The deployment workflow is as follows:
 Changing python imports
 ***********************
 The python requirements file is generated using `requirements.in` and `pip-compile`.  If you need to change/add/update any packages, you'll need to do the following:
+
 #. Ensure you have the correct python environment activated (see above).
 #. Pip install `pip-tools`
 #. Edit `requirements.in` and save your changes.
