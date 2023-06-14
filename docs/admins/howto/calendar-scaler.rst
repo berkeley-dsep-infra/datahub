@@ -10,11 +10,18 @@ Why scale node pools with Google Calendar?
 
 The scheduler isn't perfect for us, especially when large classes have assignments due and a hub is flooded with students. This "hack" was introduced to improve cluster scaling prior to known events.
 
+These 'placeholder' nodes are used to keep the delay from GCP creating new node
+pools from impacting user logins, especially for larger classes.
+
 Structure
 =========
-There is a Google Calendar calendar, `DataHub Scaling Events <https://calendar.google.com/calendar/embed?src=c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com&ctz=America%2FLos_Angeles>`_ shared with all infrastructure staff. The event descriptions should contain a YAML fragment, and are of the form `pool_name: count`, where the name is alpha, beta, gamma, etc. and the count is the number of extra nodes you want. There can be several pools defined, one per line.
+There is a Google Calendar calendar, `DataHub Scaling Events <https://calendar.google.com/calendar/embed?src=c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com&ctz=America%2FLos_Angeles>`_ shared with all infrastructure staff. The event descriptions should contain a YAML fragment, and are of the form `pool_name: count`, where the name is the corresponding hub name (data100, stat20) and the count is the number of extra nodes you want. There can be several pools defined, one per line.
 
 By default, we usually have one spare node ready to go, so if the count in the calendar event is set to 0 or 1, there will be no change to the cluster. If the value is set to >=2, additional hot spares will be created. If a value is set more than once, the entry with the greater value will be used.
+
+You can determine how many placeholder nodes to have up based on how many people
+you expect to log in at once.  Some of the bigger courses may require 2 or more
+placeholder nodes, but during 'regular' hours, 1 is usually sufficient.
 
 The scaling mechanism is implemented as the `node-placeholder-node-placeholder-scaler` deployment within the `node-placeholder` namespace. The source code is within https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler.
 
