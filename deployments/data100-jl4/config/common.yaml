@@ -1,0 +1,54 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.203.15.114
+
+jupyterhub:
+  hub:
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - balajialwar
+          - felder
+          - gmerritt
+          - rylo
+          - sknapp
+
+#  prePuller:
+#    extraImages:
+#      postgres:
+#        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+#        tag: 0.0.1-n3657.h4f7f88c
+  singleuser:
+    defaultUrl: "/lab"
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.f79b4903c7ea2847
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
+    nodeSelector:
+      hub.jupyter.org/pool-name: data100-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs-v3
+        subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
+    memory:
+      guarantee: 2G
+      limit: 2G
+    image: {}
+
+  custom:
+    admin:
+      mem_limit: 4G
+      mem_guarantee: 2G
+      extraVolumeMounts:
+        - name: home
+          mountPath: /srv/homes
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared
