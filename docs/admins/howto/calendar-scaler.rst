@@ -1,8 +1,8 @@
 .. _howto/calendar-scheduler:
 
-===================================
-Scale Node Pools in Google Calendar
-===================================
+=============================
+Calendar Node Pool Autoscaler
+=============================
 
 
 Why scale node pools with Google Calendar?
@@ -18,9 +18,99 @@ By default, we usually have one spare node ready to go, so if the count in the c
 
 The scaling mechanism is implemented as the `node-placeholder-node-placeholder-scaler` deployment within the `node-placeholder` namespace. The source code is within https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler.
 
-Configuration and Deployment
-============================
-The docker image, calendar URL, and replicas are all set in https://github.com/berkeley-dsep-infra/datahub/blob/staging/node-placeholder/values.yaml. You can change values here and redeploy through CI as usual.
+Calendar Autoscaler
+===================
+The code for the calendar autoscaler is a python 3.11 script, located here: https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler/scaler
+
+How the scaler works
+********************
+There is a k8s pod running in the `node-placeholder` namespace, which simply
+runs `python3 -m scaler`.  This script runs in an infinite loop, and every
+60 seconds checks the scaler config and calendar for entries.  It then uses
+the highest value provided as the number of placeholder replicas for any given
+hub.  This means that if there's a daily evening event to 'cool down' the number
+of replicas for all hubs to 0, and a simultaneous event to set one or more hubs
+to a higher number, the scaler will see this and keep however many node
+placeholders specified up and ready to go.
+
+After determining the number of replicas needed for each hub, the scaler will
+create a k8s template and run `kubectl` in the pod.
+
+Updating the scaler config
+**************************
+The `scaler config <https://github.com/berkeley-dsep-infra/datahub/blob/staging/node-placeholder/values.yaml>`_
+sets the default number of node-placeholders that are running at any given time.
+These values can be overridden by creating events in the `DataHub Scaling Events`
+calendar.
+
+When classes are in session, these defaults are all typically set to `1`, and
+during breaks (or when a hub is not expected to be in use) they can be set to
+`0`.
+
+After making changes to `values.yaml`, create a PR normally and our CI will
+push the new config out to the node-placeholder pod.  There is no need to
+manually restart the node-placeholder pod as the changes will be picked up
+`automatically <https://github.com/berkeley-dsep-infra/datahub/blob/3fb2d9412cbf87e0583774c8a7dc6c12ef58e715/images/node-placeholder-scaler/scaler/scaler.py#L93>`_.
+
+Working on, testing and deploying the calendar scaler
+*****************************************************
+All file locations in this section will assume that you are in the
+`datahub/images/node-placeholder-scaler/` directory.
+
+It is strongly recommended that you create a new python 3.11 environment before
+doing any dev work on the scaler.  With `conda`, you can run the following
+commands to create one:
+
+   .. code:: bash
+
+      conda create -ny scalertest python=3.11
+      pip install requirements.txt
+
+Any changes to the scaler code will require you to run `chartpress` to redeploy
+the scaler to GCP.
+
+Here is an example of how you can test any changes to `scaler/calendar.py`
+locally in the python interpreter:
+
+   .. code:: python
+
+      # these tests will use somes dates culled from the calendar with varying numbers of events.
+      import scaler.calendar
+      import datetime
+      import zoneinfo
+      tz = zoneinfo.ZoneInfo(key='America/Los_Angeles')
+      zero_events_noon_june = datetime.datetime(2023, 6, 14, 12, 0, 0, tzinfo=tz)
+      one_event_five_pm_april = datetime.datetime(2023, 4, 27, 17, 0, 0, tzinfo=tz)
+      three_events_eight_thirty_pm_march = datetime.datetime(2023, 3, 6, 20, 30, 0, tzinfo=tz)
+      calendar = scaler.calendar.get_calendar('https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics')
+      zero_events = scaler.calendar.get_events(calendar, time=zero_events_noon_june)
+      one_event = scaler.calendar.get_events(calendar, time=one_event_five_pm_april)
+      three_events = scaler.calendar.get_events(calendar, time=three_events_eight_thirty_pm_march)
+      assert len(zero_events) == 0
+      assert len(one_event) == 1
+      assert len(three_events) == 3
+
+`get_events` returns a list of ical `ical.event.Event` class objects.
+
+The method for testing `scaler/scaler.py` is similar to above, but the only
+things you'll be able test locally are the `make_deployment()` and `get_replica_counts()` functions.
+
+When you're ready, create a PR.  The deployment workflow is as follows:
+#. Get all authed-up for `chartpress` by performing the steps listed `here <https://docs.datahub.berkeley.edu/en/latest/admins/howto/rebuild-hub-image.html#>`_.
+#. Run `chartpress --push` from the root `datahub/` directory.  If this succeeds, check your `git status` and add `datahub/node-placeholder/Chart.yaml` and `datahub/node-placeholder/values.yml` to your PR.
+#. Merge to `staging` and then `prod`.
+
+Changing python imports
+***********************
+The python requirements file is generated using `requirements.in` and `pip-compile`.  If you need to change/add/update any packages, you'll need to do the following:
+#. Ensure you have the correct python environment activated (see above).
+#. Pip install `pip-tools`
+#. Edit `requirements.in` and save your changes.
+#. Execute `pip-compile requirements.in`, which will update the `requirements.txt`.
+#. Check your git status and diffs, and create a pull request if necessary.
+#. Get all authed-up for `chartpress` by performing the steps listed `here <https://docs.datahub.berkeley.edu/en/latest/admins/howto/rebuild-hub-image.html#>`_.
+#. Run `chartpress --push` from the root `datahub/` directory.  If this succeeds, check your `git status` and add `datahub/node-placeholder/Chart.yaml` and `datahub/node-placeholder/values.yml` to your PR.
+#. Merge to `staging` and then `prod`.
 
 Monitoring
 ==========
