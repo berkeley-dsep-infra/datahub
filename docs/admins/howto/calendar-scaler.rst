@@ -41,7 +41,7 @@ Updating the scaler config
 **************************
 The `scaler config <https://github.com/berkeley-dsep-infra/datahub/blob/staging/node-placeholder/values.yaml>`_
 sets the default number of node-placeholders that are running at any given time.
-These values can be overridden by creating events in the `DataHub Scaling Events`
+These values can be overridden by creating events in the `DataHub Scaling Events <https://calendar.google.com/calendar/embed?src=c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com&ctz=America%2FLos_Angeles>`_
 calendar.
 
 When classes are in session, these defaults are all typically set to `1`, and
