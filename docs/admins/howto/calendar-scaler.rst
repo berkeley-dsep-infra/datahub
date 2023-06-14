@@ -25,7 +25,8 @@ The code for the calendar autoscaler is a python 3.11 script, located here: http
 How the scaler works
 ********************
 There is a k8s pod running in the `node-placeholder` namespace, which simply
-runs `python3 -m scaler`.  This script runs in an infinite loop, and every
+`runs python3 -m scaler <https://github.com/berkeley-dsep-infra/datahub/blob/staging/images/node-placeholder-scaler/Dockerfile>`_.
+This script runs in an infinite loop, and every
 60 seconds checks the scaler config and calendar for entries.  It then uses
 the highest value provided as the number of placeholder replicas for any given
 hub.  This means that if there's a daily evening event to 'cool down' the number
