@@ -53,7 +53,7 @@ dependencies:
 - nbgitpuller==1.1.1
 - networkx==2.8.6
 - numba==0.57.0
-- numpy==1.23.2
+- numpy==1.24.2
 - pandas==1.4.3
 - pandoc==2.19.2
 - pandocfilters==1.5.0
