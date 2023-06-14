@@ -10,8 +10,9 @@ Why scale node pools with Google Calendar?
 
 The scheduler isn't perfect for us, especially when large classes have assignments due and a hub is flooded with students. This "hack" was introduced to improve cluster scaling prior to known events.
 
-These 'placeholder' nodes are used to keep the delay from GCP creating new node
-pools from impacting user logins, especially for larger classes.
+These 'placeholder' nodes are used to minimize the delay that occurs when GCP
+creates new node pools during mass user logins.  This common, especially for
+larger classes.
 
 Structure
 =========
