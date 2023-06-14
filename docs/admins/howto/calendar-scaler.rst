@@ -65,7 +65,7 @@ commands to create one:
    .. code:: bash
 
       conda create -ny scalertest python=3.11
-      pip install requirements.txt
+      pip install -r requirements.txt
 
 Any changes to the scaler code will require you to run `chartpress` to redeploy
 the scaler to GCP.
