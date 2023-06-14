@@ -1,10 +1,12 @@
 .. _howto/course-config:
 
-=============================
-Allocate additional resources
-=============================
+====================
+Course Configuration
+====================
 
-It is possible to allocate additional resources (such as memory or extra volumes) to user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on  users' class enrollments. The hub must be configured to use the `CanvasOAuthenticator <https://github.com/berkeley-dsep-infra/canvasauthenticator>`_ which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.
+Allocating Resources
+====================
+It is possible to alter administrative priviliges or resources allocations (such as memory or extra volumes) of user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on  users' class enrollments. The hub must be configured to use the `CanvasOAuthenticator <https://github.com/berkeley-dsep-infra/canvasauthenticator>`_ which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.
 
 Additionally, it is also possible to allocate resources based on the students membership of Canvas groups. This is useful if the instructor wants to dynamically grant additional resources without CI round-trips. Group management can be performed by the course staff directly from bCourses.
 
@@ -27,11 +29,11 @@ Defining group profiles
 
 #. Edit `deployments/{deployment}/config/common.yaml`.
 
-#. Duplicate an existing stanza, or create a new one under `hub.custom.group_profiles` by inserting yaml of the form:
+#. Duplicate an existing stanza, or create a new one under `jupyterhub.custom.group_profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        hub:
+        jupyterhub:
           custom:
             group_profiles:
 
@@ -73,6 +75,8 @@ Defining group profiles
                   readOnly: true
 
 
+   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>_`.
+
    `123456` and `234567` are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
 
 #. Add a comment associating the profile identifier with a friendly name of the course. Also link to the github issue where the instructor requested the resources. This helps us to cull old configuration during maintenance windows.
@@ -86,11 +90,11 @@ It may be necessary to assign additional resources to specific users, if it is t
 
 #. Edit `deployments/{deployment}/config/common.yaml`.
 
-#. Duplicate an existing stanza, or create a new one under `hub.custom.profiles` by inserting yaml of the form:
+#. Duplicate an existing stanza, or create a new one under `jupyterhub.custom.profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        hub:
+        jupyterhub:
           custom:
             profiles:
 
