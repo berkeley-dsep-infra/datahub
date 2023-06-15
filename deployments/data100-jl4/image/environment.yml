@@ -72,7 +72,7 @@ dependencies:
 - requests==2.28.2
 - scikit-image==0.19.3
 - scikit-learn==1.1.2
-- scipy==1.9.0
+- scipy==1.9.2
 - seaborn==0.11.2
 - sphinx-jupyterbook-latex==0.5.2
 - sqlparse==0.4.3
