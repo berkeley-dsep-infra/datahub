@@ -30,7 +30,7 @@ dependencies:
 - ipyparallel==8.4.1
 - jsonschema==4.17.3
 - jupyter-book==0.15.1
-- jupyter-repo2docker==2022.2.0
+- jupyter-repo2docker==2023.06.0
   # - jupyter-resource-usage==0.6.1
 - jupyter_bokeh
 - jupyterlab==4.0.2
