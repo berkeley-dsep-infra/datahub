@@ -76,7 +76,7 @@ dependencies:
 - seaborn==0.11.2
 - sphinx-jupyterbook-latex==0.5.2
 - sqlparse==0.4.3
-- statsmodels==0.13.2
+- statsmodels==0.14.0
 - sympy==1.10.1
 - tornado==6.2.0
 - tqdm==4.64.0
