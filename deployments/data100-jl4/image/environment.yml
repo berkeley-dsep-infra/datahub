@@ -85,7 +85,7 @@ dependencies:
 - micro==2.0.8
 - websockify==0.11.0
 - folium==0.14.0
-- sqlalchemy==1.4.29
+- sqlalchemy==2.0.16
 - pip
 - pip:
   - -r infra-requirements.txt
