@@ -76,7 +76,7 @@ ffmpeg-python==0.2.0
 
 # data 88e; spring 2021
 plotly==5.2.1
-mpmath==1.2.1
+mpmath==1.3.0
 # sympy==1.6.2
 chart-studio==1.1.0
 csaps==1.1.0
