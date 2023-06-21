@@ -26,7 +26,7 @@ dependencies:
   #- -r infra-requirements.txt
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
-  - notebook==7.0.0rc0
+  - notebook==7.0.0b4
   - jupyterlab==4.0.2
   # ###
   # The items below are from infra-requirements, however lab conflicts with the
