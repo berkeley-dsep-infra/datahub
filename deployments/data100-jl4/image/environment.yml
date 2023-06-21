@@ -46,7 +46,6 @@ dependencies:
 - matplotlib==3.7.1
 - matplotlib-inline==0.1.6
 - mock==4.0.3
-- notebook==7.0.0b3
 - nbclassic==1.0.0
 - nbdime==3.1.1
 - nbgitpuller==1.1.1
@@ -88,6 +87,7 @@ dependencies:
 - pip
 - pip:
   - -r infra-requirements.txt
+  - notebook==7.0.0b3
   - jupyter-desktop-server
   - gh-scoped-creds==4.1
   - otter-grader==4.0.1
