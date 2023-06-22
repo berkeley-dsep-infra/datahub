@@ -14,6 +14,8 @@ jupyterhub:
           - gmerritt
           - rylo
           - sknapp
+          - bdsomer
+          - miroyan.mihran
 
 #  prePuller:
 #    extraImages:
