@@ -43,6 +43,12 @@ jupyterhub:
     image: {}
 
   custom:
+    group_profiles:
+      # Data 100, Summer 2023, #4677
+      course::1525605::enrollment_type::teacher:
+        admin: true
+      course::1525605::enrollment_type::ta:
+        admin: true
     admin:
       mem_limit: 4G
       mem_guarantee: 2G
