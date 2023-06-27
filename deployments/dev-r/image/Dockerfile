@@ -106,13 +106,12 @@ USER ${NB_USER}
 
 ENV PATH ${CONDA_DIR}/bin:$PATH
 
+COPY infra-requirements.txt /tmp/infra-requirements.txt
+COPY requirements.txt /tmp/requirements.txt
 COPY environment.yml /tmp/environment.yml
 
 RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
     mamba clean -afy
-
-COPY infra-requirements.txt /tmp/infra-requirements.txt
-COPY requirements.txt /tmp/requirements.txt
 
 # =============================================================================
 # This stage consumes base and import /opt/r and /opt/conda.
