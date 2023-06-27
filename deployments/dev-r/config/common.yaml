@@ -30,9 +30,6 @@ jupyterhub:
 
   singleuser:
     defaultUrl: /rstudio
-    extraEnv:
-      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
-      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       hub.jupyter.org/pool-name: small-courses-pool
     storage:
