@@ -206,9 +206,9 @@ for these are provided by the cookiecutter template, however the new hubs
 need to be added to the authorized callback list maintained in bcourses.
 
 #. Use `sops` to edit `secrets/dev.yaml` and `secrets/prod.yaml`, replacing the cookiecutter hub_name. `cookiecutter` can't do this for you since the values are encrypted.
-#. Add ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` to the
+#. Add ``<hub_name>-staging.datahub.berkeley.edu/hub/oauth_callback`` to the
       staging hub client (id 10720000000000594)
-#. Add ``staging.datahub.berkeley.edu/hub/oauth_callback`` to the
+#. Add ``<hub_name>.datahub.berkeley.edu/hub/oauth_callback`` to the
       production hub client (id 10720000000000472)
 
 Please reach out to Jonathan Felder to set this up, or
@@ -340,13 +340,13 @@ Commit and deploy staging
 Commit the hub directory, and make a PR to the the ``staging`` branch in the
 GitHub repo. Once tests pass, merge the PR to get a working staging hub! It
 might take a few minutes for HTTPS to work, but after that you can log into
-it at https://<hub-name>-staging.datahub.berkeley.edu. Test it out and make
+it at https://<hub_name>-staging.datahub.berkeley.edu. Test it out and make
 sure things work as you think they should.
 
 #. Make a PR from the ``staging`` branch to the ``prod`` branch. When this PR is
    merged, it'll deploy the production hub. It might take a few minutes for HTTPS
    to work, but after that you can log into it at
-   https://<hub-name>.datahub.berkeley.edu. Test it out and make sure things
+   https://<hub_name>.datahub.berkeley.edu. Test it out and make sure things
    work as you think they should.
 
 #. You may want to customize the docker image for the hub based on your unique 
