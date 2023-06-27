@@ -205,13 +205,14 @@ production hubs and one for all staging hubs. The configuration and secrets
 for these are provided by the cookiecutter template, however the new hubs
 need to be added to the authorized callback list maintained in bcourses.
 
-#. ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` added to
-      the staging hub client (id 10720000000000594)
-#. ``staging.datahub.berkeley.edu/hub/oauth_callback`` added to the
+#. Use `sops` to edit `secrets/dev.yaml` and `secrets/prod.yaml`, replacing the cookiecutter hub_name. `cookiecutter` can't do this for you since the values are encrypted.
+#. Add ``<hub-name>-staging.datahub.berkeley.edu/hub/oauth_callback`` to the
+      staging hub client (id 10720000000000594)
+#. Add ``staging.datahub.berkeley.edu/hub/oauth_callback`` to the
       production hub client (id 10720000000000472)
 
-    Please reach out to Jonathan Felder to set this up, or
-    bcourseshelp@berkeley.edu if he is not available.
+Please reach out to Jonathan Felder to set this up, or
+bcourseshelp@berkeley.edu if he is not available.
 
 CircleCI
 --------
