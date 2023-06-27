@@ -4,7 +4,7 @@ dependencies:
 - nodejs=18.*
 
 - jupyter-server-proxy==4.0.0
-- jupyter-rsession-proxy==2.1.0
+- jupyter-rsession-proxy==2.2.0
 
 - syncthing==1.23.5
 - pyppeteer==1.0.2
