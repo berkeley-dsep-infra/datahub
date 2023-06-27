@@ -80,6 +80,8 @@ node-placeholder-scaler:
   - "deployments/datahub/**"
 "hub: dlab":
   - "deployments/dlab/**"
+"hub: dev-r":
+  - "deployments/dev-r/**"
 "hub: eecs":
   - "deployments/eecs/**"
 "hub: highschool":
