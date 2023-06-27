@@ -1,0 +1,18 @@
+nfsPVC:
+  nfs:
+    shareName: shares/dev-r/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - dev-r.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - dev-r.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
