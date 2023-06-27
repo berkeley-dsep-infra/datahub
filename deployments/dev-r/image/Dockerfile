@@ -112,10 +112,7 @@ RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
     mamba clean -afy
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
-RUN pip install --no-cache -r /tmp/infra-requirements.txt
-
 COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache -r /tmp/requirements.txt
 
 # =============================================================================
 # This stage consumes base and import /opt/r and /opt/conda.

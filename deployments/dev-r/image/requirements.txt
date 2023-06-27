@@ -1,4 +1,0 @@
-#
-# r
-jupyter-shiny-proxy==1.1
-#
