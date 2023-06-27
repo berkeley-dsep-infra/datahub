@@ -99,4 +99,4 @@ dependencies:
   - jupyter_collaboration
   - jupyterhub==4.0.1
   # - notebook==6.5.4
-  - notebook==7.0.0rc1
+  - notebook==7.0.0rc2
