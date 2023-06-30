@@ -96,7 +96,7 @@ dependencies:
   - geopandas==0.12.1
   - iwut==0.0.4
   - tensorflow-cpu==2.12.0
-  - jupyter_collaboration
+  - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.1
   # - notebook==6.5.4
   - notebook==7.0.0rc2
