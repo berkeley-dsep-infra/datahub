@@ -26,8 +26,10 @@ WORKDIR ${HOME}
 # texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
 # We use Ubuntu's TeX because rocker's doesn't have most packages by default, 
 # and we don't want them to be downloaded on demand by students.
+# tini is necessary because it is our ENTRYPOINT below.
 RUN apt-get update && \
     apt-get -qq install \
+            tini \
             fonts-symbola \
             pandoc \
             texlive-xetex \
