@@ -52,6 +52,9 @@ dependencies:
 - sk-video=1.1.10
 - ffmpeg=5.1.2
 
+# https://github.com/berkeley-dsep-infra/datahub/issues/4708
+- datascience
+
 - pip
 - pip:
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1639
