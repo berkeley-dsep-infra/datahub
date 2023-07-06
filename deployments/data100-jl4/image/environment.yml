@@ -41,7 +41,7 @@ dependencies:
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
 - jupyterlab_server==2.23.0
-- jupyterlab_widgets==3.0.7
+- jupyterlab_widgets==3.0.8
   # - jupytext==1.14.0
 - jupyter_server==2.6.0
 - matplotlib==3.7.1
@@ -73,7 +73,7 @@ dependencies:
 - scikit-image==0.19.3
 - scikit-learn==1.2.2
 - scipy==1.10.1
-- seaborn==0.11.2
+- seaborn==0.12.2
 - sphinx-jupyterbook-latex==0.5.2
 - sqlparse==0.4.3
 - statsmodels==0.14.0
@@ -96,6 +96,7 @@ dependencies:
   - geopandas==0.12.1
   - iwut==0.0.4
   - tensorflow-cpu==2.12.0
+  - ipywidgets==8.0.7
   - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.1
   # - notebook==6.5.4
