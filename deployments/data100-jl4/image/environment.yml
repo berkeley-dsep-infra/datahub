@@ -73,7 +73,7 @@ dependencies:
 - scikit-image==0.19.3
 - scikit-learn==1.2.2
 - scipy==1.10.1
-- seaborn==0.11.2
+- seaborn==0.12.2
 - sphinx-jupyterbook-latex==0.5.2
 - sqlparse==0.4.3
 - statsmodels==0.14.0
