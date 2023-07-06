@@ -53,7 +53,7 @@ dependencies:
 - ffmpeg=5.1.2
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/4708
-- datascience
+- datascience==0.17.6
 
 - pip
 - pip:
