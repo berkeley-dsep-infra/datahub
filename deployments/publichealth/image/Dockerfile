@@ -33,7 +33,6 @@ RUN apt-get update > /dev/null && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            libssl1.1 \
             fonts-symbola \
             gdebi-core \
             tini \
