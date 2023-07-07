@@ -340,7 +340,8 @@ jupyterhub:
               self.user.admin = override['admin']
 
           async def start(self):
-            # delay if testing, see https://github.com/berkeley-dsep-infra/datahub/issues/4237
+            # delay if testing, see
+            # https://github.com/berkeley-dsep-infra/datahub/issues/4237
             if self.spawn_launcher_delay:
               await asyncio.sleep(self.spawn_launcher_delay)
 
@@ -365,52 +366,11 @@ jupyterhub:
 
             group_profiles = z2jh.get_config('custom.group_profiles', {})
 
-            # Initialize for the loop below.
-            # 20230515 - Disabled when we bypassed it in the loop.
-            #is_student = False
-            #is_instructor = False
-
             for group in self.user.groups:
               # Apply an override for the full group name, if it exists
               # under group_profiles.
               if group.name in group_profiles:
                 self.apply_override(group_profiles.get(group.name))
-
-              # 20230515 - We skip the rest of the code below since there
-              # should no longer be a need to parse group names. If a
-              # particular group should have additional resources or rights,
-              # set that in the group stanza in the configuration. Remove the
-              # rest of code when this proves itself.
-              continue
-
-              # We have altered the authenticator to just add people to
-              # 'course::{canvas_id}' too. This obviates the need for
-              # some of the code below.
-
-              # canvas authenticator creates groups of the form a::b::c::d.
-              # ignore any that don't have that form.
-              if group.name.count('::') != 3:
-                continue
-
-              # This prepares an override for just the bcourse ID,
-              # which we might deprecate at some point. While it is easier
-              # to apply a profile using just the bcourse ID as a key,
-              # it somewhat complicates the parsing.
-              _, group_course, gkey, gval = group.name.split('::', 3)
-              if gkey != 'enrollment_type':
-                continue
-              group_role = gval
-
-              # Skip if this user's group if it is not among the bcourse IDs
-              # in the group_profiles config.
-              if not group_course in group_profiles:
-                continue
-              self.log.info(f'user {self.user.name} in group profile {group_course}')
-              override = group_profiles.get(group_course, {})
-              self.apply_override(override)
-
-              is_instructor |= group_role in ['teacher', 'ta']
-              is_student |= group_role in ['student', 'observer']
 
             # custom.admin
             # This applies overrides for those who have self.user.admin set.
