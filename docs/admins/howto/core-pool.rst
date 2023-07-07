@@ -19,7 +19,7 @@ It also does other stuff.
 Deploying a new core node pool
 ------------------------------
 
-Run the following command from the root directory if you datahub repo to create the node pool:
+Run the following command from the root directory of your local datahub repo to create the node pool:
 
 .. code:: bash
 
