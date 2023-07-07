@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.1.2
+FROM rocker/geospatial:4.3.1
 
 ENV NB_USER rstudio
 ENV NB_UID 1000

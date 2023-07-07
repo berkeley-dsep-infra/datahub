@@ -1,3 +1,3 @@
 # RStudio support
-jupyter-rsession-proxy==1.4
+jupyter-rsession-proxy==2.2.0
 otter-grader==2.2.7
