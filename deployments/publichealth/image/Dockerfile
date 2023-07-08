@@ -40,6 +40,23 @@ RUN apt-get update > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
+# We use Ubuntu's TeX because rocker's doesn't have most packages by default,
+# and we don't want them to be downloaded on demand by students.
+# tini is necessary because it is our ENTRYPOINT below.
+RUN apt-get update && \
+    apt-get -qq install \
+            tini \
+            fonts-symbola \
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-plain-generic \
+            > /dev/null && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
 
@@ -80,23 +97,6 @@ RUN r /tmp/r-packages/ph-252.r
 
 COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-phw-272a.r
-
-# texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
-# We use Ubuntu's TeX because rocker's doesn't have most packages by default,
-# and we don't want them to be downloaded on demand by students.
-# tini is necessary because it is our ENTRYPOINT below.
-RUN apt-get update && \
-    apt-get -qq install \
-            tini \
-            fonts-symbola \
-            pandoc \
-            texlive-xetex \
-            texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-plain-generic \
-            > /dev/null && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
