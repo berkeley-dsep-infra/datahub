@@ -81,38 +81,22 @@ RUN r /tmp/r-packages/ph-252.r
 COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-phw-272a.r
 
-RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr --verify-repo=none update --self && \
-    tlmgr --verify-repo=none install \
-        amsmath \
-        latex-amsmath-dev \
-        iftex \
-        kvoptions \
-        ltxcmds \
-        kvsetkeys \
-        etoolbox \
-        xcolor \
-        auxhook \
-        bigintcalc \
-        bitset \
-        etexcmds \
-        gettitlestring \
-        hycolor \
-        hyperref \
-        intcalc \
-        kvdefinekeys \
-        letltxmacro \
-        pdfescape \
-        refcount \
-        rerunfilecheck \
-        stringenc \
-        uniquecounter \
-        zapfding \
-        pdftexcmds \
-        infwarerr \
-        geometry \
-        epstopdf-pkg
+# texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
+# We use Ubuntu's TeX because rocker's doesn't have most packages by default,
+# and we don't want them to be downloaded on demand by students.
+# tini is necessary because it is our ENTRYPOINT below.
+RUN apt-get update && \
+    apt-get -qq install \
+            tini \
+            fonts-symbola \
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-plain-generic \
+            > /dev/null && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
