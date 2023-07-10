@@ -258,7 +258,6 @@ jupyterhub:
         import os
         import time
         from kubespawner import KubeSpawner
-        from tornado import gen
         from traitlets import ( Int, Unicode )
         import textwrap
         import z2jh
