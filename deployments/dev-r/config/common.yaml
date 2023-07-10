@@ -21,12 +21,25 @@ jupyterhub:
         admin_users:
           # infrastructure
           - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
+          #- felder
+          #- gmerritt
+          #- rylo
+          #- sknapp
 
           # List of other admin users
+    loadRoles:
+      course-staff-1524699:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1524699
+          - admin:servers!group=course::1524699
+          - access:servers!group=course::1524699
+        # this role will be assigned to...
+        groups:
+          - course::1524699::enrollment_type::teacher
+          - course::1524699::enrollment_type::tas
 
   singleuser:
     defaultUrl: /rstudio
