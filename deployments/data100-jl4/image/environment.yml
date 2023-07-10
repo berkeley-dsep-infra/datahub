@@ -68,7 +68,7 @@ dependencies:
 - pytables==3.7.0
 - pytest==7.1.2
 - pytest-cov==3.0.0
-- pytest-notebook==0.8.1
+- pytest_notebook==0.8.1
 - python-pdfkit==1.0.0
 - requests==2.28.2
 - scikit-image==0.19.3
