@@ -55,7 +55,7 @@ dependencies:
 - numba==0.57.0
 - numpy==1.24.2
 - pandas==2.0.2
-- pandoc==2.19.2
+- pandoc==2.12
 - pandocfilters==1.5.0
 - pep8==1.7.1
 - pillow==9.2.0
