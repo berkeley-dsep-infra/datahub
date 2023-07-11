@@ -26,6 +26,7 @@ Run the following command from the root directory of your local datahub repo to 
   gcloud container node-pools create "core-<YYYY-MM-DD>"  \
     --labels=hub=core,nodepool-deployment=core \
     --node-labels hub.jupyter.org/pool-name=core-pool --machine-type "n2-standard-8"  \
+    --num-nodes 1 \
     --enable-autoscaling --min-nodes "1" --max-nodes "20" \
     --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
     --tags hub-cluster \
