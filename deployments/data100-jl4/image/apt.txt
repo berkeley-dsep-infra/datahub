@@ -12,10 +12,8 @@ manpages-posix-dev
 curl
 wget
 
-# Core text editors on a *nix box: vim and emacs
+# Core text editors on a *nix box: vim
 vim
-emacs-nox
-emacs-goodies-el
 
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
@@ -79,7 +77,6 @@ firefox
 chromium-browser
 
 # GUI text editors
-emacs
 vim-gtk3
 gedit
 
