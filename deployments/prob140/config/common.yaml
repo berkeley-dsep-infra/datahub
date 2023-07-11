@@ -7,34 +7,50 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
 
   hub:
     config:
-      Authenticator:
-        # https://jupyterhub.readthedocs.io/en/stable/reference/authenticators.html#authenticator-managed-group-membership
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
+    loadRoles:
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::all-admins
 
-          # instructors
-          - adhikari
-          # dsep staff
-          - ericvd
-          - ryanedw
+      # Data C88S, Summer 2023, #4733
+      course-staff-1525852:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1525852
+          - admin:servers!group=course::1525852
+          - access:servers!group=course::1525852
+        # this role will be assigned to...
+        groups:
+          - course::1525852::enrollment_type::teacher
+          - course::1525852::enrollment_type::tas
+
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
 
   singleuser:
     nodeSelector:
