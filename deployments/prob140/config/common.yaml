@@ -33,6 +33,10 @@ jupyterhub:
           # dsep staff
           - ericvd
           - ryanedw
+          # fa23 tas
+          - shahzar
+          - clairemai
+          - michaelxiao1999
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool
 
