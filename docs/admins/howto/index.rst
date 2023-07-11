@@ -14,6 +14,6 @@ Common Administrator Tasks
    new-packages
    course-config
    calendar-scaler
-   prometheus-forward
+   prometheus-grafana
    remove-users-orm
    delete-hub
