@@ -22,7 +22,7 @@ There are a number of other Canvas course attributes we could have substituted f
 
 Assigning Scopes to Roles
 =========================
-When JupyterHub only had two roles, admin and user, we would grant admin rights to course staff. This enabled course staff to start, access, and stop user servers, but it wasn't scoped to just the students in their own course. It would give them access to the accounts of everyone on the hub. They even had access to stop the hub process itself. JupyterHub now lets us create our own roles and assign `scopes <https://jupyterhub.readthedocs.io/en/stable/rbac/scopes.html>_` to them. As a result, we can grant course staff the ability to do what they need for members of their own course, and nothing more.
+When JupyterHub only had two roles, admin and user, we would grant admin rights to course staff. This enabled course staff to start, access, and stop user servers, but it wasn't scoped to just the students in their own course. It would give them access to the accounts of everyone on the hub. They even had access to stop the hub process itself. JupyterHub now lets us create our own roles and assign `scopes <https://jupyterhub.readthedocs.io/en/stable/rbac/scopes.html>`_ to them. As a result, we can grant course staff the ability to do what they need for members of their own course, and nothing more.
 
 Add the following configuration for course staff who need elevated access:
 
