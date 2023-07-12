@@ -4,7 +4,17 @@ nfsPVC:
     serverIP: 10.203.15.114
 
 jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2023-07-11  
   hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
       #Authenticator:
       #  admin_users:
