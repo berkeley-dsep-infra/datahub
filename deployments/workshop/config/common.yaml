@@ -17,12 +17,12 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   hub:
     # No more than 200 users at any given time
     activeServerLimit: 200
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
       JupyterHub:
         admin_access: false
@@ -30,10 +30,10 @@ jupyterhub:
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   singleuser:
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image
