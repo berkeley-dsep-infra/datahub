@@ -16,15 +16,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
-
     loadRoles:
       # Data 100, Summer 2023
       course-staff-1525605:
@@ -45,6 +36,7 @@ jupyterhub:
 #      postgres:
 #        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
 #        tag: 0.0.1-n3657.h4f7f88c
+
   singleuser:
     defaultUrl: "/lab"
     extraEnv:
@@ -70,6 +62,11 @@ jupyterhub:
     image: {}
 
   custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
     admin:
       mem_limit: 4G
       mem_guarantee: 2G
