@@ -25,6 +25,21 @@ jupyterhub:
           - rylo
           - sknapp
 
+    loadRoles:
+      # Data 100, Summer 2023
+      course-staff-1525605:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1525605
+          - admin:servers!group=course::1525605
+          - access:servers!group=course::1525605
+        # this role will be assigned to...
+        groups:
+          - course::1525605::enrollment_type::teacher
+          - course::1525605::enrollment_type::tas
+
 #  prePuller:
 #    extraImages:
 #      postgres:
