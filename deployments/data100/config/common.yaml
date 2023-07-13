@@ -11,19 +11,11 @@ jupyterhub:
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11  
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   hub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      #Authenticator:
-      #  admin_users:
-      #    # infrastructure
-      #    - balajialwar
-      #    - felder
-      #    - gmerritt
-      #    - rylo
-      #    - sknapp
     loadRoles:
       # Data 100, Summer 2023, #4677
       course-staff-1525605:
@@ -73,14 +65,6 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
-
-    #  # Data 100, Summer 2023, #4677
-    #  # 20230710: commented out in favor of loadRoles above
-    #  course::1525605::enrollment_type::teacher:
-    #    admin: true
-    #  course::1525605::enrollment_type::ta:
-    #    admin: true
-
     admin:
       mem_limit: 4G
       mem_guarantee: 2G

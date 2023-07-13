@@ -33,7 +33,7 @@ dependencies:
 - jupyter-book==0.15.1
   # - jupyter-resource-usage==0.6.1
 - jupyter_bokeh
-- jupyterlab==4.0.2
+- jupyterlab==4.0.3
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
   # - jupyterlab-git==0.39.0
