@@ -43,7 +43,7 @@ Add the following configuration for course staff who need elevated access:
                 # this role will be assigned to...
                 groups:
                   - course::1234567::enrollment_type::teacher
-                  - course::1234567::enrollment_type::tas
+                  - course::1234567::enrollment_type::ta
 
 This configuration is headed by a comment which describes the course and term and links to the github issue where the staff made the request. It defines a new role, `course-staff-1234567`, for a course with bCourse ID `1234567`. It assigns scopes for accessing and administering the servers for users in group `course::1234567`. Members of that group include all students and course staff. It also assigns scopes for viewing lists of users at /hub/admin. It assignes these scopes to members of the affiliated course staff groups.
 
