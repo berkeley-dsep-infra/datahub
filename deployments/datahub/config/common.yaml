@@ -14,7 +14,7 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   hub:
     config:
       Authenticator:
@@ -46,7 +46,7 @@ jupyterhub:
           #As per the request from James Sears (Environmental Econ GSI) - https://github.com/berkeley-dsep-infra/datahub/issues/3229
           - lenjb
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
     initContainers:
       # There's another sidecar, specified in `secrets/staging.yaml` and `secrets/prod.yaml`
       # that keeps this up to date. https://github.com/jupyterhub/kubespawner/issues/468
@@ -86,10 +86,10 @@ jupyterhub:
       type: LoadBalancer
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: datahub-pool
