@@ -3,7 +3,6 @@ import datetime
 import logging
 import re
 import requests
-import unicodedata
 import zoneinfo
 
 from ical.calendar_stream import IcsCalendarStream
@@ -78,12 +77,9 @@ def get_events(calendar, time=None):
     events_iter = calendar.timeline.at_instant(time)
 
     # strip unicode and html from events
-    # https://stackoverflow.com/questions/4324790/removing-control-characters-from-a-string-in-python
     # https://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
     events = [x for x in events_iter]
     for ev in events:
-        ev.description = ''.join (ch for ch in ev.description if \
-                                  unicodedata.category(ch)[0] != "C")
         ev.description = re.sub('<[^<]+?>', '', ev.description)
 
     return events
