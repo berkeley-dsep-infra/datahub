@@ -120,7 +120,7 @@ def main():
                 replica_count,
             )
             logging.info(f"Setting {pool_name} to have {replica_count} replicas")
-            with tempfile.NamedTemporaryFile(mode="w") as f:
+            with tempfile.NamedTemporaryFile(mode="r+") as f:
                 yaml.dump(deployment, f)
                 f.flush()
                 proc = subprocess.run(
@@ -137,6 +137,8 @@ def main():
                 ):
                     # Something has changed, let's signal that
                     actions_taken.append(f"{pool_name} set to {replica_count}")
+                    f.seek(0)
+                    logging.info(f"yaml passed to kubectl: {f.read()}")
                 # Find out what happened her
 
         if "grafana" in config and actions_taken:
