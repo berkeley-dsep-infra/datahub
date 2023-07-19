@@ -137,8 +137,6 @@ def main():
                 ):
                     # Something has changed, let's signal that
                     actions_taken.append(f"{pool_name} set to {replica_count}")
-                    f.seek(0)
-                    logging.info(f"yaml passed to kubectl: {f.read()}")
                 # Find out what happened her
 
         if "grafana" in config and actions_taken:
