@@ -100,5 +100,5 @@ dependencies:
   - jupyterhub==4.0.1
   # - notebook==6.5.4
   - nbconvert==7.6.0
-  - notebook==7.0.0rc2
+  - notebook==7.0.0
   - pytest-notebook==0.8.1
