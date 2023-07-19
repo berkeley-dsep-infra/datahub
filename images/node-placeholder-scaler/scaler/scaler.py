@@ -131,12 +131,21 @@ def main():
                 )
 
                 logging.info(proc.stdout.strip())
-                if (
-                    proc.stdout.strip()
-                    != f"deployment.apps/{pool_name}-placeholder unchanged"
-                ):
-                    # Something has changed, let's signal that
-                    actions_taken.append(f"{pool_name} set to {replica_count}")
+
+                # the prior logic here was looking for 'deployment.apps/data100-placeholder unchanged',
+                # but kubectl always returns 'deployment.apps/data100-placeholder configured'.
+                #
+                # since that logic always fails, the scaler would spam grafana
+                # with a notation for each hub, once a minute, for perpetuity.
+                #
+                # the 'Find out what happened her' is, i assume, a breadcrumb
+                # yuvi, also leaving me to believe that this never really
+                # worked as intended.
+                #
+                # 'actions_taken' could actually be useful in some way, so i
+                # plan on leaving that here (and commented out, most likely,
+                # for perpetuity).
+                # actions_taken.append(f"{pool_name} set to {replica_count}")
                 # Find out what happened her
 
         if "grafana" in config and actions_taken:
