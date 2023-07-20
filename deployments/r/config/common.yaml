@@ -14,19 +14,19 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   proxy:
     service:
       type: ClusterIP
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   hub:
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
       Authenticator:
         admin_users:
