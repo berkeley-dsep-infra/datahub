@@ -93,7 +93,7 @@ xarray==0.19.0
 
 # issue 1001, Physics 188/288 - fall 2019
 umap-learn==0.5.1
-hdbscan==0.8.27
+hdbscan==0.8.31
 
 # espm 125/bio 105; fall 2019
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
