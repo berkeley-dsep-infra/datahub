@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import logging
 import datetime
+import logging
+import re
 import requests
 import zoneinfo
 
@@ -75,4 +76,10 @@ def get_events(calendar, time=None):
 
     events_iter = calendar.timeline.at_instant(time)
 
-    return [x for x in events_iter]
+    # strip unicode and html from events
+    # https://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
+    events = [x for x in events_iter]
+    for ev in events:
+        ev.description = re.sub('<[^<]+?>', '', ev.description)
+
+    return events

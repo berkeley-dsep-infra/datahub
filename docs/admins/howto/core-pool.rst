@@ -19,17 +19,18 @@ It also does other stuff.
 Deploying a new core node pool
 ------------------------------
 
-Run the following commend to create the node pool:
+Run the following command from the root directory of your local datahub repo to create the node pool:
 
 .. code:: bash
 
   gcloud container node-pools create "core-<YYYY-MM-DD>"  \
     --labels=hub=core,nodepool-deployment=core \
-    --node-labels hub.jupyter.org/pool-name=core-pool --machine-type "n2-highmem-8"  \
-    --enable-autoscaling --min-nodes "0" --max-nodes "3" \
+    --node-labels hub.jupyter.org/pool-name=core-pool --machine-type "n2-standard-8"  \
+    --num-nodes 1 \
+    --enable-autoscaling --min-nodes "1" --max-nodes "20" \
     --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
     --tags hub-cluster \
-    --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "200"  \
+    --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100"  \
     --metadata disable-legacy-endpoints=true \
     --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
     --no-enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node "110" \

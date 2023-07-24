@@ -7,48 +7,36 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
 
   hub:
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        manage_groups: false
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
+      # We specify admins under group_profiles below.
+      #Authenticator:
+      #  admin_users:
 
-          # List of other admin users
-          # Perpetual instructor
-          - fernando.perez
-          - fsapienza
     extraConfig:
-      15-initalize-shared-groups: |
-        # Initialize collab_groups, but override in secrets, before
-        # extraConfig 25 below.
-        collab_groups = {}
-
       25-roles-and-shared-accounts: |
-        # Initialize load_groups, so that we can assign to it later.
-        c.JupyterHub.load_groups = {}
+        # The instructor can create groups in bcourses, and the roles defined
+        # below enable them to collaborate in a shared account specific to that
+        # group.
+        collab_groups = [
+          # examples...
+          # 'course::1524699::group::assignment1',
+          # 'course::1524699::group::assignment2',
+        ]
 
-        for collab_group, members in collab_groups.items():
-          c.JupyterHub.load_groups[collab_group] = members
-          print(f"Added group '{collab_group}' with members: {members}")
-
-          # Add user associated with collab group
+        for collab_group in collab_groups:
+          # A new username associated with the collab group
           collab_user = f"collab-{collab_group}"
 
-          # Anyone who in a collab_group can admin and access the
+          # Anyone in a collab_group can admin and access the
           # user server, and can list users, of that group.
           print(f"Add role for '{collab_user}'")
           c.JupyterHub.load_roles.append(
@@ -112,6 +100,11 @@ jupyterhub:
       limit: 8G
 
   custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
     admin:
       extraVolumeMounts:
         - name: home

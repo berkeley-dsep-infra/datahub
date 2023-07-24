@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.2.2
+FROM rocker/geospatial:4.3.1
 # https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_e06f866673fa
 
 ENV NB_USER rstudio
@@ -23,38 +23,29 @@ ENV HOME /home/${NB_USER}
 
 WORKDIR ${HOME}
 
-# Install packages needed by notebook-as-pdf
-# nodejs for installing notebook / jupyterhub from source
 # texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
 # We use Ubuntu's TeX because rocker's doesn't have most packages by default, 
 # and we don't want them to be downloaded on demand by students.
+# tini is necessary because it is our ENTRYPOINT below.
 RUN apt-get update && \
-    apt-get install --yes \
-            libxrandr2 \
-            libatk1.0-0 \
-            libatk-bridge2.0-0 \
-            libgtk-3-0 \
-            fonts-symbola \
-            gdebi-core \
+    apt-get -qq install \
             tini \
+            fonts-symbola \
             pandoc \
             texlive-xetex \
-            texlive-latex-extra \
             texlive-fonts-recommended \
-            # provides FandolSong-Regular.otf for issue #2714
-            texlive-lang-chinese \
+            texlive-fonts-extra \
             texlive-plain-generic \
-            nodejs \
-            npm \
             > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # google-chrome is for pagedown; chromium doesn't work nicely with it (snap?)
-RUN wget --quiet -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+RUN wget --quiet -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get update > /dev/null && \
-    apt -y install /tmp/google-chrome-stable_current_amd64.deb > /dev/null && \
+    apt-get -qq install /tmp/chrome.deb > /dev/null && \
     apt-get clean && \
+    rm -f /tmp/chrome.deb && \
     rm -rf /var/lib/apt/lists/*
 
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash

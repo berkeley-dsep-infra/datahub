@@ -5,7 +5,7 @@ channels:
 
 dependencies:
 - syncthing==1.22.2
-- jupyter-rsession-proxy==2.1.0
+- jupyter-rsession-proxy==2.2.0
 - pip:
   - -r /tmp/infra-requirements.txt
     # For push authentication to GitHub

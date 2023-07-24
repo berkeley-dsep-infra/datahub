@@ -46,6 +46,13 @@ build-infra:
   - ".circleci/**"
   - ".github/**"
 
+# node placeholder/scaler labels
+node-placeholder:
+  - "node-placeholder/**"
+
+node-placeholder-scaler:
+  - "images/node-placeholder-scaler/**"
+
 # add hub-specific labels for deployment changes
 "hub: a11y":
   - "deployments/a11y/**"
@@ -57,6 +64,8 @@ build-infra:
   - "deployments/cee/**"
 "hub: data100":
   - "deployments/data100/**"
+"hub: data100-jl4":
+  - "deployments/data100-jl4/**"
 "hub: data101":
   - "deployments/data101/**"
 "hub: data102":
@@ -71,6 +80,8 @@ build-infra:
   - "deployments/datahub/**"
 "hub: dlab":
   - "deployments/dlab/**"
+"hub: dev-r":
+  - "deployments/dev-r/**"
 "hub: eecs":
   - "deployments/eecs/**"
 "hub: highschool":
