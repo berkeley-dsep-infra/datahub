@@ -1,10 +1,12 @@
 .. _howto/course-config:
 
-=============================
-Allocate additional resources
-=============================
+====================
+Course Configuration
+====================
 
-It is possible to allocate additional resources (such as memory or extra volumes) to user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on  users' class enrollments. The hub must be configured to use the `CanvasOAuthenticator <https://github.com/berkeley-dsep-infra/canvasauthenticator>`_ which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.
+Allocating Resources
+====================
+It is possible to alter administrative priviliges or resources allocations (such as memory or extra volumes) of user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on  users' class enrollments. The hub must be configured to use the `CanvasOAuthenticator <https://github.com/berkeley-dsep-infra/canvasauthenticator>`_ which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.
 
 Additionally, it is also possible to allocate resources based on the students membership of Canvas groups. This is useful if the instructor wants to dynamically grant additional resources without CI round-trips. Group management can be performed by the course staff directly from bCourses.
 
@@ -18,6 +20,37 @@ The canvas ID is somewhat opaque to infrastructure staff -- we cannot look it up
 
 There are a number of other Canvas course attributes we could have substituted for the ID, but all had various drawbacks. An SIS ID attribute uses a consistent format that is relatively easy to predict, however it is only exposed to instructor accounts on hub login. In testing, when the Canvas admin configured student accounts to be able to read the SIS ID, we discovered that other protected SIS attributes would have been visible to all members of the course in the Canvas UI. Various friendly name attributes (e.g. "Statistics 123, Spring '24") were inconsistent in structure or were modifiable by the instructor. So while the Canvas ID is not predictable or easily discoverable by hub staff, it is immutable and the instructor can find it in the URL for their course.
 
+Assigning Scopes to Roles
+=========================
+When JupyterHub only had two roles, admin and user, we would grant admin rights to course staff. This enabled course staff to start, access, and stop user servers, but it wasn't scoped to just the students in their own course. It would give them access to the accounts of everyone on the hub. They even had access to stop the hub process itself. JupyterHub now lets us create our own roles and assign `scopes <https://jupyterhub.readthedocs.io/en/stable/rbac/scopes.html>`_ to them. As a result, we can grant course staff the ability to do what they need for members of their own course, and nothing more.
+
+Add the following configuration for course staff who need elevated access:
+
+   .. code:: yaml
+
+        jupyterhub:
+          hub:
+            loadRoles:
+              # Data 123, Summer 2024, #9876
+              course-staff-1234567:
+                description: Enable course staff to view and access servers.
+                # this role provides permissions to...
+                scopes:
+                  - admin-ui
+                  - list:users!group=course::1234567
+                  - admin:servers!group=course::1234567
+                  - access:servers!group=course::1234567
+                # this role will be assigned to...
+                groups:
+                  - course::1234567::enrollment_type::teacher
+                  - course::1234567::enrollment_type::ta
+
+This configuration is headed by a comment which describes the course and term and links to the github issue where the staff made the request. It defines a new role, `course-staff-1234567`, for a course with bCourse ID `1234567`. It assigns scopes for accessing and administering the servers for users in group `course::1234567`. Members of that group include all students and course staff. It also assigns scopes for viewing lists of users at /hub/admin. It assignes these scopes to members of the affiliated course staff groups.
+
+This stanza is more verbose than inserting lists of users under `admin_users`, but it the privileges are more granular. We don't need to know who the individual course staff and they won't have more permissions than they need.
+
+The configuration causes JupyterHub to update information in its `jupyterhub.sqlite` database file. When this configuraition is removed, the hub does not automatically flush out the roles and scopes from the database. So after the semester is over, it is advisable to remove this configuration and also to flush out the information in the database. There is no formal process for this, although we should develop one. We can delete the database, or we can manually remove entries from the sqlite file.
+
 Defining group profiles
 =======================
 
@@ -27,11 +60,11 @@ Defining group profiles
 
 #. Edit `deployments/{deployment}/config/common.yaml`.
 
-#. Duplicate an existing stanza, or create a new one under `hub.custom.group_profiles` by inserting yaml of the form:
+#. Duplicate an existing stanza, or create a new one under `jupyterhub.custom.group_profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        hub:
+        jupyterhub:
           custom:
             group_profiles:
 
@@ -50,11 +83,9 @@ Defining group profiles
 
               # Some other class 200, Spring '23; requested in #98776
               course::234567::enrollment_type::teacher:
-                admin: true
                 mem_limit: 2096M
                 mem_guarantee: 2048M
               course::234567::enrollment_type::ta:
-                admin: true
                 mem_limit: 2096M
                 mem_guarantee: 2048M
 
@@ -73,6 +104,8 @@ Defining group profiles
                   readOnly: true
 
 
+   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>_`.
+
    `123456` and `234567` are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
 
 #. Add a comment associating the profile identifier with a friendly name of the course. Also link to the github issue where the instructor requested the resources. This helps us to cull old configuration during maintenance windows.
@@ -86,11 +119,11 @@ It may be necessary to assign additional resources to specific users, if it is t
 
 #. Edit `deployments/{deployment}/config/common.yaml`.
 
-#. Duplicate an existing stanza, or create a new one under `hub.custom.profiles` by inserting yaml of the form:
+#. Duplicate an existing stanza, or create a new one under `jupyterhub.custom.profiles` by inserting yaml of the form:
 
    .. code:: yaml
 
-        hub:
+        jupyterhub:
           custom:
             profiles:
 

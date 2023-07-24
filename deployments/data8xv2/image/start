@@ -1,7 +1,0 @@
-#!/bin/bash -l
-
-# Install vscode extension at startup time, so it gets
-# put in user home directory.
-code-server --install-extension ms-python.python
-
-exec "$@"

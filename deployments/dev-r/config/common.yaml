@@ -1,0 +1,94 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.185.238.42
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
+    config:
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - balajialwar
+          #- felder
+          #- gmerritt
+          #- rylo
+          #- sknapp
+
+          # List of other admin users
+    loadRoles:
+      course-staff-1524699:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1524699
+          - admin:servers!group=course::1524699
+          - access:servers!group=course::1524699
+        # this role will be assigned to...
+        groups:
+          - course::1524699::enrollment_type::teacher
+          - course::1524699::enrollment_type::ta
+
+  singleuser:
+    defaultUrl: /rstudio
+    nodeSelector:
+      hub.jupyter.org/pool-name: small-courses-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs-v3
+        subPath: "{username}"
+    memory:
+      guarantee: 512M
+      limit: 1G
+
+  #custom:
+  #  group_profiles:
+  #
+  #    # Example: increase memory for everyone affiliated with a course.
+  #
+  #    # Name of Class 100, Fall '22; requested in #98765
+  #    course::123456:
+  #      mem_limit: 4096M
+  #      mem_guarantee: 2048M
+  #
+  #    # Example: grant admin rights to course staff.
+  #    # Enrollment types returned by the Canvas API are `teacher`,
+  #    # `student`, `ta`, `observer`, and `designer`.
+  #    # https://canvas.instructure.com/doc/api/enrollments.html
+  #
+  #    # Some other class 200, Spring '23; requested in #98776
+  #    course::234567::enrollment_type::teacher:
+  #      admin: true
+  #      mem_limit: 2096M
+  #      mem_guarantee: 2048M
+  #    course::234567::enrollment_type::ta:
+  #      admin: true
+  #      mem_limit: 2096M
+  #      mem_guarantee: 2048M
+  #
+  #
+  #    # Example: a fully specified CanvasOAuthenticator group name.
+  #    # This could be useful for temporary resource bumps where the
+  #    # instructor could add people to groups in the bCourses UI. This
+  #    # would benefit from the ability to read resource bumps from
+  #    # jupyterhub's properties. (attributes in the ORM)
+  #
+  #    # Name of Class 100, Fall '22; requested in #98770
+  #    course::123456::group::lab4-bigdata:
+  #      - mountPath: /home/rstudio/.ssh
+  #        name: home
+  #        subPath: _some_directory/_ssh
+  #        readOnly: true

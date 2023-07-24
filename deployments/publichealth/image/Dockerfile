@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.1.2
+FROM rocker/geospatial:4.3.1
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -21,6 +21,10 @@ WORKDIR ${HOME}
 # Install packages needed by notebook-as-pdf
 # nodejs for installing notebook / jupyterhub from source
 # libarchive-dev for https://github.com/berkeley-dsep-infra/datahub/issues/1997
+# texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
+# We use Ubuntu's TeX because rocker's doesn't have most packages by default,
+# and we don't want them to be downloaded on demand by students.
+# tini is necessary because it is our ENTRYPOINT below.
 RUN apt-get update > /dev/null && \
     apt-get install --yes \
             libx11-xcb1 \
@@ -33,10 +37,14 @@ RUN apt-get update > /dev/null && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            libssl1.1 \
             fonts-symbola \
             gdebi-core \
             tini \
+	    pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-plain-generic \
             nodejs npm > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -48,9 +56,6 @@ USER ${NB_USER}
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
-
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 RUN mamba install -c conda-forge syncthing==1.18.6
 
@@ -84,39 +89,6 @@ RUN r /tmp/r-packages/ph-252.r
 
 COPY r-packages/2021-spring-phw-272a.r /tmp/r-packages/
 RUN r /tmp/r-packages/2021-spring-phw-272a.r
-
-RUN tlmgr repository add https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2021/tlnet-final
-RUN tlmgr --verify-repo=none update --self && \
-    tlmgr --verify-repo=none install \
-        amsmath \
-        latex-amsmath-dev \
-        iftex \
-        kvoptions \
-        ltxcmds \
-        kvsetkeys \
-        etoolbox \
-        xcolor \
-        auxhook \
-        bigintcalc \
-        bitset \
-        etexcmds \
-        gettitlestring \
-        hycolor \
-        hyperref \
-        intcalc \
-        kvdefinekeys \
-        letltxmacro \
-        pdfescape \
-        refcount \
-        rerunfilecheck \
-        stringenc \
-        uniquecounter \
-        zapfding \
-        pdftexcmds \
-        infwarerr \
-        geometry \
-        epstopdf-pkg
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks

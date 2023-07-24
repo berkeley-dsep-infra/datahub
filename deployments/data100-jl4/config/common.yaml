@@ -1,0 +1,78 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.203.15.114
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
+    config:
+    loadRoles:
+      # Data 100, Summer 2023
+      course-staff-1525605:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1525605
+          - admin:servers!group=course::1525605
+          - access:servers!group=course::1525605
+        # this role will be assigned to...
+        groups:
+          - course::1525605::enrollment_type::teacher
+          - course::1525605::enrollment_type::ta
+
+#  prePuller:
+#    extraImages:
+#      postgres:
+#        name: gcr.io/ucb-datahub-2018/jupyterhub-postgres
+#        tag: 0.0.1-n3657.h4f7f88c
+
+  singleuser:
+    defaultUrl: "/lab"
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.f79b4903c7ea2847
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+    nodeSelector:
+      hub.jupyter.org/pool-name: data100-pool
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs-v3
+        subPath: "{username}"
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan/shared
+          subPath: _shared
+          readOnly: true
+    memory:
+      guarantee: 4G
+      limit: 4G
+    image: {}
+
+  custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
+    admin:
+      mem_limit: 4G
+      mem_guarantee: 2G
+      extraVolumeMounts:
+        - name: home
+          mountPath: /srv/homes
+        - name: home
+          mountPath: /home/jovyan/shared-readwrite
+          subPath: _shared

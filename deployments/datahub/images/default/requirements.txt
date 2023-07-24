@@ -65,7 +65,7 @@ theano-pymc==1.1.2
 pymc3==3.11.2
 
 # eep 153; spring 2019
-requests==2.26.0
+requests==2.31.0
 Pint==0.17
 # Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
 gspread-pandas==2.3.0
@@ -76,7 +76,7 @@ ffmpeg-python==0.2.0
 
 # data 88e; spring 2021
 plotly==5.2.1
-mpmath==1.2.1
+mpmath==1.3.0
 # sympy==1.6.2
 chart-studio==1.1.0
 csaps==1.1.0

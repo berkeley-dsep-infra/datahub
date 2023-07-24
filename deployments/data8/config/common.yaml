@@ -13,27 +13,41 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool
+        hub.jupyter.org/pool-name: core-pool-2023-07-11
 
   hub:
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool
+      hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
+      #Authenticator:
+      #  admin_users:
+      #    # infrastructure
+      #    - balajialwar
+      #    - felder
+      #    - gmerritt
+      #    - rylo
+      #    - sknapp
+    loadRoles:
+      # Data 8, Summer 2023
+      course-staff-1525580:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1525580
+          - admin:servers!group=course::1525580
+          - access:servers!group=course::1525580
+        # this role will be assigned to...
+        groups:
+          - course::1525580::enrollment_type::teacher
+          - course::1525580::enrollment_type::ta
 
   singleuser:
     nodeSelector:
@@ -51,3 +65,18 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
+
+  custom:
+    group_profiles:
+
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
+
+  #    # Data 8, Summer 2023
+  #    # 20230710: commented out in favor of loadRoles above
+  #    course::1525580::enrollment_type::teacher:
+  #      admin: true
+  #    course::1525580::enrollment_type::ta:
+  #      admin: true
