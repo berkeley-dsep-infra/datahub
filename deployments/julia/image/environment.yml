@@ -16,3 +16,4 @@ dependencies:
 - websockify
 - pip:
   - jupyter-desktop-server
+  - otter-grader==3.1.4
