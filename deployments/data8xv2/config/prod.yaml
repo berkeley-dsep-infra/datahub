@@ -11,5 +11,5 @@ jupyterhub:
         # This also holds logs
         storage: 40Gi
     services:
-      gofer_nb:
+      otter_grade:
         url: http://grader-prod.data8x.berkeley.edu:10101

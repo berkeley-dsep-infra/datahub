@@ -10,5 +10,5 @@ jupyterhub:
         - hubv2-staging.data8x.berkeley.edu
   hub:
     services:
-      gofer_nb:
+      otter_grade:
         url: http://grader-staging.data8x.berkeley.edu:10101
