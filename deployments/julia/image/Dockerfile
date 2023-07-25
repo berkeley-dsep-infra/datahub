@@ -1,4 +1,4 @@
-FROM buildpack-deps:focal-scm
+FROM buildpack-deps:jammy-scm
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
