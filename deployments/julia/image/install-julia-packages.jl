@@ -1,9 +1,6 @@
 #!/usr/bin/env julia
 using Pkg;
 
-# Add support for various MIMI models
-Pkg.Registry.add(RegistrySpec(url = "https://github.com/mimiframework/MimiRegistry.git"));
-
 Pkg.add.([
     Pkg.PackageSpec(;name="Query", version="1.0.0"),
     Pkg.PackageSpec(;name="VegaLite", version="2.6.0"),
