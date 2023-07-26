@@ -127,9 +127,6 @@ habanero==0.7.4
 # https://github.com/berkeley-dsep-infra/datahub/issues/1981
 ipycanvas==0.9.0
 
-# Issue #1222, for PH 142 - Spring 2020
-PyPDF2==1.28.6
-
 # data100 scientific packages
 ray==1.13.*
 xlrd==2.0.1
