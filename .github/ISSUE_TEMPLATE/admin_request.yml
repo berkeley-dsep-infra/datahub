@@ -23,7 +23,7 @@ body:
   - type: input
     attributes:
       label: Bcourses Id
-      description: bcourses id for the course you are teaching. You can find that in the URL to your course (It is a six digit number)
+      description: bcourses id for the course you are teaching. You can find that in the URL to your course (It is a six digit number). Please ensure that the course is published in bcourses. If not, Datahub will not get the required group information from an unpublished course in bcourses.
     validations:
       required: true
   - type: input
