@@ -109,11 +109,12 @@ We can easily scale capacity up, but not down.
 
 From the command line, first fill in the instance name (``<hubname>-<YYYY-MM-DD>``)
 and ``<capacity>``, and then execute the following command:
+
 .. code:: bash
 
    gcloud filestore instances create <hubname>-<YYYY-MM-DD> \
      --zone "us-central1-b" --tier="BASIC_HDD" \
-     --file-share=capacity=<capacity>,name=shares \
+     --file-share=capacity=1TiB,name=shares \
      --network=name=default,connect-mode=DIRECT_PEERING
 
 Or, from the web console, click on the horizontal bar icon at the top left
@@ -135,12 +136,12 @@ and create & configure the required directories.
 
 You can run the following command in gcloud terminal to log in to the NFS utility VM:
 
-``gcloud compute ssh nfs-server-01 --zone=us-central1-b``
-   
-Alternatively, launch console.cloud.google.com ->  Select "ucb-datahub-2018" as the project name. 
+``gcloud compute ssh nfsserver-01 --zone=us-central1-b``
+
+Alternatively, launch console.cloud.google.com ->  Select "ucb-datahub-2018" as the project name.
 
 #. Click on the three horizontal bar icon at the top left corner.
-#. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01". 
+#. Access "Compute Engine" -> "VM instances" -> and search for "nfs-server-01".
 #. Select "Open in browser window" option to access NFS server via GUI.
 
 Back in the NFS utility VM shell, mount the new share:
@@ -148,19 +149,19 @@ Back in the NFS utility VM shell, mount the new share:
 .. code:: bash
 
    mkdir /export/<hubname>-filestore
-   mount <filestore share IP>/shares /export/<hubname>-filestore
+   mount <filestore share IP>:/shares /export/<hubname>-filestore
 
 Create ``staging`` and ``prod``  directories owned by ``1000:1000`` under
 ``/export/<hubname>-filestore/<hubname>``. The path *might* differ if
 your hub has special home directory storage needs. Consult admins if that's
 the case. Here is the command to create the directory with appropriate permissions:
-   
+
 .. code:: bash
 
    install -d -o 1000 -g 1000 \
      /export/<hubname>-filestore/<hubname>/staging \
      /export/<hubname>-filestore/<hubname>/prod
-		
+
 Check whether the directories have permissions similar to the below directories:
 
 .. code:: bash

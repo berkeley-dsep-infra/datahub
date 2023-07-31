@@ -32,5 +32,5 @@ If the hub is using a shared node pool, skip all namespace and node pool steps.
 #. Delete k8s namespace:  ``kubectl delete namespace <hubname>-staging <hubname>-prod``
 #. Delete k8s node pool:  ``gcloud container node-pools delete <hubname> --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1"``
 #. Delete filestore:  ``gcloud filestore instances delete <hubname>-filestore --zone "us-central1-b"``
-#. Delete PV:  ``kubectl get pv --all-namespaces|grep <hubname>`` to get the PV names, and then ``kubectl pv delete <pv names>``
+#. Delete PV:  ``kubectl get pv --all-namespaces|grep <hubname>`` to get the PV names, and then ``kubectl delete pv <pv names>``
 #. All done.
