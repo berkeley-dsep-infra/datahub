@@ -90,8 +90,8 @@ dependencies:
   # - -r infra-requirements.txt
   - jupyter-desktop-server
   - gh-scoped-creds==4.1
-  - otter-grader==4.0.1
-  - ipython-sql==0.4.1
+  - otter-grader==5.0.2
+  - jupysql=0.8.0
   - geopandas==0.12.1
   - iwut==0.0.4
   - tensorflow-cpu==2.12.0
