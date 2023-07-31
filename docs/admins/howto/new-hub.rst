@@ -111,6 +111,7 @@ From the command line, first fill in the instance name (``<hubname>-<YYYY-MM-DD>
 and ``<capacity>``, and then execute the following command:
 
 .. code:: bash
+
    gcloud filestore instances create <hubname>-<YYYY-MM-DD> \
      --zone "us-central1-b" --tier="BASIC_HDD" \
      --file-share=capacity=1TiB,name=shares \
