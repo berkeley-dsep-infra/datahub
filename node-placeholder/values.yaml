@@ -72,14 +72,14 @@ grafana:
 # So we should make the memory be output of (2) - output of (3), with maybe another 256Mi wiggle room
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
 nodePools:
-  # astro:
-  #   nodeSelector:
-  #     hub.jupyter.org/pool-name: astro-pool
-  #   resources:
-  #     requests:
-  #       # Some value slightly lower than allocatable RAM on the nodepool
-  #       memory: 60929654784
-  #   replicas: 0
+   astro:
+     nodeSelector:
+       hub.jupyter.org/pool-name: astro-pool
+     resources:
+       requests:
+         # Some value slightly lower than allocatable RAM on the nodepool
+         memory: 60929654784
+     replicas: 0
   biology:
     nodeSelector:
       hub.jupyter.org/pool-name: biology-pool
@@ -88,14 +88,14 @@ nodePools:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
-  # cee:
-  #   nodeSelector:
-  #     hub.jupyter.org/pool-name: cee-pool
-  #   resources:
-  #     requests:
-  #       # Some value slightly lower than allocatable RAM on the nodepool
-  #       memory: 60929654784
-  #   replicas: 0
+   cee:
+     nodeSelector:
+       hub.jupyter.org/pool-name: cee-pool
+     resources:
+       requests:
+         # Some value slightly lower than allocatable RAM on the nodepool
+         memory: 60929654784
+     replicas: 0
   data100:
     nodeSelector:
       hub.jupyter.org/pool-name: data100-pool
