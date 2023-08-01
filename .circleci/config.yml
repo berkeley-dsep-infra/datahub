@@ -185,11 +185,11 @@ jobs:
             hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-#      - run:
-#          name: Deploy astro
-#          command: |
-#            hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
-#          no_output_timeout: 30m
+      - run:
+          name: Deploy astro
+          command: |
+            hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy stat159
@@ -287,11 +287,11 @@ jobs:
             hubploy deploy --timeout 30m shiny hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-#      - run:
-#          name: Deploy cee
-#          command: |
-#            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
-#          no_output_timeout: 30m
+      - run:
+          name: Deploy cee
+          command: |
+            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
 #      - run:
 #          name: Deploy data101
@@ -466,15 +466,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
-#      - hubploy/build-image:
-#          deployment: astro
-#          name: astro image build
-#          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                ignore:
-#                - staging
-#                - prod
+      - hubploy/build-image:
+          deployment: astro
+          name: astro image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
@@ -538,15 +538,15 @@ workflows:
                 ignore:
                 - staging
                 - prod
-#      - hubploy/build-image:
-#          deployment: cee
-#          name: cee image build
-#          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                ignore:
-#                - staging
-#                - prod
+      - hubploy/build-image:
+          deployment: cee
+          name: cee image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
       - hubploy/build-image:
           deployment: publichealth
           name: publichealth image build
@@ -652,15 +652,15 @@ workflows:
               branches:
                 only:
                 - staging
-#      - hubploy/build-image:
-#          deployment: cee
-#          name: cee image build
-#          push: true
+      - hubploy/build-image:
+          deployment: cee
+          name: cee image build
+          push: true
           # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                only:
-#                - staging
+          filters:
+              branches:
+                only:
+                - staging
       - hubploy/build-image:
           deployment: data8
           name: data8 image build
@@ -670,15 +670,15 @@ workflows:
               branches:
                 only:
                 - staging
-#      - hubploy/build-image:
-#          deployment: astro
-#          name: astro image build
-#          push: true
+      - hubploy/build-image:
+          deployment: astro
+          name: astro image build
+          push: true
           # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                only:
-#                - staging
+          filters:
+              branches:
+                only:
+                - staging
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
@@ -806,12 +806,12 @@ workflows:
               - data8 image build
               - data100 image build
               - data100-jl4 image build
-#              - astro image build
+              - astro image build
               - stat159 image build
               - stat20 image build
               - ischool image build
               - publichealth image build
-#              - cee image build
+              - cee image build
               - shiny image build
               - logodev image build
               - biology image build
