@@ -99,7 +99,7 @@ dependencies:
   - fire
   - pycodestyle
   - flake8
-  - nb_black
+#  - nb_black
   - pycodestyle_magic
   - twine
   - otter-grader==3.1.4
