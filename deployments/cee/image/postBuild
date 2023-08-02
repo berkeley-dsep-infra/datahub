@@ -5,4 +5,4 @@ set -eou pipefail
 # to require libgsl 2.5? And I can't force conda to install that. This might break something
 # deep somewhere. See https://github.com/conda-forge/qgis-feedstock/issues/263
 # for upstream discussion
-ln -s /srv/conda/envs/notebook/lib/libgsl.so.27 /srv/conda/envs/notebook/lib/libgsl.so.25
+#ln -s /srv/conda/envs/notebook/lib/libgsl.so.27 /srv/conda/envs/notebook/lib/libgsl.so.25
