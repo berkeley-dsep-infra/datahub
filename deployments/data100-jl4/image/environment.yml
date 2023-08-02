@@ -101,5 +101,6 @@ dependencies:
   - jupyterhub==4.0.1
   # - notebook==6.5.4
   - nbconvert==7.6.0
-  - notebook==7.0.0
+    # - notebook==7.0.0
+  - git+https://github.com/jupyter/notebook.git@6bb89a6106e91a735862eeb6a0ec831e0f846779
   - pytest-notebook==0.8.1
