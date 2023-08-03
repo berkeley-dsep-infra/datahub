@@ -1,15 +1,15 @@
 # add labels for code changes
 python:
-  - "**/*.py"
+  - '**/*.py'
 R-code:
-  - "**/*.R"
-  - "**/*.r"
+  - '**/*.R'
+  - '**/*.r'
 bash:
-  - "**/*.sh"
-  - "**/*.bash"
-  - "**/postBuild"
+  - '**/*.sh'
+  - '**/*.bash'
+  - '**/postBuild'
 dockerfile:
-  - "**/Dockerfile"
+  - '**/Dockerfile'
 
 # add labels for non-singleuser image config changes
 configuration:
@@ -23,86 +23,108 @@ configuration:
 
 # catch all singleuser image config changes
 singleuser-image:
-  - "deployments/**/image/**"
-  - "deployments/**/images/**"
+  - 'deployments/**/image/**'
+  - 'deployments/**/images/**'
 
 # changes to hub images
 hub-images:
-  - "images/**"
-    
+  - 'images/**'
+
 # images
 images:
-  - "**/*.png"
-  - "**/*.svg"
+  - '**/*.png'
+  - '**/*.svg'
 
 # add labels to docs
 documentation:
-  - any: ['**/*.txt',  '!**/apt.txt', '!**/infra-requirements.txt', '!**/requirements.txt', '!**/runtime.txt']
+  - any: ['**/*.txt',  '!**/apt.tx+t', '!**/infra-requirements.txt', '!**/requirements.txt', '!**/runtime.txt']
   - 'docs/**'
   - '**/*.md'
+  - 'LICENSE'
 
 # add build-infra label to any .github or circleci changes
 build-infra:
-  - ".circleci/**"
-  - ".github/**"
+  - '.circleci/**'
+  - any: ['.github/**', '!.github/ISSUE_TEMPLATE/**']
+  - '.gitignore'
 
-# node placeholder/scaler labels
-node-placeholder:
-  - "node-placeholder/**"
+issue-templates:
+  - '.github/ISSUE_TEMPLATE/**'
+
+# helm chart infra
+helm-config:
+  - 'chartpress.yaml'
+  - '**/Chart.yaml'
+  - 'support/*.yaml'
+  - 'hub/*.yaml'
+  - 'node-placeholder/*.yaml'
+  - '**/.helmignore'
+
+# support systems
+support-deployment:
+  - 'support/**'
+
+# jupyterhub deployment
+jupyterhub-deployment:
+  - 'hub/**'
+
+# nodeplaceholder/scaler labels
+node-placeholder-deployment:
+  - 'node-placeholder/**'
 
 node-placeholder-scaler:
-  - "images/node-placeholder-scaler/**"
+  - 'images/node-placeholder-scaler/**'
 
 # add hub-specific labels for deployment changes
-"hub: a11y":
-  - "deployments/a11y/**"
-"hub: astro":
-  - "deployments/astro/**"
-"hub: biology":
-  - "deployments/biology/**"
-"hub: cee":
-  - "deployments/cee/**"
-"hub: data100":
-  - "deployments/data100/**"
-"hub: data100-jl4":
-  - "deployments/data100-jl4/**"
-"hub: data101":
-  - "deployments/data101/**"
-"hub: data102":
-  - "deployments/data102/**"
-"hub: data8":
-  - "deployments/data8/**"
-"hub: data8x":
-  - "deployments/data8x/**"
-"hub: data8xv2":
-  - "deployments/data8xv2/**"
-"hub: datahub":
-  - "deployments/datahub/**"
-"hub: dlab":
-  - "deployments/dlab/**"
-"hub: dev-r":
-  - "deployments/dev-r/**"
-"hub: eecs":
-  - "deployments/eecs/**"
-"hub: highschool":
-  - "deployments/highschool/**"
-"hub: ischool":
-  - "deployments/ischool/**"
-"hub: julia":
-  - "deployments/julia/**"
-"hub: logodev":
-  - "deployments/logodev/**"
-"hub: prob140":
-  - "deployments/prob140/**"
-"hub: publichealth":
-  - "deployments/publichealth/**"
-"hub: r":
-  - "deployments/r/**"
-"hub: shiny":
-  - "deployments/shiny/**"
-"hub: stat159":
-  - "deployments/stat159/**"
-"hub: stat20":
-  - "deployments/stat20/**"
-"hub: workshop":
-  - "deployments/workshop/**"
+'hub: a11y':
+  - 'deployments/a11y/**'
+'hub: astro':
+  - 'deployments/astro/**'
+'hub: biology':
+  - 'deployments/biology/**'
+'hub: cee':
+  - 'deployments/cee/**'
+'hub: data100':
+  - 'deployments/data100/**'
+'hub: data100-jl4':
+  - 'deployments/data100-jl4/**'
+'hub: data101':
+  - 'deployments/data101/**'
+'hub: data102':
+  - 'deployments/data102/**'
+'hub: data8':
+  - 'deployments/data8/**'
+'hub: data8x':
+  - 'deployments/data8x/**'
+'hub: data8xv2':
+  - 'deployments/data8xv2/**'
+'hub: datahub':
+  - 'deployments/datahub/**'
+'hub: dlab':
+  - 'deployments/dlab/**'
+'hub: dev-r':
+  - 'deployments/dev-r/**'
+'hub: eecs':
+  - 'deployments/eecs/**'
+'hub: highschool':
+  - 'deployments/highschool/**'
+'hub: ischool':
+  - 'deployments/ischool/**'
+'hub: julia':
+  - 'deployments/julia/**'
+'hub: logodev':
+  - 'deployments/logodev/**'
+'hub: prob140':
+  - 'deployments/prob140/**'
+'hub: publichealth':
+  - 'deployments/publichealth/**'
+'hub: r':
+  - 'deployments/r/**'
+'hub: shiny':
+  - 'deployments/shiny/**'
+'hub: stat159':
+  - 'deployments/stat159/**'
+'hub: stat20':
+  - 'deployments/stat20/**'
+'hub: workshop':
+  - 'deployments/workshop/**'
