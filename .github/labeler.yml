@@ -44,7 +44,10 @@ documentation:
 # add build-infra label to any .github or circleci changes
 build-infra:
   - ".circleci/**"
-  - ".github/**"
+  - any: ['.github/**', '!.github/ISSUE_TEMPLATE/**']
+
+issue-templates:
+  - ".github/ISSUE_TEMPLATE/**"
 
 # support systems
 support-deployment:
