@@ -46,6 +46,8 @@ documentation:
 build-infra:
   - ".circleci/**"
   - any: ['.github/**', '!.github/ISSUE_TEMPLATE/**']
+  - '.gitignore'
+
 issue-templates:
   - ".github/ISSUE_TEMPLATE/**"
 
@@ -56,6 +58,7 @@ helm-config:
   - 'support/*.yaml'
   - 'hub/*.yaml'
   - 'node-placeholder/*.yaml'
+  - '**/.helmignore'
 
 # support systems
 support-deployment:
