@@ -40,14 +40,22 @@ documentation:
   - any: ['**/*.txt',  '!**/apt.txt', '!**/infra-requirements.txt', '!**/requirements.txt', '!**/runtime.txt']
   - 'docs/**'
   - '**/*.md'
+  - 'LICENSE'
 
 # add build-infra label to any .github or circleci changes
 build-infra:
   - ".circleci/**"
   - any: ['.github/**', '!.github/ISSUE_TEMPLATE/**']
-
 issue-templates:
   - ".github/ISSUE_TEMPLATE/**"
+
+# helm chart infra
+helm:
+  - 'chartpress.yaml'
+  - '**/Chart.yaml'
+  - 'support/*.yaml'
+  - 'hub/*.yaml'
+  - 'node-placeholder/**.yaml'
 
 # support systems
 support-deployment:
