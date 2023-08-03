@@ -50,7 +50,7 @@ issue-templates:
   - ".github/ISSUE_TEMPLATE/**"
 
 # helm chart infra
-helm:
+helm-config:
   - 'chartpress.yaml'
   - '**/Chart.yaml'
   - 'support/*.yaml'
@@ -65,8 +65,8 @@ support-deployment:
 jupyterhub-deployment:
   - "hub/**"
 
-# node placeholder/scaler labels
-node-placeholder:
+# nodeplaceholder/scaler labels
+node-placeholder-deployment:
   - "node-placeholder/**"
 
 node-placeholder-scaler:
