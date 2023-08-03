@@ -46,6 +46,14 @@ build-infra:
   - ".circleci/**"
   - ".github/**"
 
+# support systems
+support-deployment:
+  - "support/**"
+
+# jupyterhub deployment
+jupyterhub-deployment:
+  - "hub/**"
+
 # node placeholder/scaler labels
 node-placeholder:
   - "node-placeholder/**"
