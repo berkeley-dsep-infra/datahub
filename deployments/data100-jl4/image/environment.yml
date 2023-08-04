@@ -2,7 +2,6 @@ name: data100-jl4
 
 channels:
 - conda-forge
-#- conda-forge/label/notebook_rc
 
 dependencies:
 - python==3.11.0
@@ -31,23 +30,19 @@ dependencies:
 - ipyparallel==8.4.1
 - jsonschema==4.17.3
 - jupyter-book==0.15.1
-  # - jupyter-resource-usage==0.6.1
+- jupyter-resource-usage==1.0.0
 - jupyter_bokeh
 - jupyterlab==4.0.4
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
-  # - jupyterlab-git==0.39.0
-  # - jupyterlab-link-share==0.3.0
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
 - jupyterlab_server==2.23.0
 - jupyterlab_widgets==3.0.8
-  # - jupytext==1.14.0
 - jupyter_server==2.7.0
 - matplotlib==3.7.1
 - matplotlib-inline==0.1.6
 - mock==4.0.3
-# - notebook==7.0.0rc1
 - nbclassic==1.0.0
 - nbdime==3.1.1
 - nbgitpuller==1.1.1
@@ -100,6 +95,5 @@ dependencies:
   # disable until fixed (probably this:  https://github.com/jupyterlab/jupyter-collaboration/issues/162)
   # - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.1
-  # - notebook==6.5.4
   - nbconvert==7.6.0
   - pytest-notebook==0.8.1
