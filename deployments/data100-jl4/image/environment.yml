@@ -17,7 +17,7 @@ dependencies:
 - cython==0.29.32
 - distributed==2023.6.0
 - fortran-magic==0.7
-- graphviz
+- graphviz==8.1.0
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
