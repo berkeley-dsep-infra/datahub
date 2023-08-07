@@ -123,7 +123,7 @@ jupyterhub:
     image: {}
 
   # read by z2jh.get_config() in hub/values.yaml
-  #custom:
+  # custom:
   #  group_profiles:
   #    canvas::1519998: # Legal Studies 123, Spring 2023, issue #3718
   #      mem_limit: 3072M
