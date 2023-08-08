@@ -4,23 +4,27 @@
 #
 #    pip-compile requirements.in
 #
-certifi==2022.12.7
+annotated-types==0.5.0
+    # via pydantic
+certifi==2023.7.22
     # via
     #   -r requirements.in
     #   requests
-charset-normalizer==3.1.0
+charset-normalizer==3.2.0
     # via requests
-datetime==5.1
+datetime==5.2
     # via -r requirements.in
-emoji==2.4.0
+emoji==2.7.0
     # via ical
-ical==4.5.2
+ical==5.0.0
     # via -r requirements.in
 idna==3.4
     # via requests
-pydantic==1.10.9
+pydantic==2.1.1
     # via ical
-pyparsing==3.0.9
+pydantic-core==2.4.0
+    # via pydantic
+pyparsing==3.1.1
     # via ical
 python-dateutil==2.8.2
     # via ical
@@ -28,17 +32,19 @@ pytz==2023.3
     # via datetime
 requests==2.31.0
     # via -r requirements.in
-ruamel-yaml==0.17.31
+ruamel-yaml==0.17.32
     # via -r requirements.in
 ruamel-yaml-clib==0.2.7
     # via ruamel-yaml
 six==1.16.0
     # via python-dateutil
-typing-extensions==4.6.3
-    # via pydantic
+typing-extensions==4.7.1
+    # via
+    #   pydantic
+    #   pydantic-core
 tzdata==2023.3
     # via ical
-urllib3==2.0.3
+urllib3==2.0.4
     # via requests
 zope-interface==6.0
     # via datetime
