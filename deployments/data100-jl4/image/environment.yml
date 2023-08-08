@@ -2,7 +2,6 @@ name: data100-jl4
 
 channels:
 - conda-forge
-#- conda-forge/label/notebook_rc
 
 dependencies:
 - python==3.11.0
@@ -18,6 +17,8 @@ dependencies:
 - cython==0.29.32
 - distributed==2023.6.0
 - fortran-magic==0.7
+- graphviz==8.0.3
+- python-graphviz==0.20.1
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
@@ -31,27 +32,24 @@ dependencies:
 - ipyparallel==8.4.1
 - jsonschema==4.17.3
 - jupyter-book==0.15.1
-  # - jupyter-resource-usage==0.6.1
+- jupyter-resource-usage==1.0.0
 - jupyter_bokeh
-- jupyterlab==4.0.3
+- jupyterlab==4.0.4
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
-  # - jupyterlab-git==0.39.0
-  # - jupyterlab-link-share==0.3.0
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
 - jupyterlab_server==2.23.0
 - jupyterlab_widgets==3.0.8
-  # - jupytext==1.14.0
 - jupyter_server==2.7.0
 - matplotlib==3.7.1
 - matplotlib-inline==0.1.6
 - mock==4.0.3
-# - notebook==7.0.0rc1
 - nbclassic==1.0.0
 - nbdime==3.1.1
 - nbgitpuller==1.1.1
 - networkx==2.8.6
+- notebook==7.0.2
 - numba==0.57.0
 - numpy==1.24.2
 - pandas==2.0.2
@@ -99,8 +97,5 @@ dependencies:
   # disable until fixed (probably this:  https://github.com/jupyterlab/jupyter-collaboration/issues/162)
   # - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.1
-  # - notebook==6.5.4
   - nbconvert==7.6.0
-    # - notebook==7.0.0
-  - git+https://github.com/jupyter/notebook.git@6bb89a6106e91a735862eeb6a0ec831e0f846779
   - pytest-notebook==0.8.1
