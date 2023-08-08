@@ -23,7 +23,8 @@ dependencies:
 - protobuf
 - mpich
 - mpi4py
-
+- scikit-learn==1.3.0
+- scikit-image==0.21.0
 - pip
 
 - pip:
@@ -34,8 +35,6 @@ dependencies:
   - nose2>=0.10.0
   - sympy
   - scipy
-  - scikit-learn==1.0.*
-  - scikit-image==0.19.*
   - beautifulsoup4
   - tqdm
   - h5py
