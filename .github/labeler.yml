@@ -15,6 +15,7 @@ dockerfile:
 configuration:
   - '**/apt.txt'
   - '**/infra-requirements.txt'
+  - '**/requirements.in'
   - '**/requirements.txt'
   - '**/runtime.txt'
   - '**/*.json'
