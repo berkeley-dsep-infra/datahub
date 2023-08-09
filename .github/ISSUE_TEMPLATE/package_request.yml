@@ -1,5 +1,5 @@
-name: Package Addition/Change Request
-description: Request a package addition / change
+name: Package Addition/Change Request.
+description: Request a package addition / change.  This will take two business days.
 labels: "package-request"
 title: Request python package X for class Y
 assignees:
