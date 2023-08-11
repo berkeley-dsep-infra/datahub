@@ -1,23 +1,24 @@
-name: data100-s23
+name: data100-jl4
 
 channels:
 - conda-forge
 
 dependencies:
-- python==3.9
+- python==3.11.0
 - syncthing==1.20.4
-- git
-- altair==4.2.0
+- git==2.39.1
+- altair==5.0.1
 - beautifulsoup4==4.11.1
 - black==22.6.0
 - bokeh==2.4.3
 - bqplot==0.12.34
 - cartopy==0.21.0
-- coverage==6.4.4
+- coverage==7.2.2
 - cython==0.29.32
-- dask==2022.8.1
-- dask-labextension==5.3.0
+- distributed==2023.6.0
 - fortran-magic==0.7
+- graphviz==8.0.3
+- python-graphviz==0.20.1
 - h5netcdf==1.0.2
 - h5py==3.7.0
 - hdf4==4.2.15
@@ -29,32 +30,34 @@ dependencies:
 - ipydatagrid==1.1.12
 - ipympl==0.9.2
 - ipyparallel==8.4.1
-- jupyter-book==0.13.1
-- jupyter-resource-usage==0.6.1
-- jupyter_bokeh==3.0.4
-- jupyterlab==3.4.5
-- jupyterlab-drawio==0.9.0
+- jsonschema==4.17.3
+- jupyter-book==0.15.1
+- jupyter-resource-usage==1.0.0
+- jupyter_bokeh
+- jupyterlab==4.0.4
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
-- jupyterlab-git==0.39.0
-- jupyterlab-link-share==0.2.4
 - jupyterlab-variableinspector==3.0.9
 - jupyterlab_pygments==0.2.2
-- jupyterlab_widgets==3.0.2
-- jupytext==1.14.0
-- matplotlib==3.5.3
+- jupyterlab_server==2.23.0
+- jupyterlab_widgets==3.0.8
+- jupyter_server==2.7.0
+- matplotlib==3.7.1
 - matplotlib-inline==0.1.6
 - mock==4.0.3
+- nbclassic==1.0.0
 - nbdime==3.1.1
+- nbgitpuller==1.1.1
 - networkx==2.8.6
-- numba
-- numpy==1.23.2
-- pandas==1.4.3
-- pandoc==2.19.2
+- notebook==7.0.2
+- numba==0.57.0
+- numpy==1.24.2
+- pandas==2.0.2
+- pandoc==2.12
 - pandocfilters==1.5.0
 - pep8==1.7.1
 - pillow==9.2.0
-- plotly==5.10.0
+- plotly==5.13.1
 - pooch==1.6.0
 - prettytable==3.4.1
 - pyarrow==9.0.0
@@ -62,34 +65,37 @@ dependencies:
 - pytables==3.7.0
 - pytest==7.1.2
 - pytest-cov==3.0.0
-- pytest-notebook==0.6.1
-- python-pdfkit==1.0.0 
-- requests==2.28.1
+- python-pdfkit==1.0.0
+- requests==2.28.2
 - scikit-image==0.19.3
-- scikit-learn==1.1.2
-- scipy==1.9.0
-- seaborn==0.11.2
-- sphinx-jupyterbook-latex==0.4.6
+- scikit-learn==1.2.2
+- scipy==1.10.1
+- seaborn==0.12.2
+- sphinx-jupyterbook-latex==0.5.2
 - sqlparse==0.4.3
-- statsmodels==0.13.2
+- statsmodels==0.14.0
 - sympy==1.10.1
+- tornado==6.2.0
 - tqdm==4.64.0
-- xarray==2022.6.0
+- xarray==2023.5.0
 - xlrd==2.0.1
 - micro==2.0.8
-- websockify
+- websockify==0.11.0
 - folium==0.14.0
-- sqlalchemy==1.4.29
+- sqlalchemy==2.0.16
 - pip
 - pip:
-  - -r infra-requirements.txt
+  # - -r infra-requirements.txt
   - jupyter-desktop-server
-    # For push authentication to GitHub
   - gh-scoped-creds==4.1
-  # Upgrade separate from what everyone else uses for now
-  # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - otter-grader==4.0.1
-  - ipython-sql==0.4.1
+  - jupysql==0.8.0
   - geopandas==0.12.1
   - iwut==0.0.4
   - tensorflow-cpu==2.12.0
+  - ipywidgets==8.0.7
+  # disable until fixed (probably this:  https://github.com/jupyterlab/jupyter-collaboration/issues/162)
+  # - jupyter_collaboration==1.0.1
+  - jupyterhub==4.0.1
+  - nbconvert==7.6.0
+  - pytest-notebook==0.8.1
