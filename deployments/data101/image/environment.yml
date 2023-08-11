@@ -99,4 +99,5 @@ dependencies:
   - jupyterhub==4.0.1
   - nbconvert==7.6.0
   - pytest-notebook==0.8.1
+  - pymongo==4.4.1
   - dbt-postgres==1.6.0
