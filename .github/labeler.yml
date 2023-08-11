@@ -15,6 +15,7 @@ dockerfile:
 configuration:
   - '**/apt.txt'
   - '**/infra-requirements.txt'
+  - '**/requirements.in'
   - '**/requirements.txt'
   - '**/runtime.txt'
   - '**/*.json'
@@ -37,7 +38,7 @@ images:
 
 # add labels to docs
 documentation:
-  - any: ['**/*.txt',  '!**/apt.tx+t', '!**/infra-requirements.txt', '!**/requirements.txt', '!**/runtime.txt']
+  - any: ['**/*.txt',  '!**/apt.txt', '!**/infra-requirements.txt', '!**/requirements.txt', '!**/runtime.txt']
   - 'docs/**'
   - '**/*.md'
   - 'LICENSE'
