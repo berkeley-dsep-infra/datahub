@@ -123,6 +123,13 @@ grafana:
   ingress:
     enabled: true
     annotations:
+      # Increase timeout for each query made by the grafana frontend to the
+      # grafana backend to 2min, which is the default timeout for prometheus
+      # queries. This also matches the timeout for the dataproxy in grafana,
+      # set under `grafana.ini` below. These two timeouts are set together
+      # to allow prometheus the best chance of executing queries we care about.
+      # See: https://github.com/2i2c-org/infrastructure/pull/2942
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
       kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
@@ -133,6 +140,19 @@ grafana:
       secretName: grafana-https-auto-tls
 
   grafana.ini:
+    # dataproxy is used to make requests to prometheuses via the backend.
+    # This allows authless access to prometheus server in the same namespace.
+    dataproxy:
+      # See: https://github.com/2i2c-org/infrastructure/pull/2942
+      # Enable logging so we can debug grafana timeouts
+      logging: true
+      # Default prometheus query timeout is 120s, so let's allow grafana to
+      # wait until that much time.
+      # See https://prometheus.io/docs/prometheus/latest/command-line/prometheus/
+      # for default prometheus query timeouts.
+      # Because our grafana is behind an nginx ingress, this should match the
+      # read timeout set above under `ingress.annotations`.
+      timeout: 120
     server:
       root_url: https://grafana.datahub.berkeley.edu/
 
