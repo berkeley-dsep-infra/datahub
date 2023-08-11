@@ -146,6 +146,11 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: data101-pool
     defaultUrl: /lab
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.f79b4903c7ea2847
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     storage:
       type: static
       static:
