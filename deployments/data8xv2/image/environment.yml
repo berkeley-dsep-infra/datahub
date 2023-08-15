@@ -94,7 +94,7 @@ dependencies:
   - tensorflow-cpu==2.12.0
   - ipywidgets==8.0.7
   - jupyter_collaboration==1.0.1
-  - jupyterhub==4.0.1
+  - jupyterhub==4.0.2
   - nbconvert==7.6.0
   - notebook==7.0.0rc2
   - pytest-notebook==0.8.1

@@ -144,7 +144,7 @@ dependencies:
   - pip:
     - ipython-sql==0.4.1
     - ipytest==0.13.0
-    - jupyterhub==4.0.0b2
+    - jupyterhub==4.0.2
     - nbval==0.10.0
     - nbdime==3.2.0
 

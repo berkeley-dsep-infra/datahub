@@ -14,7 +14,7 @@ retrolab==0.3.21
 nbgitpuller==1.1.0
 jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
-jupyterhub==4.0.0b2
+jupyterhub==4.0.2
 appmode==0.8.0
 ipywidgets==7.7.2
 jupyter-tree-download==1.0.1
