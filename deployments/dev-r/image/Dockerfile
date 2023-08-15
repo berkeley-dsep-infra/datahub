@@ -38,6 +38,7 @@ ENV R_VERSION=4.3.0-1.2204.0
 ENV LITTLER_VERSION=0.3.18-1.2204.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran.list
+RUN curl --silent --location --fail https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc > /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
         r-base-core=${R_VERSION} \
