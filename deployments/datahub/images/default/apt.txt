@@ -1,0 +1,63 @@
+tar
+vim
+micro
+tini
+locales
+
+# for jupyter-tree-download, #3979
+zip
+
+# for nbconvert
+pandoc
+texlive-xetex
+texlive-fonts-recommended
+# provides FandolSong-Regular.otf for issue #2714
+texlive-lang-chinese
+texlive-plain-generic
+
+# for LS88-5 and modules basemap
+libspatialindex-dev
+
+# For L&S22
+graphviz
+
+# for phys 151
+gfortran
+
+# for issue #2695, fall 2021?
+libarmadillo-dev
+
+# for notebook-as-pdf
+libx11-xcb1
+libxtst6
+libxrandr2
+libasound2
+libpangocairo-1.0-0
+libatk1.0-0
+libatk-bridge2.0-0
+libgtk-3-0
+libnss3
+libxss1
+fonts-noto-color-emoji
+
+# for rstudio
+psmisc
+sudo
+libapparmor1
+lsb-release
+libclang-dev
+
+# R package qpdf
+libpoppler-cpp-dev
+
+# R package imager
+libx11-dev
+libglpk-dev
+libgmp3-dev
+libxml2-dev
+
+# R package units
+libudunits2-dev
+
+# Used by littler for IRkernel::installspec
+libzmq5

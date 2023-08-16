@@ -4,5 +4,5 @@ dependencies:
    # get the helm chart version from here:  https://github.com/jupyterhub/helm-chart
    # correlate the helm chart version w/jupyterhub here:
    # https://hub.jupyter.org/helm-chart/#development-releases-jupyterhub
-   version: 2.0.1-0.dev.git.6085.h59225bad
+   version: 3.0.1
    repository: https://jupyterhub.github.io/helm-chart/
