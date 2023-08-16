@@ -397,6 +397,8 @@ jupyterhub:
             if not self.events_enabled:
               return
 
+            await self._start_watching_events()
+
             self.log.debug('progress generator: %s', self.pod_name)
             start_future = self._start_future
             progress = 0
@@ -455,6 +457,7 @@ jupyterhub:
 
               if break_while_loop:
                 break
+
               timer += 1
               await asyncio.sleep(1)
 
