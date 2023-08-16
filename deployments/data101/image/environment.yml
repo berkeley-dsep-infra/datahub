@@ -56,6 +56,7 @@ dependencies:
 - pandoc==2.12
 - pandocfilters==1.5.0
 - pep8==1.7.1
+- pgspecial==1.13.1
 - pillow==9.2.0
 - plotly==5.13.1
 - pooch==1.6.0
@@ -87,7 +88,6 @@ dependencies:
 - pip:
   # - -r infra-requirements.txt
   - jupyter-desktop-server
-  - gh-scoped-creds==4.1
   - otter-grader==4.0.1
   - jupysql==0.8.0
   - geopandas==0.12.1
