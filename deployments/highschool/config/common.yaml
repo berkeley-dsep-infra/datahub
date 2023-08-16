@@ -21,21 +21,21 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
       Authenticator:
+        enable_auth_state: false
         admin_users:
           # infrastructure
-          - balajialwar
-          - ericvd
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
+          - balajialwar@berkeley.edu
+          - ericvd@berkeley.edu
+          - felder@berkeley.edu
+          - gmerritt@berkeley.edu
+          - rylo@berkeley.edu
+          - sknapp@berkeley.edu
           # List of other admin users
-          - melvins #https://github.com/berkeley-dsep-infra/datahub/issues/4862
-    config:
+          - melvins@berkeley.edu #https://github.com/berkeley-dsep-infra/datahub/issues/4862
       JupyterHub:
-        authenticator_class: oauthenticator.google.GoogleOAuthenticator
+        authenticator_class: google
       GoogleOAuthenticator:
-        login_service: School ID
+        login_service: "School ID"
         hosted_domain:
         - berkeley.edu
         # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
