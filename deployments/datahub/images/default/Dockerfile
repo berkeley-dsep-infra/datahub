@@ -59,14 +59,6 @@ RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb 
     apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
 
-# For 2022 Fall ESPM 157, but probably others will use it later
-#ENV QUARTO_VERSION="0.9.522"
-#RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
-#    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
-#    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
-#	rm /tmp/quarto.tar.gz && \
-#	ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
-
 # Set CRAN mirror to rspm before we install anything
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
 # RStudio needs its own config
@@ -83,6 +75,9 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron && \
     echo "TZ=${TZ}" >> /etc/R/Renviron
+
+# For command-line access to quarto, which is installed by rstudio.
+RUN ln -s /usr/lib/rstudio-server/bin/quarto/bin/quarto /usr/local/bin/quarto
 
 # Install R libraries as our user
 USER ${NB_USER}
