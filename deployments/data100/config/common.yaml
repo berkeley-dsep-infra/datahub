@@ -17,19 +17,18 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
     loadRoles:
-      # Data 100, Summer 2023, #4677
-      course-staff-1525605:
+      # Data 100, Fall 2023
+      course-staff-1527426:
         description: Enable course staff to view and access servers.
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1525605
-          - admin:servers!group=course::1525605
-          - access:servers!group=course::1525605
+          - list:users!group=course::1527426
+          - admin:servers!group=course::1527426
+          - access:servers!group=course::1527426
         # this role will be assigned to...
         groups:
-          - course::1525605::enrollment_type::teacher
-          - course::1525605::enrollment_type::ta
+          - Admins::1527426 #not fully sure if this number should be the course code (1527426) or the bcourses group code (383808)
 
 #  prePuller:
 #    extraImages:
