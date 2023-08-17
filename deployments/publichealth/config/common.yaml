@@ -78,8 +78,8 @@ jupyterhub:
 
   custom:
     group_profiles:
-    # PH 142, Summer 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4701
-      course::1525581::enrollment_type::teacher:
+    # PH 142, Fall 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4860
+      course::1527948::enrollment_type::teacher:
         admin: true
-      course::1525581::enrollment_type::ta:
+      course::1527948::enrollment_type::ta:
         admin: true
