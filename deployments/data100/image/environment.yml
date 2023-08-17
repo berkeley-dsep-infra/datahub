@@ -43,3 +43,4 @@ dependencies:
   - jupyterhub==4.0.2
   - nbconvert==7.6.0
   - pytest-notebook==0.8.1
+  - gh-scoped-creds==4.1
