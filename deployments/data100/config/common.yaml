@@ -28,7 +28,7 @@ jupyterhub:
           - access:servers!group=course::1527426
         # this role will be assigned to...
         groups:
-          - course::1527426::group::Admins #not fully sure if this number should be the course code (1527426) or the bcourses group code (383808)
+          - course::1527426::group::Admins 
 
 #  prePuller:
 #    extraImages:
