@@ -88,7 +88,7 @@ dependencies:
 - pip:
   # - -r infra-requirements.txt
   - jupyter-desktop-server
-  - otter-grader==4.4.3
+  - otter-grader==4.4.1
   - jupysql==0.8.0
   - geopandas==0.12.1
   - iwut==0.0.4
