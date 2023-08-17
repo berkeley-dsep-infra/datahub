@@ -93,46 +93,30 @@ RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
 RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
 
-#COPY r-packages/2019-fall-stat-131a.r /tmp/r-packages
-#RUN r /tmp/r-packages/2019-fall-stat-131a.r && rm -rf /tmp/downloaded_packages
-
+# Econ 140, Fall '22 and into the future
+# https://github.com/berkeley-dsep-infra/datahub/issues/3757
 COPY r-packages/econ-140.r /tmp/r-packages
 RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 
+# EEP/IAS C119, Spring '23
+# https://github.com/berkeley-dsep-infra/datahub/issues/4203
 COPY r-packages/eep-1118.r /tmp/r-packages
 RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 
-COPY r-packages/ias-c188.r /tmp/r-packages
-RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
+# IAS C118, Fall '19
+# https://github.com/berkeley-dsep-infra/datahub/issues/897
+#COPY r-packages/ias-c188.r /tmp/r-packages
+#RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
 
-#COPY r-packages/orphaned-ph-142.r /tmp/r-packages
-#RUN r /tmp/r-packages/orphaned-ph-142.r && rm -rf /tmp/downloaded_packages
+# IB161, Spring '21
+# https://github.com/berkeley-dsep-infra/datahub/issues/2243
+#COPY r-packages/ib161.r /tmp/r-packages/
+#RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
 
-#COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
-#RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
-
-#COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
-#RUN r /tmp/r-packages/orphaned-ph-290.r && rm -rf /tmp/downloaded_packages
-
-# remove after Spring '22 semester
-#COPY r-packages/orphaned-2021-spring-stat-20.r /tmp/r-packages/
-#RUN r /tmp/r-packages/orphaned-2021-spring-stat-20.r && rm -rf /tmp/downloaded_packages
-
-#COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
-#RUN r /tmp/r-packages/2021-spring-espm-288.r && rm -rf /tmp/downloaded_packages
-
-COPY r-packages/ib161.r /tmp/r-packages/
-RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
-
-COPY r-packages/ps-3.r /tmp/r-packages/
-RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
-
-# remove after Spring '22 semester
-#COPY r-packages/orphaned-stat-20.r /tmp/r-packages/
-#RUN r /tmp/r-packages/orphaned-stat-20.r && rm -rf /tmp/downloaded_packages
-
-#COPY r-packages/2023-spring-stat-135.r /tmp/r-packages/
-#RUN r /tmp/r-packages/2023-spring-stat-135.r && rm -rf /tmp/downloaded_packages
+# PS3, Fall '21 and Spring '22
+# For https://github.com/berkeley-dsep-infra/datahub/issues/2579
+#COPY r-packages/ps-3.r /tmp/r-packages/
+#RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
