@@ -87,8 +87,6 @@ node-placeholder-scaler:
   - 'deployments/cee/**'
 'hub: data100':
   - 'deployments/data100/**'
-'hub: data100-jl4':
-  - 'deployments/data100-jl4/**'
 'hub: data101':
   - 'deployments/data101/**'
 'hub: data102':
