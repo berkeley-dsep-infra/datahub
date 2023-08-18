@@ -59,14 +59,6 @@ RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb 
     apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
 
-# For 2022 Fall ESPM 157, but probably others will use it later
-#ENV QUARTO_VERSION="0.9.522"
-#RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
-#    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
-#    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
-#	rm /tmp/quarto.tar.gz && \
-#	ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
-
 # Set CRAN mirror to rspm before we install anything
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
 # RStudio needs its own config
@@ -84,6 +76,9 @@ RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron && \
     echo "TZ=${TZ}" >> /etc/R/Renviron
 
+# For command-line access to quarto, which is installed by rstudio.
+RUN ln -s /usr/lib/rstudio-server/bin/quarto/bin/quarto /usr/local/bin/quarto
+
 # Install R libraries as our user
 USER ${NB_USER}
 
@@ -98,46 +93,30 @@ RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
 RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
 
-#COPY r-packages/2019-fall-stat-131a.r /tmp/r-packages
-#RUN r /tmp/r-packages/2019-fall-stat-131a.r && rm -rf /tmp/downloaded_packages
-
+# Econ 140, Fall '22 and into the future
+# https://github.com/berkeley-dsep-infra/datahub/issues/3757
 COPY r-packages/econ-140.r /tmp/r-packages
 RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 
+# EEP/IAS C119, Spring '23
+# https://github.com/berkeley-dsep-infra/datahub/issues/4203
 COPY r-packages/eep-1118.r /tmp/r-packages
 RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 
-COPY r-packages/ias-c188.r /tmp/r-packages
-RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
+# IAS C118, Fall '19
+# https://github.com/berkeley-dsep-infra/datahub/issues/897
+#COPY r-packages/ias-c188.r /tmp/r-packages
+#RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
 
-#COPY r-packages/orphaned-ph-142.r /tmp/r-packages
-#RUN r /tmp/r-packages/orphaned-ph-142.r && rm -rf /tmp/downloaded_packages
+# IB161, Spring '21
+# https://github.com/berkeley-dsep-infra/datahub/issues/2243
+#COPY r-packages/ib161.r /tmp/r-packages/
+#RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
 
-#COPY r-packages/2020-spring-envecon-c118.r /tmp/r-packages/
-#RUN r /tmp/r-packages/2020-spring-envecon-c118.r && rm -rf /tmp/downloaded_packages
-
-#COPY r-packages/orphaned-ph-290.r /tmp/r-packages/
-#RUN r /tmp/r-packages/orphaned-ph-290.r && rm -rf /tmp/downloaded_packages
-
-# remove after Spring '22 semester
-#COPY r-packages/orphaned-2021-spring-stat-20.r /tmp/r-packages/
-#RUN r /tmp/r-packages/orphaned-2021-spring-stat-20.r && rm -rf /tmp/downloaded_packages
-
-#COPY r-packages/2021-spring-espm-288.r /tmp/r-packages/
-#RUN r /tmp/r-packages/2021-spring-espm-288.r && rm -rf /tmp/downloaded_packages
-
-COPY r-packages/ib161.r /tmp/r-packages/
-RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
-
-COPY r-packages/ps-3.r /tmp/r-packages/
-RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
-
-# remove after Spring '22 semester
-#COPY r-packages/orphaned-stat-20.r /tmp/r-packages/
-#RUN r /tmp/r-packages/orphaned-stat-20.r && rm -rf /tmp/downloaded_packages
-
-#COPY r-packages/2023-spring-stat-135.r /tmp/r-packages/
-#RUN r /tmp/r-packages/2023-spring-stat-135.r && rm -rf /tmp/downloaded_packages
+# PS3, Fall '21 and Spring '22
+# For https://github.com/berkeley-dsep-infra/datahub/issues/2579
+#COPY r-packages/ps-3.r /tmp/r-packages/
+#RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
