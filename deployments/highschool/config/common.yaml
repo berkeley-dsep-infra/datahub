@@ -43,6 +43,12 @@ jupyterhub:
         # For BLDAP program
         - lbl.gov
         # moved admin users to protected directory
+        - ausdk12.org
+        - amethodschools.org
+        - wccschools.org
+        - madison.k12.wi.us
+        - student.tdsb.on.ca
+        - sfhs.com
 
   singleuser:
     nodeSelector:
