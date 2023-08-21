@@ -89,7 +89,8 @@ RUN mkdir -p /tmp/r-packages
 COPY install.R  /tmp/install.R
 RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
-# pdftools
+# DLAB CTAWG, Fall '20 - Summer '21
+# https://github.com/berkeley-dsep-infra/datahub/issues/1942
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
 RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
 
