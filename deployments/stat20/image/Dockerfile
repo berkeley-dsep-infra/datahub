@@ -75,7 +75,7 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 COPY class-libs.R /tmp/class-libs.R
 
 COPY r-packages/2023-fall-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/2022-fall-stat-20.r
+RUN r /tmp/r-packages/2023-fall-stat-20.r
 
 # Configure locking behavior
 COPY file-locks /etc/rstudio/file-locks
