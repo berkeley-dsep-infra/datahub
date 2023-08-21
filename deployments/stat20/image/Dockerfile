@@ -40,13 +40,23 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# While quarto is included with rocker/verse, we sometimes need different
+# versions than the default. For example a newer version might fix bugs.
+ENV _QUARTO_VERSION=1.3.433
+RUN curl -L -o /tmp/quarto.deb https://github.com/quarto-dev/quarto-cli/releases/download/v${_QUARTO_VERSION}/quarto-${_QUARTO_VERSION}-linux-amd64.deb
+RUN apt-get update > /dev/null && \
+    apt-get install /tmp/quarto.deb > /dev/null && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -f /tmp/quarto.deb
+
 # google-chrome is for pagedown; chromium doesn't work nicely with it (snap?)
 RUN wget --quiet -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get update > /dev/null && \
     apt-get -qq install /tmp/chrome.deb > /dev/null && \
     apt-get clean && \
-    rm -f /tmp/chrome.deb && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm -f /tmp/chrome.deb
 
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
@@ -64,8 +74,8 @@ RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
 
 COPY class-libs.R /tmp/class-libs.R
 
-COPY r-packages/2022-spring-stat-20.r /tmp/r-packages/
-RUN r /tmp/r-packages/2022-spring-stat-20.r
+COPY r-packages/2023-fall-stat-20.r /tmp/r-packages/
+RUN r /tmp/r-packages/2022-fall-stat-20.r
 
 # Configure locking behavior
 COPY file-locks /etc/rstudio/file-locks
