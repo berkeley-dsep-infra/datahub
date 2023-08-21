@@ -104,6 +104,11 @@ RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
 COPY r-packages/eep-1118.r /tmp/r-packages
 RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 
+# Stat 135, Fall '23
+# https://github.com/berkeley-dsep-infra/datahub/issues/4907
+COPY r-packages/2023-fall-stat-135.r /tmp/r-packages
+RUN r /tmp/r-packages/2023-fall-stat-135.r && rm -rf /tmp/downloaded_packages
+
 # IAS C118, Fall '19
 # https://github.com/berkeley-dsep-infra/datahub/issues/897
 #COPY r-packages/ias-c188.r /tmp/r-packages
