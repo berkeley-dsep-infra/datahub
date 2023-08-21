@@ -89,6 +89,9 @@ COPY class-libs.R /tmp/class-libs.R
 COPY r-packages/2023-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2023-spring-stat-20.r
 
+COPY r-packages/2023-fall-stat-135.r /tmp/r-packages/
+RUN r /tmp/r-packages/2023-fall-stat-135.r
+
 # Configure locking behavior
 COPY file-locks /etc/rstudio/file-locks
 
