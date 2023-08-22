@@ -63,7 +63,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-
       Authenticator:
         admin_users:
           # infrastructure
@@ -72,6 +71,20 @@ jupyterhub:
           - gmerritt
           - rylo
           - sknapp
+    loadRoles:
+      # Data 101 Fall 2023
+      course-staff-1528038:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1528038
+          - admin:servers!group=course::1528038
+          - access:servers!group=course::1528038
+        # this role will be assigned to...
+        groups:
+          - course::1528038::enrollment_type::teacher
+          - course::1528038::enrollment_type::ta
 
   singleuser:
     extraContainers:
@@ -83,11 +96,11 @@ jupyterhub:
           - --bind_ip
           - 127.0.0.1
         volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
-        - name: mongodb
-          mountPath: /data/db
+          - name: home
+            mountPath: /home/jovyan
+            subPath: "{username}"
+          - name: mongodb
+            mountPath: /data/db
         securityContext:
           runAsUser: 1000
         resources:
@@ -111,21 +124,21 @@ jupyterhub:
             memory: 64Mi
             cpu: 0.01
         env:
-        - name: POSTGRES_HOST_AUTH_METHOD
-          value: "trust"
-        - name: POSTGRES_USER
-          value: "jovyan"
+          - name: POSTGRES_HOST_AUTH_METHOD
+            value: "trust"
+          - name: POSTGRES_USER
+            value: "jovyan"
         securityContext:
           runAsUser: 1000
         volumeMounts:
-        - name: home
-          mountPath: /home/jovyan
-          subPath: "{username}"
-        - name: postgres-db
-          mountPath: /var/lib/postgresql/data
-          # postgres recommends against mounting a volume directly here
-          # So we put data in a subpath
-          subPath: data
+          - name: home
+            mountPath: /home/jovyan
+            subPath: "{username}"
+          - name: postgres-db
+            mountPath: /var/lib/postgresql/data
+            # postgres recommends against mounting a volume directly here
+            # So we put data in a subpath
+            subPath: data
     initContainers:
       #  /var/lib/postgresql should be writeable by uid 1000, so students
       #  can blow out their db directories if need to. Just setting UID on the
@@ -134,15 +147,20 @@ jupyterhub:
       #  We explicitly chown them back. We should remove this eventually.
       - name: postgres-volume-mount-hack
         image: busybox
-        command: ["sh", "-c", "id && chown -R 1000:1000 /var/lib/postgresql && ls -lhd /var/lib/postgresql"]
+        command:
+          [
+            "sh",
+            "-c",
+            "id && chown -R 1000:1000 /var/lib/postgresql && ls -lhd /var/lib/postgresql",
+          ]
         securityContext:
           runAsUser: 0
         volumeMounts:
-        - name: postgres-db
-          mountPath: /var/lib/postgresql/data
-          # postgres recommends against mounting a volume directly here
-          # So we put data in a subpath
-          subPath: data
+          - name: postgres-db
+            mountPath: /var/lib/postgresql/data
+            # postgres recommends against mounting a volume directly here
+            # So we put data in a subpath
+            subPath: data
     nodeSelector:
       hub.jupyter.org/pool-name: data101-pool
     defaultUrl: /lab
@@ -157,10 +175,10 @@ jupyterhub:
       extraVolumes:
         - name: postgres-db
           persistentVolumeClaim:
-            claimName: 'db-{username}'
+            claimName: "db-{username}"
         - name: mongodb
           persistentVolumeClaim:
-            claimName: 'mongo-{username}'
+            claimName: "mongo-{username}"
       extraVolumeMounts:
         - name: postgres-db
           mountPath: /var/lib/postgresql/data
@@ -172,3 +190,9 @@ jupyterhub:
     memory:
       guarantee: 2G
       limit: 2G
+
+  custom:
+    group_profiles:
+      course::1528038:
+        mem_limit: 4G
+        mem_guarantee: 2G
