@@ -1,0 +1,11 @@
+name: ischool
+
+channels:
+- conda-forge
+
+dependencies:
+- syncthing==1.22.2
+- jupyter-rsession-proxy==2.2.0
+- pip:
+  - -r /tmp/infra-requirements.txt
+  - otter-grader==3.1.4
