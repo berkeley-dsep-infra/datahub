@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.1.2
+FROM rocker/geospatial:4.3.1
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -34,7 +34,6 @@ RUN apt-get update > /dev/null && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            libssl1.1 \
             nodejs \
             npm \
             texlive-xetex \
@@ -51,16 +50,10 @@ RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
-RUN mamba install -c conda-forge syncthing==1.18.6
-
+COPY environment.yml /tmp/environment.yml
 COPY infra-requirements.txt /tmp/infra-requirements.txt
-RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
-
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
-
-# Support latest RStudio
-RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+        mamba clean -afy
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
@@ -86,7 +79,6 @@ RUN install2.r --error --skipinstalled \
     ## 241
     AER        \
     randomizr  \
-    ri         \
     ## 271
     fable      \
     feasts     \
