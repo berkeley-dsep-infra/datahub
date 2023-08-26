@@ -2,7 +2,6 @@ images:
   images:
     - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-user-image
       path: images/default
-  images:
     - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary
       path: images/secondary
   registry:
