@@ -50,7 +50,7 @@ jupyterhub:
       - display_name: "repo2docker image"
         description: "A newer repo2docker-based image with similar components as the primary."
         kubespawner_override:
-          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary:161cef3
+          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary:5c55c90
     nodeSelector:
       hub.jupyter.org/pool-name: small-courses-pool
     storage:
