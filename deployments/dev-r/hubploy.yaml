@@ -4,6 +4,8 @@ images:
       path: images/default
     - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary
       path: images/secondary
+      repo2docker:
+        base_image: docker.io/library/buildpack-deps:jammy
   registry:
     provider: gcloud
     gcloud:
