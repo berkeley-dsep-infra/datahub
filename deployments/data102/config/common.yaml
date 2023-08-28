@@ -29,6 +29,9 @@ jupyterhub:
           - sknapp
 
   singleuser:
+    extraEnv:
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.f769e27a8207e5c9
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data102-datahub-access
     nodeSelector:
       hub.jupyter.org/pool-name: data102-pool
     storage:
