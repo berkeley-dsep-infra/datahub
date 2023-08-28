@@ -19,6 +19,20 @@ jupyterhub:
         hub.jupyter.org/pool-name: core-pool-2023-07-11
 
   hub:
+    config:
+    loadRoles:
+      # Data 101, Fall 2023
+      course-staff-1528038:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1527426
+          - admin:servers!group=course::1527426
+          - access:servers!group=course::1527426
+        # this role will be assigned to...
+        groups:
+          - course::1528038::group::Admins
     extraConfig:
       data101-new-db: |
         from jupyterhub.utils import exponential_backoff
@@ -172,3 +186,13 @@ jupyterhub:
     memory:
       guarantee: 2G
       limit: 2G
+
+  custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
+    admin:
+      mem_limit: 4G
+      mem_guarantee: 2G
