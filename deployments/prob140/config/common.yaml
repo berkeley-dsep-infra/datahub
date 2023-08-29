@@ -47,7 +47,7 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1525852::enrollment_type::teacher
-          - course::1525852::enrollment_type::tas
+          - course::1525852::enrollment_type::ta
           
       # Data 140, Fall 2023
       course-staff-1528199:
@@ -61,7 +61,7 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1528199::enrollment_type::teacher
-          - course::1528199::enrollment_type::tas
+          - course::1528199::enrollment_type::ta
 
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
