@@ -85,7 +85,7 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1528038::enrollment_type::teacher
-          - course::1528038::enrollment_type::tas
+          - course::1528038::enrollment_type::ta
 
   singleuser:
     extraContainers:
