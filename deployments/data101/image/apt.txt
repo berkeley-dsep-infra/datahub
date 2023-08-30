@@ -2,6 +2,7 @@
 # oriented at users new to Unix/cmd line environments.
 
 # Basic unix tools
+libssl1.0-dev
 man
 man-db
 manpages-posix
