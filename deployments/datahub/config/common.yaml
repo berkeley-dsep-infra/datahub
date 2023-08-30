@@ -136,17 +136,6 @@ jupyterhub:
       limit: 1G
     image: {}
 
-    storage:
-      type: static
-      static:
-        pvcName: home-nfs-v3
-        subPath: "{username}"
-      extraVolumeMounts:
-        - name: home
-          mountPath: /home/jovyan/shared
-          subPath: _shared
-          readOnly: true
-
   custom:
     group_profiles:
       # DataHub Infrastructure staff
