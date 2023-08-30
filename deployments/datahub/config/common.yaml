@@ -136,9 +136,26 @@ jupyterhub:
       limit: 1G
     image: {}
 
-  # read by z2jh.get_config() in hub/values.yaml
-  # custom:
-  #  group_profiles:
-  #    canvas::1519998: # Legal Studies 123, Spring 2023, issue #3718
-  #      mem_limit: 3072M
-  #      mem_guarantee: 3072M
+  custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
+      # MBA 247, Fall 2023
+      course::1524846::enrollment_type::teacher:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/mba-247-readwrite
+            subPath: _shared/course/mba-247
+      course::1524846::enrollment_type::ta:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/mba-247-readwrite
+            subPath: _shared/course/mba-247
+      course::1524846::enrollment_type::student:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/mba-247
+            subPath: _shared/course/mba-247
+            readOnly: true
