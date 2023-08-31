@@ -27,9 +27,9 @@ jupyterhub:
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1527426
-          - admin:servers!group=course::1527426
-          - access:servers!group=course::1527426
+          - list:users!group=course::1528038
+          - admin:servers!group=course::1528038
+          - access:servers!group=course::1528038
         # this role will be assigned to...
         groups:
           - course::1528038::group::Admins
@@ -77,15 +77,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
-    
     loadRoles:
       # Data 101, FA 2023
       course-staff-1528038:
@@ -203,7 +194,13 @@ jupyterhub:
 
   custom:
     group_profiles:
-      # DataHub Infrastructure staff
+      course::234567::enrollment_type::teacher:
+        mem_limit: 2096M
+        mem_guarantee: 2048M
+      course::234567::enrollment_type::ta:
+        mem_limit: 2096M
+        mem_guarantee: 2048M    
+  # DataHub Infrastructure staff
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
