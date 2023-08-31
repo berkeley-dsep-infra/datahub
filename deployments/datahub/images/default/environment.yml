@@ -81,3 +81,4 @@ dependencies:
 - pip:
   - pycountry-convert==0.7.2
   - otter-grader==4.2.0
+  - gh-scoped-creds==4.1
