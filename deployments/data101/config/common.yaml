@@ -194,10 +194,10 @@ jupyterhub:
 
   custom:
     group_profiles:
-      course::234567::enrollment_type::teacher:
+      course::1528038::enrollment_type::teacher:
         mem_limit: 4096M
         mem_guarantee: 2048M
-      course::234567::enrollment_type::ta:
+      course::1528038::enrollment_type::ta:
         mem_limit: 4096M
         mem_guarantee: 2048M    
   # DataHub Infrastructure staff
