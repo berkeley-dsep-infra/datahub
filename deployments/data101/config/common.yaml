@@ -194,11 +194,15 @@ jupyterhub:
 
   custom:
     group_profiles:
-      # DataHub Infrastructure staff
+      course::234567::enrollment_type::teacher:
+        mem_limit: 2096M
+        mem_guarantee: 2048M
+      course::234567::enrollment_type::ta:
+        mem_limit: 2096M
+        mem_guarantee: 2048M    
+  # DataHub Infrastructure staff
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
-        admin: true
-      course::1528038::group::all-admins:
         admin: true
     admin:
       mem_limit: 4G
