@@ -174,3 +174,20 @@ jupyterhub:
             mountPath: /home/jovyan/mba-247
             subPath: _shared/course/mba-247
             readOnly: true
+      # UGBA 88, Fall 2023
+      course::1524680::enrollment_type::teacher:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/ugba-88-readwrite
+            subPath: _shared/course/ugba-88
+      course::1524680::enrollment_type::ta:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/ugba-88-readwrite
+            subPath: _shared/course/ugba-88
+      course::1524680::enrollment_type::student:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/ugba-88
+            subPath: _shared/course/ugba-88
+            readOnly: true
