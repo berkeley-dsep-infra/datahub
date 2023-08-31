@@ -109,20 +109,10 @@ RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
 COPY r-packages/2023-fall-stat-135.r /tmp/r-packages
 RUN r /tmp/r-packages/2023-fall-stat-135.r && rm -rf /tmp/downloaded_packages
 
-# IAS C118, Fall '19
-# https://github.com/berkeley-dsep-infra/datahub/issues/897
-#COPY r-packages/ias-c188.r /tmp/r-packages
-#RUN r /tmp/r-packages/ias-c188.r && rm -rf /tmp/downloaded_packages
-
-# IB161, Spring '21
-# https://github.com/berkeley-dsep-infra/datahub/issues/2243
-#COPY r-packages/ib161.r /tmp/r-packages/
-#RUN r /tmp/r-packages/ib161.r && rm -rf /tmp/downloaded_packages
-
-# PS3, Fall '21 and Spring '22
-# For https://github.com/berkeley-dsep-infra/datahub/issues/2579
-#COPY r-packages/ps-3.r /tmp/r-packages/
-#RUN r /tmp/r-packages/ps-3.r && rm -rf /tmp/downloaded_packages
+# MBA 247, Fall '23
+# issue TBD; discussed over email
+COPY r-packages/2023-fall-mba-247.r /tmp/r-packages/
+RUN r /tmp/r-packages/2023-fall-mba-247.r && rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
