@@ -68,7 +68,7 @@ jupyterhub:
         admin: true
     admin:
       mem_limit: 4G
-      mem_guarantee: 2G
+      mem_guarantee: 4G
       extraVolumeMounts:
         - name: home
           mountPath: /srv/homes
