@@ -105,7 +105,7 @@ Defining group profiles
                   readOnly: true
 
 
-   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>_`.
+   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>`_.
 
    `123456` and `234567` are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
 
