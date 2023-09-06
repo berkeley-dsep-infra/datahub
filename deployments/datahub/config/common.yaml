@@ -194,4 +194,6 @@ jupyterhub:
       course::1527534: # CE 103N, Fall 2023, issue #4999
         mem_limit: 4096M
         mem_guarantee: 4096M
-
+      course::1528163: # Demog 180, Fall 2023, issue #5004
+        mem_limit: 4096M
+        mem_guarantee: 4096M
