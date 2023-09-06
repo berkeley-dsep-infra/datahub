@@ -83,3 +83,8 @@ jupyterhub:
         admin: true
       course::1527948::enrollment_type::ta:
         admin: true
+     # PHW 251, Fall 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4995
+      course::1525339::enrollment_type::teacher:
+        admin: true
+      course::1525339::enrollment_type::ta:
+        admin: true
