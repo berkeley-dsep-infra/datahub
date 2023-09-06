@@ -191,3 +191,7 @@ jupyterhub:
             mountPath: /home/jovyan/ugba-88
             subPath: _shared/course/ugba-88
             readOnly: true
+      course::1527534: # CE 103N, Fall 2023, issue #4999
+        mem_limit: 4096M
+        mem_guarantee: 4096M
+
