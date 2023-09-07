@@ -76,9 +76,9 @@ Defining group profiles
                 mem_guarantee: 2048M
 
 
-              # Example: grant admin rights to course staff.
+              # Example: increase memory just for course staff.
               # Enrollment types returned by the Canvas API are `teacher`,
-              # `student`, `ta`, `observer`, and `designer`.
+              # `student`, `ta`, `observer`, and `designer`. (non-plural)
               # https://canvas.instructure.com/doc/api/enrollments.html
 
               # Some other class 200, Spring '23; requested in #98776
@@ -90,11 +90,12 @@ Defining group profiles
                 mem_guarantee: 2048M
 
 
-              # Example: a fully specified CanvasOAuthenticator group name.
-              # This could be useful for temporary resource bumps where the
-              # instructor could add people to groups in the bCourses UI. This
-              # would benefit from the ability to read resource bumps from
-              # jupyterhub's properties. (attributes in the ORM)
+              # Example: a fully specified CanvasOAuthenticator group name where
+              # the resource request happens to be an additional mount path.
+              # Creating groups for temporary resource bumps could be useful
+              # where the instructor could add people to groups in the bCourses
+              # UI. This would benefit from the ability to read resource bumps
+              # from jupyterhub's properties. (attributes in the ORM)
 
               # Name of Class 100, Fall '22; requested in #98770
               course::123456::group::lab4-bigdata:
@@ -104,7 +105,7 @@ Defining group profiles
                   readOnly: true
 
 
-   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>_`.
+   Our custom KubeSpawner knows to look for these values under `jupyterhub.custom <https://z2jh.jupyter.org/en/stable/resources/reference.html#custom>`_.
 
    `123456` and `234567` are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.
 
