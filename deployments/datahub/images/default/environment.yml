@@ -1,3 +1,7 @@
+# https://docs.conda.io/projects/conda-build/en/latest/resources/package-spec.html#examples
+# For conda, == is exact constraint, while = is fuzzy constraint.
+# pip uses https://peps.python.org/pep-0440/ which does not have =.
+
 dependencies:
 - nodejs=15.*
 - pip=22.2.*
@@ -77,8 +81,11 @@ dependencies:
 # Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4251
 - sqlalchemy==1.4.46
 
-# Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4093
+# UGBA88 Fall 2023, https://github.com/berkeley-dsep-infra/datahub/issues/5019
+- pymysql==1.1.0
+
 - pip:
+  # Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4093
   - pycountry-convert==0.7.2
   - otter-grader==4.2.0
   - gh-scoped-creds==4.1
