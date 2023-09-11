@@ -68,7 +68,7 @@ jupyterhub:
         admin: true
       course::1527426::group::Content:
         mem_limit: 4G
-        mem_guarantee: 2G
+        mem_guarantee: 4G
     admin:
       mem_limit: 4G
       mem_guarantee: 2G
