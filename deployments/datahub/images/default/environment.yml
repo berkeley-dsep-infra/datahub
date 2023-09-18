@@ -4,6 +4,7 @@
 
 dependencies:
 - nodejs=16.*
+- traitlets=5.9.*
 - pip=22.2.*
 - python=3.9.*
 
