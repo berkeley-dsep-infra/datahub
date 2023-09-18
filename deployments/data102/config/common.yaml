@@ -61,7 +61,7 @@ jupyterhub:
         pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
-      guarantee: 1G
-      limit: 2G
+      guarantee: 2G
+      limit: 4G
     image: {}
     defaultUrl: "/lab"
