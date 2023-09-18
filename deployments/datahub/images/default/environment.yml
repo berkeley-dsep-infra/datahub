@@ -3,7 +3,7 @@
 # pip uses https://peps.python.org/pep-0440/ which does not have =.
 
 dependencies:
-- nodejs=15.*
+- nodejs=16.*
 - pip=22.2.*
 - python=3.9.*
 
