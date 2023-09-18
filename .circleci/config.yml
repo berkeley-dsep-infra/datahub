@@ -628,15 +628,15 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: logodev
-          name: logodev image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
+      #- hubploy/build-image:
+      #    deployment: logodev
+      #    name: logodev image build
+      #    push: true
+      #    # Filters can only be per-job? wtf
+      #    filters:
+      #        branches:
+      #          only:
+      #          - staging
       - hubploy/build-image:
           deployment: cee
           name: cee image build
@@ -798,7 +798,7 @@ workflows:
               - publichealth image build
               - cee image build
               - shiny image build
-              - logodev image build
+              #- logodev image build
               - biology image build
               - julia hub image build
 #              - data8x image build
