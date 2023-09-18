@@ -75,6 +75,9 @@ dependencies:
 - pymc==5.8.1
 # pymc needs this
 - pymc-base==5.8.1
+# pymc-base needs this
+- icu>=68.1,<69.0a0
+- pytensor-base==2.16.1
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/3939 data101, fall 2022
 - dbt-postgres=1.3.0
