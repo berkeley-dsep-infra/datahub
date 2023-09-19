@@ -64,4 +64,4 @@ libzmq5
 
 # MUSIC 30: musescore3
 # https://github.com/berkeley-dsep-infra/datahub/issues/5047
-musescore3
+musescore
