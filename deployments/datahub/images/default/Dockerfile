@@ -14,6 +14,10 @@ ENV NB_UID 1000
 ENV CONDA_DIR /opt/conda
 ENV R_LIBS_USER /opt/r
 
+# MUSIC 30:  add apt repo for musescore3
+# https://github.com/berkeley-dsep-infra/datahub/issues/5047
+# RUN echo "deb https://ppa.launchpadcontent.net/mscore-ubuntu/mscore3-stable/ubuntu/ jammy main" > /etc/apt/sources.list.d/mscore3.list
+
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes locales && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
