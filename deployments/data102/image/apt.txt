@@ -12,19 +12,11 @@ manpages-posix-dev
 curl
 wget
 
-# Core text editors on a *nix box: vim and emacs
-vim
-emacs-nox
-emacs-goodies-el
-
 # A couple of CLI editors that are easier than vim
 # micro  # currently not working on 18.04
 nano
 jed
 jed-extra
-
-# powerful terminal-based file manager, better than the one in JLab
-mc
 
 # for easily managing multiple repositories with one command (perl-doc
 # is needed for its help pages to work)
@@ -66,17 +58,6 @@ multitail
 #browsh # text-based web browser, occasionally handy
 #dasel  # json/yml/csv/etc data wrangling at the terminal
 #fzf   # fuzzy file finder
-
-## This section adds tools for desktop environment usage
-dbus-x11
-xorg
-xubuntu-icon-theme
-xfce4
-xfce4-goodies
-xclip
-xsel
-firefox
-chromium-browser
 
 # GUI text editors
 emacs
