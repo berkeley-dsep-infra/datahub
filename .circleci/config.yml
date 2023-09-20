@@ -679,10 +679,26 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
+          deployment: data100
+          name: data100 image build
+          push: true
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
           deployment: data101
           name: data101 image build
           push: true
           # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: data102
+          name: data102 image build
+          push: true
           filters:
               branches:
                 only:
@@ -797,7 +813,7 @@ workflows:
               - data100 image build
               - data101 image build
               - data102 image build
-	      - astro image build
+              - astro image build
               #- stat159 image build
               - stat20 image build
               - ischool image build
