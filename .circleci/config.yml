@@ -264,12 +264,6 @@ jobs:
 #          no_output_timeout: 30m
 
       - run:
-          name: Deploy data102
-          command: |
-            hubploy deploy --timeout 30m data102 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
           name: Deploy data100
           command: |
             hubploy deploy --timeout 30m data100 hub ${CIRCLE_BRANCH}
