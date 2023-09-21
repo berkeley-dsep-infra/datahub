@@ -31,3 +31,6 @@ ruby
 
 # Other niceties for command-line work and life
 rsync
+
+# yes, emacs for testing!
+emacs
