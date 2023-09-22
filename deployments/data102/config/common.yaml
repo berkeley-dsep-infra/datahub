@@ -50,9 +50,12 @@ jupyterhub:
           - course::1526710::enrollment_type::ta
 
   singleuser:
+    defaultUrl: "/lab"
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.f769e27a8207e5c9
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data102-datahub-access
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       hub.jupyter.org/pool-name: data102-pool
     storage:
