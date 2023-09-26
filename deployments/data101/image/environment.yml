@@ -77,7 +77,6 @@ dependencies:
 - statsmodels==0.14.0
 - sympy==1.10.1
 - tornado==6.2.0
-- trifacta==8.5.1
 - tqdm==4.64.0
 - xarray==2023.5.0
 - xlrd==2.0.1
@@ -99,6 +98,7 @@ dependencies:
   # - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.2
   - nbconvert==7.6.0
+  - trifacta==8.5.1
   - pytest-notebook==0.8.1
   - pymongo==4.4.1
   - dbt-postgres==1.6.0
