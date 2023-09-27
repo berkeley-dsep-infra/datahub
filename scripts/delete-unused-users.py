@@ -41,7 +41,6 @@ async def main():
                 except:
                     print(user['last_activity'])
                     raise
-                last_activity = asyncio
                 if isinstance(last_activity, datetime):
                     was_active_last_day = datetime.now().astimezone() - last_activity < timedelta(hours=24)
                 else:
