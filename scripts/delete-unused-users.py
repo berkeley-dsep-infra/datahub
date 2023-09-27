@@ -41,12 +41,11 @@ async def main():
                 except:
                     print(user['last_activity'])
                     raise
-
+                last_activity = asyncio
                 if isinstance(last_activity, datetime):
                     was_active_last_day = datetime.now().astimezone() - last_activity < timedelta(hours=24)
                 else:
-                    activity_type = type(last_activity)
-                    print(f"For user {user['name']}, expected datetime.datetime class for last_activity but got {activity_type} instead.")
+                    print(f"For user {user['name']}, expected datetime.datetime class for last_activity but got {type(last_activity)} instead.")
                     raise
 
                 print(f"User: {user['name']}")
