@@ -23,6 +23,11 @@ async def main():
         'hub_url',
         help='Fully qualified URL to the JupyterHub'
     )
+    argparser.add_argument(
+        '--dry_run',
+        action='store_true',
+        help='Dry run without deleting users'
+    )
     args = argparser.parse_args()
 
     to_delete = []
@@ -39,7 +44,7 @@ async def main():
                 delta_bool = datetime.now().astimezone() - last_activity < timedelta(hours=24)
                 print(f"user: {user['name']}")
                 print(f"last login: {last_activity}")
-                print(f"24hrs since last login (bool): {delta_bool}")
+                print(f"24hrs since last login: {delta_bool}")
                 print(f"server: {user['server']}")
                 if (last_activity and delta_bool) or (user['server'] is not None):
                     print(f"Not deleting {user['name']}")
@@ -50,7 +55,11 @@ async def main():
 
         for i, username in enumerate(to_delete):
             print(f'{i+1} of {len(to_delete)}: deleting {username}')
-            #await hub.delete_user(username)
+            if not args.dry_run:
+                print('should not be here!!!')
+                await hub.delete_user(username)
+            else:
+                print('Skipped due to dry run.')
 
 if __name__ == '__main__':
     asyncio.run(main())
