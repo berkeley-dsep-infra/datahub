@@ -36,7 +36,7 @@ async def main():
                 except:
                     print(user['last_activity'])
                     raise
-                if last_activity and datetime.now().astimezone() - last_activity < timedelta(hours=24) and user['server'] is not None:
+                if last_activity and datetime.now().astimezone() - last_activity < timedelta(hours=24) or user['server'] is not None:
                     print(f"Not deleting {user['name']}")
                 else:
                     to_delete.append(user['name'])
