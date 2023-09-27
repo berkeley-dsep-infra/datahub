@@ -56,7 +56,6 @@ async def main():
         for i, username in enumerate(to_delete):
             print(f'{i+1} of {len(to_delete)}: deleting {username}')
             if not args.dry_run:
-                print('should not be here!!!')
                 await hub.delete_user(username)
             else:
                 print('Skipped due to dry run.')
