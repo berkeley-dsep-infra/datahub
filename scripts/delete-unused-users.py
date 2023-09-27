@@ -46,7 +46,7 @@ async def main():
                     was_active_last_day = datetime.now().astimezone() - last_activity < timedelta(hours=24)
                 else:
                     activity_type = type(last_activity)
-                    print(f"expected datetime.datetime class for last_activity, got {activity_type} instead.")
+                    print(f"For user {user['name']}, expected datetime.datetime class for last_activity but got {activity_type} instead.")
                     raise
 
                 print(f"User: {user['name']}")
