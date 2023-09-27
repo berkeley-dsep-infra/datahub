@@ -6,6 +6,7 @@ channels:
 dependencies:
 - python==3.11.0
 - git==2.39.1
+- graphviz==8.0.3
 - jupyter-resource-usage==1.0.0
 - jupyterlab==4.0.4
 - jupyterlab-favorites==3.0.0
