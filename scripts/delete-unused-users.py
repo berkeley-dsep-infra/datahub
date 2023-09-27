@@ -12,7 +12,6 @@ log in again the next time they use the hub, but that's probably
 ok.
 """
 import argparse
-import inspect
 from jhub_client.api import JupyterHubAPI
 from dateutil.parser import parse
 import asyncio
@@ -43,7 +42,7 @@ async def main():
                     print(user['last_activity'])
                     raise
 
-                if inspect.isclass(type(last_activity)):
+                if isinstance(last_activity, datetime):
                     was_active_last_day = datetime.now().astimezone() - last_activity < timedelta(hours=24)
                 else:
                     activity_type = type(last_activity)
