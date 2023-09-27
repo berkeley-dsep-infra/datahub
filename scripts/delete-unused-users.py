@@ -49,10 +49,10 @@ async def main():
                     print(f"expected datetime.datetime class for last_activity, got {activity_type} instead.")
                     raise
 
-                print(f"user: {user['name']}")
-                print(f"last login: {last_activity}")
+                print(f"User: {user['name']}")
+                print(f"Last login: {last_activity}")
                 print(f"24hrs since last login: {was_active_last_day}")
-                print(f"running server: {user['server']}")
+                print(f"Running server: {user['server']}")
                 if (last_activity and was_active_last_day) or (user['server'] is not None):
                     print(f"Not deleting {user['name']}")
                 else:
