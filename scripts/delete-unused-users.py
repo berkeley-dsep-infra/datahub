@@ -51,7 +51,7 @@ async def main():
                 print(f"Last login: {last_activity}")
                 print(f"24hrs since last login: {was_active_last_day}")
                 print(f"Running server: {user['server']}")
-                if (last_activity and was_active_last_day) or (user['server'] is not None):
+                if was_active_last_day or user['server'] is not None:
                     print(f"Not deleting {user['name']}")
                 else:
                     to_delete.append(user['name'])
