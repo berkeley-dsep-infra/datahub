@@ -12,6 +12,7 @@ log in again the next time they use the hub, but that's probably
 ok.
 """
 import argparse
+import inspect
 from jhub_client.api import JupyterHubAPI
 from dateutil.parser import parse
 import asyncio
@@ -41,17 +42,24 @@ async def main():
                 except:
                     print(user['last_activity'])
                     raise
-                delta_bool = datetime.now().astimezone() - last_activity < timedelta(hours=24)
+
+                if inspect.isclass(type(last_activity)):
+                    was_active_last_day = datetime.now().astimezone() - last_activity < timedelta(hours=24)
+                else:
+                    activity_type = type(last_activity)
+                    print(f"expected datetime.datetime class for last_activity, got {activity_type} instead.")
+                    raise
+
                 print(f"user: {user['name']}")
                 print(f"last login: {last_activity}")
-                print(f"24hrs since last login: {delta_bool}")
-                print(f"server: {user['server']}")
-                if (last_activity and delta_bool) or (user['server'] is not None):
+                print(f"24hrs since last login: {was_active_last_day}")
+                print(f"running server: {user['server']}")
+                if (last_activity and was_active_last_day) or (user['server'] is not None):
                     print(f"Not deleting {user['name']}")
                 else:
                     to_delete.append(user['name'])
                     print(f"Deleting {user['name']}")
-                print('')
+                print("")
 
         for i, username in enumerate(to_delete):
             print(f'{i+1} of {len(to_delete)}: deleting {username}')
