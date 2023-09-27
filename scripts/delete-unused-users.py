@@ -36,15 +36,21 @@ async def main():
                 except:
                     print(user['last_activity'])
                     raise
-                if last_activity and datetime.now().astimezone() - last_activity < timedelta(hours=24) or user['server'] is not None:
+                delta_bool = datetime.now().astimezone() - last_activity < timedelta(hours=24)
+                print(f"user: {user['name']}")
+                print(f"last login: {last_activity}")
+                print(f"24hrs since last login (bool): {delta_bool}")
+                print(f"server: {user['server']}")
+                if (last_activity and delta_bool) or (user['server'] is not None):
                     print(f"Not deleting {user['name']}")
                 else:
                     to_delete.append(user['name'])
                     print(f"Deleting {user['name']}")
+                print('')
 
         for i, username in enumerate(to_delete):
             print(f'{i+1} of {len(to_delete)}: deleting {username}')
-            await hub.delete_user(username)
+            #await hub.delete_user(username)
 
 if __name__ == '__main__':
     asyncio.run(main())
