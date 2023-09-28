@@ -23,6 +23,11 @@ async def main():
         'hub_url',
         help='Fully qualified URL to the JupyterHub'
     )
+    argparser.add_argument(
+        '--dry_run',
+        action='store_true',
+        help='Dry run without deleting users'
+    )
     args = argparser.parse_args()
 
     to_delete = []
@@ -36,15 +41,29 @@ async def main():
                 except:
                     print(user['last_activity'])
                     raise
-                if last_activity and datetime.now().astimezone() - last_activity < timedelta(hours=24) or user['server'] is not None:
+                if isinstance(last_activity, datetime):
+                    was_active_last_day = datetime.now().astimezone() - last_activity < timedelta(hours=24)
+                else:
+                    print(f"For user {user['name']}, expected datetime.datetime class for last_activity but got {type(last_activity)} instead.")
+                    raise
+
+                print(f"User: {user['name']}")
+                print(f"Last login: {last_activity}")
+                print(f"24hrs since last login: {was_active_last_day}")
+                print(f"Running server: {user['server']}")
+                if was_active_last_day or user['server'] is not None:
                     print(f"Not deleting {user['name']}")
                 else:
                     to_delete.append(user['name'])
                     print(f"Deleting {user['name']}")
+                print("")
 
         for i, username in enumerate(to_delete):
             print(f'{i+1} of {len(to_delete)}: deleting {username}')
-            await hub.delete_user(username)
+            if not args.dry_run:
+                await hub.delete_user(username)
+            else:
+                print('Skipped due to dry run.')
 
 if __name__ == '__main__':
     asyncio.run(main())
