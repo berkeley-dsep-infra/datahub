@@ -13,7 +13,11 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2023-07-11
 
+  cull:
+    removeNamedServers: true
+
   hub:
+    allowNamedServers: true
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
@@ -42,7 +46,7 @@ jupyterhub:
           - course::1524699::enrollment_type::ta
 
   singleuser:
-    defaultUrl: /rstudio
+    defaultUrl: /hub/home
     profileList:
       - display_name: "Dockerfile image"
         description: "This is the original dev-r image."
