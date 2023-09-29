@@ -30,7 +30,11 @@ jupyterhub:
           #- rylo
           #- sknapp
 
-          # List of other admin users
+    extraConfig:
+      20-hubHome: |
+        # Direct users to named server list
+        c.JupyterHub.default_url = '/hub/home'
+
     loadRoles:
       course-staff-1524699:
         description: Enable course staff to view and access servers.
