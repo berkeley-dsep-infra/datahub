@@ -13,6 +13,9 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2023-07-11
 
+  cull:
+    removeNamedServers: true
+
   hub:
     allowNamedServers: true
     nodeSelector:
