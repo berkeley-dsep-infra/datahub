@@ -50,7 +50,7 @@ jupyterhub:
           - course::1524699::enrollment_type::ta
 
   singleuser:
-    defaultUrl: /hub/home
+    defaultUrl: /rstudio
     profileList:
       - display_name: "Dockerfile image"
         description: "This is the original dev-r image."
