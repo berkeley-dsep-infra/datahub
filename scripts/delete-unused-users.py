@@ -10,6 +10,9 @@ any activity in a given period of time, double checking to
 make sure they aren't active right now. This will require users to
 log in again the next time they use the hub, but that's probably
 ok.
+
+Core functionality from @minrk:
+https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
 import argparse
 import asyncio
