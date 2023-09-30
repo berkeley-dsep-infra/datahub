@@ -84,25 +84,29 @@ def should_delete(user):
             logger.info(f"Flagged {user['name']} for deletion.")
             return True
 
-async def delete_user(hub, user, count):
-    """Delete a user from the hub ORM"""
-    username = user['name']
-    print(f"{count}: deleting {username}")
-    if not args.dry_run:
-        await hub.delete_user(username)
-    else:
-        logger.warning("Skipped due to dry run.")
+def delete_user(hub_url, name):
+    """Delete a given user by name via JupyterHub API"""
+    r = requests.delete(
+        hub_url.rstrip("/") + f"/hub/api/users/{name}",
+        headers=headers,
+    )
+    r.raise_for_status()
 
-async def main(args):
+def main(args):
     """
     Get users from a hub, check to see if they should be deleted from the ORM
     and if so, delete them!
     """
-    hub = JupyterHubAPI(hub_url=args.hub_url)
     count = 1
     for user in list(retrieve_users(args.hub_url)):
-        await delete_user(hub, user, count)
-        count += 1
+        print(f"{count}: deleting {user['name']}")
+        if not args.dry_run:
+            delete_user(args.hub_url, user['name'])
+            count += 1
+    else:   
+            logger.warning(f"Skipped {user['name']} due to dry run.")
+            # await delete_user(hub, user, count)
+
     count -= 1
     print(f"Deleted {count} total users.")
 
@@ -137,4 +141,4 @@ if __name__ == "__main__":
     elif args.debug:
         logger.setLevel(logging.DEBUG)
 
-    asyncio.run(main(args))
+    main(args)
