@@ -28,3 +28,6 @@ You can run the script on your own device. The script depends on the `jhub_clien
 #. Run `python scripts/delete-unused-users.py {hub_url}`
 
 The script currently does not paginate properly, meaning that it operates on the first 200 users provided by the hub. If there are less then 200 active users it is sufficient to keep running the script in a loop until all inactive users are removed. If there are more than 200 active users this procedure will be inadequate. (the script needs to be fixed!)
+
+In the meantime, another script that supports pagination and therefore more than 200 users can be
+found at https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3.
