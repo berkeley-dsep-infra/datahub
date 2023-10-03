@@ -6,10 +6,10 @@ ROOT_DIR="${SCRIPT_DIR}/../.."
 
 # install file in deployment directories named "image"
 find "${ROOT_DIR}/deployments" -type d -name 'image' \
-	-exec echo cp "${SCRIPT_DIR}/requirements.txt" {}/infra-requirements.txt \;
+	-exec cp "${SCRIPT_DIR}/requirements.txt" {}/infra-requirements.txt \;
 
 # install file in subdirectories of deployment directories named "images"
 for d in $(find "${ROOT_DIR}/deployments" -type d -name images); do
 	find $d -not -name images -maxdepth 1 -type d \
-		-exec echo cp "${SCRIPT_DIR}/requirements.txt" {}/infra-requirements.txt \;
+		-exec cp "${SCRIPT_DIR}/requirements.txt" {}/infra-requirements.txt \;
 done
