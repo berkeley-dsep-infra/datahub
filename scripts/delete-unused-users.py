@@ -15,14 +15,14 @@ Core functionality from @minrk:
 https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
 import argparse
-import asyncio
 from datetime import timedelta, datetime
-from dateutil.parser import parse
-from jhub_client.api import JupyterHubAPI
 import logging
 import os
 import requests
 import sys
+
+from dateutil.parser import parse
+from jhub_client.api import JupyterHubAPI
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -103,10 +103,10 @@ def main(args):
     count = 1
     for user in list(retrieve_users(args.hub_url)):
         print(f"{count}: deleting {user['name']}")
+        count += 1
         if not args.dry_run:
             delete_user(args.hub_url, user['name'])
-            count += 1
-    else:   
+        else:
             logger.warning(f"Skipped {user['name']} due to dry run.")
             # await delete_user(hub, user, count)
 
@@ -127,12 +127,14 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         '-v',
+        '--verbose',
         dest='verbose',
         action='store_true',
         help='Set info log level'
     )
     argparser.add_argument(
         '-d',
+        '--debug',
         dest='debug',
         action='store_true',
         help='Set debug log level'
