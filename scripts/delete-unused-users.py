@@ -108,7 +108,6 @@ def main(args):
             delete_user(args.hub_url, user['name'])
         else:
             logger.warning(f"Skipped {user['name']} due to dry run.")
-            # await delete_user(hub, user, count)
 
     count -= 1
     print(f"Deleted {count} total users from the ORM.")
