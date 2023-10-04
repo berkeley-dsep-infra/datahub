@@ -116,6 +116,7 @@ def main(args):
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
+        '-h',
         '--hub_url',
         help='Fully qualified URL to the JupyterHub',
         required=True
