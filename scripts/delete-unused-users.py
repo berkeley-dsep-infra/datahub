@@ -111,7 +111,7 @@ def main(args):
             # await delete_user(hub, user, count)
 
     count -= 1
-    print(f"Deleted {count} total users.")
+    print(f"Deleted {count} total users from the ORM.")
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
