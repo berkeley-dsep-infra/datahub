@@ -12,6 +12,8 @@ class_libs = c(
   "SnowballC", "0.7.1",
   "wordcloud", "2.6",
   "pROC", "1.18.4",
-  "rpart.plot", "3.1.1"
+  "rpart.plot", "3.1.1",
+  "randomForest","4.7-1.1",
+  "xgboost","1.7.5.1"
 )
 class_libs_install_version(class_name, class_libs)
