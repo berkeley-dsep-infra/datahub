@@ -189,8 +189,8 @@ jupyterhub:
         - name: mongodb
           mountPath: /data/db
     memory:
-      guarantee: 4G
-      limit: 4G
+      guarantee: 5G
+      limit: 5G
 
   custom:
     group_profiles:
