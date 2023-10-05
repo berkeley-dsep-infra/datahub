@@ -32,10 +32,25 @@ headers = {
     "Authorization": f"Bearer {token}",
 }
 
-def parse_timedelta(arg):
-    """Parse timedelta value from literal string constructor values"""
-    key, value = arg.split('=')
-    return timedelta(**{key: int(value)})
+def parse_timedelta(args):
+    """
+    Parse timedelta value from literal string constructor values
+
+    Trying to support all possible values like described in
+    https://docs.python.org/3/library/datetime.html#datetime.timedelta
+    """
+    result = {}
+    for arg in args.split(','):
+        key, value = arg.split('=')
+        try:
+            value = int(value)
+        except ValueError:
+            try:
+                value = float(value)
+            except ValueError as e:
+                raise argparse.ArgumentError from e
+        result[key] = value
+    return timedelta(**result)
 
 def retrieve_users(hub_url, inactive_since):
     """Returns generator of user models that should be deleted"""
