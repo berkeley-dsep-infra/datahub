@@ -22,7 +22,6 @@ import requests
 import sys
 
 from dateutil.parser import parse
-from jhub_client.api import JupyterHubAPI
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging.getLogger(__name__)
