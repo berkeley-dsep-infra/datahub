@@ -58,7 +58,7 @@ jupyterhub:
       - display_name: "repo2docker image"
         description: "A newer repo2docker-based image with similar components as the primary."
         kubespawner_override:
-          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary:5c55c90
+          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary:1a64e0a
       - display_name: "1524699: DataHub Infrastructure"
         slug: "1524699"
         description: "Regular image with per-course subpath."
