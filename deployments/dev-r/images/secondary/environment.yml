@@ -1,9 +1,10 @@
 dependencies:
 - python=3.10
 - pip=23.2.*
-- jupyter-server-proxy==4.0.0
+- jupyter-server-proxy==4.1.0
 - jupyter-rsession-proxy==2.2.0
-- syncthing==1.23.5
+- jupyterlab-myst==2.0.2
+- syncthing==1.25.0
 - pyppeteer==1.0.2
 
 # for nbconvert
