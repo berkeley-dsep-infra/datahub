@@ -93,3 +93,5 @@ dependencies:
   - pycountry-convert==0.7.2
   - otter-grader==4.2.0
   - gh-scoped-creds==4.1
+  # error converting to PDF https://github.com/berkeley-dsep-infra/datahub/issues/5062
+  - nbconvert[webpdf]
