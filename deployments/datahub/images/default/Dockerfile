@@ -144,6 +144,10 @@ RUN pip install --no-cache -r /tmp/requirements.txt
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
 
+# install chromium browser for playwright
+# https://github.com/berkeley-dsep-infra/datahub/issues/5062
+RUN playwright install chromium
+
 # Install IR kernelspec
 RUN r -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
