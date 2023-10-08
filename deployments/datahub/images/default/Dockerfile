@@ -137,6 +137,9 @@ RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
+# Used by MCB32, but incompatible with ipywidgets 8.x
+RUN jupyter nbextension enable --py --sys-prefix qgrid
+
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
 RUN pyppeteer-install
@@ -157,10 +160,6 @@ RUN /usr/local/sbin/connector-text.bash
 
 #COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
 #RUN /usr/local/sbin/2021-fall-phys-188-288.bash
-
-# Used by MCB32, but incompatible with ipywidgets 8.x
-RUN pip install --no-cache qgrid==1.3.1
-RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # clear out /tmp
 USER root
