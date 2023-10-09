@@ -43,3 +43,4 @@ dependencies:
   - nbconvert==7.6.0
   - pytest-notebook==0.8.1
   - gh-scoped-creds==4.1
+  - popularity-contest==0.4.1
