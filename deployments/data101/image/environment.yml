@@ -101,3 +101,4 @@ dependencies:
   - pytest-notebook==0.8.1
   - pymongo==4.4.1
   - dbt-postgres==1.6.0
+  - popularity-contest==0.4.1
