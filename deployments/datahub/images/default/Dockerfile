@@ -128,17 +128,17 @@ RUN /tmp/install-mambaforge.bash
 # Install conda environment as our user
 USER ${NB_USER}
 
+COPY infra-requirements.txt /tmp/infra-requirements.txt
 COPY environment.yml /tmp/environment.yml
 
-RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+    mamba clean -afy
 
-COPY infra-requirements.txt /tmp/infra-requirements.txt
-RUN pip install --no-cache -r /tmp/infra-requirements.txt
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache -r /tmp/requirements.txt
+# Used by MCB32, but incompatible with ipywidgets 8.x
+RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # Set up nbpdf dependencies
 ENV PYPPETEER_HOME ${CONDA_DIR}
@@ -160,10 +160,6 @@ RUN /usr/local/sbin/connector-text.bash
 
 #COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
 #RUN /usr/local/sbin/2021-fall-phys-188-288.bash
-
-# Used by MCB32, but incompatible with ipywidgets 8.x
-RUN pip install --no-cache qgrid==1.3.1
-RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # clear out /tmp
 USER root
