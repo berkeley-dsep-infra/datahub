@@ -63,7 +63,7 @@ jupyterhub:
       guarantee: 0.05
       limit: 1
     memory:
-      guarantee: 512M
+      guarantee: 1G
       limit: 1G
 
   custom:
