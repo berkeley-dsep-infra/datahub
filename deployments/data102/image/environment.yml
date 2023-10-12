@@ -2,6 +2,7 @@ name: data102-FA23
 
 channels:
 - conda-forge
+- pytorch
 
 dependencies:
 - python==3.11.3
