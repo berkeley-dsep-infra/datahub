@@ -2,6 +2,7 @@ name: data102-FA23
 
 channels:
 - conda-forge
+- pytorch
 
 dependencies:
 - python==3.11.3
@@ -33,6 +34,11 @@ dependencies:
 - scipy==1.10.1
 - seaborn==0.12.2
 - statsmodels==0.14.0
+# fall 2023:  https://github.com/berkeley-dsep-infra/datahub/issues/5130
+- pytorch==2.1.0
+- torchvision==0.16.0
+- torchaudio==2.1.0
+- cpuonly==2.0
 - pip
 - pip:
   # - -r infra-requirements.txt
