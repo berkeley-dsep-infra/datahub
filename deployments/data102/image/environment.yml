@@ -33,6 +33,8 @@ dependencies:
 - scipy==1.10.1
 - seaborn==0.12.2
 - statsmodels==0.14.0
+# fall 2023:  https://github.com/berkeley-dsep-infra/datahub/issues/5130
+- pytorch==2.1.0
 - pip
 - pip:
   # - -r infra-requirements.txt
