@@ -1,4 +1,4 @@
-name: Performance Bug Tempalte
+name: Bug Template for Performance Issues
 description: Report performance issues in Datahub
 labels: "support"
 assignees:
@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please refer to the commmon causes for the performance issues - https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If these are not the reasons for the performance issues in the hub then please do raise a request by filling the details below
+        Please refer to the commmon causes for the performance issues using this documentation- https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If the above mentioned reasons are not the cause  for the performance issues in the hub then please do raise a request by filling the details below,
   - type: input
     attributes:
       label: Your Name
