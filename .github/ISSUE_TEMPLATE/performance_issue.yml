@@ -65,7 +65,7 @@ body:
   - type: markdown
     attributes:
       value: "Please share the calnet id of the affected students in the UCTech Slack channel (UCTech.slack.com). Slack Shane Knapp, Jonathan Felder and Balaji Alwar with 1/2 calnet id of the affected students"
-  - type: input
+  - type: textarea
     attributes:
       label: Additional comments
       description: Anything else you want to share with us? (Deadline to fix these issues, information about students who are having these issues etc..) 
