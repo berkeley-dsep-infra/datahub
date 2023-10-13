@@ -1,4 +1,4 @@
-name: Bug Template for Performance Issues
+name: Bug Report for Performance Issues
 description: Report performance issues in Datahub
 labels: "support"
 assignees:
