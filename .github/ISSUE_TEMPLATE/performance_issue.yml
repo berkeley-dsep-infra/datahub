@@ -1,0 +1,73 @@
+name: Bug Template for Performance Issues
+description: Report performance issues in Datahub
+labels: "support"
+assignees:
+- sknapp
+- felder
+- balajialg
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please refer to the commmon causes for the performance issues by referring to this documentation - https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If the above mentioned reasons are not the cause for the performance issues in the hub then or you lack clarity about the issue then  please do raise a request by filling the details below:
+  - type: input
+    attributes:
+      label: Your Name
+      description:
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Affiliated Course Name
+      description: Name of the course for which you are part of the teaching team
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment & Setup
+      description: In which environment does the problem occur
+      value: |
+        - Hub URL: <!--[e.g. datahub.berkeley.edu, data8.datahub.berkeley.edu, publichealth.datahub.berkeley.edu ...]-->
+        - Language: <!--[Python, Julia, R, ...]-->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: URL to the notebook file (.ipynb, .rmd etc..) with solutions
+      description: Paste the URL to the notebook file with solution. If you have clarity about which cell causes issue then please add info about that too. If the assignment is currently released to students, Email the notebook(s) to ds-infrastructure@lists.berkeley.edu or paste the URL to the private github repository and add @sknapp, @felder, @balajialg as members of the repository
+      value: |
+        - <!--Eg: URL to the notebook file -->
+  - type: textarea
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the behavior
+      value: |
+        <!--
+        1. Go to '...'
+        2. Change '....'
+        3. Run '....'
+        4. See error
+        -->
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Number of Impacted Students
+      description: Total number of students affected by this issue
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Snapshots of issue
+      description: Share the snapshots for this issue. If possible, try to erase the student details from the snaspshot
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "Please share the calnet id of the affected students in the UCTech Slack channel (UCTech.slack.com). Slack Shane Knapp, Jonathan Felder and Balaji Alwar with 1/2 calnet id of the affected students"
+  - type: textarea
+    attributes:
+      label: Additional comments
+      description: Anything else you want to share with us? (Deadline to fix these issues, information about students who are having these issues etc..) 
+    validations:
+      required: true
