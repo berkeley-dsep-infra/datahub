@@ -1,0 +1,58 @@
+name: Performance Bug Tempalte
+description: Report performance issues in Datahub
+labels: "support"
+assignees:
+- sknapp
+- felder
+- balajialg
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please refer to the commmon causes for the performance issues - https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If these are not the reasons for the performance issues in the hub then please do raise a request by filling the details below
+  - type: input
+    attributes:
+      label: Your Name
+      description:
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Affiliated Course Name
+      description: Name of the course for which you are part of the teaching team
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: URL to notebook with solutions filled
+      description: Paste the URL to the solution filled notebook which has issues. If the assignment is confidential, Paste the URL to the private github repository and add @sknapp, @felder, @balajialg as members of the repository
+      value: |
+        - <!--Eg: URL to the notebook file -->
+  - type: textarea
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the behavior
+      value: |
+        <!--
+        1. Go to '...'
+        2. Change '....'
+        3. Run '....'
+        4. See error
+        -->
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Number of Impacted Students
+      description: Total number of students affected by this issue
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Snapshots of issue
+      description: Share the snapshots for this issue. If possible, try to erase the student details from the snaspshot
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "Please share the calnet id of the affected students via UCTech Slack channel."
