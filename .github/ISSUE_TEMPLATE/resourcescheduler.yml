@@ -1,4 +1,4 @@
-name: Scheduling events to increase compute requirements
+name: Request to schedule events to increase compute
 description: Schedule specific dates/times when your coursework requires higher computing resources
 labels: "support"
 title: Increase compute resources for Course XXX between specific date(s)/time(s) 
