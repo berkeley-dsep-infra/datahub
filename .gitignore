@@ -10,3 +10,6 @@ hub/charts
 # python
 **/__pycache__
 **/*.pyc
+
+# stupidmacosfilesystem
+**/.DS_Store
