@@ -1,0 +1,19 @@
+images:
+  images:
+    - name: gcr.io/data8x-scratch/edx-user-image
+      path: image/
+  registry:
+    provider: gcloud
+    gcloud:
+      project: data8x-scratch
+      service_key: gcloud-service-key.json
+
+cluster:
+  provider: gcloud
+  gcloud:
+    project: data8x-scratch
+    service_key: gcloud-service-key.json
+    cluster: edx
+    zone: us-central1
+
+

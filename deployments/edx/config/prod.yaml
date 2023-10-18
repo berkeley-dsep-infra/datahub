@@ -1,0 +1,20 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.128.0.62
+    shareName: export/edxhomes-2023-08-28
+jupyterhub:
+  proxy:
+    service:
+      loadBalancerIP: 35.224.143.90
+    https:
+      hosts:
+        - edx.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 40Gi
+    services:
+      otter_grade:
+        url: http://grader-srv.datahub.berkeley.edu:10101

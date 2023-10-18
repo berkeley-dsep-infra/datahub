@@ -1,0 +1,77 @@
+jupyterhub:
+  scheduling:
+    userScheduler:
+      enabled: true
+  cull:
+    # For some reason, hub users don't cull properly
+    # Empty abandoned sessions stay on for days
+    # This stops users after they have been running for 12+ hours
+    # in one go. In several weeks of looking at user pods older
+    # than this, none have been active.
+    # See issue #2452
+    maxAge: 43200 # 12h
+  proxy:
+    service:
+      type: LoadBalancer
+  hub:
+    loadRoles:
+      read-users:
+        name: read-user
+        scopes:
+        - access:services
+        - read:users
+        - list:users
+        services:
+        - otter_grade
+    config:
+      JupyterHub:
+        authenticator_class: ltiauthenticator.lti11.auth.LTI11Authenticator
+      Authenticator:
+        admin_users:
+          # 2813 Eric Van Dusen
+          # sean morris
+          - bd1e7c64c6f5faddbf6b32af3010cf75
+          - 261821b22ba97d73f571bf396c2ecb0a
+          - 594aed203b01b16a7a025c2f3e037933
+          - ded2ce24b58e67d269563072d3481d14
+  singleuser:
+    networkPolicy:
+      # We only allow outbound HTTP, HTTPS and DNS access
+      enabled: true
+      egress:
+        - ports:
+            - port: 80
+              protocol: TCP
+        - ports:
+            - port: 443
+              protocol: TCP
+        - ports:
+            # statsd ports
+            - port: 9125
+              protocol: TCP
+            - port: 9125
+              protocol: UDP
+    initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "id && chown 1000:1000 /home/jovyan && ls -lhd /home/jovyan"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+          subPath: "home/{username}"
+    storage:
+      type: static
+      static:
+        pvcName: home-nfs
+        subPath: "home/{username}"
+    memory:
+      guarantee: 256M
+      limit: 1G
+    image: {}
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+
+
