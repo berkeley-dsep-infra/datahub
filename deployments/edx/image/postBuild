@@ -1,0 +1,10 @@
+#!/bin/bash -l
+set -euo pipefail
+
+# Create ipython config directory if it doesn't exist
+mkdir -p ${CONDA_DIR}/etc/ipython
+cp ipython_config.py ${CONDA_DIR}/etc/ipython/ipython_config.py
+
+# set default theme
+mkdir -p ${NB_PYTHON_PREFIX}/share/jupyter/lab/settings
+cp -p overrides.json ${NB_PYTHON_PREFIX}/share/jupyter/lab/settings
