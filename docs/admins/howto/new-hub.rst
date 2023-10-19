@@ -88,14 +88,17 @@ Create the node pool:
 
    gcloud container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
      --labels=hub=<hubname>,nodepool-deployment=<hubname> \
-     --node-labels hub.jupyter.org/pool-name=<hubname>-pool --machine-type "n2-highmem-8"  \
-     --enable-autoscaling --min-nodes "0" --max-nodes "3" \
-     --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
+     --node-labels hub.jupyter.org/pool-name=<hubname>-pool \
+     --machine-type "n2-highmem-8"  \
+     --enable-autoscaling --min-nodes "0" --max-nodes "20" \
+     --project "ucb-datahub-2018" --cluster "fall-2019" \
+     --region "us-central1" --node-locations "us-central1-b" \
      --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \
      --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "200"  \
      --metadata disable-legacy-endpoints=true \
      --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
-     --no-enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node "110"
+     --no-enable-autoupgrade --enable-autorepair \
+     --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node "110"
 
 
 Creating a new filestore instance

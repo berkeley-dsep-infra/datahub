@@ -34,7 +34,7 @@ the currently favored configuration.
         --region=us-central1 --node-locations=us-central1-b \
         --image-type=cos \
         --disk-size=100 --disk-type=pd-balanced \
-        --machine-type=n1-highmem-8 \
+        --machine-type=n2-highmem-8 \
         --cluster-version latest \
         --no-enable-autoupgrade \
         --enable-network-policy \
@@ -45,7 +45,7 @@ the currently favored configuration.
 .. code:: bash
 
     gcloud container node-pools create  \
-        --machine-type n1-highmem-8 \
+        --machine-type n2-highmem-8 \
         --num-nodes 1 \
         --enable-autoscaling \
         --min-nodes 1 --max-nodes 20 \
@@ -136,7 +136,7 @@ Node size
 ---------
 
 ``--machine-type`` lets us select how much `RAM and CPU <https://cloud.google.com/compute/docs/machine-types>`_
-each of our nodes have. For non-trivial hubs, we generally pick ``n1-highmem-8``, with 52G
+each of our nodes have. For non-trivial hubs, we generally pick ``n2-highmem-8``, with 64G
 of RAM and 8 cores. This is based on the following heuristics:
 
 #. Students generally are memory limited than CPU limited. In fact, while we
@@ -150,7 +150,7 @@ of RAM and 8 cores. This is based on the following heuristics:
 
 #. There is a kubernetes limit on 100 pods per node.
 
-Based on these heuristics, ``n1-highmem-8`` seems to be most bang for the buck
+Based on these heuristics, ``n2-highmem-8`` seems to be most bang for the buck
 currently. We should revisit this for every cluster creation.
 
 Cluster version
