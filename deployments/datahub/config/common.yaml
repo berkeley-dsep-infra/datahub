@@ -200,3 +200,6 @@ jupyterhub:
       course::1524680: # UGBA88, Fall 2023, issue #5071
         mem_limit: 3072M
         mem_guarantee: 3072M
+      course::1527878: # Music 30, Fall 2023, issue #5153
+        mem_limit: 2048M
+        mem_guarantee: 2048M
