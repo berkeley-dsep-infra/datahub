@@ -4,49 +4,51 @@
 #
 #    pip-compile requirements.in
 #
-annotated-types==0.5.0
+annotated-types==0.6.0
     # via pydantic
 certifi==2023.7.22
     # via
     #   -r requirements.in
     #   requests
-charset-normalizer==3.2.0
+charset-normalizer==3.3.1
     # via requests
 datetime==5.2
     # via -r requirements.in
-emoji==2.7.0
+emoji==2.8.0
     # via ical
 ical==5.0.0
     # via -r requirements.in
 idna==3.4
     # via requests
-pydantic==2.1.1
+pydantic==2.4.2
     # via ical
-pydantic-core==2.4.0
+pydantic-core==2.10.1
     # via pydantic
 pyparsing==3.1.1
     # via ical
 python-dateutil==2.8.2
     # via ical
-pytz==2023.3
+pytz==2023.3.post1
     # via datetime
 requests==2.31.0
     # via -r requirements.in
-ruamel-yaml==0.17.32
+ruamel-yaml==0.18.2
     # via -r requirements.in
-ruamel-yaml-clib==0.2.7
+ruamel-yaml-clib==0.2.8
     # via ruamel-yaml
 six==1.16.0
     # via python-dateutil
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   pydantic
     #   pydantic-core
 tzdata==2023.3
     # via ical
-urllib3==2.0.4
-    # via requests
-zope-interface==6.0
+urllib3==2.0.7
+    # via
+    #   -r requirements.in
+    #   requests
+zope-interface==6.1
     # via datetime
 
 # The following packages are considered to be unsafe in a requirements file:
