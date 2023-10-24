@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -eux
+
+# install mongosh for DH-160
+
+mkdir -p /tmp/mongosh
+cd /tmp/mongosh
+wget https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
+tar xvfz mongosh-2.0.2-linux-x64.tgz
+cp -v mongosh-2.0.2-linux-x64/bin/mongosh ${CONDA_DIR}/bin/
+cp -v mongosh-2.0.2-linux-x64/bin/mongosh_crypt_v1.so ${CONDA_DIR}/lib/
+cd /
+rm -rf /tmp/mongosh
