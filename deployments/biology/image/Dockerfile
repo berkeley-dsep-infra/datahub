@@ -10,8 +10,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV NB_USER jovyan
 ENV NB_UID 1000
 
-ENV CONDA_DIR /opt/conda
-ENV R_LIBS_USER /opt/r
+ENV CONDA_DIR /srv/conda
+ENV R_LIBS_USER /srv/r
 
 # Explicitly add littler to PATH
 # See https://github.com/conda-forge/r-littler-feedstock/issues/6
