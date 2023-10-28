@@ -8,8 +8,8 @@ ENV NB_USER jovyan
 ENV NB_UID 1000
 ENV SHELL /bin/bash
 
-ENV CONDA_DIR /srv/conda
-ENV JULIA_DIR /srv/julia
+ENV CONDA_DIR /opt/conda
+ENV JULIA_DIR /opt/julia
 
 ENV PATH ${JULIA_DIR}/bin:${CONDA_DIR}/bin:$PATH
 
