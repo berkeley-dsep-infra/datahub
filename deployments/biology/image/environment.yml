@@ -2,7 +2,7 @@ channels:
 - bioconda
 - conda-forge
 dependencies:
-- python=3.10.13
+- python=3.10.*
 - pip=22.2.*
 
 # Package to allow Jupyter Notebook or JupyterLab applications in one conda env to access other kernels (e.g. qiime2)
@@ -33,7 +33,7 @@ dependencies:
 - sympy=1.10.1
 
 # Packages from bioconda for BioE-131, Fall 2020, Issue #1885
-- bowtie2=2.4.2
+- bowtie2=2.5.2
 - spades=3.14.1
 
 # Packages for MCB280A, Spring 2022
