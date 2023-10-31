@@ -91,3 +91,6 @@ zip
 
 # DH-93, DH94
 postgresql-client
+
+# https://jira-secure.berkeley.edu/browse/DH-165
+mongo-tools
