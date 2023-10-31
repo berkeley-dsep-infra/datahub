@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eux
+
+# install pa11y for DH-169
+
+npm install -g pa11y-ci
+
+
