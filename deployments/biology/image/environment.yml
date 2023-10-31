@@ -53,6 +53,9 @@ dependencies:
 # compbio BioE c146, Fall 22 and into the future, issue 3785
 - scikit-learn=1.1.2
 
+# bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
+- traitlets=5.9.*
+
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1846
 # Conda does not have these
 - pip:
@@ -66,4 +69,3 @@ dependencies:
 # Packages for MCB-160L iss #3942
   - allensdk==2.13.6
   - otter-grader==3.1.4
-  - notebook==6.5.6

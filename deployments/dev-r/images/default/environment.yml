@@ -2,6 +2,8 @@ dependencies:
 - python=3.10.*
 - pip=23.1.*
 - nodejs=18.*
+# bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
+- traitlets=5.9.*
 
 - jupyter-server-proxy==4.0.0
 - jupyter-rsession-proxy==2.2.0
@@ -17,4 +19,3 @@ dependencies:
 - pip:
   - -r infra-requirements.txt
   - jupyter-shiny-proxy==1.1
-  - notebook==6.5.6
