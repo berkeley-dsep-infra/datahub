@@ -23,7 +23,9 @@ dependencies:
 - protobuf
 - mpich
 - mpi4py
-
+- scikit-learn==1.0.*
+- scikit-image==0.19.*
+- scipy==1.11.3
 - pip
 
 - pip:
@@ -33,9 +35,6 @@ dependencies:
   - opencv-python>=4.5.5.62
   - nose2>=0.10.0
   - sympy
-  - scipy
-  - scikit-learn==1.0.*
-  - scikit-image==0.19.*
   - beautifulsoup4
   - tqdm
   - h5py
