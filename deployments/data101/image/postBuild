@@ -13,3 +13,12 @@ chmod 775 ${CONDA_DIR}/bin/mongosh
 chmod 775 ${CONDA_DIR}/lib/mongosh_crypt_v1.so
 cd /
 rm -rf /tmp/mongosh
+
+# install mongodb-tools for DH-165
+
+mkdir -p /tmp/mongodb-tools
+cd /tmp/mongodb-tools
+wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.0.deb
+apt install ./mongodb-database-tools-ubuntu2204-x86_64-100.9.0.deb
+cd /
+rm -rf /tmp/mongodb-tools
