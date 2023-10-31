@@ -24,7 +24,7 @@ jupyter-contrib-nbextensions==0.5.1
 jupyter_nbextensions_configurator==0.4.1
 # Measure popularity of different packages in our hubs
 # https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
-popularity-contest==git+https://github.com/yuvipanda/python-popularity-contest@9e30ec414e45615e75a0e86424141b7093c8f686
+git+https://github.com/yuvipanda/python-popularity-contest@9e30ec414e45615e75a0e86424141b7093c8f686
 # RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
 RISE==5.7.1
 # syncthing for dropbox-like functionality
