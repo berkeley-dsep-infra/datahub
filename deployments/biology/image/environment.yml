@@ -66,3 +66,4 @@ dependencies:
 # Packages for MCB-160L iss #3942
   - allensdk==2.13.6
   - otter-grader==3.1.4
+  - notebook==6.5.6
