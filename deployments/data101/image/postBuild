@@ -15,10 +15,10 @@ cd /
 rm -rf /tmp/mongosh
 
 # install mongodb-tools for DH-165
-
+whoami
 mkdir -p /tmp/mongodb-tools
 cd /tmp/mongodb-tools
 wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.0.deb
-apt install ./mongodb-database-tools-ubuntu2204-x86_64-100.9.0.deb
+sudo apt install ./mongodb-database-tools-ubuntu2204-x86_64-100.9.0.deb
 cd /
 rm -rf /tmp/mongodb-tools
