@@ -12,7 +12,9 @@ dependencies:
 
 # for jupyter-tree-download
 - zip==3.0
+
+# bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
+- traitlets=5.9.*
 - pip:
   - -r infra-requirements.txt
   - jupyter-shiny-proxy==1.1
-  - notebook==6.5.6
