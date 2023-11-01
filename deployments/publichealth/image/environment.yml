@@ -1,4 +1,11 @@
+name: publichealth
+
+channels:
+- conda-forge
+
 dependencies:
+# bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
+- traitlets=5.9.*
 - pip:
   - -r /tmp/infra-requirements.txt
 # RStudio support
