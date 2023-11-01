@@ -16,6 +16,9 @@ dependencies:
 # Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4291
 - ipykernel==6.19.4
 
+# bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
+- traitlets=5.9.*
+
 # Items not in conda forge
 - pip:
 # Export notebooks as PDFs with Chrome
