@@ -54,7 +54,7 @@ dependencies:
   - astropy>=5.0
   - dustmaps>=1.0.9
   - pyvo>=1.2
-  - joblib==1.1.1
+  - joblib==1.2.0
   - aesara>=2.3.4
   - mkl-service
   - pymc3>=3.11.4
@@ -76,7 +76,7 @@ dependencies:
   - stsci.tools>=4.0.0
   - gensim>=4.1.2
   - tweet-preprocessor
-  - pyLDAvis>=3.3.1
+  - pyLDAvis==3.4.1
   - umap-learn>=0.5.2
   - pydot>=1.4.0
   - TPOT>=0.11.7
