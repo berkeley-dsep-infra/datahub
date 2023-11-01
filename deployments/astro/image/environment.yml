@@ -54,7 +54,7 @@ dependencies:
   - astropy>=5.0
   - dustmaps>=1.0.9
   - pyvo>=1.2
-  - joblib==1.1.1
+  - joblib==1.2.0
   - aesara>=2.3.4
   - mkl-service
   - pymc3>=3.11.4
