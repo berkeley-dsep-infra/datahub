@@ -45,6 +45,8 @@ dependencies:
 - matplotlib==3.7.1
 - matplotlib-inline==0.1.6
 - mock==4.0.3
+# https://jira-secure.berkeley.edu/browse/DH-165
+- mongo-tools==4.0.4
 - nbclassic==1.0.0
 - nbdime==3.1.1
 - nbgitpuller==1.1.1
