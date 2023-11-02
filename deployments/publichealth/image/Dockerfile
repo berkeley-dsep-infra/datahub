@@ -50,7 +50,12 @@ RUN apt-get update > /dev/null && \
     rm -rf /var/lib/apt/lists/*
 
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+COPY environment.yml /tmp/environment.yml
+
 RUN /tmp/install-mambaforge.bash
+
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+    mamba clean -afy
 
 USER ${NB_USER}
 
