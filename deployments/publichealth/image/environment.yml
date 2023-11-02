@@ -1,10 +1,9 @@
 dependencies:
 - syncthing==1.18.6
+- jupyter-rsession-proxy==2.2.0
 - pip:
   # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
   - traitlets==5.9.0
   - -r /tmp/infra-requirements.txt
 # RStudio support
-  - jupyter-rsession-proxy==2.2.0
   - otter-grader==2.2.7  
-~                          
