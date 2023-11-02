@@ -1,4 +1,5 @@
 dependencies:
+- syncthing==1.18.6
 - pip:
   # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
   - traitlets==5.9.0
