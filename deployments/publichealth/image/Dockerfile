@@ -59,9 +59,6 @@ RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
 
 RUN mamba install -c conda-forge syncthing==1.18.6
 
-# Support latest RStudio
-RUN pip install --no-cache 'jupyter-rsession-proxy>=2.0'
-
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
