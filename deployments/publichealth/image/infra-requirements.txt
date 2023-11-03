@@ -8,6 +8,7 @@
 # everwhere one by one.
 
 # FIXME: Freeze this to get exact versions of all dependencies
+traitlets==5.9.0
 notebook==6.4.12
 jupyterlab==3.4.5
 retrolab==0.3.21

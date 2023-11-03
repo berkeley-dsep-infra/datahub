@@ -30,6 +30,7 @@ dependencies:
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - notebook==7.0.2
   - jupyterlab==4.0.4
+  - git+https://github.com/yuvipanda/python-popularity-contest@9e30ec414e45615e75a0e86424141b7093c8f686
   # ###
   # The items below are from infra-requirements, however lab conflicts with the
   # alpha notebook.

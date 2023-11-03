@@ -98,7 +98,7 @@ jupyterhub:
             # https://github.com/ipython/ipython/issues/9163
             db_file: ":memory:"
       popularity-contest:
-        mountPath: /opt/conda/etc/ipython/startup/000-popularity-contest.py
+        mountPath: /etc/ipython/startup/000-popularity-contest.py
         stringData: |
           import popularity_contest.reporter
           popularity_contest.reporter.setup_reporter()

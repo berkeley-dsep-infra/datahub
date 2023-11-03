@@ -11,8 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV NB_USER jovyan
 ENV NB_UID 1000
 
-ENV CONDA_DIR /opt/conda
-ENV R_LIBS_USER /opt/r
+ENV CONDA_DIR /srv/conda
+ENV R_LIBS_USER /srv/r
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes locales && \
@@ -36,7 +36,7 @@ RUN install -d -o ${NB_USER} -g ${NB_USER} ${R_LIBS_USER}
 
 # Install R.
 # These packages must be installed into the base stage since they are in system
-# paths rather than /opt.
+# paths rather than /srv.
 # Pre-built R packages from rspm are built against system libs in jammy.
 ENV R_VERSION=4.3.1-1.2204.0
 ENV LITTLER_VERSION=0.3.18-2.2204.0

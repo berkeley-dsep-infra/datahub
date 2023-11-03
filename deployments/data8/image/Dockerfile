@@ -1,6 +1,6 @@
 FROM buildpack-deps:focal-scm
 
-ENV CONDA_DIR /opt/conda
+ENV CONDA_DIR /srv/conda
 
 # Set up common env variables
 ENV TZ=America/Los_Angeles
@@ -17,7 +17,7 @@ RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 # Create user owned R libs dir
 # This lets users temporarily install packages
-ENV R_LIBS_USER /opt/r
+ENV R_LIBS_USER /srv/r
 RUN install -d -o ${NB_USER} -g ${NB_USER} ${R_LIBS_USER}
 
 RUN apt-get -qq update --yes && \

@@ -11,8 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV NB_USER jovyan
 ENV NB_UID 1000
 # These are used by the python, R, and final stages
-ENV CONDA_DIR /opt/conda
-ENV R_LIBS_USER /opt/r
+ENV CONDA_DIR /srv/conda
+ENV R_LIBS_USER /srv/r
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes locales && \
@@ -32,7 +32,7 @@ RUN apt-get -qq update --yes && \
 
 # Install R.
 # These packages must be installed into the base stage since they are in system
-# paths rather than /opt.
+# paths rather than /srv.
 # Pre-built R packages from rspm are built against system libs in jammy.
 ENV R_VERSION=4.3.1-1.2204.0
 ENV LITTLER_VERSION=0.3.18-2.2204.0
@@ -73,8 +73,8 @@ RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
     echo "TZ=${TZ}" >> /etc/R/Renviron
 
 # =============================================================================
-# This stage exists to build /opt/r.
-FROM base as opt-r
+# This stage exists to build /srv/r.
+FROM base as srv-r
 
 # Create user owned R libs dir
 # This lets users temporarily install packages
@@ -96,8 +96,8 @@ COPY install.R  /tmp/install.R
 RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
 
 # =============================================================================
-# This stage exists to build /opt/conda.
-FROM base as opt-conda
+# This stage exists to build /srv/conda.
+FROM base as srv-conda
 
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
 RUN /tmp/install-mambaforge.bash
@@ -114,10 +114,10 @@ RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
     mamba clean -afy
 
 # =============================================================================
-# This stage consumes base and import /opt/r and /opt/conda.
+# This stage consumes base and import /srv/r and /srv/conda.
 FROM base as final
-COPY --from=opt-r /opt/r /opt/r
-COPY --from=opt-conda /opt/conda /opt/conda
+COPY --from=srv-r /srv/r /srv/r
+COPY --from=srv-conda /srv/conda /srv/conda
 
 # Install IR kernelspec. Requires python and R.
 ENV PATH ${CONDA_DIR}/bin:${PATH}:${R_LIBS_USER}/bin

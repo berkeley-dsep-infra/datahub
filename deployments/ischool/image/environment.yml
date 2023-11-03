@@ -4,8 +4,10 @@ channels:
 - conda-forge
 
 dependencies:
-- syncthing==1.22.2
+- syncthing==1.25.0
 - jupyter-rsession-proxy==2.2.0
+# bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
+- traitlets=5.9.*
 - pip:
   - -r /tmp/infra-requirements.txt
   - otter-grader==3.1.4
