@@ -21,4 +21,3 @@ dependencies:
   - notebook==6.5.6
   - jupyter-desktop-server
   - otter-grader==3.1.4
-  - git+https://github.com/yuvipanda/python-popularity-contest@9e30ec414e45615e75a0e86424141b7093c8f686
