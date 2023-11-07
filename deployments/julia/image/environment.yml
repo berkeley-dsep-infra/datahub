@@ -14,6 +14,7 @@ dependencies:
 
 # Required for issue #3057
 - xlrd==2.0.1
+- git+https://github.com/yuvipanda/python-popularity-contest@9e30ec414e45615e75a0e86424141b7093c8f686
 
 # For https://github.com/berkeley-dsep-infra/datahub/issues/3079
 - websockify

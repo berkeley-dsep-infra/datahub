@@ -2,6 +2,7 @@ dependencies:
 - pip
 - syncthing==1.18.6
 - jupyter-rsession-proxy==2.2.0
+- git+https://github.com/yuvipanda/python-popularity-contest@9e30ec414e45615e75a0e86424141b7093c8f686
 - pip:
   # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
   - traitlets==5.9.0
