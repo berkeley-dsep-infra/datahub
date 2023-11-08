@@ -5,6 +5,6 @@ dependencies:
 - pip:
   # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
   - traitlets==5.9.0
-    # - -r /tmp/infra-requirements.txt
-# RStudio support
+  # - -r /tmp/infra-requirements.txt
+  # RStudio support
   - otter-grader==2.2.7  

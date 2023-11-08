@@ -158,3 +158,4 @@ dependencies:
     - jupyter-syncthing-proxy==1.0.3
     # Needed for RTC on NFS-backed hubs
     - git+https://github.com/berkeley-dsep-infra/tmpystore.git@84765e1
+    - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
