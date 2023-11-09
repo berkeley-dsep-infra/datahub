@@ -180,10 +180,6 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
 
-#install rsession proxy
-RUN pip install --no-cache-dir \
-        jupyter-rsession-proxy==2.0.1
-
 # Install IRKernel
 RUN r -e "install.packages('IRkernel', version='1.2')" && \
     r -e "IRkernel::installspec(prefix='${CONDA_DIR}')"

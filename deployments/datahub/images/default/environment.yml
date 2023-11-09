@@ -88,9 +88,6 @@ dependencies:
 # MUSIC 30, https://github.com/berkeley-dsep-infra/datahub/issues/5047
 - music21==8.3.0
 
-# error converting to PDF https://github.com/berkeley-dsep-infra/datahub/issues/5062
-- pyppeteer==1.0.2
-
 # data8; foundation
 - datascience==0.17.6
 

@@ -3,14 +3,10 @@
 set -ex
 
 cd $(dirname $0)
-MAMBAFORGE_VERSION=4.10.3-7
+MAMBAFORGE_VERSION='23.1.0-1'
 
 URL="https://github.com/conda-forge/miniforge/releases/download/${MAMBAFORGE_VERSION}/Mambaforge-${MAMBAFORGE_VERSION}-Linux-x86_64.sh"
 INSTALLER_PATH=/tmp/mambaforge-installer.sh
-
-# make sure we don't do anything funky with user's $HOME
-# since this is run as root
-unset HOME
 
 wget --quiet $URL -O ${INSTALLER_PATH}
 chmod +x ${INSTALLER_PATH}
