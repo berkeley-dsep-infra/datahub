@@ -35,6 +35,7 @@ RUN apt-get update > /dev/null && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
+            less \
             nodejs \
             npm \
             texlive-xetex \
