@@ -9,7 +9,7 @@ dependencies:
 - matplotlib==3.4.3
 - ipympl==0.7.0
 - pandas==1.3.2
-- scipy==1.7.1
+- scipy==1.11.3
 - statsmodels==0.12.2
 - seaborn==0.11.2
 # Otter is pulled in via infra-requirements.txt, since it's present in all hubs
