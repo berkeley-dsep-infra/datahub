@@ -148,7 +148,7 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 # install chromium browser for playwright
 # https://github.com/berkeley-dsep-infra/datahub/issues/5062
 # DH-164
-ENV PLAYWRIGHT_BROWSERS_PATH=${CONDA_DIR}
+ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
 RUN playwright install chromium
 
 # Install IR kernelspec
