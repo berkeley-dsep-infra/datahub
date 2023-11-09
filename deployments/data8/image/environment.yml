@@ -26,5 +26,5 @@ dependencies:
 # Conda only has 0.12.0
   - folium==0.12.1
   - okpy==1.18.1
-  - datascience==0.17.0
+  - datascience==0.17.6
   - otter-grader==4.3.4 # Based on request from ericvd and sean.morris
