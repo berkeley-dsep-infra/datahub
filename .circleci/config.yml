@@ -12,7 +12,7 @@ orbs:
             default: false
 
         docker:
-          - image: python:3.7-slim-bullseye
+          - image: python:3.9-slim-bullseye
         working_directory: ~/repo
         steps:
           - checkout
@@ -105,7 +105,7 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: python:3.8-slim-bullseye
+      - image: python:3.9-slim-bullseye
     working_directory: ~/repo
     steps:
       - run:
