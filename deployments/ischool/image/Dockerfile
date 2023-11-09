@@ -23,6 +23,7 @@ WORKDIR ${HOME}
 # libarchive-dev for https://github.com/berkeley-dsep-infra/datahub/issues/1997
 RUN apt-get update > /dev/null && \
     apt-get install --yes \
+            emacs \
             fonts-symbola \
             less \
             libx11-xcb1 \
