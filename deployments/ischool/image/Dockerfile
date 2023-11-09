@@ -24,6 +24,7 @@ WORKDIR ${HOME}
 RUN apt-get update > /dev/null && \
     apt-get install --yes \
             fonts-symbola \
+            less \
             libx11-xcb1 \
             libxtst6 \
             libxrandr2 \
