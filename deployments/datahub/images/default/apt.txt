@@ -72,3 +72,6 @@ libgdal-dev
 libgeos-dev
 libproj-dev
 libmysqlclient-dev
+
+# DH-164
+libpci3
