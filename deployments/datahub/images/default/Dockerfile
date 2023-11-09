@@ -150,6 +150,7 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 # DH-164
 ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
 RUN playwright install chromium
+COPY jupyter_nbconvert_config.py ${CONDA_DIR}/etc/jupyter/jupyter_nbconvert_config.py
 
 # Install IR kernelspec
 RUN r -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
