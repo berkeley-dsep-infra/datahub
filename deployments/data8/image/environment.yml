@@ -9,7 +9,7 @@ dependencies:
 - matplotlib==3.4.3
 - ipympl==0.7.0
 - pandas==1.3.2
-- scipy==1.7.1
+- scipy==1.11.3
 - statsmodels==0.12.2
 - seaborn==0.11.2
 # Otter is pulled in via infra-requirements.txt, since it's present in all hubs
@@ -26,5 +26,5 @@ dependencies:
 # Conda only has 0.12.0
   - folium==0.12.1
   - okpy==1.18.1
-  - datascience==0.17.0
+  - datascience==0.17.6
   - otter-grader==4.3.4 # Based on request from ericvd and sean.morris
