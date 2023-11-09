@@ -22,9 +22,9 @@ orbs:
                 apt-get update && apt-get install --yes --no-install-recommends git curl
           - restore_cache:
               keys:
-                - v3.7-dependencies-{{ checksum "requirements.txt" }}
+                - v3.9-dependencies-{{ checksum "requirements.txt" }}
                 # fallback to using the latest cache if no exact match is found
-                - v3.7-dependencies-
+                - v3.9-dependencies-
 
           - run:
               name: install dependencies
@@ -89,7 +89,7 @@ orbs:
           - save_cache:
               paths:
                 - ./venv
-              key: v3.7-dependencies-{{ checksum "requirements.txt" }}
+              key: v3.9-dependencies-{{ checksum "requirements.txt" }}
 
           - run:
               name: Build image if needed
@@ -117,9 +117,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
+            - v3.9-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.7-dependencies-gcloud-363-
+            - v3.9-dependencies-gcloud-363-
 
       - run:
           name: install dependencies
@@ -144,7 +144,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.7-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
+          key: v3.9-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
