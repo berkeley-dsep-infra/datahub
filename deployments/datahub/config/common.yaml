@@ -146,6 +146,13 @@ jupyterhub:
         - name: home
           mountPath: /home/jovyan/.rstudio
           subPath: '{username}/.datahub-rstudio'
+    extraFiles:
+      # DH-164
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.PDFExporter.enabled = False
     memory:
       guarantee: 512M
       limit: 1G
