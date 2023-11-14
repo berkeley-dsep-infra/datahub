@@ -183,8 +183,8 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 COPY file-locks /etc/rstudio/file-locks
 
 # Install IRKernel
-RUN r -e "install.packages('IRkernel', version='1.2')" && \
-    r -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
+RUN /usr/bin/r -e "install.packages('IRkernel', version='1.2')" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN /usr/bin/r -e "IRkernel::installspec(prefix='${CONDA_DIR}')" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 # Install R packages, cleanup temp package download location
 COPY install.R /tmp/install.R
