@@ -59,7 +59,8 @@ RUN apt-get update -qq --yes && \
         wget \
         vim \
         tini \
-        locales > /dev/null
+        locales \
+        time > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -169,7 +170,7 @@ USER ${NB_USER}
 COPY environment.yml /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN time mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
+RUN time "mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml" && mamba clean -afy
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
@@ -186,8 +187,8 @@ RUN r -e "install.packages('IRkernel', version='1.2')" && \
 
 # Install R packages, cleanup temp package download location
 COPY install.R /tmp/install.R
-RUN time r /tmp/install.R 
-RUN time rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+RUN time "r /tmp/install.R"
+RUN time "rm -rf /tmp/downloaded_packages/ /tmp/*.rds"
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
