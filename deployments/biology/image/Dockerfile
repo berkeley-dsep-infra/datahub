@@ -186,8 +186,8 @@ RUN r -e "install.packages('IRkernel', version='1.2')" && \
 
 # Install R packages, cleanup temp package download location
 COPY install.R /tmp/install.R
-RUN r /tmp/install.R && \
- 	rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+RUN time r /tmp/install.R 
+RUN time rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
