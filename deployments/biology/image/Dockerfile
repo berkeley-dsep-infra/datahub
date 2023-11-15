@@ -59,8 +59,7 @@ RUN apt-get update -qq --yes && \
         wget \
         vim \
         tini \
-        locales \
-        time > /dev/null
+        locales > /dev/null
 
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -170,10 +169,11 @@ USER ${NB_USER}
 COPY environment.yml /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN echo "/srv/conda/condabin/mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
-RUN echo "/srv/conda/condabin/mamba clean -afy" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
-RUN echo "jupyter contrib nbextensions install --sys-prefix --symlink" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
-RUN echo "jupyter nbextensions_configurator enable --sys-prefix" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+    mamba clean -afy
+
+RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
+    jupyter nbextensions_configurator enable --sys-prefix
 
 # Set CRAN mirror to rspm before we install anything
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
@@ -183,17 +183,17 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 COPY file-locks /etc/rstudio/file-locks
 
 # Install IRKernel
-RUN echo "/usr/bin/r -e \"install.packages('IRkernel', version='1.2')\"" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
-RUN echo "/usr/bin/r -e \"IRkernel::installspec(prefix='${CONDA_DIR}')\"" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN r -e "install.packages('IRkernel', version='1.2')" && \
+    r -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Install R packages, cleanup temp package download location
 COPY install.R /tmp/install.R
-RUN echo "/usr/bin/r /tmp/install.R" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
-RUN rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+RUN r /tmp/install.R && \
+    rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
-RUN echo "bash /tmp/bio1b-packages.bash" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN bash /tmp/bio1b-packages.bash
 
 # install ib134L packages
 COPY ib134-packages.bash /tmp/ib134-packages.bash
@@ -201,6 +201,6 @@ RUN bash /tmp/ib134-packages.bash
 
 # install ccb293 packages
 COPY ccb293-packages.bash /tmp/ccb293-packages.bash
-RUN echo "bash /tmp/ccb293-packages.bash" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN bash /tmp/ccb293-packages.bash
 
 ENTRYPOINT ["tini", "--"]
