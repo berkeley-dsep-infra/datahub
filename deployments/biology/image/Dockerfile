@@ -171,9 +171,9 @@ COPY environment.yml /tmp/
 COPY infra-requirements.txt /tmp/
 
 RUN echo "/srv/conda/condabin/mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
-RUN mamba clean -afy
-RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
-    jupyter nbextensions_configurator enable --sys-prefix
+RUN echo "/srv/conda/condabin/mamba clean -afy" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN echo "jupyter contrib nbextensions install --sys-prefix --symlink" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN echo "jupyter nbextensions_configurator enable --sys-prefix" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 # Set CRAN mirror to rspm before we install anything
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
@@ -193,7 +193,7 @@ RUN rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash
-RUN bash /tmp/bio1b-packages.bash
+RUN echo "bash /tmp/bio1b-packages.bash" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 # install ib134L packages
 COPY ib134-packages.bash /tmp/ib134-packages.bash
@@ -201,6 +201,6 @@ RUN bash /tmp/ib134-packages.bash
 
 # install ccb293 packages
 COPY ccb293-packages.bash /tmp/ccb293-packages.bash
-RUN bash /tmp/ccb293-packages.bash
+RUN echo "bash /tmp/ccb293-packages.bash" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 ENTRYPOINT ["tini", "--"]
