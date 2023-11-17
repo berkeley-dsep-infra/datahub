@@ -49,8 +49,8 @@ RUN apt-get update -qq --yes && \
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
-        htop \
         less \
+        htop \
         man \
         nano \
         screen \
@@ -169,7 +169,9 @@ USER ${NB_USER}
 COPY environment.yml /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+    mamba clean -afy
+
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
@@ -187,7 +189,7 @@ RUN r -e "install.packages('IRkernel', version='1.2')" && \
 # Install R packages, cleanup temp package download location
 COPY install.R /tmp/install.R
 RUN r /tmp/install.R && \
- 	rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+    rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash

@@ -174,57 +174,15 @@ jobs:
               "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
 
       - run:
-          name: Deploy datahub
+          name: Deploy a11y
           command: |
-            hubploy deploy --timeout 30m datahub hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy data8
-          command: |
-            hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m a11y hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
           name: Deploy astro
           command: |
             hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      #- run:
-      #    name: Deploy stat159
-      #    command: |
-      #      hubploy deploy --timeout 30m stat159 hub ${CIRCLE_BRANCH}
-      #    no_output_timeout: 30m
-
-      - run:
-          name: Deploy stat20
-          command: |
-            hubploy deploy --timeout 30m stat20 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy ischool
-          command: |
-            hubploy deploy --timeout 30m ischool hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy publichealth
-          command: |
-            hubploy deploy --timeout 30m publichealth hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy highschool hub
-          command: |
-            hubploy deploy --timeout 30m highschool hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy prob140
-          command: |
-            hubploy deploy --timeout 30m prob140 hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
@@ -234,28 +192,16 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy julia
+          name: Deploy cee
           command: |
-            hubploy deploy --timeout 30m julia hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
-          name: Deploy R
+          name: Deploy data8
           command: |
-            hubploy deploy --timeout 30m r hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
-
-      - run:
-          name: Deploy dlab
-          command: |
-            hubploy deploy --timeout 30m dlab hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-#      - run:
-#          name: Deploy data8x
-#          command: |
-#            hubploy deploy --timeout 30m data8x hub ${CIRCLE_BRANCH}
-#          no_output_timeout: 30m
 
 #      - run:
 #          name: Deploy data8xv2
@@ -275,34 +221,28 @@ jobs:
             hubploy deploy --timeout 30m data101 hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-      - run: 
+      - run:
           name: Deploy data102
           command: |
             hubploy deploy --timeout 30m data102 hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
-          name: Deploy shiny
+          name: Deploy datahub
           command: |
-            hubploy deploy --timeout 30m shiny hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m datahub hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
-          name: Deploy cee
+          name: Deploy dev-r
           command: |
-            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m dev-r hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
-          name: Deploy logodev
+          name: Deploy dlab
           command: |
-            hubploy deploy --timeout 30m logodev hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy workshop
-          command: |
-            hubploy deploy --timeout 30m workshop hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m dlab hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
@@ -312,16 +252,71 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy a11y
+          name: Deploy highschool hub
           command: |
-            hubploy deploy --timeout 30m a11y hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m highschool hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
-          name: Deploy dev-r
+          name: Deploy ischool
           command: |
-            hubploy deploy --timeout 30m dev-r hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m ischool hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
+
+      - run:
+          name: Deploy julia
+          command: |
+            hubploy deploy --timeout 30m julia hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy logodev
+          command: |
+            hubploy deploy --timeout 30m logodev hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy prob140
+          command: |
+            hubploy deploy --timeout 30m prob140 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy publichealth
+          command: |
+            hubploy deploy --timeout 30m publichealth hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy R
+          command: |
+            hubploy deploy --timeout 30m r hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy shiny
+          command: |
+            hubploy deploy --timeout 30m shiny hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      # - run:
+      #     name: Deploy stat159
+      #     command: |
+      #       hubploy deploy --timeout 30m stat159 hub ${CIRCLE_BRANCH}
+      #     no_output_timeout: 30m
+
+      - run:
+          name: Deploy stat20
+          command: |
+            hubploy deploy --timeout 30m stat20 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
+          name: Deploy workshop
+          command: |
+            hubploy deploy --timeout 30m workshop hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
 
   deploy-node-placeholder:
     docker:
@@ -442,18 +437,8 @@ workflows:
   test-build-images:
     jobs:
       - hubploy/build-image:
-          deployment: datahub
-          # Workshop hub also uses this
-          name: datahub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: data8
-          name: data8 image build
+          deployment: a11y
+          name: a11y image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -469,6 +454,42 @@ workflows:
                 ignore:
                 - staging
                 - prod
+      - hubploy/build-image:
+          deployment: biology
+          name: biology image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: cee
+          name: cee image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: data8
+          name: data8 image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+#      - hubploy/build-image:
+#          deployment: data8xv2
+#          name: data8xv2 image build
+#          # Filters can only be per-job? wtf
+#          filters:
+#              branches:
+#                ignore:
+#                - staging
+#                - prod
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
@@ -490,6 +511,72 @@ workflows:
       - hubploy/build-image:
           deployment: data102
           name: data102 image build
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: datahub
+          # Workshop hub also uses this
+          name: datahub image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          # This has no effect yet because docker-py doesn't support buildkit.
+          #environment:
+          #  DOCKER_BUILDKIT: 1
+          deployment: dev-r
+          name: dev-r image build
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: eecs
+          name: eecs image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: ischool
+          name: ischool image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: julia
+          name: julia hub image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: publichealth
+          name: publichealth image build
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                ignore:
+                - staging
+                - prod
+      - hubploy/build-image:
+          deployment: shiny
+          name: shiny image build
+          # Filters can only be per-job? wtf
           filters:
               branches:
                 ignore:
@@ -513,114 +600,12 @@ workflows:
                 ignore:
                 - staging
                 - prod
-      - hubploy/build-image:
-          deployment: ischool
-          name: ischool image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: shiny
-          name: shiny image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: cee
-          name: cee image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: publichealth
-          name: publichealth image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: biology
-          name: biology image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: julia
-          name: julia hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-#      - hubploy/build-image:
-#          deployment: data8x
-#          name: data8x image build
-#          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                ignore:
-#                - staging
-#                - prod
-#      - hubploy/build-image:
-#          deployment: data8xv2
-#          name: data8xv2 image build
-#          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                ignore:
-#                - staging
-#                - prod
-      - hubploy/build-image:
-          deployment: eecs
-          name: eecs image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: a11y
-          name: a11y image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          # This has no effect yet because docker-py doesn't support buildkit.
-          #environment:
-          #  DOCKER_BUILDKIT: 1
-          deployment: dev-r
-          name: dev-r image build
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
 
   deploy:
     jobs:
       - hubploy/build-image:
-          # workshop hub also uses this image
-          deployment: datahub
-          name: datahub image build
+          deployment: a11y
+          name: a11y image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -628,23 +613,23 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: shiny
-          name: shiny image build
+          deployment: astro
+          name: astro image build
           push: true
           # Filters can only be per-job? wtf
           filters:
               branches:
                 only:
                 - staging
-      #- hubploy/build-image:
-      #    deployment: logodev
-      #    name: logodev image build
-      #    push: true
-      #    # Filters can only be per-job? wtf
-      #    filters:
-      #        branches:
-      #          only:
-      #          - staging
+      - hubploy/build-image:
+          deployment: biology
+          name: biology image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
       - hubploy/build-image:
           deployment: cee
           name: cee image build
@@ -663,15 +648,15 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: astro
-          name: astro image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
+#      - hubploy/build-image:
+#          deployment: data8xv2
+#          name: data8xv2 image build
+#          push: true
+#          # Filters can only be per-job? wtf
+#          filters:
+#              branches:
+#                only:
+#                - staging
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
@@ -697,6 +682,79 @@ workflows:
               branches:
                 only:
                 - staging
+      - hubploy/build-image:
+          # workshop hub also uses this image
+          deployment: datahub
+          name: datahub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: dev-r
+          name: dev-r image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: eecs
+          name: eecs image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: ischool
+          name: ischool image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: julia
+          name: julia hub image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      #- hubploy/build-image:
+      #    deployment: logodev
+      #    name: logodev image build
+      #    push: true
+      #    # Filters can only be per-job? wtf
+      #    filters:
+      #        branches:
+      #          only:
+      #          - staging
+      - hubploy/build-image:
+          deployment: publichealth
+          name: publichealth image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
+      - hubploy/build-image:
+          deployment: shiny
+          name: shiny image build
+          push: true
+          # Filters can only be per-job? wtf
+          filters:
+              branches:
+                only:
+                - staging
       #- hubploy/build-image:
       #    deployment: stat159
       #    name: stat159 image build
@@ -715,113 +773,32 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: ischool
-          name: ischool image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: publichealth
-          name: publichealth image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: biology
-          name: biology image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: julia
-          name: julia hub image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-#      - hubploy/build-image:
-#          deployment: data8x
-#          name: data8x image build
-#          push: true
-#          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                only:
-#                - staging
-#      - hubploy/build-image:
-#          deployment: data8xv2
-#          name: data8xv2 image build
-#          push: true
-#          # Filters can only be per-job? wtf
-#          filters:
-#              branches:
-#                only:
-#                - staging
-      - hubploy/build-image:
-          deployment: eecs
-          name: eecs image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: a11y
-          name: a11y image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: dev-r
-          name: dev-r image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
       # Build images only during the staging deploy. All merges
       # to prod need to go via staging, so prod should *never*
       # use images not built for staging. By enforcing this at the
       # CI level, we also make prod deploys go faster!
       - deploy:
           requires:
-              - datahub image build
+              - a11y image build
+              - astro image build
+              - biology image build
+              - cee image build
               - data8 image build
+#              - data8xv2 image build
               - data100 image build
               - data101 image build
               - data102 image build
-              - astro image build
+              - datahub image build
+              - dev-r image build
+              - eecs image build
+              - ischool image build
+              - julia hub image build
+              #- logodev image build
+              - publichealth image build
+              - shiny image build
               #- stat159 image build
               - stat20 image build
-              - ischool image build
-              - publichealth image build
-              - cee image build
-              - shiny image build
-              #- logodev image build
-              - biology image build
-              - julia hub image build
-#              - data8x image build
-#              - data8xv2 image build
-              - eecs image build
-              - a11y image build
-              - dev-r image build
+
           filters:
             branches:
               only:

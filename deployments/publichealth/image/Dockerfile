@@ -27,6 +27,7 @@ WORKDIR ${HOME}
 # tini is necessary because it is our ENTRYPOINT below.
 RUN apt-get update > /dev/null && \
     apt-get install --yes \
+            less \
             libx11-xcb1 \
             libxtst6 \
             libxrandr2 \

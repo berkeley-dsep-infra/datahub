@@ -22,6 +22,7 @@ RUN install -d -o ${NB_USER} -g ${NB_USER} ${R_LIBS_USER}
 
 RUN apt-get -qq update --yes && \
     apt-get -qq install --yes \
+            less \
             tar \
             vim \
             micro \
