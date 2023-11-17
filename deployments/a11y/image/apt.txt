@@ -1,6 +1,9 @@
 # Some linux packages for basic terminal work, particularly
 # oriented at users new to Unix/cmd line environments.
 
+# installing less as more just isn't enough
+less
+
 # Download tools
 curl
 wget

@@ -49,8 +49,8 @@ RUN apt-get update -qq --yes && \
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
-        htop \
         less \
+        htop \
         man \
         nano \
         screen \

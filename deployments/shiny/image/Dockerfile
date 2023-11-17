@@ -30,6 +30,7 @@ WORKDIR ${HOME}
 # and we don't want them to be downloaded on demand by students.
 RUN apt-get update && \
     apt-get install --yes \
+            less \
             libx11-xcb1 \
             libxtst6 \
             libxrandr2 \
