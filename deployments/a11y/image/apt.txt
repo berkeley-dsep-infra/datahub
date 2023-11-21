@@ -36,5 +36,5 @@ ruby
 rsync
 
 # Add chromium to the a11y image for testing with pa11y
-chromimum-browser
+chromium-browser
 
