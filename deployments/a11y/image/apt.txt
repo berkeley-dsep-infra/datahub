@@ -34,3 +34,7 @@ ruby
 
 # Other niceties for command-line work and life
 rsync
+
+# Add chromium to the a11y image for testing with pa11y
+chromium-browser
+
