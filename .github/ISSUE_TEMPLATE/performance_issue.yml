@@ -10,10 +10,14 @@ body:
     attributes:
       value: |
         Please refer to the commmon causes for the performance issues by referring to this documentation - https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If the above mentioned reasons are not the cause for the performance issues in the hub then or you lack clarity about the issue then  please do raise a request by filling the details below:
-  - type: input
+  - type: dropdown
     attributes:
-      label: Your Name
-      description:
+      label: Your Role
+      description: Mention your affiliation to the course
+      options:
+      - Instructor
+      - GSI/TA
+      - Student
     validations:
       required: true
   - type: input
@@ -56,6 +60,23 @@ body:
       description: Total number of students affected by this issue
     validations:
       required: true
+  - type: dropdown
+    attributes:
+      label: Severity of the Issue
+      description: Critical, High Priority, Medium Priority and Low Priority
+      options:
+      - Critical
+      - High Priority
+      - Medium Priority
+      - Low Priority
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Issue timeline
+      description: Mention the date/time when this issue occured
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: Snapshots of issue
@@ -64,7 +85,7 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: "Please share the calnet id of the affected students in the UCTech Slack channel (UCTech.slack.com). Slack Shane Knapp, Jonathan Felder and Balaji Alwar with 1/2 calnet id of the affected students"
+      value: "Please share the calnet id of 2/3 affected students in the #datahubs channel in UCTech Slack (UCTech.slack.com)"
   - type: textarea
     attributes:
       label: Additional comments
