@@ -85,7 +85,7 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: "Please share the calnet id of 2/3 affected students in the #datahubs channel in UCTech Slack (UCTech.slack.com).
+      value: "Please share the calnet id of 2/3 affected students in the #datahubs channel in UCTech Slack (UCTech.slack.com)"
   - type: textarea
     attributes:
       label: Additional comments
