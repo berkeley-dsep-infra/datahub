@@ -1,8 +1,6 @@
 nfsPVC:
-  enabled: true
   nfs:
-    serverIP: 10.128.0.62
-    shareName: export/edxhomes-staging-2023-10-17
+    shareName: export/edxhomes-2023-08-28/staging
 jupyterhub:
   prePuller:
     continuous:
