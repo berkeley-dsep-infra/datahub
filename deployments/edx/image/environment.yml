@@ -1,0 +1,48 @@
+name: edx
+
+channels:
+- conda-forge
+
+dependencies:
+- python==3.11.0
+- git==2.39.1
+- jupyter-resource-usage==1.0.0
+- jupyterlab==4.0.9
+- jupyterlab-favorites==3.0.0
+- jupyterlab_server==2.23.0
+- jupyterlab_widgets==3.0.8
+- jupyter_server==2.7.0
+- nbgitpuller==1.1.1
+- notebook==7.0.6
+- folium==0.14.0
+- h5netcdf==1.0.2
+- ipywidgets==8.0.7
+- jupysql==0.8.0
+- matplotlib==3.7.1
+- mdit-py-plugins==0.4.0
+- numpy==1.24.2
+- pandas==2.0.2
+- plotly==5.13.1
+- requests==2.28.2
+- scikit-image==0.19.3
+- scikit-learn==1.2.2
+- scipy==1.10.1
+- seaborn==0.12.2
+- statsmodels==0.14.0
+- tensorflow-cpu==2.12.1
+- sqlalchemy==2.0.16
+- pip
+- pip:
+  # - -r infra-requirements.txt
+  - ipywidgets==8.0.7
+  # disable until fixed (probably this:  https://github.com/jupyterlab/jupyter-collaboration/issues/162)
+  # - jupyter_collaboration==1.0.1
+  - jupyterhub==4.0.2
+  - jupyterlab-accessible-themes==0.2.0
+  - jupyter-archive==3.4.0
+  - nbconvert==7.6.0
+  - pytest-notebook==0.8.1
+  - gh-scoped-creds==4.1
+  - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+  - otter-grader==4.4.1
+  - otter-submit==0.1.1

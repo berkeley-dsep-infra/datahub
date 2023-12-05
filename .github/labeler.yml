@@ -93,10 +93,6 @@ node-placeholder-scaler:
   - 'deployments/data102/**'
 'hub: data8':
   - 'deployments/data8/**'
-#'hub: data8x':
-#  - 'deployments/data8x/**'
-'hub: data8xv2':
-  - 'deployments/data8xv2/**'
 'hub: datahub':
   - 'deployments/datahub/**'
 'hub: dlab':
