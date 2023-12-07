@@ -77,6 +77,9 @@ jupyterhub:
         name: a11y-staging.datahub.berkeley.edu
         oauth_client_id: service-a11y-staging.datahub.berkeley.edu
         oauth_redirect_uri: https://a11y-staging.datahub.berkeley.edu/hub/oauth_callback
+      announcement:
+        url: https://staging.datahub.berkeley.edu:8888
+        command: ["python", "-m", "jupyterhub_announcement"]
   scheduling:
     userPlaceholder:
       enabled: false
