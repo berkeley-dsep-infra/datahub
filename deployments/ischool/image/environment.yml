@@ -7,7 +7,7 @@ dependencies:
 - syncthing==1.25.0
 - jupyter-rsession-proxy==2.2.0
 # https://github.com/berkeley-dsep-infra/datahub/issues/5251
-- nodejs=16 # code-server requires node < 17
+- nodejs=18 # code-server requires node < 17
 - jupyter-vscode-proxy==0.5
 - code-server==4.10.1
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
