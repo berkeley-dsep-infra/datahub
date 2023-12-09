@@ -56,6 +56,14 @@ COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
         mamba clean -afy
 
+# https://github.com/berkeley-dsep-infra/datahub/issues/5251
+ENV QUARTO_VERSION="0.9.522"
+RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
+    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
+    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
+        rm /tmp/quarto.tar.gz && \
+        ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
+
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
@@ -94,14 +102,6 @@ RUN install2.r --error --skipinstalled \
     vcd        \
     vars       \
     zoo
-
-# https://github.com/berkeley-dsep-infra/datahub/issues/5251
-ENV QUARTO_VERSION="0.9.522"
-RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
-    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
-    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
-	rm /tmp/quarto.tar.gz && \
-	ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
 
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
