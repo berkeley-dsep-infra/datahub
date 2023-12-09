@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.3.1
+FROM rocker/geospatial:4.3.2
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -15,14 +15,6 @@ RUN echo "PATH=${PATH}" >> /etc/profile
 RUN echo "export PATH" >> /etc/profile
 
 ENV HOME /home/${NB_USER}
-
-# https://github.com/berkeley-dsep-infra/datahub/issues/5251
-ENV QUARTO_VERSION="0.9.522"
-RUN mkdir -p /opt/quarto/${QUARTO_VERSION} && \
-    curl -L -o /tmp/quarto.tar.gz "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz" && \
-    tar xzf /tmp/quarto.tar.gz -C "/opt/quarto/${QUARTO_VERSION}" --strip-components=1 && \
-        rm /tmp/quarto.tar.gz && \
-        ln -s /opt/quarto/${QUARTO_VERSION}/bin/quarto /usr/local/bin/quarto
 
 WORKDIR ${HOME}
 
