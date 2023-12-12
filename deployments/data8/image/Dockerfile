@@ -1,4 +1,4 @@
-FROM buildpack-deps:focal-scm
+FROM buildpack-deps:jammy-scm
 
 ENV CONDA_DIR /srv/conda
 
