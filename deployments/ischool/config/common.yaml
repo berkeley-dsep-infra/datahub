@@ -43,7 +43,7 @@ jupyterhub:
           - dhughes
 
   singleuser:
-    defaultUrl: /rstudio
+    defaultUrl: /lab
     nodeSelector:
       hub.jupyter.org/pool-name: ischool-pool
     storage:
