@@ -172,18 +172,18 @@ if __name__ == "__main__":
     argparser.add_argument(
         '-H',
         '--hub_url',
-        help='Fully qualified URL to the JupyterHub (optional if using -f <credentials>)'
+        help='Fully qualified URL to the JupyterHub (optional if using -f <credentials>).'
     )
     argparser.add_argument(
         '--dry_run',
         action='store_true',
-        help='Dry run without deleting users'
+        help='Dry run without deleting users.'
     )
     argparser.add_argument(
         '--inactive_since',
         default='hours=24',
         type=parse_timedelta,
-        help='Period of inactivity after which users are considered for deletion (literal string constructor values for timedelta objects)'
+        help='Period of inactivity after which users are considered for deletion (literal string constructor values for timedelta objects).'
         # https://docs.python.org/3/library/datetime.html#timedelta-objects
     )
     argparser.add_argument(
@@ -191,14 +191,14 @@ if __name__ == "__main__":
         '--verbose',
         dest='verbose',
         action='store_true',
-        help='Set info log level'
+        help='Set info log level.'
     )
     argparser.add_argument(
         '-d',
         '--debug',
         dest='debug',
         action='store_true',
-        help='Set debug log level'
+        help='Set debug log level.'
     )
     args = argparser.parse_args()
 
