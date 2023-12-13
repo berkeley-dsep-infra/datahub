@@ -118,20 +118,23 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
     }
     count = 1
 
-    print(f"Getting users eligible for deletion on hub: {hub_url}")
+    print(f"Scanning for users eligible for deletion on hub: {hub_url}")
     users = list(retrieve_users(hub_url, headers, inactive_since))
     print(f"Flagged {len(users)} users for deletion on hub: {hub_url}")
 
     for user in users:
-        print(f"{count}: deleting {user['name']}")
-        count += 1
         if not dry_run:
             delete_user(hub_url, headers, user['name'])
+            print(f"{count}: deleting {user['name']}")
         else:
-            logger.warning(f"Skipped {user['name']} due to dry run.")
+            print(f"Skipped {user['name']} due to dry run.")
+        count += 1
 
     count -= 1
-    print(f"Deleted {count} total users from the ORM for hub {hub_url}.")
+    if not dry_run:
+        print(f"Deleted {count} total users from the ORM for hub: {hub_url}.")
+    else:
+        print(f"Would have deleted {count} total users from the ORM for hub: {hub_url}.")
 
 def main(args):
     """
@@ -156,7 +159,7 @@ def main(args):
             raise
 
         for hub in creds.keys():
-            logger.debug(f"Checking for and deleting ORM users to delete on hub: {hub}")
+            logger.debug(f"Checking for and deleting ORM users on hub: {hub}")
             token = creds[hub]
             delete_users_from_hub(hub, token, args.inactive_since, args.dry_run)
 
