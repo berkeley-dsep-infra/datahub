@@ -141,8 +141,6 @@ def main(args):
     Get users from a hub, check to see if they should be deleted from the ORM
     and if so, delete them!
     """
-    count = 1
-
     if not args.credentials:
         logger.info("No credentials file, attempting operations on a single hub.")
         if not args.hub_url:
