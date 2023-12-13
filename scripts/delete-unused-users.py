@@ -119,47 +119,46 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
 
     print(f"Scanning for users eligible for deletion on hub: {hub_url}")
     users = list(retrieve_users(hub_url, headers, inactive_since))
-    print(f"Flagged {len(users)} users for deletion on hub: {hub_url}")
+    print(f"Flagged {len(users)} users for deletion.")
 
     count = 1
     for user in users:
         if not dry_run:
             delete_user(hub_url, headers, user['name'])
-            print(f"{count}: deleting {user['name']}")
+            logger.info(f"{count}: deleting {user['name']}")
         else:
-            print(f"Skipped {user['name']} due to dry run.")
+            logger.info(f"Skipped {user['name']} due to dry run.")
         count += 1
 
     count -= 1
     if not dry_run:
         print(f"Deleted {count} total users from the ORM for hub: {hub_url}.")
     else:
-        print(f"Would have deleted {count} total users from the ORM for hub: {hub_url}.")
+        print(f"Dry run:  Did not delete {count} total users from the ORM for hub: {hub_url}.")
 
 def main(args):
     """
     Get users from a hub, check to see if they should be deleted from the ORM
     and if so, delete them!
     """
-    if not args.credentials:
-        logger.info("No credentials file, attempting operations on a single hub.")
-        if not args.hub_url:
-            logger.error("When not using the credentials file, you must specify a hub with the --hub_url argument.")
-            raise
+    if args.credentials and args.hub_url:
+        logger.error(f"Please use only one of --hub_url or --credentials options when executing the script.")
+        raise
 
-        logger.debug(f"Checking for and deleting ORM users on hub: {args.hub_url}")
+    if args.hub_url:
+        logger.info(f"Checking for and deleting ORM users on a single hub: {args.hub_url}")
         token = os.environ["JUPYTERHUB_API_TOKEN"]
         delete_users_from_hub(args.hub_url, token, args.inactive_since, args.dry_run)
 
     elif args.credentials:
-        logger.info(f"Attempting to use credentials file: {args.credentials}")
+        logger.debug(f"Attempting to load credentials file: {args.credentials}")
         creds = json.loads(open(args.credentials).read())
         if not creds:
             logger.error(f"The credentials file is empty: {args.credentials}")
             raise
 
         for hub in creds.keys():
-            logger.debug(f"Checking for and deleting ORM users on hub: {hub}")
+            logger.info(f"Checking for and deleting ORM users on hub: {hub}")
             token = creds[hub]
             delete_users_from_hub(hub, token, args.inactive_since, args.dry_run)
 
@@ -171,14 +170,15 @@ def main(args):
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
-        '-f',
+        '-c',
+        '--credentials',
         dest='credentials',
         help='Path to a json file containing hub url and api keys.  Format is: {"hub1_url": "hub1_key", "hub2_url":, "hub2_key"}'
     )
     argparser.add_argument(
         '-H',
         '--hub_url',
-        help='Fully qualified URL to the JupyterHub (optional if using -f <credentials>).'
+        help='Fully qualified URL to the JupyterHub. You must also set the JUPYTERHUB_API_TOKEN environment variable with the API key.'
     )
     argparser.add_argument(
         '--dry_run',
