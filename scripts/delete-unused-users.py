@@ -116,12 +116,12 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
         "Accept": "application/jupyterhub-pagination+json",
         "Authorization": f"Bearer {token}",
     }
-    count = 1
 
     print(f"Scanning for users eligible for deletion on hub: {hub_url}")
     users = list(retrieve_users(hub_url, headers, inactive_since))
     print(f"Flagged {len(users)} users for deletion on hub: {hub_url}")
 
+    count = 1
     for user in users:
         if not dry_run:
             delete_user(hub_url, headers, user['name'])
