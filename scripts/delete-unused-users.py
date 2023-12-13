@@ -96,10 +96,10 @@ def should_delete(user, inactive_since):
         logger.debug(f"Recent activity: {was_active_recently}")
         logger.debug(f"Running server: {user['server']}")
         if was_active_recently or user['server'] is not None:
-            logger.info(f"Not deleting {user['name']}")
+            logger.info(f"Not flagging {user['name']} for deletion.")
             return False
         else:
-            logger.info(f"Flagged {user['name']} for deletion.")
+            logger.info(f"Flagging {user['name']} for deletion.")
             return True
 
 def delete_user(hub_url, headers, name):
@@ -117,9 +117,11 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
         "Authorization": f"Bearer {token}",
     }
     count = 1
-    users = list(retrieve_users(hub_url, headers, inactive_since))
 
-    print(f"Attempting to delete {len(users)} from {hub_url}...")
+    print(f"Getting users eligible for deletion on hub: {hub_url}")
+    users = list(retrieve_users(hub_url, headers, inactive_since))
+    print(f"Flagged {len(users)} users for deletion on hub: {hub_url}")
+
     for user in users:
         print(f"{count}: deleting {user['name']}")
         count += 1
@@ -144,6 +146,7 @@ def main(args):
             logger.error("When not using the credentials file, you must specify a hub with the --hub_url argument.")
             raise
         else:
+            logger.debug(f"Checking for and deleting ORM users to delete on hub: {args.hub_url}")
             token = os.environ["JUPYTERHUB_API_TOKEN"]
             delete_users_from_hub(args.hub_url, token, args.inactive_since, args.dry_run)
     elif args.credentials:
@@ -153,7 +156,7 @@ def main(args):
             raise
 
         for hub in creds.keys():
-            logger.debug(f"Attempting to delete users on {hub}")
+            logger.debug(f"Checking for and deleting ORM users to delete on hub: {hub}")
             token = creds[hub]
             delete_users_from_hub(hub, token, args.inactive_since, args.dry_run)
 
@@ -167,7 +170,7 @@ if __name__ == "__main__":
     argparser.add_argument(
         '-f',
         dest='credentials',
-        help='Path to json file containing hub url and api keys.'
+        help='Path to a json file containing hub url and api keys.  Format is: {"hub1_url": "hub1_key", "hub2_url":, "hub2_key"}'
     )
     argparser.add_argument(
         '-H',
