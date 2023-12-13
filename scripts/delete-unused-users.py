@@ -161,6 +161,7 @@ def main(args):
             logger.info(f"Checking for and deleting ORM users on hub: {hub}")
             token = creds[hub]
             delete_users_from_hub(hub, token, args.inactive_since, args.dry_run)
+            print()
 
     else:
         logger.error("You must specify a single hub with the --hub_url argument, or a json file containing hubs and api keys with the -f argument.")
