@@ -147,7 +147,7 @@ def main(args):
             logger.error("When not using the credentials file, you must specify a hub with the --hub_url argument.")
             raise
         else:
-            logger.debug(f"Checking for and deleting ORM users to delete on hub: {args.hub_url}")
+            logger.debug(f"Checking for and deleting ORM users on hub: {args.hub_url}")
             token = os.environ["JUPYTERHUB_API_TOKEN"]
             delete_users_from_hub(args.hub_url, token, args.inactive_since, args.dry_run)
     elif args.credentials:
