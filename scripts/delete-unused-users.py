@@ -132,9 +132,9 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
 
     count -= 1
     if not dry_run:
-        print(f"Deleted {count} total users from the ORM for hub: {hub_url}.")
+        print(f"Deleted {count} total users from the ORM for hub: {hub_url}")
     else:
-        print(f"Dry run:  Did not delete {count} total users from the ORM for hub: {hub_url}.")
+        print(f"Dry run:  Did not delete {count} total users from the ORM for hub: {hub_url}")
 
 def main(args):
     """
