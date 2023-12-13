@@ -151,7 +151,7 @@ def main(args):
             token = os.environ["JUPYTERHUB_API_TOKEN"]
             delete_users_from_hub(args.hub_url, token, args.inactive_since, args.dry_run)
     elif args.credentials:
-        logger.info("Attempting to use credentials file: {args.credentials}")
+        logger.info(f"Attempting to use credentials file: {args.credentials}")
         creds = json.loads(open(args.credentials).read())
         if not creds:
             logger.error(f"The credentials file is empty: {args.credentials}")
