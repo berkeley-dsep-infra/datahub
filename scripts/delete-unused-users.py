@@ -15,14 +15,13 @@ Core functionality from @minrk:
 https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
 import argparse
+from datetime import timedelta, datetime
+from dateutil.parser import parse
 import json
 import logging
 import os
 import requests
 import sys
-
-from datetime import timedelta, datetime
-from dateutil.parser import parse
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -148,6 +147,11 @@ def main(args):
     if args.hub_url:
         logger.info(f"Checking for and deleting ORM users on a single hub: {args.hub_url}")
         token = os.environ["JUPYTERHUB_API_TOKEN"]
+
+        if not token:
+            logger.error("Environment variable JUPYTERHUB_API_TOKEN is not set.")
+            raise
+
         delete_users_from_hub(args.hub_url, token, args.inactive_since, args.dry_run)
 
     elif args.credentials:
