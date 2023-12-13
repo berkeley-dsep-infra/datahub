@@ -164,7 +164,7 @@ def main(args):
             print()
 
     else:
-        logger.error("You must specify a single hub with the --hub_url argument, or a json file containing hubs and api keys with the -f argument.")
+        logger.error("You must specify a single hub with the --hub_url argument, or a json file containing hubs and api keys with the --credentials argument.")
         raise
 
 
