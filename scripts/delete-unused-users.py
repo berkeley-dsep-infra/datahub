@@ -16,12 +16,13 @@ https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
 import argparse
 from datetime import timedelta, datetime
-from dateutil.parser import parse
 import json
 import logging
 import os
 import requests
 import sys
+
+from dateutil.parser import parse
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging.getLogger(__name__)
