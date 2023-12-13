@@ -15,22 +15,18 @@ Core functionality from @minrk:
 https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
 import argparse
-from datetime import timedelta, datetime
+import json
 import logging
 import os
 import requests
 import sys
 
+from datetime import timedelta, datetime
 from dateutil.parser import parse
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-token = os.environ["JUPYTERHUB_API_TOKEN"]
-headers = {
-    "Accept": "application/jupyterhub-pagination+json",
-    "Authorization": f"Bearer {token}",
-}
 
 def parse_timedelta(args):
     """
@@ -52,7 +48,7 @@ def parse_timedelta(args):
         result[key] = value
     return timedelta(**result)
 
-def retrieve_users(hub_url, inactive_since):
+def retrieve_users(hub_url, headers, inactive_since):
     """Returns generator of user models that should be deleted"""
     url = hub_url.rstrip("/") + "/hub/api/users"
     next_page = True
@@ -106,7 +102,7 @@ def should_delete(user, inactive_since):
             logger.info(f"Flagged {user['name']} for deletion.")
             return True
 
-def delete_user(hub_url, name):
+def delete_user(hub_url, headers, name):
     """Delete a given user by name via JupyterHub API"""
     r = requests.delete(
         hub_url.rstrip("/") + f"/hub/api/users/{name}",
@@ -114,30 +110,69 @@ def delete_user(hub_url, name):
     )
     r.raise_for_status()
 
+def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
+    """Delete users from a provided hub url"""
+    headers = {
+        "Accept": "application/jupyterhub-pagination+json",
+        "Authorization": f"Bearer {token}",
+    }
+    count = 1
+    users = list(retrieve_users(hub_url, headers, inactive_since))
+
+    print(f"Attempting to delete {len(users)} from {hub_url}...")
+    for user in users:
+        print(f"{count}: deleting {user['name']}")
+        count += 1
+        if not dry_run:
+            delete_user(hub_url, headers, user['name'])
+        else:
+            logger.warning(f"Skipped {user['name']} due to dry run.")
+
+    count -= 1
+    print(f"Deleted {count} total users from the ORM for hub {hub_url}.")
+
 def main(args):
     """
     Get users from a hub, check to see if they should be deleted from the ORM
     and if so, delete them!
     """
     count = 1
-    for user in list(retrieve_users(args.hub_url, args.inactive_since)):
-        print(f"{count}: deleting {user['name']}")
-        count += 1
-        if not args.dry_run:
-            delete_user(args.hub_url, user['name'])
-        else:
-            logger.warning(f"Skipped {user['name']} due to dry run.")
 
-    count -= 1
-    print(f"Deleted {count} total users from the ORM.")
+    if not args.credentials:
+        logger.info("No credentials file, attempting operations on a single hub.")
+        if not args.hub_url:
+            logger.error("When not using the credentials file, you must specify a hub with the --hub_url argument.")
+            raise
+        else:
+            token = os.environ["JUPYTERHUB_API_TOKEN"]
+            delete_users_from_hub(args.hub_url, token, args.inactive_since, args.dry_run)
+    elif args.credentials:
+        creds = json.loads(open(args.credentials).read())
+        if not creds:
+            logger.error(f"The credentials file is empty: {args.credentials}")
+            raise
+
+        for hub in creds.keys():
+            logger.debug(f"Attempting to delete users on {hub}")
+            token = creds[hub]
+            delete_users_from_hub(hub, token, args.inactive_since, args.dry_run)
+
+    else:
+        logger.error("You must specify a single hub with the --hub_url argument, or a json file containing hubs and api keys with the -f argument.")
+        raise
+
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
+        '-f',
+        dest='credentials',
+        help='Path to json file containing hub url and api keys.'
+    )
+    argparser.add_argument(
         '-H',
         '--hub_url',
-        help='Fully qualified URL to the JupyterHub',
-        required=True
+        help='Fully qualified URL to the JupyterHub (optional if using -f <credentials>)'
     )
     argparser.add_argument(
         '--dry_run',
