@@ -7,11 +7,11 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
 
   cull:
     removeNamedServers: true
@@ -19,7 +19,7 @@ jupyterhub:
   hub:
     allowNamedServers: true
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-07-11
+      hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
       Authenticator:
         admin_users:

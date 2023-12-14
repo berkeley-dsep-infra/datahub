@@ -14,11 +14,11 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
 
   hub:
     loadRoles:
@@ -62,7 +62,7 @@ jupyterhub:
         # consistently.
         c.KubeSpawner.working_dir = '/home/rstudio'
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-07-11
+      hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
       Authenticator:
         admin_users:
