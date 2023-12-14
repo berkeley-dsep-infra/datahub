@@ -142,7 +142,7 @@ dependencies:
 
 # Packages not available on conda-forge, installed through pip
   - pip:
-    - ipython-sql==0.4.1
+    - jupysql==0.10.5
     - ipytest==0.13.0
     - jupyterhub==4.0.2
     - nbval==0.10.0
