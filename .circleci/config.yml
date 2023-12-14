@@ -299,11 +299,11 @@ jobs:
             hubploy deploy --timeout 30m shiny hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
-       - run:
-           name: Deploy stat159
-           command: |
-             hubploy deploy --timeout 30m stat159 hub ${CIRCLE_BRANCH}
-           no_output_timeout: 30m
+      - run:
+          name: Deploy stat159
+          command: |
+            hubploy deploy --timeout 30m stat159 hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
 
       - run:
           name: Deploy stat20
