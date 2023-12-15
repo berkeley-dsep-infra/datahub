@@ -109,9 +109,6 @@ dependencies:
 # eep 153; spring 2024
 - requests==2.31.0
 - Pint==0.17
-# Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
-- gspread-pandas==2.3.0
-- gspread==4.0.1
 
 # eps 109; fall 2024
 - ffmpeg-python==0.2.0
@@ -128,10 +125,10 @@ dependencies:
 
 # issue 1001, Physics 188/288 - fall 2024
 - umap-learn==0.5.1
-- hdbscan==0.8.31
+- hdbscan==0.8.33
 - getdist==1.3.1
 - tensorflow-hub==0.12.0
-- tensorflow-probability==0.13.0
+- tensorflow-probability==0.22.1
 
 # espm 125/bio 105; fall 2022
 # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
@@ -148,7 +145,7 @@ dependencies:
 
 # issue 1847; LS 22 spring 2021
 # balaji to reach out and confirm it's being taught SP24
-- graphviz==0.17
+- python-graphviz==0.17
 
 # issue #1903, data h195A fall 2020+
 # still required according to ericvd
@@ -163,6 +160,20 @@ dependencies:
 
 - pip:
   - -r /tmp/infra-requirements.txt
+
+  # Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
+  # latest versions in pypi, not conda :(
+  - gspread-pandas==2.3.0
+  - gspread==4.0.1
+
+  # issue 1001, Physics 188/288 - fall 2024
+  - getdist==1.3.1
+
+  # ds198 mch infodemiology, fall 2020/spring 2021
+  # google apis
+  # balaji to check
+  - google==3.0.0
+
   # Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4093
   - pycountry-convert==0.7.2
   #
