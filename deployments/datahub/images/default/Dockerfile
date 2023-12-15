@@ -146,13 +146,10 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 # Used by MCB32, but incompatible with ipywidgets 8.x
 RUN jupyter nbextension enable --py --sys-prefix qgrid
 
-# Set up nbpdf dependencies
-# commenting out for DH-164
-#ENV PYPPETEER_HOME ${CONDA_DIR}
-#RUN pyppeteer-install
-
 # install chromium browser for playwright
 # https://github.com/berkeley-dsep-infra/datahub/issues/5062
+# playwright is only availalbe in nbconvert[webpdf], via pip/pypi.
+# see also environment.yaml
 # DH-164
 ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
 RUN playwright install chromium
