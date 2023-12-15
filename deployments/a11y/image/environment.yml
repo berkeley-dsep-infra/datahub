@@ -29,7 +29,7 @@ dependencies:
   # Upgrade separate from what everyone else uses for now
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - notebook==7.0.2
-  - jupyterlab==4.0.4
+  - jupyterlab==4.0.9
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
   # ###
   # The items below are from infra-requirements, however lab conflicts with the

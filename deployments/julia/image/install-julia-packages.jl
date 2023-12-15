@@ -2,6 +2,10 @@
 using Pkg;
 
 Pkg.add.([
+    Pkg.PackageSpec(;name="FFTW", version="1.7.1"),
+    Pkg.PackageSpec(;name="FastGaussQuadrature", version="1.0.0"),
+    Pkg.PackageSpec(;name="ForwardDiff", version="0.10.36"),
+    Pkg.PackageSpec(;name="NBInclude", version="2.3.0"),
     Pkg.PackageSpec(;name="Delaunator", version="0.1.1"),
     Pkg.PackageSpec(;name="TriplotRecipes", version="0.1.2"),
     Pkg.PackageSpec(;name="StaticArrays", version="1.6.2"),
