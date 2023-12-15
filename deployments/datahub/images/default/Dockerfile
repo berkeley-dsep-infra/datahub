@@ -87,32 +87,38 @@ RUN mkdir -p /tmp/r-packages
 
 # Install all our base R packages
 COPY install.R  /tmp/install.R
-RUN /tmp/install.R && rm -rf /tmp/downloaded_packages
+RUN echo "/tmp/install.R" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN rm -rf /tmp/downloaded_packages
 
 # DLAB CTAWG, Fall '20 - Summer '21
 # https://github.com/berkeley-dsep-infra/datahub/issues/1942
 COPY r-packages/dlab-ctawg.r /tmp/r-packages/
-RUN r /tmp/r-packages/dlab-ctawg.r && rm -rf /tmp/downloaded_packages
+RUN echo "/usr/bin/r /tmp/r-packages/dlab-ctawg.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN rm -rf /tmp/downloaded_packages
 
 # Econ 140, Fall '22 and into the future
 # https://github.com/berkeley-dsep-infra/datahub/issues/3757
 COPY r-packages/econ-140.r /tmp/r-packages
-RUN r /tmp/r-packages/econ-140.r && rm -rf /tmp/downloaded_packages
+RUN echo "/usr/bin/r /tmp/r-packages/econ-140.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN rm -rf /tmp/downloaded_packages
 
 # EEP/IAS C119, Spring '23
 # https://github.com/berkeley-dsep-infra/datahub/issues/4203
 COPY r-packages/eep-1118.r /tmp/r-packages
-RUN r /tmp/r-packages/eep-1118.r && rm -rf /tmp/downloaded_packages
+RUN echo "/usr/bin/r /tmp/r-packages/eep-1118.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN rm -rf /tmp/downloaded_packages
 
 # Stat 135, Fall '23
 # https://github.com/berkeley-dsep-infra/datahub/issues/4907
 COPY r-packages/2023-fall-stat-135.r /tmp/r-packages
-RUN r /tmp/r-packages/2023-fall-stat-135.r && rm -rf /tmp/downloaded_packages
+RUN echo "/usr/bin/r /tmp/r-packages/2023-fall-stat-135.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN rm -rf /tmp/downloaded_packages
 
 # MBA 247, Fall '23
 # issue TBD; discussed over email
 COPY r-packages/2023-fall-mba-247.r /tmp/r-packages/
-RUN r /tmp/r-packages/2023-fall-mba-247.r && rm -rf /tmp/downloaded_packages
+RUN echo "/usr/bin/r /tmp/r-packages/2023-fall-mba-247.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN rm -rf /tmp/downloaded_packages
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
@@ -123,7 +129,7 @@ WORKDIR /home/${NB_USER}
 # Install mambaforge as root
 USER root
 COPY install-mambaforge.bash /tmp/install-mambaforge.bash
-RUN /tmp/install-mambaforge.bash
+RUN echo "/tmp/install-mambaforge.bash" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 # Install conda environment as our user
 USER ${NB_USER}
@@ -131,8 +137,8 @@ USER ${NB_USER}
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 COPY environment.yml /tmp/environment.yml
 
-RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
-    mamba clean -afy
+RUN echo "/srv/conda/bin/mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN echo "/srv/conda/bin/mamba clean -afy" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
@@ -152,7 +158,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
 RUN playwright install chromium
 
 # Install IR kernelspec
-RUN r -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
+RUN echo "/usr/bin/r -e \"IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')\"" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 COPY d8extension.bash /usr/local/sbin/d8extension.bash
 RUN /usr/local/sbin/d8extension.bash
