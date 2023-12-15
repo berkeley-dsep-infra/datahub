@@ -148,8 +148,8 @@ RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # Set up nbpdf dependencies
 # commenting out for DH-164
-#ENV PYPPETEER_HOME ${CONDA_DIR}
-#RUN pyppeteer-install
+ENV PYPPETEER_HOME ${CONDA_DIR}
+RUN pyppeteer-install
 
 # install chromium browser for playwright
 # https://github.com/berkeley-dsep-infra/datahub/issues/5062
