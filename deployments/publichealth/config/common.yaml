@@ -65,15 +65,6 @@ jupyterhub:
         c.KubeSpawner.working_dir = '/home/rstudio'
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
-    config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
 
   singleuser:
     defaultUrl: /rstudio
