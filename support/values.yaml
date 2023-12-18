@@ -106,6 +106,10 @@ prometheus:
       type: Recreate
     service:
       type: ClusterIP
+  prometheus-node-exporter:
+    extraArgs:
+      - "--collector.sysctl"
+      - "--collector.sysctl.include=net.ipv4.tcp_mem:min,pressure,max"
 
 grafana:
   nodeSelector:
