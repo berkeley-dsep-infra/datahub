@@ -21,14 +21,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          #- felder
-          #- gmerritt
-          #- rylo
-          #- sknapp
 
     extraConfig:
       20-hubHome: |
