@@ -5,6 +5,9 @@ channels:
 # Only libraries *not* available in PyPI should be here
 dependencies:
 - python=3.9.*
+
+- jupyterlab==4.0.9
+
 #adding math functionality 
 - matplotlib=3.7.*
 - scipy=1.10.*

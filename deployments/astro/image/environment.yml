@@ -10,7 +10,7 @@ dependencies:
 - websockify
 
 - syncthing==1.18.6
-
+- jupyterlab==4.0.9
 - numpy==1.22.*
 - matplotlib==3.5.*
 - graphviz>=2.50.0

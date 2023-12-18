@@ -5,6 +5,8 @@ dependencies:
 
 - syncthing==1.18.6
 
+- jupyterlab==3.4.5
+
 # data8
 - matplotlib==3.4.3
 - ipympl==0.7.0
@@ -28,3 +30,4 @@ dependencies:
   - okpy==1.18.1
   - datascience==0.17.6
   - otter-grader==4.3.4 # Based on request from ericvd and sean.morris
+  - retrolab==0.3.21

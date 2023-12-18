@@ -6,6 +6,8 @@ dependencies:
 
 - syncthing==1.18.6
 
+- jupyterlab==4.0.9
+
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*
 

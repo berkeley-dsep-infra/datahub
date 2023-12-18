@@ -10,6 +10,9 @@ dependencies:
 - nodejs=16 # code-server requires node < 17
 - jupyter-vscode-proxy==0.5
 - code-server==4.10.1
+
+- jupyterlab==4.0.9
+
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*
 - pip:

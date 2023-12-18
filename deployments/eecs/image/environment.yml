@@ -10,6 +10,8 @@ dependencies:
 - jupyter-vscode-proxy=0.1
 - code-server=4.5.2
 
+- jupyterlab==4.0.9
+
 - syncthing=1.18.6
 
 # A linux desktop environment
