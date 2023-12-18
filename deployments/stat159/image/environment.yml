@@ -57,7 +57,11 @@ dependencies:
   - jupyterlab-lsp==5.0.0
   - python-lsp-server==1.7.0
   
-  - jupyterlab-link-share==0.2.5
+  # commented out by sknapp 2023.12.18 due to JL4 incompatibility
+  # https://jira-secure.berkeley.edu/browse/DH-194
+  #
+  # we can revisit when this class is taught again
+  # - jupyterlab-link-share==0.2.5
   - jupyterlab-variableinspector==3.0.9
   - jupyterlab-myst==5.0.0
   - jupyterlab_pygments==0.2.2
