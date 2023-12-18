@@ -37,7 +37,11 @@ dependencies:
   - ipyparallel==8.4.1
   - ipywidgets==8.0.4
   - jupyter-resource-usage==0.7.1
-  - jupyter_bokeh==3.0.5
+  # commented out by sknapp 2023.12.18 due to JL4 incompatibility
+  # https://jira-secure.berkeley.edu/browse/DH-194
+  # 
+  # we can revisit when this class is taught again
+  # - jupyter_bokeh==3.0.7
   - jupyter_server==2.5.0
   - jupyterlab==4.0.9
   - jupyterlab-drawio==0.9.0
