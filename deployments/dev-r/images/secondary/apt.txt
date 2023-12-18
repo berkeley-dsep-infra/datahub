@@ -1,7 +1,7 @@
 # useful utilities
 tar
-vim
 less
+vim
 
 # for nbconvert, knitr, etc.
 texlive-xetex

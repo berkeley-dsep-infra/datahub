@@ -1,6 +1,9 @@
 # Some linux packages for basic terminal work, particularly
 # oriented at users new to Unix/cmd line environments.
 
+# installing less as more just isn't enough
+less
+
 # Download tools
 curl
 wget
@@ -31,3 +34,7 @@ ruby
 
 # Other niceties for command-line work and life
 rsync
+
+# Add chromium to the a11y image for testing with pa11y
+chromium-browser
+

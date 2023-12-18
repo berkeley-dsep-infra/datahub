@@ -88,9 +88,6 @@ dependencies:
 # MUSIC 30, https://github.com/berkeley-dsep-infra/datahub/issues/5047
 - music21==8.3.0
 
-# error converting to PDF https://github.com/berkeley-dsep-infra/datahub/issues/5062
-- pyppeteer==1.0.2
-
 # data8; foundation
 - datascience==0.17.6
 
@@ -254,7 +251,7 @@ dependencies:
   - ipycanvas==0.9.0
 
   # data100 scientific packages
-  - ray==1.13.*
+  - ray==2.8.0
   - xlrd==2.0.1
 
   # data100 visualization

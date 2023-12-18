@@ -1,3 +1,6 @@
+# installing less as more just isn't enough
+less
+
 # For desktop environment
 dbus-x11
 xfce4
