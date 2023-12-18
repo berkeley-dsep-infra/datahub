@@ -17,17 +17,22 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
-
-          # List of other admin users
-
+    loadRoles:
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::all-admins
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: {{cookiecutter.pool_name}}
@@ -57,11 +62,9 @@ jupyterhub:
   #
   #    # Some other class 200, Spring '23; requested in #98776
   #    course::234567::enrollment_type::teacher:
-  #      admin: true
   #      mem_limit: 2096M
   #      mem_guarantee: 2048M
   #    course::234567::enrollment_type::ta:
-  #      admin: true
   #      mem_limit: 2096M
   #      mem_guarantee: 2048M
   #

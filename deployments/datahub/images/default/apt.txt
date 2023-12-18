@@ -7,6 +7,9 @@ micro
 tini
 locales
 
+# for timing builds
+time
+
 # for jupyter-tree-download, #3979
 zip
 
