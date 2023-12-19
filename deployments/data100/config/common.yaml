@@ -81,9 +81,6 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
-      course::1527426::group::Content:
-        mem_limit: 4G
-        mem_guarantee: 4G
     admin:
       mem_limit: 4G
       mem_guarantee: 2G

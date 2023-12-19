@@ -57,7 +57,7 @@ orbs:
               - run:
                   name: Install google cloud sdk
                   command: |
-                    export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+                    export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-457.0.0-linux-x86_64.tar.gz
                     curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
                     # Be careful with quote ordering here. ${PATH} must not be expanded
                     # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -65,6 +65,11 @@ orbs:
                     echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
+
+              - run:
+                  name: Install gcloud auth plugin
+                  command: |
+                    gcloud components install gke-gcloud-auth-plugin
 
               - run:
                   name: Configure credential helper for Google Artifact Registry
@@ -117,9 +122,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.9-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
+            - v3.9-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.9-dependencies-gcloud-363-
+            - v3.9-dependencies-gcloud-457-
 
       - run:
           name: install dependencies
@@ -131,7 +136,7 @@ jobs:
             # Can be removed once https://github.com/docker/docker-py/issues/2225 is merged and released
             pip install --upgrade git+https://github.com/docker/docker-py.git@b6f6e7270ef1acfe7398b99b575d22d0d37ae8bf
 
-            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-457.0.0-linux-x86_64.tar.gz
             curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -144,7 +149,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.9-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
+          key: v3.9-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
@@ -155,7 +160,7 @@ jobs:
       - run:
           name: Install helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
@@ -168,10 +173,16 @@ jobs:
             export PULL_REQUEST_ID=$(git log -1 --pretty=%B | head -n1 | sed 's/^.*#\([0-9]*\).*/\1/')
             export AUTHOR_NAME="$(git log  -1 --pretty=%aN)"
             export PULL_REQUEST_TITLE="$(git log --pretty=%B -1 | tail -n+3)"
-            python3 scripts/post-grafana-annotation.py  \
-              --grafana-url http://grafana.datahub.berkeley.edu\
-              --tag deployment-start \
-              "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
+            
+            # added by sknapp 2023-12-19 to unblock builds
+            # python3 scripts/post-grafana-annotation.py  \
+            #   --grafana-url http://grafana.datahub.berkeley.edu\
+            #   --tag deployment-start \
+            #  "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
+      - run:
+          name: Install gcloud auth plugin
+          command: |
+            gcloud components install gke-gcloud-auth-plugin
 
       - run:
           name: Deploy a11y
@@ -328,7 +339,7 @@ jobs:
       - run:
           name: install google-cloud-sdk
           command: |
-            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-457.0.0-linux-x86_64.tar.gz
             curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -338,7 +349,7 @@ jobs:
       - run:
           name: Setup helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -356,6 +367,7 @@ jobs:
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
           command: |
+            gcloud components install gke-gcloud-auth-plugin
             sops -d -i deployments/datahub/secrets/gke-key.json
             gcloud auth \
               activate-service-account \
@@ -372,7 +384,7 @@ jobs:
             helm upgrade \
               --install --wait \
               --namespace=node-placeholder node-placeholder node-placeholder \
-              -f node-placeholder/secrets.yaml
+              -f node-placeholder/secrets.yaml --debug
 
   deploy-support:
     docker:
@@ -384,7 +396,7 @@ jobs:
       - run:
           name: install google-cloud-sdk
           command: |
-            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+            export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-457.0.0-linux-x86_64.tar.gz
             curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
             # Be careful with quote ordering here. ${PATH} must not be expanded
             # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -404,7 +416,7 @@ jobs:
       - run:
           name: Setup helm3
           command: |
-            curl -L https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | \
+            curl -L https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz | \
               tar -xzf -
             mv linux-amd64/helm /usr/local/bin
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -412,6 +424,7 @@ jobs:
       - run:
           name: Activate credentials for datahub cluster (fall-2019)
           command: |
+            gcloud components install gke-gcloud-auth-plugin
             sops -d -i deployments/datahub/secrets/gke-key.json
             gcloud auth \
               activate-service-account \
@@ -430,7 +443,8 @@ jobs:
               --install --wait \
               --namespace=support \
               support support/ \
-              -f support/secrets.yaml
+              -f support/secrets.yaml \
+              --set installCRDs=true --debug
 
 workflows:
   version: 2

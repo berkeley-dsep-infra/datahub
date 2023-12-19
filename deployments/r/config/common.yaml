@@ -78,8 +78,3 @@ jupyterhub:
       limit: 1G
     image: {}
 
-  custom:
-    group_profiles:
-      course::1527100: # ESPM 157, Fall 2023, issue #4822
-        mem_limit: 4096M
-        mem_guarantee: 4096M
