@@ -122,9 +122,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.9-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
+            - v3.9-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.9-dependencies-gcloud-363-
+            - v3.9-dependencies-gcloud-457-
 
       - run:
           name: install dependencies
@@ -149,7 +149,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.9-dependencies-gcloud-363-{{ checksum "requirements.txt" }}
+          key: v3.9-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
@@ -179,6 +179,10 @@ jobs:
             #   --grafana-url http://grafana.datahub.berkeley.edu\
             #   --tag deployment-start \
             #  "$(echo -en ${PULL_REQUEST_TITLE}\\n\\n${AUTHOR_NAME}: https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pull/${PULL_REQUEST_ID})"
+      - run:
+          name: Install gcloud auth plugin
+          command: |
+            gcloud components install gke-gcloud-auth-plugin
 
       - run:
           name: Deploy a11y
