@@ -443,7 +443,8 @@ jobs:
               --install --wait \
               --namespace=support \
               support support/ \
-              -f support/secrets.yaml --debug
+              -f support/secrets.yaml \
+              --set installCRDs=true --debug
 
 workflows:
   version: 2
