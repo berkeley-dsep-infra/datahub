@@ -57,7 +57,7 @@ orbs:
               - run:
                   name: Install google cloud sdk
                   command: |
-                    export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-363.0.0-linux-x86_64.tar.gz
+                    export GCLOUD_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-457.0.0-linux-x86_64.tar.gz
                     curl -sSL $GCLOUD_URL | tar -xzf - -C ${HOME}
                     # Be careful with quote ordering here. ${PATH} must not be expanded
                     # Don't use ~ here - bash can interpret PATHs containing ~, but most other things can't.
@@ -65,6 +65,11 @@ orbs:
                     echo 'export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"' >> ${BASH_ENV}
                     # Try to tell cloud sdk to use python3
                     echo 'export CLOUDSDK_PYTHON=python3' >> ${BASH_ENV}
+
+              - run:
+                  name: Install gcloud auth plugin
+                  command: |
+                    gcloud components install gke-gcloud-auth-plugin
 
               - run:
                   name: Configure credential helper for Google Artifact Registry
