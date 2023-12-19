@@ -173,19 +173,3 @@ jupyterhub:
             mountPath: /home/jovyan/ugba-88
             subPath: _shared/course/ugba-88
             readOnly: true
-      course::1527534: # CE 103N, Fall 2023, issue #4999
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      course::1528163: # Demog 180, Fall 2023, issue #5004
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      course::1524680: # UGBA88, Fall 2023, issue #5071
-        mem_limit: 3072M
-        mem_guarantee: 3072M
-      course::1527878: # Music 30, Fall 2023, issue #5153
-        mem_limit: 2048M
-        mem_guarantee: 2048M
-      # Econ 144, Fall 2023, issue #5161
-      course::1530164::enrollment_type::teacher:
-        mem_limit: 2048M
-        mem_guarantee: 2048M
