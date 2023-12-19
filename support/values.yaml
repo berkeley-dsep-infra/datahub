@@ -1,7 +1,7 @@
 cert-manager:
   nodeSelector:
     hub.jupyter.org/pool-name: support-pool
-  installCRDs: true
+      #  installCRDs: true
   cainjector:
     nodeSelector:
       hub.jupyter.org/pool-name: support-pool
