@@ -378,7 +378,7 @@ jobs:
             helm upgrade \
               --install --wait \
               --namespace=node-placeholder node-placeholder node-placeholder \
-              -f node-placeholder/secrets.yaml
+              -f node-placeholder/secrets.yaml --debug
 
   deploy-support:
     docker:
@@ -437,7 +437,7 @@ jobs:
               --install --wait \
               --namespace=support \
               support support/ \
-              -f support/secrets.yaml
+              -f support/secrets.yaml --debug
 
 workflows:
   version: 2
