@@ -56,10 +56,6 @@ dependencies:
 # https://github.com/berkeley-dsep-infra/datahub/issues/3324, spring 2022
 - gdown==4.4.0
 
-# LBL summer research internship in materials informatics. Jupyter Book curriculum at https://enze-chen.github.io/mi-book/
-- pymatgen==2023.10.4
-- matminer=0.9.0
-
 # Econ 148, Spring 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4067
 - ipykernel = 6.19.4
 
