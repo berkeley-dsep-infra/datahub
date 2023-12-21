@@ -22,32 +22,34 @@ jupyterhub:
 
   hub:
     loadRoles:
-      # PH 142, Fall 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4860     
-      course-staff-1527948:
-        description: Enable course staff to view and access servers.
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1527948
-          - admin:servers!group=course::1527948
-          - access:servers!group=course::1527948
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
         # this role will be assigned to...
         groups:
-          - course::1527948::enrollment_type::teacher
-          - course::1527948::enrollment_type::ta
-      # PHW 251, Fall 2023, https://github.com/berkeley-dsep-infra/datahub/issues/4995  
-      course-staff-1525339:
-        description: Enable course staff to view and access servers.
-        # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1525339
-          - admin:servers!group=course::1525339
-          - access:servers!group=course::1525339
-        # this role will be assigned to...
-        groups:
-          - course::1525339::enrollment_type::teacher
-          - course::1525339::enrollment_type::ta
+          - course::1524699::group::all-admins
+      ## PHW 251, Spring 2024, #xyz
+      #course-staff-N:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::N
+      #    - admin:servers!group=course::N
+      #    - access:servers!group=course::N
+      #  # this role will be assigned to...
+      #  groups:
+      #    - course::N::enrollment_type::teacher
+      #    - course::N::enrollment_type::ta
 
     extraConfig:
       # Use 1x-<title> in `common.yaml` extraConfig values.
@@ -63,15 +65,6 @@ jupyterhub:
         c.KubeSpawner.working_dir = '/home/rstudio'
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
-    config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
 
   singleuser:
     defaultUrl: /rstudio
