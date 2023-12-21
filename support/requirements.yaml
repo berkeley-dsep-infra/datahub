@@ -1,15 +1,15 @@
 dependencies:
  - name: prometheus-statsd-exporter
-   version: 0.5.0
+   version: 0.11.0
    repository: https://prometheus-community.github.io/helm-charts
  - name: prometheus
-   version: 15.12.0
+   version: 25.8.2
    repository: https://prometheus-community.github.io/helm-charts
  - name: grafana
    version: 6.57.4
    repository: https://grafana.github.io/helm-charts
  - name: cert-manager
-   version: v1.9.1
+   version: v1.13.3
    repository: https://charts.jetstack.io
  - name: ingress-nginx
    version: 4.8.3

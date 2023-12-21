@@ -28,16 +28,22 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
-
-          # List of other admin users
+    loadRoles:
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::all-admins
 
   singleuser:
     nodeSelector:
@@ -72,8 +78,3 @@ jupyterhub:
       limit: 1G
     image: {}
 
-  custom:
-    group_profiles:
-      course::1527100: # ESPM 157, Fall 2023, issue #4822
-        mem_limit: 4096M
-        mem_guarantee: 4096M

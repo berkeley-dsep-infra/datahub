@@ -26,28 +26,35 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
-      #Authenticator:
-      #  admin_users:
-      #    # infrastructure
-      #    - balajialwar
-      #    - felder
-      #    - gmerritt
-      #    - rylo
-      #    - sknapp
     loadRoles:
-      # Data 8, Summer 2023
-      course-staff-1525580:
-        description: Enable course staff to view and access servers.
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1525580
-          - admin:servers!group=course::1525580
-          - access:servers!group=course::1525580
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
         # this role will be assigned to...
         groups:
-          - course::1525580::enrollment_type::teacher
-          - course::1525580::enrollment_type::ta
+          - course::1524699::group::all-admins
+      ## Data 8, Spring 2024
+      #course-staff-N:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::N
+      #    - admin:servers!group=course::N
+      #    - access:servers!group=course::N
+      #  # this role will be assigned to...
+      #  groups:
+      #    - course::N::enrollment_type::teacher
+      #    - course::N::enrollment_type::ta
 
   singleuser:
     nodeSelector:

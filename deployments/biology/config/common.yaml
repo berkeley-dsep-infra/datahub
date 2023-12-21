@@ -21,20 +21,34 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
 
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
-
-          # List of other admin users
-          - psudmant
-          - ingolia
-          - stacy-l
-
+    loadRoles:
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::all-admins
+      # biology admins
+      biology-admins:
+        description: Enable departmental folks to view and access all servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users
+          - admin:servers
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::biology-admins
   custom:
     admin:
       extraVolumeMounts:
