@@ -14,19 +14,19 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   proxy:
     service:
       type: ClusterIP
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   hub:
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-07-11
+      hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
     loadRoles:
       # datahub staff

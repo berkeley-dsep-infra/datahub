@@ -14,7 +14,7 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   hub:
     config:
       Authenticator:
@@ -50,7 +50,7 @@ jupyterhub:
       #    - course::N::enrollment_type::ta
 
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-07-11
+      hub.jupyter.org/pool-name: core-pool-2023-12-21
     initContainers:
       # There's another sidecar, specified in `secrets/staging.yaml` and `secrets/prod.yaml`
       # that keeps this up to date. https://github.com/jupyterhub/kubespawner/issues/468
@@ -90,10 +90,10 @@ jupyterhub:
       type: LoadBalancer
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: datahub-pool

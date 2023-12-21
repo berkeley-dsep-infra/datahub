@@ -7,14 +7,14 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-07-11
+        hub.jupyter.org/pool-name: core-pool-2023-12-21
 
   hub:
     config:
@@ -50,7 +50,7 @@ jupyterhub:
       #    - course::N::enrollment_type::ta
 
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-07-11
+      hub.jupyter.org/pool-name: core-pool-2023-12-21
 
   singleuser:
     nodeSelector:
