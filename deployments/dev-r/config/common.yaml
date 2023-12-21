@@ -21,14 +21,6 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
-      Authenticator:
-        admin_users:
-          # infrastructure
-          - balajialwar
-          #- felder
-          #- gmerritt
-          #- rylo
-          #- sknapp
 
     extraConfig:
       20-hubHome: |
@@ -36,18 +28,34 @@ jupyterhub:
         c.JupyterHub.default_url = '/hub/home'
 
     loadRoles:
-      course-staff-1524699:
-        description: Enable course staff to view and access servers.
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1524699
-          - admin:servers!group=course::1524699
-          - access:servers!group=course::1524699
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
         # this role will be assigned to...
         groups:
-          - course::1524699::enrollment_type::teacher
-          - course::1524699::enrollment_type::ta
+          - course::1524699::group::all-admins
+      ## Course NUM, Spring 2024, #xyz
+      #course-staff-N:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::N
+      #    - admin:servers!group=course::N
+      #    - access:servers!group=course::N
+      #  # this role will be assigned to...
+      #  groups:
+      #    - course::N::enrollment_type::teacher
+      #    - course::N::enrollment_type::ta
 
   singleuser:
     defaultUrl: /rstudio

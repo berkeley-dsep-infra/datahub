@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/berkeley-dsep-infra/datahub/tree/staging.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/berkeley-dsep-infra/datahub/tree/staging)
+
 # Berkeley JupyterHubs 
 
 Contains a fully reproducible configuration for JupyterHub on datahub.berkeley.edu,

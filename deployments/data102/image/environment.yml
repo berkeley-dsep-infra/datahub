@@ -50,4 +50,4 @@ dependencies:
   - gh-scoped-creds==4.1
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
-  - popularity-contest==0.4.1
+  - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling

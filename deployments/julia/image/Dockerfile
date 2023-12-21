@@ -21,8 +21,8 @@ RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
     apt-get install --yes -qq \
-        htop \
         less \
+        htop \
         man \
         nano \
         screen \

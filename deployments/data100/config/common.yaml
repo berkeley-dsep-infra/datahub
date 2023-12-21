@@ -17,18 +17,33 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
     config:
     loadRoles:
-      # Data 100, Fall 2023
-      course-staff-1527426:
-        description: Enable course staff to view and access servers.
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1527426
-          - admin:servers!group=course::1527426
-          - access:servers!group=course::1527426
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
         # this role will be assigned to...
         groups:
-          - course::1527426::group::Admins
+          - course::1524699::group::all-admins
+      ## Data 100, Spring 2024
+      #course-staff-N:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::N
+      #    - admin:servers!group=course::N
+      #    - access:servers!group=course::N
+      #  # this role will be assigned to...
+      #  groups:
+      #    - course::N::group::Admins
 
 #  prePuller:
 #    extraImages:
@@ -56,8 +71,8 @@ jupyterhub:
           subPath: _shared
           readOnly: true
     memory:
-      guarantee: 4G
-      limit: 4G
+      guarantee: 2G
+      limit: 2G
     image: {}
 
   custom:
@@ -66,9 +81,6 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
-      course::1527426::group::Content:
-        mem_limit: 4G
-        mem_guarantee: 4G
     admin:
       mem_limit: 4G
       mem_guarantee: 2G

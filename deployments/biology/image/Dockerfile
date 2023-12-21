@@ -10,8 +10,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV NB_USER jovyan
 ENV NB_UID 1000
 
-ENV CONDA_DIR /opt/conda
-ENV R_LIBS_USER /opt/r
+ENV CONDA_DIR /srv/conda
+ENV R_LIBS_USER /srv/r
 
 # Explicitly add littler to PATH
 # See https://github.com/conda-forge/r-littler-feedstock/issues/6
@@ -49,8 +49,8 @@ RUN apt-get update -qq --yes && \
 # Useful utils that folks sort of take for granted
 RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
-        htop \
         less \
+        htop \
         man \
         nano \
         screen \
@@ -169,7 +169,9 @@ USER ${NB_USER}
 COPY environment.yml /tmp/
 COPY infra-requirements.txt /tmp/
 
-RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && mamba clean -afy
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+    mamba clean -afy
+
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
@@ -180,10 +182,6 @@ COPY rsession.conf /etc/rstudio/rsession.conf
 # Use simpler locking strategy
 COPY file-locks /etc/rstudio/file-locks
 
-#install rsession proxy
-RUN pip install --no-cache-dir \
-        jupyter-rsession-proxy==2.0.1
-
 # Install IRKernel
 RUN r -e "install.packages('IRkernel', version='1.2')" && \
     r -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
@@ -191,7 +189,7 @@ RUN r -e "install.packages('IRkernel', version='1.2')" && \
 # Install R packages, cleanup temp package download location
 COPY install.R /tmp/install.R
 RUN r /tmp/install.R && \
- 	rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+    rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # install bio1b packages
 COPY bio1b-packages.bash /tmp/bio1b-packages.bash

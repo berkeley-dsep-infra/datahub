@@ -93,16 +93,14 @@ node-placeholder-scaler:
   - 'deployments/data102/**'
 'hub: data8':
   - 'deployments/data8/**'
-#'hub: data8x':
-#  - 'deployments/data8x/**'
-'hub: data8xv2':
-  - 'deployments/data8xv2/**'
 'hub: datahub':
   - 'deployments/datahub/**'
 'hub: dlab':
   - 'deployments/dlab/**'
 'hub: dev-r':
   - 'deployments/dev-r/**'
+'hub: edx':
+  - 'deployments/edx/**'
 'hub: eecs':
   - 'deployments/eecs/**'
 'hub: highschool':

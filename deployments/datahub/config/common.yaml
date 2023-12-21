@@ -19,60 +19,35 @@ jupyterhub:
     config:
       Authenticator:
         auto_login_oauth2_authorize: True
-        admin_users:
-          # infrastructure
-          - balajialwar
-          - felder
-          - gmerritt
-          - rylo
-          - sknapp
-
-          # regular instructors
-          - adhikari
-          - culler
-          - daw
-          - denero
-          - ramesh_s
-          - suraj.rampure
-          - swupnil
-          - terry.regier
-          # dsep staff
-          - ericvd
-          - ktakimoto
-          - ryanedw
-          #As per the request from David Broockman (Political Science Instructor)
-          - broockman
-          - castro.ian
-          #As per the request from James Sears (Environmental Econ GSI) - https://github.com/berkeley-dsep-infra/datahub/issues/3229
-          - lenjb
     loadRoles:
-      # Haas 247, Fall 2023
-      course-staff-1524846:
-        description: Enable course staff to view and access servers.
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1524846
-          - admin:servers!group=course::1524846
-          - access:servers!group=course::1524846
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
         # this role will be assigned to...
         groups:
-          - course::1524846::enrollment_type::teacher
-          - course::1524846::enrollment_type::ta
-
-      # UGBA 88, Fall 2023; rhuntsinger instructor
-      course-staff-1524680:
-        description: Enable course staff to view and access servers.
-        # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1524680
-          - admin:servers!group=course::1524680
-          - access:servers!group=course::1524680
-        # this role will be assigned to...
-        groups:
-          - course::1524680::enrollment_type::teacher
-          - course::1524680::enrollment_type::ta
+          - course::1524699::group::all-admins
+      ## Course NUM, Spring 2024, #xyz
+      #course-staff-N:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::N
+      #    - admin:servers!group=course::N
+      #    - access:servers!group=course::N
+      #  # this role will be assigned to...
+      #  groups:
+      #    - course::N::enrollment_type::teacher
+      #    - course::N::enrollment_type::ta
 
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-07-11
@@ -146,6 +121,13 @@ jupyterhub:
         - name: home
           mountPath: /home/jovyan/.rstudio
           subPath: '{username}/.datahub-rstudio'
+    extraFiles:
+      # DH-164
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.PDFExporter.enabled = False
     memory:
       guarantee: 512M
       limit: 1G
@@ -191,19 +173,3 @@ jupyterhub:
             mountPath: /home/jovyan/ugba-88
             subPath: _shared/course/ugba-88
             readOnly: true
-      course::1527534: # CE 103N, Fall 2023, issue #4999
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      course::1528163: # Demog 180, Fall 2023, issue #5004
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-      course::1524680: # UGBA88, Fall 2023, issue #5071
-        mem_limit: 3072M
-        mem_guarantee: 3072M
-      course::1527878: # Music 30, Fall 2023, issue #5153
-        mem_limit: 2048M
-        mem_guarantee: 2048M
-      # Econ 144, Fall 2023, issue #5161
-      course::1530164::enrollment_type::teacher:
-        mem_limit: 2048M
-        mem_guarantee: 2048M
