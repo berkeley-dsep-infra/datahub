@@ -6,8 +6,8 @@ install.packages("devtools")
 source("/tmp/class-libs.R")
 
 # install ottr, needs to go first issue #3216
-# install ottr, 1.3.0, issue #4008
-devtools::install_version("ottr", version = "1.3.0", repos = "https://cran.r-project.org", upgrade = "never", quiet = FALSE)
+# install ottr, 1.4.0, issue #5314
+devtools::install_version("ottr", version = "1.4.0", repos = "https://cran.r-project.org", upgrade = "never", quiet = FALSE)
 
 # dplyr package + backends
 # From https://github.com/rocker-org/rocker-versioned2/blob/b8d23396468c5dc73115cce6c5716424d80ffcb0/scripts/install_tidyverse.sh#L30
