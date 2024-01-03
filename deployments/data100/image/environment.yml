@@ -13,11 +13,12 @@ dependencies:
 - jupyterlab_widgets==3.0.8
 - jupyter_server==2.7.0
 - nbgitpuller==1.1.1
-- notebook==7.0.2
+- notebook==7.0.6
 - folium==0.14.0
 - h5netcdf==1.0.2
 - ipywidgets==8.0.7
 - jupysql==0.8.0
+- jupyter-archive==3.4.0
 - jupyterlab==4.0.4
 - matplotlib==3.7.1
 - mdit-py-plugins==0.4.0
