@@ -59,7 +59,7 @@ jupyterhub:
   singleuser:
     nodeSelector:
       hub.jupyter.org/pool-name: data8-pool
-    defaultUrl: /retro
+    defaultUrl: /tree
     storage:
       type: static
       static:
