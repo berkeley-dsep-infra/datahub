@@ -4,8 +4,6 @@ dependencies:
 - python==3.9.*
 
 # Packages ported from infra-reqs
-# https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
-- git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
 - jupyterhub==4.0.2
 - jupyter-resource-usage==1.0.1
 - nbgitpuller==1.1.0
@@ -40,3 +38,5 @@ dependencies:
   - notebook-as-pdf==0.5.0
 # Conda only has 0.12.0
   - okpy==1.18.1
+  - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+
