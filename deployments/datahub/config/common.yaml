@@ -173,3 +173,9 @@ jupyterhub:
             mountPath: /home/jovyan/ugba-88
             subPath: _shared/course/ugba-88
             readOnly: true
+      course::1530121: # ARE 212, Spring 2024, issue #5278
+        mem_limit: 4096M
+        mem_guarantee: 4096M
+      course::1531172: # ENVECON 153, Spring 2024, issue #5279
+        mem_limit: 4096M
+        mem_guarantee: 4096M
