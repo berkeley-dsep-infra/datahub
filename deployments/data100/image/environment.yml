@@ -35,6 +35,10 @@ dependencies:
 - tensorflow-cpu==2.12.1
 - sqlalchemy==2.0.16
 - mlxtend==0.23.0
+- geopandas==0.14.2
+- geopy==2.4.1
+- lifelines==0.27.8
+- pycountry==22.3.5
 - pip
 - pip:
   # - -r infra-requirements.txt
@@ -46,3 +50,4 @@ dependencies:
   - pytest-notebook==0.8.1
   - gh-scoped-creds==4.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+  - ydata-profiling==4.6.4
