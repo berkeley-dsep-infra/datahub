@@ -28,11 +28,10 @@ dependencies:
 - nltk=3.6.*
 
 # 3577, L&S 22, Spring 2023
-- spacy-model-en_core_web_sm=3.4.0
-- spacy-model-en_core_web_lg=3.4.0
-- spacy-model-en_core_web_md=3.4.0
-- spacy-model-en_core_web_trf=3.4.0
-- lemminflect=0.2.2
+# Packages listed below will be used during SP 25
+# - spacy-model-en_core_web_sm=3.4.0
+# - spacy-model-en_core_web_md=3.4.0
+# - lemminflect=0.2.2
 
 # EPS88, data100
 # https://github.com/berkeley-dsep-infra/datahub/issues/1796
