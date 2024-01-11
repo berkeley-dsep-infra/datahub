@@ -1,17 +1,17 @@
-name: Admin Access Request
-description: Request admin access for your instance of Datahub
+name: Request Elevated Privileges for Course Staff
+description: Enable course staff to manage student servers
 labels: "support"
-assignees: 
+assignees:
 - balajialg
 body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template below and share the required information for providing admin access! If you are curious to understand the process through which we assign admin users, please refer to this documentation - https://docs.datahub.berkeley.edu/en/latest/admins/howto/course-config.html#defining-group-profiles 	
+        Course staff may be assigned elevated privileges on a hub to view and manage student servers. Please follow the sections in the template below and share the required information. If you are curious to understand the process through which we assign privileges, please refer to [our documentation](https://docs.datahub.berkeley.edu/en/latest/admins/howto/course-config.html#defining-group-profiles).
   - type: input
     attributes:
       label: Your Name
-      description: 
+      description:
     validations:
       required: true
   - type: input
@@ -22,16 +22,16 @@ body:
       required: true
   - type: input
     attributes:
-      label: Bcourses Id
-      description: bcourses id for the course you are teaching. You can find that in the URL to your course (It is a six digit number). Please ensure that the course is published in bcourses. If not, Datahub will not get the required group information from an unpublished course in bcourses.
+      label: bCourses ID
+      description: bCourses ID for the course you are teaching. You can find that in the URL to your course -- it is a six digit number. The course needs to be set to Published in bCourses, otherwise the hub will not be able to assign extra privileges.
     validations:
       required: true
   - type: input
     attributes:
       label: Role
-      description: Your role as part of the teaching team!
+      description: Your role as part of the teaching team
     validations:
-      required: true    
+      required: true
   - type: input
     attributes:
       label: Name of the Hub
@@ -40,13 +40,10 @@ body:
         - <!-- Eg: Datahub/Data 8/Data 100 etc.. -->
     validations:
       required: true
-  - type: markdown
-    attributes:
-      value: Remove @berkeley.edu as part of the shared usernames and send them to ds-infrastructure@lists.berkeley.edu
   - type: textarea
     attributes:
       label: End Date
-      description: Till when do you need admin access for the shared usernames
+      description: Until when is elevated access needed
       value: |
         - <!-- MM/DD/YY -->
     validations:
@@ -54,8 +51,8 @@ body:
   - type: textarea
     attributes:
       label: Request Deadline
-      description: By when do you want admin access provisioned 
+      description: By when do you need elavated access provisioned
       value: |
         <!-- Any specific date(s) (MM/DD) to prioritize this request at our end? -->
     validations:
-      required: true 
+      required: true
