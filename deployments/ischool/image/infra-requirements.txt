@@ -10,7 +10,6 @@
 # FIXME: Freeze this to get exact versions of all dependencies
 notebook==6.4.12
 jupyterlab==4.0.10
-retrolab==0.3.21
 nbgitpuller==1.1.0
 jupyter-resource-usage==0.6.1
 # Matches version in images/hub/Dockerfile
