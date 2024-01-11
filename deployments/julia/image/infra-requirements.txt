@@ -28,3 +28,5 @@ git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handli
 RISE==5.7.1
 # syncthing for dropbox-like functionality
 jupyter-syncthing-proxy==1.0.3
+# jupyter archival tool for easy user downloads
+jupyter-archive==3.4.0
