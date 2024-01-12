@@ -136,6 +136,7 @@ COPY environment.yml /tmp/environment.yml
 
 RUN echo "/srv/conda/bin/mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 RUN echo "/srv/conda/bin/mamba clean -afy" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
+RUN echo "/srv/conda/bin/pip install --no-cache -r /tmp/infra-requirements.txt" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
