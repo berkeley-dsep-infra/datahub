@@ -141,7 +141,7 @@ RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
 # Used by MCB32, but incompatible with ipywidgets 8.x
-RUN jupyter nbextension enable --py --sys-prefix qgrid
+# RUN jupyter nbextension enable --py --sys-prefix qgrid
 
 # install chromium browser for playwright
 # https://github.com/berkeley-dsep-infra/datahub/issues/5062
