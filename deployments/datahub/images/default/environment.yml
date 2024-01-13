@@ -1,5 +1,3 @@
-# will this build w/o timing out?
-#
 # https://docs.conda.io/projects/conda-build/en/latest/resources/package-spec.html#examples
 # For conda, == is exact constraint, while = is fuzzy constraint.
 # pip uses https://peps.python.org/pep-0440/ which does not have =.
