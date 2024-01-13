@@ -32,18 +32,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
-      ## Data 100, Spring 2024
-      #course-staff-N:
-      #  description: Enable course staff to view and access servers.
-      #  # this role provides permissions to...
-      #  scopes:
-      #    - admin-ui
-      #    - list:users!group=course::N
-      #    - admin:servers!group=course::N
-      #    - access:servers!group=course::N
-      #  # this role will be assigned to...
-      #  groups:
-      #    - course::N::group::Admins
+      # Data 100, Spring 2024, `1531798` is the bCourses course ID
+      course-staff-1531798:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1531798
+          - admin:servers!group=course::1531798
+          - access:servers!group=course::1531798
+        # this role will be assigned to...
+        groups:
+          - course::1531798::group::Admins
 
 #  prePuller:
 #    extraImages:
@@ -81,6 +81,9 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
+      course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
+        mem_limit: 4G
+        mem_guarantee: 4G
     admin:
       mem_limit: 4G
       mem_guarantee: 2G
