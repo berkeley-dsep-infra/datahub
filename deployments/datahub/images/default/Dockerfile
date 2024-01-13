@@ -137,8 +137,9 @@ COPY environment.yml /tmp/environment.yml
 RUN echo "/srv/conda/bin/mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 RUN echo "/srv/conda/bin/mamba clean -afy" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
-RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
-    jupyter nbextensions_configurator enable --sys-prefix
+# 2024-01-13 sknapp: incompatible due to notebook 7
+# RUN jupyter contrib nbextensions install --sys-prefix --symlink
+# RUN jupyter nbextensions_configurator enable --sys-prefix
 
 # Used by MCB32, but incompatible with ipywidgets 8.x
 # RUN jupyter nbextension enable --py --sys-prefix qgrid
@@ -154,8 +155,9 @@ RUN playwright install chromium
 # Install IR kernelspec
 RUN echo "/usr/bin/r -e \"IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')\"" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 
-COPY d8extension.bash /usr/local/sbin/d8extension.bash
-RUN /usr/local/sbin/d8extension.bash
+# 2024-01-13 sknapp: incompatible due to notebook 7
+# COPY d8extension.bash /usr/local/sbin/d8extension.bash
+# RUN /usr/local/sbin/d8extension.bash
 
 ENV NLTK_DATA ${CONDA_DIR}/nltk_data
 COPY connectors/text.bash /usr/local/sbin/connector-text.bash
