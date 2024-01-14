@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-jupyter contrib nbextensions install --sys-prefix --symlink
-jupyter nbextensions_configurator enable --sys-prefix
+# 2024-01-13 sknapp: incompatible due to notebook 7
+# jupyter contrib nbextensions install --sys-prefix --symlink
+# jupyter nbextensions_configurator enable --sys-prefix
