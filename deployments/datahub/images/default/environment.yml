@@ -80,7 +80,7 @@ dependencies:
 - beautifulsoup4==4.9.3
 
 # PS88 https://github.com/berkeley-dsep-infra/datahub/issues/2925
-- linearmodels==5.7
+- linearmodels==5.4
 
 # JupyterLab pypi extensions
 - jupyterlab-geojson==3.4.0
