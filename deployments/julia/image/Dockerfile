@@ -56,7 +56,6 @@ RUN mamba env update -p ${CONDA_DIR}  -f /tmp/environment.yml && mamba clean -af
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
-
 RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
     jupyter nbextensions_configurator enable --sys-prefix
 
