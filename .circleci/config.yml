@@ -14,7 +14,7 @@ orbs:
         docker:
           - image: python:3.9-slim-bullseye
         working_directory: ~/repo
-        resource_class: xlarge          
+        resource_class: xlarge
         steps:
           - checkout
           - run:
