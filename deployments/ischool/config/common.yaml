@@ -61,6 +61,9 @@ jupyterhub:
           - course::1524699::group::ischool-admins
 
   singleuser:
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     defaultUrl: /lab
     nodeSelector:
       hub.jupyter.org/pool-name: ischool-pool
