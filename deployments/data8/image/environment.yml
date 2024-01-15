@@ -12,6 +12,7 @@ dependencies:
 # data8
 - datascience==0.17.6
 - folium==0.15.1
+- jupyter-archive==3.4.0
 - jupyterlab==4.0.10
 - jupyter_server==2.7.0
 - matplotlib==3.4.3

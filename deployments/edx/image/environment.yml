@@ -6,6 +6,7 @@ channels:
 dependencies:
 - python==3.11.0
 - git==2.39.1
+- jupyter-archive==3.4.0
 - jupyter-resource-usage==1.0.0
 - jupyterlab==4.0.9
 - jupyterlab-favorites==3.0.0
@@ -40,7 +41,6 @@ dependencies:
   # - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.2
   - jupyterlab-accessible-themes==0.2.0
-  - jupyter-archive==3.4.0
   - nbconvert==7.6.0
   - pytest-notebook==0.8.1
   - gh-scoped-creds==4.1
