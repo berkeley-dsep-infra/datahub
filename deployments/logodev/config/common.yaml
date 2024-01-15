@@ -38,6 +38,9 @@ jupyterhub:
         c.JupyterHub.logo_file = '/srv/logos/dlab-logo-notebook.png'
 
   singleuser:
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       hub.jupyter.org/pool-name: small-courses-pool
     storage:
