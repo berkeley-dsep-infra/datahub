@@ -8,20 +8,19 @@
 # everwhere one by one.
 
 # FIXME: Freeze this to get exact versions of all dependencies
-notebook==6.4.12
-jupyterlab==3.4.5
-retrolab==0.3.21
-nbgitpuller==1.1.0
-jupyter-resource-usage==0.6.1
+notebook==7.0.6
+jupyterlab==4.0.10
+nbgitpuller==1.2.0
+jupyter-resource-usage==1.0.1
 # Matches version in images/hub/Dockerfile
 jupyterhub==4.0.2
 appmode==0.8.0
-ipywidgets==7.7.2
+ipywidgets==8.0.7
 jupyter-tree-download==1.0.1
 git-credential-helpers==0.2
 # Enough people like this, let's load it in.
-jupyter-contrib-nbextensions==0.5.1
-jupyter_nbextensions_configurator==0.4.1
+jupyter-contrib-nbextensions==0.7.0
+jupyter_nbextensions_configurator==0.6.3
 # Measure popularity of different packages in our hubs
 # https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
 git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
@@ -29,3 +28,5 @@ git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handli
 RISE==5.7.1
 # syncthing for dropbox-like functionality
 jupyter-syncthing-proxy==1.0.3
+# jupyter archival tool for easy user downloads
+jupyter-archive==3.4.0

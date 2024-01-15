@@ -56,8 +56,10 @@ RUN mamba env update -p ${CONDA_DIR}  -f /tmp/environment.yml && mamba clean -af
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
-RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
-    jupyter nbextensions_configurator enable --sys-prefix
+
+# 2024-01-13 sknapp: incompatible due to notebook 7
+# RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
+#     jupyter nbextensions_configurator enable --sys-prefix
 
 COPY install-julia.bash /tmp/install-julia.bash
 RUN /tmp/install-julia.bash
