@@ -31,6 +31,7 @@ dependencies:
   # https://github.com/berkeley-dsep-infra/datahub/issues/3693
   - notebook==7.1.0a1
   - jupyterlab==4.1.0b0
+  - nbconvert-a11y==2023.12.6
   # ###
   # The items below are from infra-requirements, however lab conflicts with the
   # alpha notebook.
