@@ -49,5 +49,5 @@ dependencies:
   - nbconvert==7.6.0
   - pytest-notebook==0.8.1
   - gh-scoped-creds==4.1
-  - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+  - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling 
   - ydata-profiling==4.6.4
