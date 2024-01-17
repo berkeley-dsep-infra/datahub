@@ -50,3 +50,4 @@ dependencies:
   - gh-scoped-creds==4.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
   - ydata-profiling==4.6.4
+
