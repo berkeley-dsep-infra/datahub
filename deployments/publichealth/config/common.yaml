@@ -67,6 +67,9 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
 
   singleuser:
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     defaultUrl: /rstudio
 
     nodeSelector:
@@ -101,4 +104,9 @@ jupyterhub:
     group_profiles:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
+        admin: true
+      # PH 142, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5368
+      course::1532521::enrollment_type::teacher:
+        admin: true
+      course::1532521::enrollment_type::ta:
         admin: true

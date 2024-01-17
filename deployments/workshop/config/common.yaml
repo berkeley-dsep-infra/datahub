@@ -35,6 +35,9 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2023-12-21
   singleuser:
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       # Co-locate with datahub, since workshop shares its image
       hub.jupyter.org/pool-name: datahub-pool

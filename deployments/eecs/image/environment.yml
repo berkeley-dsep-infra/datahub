@@ -5,6 +5,7 @@ channels:
 # Only libraries *not* available in PyPI should be here
 dependencies:
 - python=3.9.*
+- nbclassic==1.0.0
 
 # Visual Studio Code!
 - jupyter-vscode-proxy=0.1

@@ -49,6 +49,9 @@ jupyterhub:
         groups:
           - course::1524699::group::dlab-admins
   singleuser:
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
     storage:
