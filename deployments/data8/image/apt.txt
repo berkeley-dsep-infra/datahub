@@ -4,10 +4,22 @@
 # installing less as more just isn't enough
 less
 
+# Basic unix tools
+man
+man-db
+manpages-posix
+manpages-dev
+manpages-posix-dev
+
 # Download tools
 curl
 wget
-vim
+
+# A couple of CLI editors that are easier than vim
+# micro  # currently not working on 18.04
+nano
+jed
+jed-extra
 
 # for easily managing multiple repositories with one command (perl-doc
 # is needed for its help pages to work)
@@ -16,6 +28,7 @@ perl-doc
 
 # Regular build tools for compiling common stuff
 build-essential
+gfortran
 
 # Dependencies for nbconvert
 texlive-xetex
@@ -29,12 +42,38 @@ lmodern
 pandoc
 latexdiff
 
+chromium-browser
+
 # Some useful git utilities use basic Ruby
 ruby
 
 # Other niceties for command-line work and life
+ack   # powerful grep-like tool
+pydf  # colorized disk usage
+tmux
+screen
+htop
+nnn   # cmd line file manager
+zsh
 rsync
+tig  # console UI for git
+multitail
 
-# Add chromium to the a11y image for testing with pa11y
-chromium-browser
+# For later, these are not available in 18.04
+#browsh # text-based web browser, occasionally handy
+#dasel  # json/yml/csv/etc data wrangling at the terminal
+#fzf   # fuzzy file finder
 
+# GUI text editors
+emacs
+vim-gtk3
+gedit
+
+# Git clients and tools
+git-gui
+gitg
+qgit
+meld
+
+# For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979
+zip
