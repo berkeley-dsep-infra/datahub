@@ -1,0 +1,40 @@
+# Some linux packages for basic terminal work, particularly
+# oriented at users new to Unix/cmd line environments.
+
+# installing less as more just isn't enough
+less
+
+# Download tools
+curl
+wget
+vim
+
+# for easily managing multiple repositories with one command (perl-doc
+# is needed for its help pages to work)
+mr
+perl-doc
+
+# Regular build tools for compiling common stuff
+build-essential
+
+# Dependencies for nbconvert
+texlive-xetex
+texlive-fonts-recommended
+texlive-plain-generic
+# https://github.com/berkeley-dsep-infra/datahub/issues/3719
+texlive-lang-chinese
+lmodern
+
+# Other useful document-related tools
+pandoc
+latexdiff
+
+# Some useful git utilities use basic Ruby
+ruby
+
+# Other niceties for command-line work and life
+rsync
+
+# Add chromium to the a11y image for testing with pa11y
+chromium-browser
+
