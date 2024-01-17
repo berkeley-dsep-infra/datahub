@@ -36,7 +36,6 @@ dependencies:
 #- -r infra-requirements.txt
   - jupyter-tree-download==1.0.1
 # Export notebooks as PDFs with Chrome
-  - notebook-as-pdf==0.5.0
   - nbconvert==7.6.0
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
