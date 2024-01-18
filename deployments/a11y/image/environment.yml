@@ -32,9 +32,9 @@ dependencies:
   - notebook==7.1.0a1
   - jupyterlab==4.1.0b0
   - nbconvert-a11y==2023.12.6
-    #- nbconvert==7.6.0
-  - nbconvert[webpdf]==7.6.0
-    #- playwright==1.40.0
+  - nbconvert==7.6.0
+  - nb2pdf==0.6.2
+  - nbpdfexport==0.2.1
   # ###
   # The items below are from infra-requirements, however lab conflicts with the
   # alpha notebook.
