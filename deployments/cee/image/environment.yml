@@ -24,4 +24,7 @@ dependencies:
   - jupyter-desktop-server==0.1.3
   - -r infra-requirements.txt
   - otter-grader==3.1.4  
-
+  # for notebook exporting
+  - nbconvert==7.6.0
+  - nb2pdf==0.6.2
+  - nbpdfexport==0.2.1
