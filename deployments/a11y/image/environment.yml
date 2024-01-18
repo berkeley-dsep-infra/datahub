@@ -25,8 +25,6 @@ dependencies:
 - jupyterthemes==0.20.0
 - jupyterlab-accessible-themes==0.1.1  
 - jupyterlab_pygments==0.2.2
-# just to trigger an image build
-- pandas
 - pip:
   #- -r infra-requirements.txt
   # Upgrade separate from what everyone else uses for now
