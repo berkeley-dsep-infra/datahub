@@ -99,9 +99,12 @@ dependencies:
   # - -r /tmp/infra-requirements.txt
   # Econ 148, Spring 2023 https://github.com/berkeley-dsep-infra/datahub/issues/4093
   - pycountry-convert==0.7.2
-  # error converting to PDF https://github.com/berkeley-dsep-infra/datahub/issues/5062
+  # Options to convert notebooks to pdf; error converting to PDF https://github.com/berkeley-dsep-infra/datahub/issues/5062
   - nbconvert[webpdf]
-  #
+  - nbconvert==7.6.0
+  - nb2pdf==0.6.2
+  - nbpdfexport==0.2.1  
+  
   # Former contents of requirements.txt
   # Some things were moved up to conda above.
   #
