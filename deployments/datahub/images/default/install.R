@@ -144,7 +144,7 @@ cran_packages = c(
   "repr", "1.1.0",
   "reprex", "0.3.0",
   "reshape", "0.8.8",
-  "reticulate", "1.18",
+  "reticulate", "1.34.0",
   "rgeos", "0.5-5",
   "rgl", "0.103.5",
   "rjson", "0.2.20",
