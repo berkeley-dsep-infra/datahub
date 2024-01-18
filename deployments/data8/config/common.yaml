@@ -57,6 +57,14 @@ jupyterhub:
       #    - course::N::enrollment_type::ta
 
   singleuser:
+    extraFiles:
+      # DH-216 Removing QtPDF, QtPNG as per Data 8 GSI inputs
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.enabled = False
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
