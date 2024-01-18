@@ -87,11 +87,7 @@ orbs:
                     chmod 755 ${HOME}/repo/bin/sops
                     echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
 
-          - setup_remote_docker:
-              # fixes a docker permission problem
-              # https://support.circleci.com/hc/en-us/articles/360050934711
-              # https://circleci.com/docs/2.0/building-docker-images/
-              version: 20.10.17
+          - setup_remote_docker
           - save_cache:
               paths:
                 - ./venv
