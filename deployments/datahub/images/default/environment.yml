@@ -101,9 +101,7 @@ dependencies:
   - pycountry-convert==0.7.2
   # Options to convert notebooks to pdf; error converting to PDF https://github.com/berkeley-dsep-infra/datahub/issues/5062
   - nbconvert[webpdf]==7.6.0
-  - nb2pdf==0.6.2
-  - nbpdfexport==0.2.1  
-  
+  - nbconvert==7.6.0
   # Former contents of requirements.txt
   # Some things were moved up to conda above.
   #
