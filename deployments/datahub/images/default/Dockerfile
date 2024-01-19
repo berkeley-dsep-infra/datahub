@@ -46,7 +46,8 @@ RUN curl --silent --location --fail https://cloud.r-project.org/bin/linux/ubuntu
 RUN apt-get update --yes > /dev/null && \
     apt-get install --yes -qq r-base-core=${R_VERSION} r-base-dev=${R_VERSION} littler=${LITTLER_VERSION} > /dev/null
 
-ENV RSTUDIO_URL https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.06.0-421-amd64.deb
+#ENV RSTUDIO_URL https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.06.0-421-amd64.deb
+ENV RSTUDIO_URL https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.12.0-369-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     apt install --no-install-recommends --yes /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
