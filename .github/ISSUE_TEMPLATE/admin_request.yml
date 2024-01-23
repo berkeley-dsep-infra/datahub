@@ -32,12 +32,30 @@ body:
       description: Your role as part of the teaching team
     validations:
       required: true
-  - type: input
+  - type: dropdown
     attributes:
-      label: Name of the Hub
+      label: Hub URL
       description: Hub that you are currently using for teaching/research
-      value: |
-        - <!-- Eg: Datahub/Data 8/Data 100 etc.. -->
+      options:
+        - datahub.berkeley.edu
+        - r.datahub.berkeley.edu
+        - a11y.datahub.berkeley.edu
+        - astro.datahub.berkeley.edu
+        - biology.datahub.berkeley.edu
+        - cee.datahub.berkeley.edu
+        - data100.datahub.berkeley.edu
+        - data101.datahub.berkeley.edu
+        - data102.datahub.berkeley.edu
+        - data8.datahub.berkeley.edu
+        - dlab.datahub.berkeley.edu
+        - eecs.datahub.berkeley.edu
+        - ischool.datahub.berkeley.edu
+        - julia.datahub.berkeley.edu
+        - prob140.datahub.berkeley.edu
+        - publichealth.datahub.berkeley.edu
+        - stat159.datahub.berkeley.edu
+        - stat20.datahub.berkeley.edu
+        - other
     validations:
       required: true
   - type: textarea
