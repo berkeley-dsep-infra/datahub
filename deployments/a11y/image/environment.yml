@@ -15,6 +15,7 @@ dependencies:
 - matplotlib==3.7.1
 - nbgitpuller==1.1.1
 - nbclassic==1.0.0
+- nbconvert==7.14.2
 - numpy==1.24.2
 - plotly==5.13.1
 - pyopenssl==23.1.0
@@ -32,7 +33,6 @@ dependencies:
   - notebook==7.1.0a1
   - jupyterlab==4.1.0b0
   - nbconvert-a11y==2023.12.6
-  - nbconvert==7.6.0
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
   # ###
