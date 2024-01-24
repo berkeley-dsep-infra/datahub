@@ -45,6 +45,7 @@ dependencies:
   - pytest-notebook==0.8.1
   - gh-scoped-creds==4.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+  - ipyleaflet==0.18.1
   - otter-grader==4.4.1
   - otter-submit==0.1.2
   - sympy==1.12
