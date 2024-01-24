@@ -18,13 +18,30 @@ body:
       value:
     validations:
       required: true
-  - type: textarea
+  - type: dropdown
     attributes:
-      label: Hub details
-      description: Which hub do you want it installed on? For example r.datahub, datahub, data100.datahub, etc.
-      value: |
-        - Hub: <!--[e.g. Datahub, Data 8, Data 100, Public Health, ...]-->
-        - Language: <!--[Python, Julia, R, ...]-->
+      label: Hub URL
+      description: Hub that you are currently using for teaching/research
+      options:
+        - datahub.berkeley.edu
+        - r.datahub.berkeley.edu
+        - a11y.datahub.berkeley.edu
+        - astro.datahub.berkeley.edu
+        - biology.datahub.berkeley.edu
+        - cee.datahub.berkeley.edu
+        - data100.datahub.berkeley.edu
+        - data101.datahub.berkeley.edu
+        - data102.datahub.berkeley.edu
+        - data8.datahub.berkeley.edu
+        - dlab.datahub.berkeley.edu
+        - eecs.datahub.berkeley.edu
+        - ischool.datahub.berkeley.edu
+        - julia.datahub.berkeley.edu
+        - prob140.datahub.berkeley.edu
+        - publichealth.datahub.berkeley.edu
+        - stat159.datahub.berkeley.edu
+        - stat20.datahub.berkeley.edu
+        - other
     validations:
       required: true
   - type: textarea

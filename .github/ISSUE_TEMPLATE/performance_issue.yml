@@ -26,13 +26,30 @@ body:
       description: Name of the course for which you are part of the teaching team
     validations:
       required: true
-  - type: textarea
+  - type: dropdown
     attributes:
-      label: Environment & Setup
-      description: In which environment does the problem occur
-      value: |
-        - Hub URL: <!--[e.g. datahub.berkeley.edu, data8.datahub.berkeley.edu, publichealth.datahub.berkeley.edu ...]-->
-        - Language: <!--[Python, Julia, R, ...]-->
+      label: Hub URL
+      description: Hub that you are currently using for teaching/research
+      options:
+        - datahub.berkeley.edu
+        - r.datahub.berkeley.edu
+        - a11y.datahub.berkeley.edu
+        - astro.datahub.berkeley.edu
+        - biology.datahub.berkeley.edu
+        - cee.datahub.berkeley.edu
+        - data100.datahub.berkeley.edu
+        - data101.datahub.berkeley.edu
+        - data102.datahub.berkeley.edu
+        - data8.datahub.berkeley.edu
+        - dlab.datahub.berkeley.edu
+        - eecs.datahub.berkeley.edu
+        - ischool.datahub.berkeley.edu
+        - julia.datahub.berkeley.edu
+        - prob140.datahub.berkeley.edu
+        - publichealth.datahub.berkeley.edu
+        - stat159.datahub.berkeley.edu
+        - stat20.datahub.berkeley.edu
+        - other
     validations:
       required: true
   - type: textarea
