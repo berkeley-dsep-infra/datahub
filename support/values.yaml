@@ -95,7 +95,7 @@ prometheus:
       limits:
         cpu: 7
         memory: 48Gi
-    labels:
+    podLabels:
       # For HTTP access to the hub, to scrape metrics
       hub.jupyter.org/network-access-hub: 'true'
     persistentVolume:
