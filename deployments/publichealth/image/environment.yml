@@ -7,4 +7,8 @@ dependencies:
   - traitlets==5.9.0
   # - -r /tmp/infra-requirements.txt
   # RStudio support
-  - otter-grader==2.2.7  
+  - otter-grader==2.2.7
+  # for notebook exporting
+  - nbconvert==7.6.0
+  - nb2pdf==0.6.2
+  - nbpdfexport==0.2.1
