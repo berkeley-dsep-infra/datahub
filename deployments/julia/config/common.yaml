@@ -37,7 +37,7 @@ jupyterhub:
           - course::1524699::group::all-admins
   singleuser:
     extraFiles:
-      # DH-164
+      # DH-216
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
