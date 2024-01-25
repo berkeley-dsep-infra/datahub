@@ -70,3 +70,7 @@ dependencies:
   - allensdk==2.13.6
   - otter-grader==3.1.4
   - jupyter-rsession-proxy==2.0.1
+# for exporting notebooks to pdf
+  - nbconvert==7.6.0
+  - nb2pdf==0.6.2
+  - nbpdfexport==0.2.1
