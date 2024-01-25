@@ -23,7 +23,7 @@ body:
   - type: input
     attributes:
       label: bCourses ID
-      description: bCourses ID for the course you are teaching. You can find that in the URL to your course -- it is a six digit number. The course needs to be set to Published in bCourses, otherwise the hub will not be able to assign extra privileges.
+      description: bCourses ID for the course you are teaching. You can find that in the URL to your course -- it is a seven digit number. The course needs to be set to Published in bCourses, otherwise the hub will not be able to assign extra privileges.
     validations:
       required: true
   - type: input
