@@ -227,6 +227,7 @@ jupyterhub:
       # hub.jupyter.org/network-access-hub=true label.
       #
       # ref: https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-networkpolicy-internamespaceaccesslabels
+      # ref: https://github.com/2i2c-org/infrastructure/pull/2648
       #
       interNamespaceAccessLabels: accept
       ingress:
