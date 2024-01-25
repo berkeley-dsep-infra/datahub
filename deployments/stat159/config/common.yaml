@@ -80,6 +80,13 @@ jupyterhub:
       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration
       - --YDocExtension.ystore_class=tmpystore.TmpYStore
     extraFiles:
+      # DH-164
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.enabled = False
       culling-config:
         data:
           # Allow jupyterlab option to show hidden files in browser

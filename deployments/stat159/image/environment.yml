@@ -68,7 +68,6 @@ dependencies:
   - matplotlib==3.6.3
   - matplotlib-inline==0.1.6
   - mock==5.0.1
-  - nbconvert==6.5.3
   
   # nbdime 3.1.1 is incompatible with jupyter server 2.0
   # See https://github.com/jupyter/nbdime/pull/649.
@@ -165,3 +164,7 @@ dependencies:
     # Needed for RTC on NFS-backed hubs
     - git+https://github.com/berkeley-dsep-infra/tmpystore.git@84765e1
     - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+    # for notebook exporting
+    - nbconvert==7.6.0
+    - nb2pdf==0.6.2
+    - nbpdfexport==0.2.1
