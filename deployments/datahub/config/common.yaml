@@ -188,3 +188,6 @@ jupyterhub:
       course::1531172: # ENVECON 153, Spring 2024, issue #5279
         mem_limit: 4096M
         mem_guarantee: 4096M
+      course::1531172: # Econ/Demog 175, Spring 2024, issue #5447
+        mem_limit: 4096M
+        mem_guarantee: 4096M
