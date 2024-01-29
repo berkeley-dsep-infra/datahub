@@ -60,6 +60,6 @@ jupyterhub:
     memory:
       # https://github.com/berkeley-dsep-infra/datahub/issues/2803
       # Needed for Julia
-      guarantee: 768M
+      guarantee: 2G
       limit: 2G
     image: {}
