@@ -46,6 +46,13 @@ jupyterhub:
           - course::1524699::group::all-admins
 
   singleuser:
+    extraFiles:
+      # DH-216
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.PDFExporter.enabled = False
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
