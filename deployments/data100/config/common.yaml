@@ -86,6 +86,12 @@ jupyterhub:
       course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
         mem_limit: 4G
         mem_guarantee: 4G
+
+      # Econ 148, Spring 2024
+      course::1532866: # Temporarily grant 3G of RAM to all students
+        mem_limit: 3G
+        mem_guarantee: 3G
+      
     admin:
       mem_limit: 4G
       mem_guarantee: 2G
