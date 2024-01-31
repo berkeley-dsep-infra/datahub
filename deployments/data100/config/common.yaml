@@ -81,6 +81,7 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
+        mem_limit: 4G
 
       # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
       course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
@@ -95,10 +96,8 @@ jupyterhub:
       # Econ 148 Admins, Spring 2024
       course::1532866::group::admin: # Give Rohan admin access
         admin: true
-        mem_limit: 3G
       
     admin:
-      mem_limit: 4G
       mem_guarantee: 2G
       extraVolumeMounts:
         - name: home
