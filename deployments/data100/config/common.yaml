@@ -44,6 +44,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1531798::group::Admins
+      # Econ 148, Spring 2024, DH-225
+      course-staff-1532866:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1532866
+          - admin:servers!group=course::1532866
+          - access:servers!group=course::1532866
+        # this role will be assigned to...
+        groups:
+          - course::1532866::group::Admins
 
 #  prePuller:
 #    extraImages:
@@ -92,10 +104,6 @@ jupyterhub:
       course::1532866: # Temporarily grant 3G of RAM to all students
         mem_limit: 3G
         mem_guarantee: 3G
-
-      # Econ 148 Admins, Spring 2024
-      course::1532866::group::admin: # Give Rohan admin access
-        admin: true
       
     admin:
       mem_guarantee: 2G
