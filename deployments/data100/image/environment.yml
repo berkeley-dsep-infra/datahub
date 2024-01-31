@@ -2,6 +2,7 @@ name: data100-FA23
 
 channels:
 - conda-forge
+- pytorch
 
 dependencies:
 - python==3.11.0
@@ -33,6 +34,13 @@ dependencies:
 - tensorflow-cpu==2.12.1
 - sqlalchemy==2.0.16
 - mlxtend==0.23.0
+# Spring 2024 data 100
+- pytorch==2.1.2
+- cpuonly==2.0
+- transformers==4.37.1
+# Spring 2024 table demos
+- lxml==5.1.0
+# Spring 2024 Econ 148 Packages
 - geopandas==0.14.2
 - geopy==2.4.1
 - lifelines==0.27.8
