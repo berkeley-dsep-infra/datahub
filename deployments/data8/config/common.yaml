@@ -56,6 +56,20 @@ jupyterhub:
       #    - course::N::enrollment_type::teacher
       #    - course::N::enrollment_type::ta
 
+      # Data 8, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5358
+      course-staff-1532352:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1532352
+          - admin:servers!group=course::1532352
+          - access:servers!group=course::1532352
+      #  # this role will be assigned to...
+        groups:
+          - course::1532352::enrollment_type::teacher
+          - course::1532352::enrollment_type::ta
+
   singleuser:
     extraFiles:
       # DH-216 Removing QtPDF, QtPNG as per Data 8 GSI inputs
@@ -86,14 +100,7 @@ jupyterhub:
 
   custom:
     group_profiles:
-
       # DataHub Infrastructure staff
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
-        admin: true
-
-      # Data 8, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5358
-      course::1532352::enrollment_type::teacher:
-        admin: true
-      course::1532352::enrollment_type::ta:
         admin: true
