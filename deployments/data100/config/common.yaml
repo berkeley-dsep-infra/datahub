@@ -91,6 +91,11 @@ jupyterhub:
       course::1532866: # Temporarily grant 3G of RAM to all students
         mem_limit: 3G
         mem_guarantee: 3G
+
+      # Econ 148 Admins, Spring 2024
+      course::1532866::group::admin: # Give Rohan admin access
+        admin: true
+        mem_limit: 3G
       
     admin:
       mem_limit: 4G
