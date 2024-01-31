@@ -55,7 +55,7 @@ jupyterhub:
           - access:servers!group=course::1532866
         # this role will be assigned to...
         groups:
-          - course::1532866::group::Admins
+          - course::1532866::group::admin
 
 #  prePuller:
 #    extraImages:
