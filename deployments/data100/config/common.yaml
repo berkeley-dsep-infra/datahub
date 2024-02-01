@@ -100,6 +100,11 @@ jupyterhub:
         mem_limit: 4G
         mem_guarantee: 4G
 
+      # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
+      course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM
+        mem_limit: 4G
+        mem_guarantee: 4G
+
       # Econ 148, Spring 2024
       course::1532866: # Temporarily grant 3G of RAM to all students
         mem_limit: 3G
