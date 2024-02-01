@@ -44,6 +44,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1531798::group::Admins
+      # Econ 148, Spring 2024, DH-225
+      course-staff-1532866:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1532866
+          - admin:servers!group=course::1532866
+          - access:servers!group=course::1532866
+        # this role will be assigned to...
+        groups:
+          - course::1532866::group::admin
 
 #  prePuller:
 #    extraImages:
@@ -81,9 +93,15 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
+        mem_limit: 4G
 
       # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
       course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
+        mem_limit: 4G
+        mem_guarantee: 4G
+
+      # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
+      course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM
         mem_limit: 4G
         mem_guarantee: 4G
 
@@ -91,14 +109,8 @@ jupyterhub:
       course::1532866: # Temporarily grant 3G of RAM to all students
         mem_limit: 3G
         mem_guarantee: 3G
-
-      # Econ 148 Admins, Spring 2024
-      course::1532866::group::admin: # Give Rohan admin access
-        admin: true
-        mem_limit: 3G
       
     admin:
-      mem_limit: 4G
       mem_guarantee: 2G
       extraVolumeMounts:
         - name: home
