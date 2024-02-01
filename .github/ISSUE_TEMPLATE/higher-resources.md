@@ -38,7 +38,11 @@ A short justification for this resource request.
 
 **By what date (MM/DD) do you want this request to be fulfilled?**
 
-This will help us with prioritization of this request.
+This will help us with the prioritization of this request.
+
+**Until when (MM/DD) do you require the additional RAM?**
+
+This will help us scale down resources when the RAM increase is no longer required
 
 **Any additional information we should know about?**
 
