@@ -107,10 +107,10 @@ jupyterhub:
 
       # Econ148, Spring '24; testing shared_readwrite for groups in Eric's class
       course::1532866::group::shared_readwrite:
-        - mountPath: /home/jovyan/shared
-          name: home
-          subPath: _shared
-          readOnly: true      
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/shared-readwrite
+            subPath: _shared    
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:
