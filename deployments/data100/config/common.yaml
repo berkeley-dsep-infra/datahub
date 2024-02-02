@@ -109,7 +109,7 @@ jupyterhub:
       course::1532866::group::shared_readwrite:
         extraVolumeMounts:
           - name: home
-            mountPath: /home/jovyan/shared-readwrite
+            mountPath: /home/jovyan/econ148-readwrite
             subPath: _shared    
     admin:
       mem_guarantee: 2G
