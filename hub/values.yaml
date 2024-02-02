@@ -41,6 +41,9 @@ jupyterhub:
       #
       image:
         tag: 4.6.1-fork
+      extraCommandLineFlags:
+        - "--timeout 86400000"
+        - "--proxyTimeout 86400000"
       resources:
         requests:
           # FIXME: We want no guarantees here!!!
