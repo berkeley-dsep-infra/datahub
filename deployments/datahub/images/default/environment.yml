@@ -195,5 +195,8 @@ dependencies:
   # Engineering 7 https://github.com/berkeley-dsep-infra/datahub/issues/5337
   - otter-grader==4.4.1
 
-   # Stat 165/265 requires prophet, Spring, 2024
+  # Stat 165/265 requires prophet, Spring, 2024
   - prophet==1.1.5
+
+  # https://github.com/berkeley-dsep-infra/datahub/issues/5497
+  - ottr-force-save-labextension==0.1.1
