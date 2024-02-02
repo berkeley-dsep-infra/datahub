@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
-# From 
-# econ 140, fall 2022 and into the future
+# From https://github.com/berkeley-dsep-infra/datahub/issues/5496
+# pol sci 3, spring 2024 and into the future
 
 print("Installing packages for POL SCI 3")
 
