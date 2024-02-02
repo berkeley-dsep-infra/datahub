@@ -44,8 +44,8 @@ jupyterhub:
       extraCommandLineFlags:
         # set the timeout and proxyTimeout to 24 hours (arg is in milliseconds)
         # https://github.com/http-party/node-http-proxy?tab=readme-ov-file#options
-        - "--timeout 86400000"
-        - "--proxyTimeout 86400000"
+        - "--timeout=86400000"
+        - "--proxyTimeout=86400000"
       resources:
         requests:
           # FIXME: We want no guarantees here!!!
