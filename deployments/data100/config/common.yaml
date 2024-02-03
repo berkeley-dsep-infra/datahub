@@ -109,7 +109,13 @@ jupyterhub:
       course::1532866: # Temporarily grant 3G of RAM to all students
         mem_limit: 3G
         mem_guarantee: 3G
-      
+
+      # Econ148, Spring '24; testing shared_readwrite for groups in Eric's class
+      course::1532866::group::shared_readwrite:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared-econ148
+            subPath: _shared    
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:
