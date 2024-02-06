@@ -35,7 +35,7 @@ dependencies:
 - jupyter-book==0.15.1
 - jupyter-resource-usage==1.0.0
 - jupyter_bokeh
-- jupyterlab==4.0.10
+- jupyterlab==4.0.11
 - jupyterlab-favorites==3.0.0
 - jupyterlab-geojson==3.2.0
 - jupyterlab-variableinspector==3.0.9
@@ -52,7 +52,7 @@ dependencies:
 - nbdime==3.1.1
 - nbgitpuller==1.1.1
 - networkx==2.8.6
-- notebook==7.0.2
+- notebook==7.0.7
 - numba==0.57.0
 - numpy==1.24.2
 - pandas==2.0.2

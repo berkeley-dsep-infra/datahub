@@ -13,11 +13,11 @@ dependencies:
 - datascience==0.17.6
 - folium==0.15.1
 - jupyter-archive==3.4.0
-- jupyterlab==4.0.10
+- jupyterlab==4.0.11
 - jupyter_server==2.7.0
 - matplotlib==3.4.3
 - nbclassic==1.0.0
-- notebook==7.0.6
+- notebook==7.0.7
 - otter-grader==4.3.4 # Based on request from ericvd and sean.morris
 - ipympl==0.7.0
 - pandas==1.3.2
