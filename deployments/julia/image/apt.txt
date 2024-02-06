@@ -1,0 +1,11 @@
+# Dependencies for nbconvert
+texlive-xetex
+texlive-fonts-recommended
+texlive-plain-generic
+# https://github.com/berkeley-dsep-infra/datahub/issues/3719
+texlive-lang-chinese
+lmodern
+
+# Other useful document-related tools
+pandoc
+latexdiff
