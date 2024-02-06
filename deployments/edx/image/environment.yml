@@ -8,13 +8,13 @@ dependencies:
 - git==2.39.1
 - jupyter-archive==3.4.0
 - jupyter-resource-usage==1.0.0
-- jupyterlab==4.0.9
+- jupyterlab==4.0.11
 - jupyterlab-favorites==3.0.0
 - jupyterlab_server==2.23.0
 - jupyterlab_widgets==3.0.8
 - jupyter_server==2.7.0
 - nbgitpuller==1.1.1
-- notebook==7.0.6
+- notebook==7.0.7
 - folium==0.14.0
 - h5netcdf==1.0.2
 - ipywidgets==8.0.7

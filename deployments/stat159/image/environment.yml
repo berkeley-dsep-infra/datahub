@@ -43,7 +43,7 @@ dependencies:
   #
   # - jupyter_bokeh==3.0.5
   - jupyter_server==2.7.0
-  - jupyterlab==4.0.10
+  - jupyterlab==4.0.11
   # commented out by sknapp 2024.01.11 due to JL4 incompatibility
   #
   # we can revisit once this class is taught again

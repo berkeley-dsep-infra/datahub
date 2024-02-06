@@ -18,7 +18,7 @@ dependencies:
 # For https://github.com/berkeley-dsep-infra/datahub/issues/3079
 - websockify
 - pip:
-  - notebook==6.5.6
+  - notebook==7.0.7
   - jupyter-desktop-server
   - otter-grader==3.1.4
   # for notebook exporting
