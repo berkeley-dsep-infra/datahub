@@ -42,6 +42,15 @@ RUN apt-get update -qq --yes && \
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
     locale-gen
 
+# Install all apt packages
+COPY apt.txt /tmp/apt.txt
+RUN apt-get -qq update --yes && \
+    apt-get -qq install --yes --no-install-recommends \
+        $(grep -v ^# /tmp/apt.txt) && \
+    apt-get -qq purge && \
+    apt-get -qq clean && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p ${JULIA_DIR} && chown ${NB_USER}:${NB_USER} ${JULIA_DIR}
 
 WORKDIR /home/jovyan
