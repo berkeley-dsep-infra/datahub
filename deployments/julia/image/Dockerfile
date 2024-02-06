@@ -39,6 +39,9 @@ RUN apt-get update -qq --yes && \
         xfce4 \
         > /dev/null
 
+RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
+    locale-gen
+
 # Install all apt packages
 COPY apt.txt /tmp/apt.txt
 RUN apt-get -qq update --yes && \
@@ -47,9 +50,6 @@ RUN apt-get -qq update --yes && \
     apt-get -qq purge && \
     apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
-
-RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
-    locale-gen
 
 RUN mkdir -p ${JULIA_DIR} && chown ${NB_USER}:${NB_USER} ${JULIA_DIR}
 
