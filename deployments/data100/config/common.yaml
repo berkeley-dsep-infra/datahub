@@ -82,6 +82,8 @@ jupyterhub:
           mountPath: /home/jovyan/shared
           subPath: _shared
           readOnly: true
+    cpu:
+      limit: 8
     memory:
       guarantee: 4G
       limit: 4G
