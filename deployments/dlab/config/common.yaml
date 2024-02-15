@@ -51,6 +51,8 @@ jupyterhub:
   singleuser:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      GH_SCOPED_CREDS_CLIENT_ID: Iv1.9b3b48abeb673056
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/dlab-berkeley-datahub-access
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
