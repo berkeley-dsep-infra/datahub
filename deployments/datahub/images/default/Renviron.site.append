@@ -1,0 +1,20 @@
+
+## Source any extra Renviron files.
+#
+# Since there is an existing /etc/R/Renviron.site file, we append this. It lets
+# us easily add new code via extraFiles (or other z2jh-related magic)
+# without having to rebuild the image each time.
+
+
+# Get a list of files in the directory
+env_dir <- "/etc/R/Renviron.site.d/"
+env_files <- list.files(env_dir, full.names = TRUE)
+
+# Iterate over each file
+for (env_file in env_files) {
+    cat("Loading environment variables from:", env_file, "\n")
+    
+    # Read and parse the environment file
+    readRenviron(env_file)
+}
+
