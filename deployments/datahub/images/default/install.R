@@ -18,7 +18,7 @@ dplyr_packages = c(
   "dbplyr", "2.0.0",
   "DBI", "1.1.0",
   "dtplyr", "1.0.1",
-  "nycflights13", "1.0.1",
+  "nycflights13", "1.0.2",
   "Lahman", "8.0-0",
   "RMariaDB", "1.1.0",
   "RPostgres", "1.3.0",
@@ -36,11 +36,11 @@ publishing_packages = c(
   "rJava", "0.9-13",
   "xaringan", "0.19"
 )
+
 # R packages to be installed that aren't from apt
 # Combination of informal requests & rocker image suggestions
 # Some of these were already in datahub image
 cran_packages = c(
-
   "AER", "1.2-9",
   "BH", "1.72.0-3",
   "BiocManager", "1.30.10",
