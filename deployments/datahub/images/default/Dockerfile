@@ -57,8 +57,10 @@ RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb 
     apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
 
-# Set CRAN mirror to rspm before we install anything
+# Install our custom Rprofile.site file
 COPY Rprofile.site /usr/lib/R/etc/Rprofile.site
+# Create directory for additional R/RStudio setup code
+RUN mkdir /etc/R/Rprofile.site.d
 # RStudio needs its own config
 COPY rsession.conf /etc/rstudio/rsession.conf
 
