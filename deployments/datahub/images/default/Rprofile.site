@@ -33,4 +33,5 @@ for (rprofile_file in rprofile_files) {
     cat("Sourcing:", rprofile_file, "\n")
     source(rprofile_file)
 }
-
+# Don't keep temporary variables in environment
+rm(rprofile_dir, rprofile_files, rprofile_file)
