@@ -61,8 +61,8 @@ jupyterhub:
       gh-scoped-creds:
         mountPath: /etc/R/Rprofile.site.d/gh-scoped-creds.r
         stringData: |
-          Sys.setenv(GH_SCOPED_CREDS_APP_URL = "Iv1.9b3b48abeb673056")
-          Sys.setenv(GH_SCOPED_CREDS_CLIENT_ID = "https://github.com/apps/dlab-berkeley-datahub-access")
+          Sys.setenv(GH_SCOPED_CREDS_CLIENT_ID = "Iv1.9b3b48abeb673056")
+          Sys.setenv(GH_SCOPED_CREDS_APP_URL = "https://github.com/apps/dlab-berkeley-datahub-access")
         mode: 0644
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
