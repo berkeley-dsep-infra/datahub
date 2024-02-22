@@ -57,5 +57,5 @@ dependencies:
   - gh-scoped-creds==4.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
   - ydata-profiling==4.6.4
-  - otter-grader==5.3.0
+  - otter-grader==5.4.0
 
