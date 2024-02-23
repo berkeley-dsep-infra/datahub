@@ -125,5 +125,5 @@ node-placeholder-scaler:
   - 'deployments/stat20/**'
 'hub: workshop':
   - 'deployments/workshop/**'
-'hub: gracebook':
-  - 'deployments/gracebook/**'
+'hub: gradebook':
+  - 'deployments/gradebook/**'
