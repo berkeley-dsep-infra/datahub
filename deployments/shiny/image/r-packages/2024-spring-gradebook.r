@@ -6,9 +6,12 @@ source("/tmp/class-libs.R")
 class_name = "2024 Spring Gradebook"
 
 class_libs = c(
+    "DT", "0.32",
     "purrr", "1.0.2",
     "shinyFiles", "0.9.3",
-    "shinyTime", "1.0.3"
+    "shinyTime", "1.0.3",
+    "shinyWidgets", "0.8.1",
+    "shinydashboard", "0.7.2"
 )
 
 class_libs_install_version(class_name, class_libs)
