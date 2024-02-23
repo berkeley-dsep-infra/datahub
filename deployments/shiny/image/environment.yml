@@ -9,8 +9,6 @@ dependencies:
 - jupyterlab==4.0.11
 - nbgitpuller==1.2.0
 - notebook==7.0.7
-# RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
-- RISE==5.7.1
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets==5.9.0
 - syncthing==1.27.3
