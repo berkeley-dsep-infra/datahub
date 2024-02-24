@@ -14,6 +14,18 @@ jupyterhub:
         hub.jupyter.org/pool-name: core-pool-2023-12-21
 
   hub:
+    extraConfig:
+      # Use 1x-<title> in `common.yaml` extraConfig values.
+      # We want these to come *after* the extraConfig values
+      # in `values.yaml`. Since these are ordered alphabetically,
+      # 1x-<title> used in `common.yaml` will come after
+      # 0x-<title> used in `values.yaml` - so config set here
+      # will override config set in `values.yaml`
+      11-working-dir: |
+        # Rocker based images have 'rstudio' as user id 1000
+        # so let's stick to that, and use /home/${NB_USER}
+        # consistently.
+        c.KubeSpawner.working_dir = '/home/rstudio'
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
@@ -48,10 +60,15 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: small-courses-pool
     storage:
+      # Rocker based images have 'rstudio' as user $1000
+      # so let's stick to that, and use /home/${NB_USER}
+      # consistently.
+      homeMountPath: /home/rstudio
       type: static
       static:
         pvcName: home-nfs-v3
         subPath: "{username}"
+    #defaultUrl: "/shiny"
     memory:
       guarantee: 512M
       limit: 1G

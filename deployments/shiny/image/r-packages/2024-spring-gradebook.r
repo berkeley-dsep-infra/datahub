@@ -7,6 +7,7 @@ class_name = "2024 Spring Gradebook"
 
 class_libs = c(
     "DT", "0.32",
+    "Hmisc", "5.1-1",
     "purrr", "1.0.2",
     "shinyFiles", "0.9.3",
     "shinyTime", "1.0.3",
