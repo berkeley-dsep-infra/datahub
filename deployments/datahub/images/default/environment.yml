@@ -34,6 +34,10 @@ dependencies:
 # - spacy-model-en_core_web_md=3.4.0
 # - lemminflect=0.2.2
 
+# https://github.com/berkeley-dsep-infra/datahub/issues/5571, Legal Studies 123, Spring 24
+- geopandas==0.14.3
+- rtree==1.2.0
+
 # EPS88, data100
 # https://github.com/berkeley-dsep-infra/datahub/issues/1796
 # https://github.com/berkeley-dsep-infra/datahub/issues/2824
@@ -203,7 +207,3 @@ dependencies:
 
   # [DH-231] Installing gh-scoped-creds for https://github.com/berkeley-dsep-infra/datahub/issues/5515
   - gh-scoped-creds==4.1
-
-  # Legal Studies 123, Spring 24, https://github.com/berkeley-dsep-infra/datahub/issues/5571
-  - geopandas==0.14.3
-  - rtree==1.2.0
