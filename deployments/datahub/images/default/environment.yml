@@ -201,6 +201,9 @@ dependencies:
   # https://github.com/berkeley-dsep-infra/datahub/issues/5497
   - ottr-force-save-labextension==0.1.1
 
-
   # [DH-231] Installing gh-scoped-creds for https://github.com/berkeley-dsep-infra/datahub/issues/5515
   - gh-scoped-creds==4.1
+
+  # https://github.com/berkeley-dsep-infra/datahub/issues/5571
+  - geopandas==0.14.3
+  - rtree==1.2.0
