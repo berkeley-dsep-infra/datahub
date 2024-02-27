@@ -32,6 +32,20 @@ jupyterhub:
     service:
       type: ClusterIP
     chp:
+      # testing out a potential fix for the chp leaking ports
+      # https://github.com/jupyterhub/configurable-http-proxy/issues/434
+      # https://github.com/jupyterhub/configurable-http-proxy/issues/434#issuecomment-1924261459
+      # https://github.com/http-party/node-http-proxy/pull/1559
+      # https://github.com/Jimbly/http-proxy-node16/commit/56283e33edfc7aad8c2605dd493da8a196b4371d
+      # https://github.com/consideRatio/configurable-http-proxy/commits/main/
+      #
+      image:
+        tag: 4.6.1-fork
+      extraCommandLineFlags:
+        # set the timeout and proxyTimeout to 24 hours (arg is in milliseconds)
+        # https://github.com/http-party/node-http-proxy?tab=readme-ov-file#options
+        # - "--timeout=86400000"
+        # - "--proxy-timeout=86400000"
       resources:
         requests:
           # FIXME: We want no guarantees here!!!
@@ -39,7 +53,7 @@ jupyterhub:
           cpu: 0.001
           memory: 64Mi
         limits:
-          memory: 1Gi
+          memory: 1.5Gi
     traefik:
       resources:
         requests:
