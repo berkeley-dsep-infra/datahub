@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.2.1
+FROM rocker/geospatial:4.3.2
 
 ENV NB_USER rstudio
 ENV NB_UID 1000
@@ -28,7 +28,7 @@ WORKDIR ${HOME}
 # texlive-xetex pulls in texlive-latex-extra > texlive-latex-recommended
 # We use Ubuntu's TeX because rocker's doesn't have most packages by default,
 # and we don't want them to be downloaded on demand by students.
-RUN apt-get update && \
+RUN apt-get update > /dev/null && \
     apt-get install --yes \
             less \
             libx11-xcb1 \
@@ -41,7 +41,6 @@ RUN apt-get update && \
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            libssl1.1 \
             fonts-symbola \
             gdebi-core \
             tini \
@@ -56,7 +55,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.19.995-amd64.deb
+ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.21.1012-amd64.deb
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
     apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
@@ -73,19 +72,18 @@ RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 
-COPY infra-requirements.txt /tmp/infra-requirements.txt
-RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
-
-RUN mamba install -c conda-forge syncthing==1.18.6
-
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+COPY environment.yml /tmp/environment.yml
+RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
+    mamba clean -afy
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \
     R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 COPY class-libs.R /tmp/class-libs.R
+
+COPY r-packages/2024-spring-gradebook.r /tmp/r-packages/
+RUN r /tmp/r-packages/2024-spring-gradebook.r
 
 COPY r-packages/2023-spring-stat-20.r /tmp/r-packages/
 RUN r /tmp/r-packages/2023-spring-stat-20.r
