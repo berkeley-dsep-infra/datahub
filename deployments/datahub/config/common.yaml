@@ -194,3 +194,6 @@ jupyterhub:
       course::1532145: # Legal Studies 123, Sp24 issue #5530
         mem_limit: 4096M
         mem_guarantee: 4096M
+      course::1524699: # datahub infra staff
+        mem_limit: 4096M
+        mem_guarantee: 4096M
