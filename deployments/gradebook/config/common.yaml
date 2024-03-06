@@ -26,6 +26,15 @@ jupyterhub:
         # so let's stick to that, and use /home/${NB_USER}
         # consistently.
         c.KubeSpawner.working_dir = '/home/rstudio'
+
+      # Run the gradebook/gradebook container in the user pod
+      # https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner.KubeSpawner.extra_containers
+      12-extra-containers: |
+        c.KubeSpawner.extra_containers = [{
+          "name": "gradebook",
+          "image": "gradebook/gradebook:sha-ce59636",
+          "ports": [{"containerPort": 3839}]
+        }]
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
     config:
@@ -54,6 +63,16 @@ jupyterhub:
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
           c.WebPDFExporter.enabled = False
+      # proxy the gradebook container
+      proxy-gradebook:
+        # https://jupyter-server-proxy.readthedocs.io/en/latest/server-process.html#specifying-config-via-traitlets
+        mountPath: /etc/jupyter/jupyter_server_config.py
+        stringData: |
+          c.ServerProxy.servers = {
+            "gradebook": {
+              "port": 3839
+            }
+          }
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
