@@ -63,6 +63,16 @@ jupyterhub:
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
           c.WebPDFExporter.enabled = False
+      # proxy the gradebook container
+      proxy-gradebook:
+        # https://jupyter-server-proxy.readthedocs.io/en/latest/server-process.html#specifying-config-via-traitlets
+        mountPath: /etc/jupyter/jupyter_server_config.py
+        stringData: |
+          c.ServerProxy.servers = {
+            "gradebook": {
+              "port": 3839
+            }
+          }
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
