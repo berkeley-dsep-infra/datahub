@@ -38,6 +38,7 @@ RUN apt-get update > /dev/null && \
             nodejs \
             npm \
             texlive-xetex \
+            texlive-fonts-extra \
             texlive-latex-extra \
             texlive-fonts-recommended \
             texlive-lang-chinese \
