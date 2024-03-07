@@ -47,6 +47,7 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
   singleuser:
+    defaultUrl: /gradebook
     # Run the gradebook/gradebook container in the user pod
     # https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner.KubeSpawner.extra_containers
     extraContainers:
