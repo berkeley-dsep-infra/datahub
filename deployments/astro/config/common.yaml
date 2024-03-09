@@ -45,6 +45,7 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::astro-admins
+
   singleuser:
     extraFiles:
       # DH-216
@@ -76,6 +77,11 @@ jupyterhub:
   # read by z2jh.get_config() in hub/values.yaml
   # formerly jupyterhub.hub.extraConfigMap
   custom:
+    group_profiles:
+      # Astro Lab 128, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5596
+      course::1532117: # Temporarily grant 8G RAM to all students
+        mem_limit: 8G
+        mem_guarantee: 8G
     admin:
       extraVolumeMounts:
         - name: home
