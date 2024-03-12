@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.3.1
+FROM rocker/geospatial:4.3.2
 # https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_e06f866673fa
 
 ENV NB_USER rstudio
@@ -43,13 +43,18 @@ RUN apt-get update && \
 
 # While quarto is included with rocker/verse, we sometimes need different
 # versions than the default. For example a newer version might fix bugs.
-ENV _QUARTO_VERSION=1.3.433
+ENV _QUARTO_VERSION=1.4.549
 RUN curl -L -o /tmp/quarto.deb https://github.com/quarto-dev/quarto-cli/releases/download/v${_QUARTO_VERSION}/quarto-${_QUARTO_VERSION}-linux-amd64.deb
 RUN apt-get update > /dev/null && \
     apt-get install /tmp/quarto.deb > /dev/null && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -f /tmp/quarto.deb
+
+ENV SHINY_SERVER_URL https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.21.1012-amd64.deb
+RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
+    apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
+    rm /tmp/shiny-server.deb
 
 # google-chrome is for pagedown; chromium doesn't work nicely with it (snap?)
 RUN wget --quiet -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
