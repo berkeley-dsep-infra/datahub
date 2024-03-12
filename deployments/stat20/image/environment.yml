@@ -12,6 +12,7 @@ dependencies:
   - -r /tmp/infra-requirements.txt
     # For push authentication to GitHub
   - gh-scoped-creds==4.1
+  - jupyter-shiny-proxy==1.1
   # for notebook exporting
   - nbconvert==7.6.0
   - nb2pdf==0.6.2
