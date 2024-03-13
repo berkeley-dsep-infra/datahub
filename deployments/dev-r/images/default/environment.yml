@@ -5,7 +5,7 @@ dependencies:
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*
 
-- jupyter-server-proxy==4.0.0
+- jupyter-server-proxy==4.1.1
 - jupyter-rsession-proxy==2.2.0
 
 - syncthing==1.23.5
