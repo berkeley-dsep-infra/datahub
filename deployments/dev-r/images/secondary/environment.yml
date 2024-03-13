@@ -1,7 +1,7 @@
 dependencies:
 - python=3.10
 - pip=23.2.*
-- jupyter-server-proxy==4.1.1
+- jupyter-server-proxy==4.1.2
 - jupyter-rsession-proxy==2.2.0
 - jupyterlab-myst==2.0.2
 - syncthing==1.25.0

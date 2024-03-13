@@ -3,7 +3,7 @@ dependencies:
 - ipywidgets==8.1.2
 - jupyter-archive==3.4.0
 - jupyter-resource-usage==1.0.1
-- jupyter-server-proxy==4.1.1
+- jupyter-server-proxy==4.1.2
 - jupyter-rsession-proxy==2.2.0
 - jupyter-syncthing-proxy==1.0.3
 - jupyterhub==4.0.2

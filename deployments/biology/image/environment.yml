@@ -9,7 +9,7 @@ dependencies:
 - nb_conda_kernels=2.3.1
 
 # proxy web applications
-- jupyter-server-proxy==4.1.1
+- jupyter-server-proxy==4.1.2
 - jupyter-rsession-proxy==2.2.0
 
 # Packages from bioconda for IB134L

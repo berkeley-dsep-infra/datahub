@@ -137,7 +137,7 @@ dependencies:
   - syncthing==1.23.0
   - websockify==0.11.0
 
-  - jupyter-server-proxy==4.1.1
+  - jupyter-server-proxy==4.1.2
   # VS Code support
   - jupyter-vscode-proxy==0.2
   - code-server==4.10.1
