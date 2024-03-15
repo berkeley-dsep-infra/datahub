@@ -80,6 +80,12 @@ jupyterhub:
       limit: 2048M
 
   custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
+        mem_limit: 8G
     admin:
       extraVolumeMounts:
         - name: home
