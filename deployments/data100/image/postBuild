@@ -1,2 +1,5 @@
-# install chromium
-pyppeteer-install
+#!/usr/bin/env bash
+
+export PLAYWRIGHT_BROWSERS_PATH=${CONDA_DIR}
+npm install -g playwright
+playwright install chromium
