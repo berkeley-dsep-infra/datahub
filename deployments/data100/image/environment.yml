@@ -53,7 +53,7 @@ dependencies:
   # - jupyter_collaboration==1.0.1
   - jupyterhub==4.0.2
   - nbconvert[webpdf]
-  - pyppeteer==2.0.0
+  #  - pyppeteer==2.0.0
   - pytest-notebook==0.8.1
   - gh-scoped-creds==4.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
