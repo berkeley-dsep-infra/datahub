@@ -51,7 +51,7 @@ dependencies:
   - seaborn>=0.11.2
   - bqplot>=0.12.31
   - astroquery>=0.4.5
-  - astropy>=5.0
+  - astropy>=5.3.3
   - dustmaps>=1.0.9
   - pyvo>=1.2
   - joblib==1.2.0
