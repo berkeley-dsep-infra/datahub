@@ -197,3 +197,7 @@ jupyterhub:
       course::1524699: # datahub infra staff
         mem_limit: 4096M
         mem_guarantee: 4096M
+      # Econ 144, Spring 2024, DH 260
+      course::1530164::enrollment_type::teacher:
+        mem_limit: 3072M
+        mem_guarantee: 3072M
