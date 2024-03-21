@@ -193,7 +193,7 @@ cran_packages = c(
   "xfun", "0.19",
   "xml2", "1.3.2",
   "xts", "0.12.1",
-  "yaml", "2.2.1",
+  "yaml", "2.2.1"
   )
 
 class_libs_install_version("Base packages", cran_packages)
