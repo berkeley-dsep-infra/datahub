@@ -194,8 +194,6 @@ cran_packages = c(
   "xml2", "1.3.2",
   "xts", "0.12.1",
   "yaml", "2.2.1",
-  # For https://github.com/berkeley-dsep-infra/datahub/issues/2239
-  "lfe", "2.8-6"
   )
 
 class_libs_install_version("Base packages", cran_packages)
