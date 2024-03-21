@@ -9,6 +9,9 @@ dependencies:
 - jupyter-rsession-proxy==2.2.0
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*
+# for usage analysis dashboard (to be removed during sp 24 maintenance window)
+- pandas==2.2.1 
+- matplotlib==3.8.3
 - pip:
   - -r /tmp/infra-requirements.txt
     # For push authentication to GitHub
@@ -18,3 +21,5 @@ dependencies:
   - nbconvert==7.6.0
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
+  - shiny==0.8.1 # for usage analysis dashboard (to be removed during sp 24 maintenance window)
+
