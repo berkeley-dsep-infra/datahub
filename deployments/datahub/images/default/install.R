@@ -106,6 +106,7 @@ cran_packages = c(
   "leafpop", "0.0.6",
   "leafsync", "0.1.0",
   "learnr", "0.11.2",
+  "lfe", "3.0-0",
   "linprog", "0.9-2",
   "listenv", "0.8.0",
   "lpSolve", "5.6.15",
@@ -166,7 +167,7 @@ cran_packages = c(
   "spatstat.data", "1.7-0",
   "spdep", "1.1-5",
   "splancs", "2.01-40",
-  "stargazer", "5.2.2",
+  "stargazer", "5.2.3",
   "stars", "0.4-3",
   "stringi", "1.5.3",
   "stringr", "1.4.0",
@@ -192,9 +193,7 @@ cran_packages = c(
   "xfun", "0.19",
   "xml2", "1.3.2",
   "xts", "0.12.1",
-  "yaml", "2.2.1",
-  # For https://github.com/berkeley-dsep-infra/datahub/issues/2239
-  "lfe", "2.8-6"
+  "yaml", "2.2.1"
   )
 
 class_libs_install_version("Base packages", cran_packages)
