@@ -53,7 +53,7 @@ opencv-python==4.6.0.66
 
 # astr 128/256; spring 2021
 astroquery==0.4.6
-astropy==5.1
+astropy==5.3.3
 dustmaps==1.0.9
 george==0.4.0
 exoplanet==0.5.2
