@@ -60,4 +60,4 @@ dependencies:
   - ydata-profiling==4.6.4
   - otter-grader==5.4.0
   - duckdb==0.10.1
-
+  - duckdb_engine==0.11.2
