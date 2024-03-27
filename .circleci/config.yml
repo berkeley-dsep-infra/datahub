@@ -260,6 +260,12 @@ jobs:
           no_output_timeout: 30m
 
       - run:
+          name: Deploy gradebook
+          command: |
+            hubploy deploy --timeout 30m gradebook hub ${CIRCLE_BRANCH}
+          no_output_timeout: 30m
+
+      - run:
           name: Deploy highschool hub
           command: |
             hubploy deploy --timeout 30m highschool hub ${CIRCLE_BRANCH}
@@ -317,12 +323,6 @@ jobs:
           name: Deploy stat20
           command: |
             hubploy deploy --timeout 30m stat20 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy gradebook
-          command: |
-            hubploy deploy --timeout 30m gradebook hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
