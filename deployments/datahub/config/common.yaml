@@ -195,6 +195,23 @@ jupyterhub:
             mountPath: /home/jovyan/ugba-88
             subPath: _shared/course/ugba-88
             readOnly: true
+      # Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
+      course::1534506::enrollment_type::teacher:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/demog-dataevent-readwrite
+            subPath: _shared/course/demog-dataevent
+      course::1534506::enrollment_type::ta:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/demog-dataevent-readwrite
+            subPath: _shared/course/demog-dataevent
+      course::1534506::enrollment_type::student:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/demog-dataevent
+            subPath: _shared/course/demog-dataevent
+            readOnly: true
       course::1530121: # ARE 212, Spring 2024, issue #5278
         mem_limit: 4096M
         mem_guarantee: 4096M
@@ -214,3 +231,6 @@ jupyterhub:
       course::1530164::enrollment_type::teacher:
         mem_limit: 3072M
         mem_guarantee: 3072M
+      course::1534506: #Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
+        mem_limit: 4096M
+        mem_guarantee: 4096M
