@@ -51,29 +51,3 @@ jupyterhub:
       # As low a guarantee as possible
       guarantee: 128M
       limit: 1G
-  custom:
-    group_profiles:
-      # DataHub Infrastructure staff
-      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
-      course::1524699::group::all-admins:
-        admin: true
-      # Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
-      course::1534506::enrollment_type::teacher:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/demog-dataevent-readwrite
-            subPath: _shared/course/demog-dataevent
-      course::1534506::enrollment_type::ta:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/demog-dataevent-readwrite
-            subPath: _shared/course/demog-dataevent
-      course::1534506::enrollment_type::student:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/demog-dataevent
-            subPath: _shared/course/demog-dataevent
-            readOnly: true
-      course::1534506: #Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
-        mem_limit: 4096M
-        mem_guarantee: 4096M
