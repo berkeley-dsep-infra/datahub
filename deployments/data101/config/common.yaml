@@ -106,6 +106,19 @@ jupyterhub:
         groups:
           - course::1532753::enrollment_type::teacher
           - course::1532753::enrollment_type::ta
+      # [DH-237] Datahub Security Testing by MICS students
+      course-staff-1534371:
+        description: Enable course staff to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1534371
+          - admin:servers!group=course::1534371
+          - access:servers!group=course::1534371
+        # this role will be assigned to...
+        groups:
+          - course::1534371::enrollment_type::teacher
+          - course::1534371::enrollment_type::ta
 
   singleuser:
     extraContainers:
