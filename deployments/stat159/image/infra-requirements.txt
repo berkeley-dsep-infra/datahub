@@ -13,7 +13,7 @@ jupyterlab==4.0.11
 nbgitpuller==1.2.0
 jupyter-resource-usage==1.0.1
 # Matches version in images/hub/Dockerfile
-jupyterhub==4.0.2
+jupyterhub==4.1.0
 appmode==0.8.0
 ipywidgets==8.0.7
 jupyter-tree-download==1.0.1
