@@ -203,6 +203,5 @@ class_libs_install_version("publishing packages", publishing_packages)
 # Bioconductor packages present in rocker images
 # FIXME: Find a way to version these?
 # FIXME: Make sure these are binary installs?
-BiocManager::install("cummeRbund")
 BiocManager::install('rhdf5')
 BiocManager::install('Rhdf5lib')
