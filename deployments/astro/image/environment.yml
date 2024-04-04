@@ -2,6 +2,7 @@ name: astrods
 
 channels:
 - conda-forge
+- pytorch
 
 dependencies:
 - python=3.9.*
@@ -15,8 +16,9 @@ dependencies:
 - matplotlib==3.5.*
 - graphviz>=2.50.0
 - psycopg2==2.9.*
-- pytorch>=1.10.0
-- pytorch-lightning
+- pytorch==2.2.2
+- torchvision==0.17.2
+- pytorch-lightning==2.2.1
 - pyaudio==0.2.11
 - cython
 - cartopy
@@ -56,6 +58,7 @@ dependencies:
   - pyvo>=1.2
   - joblib==1.2.0
   - aesara>=2.3.4
+  - mkl==2024.0.0
   - mkl-service
   - pymc3>=3.11.4
   - requests>=2.27.1
