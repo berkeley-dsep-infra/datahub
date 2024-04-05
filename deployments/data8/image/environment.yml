@@ -4,9 +4,9 @@ dependencies:
 - python==3.9.*
 
 # Packages ported from infra-reqs
-- jupyterhub==4.0.1
+- jupyterhub==4.1.5
 - jupyter-resource-usage==1.0.1
-- nbgitpuller==1.1.0
+- nbgitpuller==1.2.1
 - syncthing==1.18.6
 
 # data8

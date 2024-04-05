@@ -6,9 +6,9 @@ dependencies:
 - jupyter-server-proxy==4.1.2
 - jupyter-rsession-proxy==2.2.0
 - jupyter-syncthing-proxy==1.0.3
-- jupyterhub==4.0.1
+- jupyterhub==4.1.5
 - jupyterlab==4.0.11
-- nbgitpuller==1.2.0
+- nbgitpuller==1.2.1
 - notebook==7.0.7
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets==5.9.0
