@@ -150,7 +150,7 @@ dependencies:
   - pip:
     - jupysql==0.10.5
     - ipytest==0.13.0
-    - jupyterhub==4.1.4
+    - jupyterhub==4.0.1
     - nbval==0.10.0
     - nbdime==3.2.0
 
