@@ -33,7 +33,8 @@ class_libs = c(
     "xml2", "1.3.4",
     "gt", "0.9.0",
     "quarto", "1.2",
-    "fs", "1.6.3"
+    "fs", "1.6.3",
+    "rsample", "1.2.1"
 )
 
 class_libs_install_version(class_name, class_libs)
