@@ -52,7 +52,7 @@ jupyterhub:
     # https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner.KubeSpawner.extra_containers
     extraContainers:
       - name: gradebook
-        image: gradebook/gradebook:sha-5a86219
+        image: gradebook/gradebook:sha-7361a6c
         ports:
           - containerPort: 3839
         volumeMounts:
