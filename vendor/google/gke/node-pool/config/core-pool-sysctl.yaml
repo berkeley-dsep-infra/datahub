@@ -24,14 +24,26 @@ linuxConfig:
    #
    # here be dragons.
    #
-   # original values (as of 2023-19-04):
+   # original values (as of 2023-04-19):
    # net.core.netdev_max_backlog=1000
    # net.core.rmem_max=212992
    # net.core.wmem_max=212992
    # net.ipv4.tcp_rmem=4096 87380 6291456
    # net.ipv4.tcp_wmem=4096 16384 4194304
+   #
+   # changes and additional tweaks (2024-04-11):
+   # net.ipv4.tcp_max_syn_backlog=4096
+   # net.core.rmem_max = 3276800
+   # net.core.wmem_max = 3276800
+   # net.ipv4.tcp_rmem = 4096 87380 16777216
+   # net.ipv4.tcp_wmem = 4096 87380 16777216
+   # net.core.somaxconn = 1024
+   #
+   # https://fasterdata.es.net/host-tuning/linux/#toc-anchor-2
    net.core.netdev_max_backlog: '30000'
-   net.core.rmem_max: '3276800'
-   net.core.wmem_max: '3276800'
-   net.ipv4.tcp_rmem: '4096 87380 16777216'
-   net.ipv4.tcp_wmem: '4096 87380 16777216'
+   net.ipv4.tcp_max_syn_backlog: '8192'
+   net.core.rmem_max: '67108864'
+   net.core.wmem_max: '67108864'
+   net.ipv4.tcp_rmem: '4096 87380 33554432'
+   net.ipv4.tcp_wmem: '4096 87380 33554432'
+   net.core.somaxconn: '4096'
