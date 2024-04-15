@@ -21,16 +21,22 @@ restarting.
 
 Many of these incidents are tracked [here](https://github.com/berkeley-dsep-infra/datahub/issues/2791).
 
-We have spent much time 
+We have spent much time working to debug and track this, including with our
+friends at [2i2c](https://2i2c.org). After much deep-diving and debugging,
+we were able to narrow this down to a memory (socket?) leak in the 
+[configurable http proxy](https://github.com/jupyterhub/configurable-http-proxy/issues/434).
 
-Earlier this year, we fixed a config error that was allowing core pod
-deployments to run on non-core pods.
+After some back and forth w/the upstream maintainers, we received a
+[forked version](https://github.com/berkeley-dsep-infra/datahub/pull/5501) of
+the proxy to test.
 
-[PR 1](https://github.com/berkeley-dsep-infra/datahub/pull/3161) and [PR 2](https://github.com/berkeley-dsep-infra/datahub/pull/3164/commits/a3fc71d5a68b030cda91029b5dbb6c01c0eec8fe) were merged to prod between 2 AM and 2.30 AM PST on 1/20. Difference due to the commits can be viewed [here](https://github.com/berkeley-dsep-infra/datahub/pull/3151/files#diff-72ab2727eb8dffad68933fd8e624ef3126cc0a107685c3f0e16fcee62fc77c76)
+During this testing, we triggered some user-facing downtime, as well as the 
+proxy itself crashing and causing small outages. 
 
-Due to these changes, image rebuild happened which broke multiple hubs which used that image including Datahub, ISchool, R, Data 100 and Data 140 hubs. 
-
-One of the dependenices highlighted as part of the image build had an upgrade which resulted in R hub throwing 505 error and Data 100/140 hub throwing "Error starting Kernel". [Yuvi to fill in the right technical information]
+Another (unrelated) issue that impacted users was that [GKE](https://cloud.google.com/kubernetes-engine)
+was autoscaling our core pool (where the hub and proxy pods run) node to zero.
+Since it takes about 10-15m for a new node to spin up, all hubs were
+inaccessible until the new node was deployed.
 
 User Impact:
 
@@ -42,14 +48,14 @@ Quick summary of the problem. Update this section as we learn more, answering:
 - what went wrong and how we fixed it.
 -->
 
-- R Hub was not accessible for about 6 hours. Issue affected 10+ Stat 20 GSIs planning for their first class of the semester (catering to the needs of 600+ students). Hub went down for few minutes during the instruction. 
-- Prob 140 hub was not available till 12.15 AM PST
-- Data 100 hub was not available till 12.33 AM. Thankfully, assignments were not due till friday (1/21)
-- Few users in Ischool were affected as they could not access R Studio
+- On the afternoon of Feb 7th, I was testing the fork of the proxy + some revised timeouts on the Data 8 hub.  This caused the proxy to crash every ~20m over the course of a few hours.  I then reverted the fork and timeout changes.
+- During the latter half of February, our core pool was being autoscaled from 1 to 0 nodes.  This caused multiple short outages.
+- The proxy pods for Data 8 and Data 100 (our largest classes) crashed continually under load (~250+ simultaneous users), causing users to receive 500 HTTP errors until the pod automatically restarted.
 
 ## Hub information
 
-- Hub URL: {{(https://r.datahub.berkeley.edu/)}} & most other hubs highlighted above
+- [Data 8](https://data8.datahub.berkeley.edu)
+- [Data 100](https://data100.datahub.berkeley.edu)
 
 ## Timeline (if relevant)
 
