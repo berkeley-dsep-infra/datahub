@@ -59,82 +59,101 @@ Quick summary of the problem. Update this section as we learn more, answering:
 
 ## Timeline (if relevant)
 
-### {{ 2022-01-20 Between 02:00 and 02.30 PM }}
-[PR 1](https://github.com/berkeley-dsep-infra/datahub/pull/3161) and [PR 2](https://github.com/berkeley-dsep-infra/datahub/pull/3164/commits/a3fc71d5a68b030cda91029b5dbb6c01c0eec8fe) were merged to prod. Notably, PR 1 had multiple commits related to creation of Stat 20 hub, Stat 259 hub etc..
+### 2024-03-05 Data8 outage
+between ~4pm and ~5:15pm, data8's configurable-http-proxy (chp) was oomkilled and caused many 503 errors to be issued to the users.  here's a rough timeline of what happened (culled from grafana, gcp logs and kernel logs on the core node):
 
-### {{ 06:10 }}
+### 15:12:00
+~280 concurrent users
 
-Andrew Bray (Stat 20 instructor) raised a [github issue](https://github.com/berkeley-dsep-infra/datahub/issues/3166) around 5.45 AM PST. 
+### 15:12:42
+chp “uncaught exception: write EPIPE”
 
-### {{ 07:45 }}
+### 16:00:00
+proxy ram 800Mi (steady)
 
-Yuvi quickly jumped in to make a fix to get the R hub working. However this fix resulted in breaking Stat 20 hub.
+### 16:05:00
+~300 concurrent users
 
-### {{ 07:53 }}
+### ~16:05:00
+spike on proxy — cpu 181%, mem 1.06Gi --> 1.86Gi
 
-ISchool folks reported issues with using RStudio in Datahub
+### 16:05:53
+chp healthz readiness probe failure 
 
-### {{ 08:45 }}
+### 16:05:56
+chp/javascript runs out of heap “Ineffective mark-compass near heap limit Allocation Failed”
 
-Yuvi fixed issue with Stat 20 and other hubs
+### 16:05:57-58
+chp restarts
 
-### {{ 12:10 }}
-GSIs from Data 100 and 140 reported "Unhandled error" in their hubs
+### 16:05:57
+node dmesg: “TCP: request_sock_TCP: Possible SYN flooding on port 8000. Sending cookies.  Check SNMP counters.”
 
-### {{ 12:15 }}
-GSIs for Data 140 hub reported that the error was fixed
+### ~16:06:00
+2.5K 503 errors
 
-### {{ 12:33 }}
-GSIs Data 100 hub reported that the error was fixed
+### ~16:06:00 - 16:16:00
+many many chp routes added and deleted causing 503 errors for some users
 
----
+### 16:16:00 - 16:49:00
+everything back to normal
+
+### 16:49:00
+~300 users (slowly decreasing)
+
+### ~16:49:00
+spike on proxy — cpu 107%, mem 814Mi --> 2.45Gi
+
+### 16:49:40
+core node dmesg:  node invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=999
+
+### 16:50:25
+chp restarts (no heap error)
+
+### ~16:50:00
+5.7K 503 errors
+
+### 16:54:15 - 17:15:31
+300 users (slowly descreasing), 3x chp “uncaught exception: write EPIPE”, intermittent 503 errors in spikes of 30, 60, 150, hub latency 2.5sec 
+
+### 18:47:19 - 18:58:10
+~120 users (constant), 3x chp “uncaught exception: write EPIPE”, intermittent 503 errors in spikes of 30, 60, hub latency 3sec
+
+### ~19:00
+things return to normal
 
 # After-action report
 
-These sections should be filled out once we've resolved the incident and know what happened.
-They should focus on the knowledge we've gained and any improvements we should take.
-
 ## What went wrong
 
-- R, Stat 20, Datahub, ISchool, Data 100 and 140 hubs went down around 2.30 AM PST. However, the team was aware of these issues only when users reported errors at different time intervals (as listed above)
-- Multiple commits went through a single PR. Dependency package's version upgrade broke the image build (Yuvi to fill in the required details)
-
-Things that could have gone better. Ideally these should result in concrete
-action items that have GitHub issues created for them and linked to under
-Action items. 
+- The configurable http proxy (chp) is written in javascript (nodejs), and under load (~250+ concurrent users) it leaks ports and eventually fills up the heap (~728M) and gets oomkilled.
+- The CPU allocation on the core node was also spiking, potentially causing login latency across all hubs.
+- Upon chp restart, it can take up to 10-15m for the routing table to be repopulated.  During this time most, if not all, users that were already connected to the hub will get 503 errors.  Any new logins during this time will not.
 
 ## Where we got lucky
 
 These are good things that happened to us but not because we had planned for them.
 
-- Yuvi was awake at the time when issue was reported and was able to fix the issues immediately. 
-- Classes using hubs were not completely affected due to this outage (Data 100 did not have assignments due till 1/21 and Stat 20 had few mins of outage during instruction)
+- Since we bumped the RAM allocated to the core node from 8G to 32G instances like are isolated to whatever hub's chp begins failing, and does not impact all hubs.
 
 ## Action items
 
-These are only sample subheadings. Every action item should have a GitHub issue
-(even a small skeleton of one) attached to it, so these do not get forgotten. These issues don't have to be in `infrastructure/`, they can be in other repositories.
-
 ### Process/Policy improvements
 
-1. {{[Develop manual testing process](https://github.com/berkeley-dsep-infra/datahub/issues/2953) whenever a PR gets merged to staging of the major hubs (till automated test suites are written)}} [link to github issue](https://github.com/berkeley-dsep-infra/datahub/issues/2953)]
-2. Develop a policy around when to create a new hub and what type of changes get deployed to Datahub! 
+Nothing really, these are very difficult to predict and don't always happen.
 
 ### Documentation improvements
 
-1. {{ Start writing after action reports for future outages }} [link to github issue]
-2. {{ summary }} [link to github issue]
+None.
 
 ### Technical improvements
 
-1. {{ Enabling logging mechanism across all hubs to track future outages }}
-2. {{ Adapt 2I2C testing suite to develop automated test cases that check the sanity of the different services whenever a PR gets merged in staging}} [link to github issue]
-3. {{ Investigate the reason why pager duty did not throw an alert for 5xx errors when the hubs went down. Fix the alerting mechanism so that they notify all kind of errors }} [link to github issue]
-4. {{ Adding R Studio as part of Repo2Docker}} [link to github issue]
+1. Continue to track the port leak issue [upstream](https://github.com/jupyterhub/configurable-http-proxy/issues/434).
+2. Deploy a new core pool with the same RAM and more CPU (Jira DH-259).
 
 # Actions
 
-- [ ] Incident has been dealt with or is over
-- [ ] Sections above are filled out
-- [ ] Incident title and after-action report is cleaned up
-- [ ] All actionable items above have linked GitHub Issues
+- [x] Incident has been dealt with or is over
+- [x] Sections above are filled out
+- [x] Incident title and after-action report is cleaned up
+- [x] All actionable items above have linked GitHub Issues
