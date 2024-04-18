@@ -41,7 +41,7 @@ Quick summary of the problem. Update this section as we learn more, answering:
 - [Data 8](https://data8.datahub.berkeley.edu)
 - [Data 100](https://data100.datahub.berkeley.edu)
 
-## Timeline (if relevant)
+## Timeline
 
 ### 2024-03-05 Data8 outage
 between ~4pm and ~5:15pm, data8's configurable-http-proxy (chp) was oomkilled and caused many 503 errors to be issued to the users.  here's a rough timeline of what happened (culled from grafana, gcp logs and kernel logs on the core node):
@@ -110,13 +110,12 @@ things return to normal
 
 ## What went wrong
 
+- Only being able to test things like the forked chp in prod is dangerous and has a huge potential impact on users.
 - The configurable http proxy (chp) is written in javascript (nodejs), and under load (~250+ concurrent users) it leaks ports and eventually fills up the heap (~728M) and gets oomkilled.
 - The CPU allocation on the core node was also spiking, potentially causing login latency across all hubs.
 - Upon chp restart, it can take up to 10-15m for the routing table to be repopulated.  During this time most, if not all, users that were already connected to the hub will get 503 errors.  Any new logins during this time will not.
 
 ## Where we got lucky
-
-These are good things that happened to us but not because we had planned for them.
 
 - Since we bumped the RAM allocated to the core node from 8G to 32G instances like are isolated to whatever hub's chp begins failing, and does not impact all hubs.
 
@@ -124,7 +123,8 @@ These are good things that happened to us but not because we had planned for the
 
 ### Process/Policy improvements
 
-Nothing really, these are very difficult to predict and don't always happen.
+1. Work with instructors to identify and immediately troubleshoot users impacted by the white screen issue.
+2. Spin up a dev hub and figure out how to use [hubtraf](https://github.com/yuvipanda/hubtraf) to simulate a large number of users doing work.
 
 ### Documentation improvements
 
@@ -134,6 +134,7 @@ None.
 
 1. Continue to track the port leak issue [upstream](https://github.com/jupyterhub/configurable-http-proxy/issues/434).
 2. Deploy a new core pool with the same RAM and more CPU (Jira DH-259).
+3. Spin up a dev hub and figure out how to use [hubtraf](https://github.com/yuvipanda/hubtraf) to simulate a large number of users doing work.
 
 # Actions
 
