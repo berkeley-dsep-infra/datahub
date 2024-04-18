@@ -123,7 +123,7 @@ things return to normal
 
 ### Process/Policy improvements
 
-1. Work with instructors to identify and immediately troubleshoot users impacted by the white screen issue.
+1. Work with instructors to identify and immediately troubleshoot directly with users impacted by the white screen issue.
 2. Spin up a dev hub and figure out how to use [hubtraf](https://github.com/yuvipanda/hubtraf) to simulate a large number of users doing work.
 
 ### Documentation improvements
