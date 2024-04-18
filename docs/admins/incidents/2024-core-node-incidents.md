@@ -8,35 +8,19 @@ assignees: "@shaneknapp"
 
 # Summary
 
-Over the past couple of years, all of our production hubs have been having
-persistent issues with our core nodes having major load spikes during 'peak'
-usage and the impacted node (which hosts all of our hub and proxy pods -- not
-user pods) crashing. This would then impact every hub, causing all users to 
-see 503 http errors until a new node finishing spinning up.
+Over the past couple of years, all of our production hubs have been having persistent issues with our core nodes having major load spikes during 'peak' usage and the impacted node (which hosts all of our hub and proxy pods -- not user pods) crashing. This would then impact every hub, causing all users to see 503 http errors until a new node finishing spinning up.  We also suspect that the 'white screen' issue some users see after logging in is related to this.
 
-These outages would usually last anywhere from 45 to 90+ minutes.  The first
-chunk of time would be the core node getting wedged and eventually dying, and
-the last 15-20 minutes would be spent on the new node spinning up and services
-restarting.
+These outages would usually last anywhere from 45 to 90+ minutes.  The first chunk of time would be the core node getting wedged and eventually dying, and the last 15-20 minutes would be spent on the new node spinning up and services restarting.
 
 Many of these incidents are tracked [here](https://github.com/berkeley-dsep-infra/datahub/issues/2791).
 
-We have spent much time working to debug and track this, including with our
-friends at [2i2c](https://2i2c.org). After much deep-diving and debugging,
-we were able to narrow this down to a memory (socket?) leak in the 
-[configurable http proxy](https://github.com/jupyterhub/configurable-http-proxy/issues/434).
+We have spent much time working to debug and track this, including with our friends at [2i2c](https://2i2c.org). After much deep-diving and debugging, we were able to narrow this down to a memory (socket?) leak in the [configurable http proxy](https://github.com/jupyterhub/configurable-http-proxy/issues/434).
 
-After some back and forth w/the upstream maintainers, we received a
-[forked version](https://github.com/berkeley-dsep-infra/datahub/pull/5501) of
-the proxy to test.
+After some back and forth w/the upstream maintainers, we received a [forked version](https://github.com/berkeley-dsep-infra/datahub/pull/5501) of the proxy to test.
 
-During this testing, we triggered some user-facing downtime, as well as the 
-proxy itself crashing and causing small outages. 
+During this testing, we triggered some user-facing downtime, as well as the proxy itself crashing and causing small outages. 
 
-Another (unrelated) issue that impacted users was that [GKE](https://cloud.google.com/kubernetes-engine)
-was autoscaling our core pool (where the hub and proxy pods run) node to zero.
-Since it takes about 10-15m for a new node to spin up, all hubs were
-inaccessible until the new node was deployed.
+Another (unrelated) issue that impacted users was that [GKE](https://cloud.google.com/kubernetes-engine) was autoscaling our core pool (where the hub and proxy pods run) node to zero. Since it takes about 10-15m for a new node to spin up, all hubs were inaccessible until the new node was deployed.
 
 User Impact:
 
