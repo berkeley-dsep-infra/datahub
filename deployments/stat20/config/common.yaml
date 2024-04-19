@@ -72,7 +72,7 @@ jupyterhub:
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
-          mountPath: /opt/shared
+          mountPath: /home/jovyan/shared
           subPath: _shared
           readOnly: true
     memory:
@@ -89,5 +89,6 @@ jupyterhub:
     admin:
       extraVolumeMounts:
         - name: home
-          mountPath: /opt/shared-readwrite
+          mountPath: /home/jovyan/shared-readwrite
           subPath: _shared
+
