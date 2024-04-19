@@ -72,7 +72,7 @@ jupyterhub:
         subPath: "{username}"
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan/shared
+          mountPath: /opt/shared
           subPath: _shared
           readOnly: true
     memory:
@@ -86,9 +86,14 @@ jupyterhub:
       course::1524699::group::all-admins:
         admin: true
         mem_limit: 8G
+      # Shared read directory for infra admins to store logs data from every semester
+      course::1534506::enrollment_type::teacher:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/admins-shared-storage
+            subPath: _shared/admins-storage
     admin:
       extraVolumeMounts:
         - name: home
-          mountPath: /home/jovyan/shared-readwrite
+          mountPath: /opt/shared-readwrite
           subPath: _shared
-
