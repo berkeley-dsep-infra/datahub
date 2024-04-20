@@ -75,7 +75,7 @@ dependencies:
   # official compatible release is available.
   #- nbdime==3.1.1
   
-  - nbgitpuller==1.1.1
+  - nbgitpuller==1.2.1
   - networkx==3.0
   - numba==0.56.4
   - numpy==1.23.5
@@ -150,7 +150,7 @@ dependencies:
   - pip:
     - jupysql==0.10.5
     - ipytest==0.13.0
-    - jupyterhub==4.0.1
+    - jupyterhub==4.1.5
     - nbval==0.10.0
     - nbdime==3.2.0
 

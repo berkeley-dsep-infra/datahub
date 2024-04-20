@@ -9,6 +9,7 @@ source("/tmp/class-libs.R")
 class_name="EEP 1118"
 class_libs = c(
     "car", "3.0-10",
+    "mfx", "1.2-2",
     "psych", "2.2.9",
     "pacman", "0.5.1"
 )
