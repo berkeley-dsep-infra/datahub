@@ -97,4 +97,3 @@ jupyterhub:
         - name: home
           mountPath: /opt/shared-readwrite
           subPath: _shared
-
