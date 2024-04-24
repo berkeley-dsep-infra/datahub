@@ -5,8 +5,8 @@ nfsPVC:
 jupyterhub:
   hub:
     image:
-      - name: gcr.io/ucb-datahub-2018/jupyterhub-hub
-        tag: 0.0.1-0.dev.git.7607.h4497642d
+      name: gcr.io/ucb-datahub-2018/jupyterhub-hub
+      tag: 0.0.1-0.dev.git.7126.h64800628
   scheduling:
     userScheduler:
       replicas: 1
