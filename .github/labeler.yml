@@ -65,6 +65,10 @@ helm-config:
 support-deployment:
   - 'support/**'
 
+# grafana panel backups
+grafana:
+  - 'vendor/grafana/**'
+
 # jupyterhub deployment
 jupyterhub-deployment:
   - 'hub/**'
