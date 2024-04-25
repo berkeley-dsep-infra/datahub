@@ -86,8 +86,9 @@ jupyterhub:
       course::1524699::group::all-admins:
         admin: true
         mem_limit: 8G
-    admin:
-      extraVolumeMounts:
-        - name: home
-          mountPath: /opt/shared-readwrite
-          subPath: _shared
+      # Shared directory to read logs data from every semester
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/admins-shared
+            subPath: _shared-admins
+            readOnly: true
