@@ -12,20 +12,22 @@ dependencies:
 
 - syncthing==1.18.6
 
-- numpy==1.22.*
-- matplotlib==3.5.*
+- numpy==1.26.*
+- matplotlib==3.8.*
 - graphviz>=2.50.0
 - psycopg2==2.9.*
-- pytorch==2.2.2
-- torchvision==0.17.2
+- pytorch==2.3.0
+- torchvision==0.18.*
 - pytorch-lightning==2.2.1
 - pyaudio==0.2.11
 - cython
 - cartopy
 - protobuf
+- mkl
+- mkl-service
 - mpich
 - mpi4py
-- scikit-learn==1.0.*
+- scikit-learn==1.4.*
 - scikit-image==0.19.*
 - scipy==1.11.3
 - pip
@@ -58,8 +60,6 @@ dependencies:
   - pyvo>=1.2
   - joblib==1.2.0
   - aesara>=2.3.4
-  - mkl==2024.0.0
-  - mkl-service
   - pymc3>=3.11.4
   - requests>=2.27.1
   - ipycanvas
