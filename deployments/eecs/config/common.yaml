@@ -50,19 +50,7 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::eecs-admins
-      # [DH-237] Datahub Security Testing by MICS students
-      course-staff-1534371:
-        description: Enable course staff to view and access servers.
-        # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1534371
-          - admin:servers!group=course::1534371
-          - access:servers!group=course::1534371
-        # this role will be assigned to...
-        groups:
-          - course::1534371::enrollment_type::teacher
-          - course::1534371::enrollment_type::ta
+
   singleuser:
     extraEnv:
       # Until https://github.com/betatim/vscode-binder/pull/19 is merged
@@ -105,8 +93,3 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
-      course::1532904: # EE120, Spring 2024, issue #5492
-        mem_limit: 4096M
-        mem_guarantee: 4096M
-
-

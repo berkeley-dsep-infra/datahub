@@ -33,29 +33,29 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
       # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
-      course-staff-1531798:
-        description: Enable course staff to view and access servers.
+      #course-staff-1531798:
+      #  description: Enable course staff to view and access servers.
         # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1531798
-          - admin:servers!group=course::1531798
-          - access:servers!group=course::1531798
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::1531798
+      #    - admin:servers!group=course::1531798
+      #    - access:servers!group=course::1531798
         # this role will be assigned to...
-        groups:
-          - course::1531798::group::Admins
+      #  groups:
+      #    - course::1531798::group::Admins
       # Econ 148, Spring 2024, DH-225
-      course-staff-1532866:
-        description: Enable course staff to view and access servers.
+      #course-staff-1532866:
+      #  description: Enable course staff to view and access servers.
         # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1532866
-          - admin:servers!group=course::1532866
-          - access:servers!group=course::1532866
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::1532866
+      #   - admin:servers!group=course::1532866
+      #    - access:servers!group=course::1532866
         # this role will be assigned to...
-        groups:
-          - course::1532866::group::admin
+      #  groups:
+      #   - course::1532866::group::admin
 
 #  prePuller:
 #    extraImages:
@@ -103,26 +103,15 @@ jupyterhub:
         mem_limit: 4G
 
       # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
-      course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
-        mem_limit: 4G
-        mem_guarantee: 4G
+      #course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
+      #  mem_limit: 4G
+      #  mem_guarantee: 4G
 
       # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
-      course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM
-        mem_limit: 4G
-        mem_guarantee: 4G
-
-      # Econ 148, Spring 2024
-      course::1532866: # Temporarily grant 3G of RAM to all students
-        mem_limit: 3G
-        mem_guarantee: 3G
-
-      # Econ148, Spring '24; testing shared_readwrite for groups in Eric's class
-      course::1532866::group::shared_readwrite:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/_shared-econ148
-            subPath: _shared    
+      #course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM
+      #  mem_limit: 4G
+      #  mem_guarantee: 4G
+ 
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:
