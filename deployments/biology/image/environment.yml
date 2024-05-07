@@ -4,7 +4,7 @@ channels:
 dependencies:
 - python=3.11.*
 - pip=22.2.*
-# - statsmodels==0.14.1
+
 # Package to allow Jupyter Notebook or JupyterLab applications in one conda env to access other kernels (e.g. qiime2)
 - nb_conda_kernels=2.3.1
 
