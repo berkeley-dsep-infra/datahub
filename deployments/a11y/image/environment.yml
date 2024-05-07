@@ -4,7 +4,7 @@ channels:
 - conda-forge
 
 dependencies:
-- python==3.11.0
+- python==3.11.*
 - git==2.40.0
 - coverage==7.2.2
 - jupyter-archive==3.4.0
