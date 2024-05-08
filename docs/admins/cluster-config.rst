@@ -32,7 +32,7 @@ the currently favored configuration.
         --enable-autoscaling \
         --max-nodes=20 --min-nodes=1 \
         --region=us-central1 --node-locations=us-central1-b \
-        --image-type=cos \
+        --image-type=cos_containerd \
         --disk-size=100 --disk-type=pd-balanced \
         --machine-type=n2-highmem-8 \
         --cluster-version latest \
@@ -56,7 +56,7 @@ the currently favored configuration.
         --disk-size=200 --disk-type=pd-balanced \
         --no-enable-autoupgrade \
         --tags=hub-cluster \
-        --cluster=fall-2019 \
+        --cluster=spring-2024 \
         user-<pool-name>-<yyyy>-<mm>-<dd>
 
 

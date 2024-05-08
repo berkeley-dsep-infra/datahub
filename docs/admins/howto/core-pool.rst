@@ -29,7 +29,7 @@ Run the following command from the root directory of your local datahub repo to 
     --machine-type "n2-standard-8"  \
     --num-nodes "1" \
     --enable-autoscaling --min-nodes "1" --max-nodes "3" \
-    --project "ucb-datahub-2018" --cluster "fall-2019" --region "us-central1" --node-locations "us-central1-b" \
+    --project "ucb-datahub-2018" --cluster "spring-2024" --region "us-central1" --node-locations "us-central1-b" \
     --tags hub-cluster \
     --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100"  \
     --metadata disable-legacy-endpoints=true \
