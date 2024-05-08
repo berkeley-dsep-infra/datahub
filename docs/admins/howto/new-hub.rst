@@ -91,7 +91,7 @@ Create the node pool:
      --node-labels hub.jupyter.org/pool-name=<hubname>-pool \
      --machine-type "n2-highmem-8"  \
      --enable-autoscaling --min-nodes "0" --max-nodes "20" \
-     --project "ucb-datahub-2018" --cluster "fall-2019" \
+     --project "ucb-datahub-2018" --cluster "spring-2024" \
      --region "us-central1" --node-locations "us-central1-b" \
      --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \
      --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "200"  \
@@ -184,7 +184,7 @@ In the ``datahub/deployments`` directory, run ``cookiecutter``. This sets up the
 The cookiecutter template will prompt you to provide the following information:
  - ``<hub_name>``: Enter the chosen name of the hub.
  - ``<project_name>``: Default is ``ucb-datahub-2018``, do not change.
- - ``<cluster_name>``: Default is ``fall-2019``, do not change.
+ - ``<cluster_name>``: Default is ``spring-2024``, do not change.
  - ``<pool_name>``: Name of the node pool (shared or individual) to deploy on.
  - ``hub_filestore_share``: Default is ``shares``, do not change.
  - ``hub_filestore_ip``: Enter the IP address of the filestore instance. This is available from the web console.
@@ -288,7 +288,7 @@ Otherwise, you'll need to add the placeholder settings in ``node-placeholder/val
 The node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can't run on a node where other system pods are running! To do this, we'll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of "wiggle room".  This final number will be used to allocate RAM for the node placeholder.
 
 #. Launch a server on https://<hubname>.datahub.berkeley.edu
-#. Get the node name (it will look something like ``gke-fall-2019-user-datahub-2023-01-04-fc70ea5b-67zs``): ``kubectl get nodes | grep <hubname> | awk '{print$1}'``
+#. Get the node name (it will look something like ``gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs``): ``kubectl get nodes | grep <hubname> | awk '{print$1}'``
 #. Get the total amount of memory allocatable to pods on this node and convert to bytes: ``kubectl get node <nodename> -o jsonpath='{.status.allocatable.memory}'``
 #. Get the total memory used by non-user pods/containers on this node. We explicitly ignore ``notebook`` and ``pause``. Convert to bytes and get the sum:
 
@@ -318,11 +318,11 @@ For reference, here's example output from collecting and calculating the values 
 .. code:: bash
 
           (gcpdev) ➜  ~ kubectl get nodes | grep data102 | awk '{print$1}'
-          gke-fall-2019-user-data102-2023-01-05-e02d4850-t478
-          (gcpdev) ➜  ~ kubectl get node gke-fall-2019-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes
+          gke-spring-2024-user-data102-2023-01-05-e02d4850-t478
+          (gcpdev) ➜  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes
           60055600Ki%
           (gcpdev) ➜  ~ kubectl get -A pod -l 'component!=user-placeholder' \
-          --field-selector spec.nodeName=gke-fall-2019-user-data102-2023-01-05-e02d4850-t478 \
+          --field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 \
           -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \
           | egrep -v 'pause|notebook' # convert all values to bytes, sum them
           calico-node
