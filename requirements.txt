@@ -4,6 +4,6 @@ pygithub
 pyrsistent==0.19.3
 attrs==23.1.0
 chartpress
-jupyter-repo2docker==2023.06.0
+jupyter-repo2docker==2024.3.0
 myst-parser
 chardet
