@@ -39,18 +39,18 @@ jupyterhub:
           - course::1524699::group::all-admins
 
       # PHW 142, Spring 2024, #5368
-      course-staff-1532521:
-        description: Enable course staff to view and access servers.
+      #course-staff-1532521:
+      #  description: Enable course staff to view and access servers.
         # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1532521
-          - admin:servers!group=course::1532521
-          - access:servers!group=course::1532521
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::1532521
+      #    - admin:servers!group=course::1532521
+      #    - access:servers!group=course::1532521
         # this role will be assigned to...
-        groups:
-          - course::1532521::enrollment_type::teacher
-          - course::1532521::enrollment_type::ta
+      #  groups:
+      #    - course::1532521::enrollment_type::teacher
+      #    - course::1532521::enrollment_type::ta
 
     extraConfig:
       # Use 1x-<title> in `common.yaml` extraConfig values.

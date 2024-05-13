@@ -53,15 +53,15 @@ jupyterhub:
       course-staff-1533557:
       #  description: Enable course staff to view and access servers.
         # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1533557
-          - admin:servers!group=course::1533557
-          - access:servers!group=course::1533557
+       # scopes:
+       #  - admin-ui
+       #  - list:users!group=course::1533557
+       #  - admin:servers!group=course::1533557
+       #  - access:servers!group=course::1533557
         # this role will be assigned to...
-        groups:
-          - course::1533557::enrollment_type::teacher
-          - course::1533557::enrollment_type::ta
+       # groups:
+        #  - course::1533557::enrollment_type::teacher
+        #  - course::1533557::enrollment_type::ta
 
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2023-12-21
