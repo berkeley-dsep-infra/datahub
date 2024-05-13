@@ -46,18 +46,18 @@ jupyterhub:
         groups:
           - course::1524699::group::astro-admins
       # [DH-270] Astro Lab 128
-      course-staff-1532117:
-        description: Enable course staff to view and access servers.
-        # this role provides permissions to...
-        scopes:
-          - admin-ui
-          - list:users!group=course::1532117
-          - admin:servers!group=course::1532117
-          - access:servers!group=course::1532117
+      #course-staff-1532117:
+      #  description: Enable course staff to view and access servers.
+      #   this role provides permissions to...
+      #  scopes:
+      #    - admin-ui
+      #    - list:users!group=course::1532117
+      #    - admin:servers!group=course::1532117
+      #    - access:servers!group=course::1532117
         # this role will be assigned to...
-        groups:
-          - course::1532117::enrollment_type::teacher
-          - course::1532117::enrollment_type::ta
+      #  groups:
+      #    - course::1532117::enrollment_type::teacher
+      #    - course::1532117::enrollment_type::ta
 
   singleuser:
     extraFiles:
