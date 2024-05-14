@@ -3,12 +3,24 @@ nfsPVC:
     shareName: shares/datahub/prod
 
 jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - prod.datahub.berkeley.edu
+      - datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - prod.datahub.berkeley.edu
+          - datahub.berkeley.edu
   proxy:
-    service:
-      loadBalancerIP: 35.232.190.188
+    #service:
+      # this IP is the A record for datahub.b.e
+      #loadBalancerIP: 35.202.143.236
     https:
-      hosts:
-        - datahub.berkeley.edu
+      enabled: false
+      #hosts:
+      #  - datahub.berkeley.edu
   hub:
     db:
       pvc:
