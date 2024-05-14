@@ -123,10 +123,6 @@ RUN apt-get update -qq --yes > /dev/null && \
 
 WORKDIR /home/jovyan
 
-COPY install-mambaforge.bash /tmp/install-mambaforge.bash
-RUN chmod 777 /tmp/install-mambaforge.bash
-RUN /tmp/install-mambaforge.bash
-
 # Needed by RStudio
 RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
@@ -163,6 +159,10 @@ RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
 RUN apt-get update -qq --yes && \
     apt-get install --yes  -qq \
         libcurl4-openssl-dev > /dev/null
+
+COPY install-mambaforge.bash /tmp/install-mambaforge.bash
+RUN chmod 777 /tmp/install-mambaforge.bash
+RUN /tmp/install-mambaforge.bash
 
 USER ${NB_USER}
 

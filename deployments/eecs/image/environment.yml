@@ -4,7 +4,7 @@ channels:
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
 dependencies:
-- python=3.9.*
+- python=3.11.*
 - nbclassic==1.0.0
 
 - jupyter-server-proxy==4.1.2
@@ -23,31 +23,31 @@ dependencies:
 - cxx-compiler=1.4.2
 - fortran-compiler=1.4.2
 - gdb=11.2
-- libopenblas=0.3.17
+- libopenblas=0.3.27
 - liblapack=3.9.0
 - armadillo=9.900.5
 - gperf=3.1
 # CS 16A
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
-- numpy=1.21.2
-- matplotlib=3.4.3
-- sympy=1.8
+- numpy=1.26.*
+- matplotlib=3.8.*
+- sympy=1.12
 
 # For EECS127/227a
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1631
-- cvxpy=1.2.1
+- cvxpy=1.4.3
 # See https://github.com/berkeley-dsep-infra/datahub/issues/1936
-- scikit-learn=0.24.2
+- scikit-learn=1.4.*
 
 # For CHEM279
 # See https://github.com/berkeley-dsep-infra/datahub/issues/2717
 - git=2.33.0
 
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1505
-- Pillow=8.3.1
+- Pillow=10.3.0
 
 # For ELENG 120 https://github.com/berkeley-dsep-infra/datahub/issues/3566
-- scipy=1.9.0
+- scipy=1.11.3
 - gcc=10.4.0
 
 # https://github.com/berkeley-dsep-infra/datahub/issues/4460
@@ -60,7 +60,7 @@ dependencies:
 - pip
 - pip:
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1639
-  - opencv-python==4.5.3.56
+  - opencv-python==4.9.0.80
   - PyQt5==5.15.4
 # From https://github.com/berkeley-dsep-infra/datahub/issues/1363#issuecomment-598916469
   - lcapy==0.96

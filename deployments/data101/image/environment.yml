@@ -4,7 +4,7 @@ channels:
 - conda-forge
 
 dependencies:
-- python==3.11.0
+- python==3.11.*
 - syncthing==1.20.4
 - git==2.39.1
 - altair==5.0.1
