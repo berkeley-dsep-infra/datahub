@@ -4,7 +4,7 @@ channels:
 # Almost all libraries should be added in requirements.txt
 # Only libraries *not* available in PyPI should be here
 dependencies:
-- python=3.9.*
+- python=3.11.*
 - jupyter-server-proxy==4.1.2
 #adding math functionality 
 - matplotlib=3.7.*

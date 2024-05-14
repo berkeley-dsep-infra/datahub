@@ -5,7 +5,7 @@ channels:
 - pytorch
 
 dependencies:
-- python==3.11.0
+- python==3.11.*
 - git==2.39.1
 - jupyter-resource-usage==1.0.0
 - jupyterlab==4.0.11

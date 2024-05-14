@@ -2,7 +2,7 @@ dependencies:
 - jupyter-server-proxy==4.1.2
 - nodejs==20.8.1
 - pip==22.3.1
-- python==3.10.13
+- python==3.11.*
 - requests==2.31.0
 
 - syncthing==1.18.6
