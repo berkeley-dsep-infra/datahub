@@ -32,7 +32,7 @@ ingress-nginx:
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-12-21
+      hub.jupyter.org/pool-name: core-pool-2024-05-08
     replicaCount: 3
     resources:
       limits:
@@ -42,7 +42,8 @@ ingress-nginx:
         cpu: 0.2
         memory: 384Mi
     service:
-      loadBalancerIP: 34.69.164.86
+      # this IP is the wildcard DNS record for datahub.b.e
+      loadBalancerIP: 35.184.243.160
     metrics:
       enabled: true
     podAnnotations:

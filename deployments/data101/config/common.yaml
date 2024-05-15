@@ -7,7 +7,7 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
   prePuller:
     extraImages:
       postgres:
@@ -16,7 +16,7 @@ jupyterhub:
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
 
   hub:
     config:
@@ -90,7 +90,7 @@ jupyterhub:
             )
         c.Spawner.pre_spawn_hook = ensure_db_pvc
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-12-21
+      hub.jupyter.org/pool-name: core-pool-2024-05-08
     config:
     loadRoles:
       # Data 101, SP 2024, #5508

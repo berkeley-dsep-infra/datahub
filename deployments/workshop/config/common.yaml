@@ -17,12 +17,12 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
   hub:
     # No more than 200 users at any given time
     activeServerLimit: 200
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-12-21
+      hub.jupyter.org/pool-name: core-pool-2024-05-08
     config:
       JupyterHub:
         admin_access: false
@@ -30,10 +30,10 @@ jupyterhub:
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
   singleuser:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.

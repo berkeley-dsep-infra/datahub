@@ -13,18 +13,18 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
     traefik:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2023-12-21
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
 
   hub:
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2023-12-21
+      hub.jupyter.org/pool-name: core-pool-2024-05-08
     config:
     loadRoles:
       # datahub staff
