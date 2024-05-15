@@ -368,7 +368,7 @@ jobs:
             echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
 
       - run:
-          name: Activate credentials for datahub cluster (fall-2019)
+          name: Activate credentials for datahub cluster (spring-2024)
           command: |
             gcloud components install gke-gcloud-auth-plugin
             sops -d -i deployments/datahub/secrets/gke-key.json
@@ -378,7 +378,7 @@ jobs:
 
             gcloud container clusters \
               --region=us-central1 --project=ucb-datahub-2018 \
-              get-credentials fall-2019
+              get-credentials spring-2024
 
       - run:
           name: Deploy node placeholder chart
@@ -425,7 +425,7 @@ jobs:
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
       - run:
-          name: Activate credentials for datahub cluster (fall-2019)
+          name: Activate credentials for datahub cluster (spring-2024)
           command: |
             gcloud components install gke-gcloud-auth-plugin
             sops -d -i deployments/datahub/secrets/gke-key.json
@@ -435,7 +435,7 @@ jobs:
 
             gcloud container clusters \
               --region=us-central1 --project=ucb-datahub-2018 \
-              get-credentials fall-2019
+              get-credentials spring-2024
 
       - run:
           name: Deploy support helm chart
