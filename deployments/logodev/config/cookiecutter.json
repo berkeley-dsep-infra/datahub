@@ -1,7 +1,7 @@
 {
     "hub_name": "logodev",
     "project_name": "ucb-datahub-2018",
-    "cluster_name": "fall-2019",
+    "cluster_name": "spring-2024",
     "pool_name": "user-logodev-2023-04-11",
     "hub_filestore_share": "shares",
     "hub_filestore_ip": "10.185.238.42",
