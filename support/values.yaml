@@ -102,6 +102,7 @@ prometheus:
     persistentVolume:
       size: 1000Gi
       storageClass: ssd
+      existingClaim: prometheus-data-2024-05-15
     retention: 180d
     strategy:
       # Can't really do rolling update, we have a persistent disk attached
