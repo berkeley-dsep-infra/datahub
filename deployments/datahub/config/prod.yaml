@@ -6,12 +6,10 @@ jupyterhub:
   ingress:
     enabled: true
     hosts:
-      - prod.datahub.berkeley.edu
       - datahub.berkeley.edu
     tls:
       - secretName: tls-cert
         hosts:
-          - prod.datahub.berkeley.edu
           - datahub.berkeley.edu
   proxy:
     https:
