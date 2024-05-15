@@ -14,13 +14,8 @@ jupyterhub:
           - prod.datahub.berkeley.edu
           - datahub.berkeley.edu
   proxy:
-    #service:
-      # this IP is the A record for datahub.b.e
-      #loadBalancerIP: 35.202.143.236
     https:
       enabled: false
-      #hosts:
-      #  - datahub.berkeley.edu
   hub:
     db:
       pvc:
