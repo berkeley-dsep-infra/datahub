@@ -192,7 +192,8 @@ The cookiecutter template will prompt you to provide the following information:
 
 This will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.
 
-If you have created a new filestore instance, you will now need to apply the ``ROOT_SQUASH`` settings.
+If you have created a new filestore instance, you will now need to apply the ``ROOT_SQUASH`` settings. Please ensure that you've already created the hub's root directory and both `staging` and `prod` directories, otherwise you'll lose write access to the share.
+
 Skip this step if you are using an existing/shared filestore.
 
 .. code:: bash
