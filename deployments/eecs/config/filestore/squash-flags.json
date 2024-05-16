@@ -2,7 +2,7 @@
 "--file-share":
   {
     "name": "shares",
-    "capacity": "3TiB",
+    "capacity": "2TiB",
     "nfs-export-options": [
       {
         "access-mode": "READ_WRITE",
