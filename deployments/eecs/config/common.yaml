@@ -1,7 +1,7 @@
 nfsPVC:
   enabled: true
   nfs:
-    serverIP: 10.214.15.154
+    serverIP: 10.9.48.138
 
 jupyterhub:
   scheduling:
