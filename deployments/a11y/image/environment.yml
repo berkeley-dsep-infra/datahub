@@ -35,6 +35,7 @@ dependencies:
   - nbconvert-a11y==2023.12.6
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
+  - git+https://github.com/berkeley-dsep-infra/jupyterlab-a11y-checker.git
   # ###
   # The items below are from infra-requirements, however lab conflicts with the
   # alpha notebook.
