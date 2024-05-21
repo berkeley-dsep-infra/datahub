@@ -12,7 +12,7 @@ orbs:
             default: false
 
         docker:
-          - image: python:3.9-slim-bullseye
+          - image: python:3.11-slim-bullseye
         working_directory: ~/repo
         resource_class: large
         steps:
@@ -23,9 +23,9 @@ orbs:
                 apt-get update && apt-get install --yes --no-install-recommends git curl
           - restore_cache:
               keys:
-                - v3.9-dependencies-{{ checksum "requirements.txt" }}
+                - v3.11-dependencies-{{ checksum "requirements.txt" }}
                 # fallback to using the latest cache if no exact match is found
-                - v3.9-dependencies-
+                - v3.11-dependencies-
 
           - run:
               name: install dependencies
@@ -91,7 +91,7 @@ orbs:
           - save_cache:
               paths:
                 - ./venv
-              key: v3.9-dependencies-{{ checksum "requirements.txt" }}
+              key: v3.11-dependencies-{{ checksum "requirements.txt" }}
 
           - run:
               name: Build image if needed
@@ -107,7 +107,7 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: python:3.9-slim-bullseye
+      - image: python:3.11-slim-bullseye
     working_directory: ~/repo
     steps:
       - run:
@@ -119,9 +119,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v3.9-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
+            - v3.11-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - v3.9-dependencies-gcloud-457-
+            - v3.11-dependencies-gcloud-457-
 
       - run:
           name: install dependencies
@@ -146,7 +146,7 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v3.9-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
+          key: v3.11-dependencies-gcloud-457-{{ checksum "requirements.txt" }}
 
       - run:
           name: Authenticating with google service account for kms/sops
@@ -236,9 +236,9 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy dev-r
+          name: Deploy dev
           command: |
-            hubploy deploy --timeout 30m dev-r hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m dev hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
@@ -538,8 +538,8 @@ workflows:
           # This has no effect yet because docker-py doesn't support buildkit.
           #environment:
           #  DOCKER_BUILDKIT: 1
-          deployment: dev-r
-          name: dev-r image build
+          deployment: dev
+          name: dev image build
           filters:
               branches:
                 ignore:
@@ -701,8 +701,8 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: dev-r
-          name: dev-r image build
+          deployment: dev
+          name: dev image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -805,7 +805,7 @@ workflows:
               - data101 image build
               - data102 image build
               - datahub image build
-              - dev-r image build
+              - dev image build
               - edx image build
               - eecs image build
               - ischool image build

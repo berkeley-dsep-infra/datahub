@@ -1,6 +1,6 @@
 nfsPVC:
   nfs:
-    shareName: shares/dev-r/staging
+    shareName: shares/dev/staging
 
 jupyterhub:
   scheduling:
@@ -12,8 +12,8 @@ jupyterhub:
   ingress:
     enabled: true
     hosts:
-      - dev-r-staging.datahub.berkeley.edu
+      - dev-staging.datahub.berkeley.edu
     tls:
       - secretName: tls-cert
         hosts:
-          - dev-r-staging.datahub.berkeley.edu
+          - dev-staging.datahub.berkeley.edu
