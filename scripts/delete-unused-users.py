@@ -19,7 +19,7 @@ from datetime import timedelta, datetime
 import json
 import logging
 import os
-import requests
+import niquests
 import sys
 
 from dateutil.parser import parse
@@ -55,7 +55,7 @@ def retrieve_users(hub_url, headers, inactive_since):
     params = {}
 
     while next_page:
-        r = requests.get(url, headers=headers, params=params)
+        r = niquests.get(url, headers=headers, params=params)
         r.raise_for_status()
         resp = r.json()
         user_list = resp["items"]
@@ -104,7 +104,7 @@ def should_delete(user, inactive_since):
 
 def delete_user(hub_url, headers, name):
     """Delete a given user by name via JupyterHub API"""
-    r = requests.delete(
+    r = niquests.delete(
         hub_url.rstrip("/") + f"/hub/api/users/{name}",
         headers=headers,
     )
