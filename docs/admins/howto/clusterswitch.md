@@ -4,11 +4,48 @@ This document describes how to switch an existing hub to a new cluster.  The exa
 
 ## Make a new cluster
 1. Create a new cluster using the specifications here:  
-   https://docs.datahub.berkeley.edu/en/latest/topic/cluster-config.html
+   https://docs.datahub.berkeley.edu/en/latest/admins/cluster-config.html
 2. Set up helm on the cluster according to the instructions here:  
    http://z2jh.jupyter.org/en/latest/setup-helm.html
      - Make sure the version of helm you're working with matches the version CircleCI is using.  
        For example:  https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circleci/config.yml#L169
+
+## Setting the 'context' for kubectl and work on the new cluster.
+1. Ensure you're logged in to GCP:  `gcloud auth login`
+2. Pull down the credentials from the new cluster:  `gcloud container clusters get-credentials <CLUSTER_NAME> --region us-central1`
+3. Switch the kubectl context to this cluster:  `kubectl config use-context gke_ucb-datahub-2018_us-central1_<CLUSTER_NAME>`
+
+## Install and configure the certificate manager
+Before you can deploy any of the hubs or support tooling, the certificate manager must be installed and
+configured on the new cluster.  Until this is done, `hubploy` and `helm` will fail with the following error:
+`ensure CRDs are installed first`.
+
+1. Create a new feature branch and update your helm dependencies:  `helm dep up`
+2. At this point, it's usually wise to upgrade `cert-manager` to the latest version found in the chart repo.
+   You can find this by running the following command:
+
+		cert-manager-version=$(helm show all -n cert-manager jetstack/cert-manager | grep ^appVersion |  awk '{print $2}')
+
+3. Then, you can install the latest version of `cert-manager`:
+
+		kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/${cert-manager-version}/cert-manager.yaml
+
+4. Change the corresponding entry in `support/requirements.yaml` to `$cert-manager-version` and commit the changes (do not push).
+
+## Create the node-placeholder k8s namespace
+The [calendar autoscaler](https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html) requires the `node-placeholder` namespace.  Run the following command to create it:
+
+		kubectl create namespace node-placeholder
+
+## Manually deploy the support and prometheus pools
+Now we will manually deploy the `support` helm chart:
+
+		sops -d support/secrets.yaml > /tmp/secrets.yaml
+		helm install -f support/values.yaml -f /tmp/secrets.yaml -n support support support/ --set installCRDs=true --debug --create-namespace
+
+## Manually deploy a cluster
+
+## Update CircleCI
 
 ## Switch staging over to new cluster
 1. Change the name of the cluster in hubploy.yaml to match the name you chose when creating your new cluster.
