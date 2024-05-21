@@ -1,8 +1,8 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-user-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-user-image
       path: images/default
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary
       path: images/secondary
       repo2docker:
         base_image: docker.io/library/buildpack-deps:jammy

@@ -1,16 +1,16 @@
 nfsPVC:
   nfs:
-    shareName: shares/dev-r/prod
+    shareName: shares/dev/prod
 
 jupyterhub:
   ingress:
     enabled: true
     hosts:
-      - dev-r.datahub.berkeley.edu
+      - dev.datahub.berkeley.edu
     tls:
       - secretName: tls-cert
         hosts:
-          - dev-r.datahub.berkeley.edu
+          - dev.datahub.berkeley.edu
   hub:
     db:
       pvc:

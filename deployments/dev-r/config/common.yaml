@@ -64,12 +64,12 @@ jupyterhub:
     defaultUrl: /rstudio
     profileList:
       - display_name: "Dockerfile image"
-        description: "This is the original dev-r image."
+        description: "This is the original dev image."
         default: true
       - display_name: "repo2docker image"
         description: "A newer repo2docker-based image with similar components as the primary."
         kubespawner_override:
-          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-r-secondary:1a64e0a
+          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary:1a64e0a
       - display_name: "1524699: DataHub Infrastructure"
         slug: "1524699"
         description: "Regular image with per-course subpath."

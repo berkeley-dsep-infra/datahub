@@ -236,9 +236,9 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy dev-r
+          name: Deploy dev
           command: |
-            hubploy deploy --timeout 30m dev-r hub ${CIRCLE_BRANCH}
+            hubploy deploy --timeout 30m dev hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
@@ -538,8 +538,8 @@ workflows:
           # This has no effect yet because docker-py doesn't support buildkit.
           #environment:
           #  DOCKER_BUILDKIT: 1
-          deployment: dev-r
-          name: dev-r image build
+          deployment: dev
+          name: dev image build
           filters:
               branches:
                 ignore:
@@ -701,8 +701,8 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: dev-r
-          name: dev-r image build
+          deployment: dev
+          name: dev image build
           push: true
           # Filters can only be per-job? wtf
           filters:
@@ -805,7 +805,7 @@ workflows:
               - data101 image build
               - data102 image build
               - datahub image build
-              - dev-r image build
+              - dev image build
               - edx image build
               - eecs image build
               - ischool image build
