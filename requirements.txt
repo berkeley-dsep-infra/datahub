@@ -7,4 +7,3 @@ chartpress
 jupyter-repo2docker==2024.3.0
 myst-parser
 chardet
-requests==2.31.0
