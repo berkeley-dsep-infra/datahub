@@ -5,6 +5,7 @@ channels:
 
 dependencies:
 - python==3.11.*
+- pandas
 - git==2.40.0
 - coverage==7.2.2
 - jupyter-archive==3.4.0
