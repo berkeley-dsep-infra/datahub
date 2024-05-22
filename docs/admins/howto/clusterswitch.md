@@ -9,11 +9,17 @@ This document describes how to switch an existing hub to a new cluster.  The exa
    http://z2jh.jupyter.org/en/latest/setup-helm.html
      - Make sure the version of helm you're working with matches the version CircleCI is using.  
        For example:  https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circleci/config.yml#L169
+3. Re-create all existing node pools for hubs, support and prometheus deployments in the new cluster.  If the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes.  Wait ~15m for the new pools to wind down to zero, and then continue.
 
 ## Setting the 'context' for kubectl and work on the new cluster.
 1. Ensure you're logged in to GCP:  `gcloud auth login`
 2. Pull down the credentials from the new cluster:  `gcloud container clusters get-credentials <CLUSTER_NAME> --region us-central1`
 3. Switch the kubectl context to this cluster:  `kubectl config use-context gke_ucb-datahub-2018_us-central1_<CLUSTER_NAME>`
+
+## Recreate node pools
+Re-create all existing node pools for hubs, support and prometheus deployments in the new cluster.
+
+If the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes.  Wait ~15m for the new pools to wind down to zero, and then continue.
 
 ## Install and configure the certificate manager
 Before you can deploy any of the hubs or support tooling, the certificate manager must be installed and
@@ -37,15 +43,38 @@ The [calendar autoscaler](https://docs.datahub.berkeley.edu/en/latest/admins/how
 
 		kubectl create namespace node-placeholder
 
+## Switch DNS to the new cluster's endpoint IP and point our deployment at it.
+1. Grab the new endpoint:  `gcloud container clusters describe <CLUSTER_NAME> --region us-central1 | grep ^endpoint`
+2. Open [infoblox](https://infoblox.net.berkeley.edu) and change the wildcard entry for datahub to the IP from the previous step.
+3. Create a new static IP.
+4. Update `support/values.yaml`, under `ingress-nginx` with the newly created IP from infoblox:  `loadBalancerIP: xx.xx.xx.xx`
+5. Add and commit this change to your feature branch (still do not push).
+
 ## Manually deploy the support and prometheus pools
+First, update any node pools in the configs to point to the new cluster.  Typically, this is just for the `ingress-nginx` controllers in `support/values.yaml`.
+
 Now we will manually deploy the `support` helm chart:
 
 		sops -d support/secrets.yaml > /tmp/secrets.yaml
 		helm install -f support/values.yaml -f /tmp/secrets.yaml -n support support support/ --set installCRDs=true --debug --create-namespace
 
-## Manually deploy a cluster
+One special thing to note: our `prometheus` instance uses a persistent volume that contains historical monitoring data.  This is specified in `support/values.yaml`, under the `prometheus:` block:
+
+		persistentVolume:
+		  size: 1000Gi
+		  storageClass: ssd
+		  existingClaim: prometheus-data-2024-05-15
+
+## Manually deploy a hub
+Finally, we can attempt to deploy a hub to the new cluster!  Any hub will do, but we should start with a low-traffic hub (eg:  https://dev.datahub.berkeley.edu).
+
+
+		hubploy deploy dev hub staging
+
+When the deploy is done, visit that hub and confirm that things are working.
 
 ## Update CircleCI
+
 
 ## Switch staging over to new cluster
 1. Change the name of the cluster in hubploy.yaml to match the name you chose when creating your new cluster.
