@@ -85,7 +85,7 @@ jupyterhub:
       # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
       course::1524699::group::all-admins:
         admin: true
-        mem_limit: 8G
+        mem_limit: 12G
       # Shared directory to read logs data from every semester
         extraVolumeMounts:
           - name: home
