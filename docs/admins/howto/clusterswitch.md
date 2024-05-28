@@ -65,16 +65,26 @@ One special thing to note: our `prometheus` instance uses a persistent volume th
 		  storageClass: ssd
 		  existingClaim: prometheus-data-2024-05-15
 
-## Manually deploy a hub
+## Manually deploy a hub to staging
 Finally, we can attempt to deploy a hub to the new cluster!  Any hub will do, but we should start with a low-traffic hub (eg:  https://dev.datahub.berkeley.edu).
 
+First, check the hub's configs for any node pools that need updating.  Typically, this is just the core pool.  After this is done, add the changes to your feature branch (but don't push).  After that, deploy a hub manually:
 
 		hubploy deploy dev hub staging
 
 When the deploy is done, visit that hub and confirm that things are working.
 
-## Update CircleCI
+## Manually deploy remaining hubs to staging
+Now, update the remaining hubs' configs to point to the new core pool and use `hubploy` to deploy them to staging as with the previous step.  The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a `for` loop:
 
+		for x in $(cat hubs.txt); do hubploy deploy ${x} hub staging; done
+
+When done, add the modified configs to your feature branch (and again, don't push yet).
+
+## Update CircleCI
+Once you've successfully deployed the clusters manually via `hubploy`, it's time to update CircleCI to point to the new cluster.
+
+All you need to do is `grep` for the old cluster name in `.circleci/config.yaml` and change this to the name of the new cluster.  There should just be four entries:  two for the `gcloud get credentials <cluster-name>`, and two in comments.  Make these changes and add them to your existing feature branch, but don't commit yet.
 
 ## Switch staging over to new cluster
 1. Change the name of the cluster in hubploy.yaml to match the name you chose when creating your new cluster.
