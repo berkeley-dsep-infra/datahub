@@ -82,11 +82,6 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
   singleuser:
-    extraFiles:
-      remove-exporters:
-        mountPath: /etc/jupyter/jupyter_notebook_config.py
-        stringData: |
-          c.QtPNGExporter.enabled = False
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
@@ -117,12 +112,13 @@ jupyterhub:
           mountPath: /home/jovyan/.rstudio
           subPath: '{username}/.datahub-rstudio'
     extraFiles:
-      # DH-164
+      # DH-164, DH-262
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
           c.QtPDFExporter.enabled = False
-          c.PDFExporter.enabled = False
+          c.PDFExporter.enabled = True
+          c.QtPNGExporter.enabled = False
     memory:
       guarantee: 512M
       limit: 1G
