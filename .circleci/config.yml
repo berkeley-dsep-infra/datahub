@@ -101,7 +101,7 @@ orbs:
                 else
                   HUBPLOY_ARGS="--commit-range ${COMMIT_RANGE}"
                 fi
-                hubploy -d build << parameters.deployment >>  ${HUBPLOY_ARGS}
+                hubploy --debug build << parameters.deployment >>  ${HUBPLOY_ARGS}
               no_output_timeout: 90m
 
 jobs:
