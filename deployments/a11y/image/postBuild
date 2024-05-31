@@ -8,8 +8,8 @@ npm install -g pa11y@6.2.3
 
 # Install Node.js and Yarn for DH-299
 echo "Installing Node.js and Yarn..."
-sudo apt-get update && sudo apt-get install -y nodejs npm
-sudo npm install -g yarn
+apt-get update && apt-get install -y nodejs npm
+npm install -g yarn
 
 # Clone the JupyterLab extension repository
 EXTENSION_GIT_REPO="https://github.com/berkeley-dsep-infra/jupyterlab-a11y-checker.git"
