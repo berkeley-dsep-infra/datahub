@@ -1,5 +1,5 @@
 # allow for base image specification in hubploy.yaml
-git+https://github.com/berkeley-dsep-infra/hubploy.git@9cff64d3d2294085896de54f97dfa8bef9034159
+git+https://github.com/berkeley-dsep-infra/hubploy.git@89199c76c92bcb9a035a6ed685a6e2538f0cabe2
 pygithub
 pyrsistent==0.19.3
 attrs==23.1.0
@@ -7,4 +7,6 @@ chartpress
 jupyter-repo2docker==2024.3.0
 myst-parser
 chardet
-requests==2.31.0
+# requests==2.31.0
+requests<2.29.0
+urllib3<2.0
