@@ -9,6 +9,9 @@ dependencies:
 - syncthing==1.18.6
 - nbclassic==1.0.0
 
+# gh-scoped-creds needs a newer version of git than what jammy provides
+- git==2.45.1
+
 # pymc3 needs this
 - mkl-service=2.4.*
 
