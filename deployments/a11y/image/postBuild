@@ -5,35 +5,3 @@ set -eux
 
 npm install -g pa11y-ci@3.1.0
 npm install -g pa11y@6.2.3
-
-# Install Node.js and Yarn for DH-299
-echo "Installing Node.js and Yarn..."
-apt-get update && apt-get install -y nodejs npm
-npm install -g yarn
-
-# Clone the JupyterLab extension repository
-EXTENSION_GIT_REPO="https://github.com/berkeley-dsep-infra/jupyterlab-a11y-checker.git"
-EXTENSION_NAME="jupyterlab-a11y-checker"
-echo "Cloning the JupyterLab extension repository..."
-git clone $EXTENSION_GIT_REPO
-
-# Navigate to the extension directory
-cd $EXTENSION_NAME
-
-# Install the extension using yarn
-echo "Installing the JupyterLab extension..."
-yarn install
-yarn build
-
-# Install the extension in JupyterLab
-jupyter labextension install .
-
-# Rebuild JupyterLab to include the new extension
-echo "Rebuilding JupyterLab..."
-jupyter lab build
-
-# Clean up
-cd ..
-rm -rf $EXTENSION_NAME
-
-echo "JupyterLab extension installed successfully!"
