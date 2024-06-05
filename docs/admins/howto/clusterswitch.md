@@ -74,10 +74,11 @@ First, check the hub's configs for any node pools that need updating.  Typically
 
 When the deploy is done, visit that hub and confirm that things are working.
 
-## Manually deploy remaining hubs to staging
+## Manually deploy remaining hubs to staging and prod
 Now, update the remaining hubs' configs to point to the new core pool and use `hubploy` to deploy them to staging as with the previous step.  The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a `for` loop:
 
 		for x in $(cat hubs.txt); do hubploy deploy ${x} hub staging; done
+		for x in $(cat hubs.txt); do hubploy deploy ${x} hub prod; done
 
 When done, add the modified configs to your feature branch (and again, don't push yet).
 
@@ -86,41 +87,12 @@ Once you've successfully deployed the clusters manually via `hubploy`, it's time
 
 All you need to do is `grep` for the old cluster name in `.circleci/config.yaml` and change this to the name of the new cluster.  There should just be four entries:  two for the `gcloud get credentials <cluster-name>`, and two in comments.  Make these changes and add them to your existing feature branch, but don't commit yet.
 
-## Switch staging over to new cluster
-1. Change the name of the cluster in hubploy.yaml to match the name you chose when creating your new cluster.
-2. Make sure the staging IP is a 'static' IP - so we don't lose the IP.  You can see the list of IPs used by the project by checking the google cloud console.  
-   For example:  https://console.cloud.google.com/networking/addresses/list?project=data8x-scratch  
-   Make sure you are in the right project! 
-3. If the staging IP (which you can find in staging.yaml) is marked as 'ephemeral', mark it as 'static'
-4. Make a PR that includes your hubploy.yaml change, but don't merge it just yet.
+## Create and merge your PR!
+Now you can finally push your changes to github.  Create a PR, merge to `staging` and immediately kill off the deploy jobs for `node-placeholder`, `support` and `deploy`.
 
-Now we will perform the IP switch over from the old cluster to the new cluster.  There will be downtime during the switchover!
+Create another PR to merge to `prod` and that deploy should work just fine.
 
-The current easiest way to do this is:
-1. Merge the PR.
-2. Immediately delete the service 'proxy-public' in the appropriate staging namespace in the old cluster. Make sure you have the command ready for this so that you can execute reasonably quickly.
-
-		gcloud container clusters list
-		gcloud container clusters get-credentials ${OLDCLUSTER} --region=us-central1
-		kubectl --namespace=data8x-staging get svc
-		kubectl --namespace=data8x-staging delete svc proxy-public
-		
-As the PR deploys, staging on the new cluster should pick up the IP we released from the old cluster.  This way we don't have to wait for DNS propagation time.
-
-At this time you can switch to the new cluster and watch the pods come up.
-
-Once done, poke around and make sure the staging cluster works fine.  Since data8x requires going through EdX in order to load a hub, testing can be tricky.  If you're able, the easiest way is to edit an old course you have access to and point one the notebooks to the staging instance.
-
-Assuming everything worked correctly, you can follow the above steps to switch production over.
-
-## Get hub logs from old cluster
-Prior to deleting the old cluster, fetch the usage logs.
-
-    HUB=data8x
-    kubectl --namespace=${HUB}-prod exec -it $(kubectl --namespace=${HUB}-prod get pod -l component=hub -o name | sed 's_pod/__') -- grep -a 'seconds to ' jupyterhub.log > ${HUB}-usage.log
-
-Currently these are being placed on google drive here:  
-  https://drive.google.com/open?id=1bUIJYGdFZCgmFXkhkPzFalJ1v9T8v7__
+FIN!
 
 ## Deleting the old cluster
 
