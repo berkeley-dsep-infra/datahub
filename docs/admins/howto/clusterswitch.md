@@ -68,14 +68,20 @@ One special thing to note: our `prometheus` instance uses a persistent volume th
 ## Manually deploy a hub to staging
 Finally, we can attempt to deploy a hub to the new cluster!  Any hub will do, but we should start with a low-traffic hub (eg:  https://dev.datahub.berkeley.edu).
 
-First, check the hub's configs for any node pools that need updating.  Typically, this is just the core pool.  After this is done, add the changes to your feature branch (but don't push).  After that, deploy a hub manually:
+First, check the hub's configs for any node pools that need updating.  Typically, this is just the core pool.
+
+Second, update `hubploy.yaml` for this hub and point it to the new cluster you've created.
+
+After this is done, add the changes to your feature branch (but don't push).  After that, deploy a hub manually:
 
 		hubploy deploy dev hub staging
 
 When the deploy is done, visit that hub and confirm that things are working.
 
 ## Manually deploy remaining hubs to staging and prod
-Now, update the remaining hubs' configs to point to the new core pool and use `hubploy` to deploy them to staging as with the previous step.  The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a `for` loop:
+Now, update the remaining hubs' configs to point to the new node pools and `hubploy.yaml` to the cluster.
+
+Then use `hubploy` to deploy them to staging as with the previous step.  The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a `for` loop:
 
 		for x in $(cat hubs.txt); do hubploy deploy ${x} hub staging; done
 		for x in $(cat hubs.txt); do hubploy deploy ${x} hub prod; done
