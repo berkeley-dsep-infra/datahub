@@ -122,7 +122,7 @@ jupyterhub:
         extraVolumeMounts:
           - name: home
             mountPath: /home/jovyan/discovery-su24-dataset
-            subPath: _shared/course/discovery-su24-dataset
+            subPath: _shared/discovery-su24-dataset
             readOnly: true
   #
   #    # Example: a fully specified CanvasOAuthenticator group name.
