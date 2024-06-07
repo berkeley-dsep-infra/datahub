@@ -43,6 +43,7 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
+
       ## Course NUM, Spring 2024, #xyz
       #course-staff-N:
       #  description: Enable course staff to view and access servers.
@@ -66,8 +67,8 @@ jupyterhub:
       - display_name: "Dockerfile image"
         description: "This is the original dev image."
         default: true
-      - display_name: "repo2docker image"
-        description: "A newer repo2docker-based image with similar components as the primary."
+      - display_name: "Dashboard image"
+        description: "A newer repo2docker-based image with a primary focus of building dashboards."
         kubespawner_override:
           image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary:1a64e0a
       - display_name: "1524699: DataHub Infrastructure"
@@ -113,7 +114,16 @@ jupyterhub:
   #      admin: true
   #      mem_limit: 2096M
   #      mem_guarantee: 2048M
-  #
+ 
+      ## Datahub Discovery Program, Summer 2024, #DH-303
+      course::1524699::group::datahub-discovery-su24-interns:
+        mem_limit: 12288M #12 GB RAM should be enough for parsing data and generating dashboards
+        mem_guarantee: 12288M
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/discovery-su24-dataset
+            subPath: _shared/course/discovery-su24-dataset
+            readOnly: true
   #
   #    # Example: a fully specified CanvasOAuthenticator group name.
   #    # This could be useful for temporary resource bumps where the
