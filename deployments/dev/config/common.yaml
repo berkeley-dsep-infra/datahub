@@ -80,7 +80,7 @@ jupyterhub:
               mountPath: /home/jovyan
               subPath: "{username}/1524699"
     nodeSelector:
-      hub.jupyter.org/pool-name: small-courses-pool
+      hub.jupyter.org/pool-name: dev-pool
     storage:
       type: static
       static:
