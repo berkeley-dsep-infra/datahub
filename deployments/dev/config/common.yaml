@@ -90,8 +90,8 @@ jupyterhub:
       guarantee: 512M
       limit: 1G
 
-  #custom:
-  #  group_profiles:
+  custom:
+    group_profiles:
   #
   #    # Example: increase memory for everyone affiliated with a course.
   #
