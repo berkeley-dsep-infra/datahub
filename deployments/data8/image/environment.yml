@@ -20,7 +20,7 @@ dependencies:
 - notebook==7.0.7
 - otter-grader==4.3.4 # Based on request from ericvd and sean.morris
 - ipympl==0.7.0
-- pandas==2.2.2
+- pandas==2.0.2
 - scipy==1.11.3
 - statsmodels==0.14.1
 - seaborn==0.11.2
