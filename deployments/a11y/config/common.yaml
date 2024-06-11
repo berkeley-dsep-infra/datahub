@@ -33,6 +33,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
+      # For folks doing work related to a11y extension
+      course-staff-1535449:
+        description: Enable olks doing work related to a11y checker extension to view and access servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1535449
+          - admin:servers!group=course::1535449
+          - access:servers!group=course::1535449
+        # this role will be assigned to...
+        groups:
+         - course::1535449::group::admin
   singleuser:
     extraFiles:
       # DH-216
