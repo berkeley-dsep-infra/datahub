@@ -2,5 +2,4 @@
 
 # installing chromium browser to enable webpdf conversion using nbconvert
 export PLAYWRIGHT_BROWSERS_PATH=${CONDA_DIR}
-npm install -g playwright
 playwright install chromium
