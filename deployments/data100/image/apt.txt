@@ -48,10 +48,6 @@ lmodern
 pandoc
 latexdiff
 
-# for playwright
-libnss3
-libnspr4
-
 # Some useful git utilities use basic Ruby
 ruby
 
