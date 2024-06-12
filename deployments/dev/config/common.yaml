@@ -62,7 +62,7 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    defaultUrl: /rstudio
+    defaultUrl: /lab
     profileList:
       - display_name: "Dockerfile image"
         description: "This is the original dev image."
