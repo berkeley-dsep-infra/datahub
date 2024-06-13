@@ -62,7 +62,7 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    defaultUrl: /rstudio
+    defaultUrl: /lab
     profileList:
       - display_name: "Dockerfile image"
         description: "This is the original dev image."
@@ -70,7 +70,7 @@ jupyterhub:
       - display_name: "Dashboard image"
         description: "A newer repo2docker-based image with a primary focus of building dashboards."
         kubespawner_override:
-          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary:1a64e0a
+          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary:36280727a
       - display_name: "1524699: DataHub Infrastructure"
         slug: "1524699"
         description: "Regular image with per-course subpath."
