@@ -43,7 +43,7 @@ jupyterhub:
           - access:servers!group=course::1535115
         # this role will be assigned to...
         groups:
-          - course:: 1535115::group::Admins
+          - course::1535115::group::Admins
       # Econ 148, Spring 2024, DH-225
       #course-staff-1532866:
       #  description: Enable course staff to view and access servers.
