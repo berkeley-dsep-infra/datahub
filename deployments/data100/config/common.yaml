@@ -32,18 +32,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
-      # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
-      #course-staff-1531798:
+       #Data 100, Summer 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5802
+      course-staff-1535115:
       #  description: Enable course staff to view and access servers.
         # this role provides permissions to...
-      #  scopes:
-      #    - admin-ui
-      #    - list:users!group=course::1531798
-      #    - admin:servers!group=course::1531798
-      #    - access:servers!group=course::1531798
+        scopes:
+          - admin-ui
+          - list:users!group=course::1535115
+          - admin:servers!group=course::1535115
+          - access:servers!group=course::1535115
         # this role will be assigned to...
-      #  groups:
-      #    - course::1531798::group::Admins
+        groups:
+          - course:: 1535115::group::Admins
       # Econ 148, Spring 2024, DH-225
       #course-staff-1532866:
       #  description: Enable course staff to view and access servers.
