@@ -5,7 +5,7 @@ channels:
 
 dependencies:
 - syncthing==1.22.2
-- jupyter-server-proxy==4.1.2
+- jupyter-server-proxy==4.2.0
 - jupyter-rsession-proxy==2.2.0
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*

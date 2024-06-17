@@ -3,7 +3,11 @@
 # Berkeley JupyterHubs 
 
 Contains a fully reproducible configuration for JupyterHub on datahub.berkeley.edu,
-as well as its single user image.
+as well as the single user images.
+
+[UC Berkeley Datahub](https://cdss.berkeley.edu/data)
+
+[UC Berkeley CDSS](https://cdss.berkeley.edu)
 
 ## Branches
 
