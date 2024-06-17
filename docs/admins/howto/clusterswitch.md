@@ -43,12 +43,14 @@ The [calendar autoscaler](https://docs.datahub.berkeley.edu/en/latest/admins/how
 
 		kubectl create namespace node-placeholder
 
-## Switch DNS to the new cluster's endpoint IP and point our deployment at it.
-1. Grab the new endpoint:  `gcloud container clusters describe <CLUSTER_NAME> --region us-central1 | grep ^endpoint`
-2. Open [infoblox](https://infoblox.net.berkeley.edu) and change the wildcard entry for datahub to the IP from the previous step.
-3. Create a new static IP.
-4. Update `support/values.yaml`, under `ingress-nginx` with the newly created IP from infoblox:  `loadBalancerIP: xx.xx.xx.xx`
+## Create a new static endpoint IP and switch DNS to point our new deployment at it.
+1. Create a new static endpoint IP in the [GCP console](https://console.cloud.google.com/networking/addresses/add?project=ucb-datahub-2018).
+2. Grab the new endpoint:  `gcloud container clusters describe <CLUSTER_NAME> --region us-central1 | grep ^endpoint`
+3. Open [infoblox](https://infoblox.net.berkeley.edu) and change the wildcard and empty entries for datahub.berkeley.edu to point to the IP from the previous step.
+4. Update `support/values.yaml`, under `ingress-nginx` with the newly created IP from infoblox:  `loadBalancerIP: xx.xx.xx.xx`.
 5. Add and commit this change to your feature branch (still do not push).
+
+You will re-deploy the support chart in the next step.
 
 ## Manually deploy the support and prometheus pools
 First, update any node pools in the configs to point to the new cluster.  Typically, this is just for the `ingress-nginx` controllers in `support/values.yaml`.
@@ -57,6 +59,8 @@ Now we will manually deploy the `support` helm chart:
 
 		sops -d support/secrets.yaml > /tmp/secrets.yaml
 		helm install -f support/values.yaml -f /tmp/secrets.yaml -n support support support/ --set installCRDs=true --debug --create-namespace
+
+Before continuing, confirm via the GCP console that the IP that was defined in step 1 is now [bound to a forwarding rule](https://console.cloud.google.com/networking/addresses/list?project=ucb-datahub-2018). You can further confirm by listing the services in the [support chart](https://github.com/berkeley-dsep-infra/datahub/blob/staging/support/requirements.yaml) and making sure the ingress-controller is using the newly defined IP.
 
 One special thing to note: our `prometheus` instance uses a persistent volume that contains historical monitoring data.  This is specified in `support/values.yaml`, under the `prometheus:` block:
 
