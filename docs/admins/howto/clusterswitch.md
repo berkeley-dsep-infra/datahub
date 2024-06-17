@@ -104,6 +104,9 @@ Now you can finally push your changes to github.  Create a PR, merge to `staging
 
 Create another PR to merge to `prod` and that deploy should work just fine.
 
+## Update log and billing sinks, BigQuery queries, etc.
+I would recommend searching GCP console for all occurrences of the old cluster name, and fixing any bits that might be left over.  This should only take a few minutes, but should definitely be done.
+
 FIN!
 
 ## Deleting the old cluster
