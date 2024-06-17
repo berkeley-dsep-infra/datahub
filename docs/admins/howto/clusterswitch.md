@@ -2,7 +2,7 @@
 
 This document describes how to switch an existing hub to a new cluster.  The example used here refers to moving all UC Berkeley Datahubs.
 
-You might find it easier to switch to a new cluster if you're running a [very old k8s version](https://cloud.google.com/kubernetes-engine/docs/release-notes), or in lieu of performing a [cluster credential rotation](https://cloud.google.com/kubernetes-engine/docs/how-to/credential-rotation).
+You might find it easier to switch to a new cluster if you're running a [very old k8s version](https://cloud.google.com/kubernetes-engine/docs/release-notes), or in lieu of performing a [cluster credential rotation](https://cloud.google.com/kubernetes-engine/docs/how-to/credential-rotation).  Sometimes starting from scratch is easier than an iterative and potentially destructive series of operations.
 
 ## Create a new cluster
 1. Create a new cluster using the specifications here:  
