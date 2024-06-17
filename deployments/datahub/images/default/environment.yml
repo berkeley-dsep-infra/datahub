@@ -73,7 +73,7 @@ dependencies:
 
 # data8; foundation
 - datascience==0.17.6
-- jupyter-server-proxy==4.1.2
+- jupyter-server-proxy==4.2.0
 - jupyter-rsession-proxy==2.2.0
 - folium==0.12.1.post1
 
