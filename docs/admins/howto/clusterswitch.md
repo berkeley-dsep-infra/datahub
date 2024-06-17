@@ -47,10 +47,9 @@ The [calendar autoscaler](https://docs.datahub.berkeley.edu/en/latest/admins/how
 
 ## Create a new static endpoint IP and switch DNS to point our new deployment at it.
 1. Create a new static endpoint IP in the [GCP console](https://console.cloud.google.com/networking/addresses/add?project=ucb-datahub-2018).
-2. Grab the new endpoint:  `gcloud container clusters describe <CLUSTER_NAME> --region us-central1 | grep ^endpoint`
-3. Open [infoblox](https://infoblox.net.berkeley.edu) and change the wildcard and empty entries for datahub.berkeley.edu to point to the IP from the previous step.
-4. Update `support/values.yaml`, under `ingress-nginx` with the newly created IP from infoblox:  `loadBalancerIP: xx.xx.xx.xx`.
-5. Add and commit this change to your feature branch (still do not push).
+2. Open [infoblox](https://infoblox.net.berkeley.edu) and change the wildcard and empty entries for datahub.berkeley.edu to point to the IP from the previous step.
+3. Update `support/values.yaml`, under `ingress-nginx` with the newly created IP from infoblox:  `loadBalancerIP: xx.xx.xx.xx`.
+4. Add and commit this change to your feature branch (still do not push).
 
 You will re-deploy the support chart in the next step.
 
