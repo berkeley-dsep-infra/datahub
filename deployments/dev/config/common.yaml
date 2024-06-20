@@ -69,6 +69,9 @@ jupyterhub:
         default: true
       - display_name: "Dashboard image"
         description: "A newer repo2docker-based image with a primary focus of building dashboards."
+      extraEnv:
+        GH_SCOPED_CREDS_CLIENT_ID: "Iv23liFjgKFgkSBWph4C"
+        GH_SCOPED_CREDS_APP_URL: "https://github.com/apps/test-gh-scoped-creds"
         kubespawner_override:
           image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary:36280727a
       - display_name: "1524699: DataHub Infrastructure"

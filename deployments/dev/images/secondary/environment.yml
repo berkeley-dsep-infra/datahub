@@ -31,7 +31,6 @@ dependencies:
 - scipy==1.10.1
 - seaborn==0.12.2
 - statsmodels==0.14.0
-- tensorflow-cpu==2.12.1
 - sqlalchemy==2.0.16
 - mlxtend==0.23.0
 # Spring 2024 data 100
@@ -41,7 +40,7 @@ dependencies:
 # Spring 2024 table demos
 - lxml==5.1.0
 # Spring 2024 Econ 148 Packages
-- geopandas==0.14.2
+- geopandas==0.13.2
 - geopy==2.4.1
 - lifelines==0.27.8
 - pycountry==22.3.5
