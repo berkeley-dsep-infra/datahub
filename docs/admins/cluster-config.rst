@@ -25,6 +25,8 @@ A ``gcloud container clusters create`` command can succintly express the
 configuration of our kubernetes cluster. The following command represents
 the currently favored configuration.
 
+This creates the GKE cluster. It may host one or more node pools:
+
 .. code:: bash
 
    gcloud container clusters create \
@@ -41,6 +43,8 @@ the currently favored configuration.
         --create-subnetwork="" \
         --tags=hub-cluster \
         <cluster-name>
+
+Here's how we add a node pool to the cluster, beyond the default pool:
 
 .. code:: bash
 
