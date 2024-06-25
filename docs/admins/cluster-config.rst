@@ -56,7 +56,7 @@ the currently favored configuration.
         --disk-size=200 --disk-type=pd-balanced \
         --no-enable-autoupgrade \
         --tags=hub-cluster \
-        --cluster=spring-2024 \
+        --cluster=<cluster-name> \
         user-<pool-name>-<yyyy>-<mm>-<dd>
 
 
