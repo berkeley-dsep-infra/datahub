@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Change to a directory where you want to download and install TinyLLAMA
+cd /opt
+
+# Clone the ollama repository (replace with actual repository URL)
+git clone https://github.com/ollama/ollama.git
+
+# Change into the ollama directory
+cd ollama
+
+# Install necessary dependencies
+pip install -r requirements.txt
+
+# Install TinyLLAMA model (adjust as per actual model installation instructions)
+./ollama-linux-amd64 run phi3:mini
+./ollama-linux-amd64 run tinyllama
+
