@@ -1,15 +1,10 @@
 #!/bin/bash
 
-# Change to a directory where you want to download and install TinyLLAMA
-cd /opt
+# Pull and run the Ollama Docker images - https://hub.docker.com/r/ollama/ollama
+docker pull ollama/phi3
+docker pull ollama/tinyllama
 
-# Clone the ollama repository (replace with actual repository URL)
-git clone https://github.com/ollama/ollama.git
-
-# Change into the ollama directory
-cd ollama
-
-# Install TinyLLAMA model (adjust as per actual model installation instructions)
-./ollama-linux-amd64 run phi3:mini
-./ollama-linux-amd64 run tinyllama
+# Start the Ollama containers
+docker run -d --name phi3_container ollama/phi3
+docker run -d --name tinyllama_container ollama/tinyllama
 
