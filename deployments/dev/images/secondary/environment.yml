@@ -56,7 +56,7 @@ dependencies:
 #- otter-grader==5.5.0
 #- python-duckdb==1.0.0
 #- jupyterhub==5.0.0
-
+- quarto==1.4.550
 - pip
 - pip:
   # - -r infra-requirements.txt

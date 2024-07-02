@@ -1,14 +1,5 @@
 #!/usr/bin/env R
 
-# Function to install Quarto
-install_quarto <- function() {
-  print("Installing Quarto")
-  system("wget https://quarto.org/download/latest/quarto-linux-amd64.deb")
-  system("sudo apt-get install -y ./quarto-linux-amd64.deb")
-  system("rm ./quarto-linux-amd64.deb")
-  print("Quarto installation complete")
-}
-
 # Function to install R packages with specific versions
 class_libs_install_version <- function(class_name, class_libs) {
   print(paste("Installing packages for", class_name))
@@ -28,9 +19,6 @@ class_libs_install_version <- function(class_name, class_libs) {
   }
   print(paste("Done installing packages for", class_name))
 }
-
-# Install Quarto
-install_quarto()
 
 # R packages to be installed that aren't from apt
 # Combination of informal requests & rocker image suggestions
