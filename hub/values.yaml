@@ -85,6 +85,19 @@ jupyterhub:
           HistoryManager:
             # We do not need to keep around history for IPython, and especially not on NFS
             enabled: false
+      jupyter_server_config.json:
+        mountPath: /usr/local/etc/jupyter/jupyter_server_config.json
+        # if a user leaves a notebook with a running kernel,
+        # the effective idle timeout will typically be cull idle timeout
+        # of the server + the cull idle timeout of the kernel,
+        # as culling the kernel will register activity,
+        # resetting the no_activity timer for the server as a whole
+        data:
+          # Allow JupyterLab to show the 'View -> Show Hidden Files' option
+          # in the menu. Defaults are not changed.
+          # https://github.com/jupyterlab/jupyterlab/issues/11304#issuecomment-945466766
+          ContentsManager:
+            allow_hidden: true
       culling-config:
         mountPath: /etc/jupyter/jupyter_notebook_config.json
         data:

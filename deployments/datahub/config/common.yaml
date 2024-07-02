@@ -114,12 +114,6 @@ jupyterhub:
           c.QtPDFExporter.enabled = False
           c.PDFExporter.enabled = True
           c.QtPNGExporter.enabled = False
-      culling-config:
-        data:
-          # Allow jupyterlab option to show hidden files in browser
-          # https://github.com/berkeley-dsep-infra/datahub/issues/5825
-          ContentsManager:
-            allow_hidden: true
     memory:
       guarantee: 512M
       limit: 1G
