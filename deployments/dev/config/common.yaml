@@ -63,6 +63,19 @@ jupyterhub:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     defaultUrl: /lab
+    # Run the ollama model as part of the user pod
+    # https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner.KubeSpawner.extra_containers
+    extraContainers:
+      - name: ollama-phi3-container
+        image: phi3:latest
+        command: ["ollama", "run", "phi3"]
+        ports:
+          - containerPort: 5000
+      - name: ollama-tinyllama-container
+        image: tinyllama:latest
+        command: ["ollama", "run", "tinyllama"]
+        ports:
+          - containerPort: 5001
     profileList:
       - display_name: "Dockerfile image"
         description: "This is the original dev image."
