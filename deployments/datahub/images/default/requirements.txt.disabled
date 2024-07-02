@@ -5,7 +5,7 @@ git+https://github.com/yuvipanda/ok-client@6961d778741fe61911be4d00beff9bd8afc1e
 folium==0.12.1
 #
 # r
-jupyter-server-proxy==3.2.1
+jupyter-server-proxy==4.2.0
 jupyter-rsession-proxy==2.0.1
 jupyter-shiny-proxy==1.1
 #
