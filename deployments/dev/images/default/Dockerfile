@@ -125,7 +125,11 @@ RUN R -e "IRkernel::installspec(user = FALSE, prefix='${CONDA_DIR}')"
 
 # clear out /tmp
 USER root
+COPY postBuild /tmp/postBuild
+RUN chmod +x /tmp/postBuild
+RUN /tmp/postBuild
 RUN rm -rf /tmp/*
+
 
 USER ${NB_USER}
 WORKDIR /home/${NB_USER}
