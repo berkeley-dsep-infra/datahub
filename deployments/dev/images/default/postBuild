@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Download the Ollama executable
+wget https://github.com/ollama/ollama/releases/download/v0.1.48/ollama-linux-amd64 -O ollama
+
+# Make the Ollama executable runnable
+chmod +x ollama
+
+# Run the phi3:mini model
+./ollama run phi3:mini
+
+# Run the tinyllama model
+./ollama run tinyllama
