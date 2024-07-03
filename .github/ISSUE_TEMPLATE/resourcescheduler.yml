@@ -1,7 +1,7 @@
 name: Request to schedule events to increase compute
 description: Schedule specific dates/times when your coursework requires higher computing resources
 labels: "support"
-title: Increase compute resources for Course XXX between specific date(s)/time(s) 
+title: Increase compute resources for Course XXX between specific date(s)/time(s)
 assignees:
   - felder
   - balajialg
@@ -39,7 +39,7 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Request Deadline 
+      label: Request Deadline
       description: Sepcify the time duration for which you are expecting this increase in compute
       value: |
         <!-- Specify the start date/time and end date/time -->

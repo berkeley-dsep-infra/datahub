@@ -1,14 +1,14 @@
 name: CPU Request
 description: Raise more CPU for students in your class
 labels: "support"
-assignees: 
+assignees:
 - felder
 - shaneknapp
 body:
   - type: markdown
     attributes:
       value: |
-        Please provide details for your CPU request! 
+        Please provide details for your CPU request!
   - type: textarea
     attributes:
       label: Reason for the request
@@ -24,7 +24,7 @@ body:
   - type: input
     attributes:
       label: Duration for this request
-      description: Share the specific date(s)(MM/DD) & time (if applicable) when you require additional CPU resources. 
+      description: Share the specific date(s)(MM/DD) & time (if applicable) when you require additional CPU resources.
     validations:
       required: true
   - type: input

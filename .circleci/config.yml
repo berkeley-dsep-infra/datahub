@@ -170,7 +170,7 @@ jobs:
             export PULL_REQUEST_ID=$(git log -1 --pretty=%B | head -n1 | sed 's/^.*#\([0-9]*\).*/\1/')
             export AUTHOR_NAME="$(git log  -1 --pretty=%aN)"
             export PULL_REQUEST_TITLE="$(git log --pretty=%B -1 | tail -n+3)"
-            
+
             # added by sknapp 2023-12-19 to unblock builds
             # python3 scripts/post-grafana-annotation.py  \
             #   --grafana-url http://grafana.datahub.berkeley.edu\
@@ -252,7 +252,7 @@ jobs:
           command: |
             hubploy deploy --timeout 30m edx hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
-      
+
       - run:
           name: Deploy eecs
           command: |
