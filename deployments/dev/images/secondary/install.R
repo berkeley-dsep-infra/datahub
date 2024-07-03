@@ -1,5 +1,6 @@
-#!/usr/bin/env r
+#!/usr/bin/env R
 
+# Function to install R packages with specific versions
 class_libs_install_version <- function(class_name, class_libs) {
   print(paste("Installing packages for", class_name))
   for (i in seq(1, length(class_libs), 2)) {
