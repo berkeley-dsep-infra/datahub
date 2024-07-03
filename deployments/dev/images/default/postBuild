@@ -13,7 +13,7 @@ wget https://github.com/ollama/ollama/releases/download/v0.1.48/ollama-linux-amd
 chmod +x /usr/local/bin/ollama
 
 # Run the phi3:mini model with the specified data directory
-/usr/local/bin/ollama run phi3:mini --data-dir $OLLAMA_DATA_DIR
+# /usr/local/bin/ollama run phi3:mini --data-dir $OLLAMA_DATA_DIR
 
 # Run the tinyllama model with the specified data directory
-/usr/local/bin/ollama run tinyllama --data-dir $OLLAMA_DATA_DIR
+# /usr/local/bin/ollama run tinyllama --data-dir $OLLAMA_DATA_DIR
