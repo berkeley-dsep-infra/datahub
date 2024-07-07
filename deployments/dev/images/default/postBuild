@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Define the directory for persistent storage
+OLLAMA_DATA_DIR="/persistent/ollama"
+
+# Create the directory if it doesn't exist
+mkdir -p $OLLAMA_DATA_DIR
+
+# Download the Ollama executable
+wget https://github.com/ollama/ollama/releases/download/v0.1.48/ollama-linux-amd64 -O /usr/local/bin/ollama
+
+# Make the Ollama executable runnable
+chmod +x /usr/local/bin/ollama
+
+# Run the phi3:mini model with the specified data directory
+# /usr/local/bin/ollama run phi3:mini --data-dir $OLLAMA_DATA_DIR
+
+# Run the tinyllama model with the specified data directory
+# /usr/local/bin/ollama run tinyllama --data-dir $OLLAMA_DATA_DIR
