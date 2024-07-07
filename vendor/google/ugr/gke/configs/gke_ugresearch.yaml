@@ -1,0 +1,17 @@
+imports:
+  - path: ../templates/gke_template.py
+
+resources:
+  - name: ugresearch-cluster
+    type: ../templates/gke_template.py
+    properties:
+      clusterName: ugresearch-cluster
+      region: us-central1
+      poolName: core
+      dateSuffix: '2024-07-07'
+      nodeLocation: us-central1-b
+      initialNodeCount: 1
+      diskSizeGb: 100
+      machineType: n2-standard-2
+      minNodeCount: 1
+      maxNodeCount: 20
