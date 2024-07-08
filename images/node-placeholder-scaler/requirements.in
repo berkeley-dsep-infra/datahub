@@ -1,4 +1,4 @@
-certifi==2023.7.22
+certifi==2024.07.04
 DateTime
 ical==5.0.0
 requests
