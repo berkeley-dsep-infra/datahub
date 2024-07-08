@@ -111,7 +111,6 @@ jupyterhub:
       #course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM
       #  mem_limit: 4G
       #  mem_guarantee: 4G
- 
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:

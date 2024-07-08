@@ -15,6 +15,7 @@ extends: default
 
 ignore: |
   **/template/**
+  **/templates/**
 
 rules:
   braces:

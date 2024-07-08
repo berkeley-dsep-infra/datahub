@@ -5,6 +5,11 @@ nfsPVC:
 
 jupyterhub:
   custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
     admin:
       extraVolumeMounts:
         - name: home
@@ -97,10 +102,3 @@ jupyterhub:
     memory:
       guarantee: 1G
       limit: 1G
-
-  custom:
-    group_profiles:
-      # DataHub Infrastructure staff
-      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
-      course::1524699::group::all-admins:
-        admin: true

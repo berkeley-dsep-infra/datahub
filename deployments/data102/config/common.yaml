@@ -80,4 +80,3 @@ jupyterhub:
       guarantee: 1G
       limit: 2G
     image: {}
-    defaultUrl: "/lab"

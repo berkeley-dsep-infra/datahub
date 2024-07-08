@@ -2,7 +2,7 @@ name: Only allow staging -> prod & !prod -> staging merges
 
 on:
   pull_request:
-    branches: 
+    branches:
     - staging
     - prod
 

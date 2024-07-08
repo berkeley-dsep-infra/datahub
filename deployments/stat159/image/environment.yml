@@ -38,7 +38,7 @@ dependencies:
   - ipywidgets==8.0.7
   - jupyter-resource-usage==0.7.1
   # commented out by sknapp 2024.01.11 due to JL4 incompatibility
-  # 
+  #
   # we can revisit once this class is taught again
   #
   # - jupyter_bokeh==3.0.5
@@ -56,7 +56,7 @@ dependencies:
   # LSP for JupyterLab/Python - enhanced completions/language support
   - jupyterlab-lsp==5.0.0
   - python-lsp-server==1.7.0
-  
+
   - jupyterlab-variableinspector==3.0.9
   - jupyterlab-myst==2.1.0
   - jupyterlab_pygments==0.2.2
@@ -68,13 +68,13 @@ dependencies:
   - matplotlib==3.8.*
   - matplotlib-inline==0.1.6
   - mock==5.0.1
-  
+ 
   # nbdime 3.1.1 is incompatible with jupyter server 2.0
   # See https://github.com/jupyter/nbdime/pull/649.
   # Use manual pip install from git (see below), revert once
   # official compatible release is available.
   #- nbdime==3.1.1
-  
+ 
   - nbgitpuller==1.2.1
   - networkx==3.0
   - numba==0.59.1
@@ -130,10 +130,10 @@ dependencies:
   # ----------------- Hub-only section ----------------------------
 
   # Packages needed only on the hub (mostly linux)
-  # If installing this environment on a personal machine, 
+  # If installing this environment on a personal machine,
   # comment these out (but not the pip section below)
   - micro==2.0.8
-  - python-pdfkit==1.0.0 
+  - python-pdfkit==1.0.0
   - syncthing==1.23.0
   - websockify==0.11.0
 
@@ -157,7 +157,7 @@ dependencies:
     # ----------------- Hub-only section ----------------------------
 
     # Packages needed only on the hub (mostly linux)
-    # If installing this environment on a personal machine, 
+    # If installing this environment on a personal machine,
     # comment these out
     - jupyter-remote-desktop-proxy==2.0.0
     # syncthing for dropbox-like functionality

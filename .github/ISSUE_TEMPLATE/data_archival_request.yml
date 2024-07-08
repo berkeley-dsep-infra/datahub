@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please follow the sections in the template and provide us the information required to retrieve your files! 	
+        Please follow the sections in the template and provide us the information required to retrieve your files!
   - type: textarea
     attributes:
       label: Your UC Berkeley Email Address

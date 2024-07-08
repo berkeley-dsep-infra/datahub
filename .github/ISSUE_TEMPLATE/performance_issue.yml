@@ -106,6 +106,6 @@ body:
   - type: textarea
     attributes:
       label: Additional comments
-      description: Anything else you want to share with us? (Deadline to fix these issues, information about students who are having these issues etc..) 
+      description: Anything else you want to share with us? (Deadline to fix these issues, information about students who are having these issues etc..)
     validations:
       required: true
