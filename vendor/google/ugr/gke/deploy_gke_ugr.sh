@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Define variables
 PROJECT_ID="ucb-datahub-2018" # Replace this with your actual GCP project ID
