@@ -65,12 +65,12 @@ jupyterhub:
 
   singleuser:
     extraFiles:
+      # DH-305
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
-          c.WebPDFExporter.disable_sandbox = True
     defaultUrl: "/lab"
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.f79b4903c7ea2847
@@ -111,7 +111,6 @@ jupyterhub:
       #course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM
       #  mem_limit: 4G
       #  mem_guarantee: 4G
- 
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:

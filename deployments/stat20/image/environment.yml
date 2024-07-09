@@ -10,7 +10,7 @@ dependencies:
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*
 # for usage analysis dashboard (to be removed during sp 24 maintenance window)
-- pandas==2.2.1 
+- pandas==2.2.1
 - matplotlib==3.8.3
 - pip:
   - -r /tmp/infra-requirements.txt

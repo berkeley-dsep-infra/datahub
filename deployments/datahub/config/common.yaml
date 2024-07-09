@@ -36,6 +36,20 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
 
+      # Data 6, Summer 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5847
+      course-staff-1535590:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1535590
+          - admin:servers!group=course::1535590
+          - access:servers!group=course::1535590
+      #  # this role will be assigned to...
+        groups:
+          - course::1535590::enrollment_type::teacher
+          - course::1535590::enrollment_type::ta
+
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     initContainers:
@@ -107,12 +121,11 @@ jupyterhub:
           mountPath: /home/jovyan/.rstudio
           subPath: '{username}/.datahub-rstudio'
     extraFiles:
-      # DH-164, DH-262
+      # DH-305
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
           c.QtPDFExporter.enabled = False
-          c.PDFExporter.enabled = True
           c.QtPNGExporter.enabled = False
     memory:
       guarantee: 512M
@@ -145,6 +158,10 @@ jupyterhub:
             subPath: _shared/course/demog-dataevent
             readOnly: true
 
-      course::1534506: #Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
+      course::1534506: # Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
         mem_limit: 8192M
         mem_guarantee: 8192M
+
+      course::1535590: # Data 6, https://github.com/berkeley-dsep-infra/datahub/issues/5847
+        mem_limit: 2048M
+        mem_guarantee: 2048M

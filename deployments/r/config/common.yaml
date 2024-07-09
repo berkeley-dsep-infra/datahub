@@ -47,12 +47,11 @@ jupyterhub:
 
   singleuser:
     extraFiles:
-      # DH-216, re-add PDFExporter DH-262
+      # DH-305
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
           c.QtPDFExporter.enabled = False
-          c.PDFExporter.enabled = True
           c.QtPNGExporter.enabled = False
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.

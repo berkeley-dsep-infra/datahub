@@ -56,6 +56,12 @@ jupyterhub:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.9b3b48abeb673056
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/dlab-berkeley-datahub-access
     extraFiles:
+      # DH-305
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
       # Set gh-scoped-creds vars for RStudio too. RStudio drops most vars
       # including those we set in extraEnv.
       gh-scoped-creds:

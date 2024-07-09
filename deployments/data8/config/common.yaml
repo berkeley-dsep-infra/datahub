@@ -5,6 +5,11 @@ nfsPVC:
 
 jupyterhub:
   custom:
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        admin: true
     admin:
       extraVolumeMounts:
         - name: home
@@ -72,13 +77,12 @@ jupyterhub:
 
   singleuser:
     extraFiles:
-      # DH-216 Removing QtPDF, QtPNG as per Data 8 GSI inputs
+      # DH-305
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
-          c.WebPDFExporter.enabled = False
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
@@ -97,10 +101,3 @@ jupyterhub:
     memory:
       guarantee: 1G
       limit: 1G
-
-  custom:
-    group_profiles:
-      # DataHub Infrastructure staff
-      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
-      course::1524699::group::all-admins:
-        admin: true

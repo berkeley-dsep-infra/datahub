@@ -1,7 +1,7 @@
 name: Bug Report
 description: Raise issues here
 labels: "bug"
-assignees: 
+assignees:
 - felder
 - balajialg
 - shaneknapp
@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to help us improve Datahub! Please follow the sections in the template and provide as much information as possible 	
+        Thanks for taking the time to help us improve Datahub! Please follow the sections in the template and provide as much information as possible
   - type: textarea
     attributes:
       label: Bug description
