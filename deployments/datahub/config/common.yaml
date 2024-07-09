@@ -22,7 +22,7 @@ jupyterhub:
     loadRoles:
       # datahub staff
       datahub-staff:
-       # description: Enable admin for datahub staff
+        description: Enable admin for datahub staff
         # this role provides permissions to...
         scopes:
           - admin-ui
