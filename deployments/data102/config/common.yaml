@@ -63,6 +63,13 @@ jupyterhub:
       #    - course::1532439::enrollment_type::ta
 
   singleuser:
+    extraFiles:
+      # DH-305
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
     defaultUrl: "/lab"
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.f769e27a8207e5c9
