@@ -62,6 +62,12 @@ jupyterhub:
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     defaultUrl: "/lab"
     extraFiles:
+      # DH-305
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
       git-credential-helper:
         # Move back to /etc/gitconfig if https://github.com/conda-forge/git-feedstock/issues/113
         # ever gets fixed, or if we start using git from apt again

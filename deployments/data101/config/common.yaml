@@ -93,6 +93,13 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
 
   singleuser:
+    extraFiles:
+      # DH-305
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
     extraContainers:
       - name: mongo
         image: mongo:5.0.11
