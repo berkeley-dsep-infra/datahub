@@ -57,6 +57,8 @@ dependencies:
 #- python-duckdb==1.0.0
 #- jupyterhub==5.0.0
 - quarto==1.4.550
+- voila==0.5.7
+- voici==0.6.1
 - pip
 - pip:
   # - -r infra-requirements.txt
