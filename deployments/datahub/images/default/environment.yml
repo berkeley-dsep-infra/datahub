@@ -202,6 +202,8 @@ dependencies:
 
   # Engineering 7 https://github.com/berkeley-dsep-infra/datahub/issues/5337
   - otter-grader==4.4.1
+  # pulled in by ottr, if not pinned to 1.16.2, 1.16.3 causes DH-323
+  - jupytext==1.16.2
 
   # Stat 165/265 requires prophet, Spring, 2024
   - prophet==1.1.5
