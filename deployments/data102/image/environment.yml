@@ -52,3 +52,5 @@ dependencies:
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+  # pulled in by ottr, if not pinned to 1.16.2, 1.16.3 causes DH-323
+  - jupytext==1.16.2
