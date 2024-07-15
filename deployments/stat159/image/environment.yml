@@ -137,7 +137,7 @@ dependencies:
   - syncthing==1.23.0
   - websockify==0.11.0
 
-  - jupyter-server-proxy==4.2.0
+  - jupyter-server-proxy==4.3.0
   # VS Code support
   - jupyter-vscode-proxy==0.2
   - code-server==4.10.1
@@ -169,3 +169,5 @@ dependencies:
     - nbconvert==7.6.0
     - nb2pdf==0.6.2
     - nbpdfexport==0.2.1
+    # pulled in by ottr, if not pinned to 1.16.2, 1.16.3 causes DH-323
+    - jupytext==1.16.2

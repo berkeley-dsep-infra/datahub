@@ -13,3 +13,5 @@ dependencies:
   - nbconvert==7.6.0
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
+  # pulled in by ottr, if not pinned to 1.16.2, 1.16.3 causes DH-323
+  - jupytext==1.16.2
