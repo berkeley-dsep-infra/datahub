@@ -9,3 +9,7 @@ lmodern
 # Other useful document-related tools
 pandoc
 latexdiff
+
+# playwright deps https://jira-secure.berkeley.edu/browse/DH-305
+libnss3
+libnspr4

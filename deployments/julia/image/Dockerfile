@@ -66,6 +66,10 @@ RUN mamba env update -p ${CONDA_DIR}  -f /tmp/environment.yml && mamba clean -af
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 
+# DH-330, similar to DH-164
+ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
+RUN playwright install chromium
+
 # 2024-01-13 sknapp: incompatible due to notebook 7
 # RUN jupyter contrib nbextensions install --sys-prefix --symlink && \
 #     jupyter nbextensions_configurator enable --sys-prefix
