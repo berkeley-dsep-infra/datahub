@@ -77,3 +77,7 @@ meld
 
 # For jupyter-tree-download. Ref: https://github.com/berkeley-dsep-infra/datahub/issues/3979
 zip
+
+# playwright deps https://jira-secure.berkeley.edu/browse/DH-325
+libnss3
+libnspr4

@@ -37,9 +37,10 @@ dependencies:
 #- -r infra-requirements.txt
   - jupyter-tree-download==1.0.1
 # Export notebooks as PDFs with Chrome
-  - nbconvert==7.6.0
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
+# Enable webpdf export DH-325
+  - nbconvert[webpdf]==7.16.4
 # Conda only has 0.12.0
   - okpy==1.18.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
