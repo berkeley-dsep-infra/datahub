@@ -1,0 +1,18 @@
+nfsPVC:
+  nfs:
+    shareName: shares/ugr01/prod
+
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - ugr01.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - ugr01.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi
