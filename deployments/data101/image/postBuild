@@ -13,3 +13,7 @@ chmod 775 ${CONDA_DIR}/bin/mongosh
 chmod 775 ${CONDA_DIR}/lib/mongosh_crypt_v1.so
 cd /
 rm -rf /tmp/mongosh
+
+# installing chromium browser to enable webpdf conversion using nbconvert
+export PLAYWRIGHT_BROWSERS_PATH=${CONDA_DIR}
+playwright install chromium
