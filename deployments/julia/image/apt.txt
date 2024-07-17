@@ -11,5 +11,6 @@ pandoc
 latexdiff
 
 # playwright deps https://jira-secure.berkeley.edu/browse/DH-305
+strace
 libnss3
 libnspr4
