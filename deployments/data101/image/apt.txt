@@ -94,3 +94,7 @@ zip
 
 # DH-93, DH94
 postgresql-client
+
+# playwright deps https://jira-secure.berkeley.edu/browse/DH-305
+libnss3
+libnspr4

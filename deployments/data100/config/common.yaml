@@ -102,10 +102,10 @@ jupyterhub:
         admin: true
         mem_limit: 4G
 
-      # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
-      #course::1531798::group::Content: # Spring 2024 Content Team, ensured 4G RAM
-      #  mem_limit: 4G
-      #  mem_guarantee: 4G
+      # Data 100, Summer 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5862, to be removed by 7/29
+      course::1535115:
+        mem_limit: 4G
+        mem_guarantee: 4G
 
       # Data 100, Spring 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5376
       #course::1531798::group::Admins: # Spring 2024, Data 100 Admins, ensured 4G RAM

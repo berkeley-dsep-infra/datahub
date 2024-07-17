@@ -37,6 +37,7 @@ RUN apt-get update > /dev/null && \
             libatk-bridge2.0-0 \
             libgtk-3-0 \
             libnss3 \
+            libnspr4 \
             libxss1 \
             fonts-symbola \
             gdebi-core \
@@ -61,6 +62,10 @@ RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
 
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache-dir -r /tmp/infra-requirements.txt
+
+# DH-331, very similar to what was done for datahub in DH-164
+ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
+RUN playwright install chromium
 
 # Install IRKernel
 RUN R --quiet -e "install.packages('IRkernel', quiet = TRUE)" && \

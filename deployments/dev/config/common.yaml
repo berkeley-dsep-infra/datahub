@@ -71,9 +71,6 @@ jupyterhub:
         description: "A newer repo2docker-based image with a primary focus of building dashboards."
         kubespawner_override:
           image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary:36280727a
-          env:
-            GH_SCOPED_CREDS_CLIENT_ID: "Iv23liFjgKFgkSBWph4C"
-            GH_SCOPED_CREDS_APP_URL: "https://github.com/apps/test-gh-scoped-creds"
       - display_name: "1524699: DataHub Infrastructure"
         slug: "1524699"
         description: "Regular image with per-course subpath."
@@ -95,6 +92,14 @@ jupyterhub:
 
   custom:
     group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        mem_limit: 12288M
+        mem_guarantee: 12288M
+        env:
+          GH_SCOPED_CREDS_CLIENT_ID: "Iv23liFjgKFgkSBWph4C"
+          GH_SCOPED_CREDS_APP_URL: "https://github.com/apps/test-gh-scoped-creds"
   #
   #    # Example: increase memory for everyone affiliated with a course.
   #
