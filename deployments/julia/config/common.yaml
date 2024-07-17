@@ -43,6 +43,8 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          # Causes 100% cpu spike and hang if DISPLAY is set - see DH-330
+          c.WebPDFExporter.enabled = False
     extraEnv:
       # Tell code where to display GUIs
       # The VNC /desktop link must be opened already for this to work
