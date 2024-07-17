@@ -74,6 +74,6 @@ dependencies:
   - allensdk==2.16.2
   - otter-grader==3.1.4
 # for exporting notebooks to pdf
-  - nbconvert==7.6.0
+  - nbconvert[webpdf]==7.16.4
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
