@@ -66,6 +66,13 @@ RUN mamba env update -p ${CONDA_DIR}  -f /tmp/environment.yml && mamba clean -af
 COPY infra-requirements.txt /tmp/infra-requirements.txt
 RUN pip install --no-cache -r /tmp/infra-requirements.txt
 
+USER root
+ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
+RUN playwright install-deps
+RUN chown -Rh jovyan:jovyan /srv/conda
+
+USER ${NB_USER}
+
 # DH-330, similar to DH-164
 ENV PLAYWRIGHT_BROWSERS_PATH ${CONDA_DIR}
 RUN playwright install chromium
