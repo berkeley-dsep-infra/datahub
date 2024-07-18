@@ -403,7 +403,8 @@ class NCBITaxa(object):
                 subtree = prepostorder[start:end+1]
             except ValueError:
                 # If root taxid is not found in postorder, must be a tip node
-            	subtree = [root_taxid]
+                subtree = [root_taxid]
+
             leaves = set([v for v, count in Counter(subtree).items() if count == 1])
             nodes[root_taxid] = PhyloTree(name=str(root_taxid))
             current_parent = nodes[root_taxid]
