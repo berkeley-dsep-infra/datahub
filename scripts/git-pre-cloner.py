@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import sys
 import string
 import subprocess
 
@@ -27,6 +26,7 @@ def git_clone():
         return
     out = subprocess.check_output(['git', 'clone', args.repo],
             cwd=local_repo).decode('utf-8')
+    return out
 
 def copy_repo(username):
     safe = safe_username(username)
@@ -34,10 +34,14 @@ def copy_repo(username):
     source_dir = os.path.join(local_repo, repo_dirname)
     dest_dir = os.path.join(home_dir, repo_dirname)
     if os.path.exists(dest_dir):
-        if args.verbose: print('Skipping {}'.format(safe))
+        if args.verbose:
+            print('Skipping {}'.format(safe))
     else:
-        if args.verbose: print(safe)
+        if args.verbose:
+            print(safe)
         out = subprocess.check_output(['cp', '-a', source_dir, dest_dir])
+        return out
+    return
 
 # main
 parser = argparse.ArgumentParser(description='Pre-clone course assets.')
@@ -54,13 +58,16 @@ repo_dirname = os.path.basename(args.repo).split('.')[0]
 if not os.path.exists(local_repo):
     os.mkdir(local_repo)
 
-git_clone()
+out = git_clone()
+if args.verbose:
+    print(out)
 
 f = open(args.filename)
 line = f.readline()
 while line != '':
     email = line.strip()
-    if '@berkeley.edu' not in email: continue # just in case
+    if '@berkeley.edu' not in email:
+        continue # just in case
     username = email.split('@')[0]
     copy_repo(username)
     line = f.readline()

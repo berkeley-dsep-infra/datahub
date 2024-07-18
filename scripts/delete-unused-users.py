@@ -142,7 +142,7 @@ def main(args):
     and if so, delete them!
     """
     if args.credentials and args.hub_url:
-        logger.error(f"Please use only one of --hub_url or --credentials options when executing the script.")
+        logger.error("Please use only one of --hub_url or --credentials options when executing the script.")
         raise
 
     if args.hub_url:
