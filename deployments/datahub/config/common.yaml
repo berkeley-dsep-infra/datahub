@@ -127,6 +127,7 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.embed_images = True
     memory:
       guarantee: 512M
       limit: 1G
