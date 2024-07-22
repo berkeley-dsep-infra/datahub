@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import logging
-import datetime
 import argparse
 import tempfile
 import subprocess
@@ -54,15 +53,16 @@ def get_replica_counts(events):
             pools_replica_config = None
             try:
                 pools_replica_config = yaml.load(ev.description)
-            except:
+            except Exception as e:
+                logging.error(f"Caught unhandled exception parsing event description:\n{e}")
                 logging.error(f"Error in parsing description of {_event_repr(ev)}")
                 logging.error(f"{ev.description=}")
                 pass
             if pools_replica_config is None:
                 logging.error(f"No description in event {_event_repr(ev)}")
                 continue
-            elif type(pools_replica_config) == str:
-                logging.error(f"Event description not parsed as dictionary.")
+            elif isinstance(pools_replica_config, str):
+                logging.error("Event description not parsed as dictionary.")
                 logging.error(f"{ev.description=}")
                 continue
             for pool_name, count in pools_replica_config.items():

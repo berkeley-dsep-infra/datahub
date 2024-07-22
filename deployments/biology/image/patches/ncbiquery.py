@@ -175,7 +175,7 @@ class NCBITaxa(object):
             result = _db.execute(cmd)
             try:
                 taxid, spname, score = result.fetchone()
-            except:
+            except Exception:
                 pass
             else:
                 taxid = int(taxid)
@@ -299,7 +299,7 @@ class NCBITaxa(object):
 
         query = ','.join(['"%s"' %n for n in six.iterkeys(name2origname)])
         cmd = 'select spname, taxid from species where spname IN (%s)' %query
-        result = self.db.execute('select spname, taxid from species where spname IN (%s)' %query)
+        result = self.db.execute(cmd)
         for sp, taxid in result.fetchall():
             oname = name2origname[sp.lower()]
             name2id.setdefault(oname, []).append(taxid)
@@ -395,18 +395,16 @@ class NCBITaxa(object):
             root_taxid = int(list(taxids)[0])
             with open(self.dbfile+".traverse.pkl", "rb") as CACHED_TRAVERSE:
                 prepostorder = pickle.load(CACHED_TRAVERSE)
-            descendants = {}
-            found = 0
             nodes = {}
-            hit = 0
             visited = set()            
             start = prepostorder.index(root_taxid)
             try:
-            	end = prepostorder.index(root_taxid, start+1)
-            	subtree = prepostorder[start:end+1]
+                end = prepostorder.index(root_taxid, start+1)
+                subtree = prepostorder[start:end+1]
             except ValueError:
                 # If root taxid is not found in postorder, must be a tip node
-            	subtree = [root_taxid]
+                subtree = [root_taxid]
+
             leaves = set([v for v, count in Counter(subtree).items() if count == 1])
             nodes[root_taxid] = PhyloTree(name=str(root_taxid))
             current_parent = nodes[root_taxid]
@@ -663,7 +661,6 @@ def load_ncbi_tree_from_dump(tar):
     name2node = {}
     node2taxname = {}
     synonyms = set()
-    name2rank = {}
     node2common = {}
     print("Loading node names...")
     for line in tar.extractfile("names.dmp"):

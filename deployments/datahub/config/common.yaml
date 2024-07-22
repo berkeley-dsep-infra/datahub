@@ -50,6 +50,20 @@ jupyterhub:
           - course::1535590::enrollment_type::teacher
           - course::1535590::enrollment_type::ta
 
+      # COMPSS 202, Summer 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5861
+      course-staff-1535811:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1535811
+          - admin:servers!group=course::1535811
+          - access:servers!group=course::1535811
+      #  # this role will be assigned to...
+        groups:
+          - course::1535811::enrollment_type::teacher
+          - course::1535811::enrollment_type::ta
+
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     initContainers:
@@ -127,6 +141,7 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.embed_images = True
     memory:
       guarantee: 512M
       limit: 1G
