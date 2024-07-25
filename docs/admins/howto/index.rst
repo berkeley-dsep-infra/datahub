@@ -18,3 +18,4 @@ Common Administrator Tasks
    prometheus-grafana
    remove-users-orm
    delete-hub
+   clusterswitch.md
