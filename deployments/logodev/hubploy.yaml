@@ -1,7 +1,7 @@
 images:
   images:
     # temporary update
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/logodev-user-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/logodev-user-image:a02e39fbaedb
       path: image/
       repo2docker:
         base_image: docker.io/library/buildpack-deps:jammy
