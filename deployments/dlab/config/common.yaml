@@ -62,6 +62,7 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.embed_images = True
       # Set gh-scoped-creds vars for RStudio too. RStudio drops most vars
       # including those we set in extraEnv.
       gh-scoped-creds:

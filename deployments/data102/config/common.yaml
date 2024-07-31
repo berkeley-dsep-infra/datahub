@@ -70,6 +70,7 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.embed_images = True
     defaultUrl: "/lab"
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.f769e27a8207e5c9

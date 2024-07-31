@@ -44,6 +44,7 @@ jupyterhub:
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
           # Causes 100% cpu spike and hang if DISPLAY is set - see DH-330
+          c.WebPDFExporter.embed_images = True
           c.WebPDFExporter.enabled = False
     extraEnv:
       # Tell code where to display GUIs
