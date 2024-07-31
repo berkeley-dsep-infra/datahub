@@ -11,9 +11,11 @@ Common Administrator Tasks
    core-pool
    new-hub
    rebuild-hub-image
+   new-image
    new-packages
    course-config
    calendar-scaler
    prometheus-grafana
    remove-users-orm
    delete-hub
+   clusterswitch.md

@@ -8,4 +8,3 @@ Using DataHub
    private-repo
    hubs
    authentication
-   storage-retention
