@@ -66,6 +66,7 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.embed_images = True
       git-credential-helper:
         mountPath: /etc/gitconfig
         stringData: |
