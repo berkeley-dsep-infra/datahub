@@ -7,15 +7,15 @@ jupyterhub:
   scheduling:
     userScheduler:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2024-05-08
+        hub.jupyter.org/pool-name: core-pool-2024-07-07
   proxy:
     chp:
       nodeSelector:
-        hub.jupyter.org/pool-name: core-pool-2024-05-08
+        hub.jupyter.org/pool-name: core-pool-2024-07-07
 
   hub:
     nodeSelector:
-      hub.jupyter.org/pool-name: core-pool-2024-05-08
+      hub.jupyter.org/pool-name: core-pool-2024-07-07
     config:
     loadRoles:
       # datahub staff
