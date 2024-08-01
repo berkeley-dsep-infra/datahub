@@ -1,0 +1,16 @@
+{
+"--file-share":
+  {
+    "name": "shares",
+    "capacity": "desired-capacity",
+    "nfs-export-options": [
+      {
+        "access-mode": "READ_WRITE",
+        "ip-ranges": ["10.0.0.0/8"],
+        "squash-mode": "ROOT_SQUASH",
+        "anon_uid": 1000,
+        "anon_gid": 1000
+      }
+    ],
+  }
+}

@@ -1,0 +1,16 @@
+imports:
+  - path: ../templates/node_pool_template.py
+
+resources:
+  - name: ugr01-node-pool
+    type: ../templates/node_pool_template.py
+    properties:
+      poolName: ugr01
+      clusterName: ugresearch-cluster
+      region: us-central1
+      dateSuffix: '2024-07-07'
+      initialNodeCount: 1
+      diskSizeGb: 100
+      machineType: n2-standard-2
+      minNodeCount: 1
+      maxNodeCount: 20
