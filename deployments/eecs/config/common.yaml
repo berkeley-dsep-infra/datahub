@@ -68,6 +68,7 @@ jupyterhub:
         stringData: |
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.embed_images = True
       git-credential-helper:
         # Move back to /etc/gitconfig if https://github.com/conda-forge/git-feedstock/issues/113
         # ever gets fixed, or if we start using git from apt again
