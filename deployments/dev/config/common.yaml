@@ -101,9 +101,7 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 12288M
         mem_guarantee: 12288M
-        env:
-          GH_SCOPED_CREDS_CLIENT_ID: "Iv23liFjgKFgkSBWph4C"
-          GH_SCOPED_CREDS_APP_URL: "https://github.com/apps/test-gh-scoped-creds"
+
   #
   #    # Example: increase memory for everyone affiliated with a course.
   #
