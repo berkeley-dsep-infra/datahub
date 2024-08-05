@@ -62,6 +62,10 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+
+      # Specify our app for gh-scoped-creds that has read/write scopes
+      GH_SCOPED_CREDS_CLIENT_ID: Iv23ct7Qx1mAotaIIYx9
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/berkeley-datahub-git-access
     defaultUrl: /lab
     profileList:
       - display_name: "Dockerfile image"
