@@ -18,7 +18,7 @@ dependencies:
 # Base scientific packages that other conda packages we install depend on
 # We don't want to have conda packages depend on pip packages if possible
 - numpy=1.26.*
-- matplotlib=3.7.*
+- matplotlib=3.9.*
 - scipy=1.10.0
 - ipympl=0.9.*
 - pandas==2.2.2
