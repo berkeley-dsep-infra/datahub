@@ -78,3 +78,7 @@ libgdal-dev
 libgeos-dev
 libproj-dev
 libmysqlclient-dev
+
+# 2024-08 workshop
+# https://github.com/berkeley-dsep-infra/datahub/issues/5906
+man
