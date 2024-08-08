@@ -11,7 +11,7 @@ jupyterhub:
       enabled: false
   proxy:
     service:
-      loadBalancerIP: 34.72.254.237
+      loadBalancerIP: 34.172.42.174
   ingress:
     enabled: true
     hosts:
