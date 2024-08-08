@@ -126,6 +126,14 @@ COPY r-packages/2024-sp-polsci-3.r /tmp/r-packages/
 RUN echo "/usr/bin/r /tmp/r-packages/2024-sp-polsci-3.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 RUN rm -rf /tmp/downloaded_packages
 
+# ESPM, FA 24
+# https://github.com/berkeley-dsep-infra/datahub/issues/5827
+VSIX=2024.13.2024080701
+export VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
+wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/python/${VSIX}/vspackage -O /tmp/ms-python.vsix
+code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension /tmp/ms-python.vsix
+code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
+
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
