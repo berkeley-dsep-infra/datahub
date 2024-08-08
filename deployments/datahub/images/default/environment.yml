@@ -99,9 +99,8 @@ dependencies:
 - obspy==1.4.1
 
 # Install VSCode for ESPM courses - https://github.com/berkeley-dsep-infra/datahub/issues/5716
-- nodejs=16 # code-server requires node < 17
-- jupyter-vscode-proxy==0.5
-- code-server==4.10.1
+- jupyter-vscode-proxy==0.6
+- code-server==4.23.1
 
 # 2024-08 workshop, #5908
 - tree==2.1.3
