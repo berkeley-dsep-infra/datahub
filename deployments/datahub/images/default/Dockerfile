@@ -22,7 +22,7 @@ RUN apt-get -qq update --yes && \
 RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 # Do not exclude manpages from being installed.
-RUN sed -i -e '/usr.share.man/s/^/#/' exclude
+RUN sed -i -e '/usr.share.man/s/^/#/' /etc/dpkg/dpkg.cfg.d/exclude
 
 # From docker-ce-packaging
 # Remove diverted man binary to prevent man-pages being replaced with "minimized" message. See docker/for-linux#639
