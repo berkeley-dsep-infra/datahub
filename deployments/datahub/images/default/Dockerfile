@@ -128,14 +128,14 @@ RUN rm -rf /tmp/downloaded_packages
 
 # ESPM, FA 24
 # https://github.com/berkeley-dsep-infra/datahub/issues/5827
-VSIX=2024.13.2024080701
-export VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
+ENV VSIX=2024.13.2024080701
+ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
 # Download the VSIX package
-wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/python/${VSIX}/vspackage -O /tmp/ms-python.vsix
+RUN wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/python/${VSIX}/vspackage -O /tmp/ms-python.vsix
 # Install Code Server Python extension
-code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension /tmp/ms-python.vsix
+RUN code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension /tmp/ms-python.vsix
 # Install Code Server Jupyter extension 
-code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
+RUN code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
 
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
