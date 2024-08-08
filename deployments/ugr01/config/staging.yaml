@@ -1,0 +1,22 @@
+nfsPVC:
+  nfs:
+    shareName: shares/ugr01/staging
+
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  prePuller:
+    continuous:
+      enabled: false
+  proxy:
+    service:
+      loadBalancerIP: 34.172.42.174
+  ingress:
+    enabled: true
+    hosts:
+      - ugr01-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - ugr01-staging.datahub.berkeley.edu
