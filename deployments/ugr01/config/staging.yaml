@@ -9,6 +9,9 @@ jupyterhub:
   prePuller:
     continuous:
       enabled: false
+  proxy:
+    service:
+      loadBalancerIP: 34.72.254.237
   ingress:
     enabled: true
     hosts:
