@@ -2,7 +2,7 @@
 # For conda, == is exact constraint, while = is fuzzy constraint.
 # pip uses https://peps.python.org/pep-0440/ which does not have =.
 dependencies:
-- nodejs=16.*
+- nodejs=18.*
 - traitlets=5.9.*
 - pip=22.2.*
 - python=3.11.*
