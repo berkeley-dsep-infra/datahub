@@ -21,6 +21,15 @@ RUN apt-get -qq update --yes && \
 
 RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
+# Install all apt packages
+COPY apt.txt /tmp/apt.txt
+RUN apt-get -qq update --yes && \
+    apt-get -qq install --yes --no-install-recommends \
+        $(grep -v ^# /tmp/apt.txt) && \
+    apt-get -qq purge && \
+    apt-get -qq clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Do not exclude manpages from being installed.
 RUN sed -i -e '/usr.share.man/s/^/#/' /etc/dpkg/dpkg.cfg.d/exclude
 
@@ -30,16 +39,8 @@ RUN if  [ "$(dpkg-divert --truename /usr/bin/man)" = "/usr/bin/man.REAL" ]; then
         rm -f /usr/bin/man; \
         dpkg-divert --quiet --remove --rename /usr/bin/man; \
     fi
-RUN mandb -c
 
-# Install all apt packages
-COPY apt.txt /tmp/apt.txt
-RUN apt-get -qq update --yes && \
-    apt-get -qq install --yes --no-install-recommends \
-        $(grep -v ^# /tmp/apt.txt) && \
-    apt-get -qq purge && \
-    apt-get -qq clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN mandb -c
 
 # Create user owned R libs dir
 # This lets users temporarily install packages
