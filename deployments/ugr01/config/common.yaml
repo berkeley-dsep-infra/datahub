@@ -12,6 +12,8 @@ jupyterhub:
     chp:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-07-07
+    service:
+      type: LoadBalancer
 
   hub:
     nodeSelector:
