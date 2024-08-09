@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Creating a new single user image</title>
+<title>Create a New Single User Image</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-image.html">Creating a new single user image</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-image.html">Create a New Single User Image</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/new-image.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Creating a new single user image</span></a>
+ <span class="menu-text">Create a New Single User Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -425,9 +425,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-image.html">Creating a new single user image</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-image.html">Create a New Single User Image</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Creating a new single user image</h1>
+<h1 class="title">Create a New Single User Image</h1>
 </div>
 
 
@@ -444,18 +444,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>When deploying a new hub, or moving from a shared single user server image, you might need to create a new image for users. We use <a href="https://github.com/jupyterhub/repo2docker">repo2docker</a> to do this.</p>
-<p>There are two approaches to creating a repo2docker image: 1. Use a repo2docker-style image <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/data100/image">template</a> (environment.yaml, etc) 2. Use a <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/datahub/images/default">Dockerfile</a> (useful for larger/more complex images)</p>
+<p>You might need to create a new user image when deploying a new hub, or changing from a shared single user server image. We use <a href="https://github.com/jupyterhub/repo2docker">repo2docker</a> to generate our images.</p>
+<p>There are two approaches to creating a repo2docker image:</p>
+<ol type="1">
+<li>Use a repo2docker-style image <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/data100/image">template</a> (environment.yaml, etc)</li>
+<li>Use a <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/datahub/images/default">Dockerfile</a> (useful for larger/more complex images)</li>
+</ol>
 <p>Generally, we prefer to use the former approach, unless we need to install specific packages or utilities outside of python/apt as <code>root</code>. If that is the case, only a <code>Dockerfile</code> format will work.</p>
-<p>Of course, as always create a feature branch for your changes, and submit a PR when done.</p>
-<section id="find-a-hub-to-use-as-a-template" class="level2">
-<h2 class="anchored" data-anchor-id="find-a-hub-to-use-as-a-template">Find a hub to use as a template</h2>
+<p>As always, create a feature branch for your changes, and submit a PR when done.</p>
+<section id="use-an-existing-image-as-a-template" class="level2">
+<h2 class="anchored" data-anchor-id="use-an-existing-image-as-a-template">Use an existing image as a template</h2>
 <p>Browse through our <code>deployments/</code> directory to find a hub that is similar to the one you are trying to create. This will give you a good starting point.</p>
 </section>
-<section id="create-the-image-directory-for-your-new-hub" class="level2">
-<h2 class="anchored" data-anchor-id="create-the-image-directory-for-your-new-hub">Create the <code>image/</code> directory for your new hub</h2>
-<p>Create a new directory under <code>deployments/</code> with the name of your hub. This directory will contain the files that will be used to create the image.</p>
-<p>Then, copy the contents (and any subdirectories) of the source <code>image/</code> directory in to the new directory.</p>
+<section id="create-the-image-directory" class="level2">
+<h2 class="anchored" data-anchor-id="create-the-image-directory">Create the image directory</h2>
+<p>Create a new <code>image/</code> directory in the deployment. Then copy the contents (and any subdirectories) of the source <code>image/</code> directory in to the new directory.</p>
 </section>
 <section id="modify-hubploy.yaml-for-the-hub" class="level2">
 <h2 class="anchored" data-anchor-id="modify-hubploy.yaml-for-the-hub">Modify <code>hubploy.yaml</code> for the hub</h2>
