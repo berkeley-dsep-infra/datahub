@@ -2,20 +2,17 @@
 title: Develop Documentation
 ---
 
-## Strategy 1: Run Quarto preview
+## Live Preview
 
-1. Navigate to the `docs` directory and run
-   ```bash
-   quarto preview
-   ```
-2. Connect to the specific URL in your web browser.
+Navigate to the `docs` directory and run `quarto preview`. You can view the
+documentation in a browser while you make changes.
 
-3. Make changes to the documentation while previewing the HTML.
+## Render Static HTML
 
-## Strategy 2: Render static HTML
+Navigate to the `docs` directory and run `quarto render`. This will build the
+endire website into the *_site* directory. You can then open files in your web
+browser.
 
-1. Navigate to the `docs` directory and run
-   ```bash
-   quarto render
-   ```
-2. Open the content in the `_site` directory in your browser, e.g. `_site/index.html`.
+You can also render individual files, which saves time if you do not want to
+render the whole site. Run `quarto render ./path/to/filename.qmd`, and then open
+the corresponding HTML file in the *_site* directory.
