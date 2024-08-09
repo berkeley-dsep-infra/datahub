@@ -1,0 +1,79 @@
+---
+title: Features
+---
+
+This page lists the various environments, applications, and tools we offer on
+DataHub. Not all those listed here are available on all hubs, but we can easily enable them.
+
+## Programming Languages
+
+We support the usual suspects - Python, R, and Julia. However, Jupyter and
+other applications can support many more. If you would like to use a
+different, open-source programming language, contact us.
+
+## Applications
+
+Our diverse user population has diverse needs, so we offer many different
+user interfaces for instructors to choose from.
+
+### JupyterLab
+
+![Do complex layouts with JupyterLab](images/jupyterlab.png)
+
+[JupyterLab](https://github.com/jupyterlab/jupyterlab) is a more modern and customizable version of the classic Jupyter notebook from the Jupyter project.
+Most of our classes use JupyterLab.
+
+
+### Jupyter Notebook (Classic)
+
+This familiar interface is used for most of our introductory classes. It is document oriented, no-frills, and well known by a lot of people.
+
+### RStudio
+
+![RStudio Screenshot](images/rstudio.png)
+
+We want to provide first class support for teaching with R, which means
+providing strong support for [RStudio](https://rstudio.com). This also includes support for running Shiny applications.
+
+Try RStudio [on DataHub](https://r.datahub.berkeley.edu) with your berkeley.edu account, or [on Binder](https://mybinder.org/v2/gh/rocker-org/binder/master?urlpath=rstudio) without a berkeley.edu account.
+
+### Remote Desktop
+
+![Do image processing with qt](images/desktop.png)
+
+Sometimes, you just need to use something that requires a full desktop
+environment to run. Instead of trying to get students to install things
+locally, we offer a full fledged Linux Desktop environment they can
+access from inside their browser! This is just a different 'UI' on the
+same infrastructure as the notebook environment, so they all use the
+same libraries and home directories.
+
+Try remote desktop [on EECS DataHub](https://eecs.datahub.berkeley.edu/hub/user-redirect/desktop) with your berkeley.edu account, or [on Binder](https://mybinder.org/v2/gh/yuvipanda/jupyter-desktop-server/master?urlpath=desktop) without a berkeley.edu account.
+
+### Visual Studio Code
+
+![Compile C with vscode](images/vscode.png)
+
+Sometimes you *just* want an IDE, not a notebook environment. We are experimenting
+with a hosted, web version of the popular Visual Studio Code editor, to
+see if it would be useful for teaching more traditional CS classes.
+
+Try VS Code [on EECS DataHub](https://eecs.datahub.berkeley.edu/hub/user-redirect/vscode/) with your berkeley.edu account, or [on Binder](https://mybinder.org/v2/gh/betatim/vscode-binder/master?urlpath=lab) without a berkeley.edu account.
+
+### Other Web Applications
+
+We can make many web based applications work on a hub. Contact us and we'll see what we can do!
+
+### Postgresql
+
+Some of our classes require using real databases to teach. We
+now experimentally offer a [postgresql](https://www.postgresql.org/)
+server for each user on the [data100 hub](https://data100.datahub.berkeley.edu).
+
+The data does not persist right now, but we can turn that on whenever
+needed.
+
+## More?
+
+We want to find solution to your interesting problems, so please bring us
+your interesting problems. 😁

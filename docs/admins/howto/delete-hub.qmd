@@ -1,0 +1,50 @@
+---
+title: Delete or spin down a Hub
+---
+
+## Why delete or spin down a hub?
+
+Sometimes we want to spin down or delete a hub:
+
+1.  A course or department won't be needing their hub for a while
+2.  The hub will be re-deployed in to a new or shared node pool.
+
+## Steps to spin down a hub
+
+If the hub is using a shared filestore, skip all filestore steps.
+
+If the hub is using a shared node pool, skip all namespace and node pool
+steps.
+
+1.  Scale the node pool to zero:
+    `kubectl -n <hubname-prod|staging> scale --replicas=0 deployment/hub`
+2.  Kill any remaining users' servers. Find any running servers with
+    `kubectl -n <hubname-prod|staging> get pods | grep jupyter` and then
+    `kubectl -n <hubname-prod|staging> delete pod <pod name>` to stop
+    them.
+3.  Create filestore backup:
+```bash
+gcloud filestore backups create <hubname>-backup-YYYY-MM-DD --file-share=shares --instance=<hubname-YYYY-MM-DD> --region "us-central1" --labels=filestore-backup=<hub name>,hub=<hub name>
+```
+4.  Log in to `nfsserver-01` and unmount filestore from nfsserver:
+    `sudo umount /export/<hubname>-filestore`
+5.  Comment out the hub build steps out in `.circleci/config.yaml`
+    (deploy and build steps)
+6.  Comment out GitHub label action for this hub in
+    `.github/labeler.yml`
+7.  Comment hub entries out of `datahub/node-placeholder/values.yaml`
+8.  Delete k8s namespace:
+```bash
+kubectl delete namespace <hubname>-staging <hubname>-prod
+```
+9.  Delete k8s node pool:
+```bash
+gcloud container node-pools delete <hubname> --project "ucb-datahub-2018" --cluster "spring-2024" --region "us-central1"
+```
+10. Delete filestore
+```bash
+gcloud filestore instances delete <hubname>-filestore --zone "us-central1-b"
+```
+11. Delete PV: `kubectl get pv --all-namespaces|grep <hubname>` to get
+    the PV names, and then `kubectl delete pv <pv names>`
+12. All done.

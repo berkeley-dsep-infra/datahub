@@ -1,0 +1,31 @@
+---
+title: "Customize the Hub Docker Image"
+---
+
+We use a customized JupyterHub docker image so we can install extra packages
+such as authenticators. The image is located in `images/hub`. It *must* inherit
+from the JupyterHub image used in the [Zero to
+JupyterHub](https://z2jh.jupyter.og).
+
+The image is build with [chartpress](https://github.com/jupyterhub/chartress),
+which also updates `hub/values.yaml` with the new image version.
+`chartpress` may be installed locally with `pip install chartpress`.
+
+1. Run `gcloud auth configure-docker us-central1-docker.pkg.dev` *once
+   per machine* to setup docker for authentication with the [gcloud
+   credential
+   helper](https://cloud.google.com/artifact-registry/docs/docker/authentication).
+2. Modify the image in `images/hub` and make a git commit.
+3. Run `chartpress --push`. This will build and push the hub image, and
+   modify `hub/values.yaml` appropriately.
+4. Make a commit with the `hub/values.yaml` file, so the new hub image
+   name and tag are comitted.
+5. Proceed to deployment as normal.
+
+Some of the following commands may be required to configure your
+environment to run the above chartpress workflow successfully:
+
+ - `gcloud auth login`.
+ - `gcloud auth configure-docker us-central1-docker.pkg.dev`
+ - `gcloud auth application-default login`
+ - `gcloud auth configure-docker`

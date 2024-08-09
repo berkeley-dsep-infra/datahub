@@ -1,0 +1,18 @@
+---
+title: Develop Documentation
+---
+
+## Live Preview
+
+Navigate to the `docs` directory and run `quarto preview`. You can view the
+documentation in a browser while you make changes.
+
+## Render Static HTML
+
+Navigate to the `docs` directory and run `quarto render`. This will build the
+entire website in the `_site` directory. You can then open files in your web
+browser.
+
+You can also render individual files, which saves time if you do not want to
+render the whole site. Run `quarto render ./path/to/filename.qmd`, and then open
+the corresponding HTML file in the _site directory.
