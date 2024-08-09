@@ -1,6 +1,6 @@
 ---
 title: Docker dies on a few Azure nodes
-date: 2017-10-10 
+date: 2017-10-10
 ---
 
 ## Summary

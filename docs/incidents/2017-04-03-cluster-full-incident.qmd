@@ -1,6 +1,6 @@
 ---
 title: Custom autoscaler does not scale up when it should
-date: 2017-04-03 
+date: 2017-04-03
 ---
 
 ## Summary

@@ -1,6 +1,6 @@
 ---
 title: Weird upstream ipython bug kills kernels
-date: 2017-03-23 
+date: 2017-03-23
 ---
 
 ## Summary ##

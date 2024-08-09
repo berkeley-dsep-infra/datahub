@@ -15,7 +15,7 @@ We have spent much time working to debug and track this, including with our frie
 
 After some back and forth w/the upstream maintainers, we received a [forked version](https://github.com/berkeley-dsep-infra/datahub/pull/5501) of the proxy to test.
 
-During this testing, we triggered some user-facing downtime, as well as the proxy itself crashing and causing small outages. 
+During this testing, we triggered some user-facing downtime, as well as the proxy itself crashing and causing small outages.
 
 Another (unrelated) issue that impacted users was that [GKE](https://cloud.google.com/kubernetes-engine) was autoscaling our core pool (where the hub and proxy pods run) node to zero. Since it takes about 10-15m for a new node to spin up, all hubs were inaccessible until the new node was deployed.
 
@@ -59,7 +59,7 @@ proxy ram 800Mi (steady)
 spike on proxy — cpu 181%, mem 1.06Gi --> 1.86Gi
 
 ### 16:05:53
-chp healthz readiness probe failure 
+chp healthz readiness probe failure
 
 ### 16:05:56
 chp/javascript runs out of heap “Ineffective mark-compass near heap limit Allocation Failed”
@@ -95,7 +95,7 @@ chp restarts (no heap error)
 5.7K 503 errors
 
 ### 16:54:15 - 17:15:31
-300 users (slowly descreasing), 3x chp “uncaught exception: write EPIPE”, intermittent 503 errors in spikes of 30, 60, 150, hub latency 2.5sec 
+300 users (slowly descreasing), 3x chp “uncaught exception: write EPIPE”, intermittent 503 errors in spikes of 30, 60, 150, hub latency 2.5sec
 
 ### 18:47:19 - 18:58:10
 ~120 users (constant), 3x chp “uncaught exception: write EPIPE”, intermittent 503 errors in spikes of 30, 60, hub latency 3sec

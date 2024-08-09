@@ -7,7 +7,7 @@ date: 2022-01-20
 
 [PR 1](https://github.com/berkeley-dsep-infra/datahub/pull/3161) and [PR 2](https://github.com/berkeley-dsep-infra/datahub/pull/3164/commits/a3fc71d5a68b030cda91029b5dbb6c01c0eec8fe) were merged to prod between 2 AM and 2.30 AM PST on 1/20. Difference due to the commits can be viewed [here](https://github.com/berkeley-dsep-infra/datahub/pull/3151/files#diff-72ab2727eb8dffad68933fd8e624ef3126cc0a107685c3f0e16fcee62fc77c76)
 
-Due to these changes, image rebuild happened which broke multiple hubs which used that image including Datahub, ISchool, R, Data 100 and Data 140 hubs. 
+Due to these changes, image rebuild happened which broke multiple hubs which used that image including Datahub, ISchool, R, Data 100 and Data 140 hubs.
 
 One of the dependenices highlighted as part of the image build had an upgrade which resulted in R hub throwing 505 error and Data 100/140 hub throwing "Error starting Kernel". [Yuvi to fill in the right technical information]
 
@@ -21,7 +21,7 @@ Quick summary of the problem. Update this section as we learn more, answering:
 - what went wrong and how we fixed it.
 -->
 
-- R Hub was not accessible for about 6 hours. Issue affected 10+ Stat 20 GSIs planning for their first class of the semester (catering to the needs of 600+ students). Hub went down for few minutes during the instruction. 
+- R Hub was not accessible for about 6 hours. Issue affected 10+ Stat 20 GSIs planning for their first class of the semester (catering to the needs of 600+ students). Hub went down for few minutes during the instruction.
 - Prob 140 hub was not available till 12.15 AM PST
 - Data 100 hub was not available till 12.33 AM. Thankfully, assignments were not due till friday (1/21)
 - Few users in Ischool were affected as they could not access R Studio
@@ -37,7 +37,7 @@ Quick summary of the problem. Update this section as we learn more, answering:
 
 ### {{ 06:10 }}
 
-Andrew Bray (Stat 20 instructor) raised a [github issue](https://github.com/berkeley-dsep-infra/datahub/issues/3166) around 5.45 AM PST. 
+Andrew Bray (Stat 20 instructor) raised a [github issue](https://github.com/berkeley-dsep-infra/datahub/issues/3166) around 5.45 AM PST.
 
 ### {{ 07:45 }}
 
@@ -74,13 +74,13 @@ They should focus on the knowledge we've gained and any improvements we should t
 
 Things that could have gone better. Ideally these should result in concrete
 action items that have GitHub issues created for them and linked to under
-Action items. 
+Action items.
 
 ## Where we got lucky
 
 These are good things that happened to us but not because we had planned for them.
 
-- Yuvi was awake at the time when issue was reported and was able to fix the issues immediately. 
+- Yuvi was awake at the time when issue was reported and was able to fix the issues immediately.
 - Classes using hubs were not completely affected due to this outage (Data 100 did not have assignments due till 1/21 and Stat 20 had few mins of outage during instruction)
 
 ## Action items
@@ -91,7 +91,7 @@ These are only sample subheadings. Every action item should have a GitHub issue
 ### Process/Policy improvements
 
 1. {{[Develop manual testing process](https://github.com/berkeley-dsep-infra/datahub/issues/2953) whenever a PR gets merged to staging of the major hubs (till automated test suites are written)}} [link to github issue](https://github.com/berkeley-dsep-infra/datahub/issues/2953)]
-2. Develop a policy around when to create a new hub and what type of changes get deployed to Datahub! 
+2. Develop a policy around when to create a new hub and what type of changes get deployed to Datahub!
 
 ### Documentation improvements
 

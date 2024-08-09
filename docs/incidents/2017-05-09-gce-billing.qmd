@@ -1,6 +1,6 @@
 ---
 title: Oops we forgot to pay the bill
-date: 2017-05-09 
+date: 2017-05-09
 ---
 
 ## Summary

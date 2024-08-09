@@ -1,6 +1,6 @@
 ---
 title: Azure PD refuses to detach, causing downtime for data100
-date: 2018-02-06 
+date: 2018-02-06
 ---
 
 ## Summary

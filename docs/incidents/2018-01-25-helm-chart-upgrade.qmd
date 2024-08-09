@@ -1,6 +1,6 @@
 ---
 title: Accidental merge to prod brings things down
-date: 2018-01-25 
+date: 2018-01-25
 ---
 
 ## Summary
