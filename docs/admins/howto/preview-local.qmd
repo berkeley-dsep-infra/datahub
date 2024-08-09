@@ -1,21 +1,21 @@
 ---
-title: Preview documentation changes locally
+title: Develop Documentation
 ---
 
-## Strategy 1: Run MyST web server
+## Strategy 1: Run Quarto preview
 
 1. Navigate to the `docs` directory and run
    ```bash
-   myst start
+   quarto preview
    ```
 2. Connect to the specific URL in your web browser.
 
 3. Make changes to the documentation while previewing the HTML.
 
-## Strategy 2: Build HTML
+## Strategy 2: Render static HTML
 
 1. Navigate to the `docs` directory and run
    ```bash
-   myst build
+   quarto render
    ```
-2. Open the content in the `_build` directory in your browser.
+2. Open the content in the `_site` directory in your browser, e.g. `_site/index.html`.
