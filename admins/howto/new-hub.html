@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Create a new Hub</title>
+<title>Create a New Hub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a new Hub</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a New Hub</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -267,19 +267,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Creating and managing the core node pool</span></a>
+ <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Create a new Hub</span></a>
+ <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Rebuild a custom hub image</span></a>
+ <span class="menu-text">Customize the Hub Docker Image</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -419,9 +425,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a new Hub</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a New Hub</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Create a new Hub</h1>
+<h1 class="title">Create a New Hub</h1>
 </div>
 
 
@@ -442,61 +448,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="why-create-a-new-hub">Why create a new hub?</h2>
 <p>The major reasons for making a new hub are:</p>
 <ol type="1">
-<li>A new course wants to join the Berkeley Datahub community!</li>
-<li>Some of your <em>students</em> are <em>admins</em> on another hub, so they can see other students' work there.</li>
+<li>A new course wants to join the Berkeley DataHub community.</li>
+<li>One of your <em>students</em> are course staff in another course and have <em>elevated access</em>, enabling them to see other students’ work.</li>
 <li>You want to use a different kind of authenticator.</li>
 <li>You are running in a different cloud, or using a different billing account.</li>
 <li>Your environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.</li>
 <li>You want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)</li>
 </ol>
-<p>If your reason is something else, it probably needs some justification :)</p>
+<p>Please let us know if you have some other justification for creating a new hub.</p>
 </section>
-<section id="prereqs" class="level2">
-<h2 class="anchored" data-anchor-id="prereqs">Prereqs</h2>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
 <p>Working installs of the following utilities:</p>
 <ul>
 <li><a href="https://github.com/mozilla/sops/releases">sops</a></li>
-<li><a href="https://pypi.org/project/hubploy/">hubploy</a>
-<ul>
-<li><a href="https://hubploy.readthedocs.io/en/latest/index.html">hubploy docs</a></li>
-<li><code>pip install hubploy</code></li>
-</ul></li>
+<li><a href="https://hubploy.readthedocs.io/en/latest/index.html">hubploy</a></li>
 <li><a href="https://cloud.google.com/sdk/docs/install">gcloud</a></li>
 <li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></li>
 <li><a href="https://github.com/audreyr/cookiecutter">cookiecutter</a></li>
 </ul>
 <p>Proper access to the following systems:</p>
 <ul>
-<li>Google Cloud IAM: owner</li>
+<li>Google Cloud IAM: <em>owner</em></li>
 <li>Write access to the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub repo</a></li>
-<li>CircleCI account linked to our org</li>
+<li>CircleCI account linked to our GitHub organization.</li>
 </ul>
 </section>
-<section id="setting-up-a-new-hub" class="level2">
-<h2 class="anchored" data-anchor-id="setting-up-a-new-hub">Setting up a new hub</h2>
+<section id="configuring-a-new-hub" class="level2">
+<h2 class="anchored" data-anchor-id="configuring-a-new-hub">Configuring a New Hub</h2>
 <section id="name-the-hub" class="level3">
 <h3 class="anchored" data-anchor-id="name-the-hub">Name the hub</h3>
-<p>Choose the <code>&lt;hubname&gt;</code> (typically the course or department). This is permanent.</p>
+<p>Choose the hub name, e.g.&nbsp;<em>data8</em>, <em>stat20</em>, <em>biology</em>, <em>julia</em>, which is typically the name of the course or department. This is permanent.</p>
 </section>
 <section id="determine-deployment-needs" class="level3">
 <h3 class="anchored" data-anchor-id="determine-deployment-needs">Determine deployment needs</h3>
-<p>Before creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general "types" of hub: Heavy usage, general and small courses.</p>
+<p>Before creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general “types” of hub: Heavy usage, general and small courses.</p>
 <p>Small courses will usually have one or two assignments per semester, and may only have 20 or fewer users.</p>
-<p>General courses have up to ~500 users, but don't have large amount of data or require upgraded compute resources.</p>
+<p>General courses have up to ~500 users, but don’t have large amount of data or require upgraded compute resources.</p>
 <p>Heavy usage courses can potentially have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.</p>
 <p>Both general and heavy usage courses typically have weekly assignments.</p>
 <p>Small courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).</p>
 <p>This is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.</p>
-<p>If you're going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the <code>cookiecutter</code>.</p>
+<p>If you’re going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the <code>cookiecutter</code>.</p>
 <p>When creating a new hub, we also make sure to label the filestore and GKE/node pool resouces with both <code>hub</code> and <code>&lt;nodepool|filestore&gt;-deployment</code>. 99.999% of the time, the values for all three of these labels will be <code>&lt;hubname&gt;</code>.</p>
 </section>
 <section id="creating-a-new-node-pool" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-new-node-pool">Creating a new node pool</h3>
 <p>Create the node pool:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create <span class="st">"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;"</span>  <span class="dt">\</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create <span class="st">"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;"</span> <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,nodepool-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--node-labels</span> hub.jupyter.org/pool-name=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-pool <span class="dt">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--machine-type</span> <span class="st">"n2-highmem-8"</span>  <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--machine-type</span> <span class="st">"n2-highmem-8"</span> <span class="dt">\</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--enable-autoscaling</span> <span class="at">--min-nodes</span> <span class="st">"0"</span> <span class="at">--max-nodes</span> <span class="st">"20"</span> <span class="dt">\</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--project</span> <span class="st">"ucb-datahub-2018"</span> <span class="at">--cluster</span> <span class="st">"spring-2024"</span> <span class="dt">\</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--region</span> <span class="st">"us-central1"</span> <span class="at">--node-locations</span> <span class="st">"us-central1-b"</span> <span class="dt">\</span></span>
@@ -518,41 +520,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--network</span><span class="op">=</span>name=default,connect-mode=DIRECT_PEERING</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Or, from the web console, click on the horizontal bar icon at the top left corner.</p>
 <ol type="1">
-<li>Access "Filestore" -&gt; "Instances" and click on "Create Instance".</li>
+<li>Access “Filestore” &gt; “Instances” and click on “Create Instance”.</li>
 <li>Name the instance <code>&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</code></li>
 <li>Instance Type is <code>Basic</code>, Storage Type is <code>HDD</code>.</li>
 <li>Allocate capacity.</li>
 <li>Set the region to <code>us-central1</code> and Zone to <code>us-central1-b</code>.</li>
 <li>Set the VPC network to <code>default</code>.</li>
 <li>Set the File share name to <code>shares</code>.</li>
-<li>Click "Create" and wait for it to be deployed.</li>
-<li>Once it's deployed, select the instance and copy the "NFS mount point".</li>
+<li>Click “Create” and wait for it to be deployed.</li>
+<li>Once it’s deployed, select the instance and copy the “NFS mount point”.</li>
 </ol>
 <p>Your new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create &amp; configure the required directories.</p>
 <p>You can run the following command in gcloud terminal to log in to the NFS utility VM:</p>
-<p><code>gcloud compute ssh nfsserver-01 --zone=us-central1-b</code></p>
-<p>Alternatively, launch console.cloud.google.com -&gt; Select "ucb-datahub-2018" as the project name.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> compute ssh nfsserver-01 <span class="at">--zone</span><span class="op">=</span>us-central1-b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively, launch console.cloud.google.com &gt; Select <em>ucb-datahub-2018</em> as the project name.</p>
 <ol type="1">
 <li>Click on the three horizontal bar icon at the top left corner.</li>
-<li>Access "Compute Engine" -&gt; "VM instances" -&gt; and search for "nfs-server-01".</li>
-<li>Select "Open in browser window" option to access NFS server via GUI.</li>
+<li>Access “Compute Engine” &gt; “VM instances” &gt; and search for “nfs-server-01”.</li>
+<li>Select “Open in browser window” option to access NFS server via GUI.</li>
 </ol>
 <p>Back in the NFS utility VM shell, mount the new share:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="op">&lt;</span>filestore share IP<span class="op">&gt;</span>:/shares /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Create <code>staging</code> and <code>prod</code> directories owned by <code>1000:1000</code> under <code>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;</code>. The path <em>might</em> differ if your hub has special home directory storage needs. Consult admins if that's the case. Here is the command to create the directory with appropriate permissions:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> <span class="at">-d</span> <span class="at">-o</span> 1000 <span class="at">-g</span> 1000 <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/staging <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="op">&lt;</span>filestore share IP<span class="op">&gt;</span>:/shares /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Create <code>staging</code> and <code>prod</code> directories owned by <code>1000:1000</code> under <code>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;</code>. The path <em>might</em> differ if your hub has special home directory storage needs. Consult admins if that’s the case. Here is the command to create the directory with appropriate permissions:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> <span class="at">-d</span> <span class="at">-o</span> 1000 <span class="at">-g</span> 1000 <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/staging <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Check whether the directories have permissions similar to the below directories:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-the-hub-deployment-locally" class="level3">
 <h3 class="anchored" data-anchor-id="create-the-hub-deployment-locally">Create the hub deployment locally</h3>
-<p>In the <code>datahub/deployments</code> directory, run <code>cookiecutter</code>. This sets up the hub's configuration directory:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cookiecutter</span> template/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the <code>datahub/deployments</code> directory, run <code>cookiecutter</code>. This sets up the hub’s configuration directory:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cookiecutter</span> template/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl>
 <dt>The cookiecutter template will prompt you to provide the following information:</dt>
 <dd>
@@ -571,11 +573,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="configure-filestore-security-settings-and-gcp-billing-labels" class="level3">
 <h3 class="anchored" data-anchor-id="configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</h3>
-<p>If you have created a new filestore instance, you will now need to apply the <code>ROOT_SQUASH</code> settings. Please ensure that you've already created the hub's root directory and both <code>staging</code> and <code>prod</code> directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.</p>
+<p>If you have created a new filestore instance, you will now need to apply the <code>ROOT_SQUASH</code> settings. Please ensure that you’ve already created the hub’s root directory and both <code>staging</code> and <code>prod</code> directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.</p>
 <p>Skip this step if you are using an existing/shared filestore.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances update <span class="op">&lt;</span>filestore-instance-name<span class="op">&gt;</span> --zone=us-central1-b  <span class="dt">\</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--update-labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,filestore-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--flags-file</span><span class="op">=&lt;</span>hubname<span class="op">&gt;</span>/config/filestore/squash-flags.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances update <span class="op">&lt;</span>filestore-instance-name<span class="op">&gt;</span> --zone=us-central1-b  <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--update-labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,filestore-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--flags-file</span><span class="op">=&lt;</span>hubname<span class="op">&gt;</span>/config/filestore/squash-flags.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="authentication" class="level3">
 <h3 class="anchored" data-anchor-id="authentication">Authentication</h3>
@@ -591,61 +593,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="circleci">CircleCI</h3>
 <p>The CircleCI configuration file <code>.circleci/config.yml</code> will need to include directives for building and deploying your new hub at several phases of the CircleCI process. Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub, find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub. Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.</p>
 <p>Here is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy &lt;hubname&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">      command</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        hubploy deploy &lt;hubname&gt; hub ${CIRCLE_BRANCH}</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">deployment</span><span class="kw">:</span><span class="at"> &lt;hubname&gt;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> &lt;hubname&gt; image build</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">ignore</span><span class="kw">:</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> staging</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> prod  </span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">deployment</span><span class="kw">:</span><span class="at">  &lt;hubname&gt;</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at">  &lt;hubname&gt; image build</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">push</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">only</span><span class="kw">:</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> staging</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at">  &lt;hubname&gt; image build</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy &lt;hubname&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">      command</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        hubploy deploy &lt;hubname&gt; hub ${CIRCLE_BRANCH}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">deployment</span><span class="kw">:</span><span class="at"> &lt;hubname&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> &lt;hubname&gt; image build</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">ignore</span><span class="kw">:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> staging</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> prod  </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">deployment</span><span class="kw">:</span><span class="at">  &lt;hubname&gt;</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at">  &lt;hubname&gt; image build</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">push</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">only</span><span class="kw">:</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> staging</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at">  &lt;hubname&gt; image build</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Review hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image_name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image_name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="add-hub-to-the-github-labeler-workflow" class="level3">
 <h3 class="anchored" data-anchor-id="add-hub-to-the-github-labeler-workflow">Add hub to the github labeler workflow</h3>
 <p>The new hub will now need to be added to the github labeler workflow.</p>
 <p>Edit the file <code>.github/labeler.yml</code> and add an entry for this hub (alphabetically) in the <code># add hub-specific labels for deployment changes</code> block:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-placeholder-node-pool" class="level3">
 <h3 class="anchored" data-anchor-id="create-placeholder-node-pool">Create placeholder node pool</h3>
 <p>Node pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.</p>
 <p>If you are deploying to a shared node pool, there is no need to perform this step.</p>
-<p>Otherwise, you'll need to add the placeholder settings in <code>node-placeholder/values.yaml</code>.</p>
-<p>The node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can't run on a node where other system pods are running! To do this, we'll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of "wiggle room". This final number will be used to allocate RAM for the node placeholder.</p>
+<p>Otherwise, you’ll need to add the placeholder settings in <code>node-placeholder/values.yaml</code>.</p>
+<p>The node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can’t run on a node where other system pods are running! To do this, we’ll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of “wiggle room”. This final number will be used to allocate RAM for the node placeholder.</p>
 <ol type="1">
-<li>Launch a server on <a href="https://" class="uri">https://</a>&lt;hubname&gt;.datahub.berkeley.edu</li>
-<li>Get the node name (it will look something like <code>gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs</code>): <code>kubectl get nodes | grep &lt;hubname&gt; | awk '{print$1}'</code></li>
-<li>Get the total amount of memory allocatable to pods on this node and convert to bytes: <code>kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'</code></li>
-<li>Get the total memory used by non-user pods/containers on this node. We explicitly ignore <code>notebook</code> and <code>pause</code>. Convert to bytes and get the sum:</li>
-</ol>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--field-selector</span> spec.nodeName=<span class="op">&lt;</span>nodename<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">-o</span> jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol type="1">
-<li>Subract the second number from the first, and then subtract another 277872640 bytes (256Mi) for "wiggle room".</li>
-<li>Add an entry for the new placeholder node config in <code>values.yaml</code>:</li>
+<li><p>Launch a server on https://<em>hubname</em>.datahub.berkeley.edu</p></li>
+<li><p>Get the node name (it will look something like <code>gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs</code>): <code>kubectl get nodes | grep *hubname* | awk '{print $1}'</code></p></li>
+<li><p>Get the total amount of memory allocatable to pods on this node and convert to bytes: <code>bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'</code></p></li>
+<li><p>Get the total memory used by non-user pods/containers on this node. We explicitly ignore <code>notebook</code> and <code>pause</code>. Convert to bytes and get the sum: <code>bash     kubectl get -A pod -l 'component!=user-placeholder' \       --field-selector spec.nodeName=&lt;nodename&gt; \       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \       | egrep -v 'pause|notebook'</code></p></li>
+<li><p>Subract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.</p></li>
+<li><p>Add an entry for the new placeholder node config in <code>values.yaml</code>:</p></li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
@@ -655,7 +651,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For reference, here's example output from collecting and calculating the values for <code>data102</code>:</p>
+<p>For reference, here’s example output from collecting and calculating the values for <code>data102</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
@@ -680,8 +676,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="commit-and-deploy-staging">Commit and deploy staging</h3>
 <p>Commit the hub directory, and make a PR to the the <code>staging</code> branch in the GitHub repo. Once tests pass, merge the PR to get a working staging hub! It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</p>
 <ol type="1">
-<li>Make a PR from the <code>staging</code> branch to the <code>prod</code> branch. When this PR is merged, it'll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</li>
-<li>You may want to customize the docker image for the hub based on your unique requirements. Navigate to deployments/'Project Name'/image and review environment.yml file and identify packages that you want to add from the <code>conda repository</code> &lt;<a href="https://anaconda.org/" class="uri">https://anaconda.org/</a>&gt;. You can copy the image manifest files from another deployment. It is recommended to use a repo2docker-style image build, without a Dockerfile, if possible. That format will probably serve as the ' basis for self-service user-created images in the future.</li>
+<li>Make a PR from the <code>staging</code> branch to the <code>prod</code> branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</li>
+<li>You may want to customize the docker image for the hub based on your unique requirements. Navigate to deployments/‘Project Name’/image and review environment.yml file and identify packages that you want to add from the <code>conda repository</code> &lt;<a href="https://anaconda.org/" class="uri">https://anaconda.org/</a>&gt;. You can copy the image manifest files from another deployment. It is recommended to use a repo2docker-style image build, without a Dockerfile, if possible. That format will probably serve as the basis for self-service user-created images in the future.</li>
 <li>All done.</li>
 </ol>
 
@@ -1112,13 +1108,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../admins/howto/core-pool.html" class="pagination-link" aria-label="Creating and managing the core node pool">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Creating and managing the core node pool</span>
+      <a href="../../admins/howto/core-pool.html" class="pagination-link" aria-label="Core Node Pool Management">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Core Node Pool Management</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../admins/howto/rebuild-hub-image.html" class="pagination-link" aria-label="Rebuild a custom hub image">
-        <span class="nav-page-text">Rebuild a custom hub image</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../admins/howto/rebuild-hub-image.html" class="pagination-link" aria-label="Customize the Hub Docker Image">
+        <span class="nav-page-text">Customize the Hub Docker Image</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

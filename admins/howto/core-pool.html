@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Creating and managing the core node pool</title>
+<title>Core Node Pool Management</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/core-pool.html">Creating and managing the core node pool</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/core-pool.html">Core Node Pool Management</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -267,19 +267,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Creating and managing the core node pool</span></a>
+ <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Create a new Hub</span></a>
+ <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Rebuild a custom hub image</span></a>
+ <span class="menu-text">Customize the Hub Docker Image</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -419,9 +425,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/core-pool.html">Creating and managing the core node pool</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/core-pool.html">Core Node Pool Management</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Creating and managing the core node pool</h1>
+<h1 class="title">Core Node Pool Management</h1>
 </div>
 
 
@@ -438,13 +444,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="what-is-the-core-node-pool" class="level1">
-<h1>What is the core node pool?</h1>
+<section id="what-is-the-core-node-pool" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-core-node-pool">What is the core node pool?</h2>
 <p>The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.</p>
 <p>It also does other stuff.</p>
 </section>
-<section id="deploying-a-new-core-node-pool" class="level1">
-<h1>Deploying a new core node pool</h1>
+<section id="deploy-a-new-core-node-pool" class="level2">
+<h2 class="anchored" data-anchor-id="deploy-a-new-core-node-pool">Deploy a New Core Node Pool</h2>
 <p>Run the following command from the root directory of your local datahub repo to create the node pool:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create <span class="st">"core-&lt;YYYY-MM-DD&gt;"</span>  <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--labels</span><span class="op">=</span>hub=core,nodepool-deployment=core <span class="dt">\</span></span>
@@ -452,13 +458,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--machine-type</span> <span class="st">"n2-standard-8"</span>  <span class="dt">\</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-nodes</span> <span class="st">"1"</span> <span class="dt">\</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--enable-autoscaling</span> <span class="at">--min-nodes</span> <span class="st">"1"</span> <span class="at">--max-nodes</span> <span class="st">"3"</span> <span class="dt">\</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--project</span> <span class="st">"ucb-datahub-2018"</span> <span class="at">--cluster</span> <span class="st">"spring-2024"</span> <span class="at">--region</span> <span class="st">"us-central1"</span> <span class="at">--node-locations</span> <span class="st">"us-central1-b"</span> <span class="dt">\</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--tags</span> hub-cluster <span class="dt">\</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--image-type</span> <span class="st">"COS_CONTAINERD"</span> <span class="at">--disk-type</span> <span class="st">"pd-balanced"</span> <span class="at">--disk-size</span> <span class="st">"100"</span>  <span class="dt">\</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--metadata</span> disable-legacy-endpoints=true <span class="dt">\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scopes</span> <span class="st">"https://www.googleapis.com/auth/devstorage.read_only"</span>,<span class="st">"https://www.googleapis.com/auth/logging.write"</span>,<span class="st">"https://www.googleapis.com/auth/monitoring"</span>,<span class="st">"https://www.googleapis.com/auth/servicecontrol"</span>,<span class="st">"https://www.googleapis.com/auth/service.management.readonly"</span>,<span class="st">"https://www.googleapis.com/auth/trace.append"</span> <span class="dt">\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-enable-autoupgrade</span> <span class="at">--enable-autorepair</span> <span class="at">--max-surge-upgrade</span> 1 <span class="at">--max-unavailable-upgrade</span> 0 <span class="at">--max-pods-per-node</span> <span class="st">"110"</span> <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--system-config-from-file</span><span class="op">=</span>vendor/google/gke/node-pool/config/core-pool-sysctl.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--project</span> <span class="st">"ucb-datahub-2018"</span> <span class="at">--cluster</span> <span class="st">"spring-2024"</span> <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--region</span> <span class="st">"us-central1"</span> <span class="at">--node-locations</span> <span class="st">"us-central1-b"</span> <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--tags</span> hub-cluster <span class="dt">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--image-type</span> <span class="st">"COS_CONTAINERD"</span> <span class="at">--disk-type</span> <span class="st">"pd-balanced"</span> <span class="at">--disk-size</span> <span class="st">"100"</span>  <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--metadata</span> disable-legacy-endpoints=true <span class="dt">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scopes</span> <span class="st">"https://www.googleapis.com/auth/devstorage.read_only"</span>,<span class="st">"https://www.googleapis.com/auth/logging.write"</span>,<span class="st">"https://www.googleapis.com/auth/monitoring"</span>,<span class="st">"https://www.googleapis.com/auth/servicecontrol"</span>,<span class="st">"https://www.googleapis.com/auth/service.management.readonly"</span>,<span class="st">"https://www.googleapis.com/auth/trace.append"</span> <span class="dt">\</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-enable-autoupgrade</span> <span class="at">--enable-autorepair</span> <span class="dt">\</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--max-surge-upgrade</span> 1 <span class="at">--max-unavailable-upgrade</span> 0 <span class="at">--max-pods-per-node</span> <span class="st">"110"</span> <span class="dt">\</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--system-config-from-file</span><span class="op">=</span>vendor/google/gke/node-pool/config/core-pool-sysctl.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>system-config-from-file</code> argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.</p>
 
 
@@ -892,8 +900,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../admins/howto/new-hub.html" class="pagination-link" aria-label="Create a new Hub">
-        <span class="nav-page-text">Create a new Hub</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../admins/howto/new-hub.html" class="pagination-link" aria-label="Create a New Hub">
+        <span class="nav-page-text">Create a New Hub</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

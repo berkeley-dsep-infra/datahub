@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Rebuild a custom hub image</title>
+<title>Customize the Hub Docker Image</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../admins/howto/new-image.html" rel="next">
+<link href="../../admins/howto/rebuild-postgres-image.html" rel="next">
 <link href="../../admins/howto/new-hub.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/rebuild-hub-image.html">Rebuild a custom hub image</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/rebuild-hub-image.html">Customize the Hub Docker Image</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -233,19 +233,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Creating and managing the core node pool</span></a>
+ <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Create a new Hub</span></a>
+ <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Rebuild a custom hub image</span></a>
+ <span class="menu-text">Customize the Hub Docker Image</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -385,9 +391,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/rebuild-hub-image.html">Rebuild a custom hub image</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/rebuild-hub-image.html">Customize the Hub Docker Image</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Rebuild a custom hub image</h1>
+<h1 class="title">Customize the Hub Docker Image</h1>
 </div>
 
 
@@ -404,9 +410,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We use a customized JupyterHub image so we can use versions of hub packages (such as authenticators) and install additional software required by custom config we might have.</p>
-<p>The image is located in <code>images/hub</code>. It <em>must</em> inherit from the JupyterHub image used in the <a href="https://z2jh.jupyter.og">Zero to JupyterHub</a>.</p>
-<p><a href="https://github.com/jupyterhub/chartress">chartpress</a> is used to build the image and update <code>hub/values.yaml</code> with the new image version. <code>chartpress</code> may be installed locally with <code>pip install chartpress</code>.</p>
+<p>We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in <code>images/hub</code>. It <em>must</em> inherit from the JupyterHub image used in the <a href="https://z2jh.jupyter.og">Zero to JupyterHub</a>.</p>
+<p>The image is build with <a href="https://github.com/jupyterhub/chartress">chartpress</a>, which also updates <code>hub/values.yaml</code> with the new image version. <code>chartpress</code> may be installed locally with <code>pip install chartpress</code>.</p>
 <ol type="1">
 <li>Run <code>gcloud auth configure-docker us-central1-docker.pkg.dev</code> <em>once per machine</em> to setup docker for authentication with the <a href="https://cloud.google.com/artifact-registry/docs/docker/authentication">gcloud credential helper</a>.</li>
 <li>Modify the image in <code>images/hub</code> and make a git commit.</li>
@@ -416,27 +421,13 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Some of the following commands may be required to configure your environment to run the above chartpress workflow successfully:</p>
 <ul>
-<li><code>gcloud auth login</code></li>
+<li><code>gcloud auth login</code>.</li>
 <li><code>gcloud auth configure-docker us-central1-docker.pkg.dev</code></li>
 <li><code>gcloud auth application-default login</code></li>
-<li>sometimes running <code>gcloud auth login</code> additional time(s) may fix issues</li>
-<li><code>sudo usermod -a -G docker ${USER}</code></li>
 <li><code>gcloud auth configure-docker</code></li>
 </ul>
-<section id="rebuild-the-custom-postgres-image" class="level1">
-<h1>Rebuild the custom postgres image</h1>
-<p>For data100, we provide a postgresql server per user. We want the <a href="https://www.postgresql.org/docs/current/plpython.html">python extension</a> installed. So we inherit from the <a href="https://hub.docker.com/_/postgres">upstream postgresql docker image</a>, and add the appropriate package.</p>
-<p>This image is in <code>images/postgres</code>. If you update it, you need to rebuild and push it.</p>
-<ol type="1">
-<li>Modify the image in <code>images/postgres</code> and make a git commit.</li>
-<li>Run <code>chartpress --push</code>. This will build and push the image, <em>but not put anything in YAML</em>. There is no place we can put thi in <code>values.yaml</code>, since this is only used for data100.</li>
-<li>Notice the image name + tag from the <code>chartpress --push</code> command, and put it in the appropriate place (under <code>extraContainers</code>) in <code>data100/config/common.yaml</code>.</li>
-<li>Make a commit with the new tag in <code>data100/config/common.yaml</code>.</li>
-<li>Proceed to deploy as normal.</li>
-</ol>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -861,13 +852,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../admins/howto/new-hub.html" class="pagination-link" aria-label="Create a new Hub">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Create a new Hub</span>
+      <a href="../../admins/howto/new-hub.html" class="pagination-link" aria-label="Create a New Hub">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Create a New Hub</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../admins/howto/new-image.html" class="pagination-link" aria-label="Creating a new single user image">
-        <span class="nav-page-text">Creating a new single user image</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../admins/howto/rebuild-postgres-image.html" class="pagination-link" aria-label="Customize the Per-User Postgres Docker Image">
+        <span class="nav-page-text">Customize the Per-User Postgres Docker Image</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
