@@ -1,0 +1,22 @@
+---
+title: "Customize the Per-User Postgres Docker Image"
+---
+
+We provide each student on `data100` witha postgresql server. We want the
+[python extension](https://www.postgresql.org/docs/current/plpython.html)
+installed. So we inherit from the [upstream postgresql docker
+image](https://hub.docker.com/_/postgres), and add the appropriate
+package.
+
+This image is in `images/postgres`. If you update it, you need to
+rebuild and push it.
+
+1. Modify the image in `images/postgres` and make a git commit.
+2. Run `chartpress --push`. This will build and push the image, *but
+   not put anything in YAML*. There is no place we can put thi in
+   `values.yaml`, since this is only used for data100.
+3. Notice the image name + tag from the `chartpress --push` command,
+   and put it in the appropriate place (under `extraContainers`) in
+   `data100/config/common.yaml`.
+4. Make a commit with the new tag in `data100/config/common.yaml`.
+5. Proceed to deploy as normal.
