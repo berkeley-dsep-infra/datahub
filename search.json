@@ -1263,59 +1263,32 @@
     ]
   },
   {
-    "objectID": "users/services.html",
-    "href": "users/services.html",
-    "title": "Services Offered",
+    "objectID": "users/features.html",
+    "href": "users/features.html",
+    "title": "Features",
     "section": "",
-    "text": "This page lists the various services we offer as part of DataHub. Not all these will be available on all hubs, but we can easily enable them as you wish.",
-    "crumbs": [
-      "Using DataHub",
-      "Services Offered"
-    ]
+    "text": "This page lists the various environments, applications, and tools we offer on DataHub. Not all those listed here are available on all hubs, but we can easily enable them."
   },
   {
-    "objectID": "users/services.html#user-interfaces",
-    "href": "users/services.html#user-interfaces",
-    "title": "Services Offered",
-    "section": "User Interfaces",
-    "text": "User Interfaces\nOur diverse user population has diverse needs, so we offer many different user interfaces for instructors to choose from.\n\nJupyter Notebook (Classic)\nWhat many people mean when they say ‘Jupyter’, this familiar interface is used by default for most of our introductory classes. Document oriented, no-frills, and well known by a lot of people.\n\n\nRStudio\n\n\n\nRStudio Screenshot\n\n\nWe want to provide first class support for teaching with R, which means providing strong support for RStudio. This includes Shiny support.\nTry without berkeley.edu account: \nTry with berkeley.edu account: R DataHub\n\n\nJupyterLab\n\n\n\nDo complex layouts with JupyterLab\n\n\nJupyterLab is a more modern version of the classic Jupyter notebook from the Jupyter project. It is more customizable and better supports some advanced use cases. Many of our more advanced classes use this, and we might help all classes move to this once there is a simpler document oriented mode available\n\n\nLinux Desktop (Experimental)\n\n\n\nDo image processing with qt\n\n\nSometimes, you just need to use something that requires a full desktop environment to run. Instead of trying to get students to install things locally, we offer a full fledged Linux Desktop environment they can access from inside their browser! This is just a different ‘UI’ on the same infrastructure as the notebook environment, so they all use the same libraries and home directories.\nTry without Berkeley.edu account: \nTry with Berkeley.edu account: EECS DataHub\n\n\nVisual Studio Code (Experimental)\n\n\n\nCompile C with vscode\n\n\nSometimes you just want an IDE, not a notebook environment. We are experimenting with a hosted, web version of the popular Visual Studio Code editor, to see if it would be useful for teaching more traditional CS classes.\nTry without Berkeley.edu account: \nTry with Berkeley.edu account: EECS DataHub\n\n\nMore?\nIf you have a web based environment, we can almost certainly make it run under a hub. Contact us and we’ll see what we can do :)",
-    "crumbs": [
-      "Using DataHub",
-      "Services Offered"
-    ]
+    "objectID": "users/features.html#programming-languages",
+    "href": "users/features.html#programming-languages",
+    "title": "Features",
+    "section": "Programming Languages",
+    "text": "Programming Languages\nWe support the usual suspects - Python, R, and Julia. However, Jupyter and other applications can support many more. If you would like to use a different, open-source programming language, contact us."
   },
   {
-    "objectID": "users/services.html#services",
-    "href": "users/services.html#services",
-    "title": "Services Offered",
-    "section": "Services",
-    "text": "Services\nSometimes you need something custom to get your class going. Very very interesting things can happen here, so we’re always looking for new services to add.\n\nPostgresql\nSome of our classes require using real databases to teach. We now experimentally offer a postgresql server for each user on the data100 hub.\nThe data does not persist right now, but we can turn that on whenever needed.",
-    "crumbs": [
-      "Using DataHub",
-      "Services Offered"
-    ]
+    "objectID": "users/features.html#applications",
+    "href": "users/features.html#applications",
+    "title": "Features",
+    "section": "Applications",
+    "text": "Applications\nOur diverse user population has diverse needs, so we offer many different user interfaces for instructors to choose from.\n\nJupyterLab\n\n\n\nDo complex layouts with JupyterLab\n\n\nJupyterLab is a more modern and customizable version of the classic Jupyter notebook from the Jupyter project. Most of our classes use JupyterLab.\n\n\nJupyter Notebook (Classic)\nThis familiar interface is used for most of our introductory classes. It is document oriented, no-frills, and well known by a lot of people.\n\n\nRStudio\n\n\n\nRStudio Screenshot\n\n\nWe want to provide first class support for teaching with R, which means providing strong support for RStudio. This also includes support for running Shiny applications.\nTry RStudio on DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nRemote Desktop\n\n\n\nDo image processing with qt\n\n\nSometimes, you just need to use something that requires a full desktop environment to run. Instead of trying to get students to install things locally, we offer a full fledged Linux Desktop environment they can access from inside their browser! This is just a different ‘UI’ on the same infrastructure as the notebook environment, so they all use the same libraries and home directories.\nTry remote desktop on EECS DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nVisual Studio Code\n\n\n\nCompile C with vscode\n\n\nSometimes you just want an IDE, not a notebook environment. We are experimenting with a hosted, web version of the popular Visual Studio Code editor, to see if it would be useful for teaching more traditional CS classes.\nTry VS Code on EECS DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nOther Web Applications\nWe can make many web based applications work on a hub. Contact us and we’ll see what we can do!\n\n\nPostgresql\nSome of our classes require using real databases to teach. We now experimentally offer a postgresql server for each user on the data100 hub.\nThe data does not persist right now, but we can turn that on whenever needed."
   },
   {
-    "objectID": "users/services.html#programming-languages",
-    "href": "users/services.html#programming-languages",
-    "title": "Services Offered",
-    "section": "Programming languages",
-    "text": "Programming languages\nWe support the usual suspects - Python, R & Julia. However, there are no limits to what languages we can actually support, so if you are planning on using a different (open source) programming language, contact us and we’ll set you up.",
-    "crumbs": [
-      "Using DataHub",
-      "Services Offered"
-    ]
-  },
-  {
-    "objectID": "users/services.html#more-1",
-    "href": "users/services.html#more-1",
-    "title": "Services Offered",
+    "objectID": "users/features.html#more",
+    "href": "users/features.html#more",
+    "title": "Features",
     "section": "More?",
-    "text": "More?\nWe want to find solution to your interesting problems, so please bring us your interesting problems 😁",
-    "crumbs": [
-      "Using DataHub",
-      "Services Offered"
-    ]
+    "text": "More?\nWe want to find solution to your interesting problems, so please bring us your interesting problems. 😁"
   },
   {
     "objectID": "users/authentication.html",

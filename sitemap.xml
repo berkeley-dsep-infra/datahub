@@ -2,222 +2,222 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/deployments/datahub.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/deployments/stat159.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/storage.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/cluster-config.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/dns.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/remove-users-orm.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/clusterswitch.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/rebuild-hub-image.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/google-sheets.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/new-image.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/preview-local.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/pre-reqs.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/policy/create_policy.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/policy/storage-retention.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/policy/principles.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2019-02-25-k8s-api-server-down.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2018-02-06-hub-db-dir.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2024-core-node-incidents.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-02-09-datahub-db-outage-pvc-recreate-script.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2018-01-26-hub-slow-startup.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-02-24-proxy-death-incident.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2022-01-20-package-dependency-upgrade-incident.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-10-19-course-subscription-canceled.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2018-06-11-course-subscription-canceled.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2018-01-25-helm-chart-upgrade.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-02-24-autoscaler-incident.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/users/private-repo.html</loc>
-    <lastmod>2024-08-09T06:25:54.608Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.525Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/users/hubs.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
-    <loc>https://berkeley-dsep-infra.github.io/datahub/users/services.html</loc>
-    <lastmod>2024-08-09T06:25:54.608Z</lastmod>
+    <loc>https://berkeley-dsep-infra.github.io/datahub/users/features.html</loc>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/users/authentication.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2019-05-01-service-account-leak.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2018-02-28-hung-node.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-04-03-cluster-full-incident.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-03-20-too-many-volumes.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-02-09-datahub-db-outage.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-10-10-hung-nodes.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-05-09-gce-billing.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-03-06-helm-config-image-mismatch.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/index.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/incidents/2017-03-23-kernel-deaths-incident.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/policy/policy_create_hubs.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/policy/policy_deploy_mainhubs.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/policy/index.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/index.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.517Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/credentials.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/delete-hub.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/course-config.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/calendar-scaler.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/new-hub.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/prometheus-grafana.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/new-packages.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/core-pool.html</loc>
-    <lastmod>2024-08-09T06:25:54.596Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/howto/github-token.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/structure.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
   <url>
     <loc>https://berkeley-dsep-infra.github.io/datahub/admins/index.html</loc>
-    <lastmod>2024-08-09T06:25:54.600Z</lastmod>
+    <lastmod>2024-08-09T07:00:53.513Z</lastmod>
   </url>
 </urlset>
