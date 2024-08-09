@@ -12,7 +12,7 @@ website:
         href: https://github.com/berkeley-dsep-infra/datahub
     left:
       - text: "Using DataHub"
-        href: users/services.qmd
+        href: users/features.qmd
       - text: "Contributing"
         href: admins/pre-reqs.qmd
       - text: "Admin Tasks"
