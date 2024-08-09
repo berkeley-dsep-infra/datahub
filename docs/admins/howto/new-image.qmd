@@ -1,37 +1,31 @@
 ---
-title: Creating a new single user image
+title: Create a New Single User Image
 ---
 
-When deploying a new hub, or moving from a shared single user server
-image, you might need to create a new image for users. We use
-[repo2docker](https://github.com/jupyterhub/repo2docker) to do this.
+You might need to create a new user image when deploying a new hub, or changing
+from a shared single user server image. We use
+[repo2docker](https://github.com/jupyterhub/repo2docker) to generate our images.
 
-There are two approaches to creating a repo2docker image: 1. Use a
-repo2docker-style image
-[template](https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/data100/image)
-(environment.yaml, etc) 2. Use a
-[Dockerfile](https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/datahub/images/default)
-(useful for larger/more complex images)
+There are two approaches to creating a repo2docker image:
+
+1. Use a repo2docker-style image [template](https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/data100/image) (environment.yaml, etc)
+2. Use a [Dockerfile](https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/datahub/images/default) (useful for larger/more complex images)
 
 Generally, we prefer to use the former approach, unless we need to
 install specific packages or utilities outside of python/apt as `root`.
 If that is the case, only a `Dockerfile` format will work.
 
-Of course, as always create a feature branch for your changes, and
-submit a PR when done.
+As always, create a feature branch for your changes, and submit a PR when done.
 
-## Find a hub to use as a template
+## Use an existing image as a template
 
 Browse through our `deployments/` directory to find a hub that is similar to
 the one you are trying to create. This will give you a good starting point.
 
-## Create the `image/` directory for your new hub
+## Create the image directory
 
-Create a new directory under `deployments/` with the name of your hub. This
-directory will contain the files that will be used to create the image.
-
-Then, copy the contents (and any subdirectories) of the source
-`image/` directory in to the new directory.
+Create a new `image/` directory in the deployment. Then copy the contents (and
+any subdirectories) of the source `image/` directory in to the new directory.
 
 ## Modify `hubploy.yaml` for the hub
 
