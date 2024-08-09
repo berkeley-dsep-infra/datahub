@@ -6,10 +6,6 @@ on:
 
 name: Quarto Publish
 
-defaults:
-  run:
-    working-directory: ./docs
-
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -24,6 +20,7 @@ jobs:
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
+        working-directory: ./docs
         with:
           target: gh-pages
         env:
