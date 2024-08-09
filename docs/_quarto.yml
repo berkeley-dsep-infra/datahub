@@ -46,6 +46,7 @@ website:
               - admins/howto/core-pool.qmd
               - admins/howto/new-hub.qmd
               - admins/howto/rebuild-hub-image.qmd
+              - admins/howto/rebuild-postgres-image.qmd
               - admins/howto/new-image.qmd
               - admins/howto/new-packages.qmd
               - admins/howto/course-config.qmd
