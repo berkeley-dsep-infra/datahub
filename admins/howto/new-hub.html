@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Create a new Hub</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../admins/howto/rebuild-hub-image.html" rel="next">
+<link href="../../admins/howto/core-pool.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../datahub.svg" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">DataHub</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../users/services.html" aria-current="page"> 
+<span class="menu-text">Using DataHub</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../admins/pre-reqs.html"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../admins/howto/preview-local.html"> 
+<span class="menu-text">Admin Tasks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../policy/create_policy.html"> 
+<span class="menu-text">Policy</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/berkeley-dsep-infra/datahub" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a new Hub</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Using DataHub</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../users/services.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Services Offered</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../users/private-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing private GitHub repos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../users/hubs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JupyterHubs in this repository</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../users/authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">User Authentication</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Contributing to DataHub</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-requisites</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repository Structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/storage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">User home directory storage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kubernetes Cluster Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/credentials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Credentials</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Common Administrator Tasks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/preview-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Develop Documentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/dns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Update DNS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating and managing the core node pool</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Create a new Hub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rebuild a custom hub image</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/new-image.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating a new single user image</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/new-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Testing and Upgrading New Packages</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/course-config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/calendar-scaler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendar Node Pool Autoscaler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prometheus and Grafana</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/remove-users-orm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Remove inactive users from hub ORM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/delete-hub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Delete or spin down a Hub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/clusterswitch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Switching over a hub to a new cluster</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/github-token.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Create Finely Grained Access Token</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/howto/google-sheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading Google Sheets from DataHub</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Hub Deployments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/deployments/datahub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DataHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../admins/deployments/stat159.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stat 159</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Policy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../policy/create_policy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Process to publish policy proposals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Policy considerations for creating a new hub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Policy considerations for deploying to the main Datahub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../policy/principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Principles to be considered while creating new policies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../incidents/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Incident Reports</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a new Hub</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Create a new Hub</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="why-create-a-new-hub" class="level2">
+<h2 class="anchored" data-anchor-id="why-create-a-new-hub">Why create a new hub?</h2>
+<p>The major reasons for making a new hub are:</p>
+<ol type="1">
+<li>A new course wants to join the Berkeley Datahub community!</li>
+<li>Some of your <em>students</em> are <em>admins</em> on another hub, so they can see other students' work there.</li>
+<li>You want to use a different kind of authenticator.</li>
+<li>You are running in a different cloud, or using a different billing account.</li>
+<li>Your environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.</li>
+<li>You want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)</li>
+</ol>
+<p>If your reason is something else, it probably needs some justification :)</p>
+</section>
+<section id="prereqs" class="level2">
+<h2 class="anchored" data-anchor-id="prereqs">Prereqs</h2>
+<p>Working installs of the following utilities:</p>
+<ul>
+<li><a href="https://github.com/mozilla/sops/releases">sops</a></li>
+<li><a href="https://pypi.org/project/hubploy/">hubploy</a>
+<ul>
+<li><a href="https://hubploy.readthedocs.io/en/latest/index.html">hubploy docs</a></li>
+<li><code>pip install hubploy</code></li>
+</ul></li>
+<li><a href="https://cloud.google.com/sdk/docs/install">gcloud</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></li>
+<li><a href="https://github.com/audreyr/cookiecutter">cookiecutter</a></li>
+</ul>
+<p>Proper access to the following systems:</p>
+<ul>
+<li>Google Cloud IAM: owner</li>
+<li>Write access to the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub repo</a></li>
+<li>CircleCI account linked to our org</li>
+</ul>
+</section>
+<section id="setting-up-a-new-hub" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-a-new-hub">Setting up a new hub</h2>
+<section id="name-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="name-the-hub">Name the hub</h3>
+<p>Choose the <code>&lt;hubname&gt;</code> (typically the course or department). This is permanent.</p>
+</section>
+<section id="determine-deployment-needs" class="level3">
+<h3 class="anchored" data-anchor-id="determine-deployment-needs">Determine deployment needs</h3>
+<p>Before creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general "types" of hub: Heavy usage, general and small courses.</p>
+<p>Small courses will usually have one or two assignments per semester, and may only have 20 or fewer users.</p>
+<p>General courses have up to ~500 users, but don't have large amount of data or require upgraded compute resources.</p>
+<p>Heavy usage courses can potentially have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.</p>
+<p>Both general and heavy usage courses typically have weekly assignments.</p>
+<p>Small courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).</p>
+<p>This is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.</p>
+<p>If you're going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the <code>cookiecutter</code>.</p>
+<p>When creating a new hub, we also make sure to label the filestore and GKE/node pool resouces with both <code>hub</code> and <code>&lt;nodepool|filestore&gt;-deployment</code>. 99.999% of the time, the values for all three of these labels will be <code>&lt;hubname&gt;</code>.</p>
+</section>
+<section id="creating-a-new-node-pool" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-new-node-pool">Creating a new node pool</h3>
+<p>Create the node pool:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create <span class="st">"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;"</span>  <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,nodepool-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--node-labels</span> hub.jupyter.org/pool-name=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-pool <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--machine-type</span> <span class="st">"n2-highmem-8"</span>  <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--enable-autoscaling</span> <span class="at">--min-nodes</span> <span class="st">"0"</span> <span class="at">--max-nodes</span> <span class="st">"20"</span> <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--project</span> <span class="st">"ucb-datahub-2018"</span> <span class="at">--cluster</span> <span class="st">"spring-2024"</span> <span class="dt">\</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--region</span> <span class="st">"us-central1"</span> <span class="at">--node-locations</span> <span class="st">"us-central1-b"</span> <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--node-taints</span> hub.jupyter.org_dedicated=user:NoSchedule <span class="at">--tags</span> hub-cluster <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--image-type</span> <span class="st">"COS_CONTAINERD"</span> <span class="at">--disk-type</span> <span class="st">"pd-balanced"</span> <span class="at">--disk-size</span> <span class="st">"200"</span>  <span class="dt">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--metadata</span> disable-legacy-endpoints=true <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scopes</span> <span class="st">"https://www.googleapis.com/auth/devstorage.read_only"</span>,<span class="st">"https://www.googleapis.com/auth/logging.write"</span>,<span class="st">"https://www.googleapis.com/auth/monitoring"</span>,<span class="st">"https://www.googleapis.com/auth/servicecontrol"</span>,<span class="st">"https://www.googleapis.com/auth/service.management.readonly"</span>,<span class="st">"https://www.googleapis.com/auth/trace.append"</span> <span class="dt">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-enable-autoupgrade</span> <span class="at">--enable-autorepair</span> <span class="dt">\</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--max-surge-upgrade</span> 1 <span class="at">--max-unavailable-upgrade</span> 0 <span class="at">--max-pods-per-node</span> <span class="st">"110"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="creating-a-new-filestore-instance" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-new-filestore-instance">Creating a new filestore instance</h3>
+<p>Before you create a new filestore instance, be sure you know the capacity required. The smallest amount you can allocate is 1T, but larger hubs may require more. Confer with the admins and people instructing the course and determine how much they think they will need.</p>
+<p>We can easily scale capacity up, but not down.</p>
+<p>From the command line, first fill in the instance name (<code>&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</code>) and <code>&lt;capacity&gt;</code>, and then execute the following command:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances create <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-<span class="op">&lt;</span>YYYY-MM-DD<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--zone</span> <span class="st">"us-central1-b"</span> <span class="at">--tier</span><span class="op">=</span><span class="st">"BASIC_HDD"</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--file-share</span><span class="op">=</span>capacity=1TiB,name=shares <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--network</span><span class="op">=</span>name=default,connect-mode=DIRECT_PEERING</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or, from the web console, click on the horizontal bar icon at the top left corner.</p>
+<ol type="1">
+<li>Access "Filestore" -&gt; "Instances" and click on "Create Instance".</li>
+<li>Name the instance <code>&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</code></li>
+<li>Instance Type is <code>Basic</code>, Storage Type is <code>HDD</code>.</li>
+<li>Allocate capacity.</li>
+<li>Set the region to <code>us-central1</code> and Zone to <code>us-central1-b</code>.</li>
+<li>Set the VPC network to <code>default</code>.</li>
+<li>Set the File share name to <code>shares</code>.</li>
+<li>Click "Create" and wait for it to be deployed.</li>
+<li>Once it's deployed, select the instance and copy the "NFS mount point".</li>
+</ol>
+<p>Your new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create &amp; configure the required directories.</p>
+<p>You can run the following command in gcloud terminal to log in to the NFS utility VM:</p>
+<p><code>gcloud compute ssh nfsserver-01 --zone=us-central1-b</code></p>
+<p>Alternatively, launch console.cloud.google.com -&gt; Select "ucb-datahub-2018" as the project name.</p>
+<ol type="1">
+<li>Click on the three horizontal bar icon at the top left corner.</li>
+<li>Access "Compute Engine" -&gt; "VM instances" -&gt; and search for "nfs-server-01".</li>
+<li>Select "Open in browser window" option to access NFS server via GUI.</li>
+</ol>
+<p>Back in the NFS utility VM shell, mount the new share:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="op">&lt;</span>filestore share IP<span class="op">&gt;</span>:/shares /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Create <code>staging</code> and <code>prod</code> directories owned by <code>1000:1000</code> under <code>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;</code>. The path <em>might</em> differ if your hub has special home directory storage needs. Consult admins if that's the case. Here is the command to create the directory with appropriate permissions:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> <span class="at">-d</span> <span class="at">-o</span> 1000 <span class="at">-g</span> 1000 <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/staging <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Check whether the directories have permissions similar to the below directories:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="create-the-hub-deployment-locally" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-hub-deployment-locally">Create the hub deployment locally</h3>
+<p>In the <code>datahub/deployments</code> directory, run <code>cookiecutter</code>. This sets up the hub's configuration directory:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cookiecutter</span> template/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl>
+<dt>The cookiecutter template will prompt you to provide the following information:</dt>
+<dd>
+<ul>
+<li><code>&lt;hub_name&gt;</code>: Enter the chosen name of the hub.</li>
+<li><code>&lt;project_name&gt;</code>: Default is <code>ucb-datahub-2018</code>, do not change.</li>
+<li><code>&lt;cluster_name&gt;</code>: Default is <code>spring-2024</code>, do not change.</li>
+<li><code>&lt;pool_name&gt;</code>: Name of the node pool (shared or individual) to deploy on.</li>
+<li><code>hub_filestore_share</code>: Default is <code>shares</code>, do not change.</li>
+<li><code>hub_filestore_ip</code>: Enter the IP address of the filestore instance. This is available from the web console.</li>
+<li><code>hub_filestore_capacity</code>: Enter the allocated storage capacity. This is available from the web console.</li>
+</ul>
+</dd>
+</dl>
+<p>This will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.</p>
+</section>
+<section id="configure-filestore-security-settings-and-gcp-billing-labels" class="level3">
+<h3 class="anchored" data-anchor-id="configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</h3>
+<p>If you have created a new filestore instance, you will now need to apply the <code>ROOT_SQUASH</code> settings. Please ensure that you've already created the hub's root directory and both <code>staging</code> and <code>prod</code> directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.</p>
+<p>Skip this step if you are using an existing/shared filestore.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances update <span class="op">&lt;</span>filestore-instance-name<span class="op">&gt;</span> --zone=us-central1-b  <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--update-labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,filestore-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--flags-file</span><span class="op">=&lt;</span>hubname<span class="op">&gt;</span>/config/filestore/squash-flags.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="authentication" class="level3">
+<h3 class="anchored" data-anchor-id="authentication">Authentication</h3>
+<p>Set up authentication via <a href="https://bcourses.berkeley.edu">bcourses</a>. We have two canvas OAuth2 clients setup in bcourses for us - one for all production hubs and one for all staging hubs. The configuration and secrets for these are provided by the cookiecutter template, however the new hubs need to be added to the authorized callback list maintained in bcourses.</p>
+<ol type="1">
+<li><p>Use <code>sops</code> to edit <code>secrets/dev.yaml</code> and <code>secrets/prod.yaml</code>, replacing the cookiecutter hub_name. <code>cookiecutter</code> can’t do this for you since the values are encrypted.</p></li>
+<li><p>Add <code>&lt;hub_name&gt;-staging.datahub.berkeley.edu/hub/oauth_callback</code> to the staging hub client (id 10720000000000594)</p></li>
+<li><p>Add <code>&lt;hub_name&gt;.datahub.berkeley.edu/hub/oauth_callback</code> to the production hub client (id 10720000000000472)</p></li>
+</ol>
+<p>Please reach out to Jonathan Felder to set this up, or <a href="mailto:bcourseshelp@berkeley.edu" class="email">bcourseshelp@berkeley.edu</a> if he is not available.</p>
+</section>
+<section id="circleci" class="level3">
+<h3 class="anchored" data-anchor-id="circleci">CircleCI</h3>
+<p>The CircleCI configuration file <code>.circleci/config.yml</code> will need to include directives for building and deploying your new hub at several phases of the CircleCI process. Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub, find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub. Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.</p>
+<p>Here is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy &lt;hubname&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">      command</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        hubploy deploy &lt;hubname&gt; hub ${CIRCLE_BRANCH}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">deployment</span><span class="kw">:</span><span class="at"> &lt;hubname&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> &lt;hubname&gt; image build</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">ignore</span><span class="kw">:</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> staging</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> prod  </span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">deployment</span><span class="kw">:</span><span class="at">  &lt;hubname&gt;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at">  &lt;hubname&gt; image build</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">push</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">only</span><span class="kw">:</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> staging</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at">  &lt;hubname&gt; image build</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Review hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image_name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="add-hub-to-the-github-labeler-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="add-hub-to-the-github-labeler-workflow">Add hub to the github labeler workflow</h3>
+<p>The new hub will now need to be added to the github labeler workflow.</p>
+<p>Edit the file <code>.github/labeler.yml</code> and add an entry for this hub (alphabetically) in the <code># add hub-specific labels for deployment changes</code> block:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="create-placeholder-node-pool" class="level3">
+<h3 class="anchored" data-anchor-id="create-placeholder-node-pool">Create placeholder node pool</h3>
+<p>Node pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.</p>
+<p>If you are deploying to a shared node pool, there is no need to perform this step.</p>
+<p>Otherwise, you'll need to add the placeholder settings in <code>node-placeholder/values.yaml</code>.</p>
+<p>The node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can't run on a node where other system pods are running! To do this, we'll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of "wiggle room". This final number will be used to allocate RAM for the node placeholder.</p>
+<ol type="1">
+<li>Launch a server on <a href="https://" class="uri">https://</a>&lt;hubname&gt;.datahub.berkeley.edu</li>
+<li>Get the node name (it will look something like <code>gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs</code>): <code>kubectl get nodes | grep &lt;hubname&gt; | awk '{print$1}'</code></li>
+<li>Get the total amount of memory allocatable to pods on this node and convert to bytes: <code>kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'</code></li>
+<li>Get the total memory used by non-user pods/containers on this node. We explicitly ignore <code>notebook</code> and <code>pause</code>. Convert to bytes and get the sum:</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--field-selector</span> spec.nodeName=<span class="op">&lt;</span>nodename<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">-o</span> jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>Subract the second number from the first, and then subtract another 277872640 bytes (256Mi) for "wiggle room".</li>
+<li>Add an entry for the new placeholder node config in <code>values.yaml</code>:</li>
+</ol>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hub.jupyter.org/pool-name</span><span class="kw">:</span><span class="at"> data102-pool</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">requests</span><span class="kw">:</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For reference, here's example output from collecting and calculating the values for <code>data102</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">60055600Ki%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="dt">\</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>-o jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span> <span class="co"># convert all values to bytes, sum them</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="ex">calico-node</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit</span>       100Mi</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit-gke</span>   100Mi</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-metrics-agent</span>       60Mi</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ip-masq-agent</span>   16Mi</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="ex">kube-proxy</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="ex">prometheus-node-exporter</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, <a href="https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html">calendar events</a>. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.</p>
+</section>
+<section id="commit-and-deploy-staging" class="level3">
+<h3 class="anchored" data-anchor-id="commit-and-deploy-staging">Commit and deploy staging</h3>
+<p>Commit the hub directory, and make a PR to the the <code>staging</code> branch in the GitHub repo. Once tests pass, merge the PR to get a working staging hub! It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</p>
+<ol type="1">
+<li>Make a PR from the <code>staging</code> branch to the <code>prod</code> branch. When this PR is merged, it'll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</li>
+<li>You may want to customize the docker image for the hub based on your unique requirements. Navigate to deployments/'Project Name'/image and review environment.yml file and identify packages that you want to add from the <code>conda repository</code> &lt;<a href="https://anaconda.org/" class="uri">https://anaconda.org/</a>&gt;. You can copy the image manifest files from another deployment. It is recommended to use a repo2docker-style image build, without a Dockerfile, if possible. That format will probably serve as the ' basis for self-service user-created images in the future.</li>
+<li>All done.</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/berkeley-dsep-infra\.github\.io\/datahub\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../admins/howto/core-pool.html" class="pagination-link" aria-label="Creating and managing the core node pool">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Creating and managing the core node pool</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../admins/howto/rebuild-hub-image.html" class="pagination-link" aria-label="Rebuild a custom hub image">
+        <span class="nav-page-text">Rebuild a custom hub image</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
