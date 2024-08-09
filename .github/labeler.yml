@@ -127,6 +127,8 @@ node-placeholder-scaler:
   - 'deployments/stat159/**'
 'hub: stat20':
   - 'deployments/stat20/**'
+'hub: ugr01':
+  - 'deployments/ugr01/**'
 'hub: workshop':
   - 'deployments/workshop/**'
 'hub: gradebook':
