@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Remove inactive users from hub ORM</title>
+<title>JupyterHub ORM Maintenance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/remove-users-orm.html">Remove inactive users from hub ORM</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/remove-users-orm.html">JupyterHub ORM Maintenance</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -287,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/remove-users-orm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Remove inactive users from hub ORM</span></a>
+ <span class="menu-text">JupyterHub ORM Maintenance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -391,9 +391,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/remove-users-orm.html">Remove inactive users from hub ORM</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/remove-users-orm.html">JupyterHub ORM Maintenance</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Remove inactive users from hub ORM</h1>
+<h1 class="title">JupyterHub ORM Maintenance</h1>
 </div>
 
 
@@ -410,7 +410,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>JupyterHub performance sometimes scales with the <em>total</em> number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage. The script <code>scripts/delete-unused-users.py</code> will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine. This should be done before the start of each semester, particularly on hubs with a lot of users.</p>
+<section id="performance" class="level2">
+<h2 class="anchored" data-anchor-id="performance">Performance</h2>
+<p>JupyterHub performance sometimes scales with the <em>total</em> number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.</p>
+<p>The script <code>scripts/delete-unused-users.py</code> will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.</p>
+<p>This should be done before the start of each semester, particularly on hubs with a lot of users.</p>
+</section>
 <section id="run-the-script" class="level2">
 <h2 class="anchored" data-anchor-id="run-the-script">Run the script</h2>
 <p>You can run the script on your own device. The script depends on the <code>jhub_client</code> python library. This can be installed with <code>pip install jhub_client</code>.</p>

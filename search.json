@@ -216,27 +216,40 @@
   {
     "objectID": "admins/howto/remove-users-orm.html",
     "href": "admins/howto/remove-users-orm.html",
-    "title": "Remove inactive users from hub ORM",
+    "title": "JupyterHub ORM Maintenance",
     "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage. The script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine. This should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Remove inactive users from hub ORM"
+      "JupyterHub ORM Maintenance"
+    ]
+  },
+  {
+    "objectID": "admins/howto/remove-users-orm.html#performance",
+    "href": "admins/howto/remove-users-orm.html#performance",
+    "title": "JupyterHub ORM Maintenance",
+    "section": "",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "JupyterHub ORM Maintenance"
     ]
   },
   {
     "objectID": "admins/howto/remove-users-orm.html#run-the-script",
     "href": "admins/howto/remove-users-orm.html#run-the-script",
-    "title": "Remove inactive users from hub ORM",
+    "title": "JupyterHub ORM Maintenance",
     "section": "Run the script",
     "text": "Run the script\nYou can run the script on your own device. The script depends on the jhub_client python library. This can be installed with pip install jhub_client.\n\nYou will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to {hub_url}/hub/token to create a new one.\nSet the environment variable JUPYTERHUB_API_TOKEN to the token.\nRun python scripts/delete-unused-users.py --hub_url {hub_url}",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Remove inactive users from hub ORM"
+      "JupyterHub ORM Maintenance"
     ]
   },
   {
