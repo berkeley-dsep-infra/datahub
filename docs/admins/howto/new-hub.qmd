@@ -1,62 +1,57 @@
 ---
-title: Create a new Hub
+title: Create a New Hub
 ---
 
 ## Why create a new hub?
 
 The major reasons for making a new hub are:
 
-1.  A new course wants to join the Berkeley Datahub community!
-2.  Some of your *students* are *admins* on another hub, so they can see
-    other students\' work there.
-3.  You want to use a different kind of authenticator.
-4.  You are running in a different cloud, or using a different billing
-    account.
-5.  Your environment is different enough and specialized enough that a
-    different hub is a good idea. By default, everyone uses the same
-    image as datahub.berkeley.edu.
-6.  You want a different URL (X.datahub.berkeley.edu vs just
-    datahub.berkeley.edu)
+1. A new course wants to join the Berkeley DataHub community.
+2. One of your *students* are course staff in another course and have *elevated access*, enabling them to see other students' work.
+3. You want to use a different kind of authenticator.
+4. You are running in a different cloud, or using a different billing
+   account.
+5. Your environment is different enough and specialized enough that a
+   different hub is a good idea. By default, everyone uses the same
+   image as datahub.berkeley.edu.
+6. You want a different URL (X.datahub.berkeley.edu vs just
+   datahub.berkeley.edu)
 
-If your reason is something else, it probably needs some justification
-:)
+Please let us know if you have some other justification for creating a new hub.
 
-## Prereqs
+## Prerequisites
 
 Working installs of the following utilities:
 
   -   [sops](https://github.com/mozilla/sops/releases)
-  -   [hubploy](https://pypi.org/project/hubploy/)
-      -   [hubploy docs](https://hubploy.readthedocs.io/en/latest/index.html)
-      -   `pip install hubploy`
+  -   [hubploy](https://hubploy.readthedocs.io/en/latest/index.html)
   -   [gcloud](https://cloud.google.com/sdk/docs/install)
   -   [kubectl](https://kubernetes.io/docs/tasks/tools/)
   -   [cookiecutter](https://github.com/audreyr/cookiecutter)
 
 Proper access to the following systems:
 
-  -   Google Cloud IAM: owner
+  -   Google Cloud IAM: *owner*
   -   Write access to the [datahub repo](https://github.com/berkeley-dsep-infra/datahub)
-  -   CircleCI account linked to our org
+  -   CircleCI account linked to our GitHub organization.
 
-## Setting up a new hub
+## Configuring a New Hub
 
 ### Name the hub
 
-Choose the `<hubname>` (typically the course or department). This is
-permanent.
+Choose the hub name, e.g. *data8*, *stat20*, *biology*, *julia*, which is typically the name of the course or department. This is permanent.
 
 ### Determine deployment needs
 
 Before creating a new hub, have a discussion with the instructor about
 the system requirements, frequency of assignments and how much storage
 will be required for the course. Typically, there are three general
-\"types\" of hub: Heavy usage, general and small courses.
+"types" of hub: Heavy usage, general and small courses.
 
 Small courses will usually have one or two assignments per semester, and
 may only have 20 or fewer users.
 
-General courses have up to \~500 users, but don\'t have large amount of
+General courses have up to \~500 users, but don't have large amount of
 data or require upgraded compute resources.
 
 Heavy usage courses can potentially have thousands of users, require
@@ -73,7 +68,7 @@ packages/libraries that need to be installed, as well as what
 language(s) the course will be using. This will determine which image to
 use, and if we will need to add additional packages to the image build.
 
-If you\'re going to use an existing node pool and/or filestore instance,
+If you're going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
 the `cookiecutter`.
 
@@ -87,10 +82,10 @@ all three of these labels will be `<hubname>`.
 Create the node pool:
 
 ``` bash
-gcloud container node-pools create "user-<hubname>-<YYYY-MM-DD>"  \
+gcloud container node-pools create "user-<hubname>-<YYYY-MM-DD>" \
   --labels=hub=<hubname>,nodepool-deployment=<hubname> \
   --node-labels hub.jupyter.org/pool-name=<hubname>-pool \
-  --machine-type "n2-highmem-8"  \
+  --machine-type "n2-highmem-8" \
   --enable-autoscaling --min-nodes "0" --max-nodes "20" \
   --project "ucb-datahub-2018" --cluster "spring-2024" \
   --region "us-central1" --node-locations "us-central1-b" \
@@ -125,17 +120,16 @@ gcloud filestore instances create <hubname>-<YYYY-MM-DD> \
 Or, from the web console, click on the horizontal bar icon at the top
 left corner.
 
-1.  Access \"Filestore\" -\> \"Instances\" and click on \"Create
-    Instance\".
+1.  Access "Filestore" > "Instances" and click on "Create Instance".
 2.  Name the instance `<hubname>-<YYYY-MM-DD>`
 3.  Instance Type is `Basic`, Storage Type is `HDD`.
 4.  Allocate capacity.
 5.  Set the region to `us-central1` and Zone to `us-central1-b`.
 6.  Set the VPC network to `default`.
 7.  Set the File share name to `shares`.
-8.  Click \"Create\" and wait for it to be deployed.
-9.  Once it\'s deployed, select the instance and copy the \"NFS mount
-    point\".
+8.  Click "Create" and wait for it to be deployed.
+9.  Once it's deployed, select the instance and copy the "NFS mount
+    point".
 
 Your new (but empty) NFS filestore must be seeded with a pair of
 directories. We run a utility VM for NFS filestore management; follow
@@ -145,15 +139,17 @@ and create & configure the required directories.
 You can run the following command in gcloud terminal to log in to the
 NFS utility VM:
 
-`gcloud compute ssh nfsserver-01 --zone=us-central1-b`
+```bash
+gcloud compute ssh nfsserver-01 --zone=us-central1-b
+```
 
-Alternatively, launch console.cloud.google.com -\> Select
-\"ucb-datahub-2018\" as the project name.
+Alternatively, launch console.cloud.google.com > Select *ucb-datahub-2018* as
+the project name.
 
 1.  Click on the three horizontal bar icon at the top left corner.
-2.  Access \"Compute Engine\" -\> \"VM instances\" -\> and search for
-    \"nfs-server-01\".
-3.  Select \"Open in browser window\" option to access NFS server via
+2.  Access "Compute Engine" > "VM instances" > and search for
+    "nfs-server-01".
+3.  Select "Open in browser window" option to access NFS server via
     GUI.
 
 Back in the NFS utility VM shell, mount the new share:
@@ -165,7 +161,7 @@ mount <filestore share IP>:/shares /export/<hubname>-filestore
 
 Create `staging` and `prod` directories owned by `1000:1000` under
 `/export/<hubname>-filestore/<hubname>`. The path *might* differ if your
-hub has special home directory storage needs. Consult admins if that\'s
+hub has special home directory storage needs. Consult admins if that's
 the case. Here is the command to create the directory with appropriate
 permissions:
 
@@ -187,7 +183,7 @@ drwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore
 ### Create the hub deployment locally
 
 In the `datahub/deployments` directory, run `cookiecutter`. This sets up
-the hub\'s configuration directory:
+the hub's configuration directory:
 
 ``` bash
 cookiecutter template/
@@ -212,8 +208,8 @@ with a skeleton configuration and all the necessary secrets.
 ### Configure filestore security settings and GCP billing labels
 
 If you have created a new filestore instance, you will now need to apply
-the `ROOT_SQUASH` settings. Please ensure that you\'ve already created
-the hub\'s root directory and both `staging` and `prod` directories,
+the `ROOT_SQUASH` settings. Please ensure that you've already created
+the hub's root directory and both `staging` and `prod` directories,
 otherwise you will lose write access to the share. We also attach labels
 to a new filestore instance for tracking individual and full hub costs.
 
@@ -319,40 +315,41 @@ size, for example when large classes begin.
 If you are deploying to a shared node pool, there is no need to perform
 this step.
 
-Otherwise, you\'ll need to add the placeholder settings in
+Otherwise, you'll need to add the placeholder settings in
 `node-placeholder/values.yaml`.
 
 The node placeholder pod should have enough RAM allocated to it that it
 needs to be kicked out to get even a single user pod on the node - but
-not so big that it can\'t run on a node where other system pods are
-running! To do this, we\'ll find out how much memory is allocatable to
+not so big that it can't run on a node where other system pods are
+running! To do this, we'll find out how much memory is allocatable to
 pods on that node, then subtract the sum of all non-user pod memory
-requests and an additional 256Mi of \"wiggle room\". This final number
+requests and an additional 256Mi of "wiggle room". This final number
 will be used to allocate RAM for the node placeholder.
 
-1.  Launch a server on <https://>\<hubname\>.datahub.berkeley.edu
+1.  Launch a server on https://*hubname*.datahub.berkeley.edu
 2.  Get the node name (it will look something like
     `gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs`):
-    `kubectl get nodes | grep <hubname> | awk '{print$1}'`
+    `kubectl get nodes | grep *hubname* | awk '{print $1}'`
 3.  Get the total amount of memory allocatable to pods on this node and
     convert to bytes:
-    `kubectl get node <nodename> -o jsonpath='{.status.allocatable.memory}'`
+    ```bash
+    kubectl get node <nodename> -o jsonpath='{.status.allocatable.memory}'
+    ```
 4.  Get the total memory used by non-user pods/containers on this node.
     We explicitly ignore `notebook` and `pause`. Convert to bytes and
     get the sum:
-
-``` bash
-kubectl get -A pod -l 'component!=user-placeholder' \
-       --field-selector spec.nodeName=<nodename> \
-       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \
-       | egrep -v 'pause|notebook'
-```
+    ```bash
+    kubectl get -A pod -l 'component!=user-placeholder' \
+      --field-selector spec.nodeName=<nodename> \
+      -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \
+      | egrep -v 'pause|notebook'
+    ```
 
 1.  Subract the second number from the first, and then subtract another
-    277872640 bytes (256Mi) for \"wiggle room\".
+    277872640 bytes (256Mi) for "wiggle room".
 2.  Add an entry for the new placeholder node config in `values.yaml`:
 
-``` yaml
+```yaml
 data102:
   nodeSelector:
     hub.jupyter.org/pool-name: data102-pool
@@ -363,7 +360,7 @@ data102:
   replicas: 1
 ```
 
-For reference, here\'s example output from collecting and calculating
+For reference, here's example output from collecting and calculating
 the values for `data102`:
 
 ``` bash
@@ -402,16 +399,16 @@ can log into it at <https://>\<hub_name\>-staging.datahub.berkeley.edu.
 Test it out and make sure things work as you think they should.
 
 1.  Make a PR from the `staging` branch to the `prod` branch. When this
-    PR is merged, it\'ll deploy the production hub. It might take a few
+    PR is merged, it'll deploy the production hub. It might take a few
     minutes for HTTPS to work, but after that you can log into it at
     <https://>\<hub_name\>.datahub.berkeley.edu. Test it out and make
     sure things work as you think they should.
 2.  You may want to customize the docker image for the hub based on your
-    unique requirements. Navigate to deployments/\'Project Name\'/image
+    unique requirements. Navigate to deployments/'Project Name'/image
     and review environment.yml file and identify packages that you want
     to add from the `conda repository` \<<https://anaconda.org/>\>. You
     can copy the image manifest files from another deployment. It is
     recommended to use a repo2docker-style image build, without a
-    Dockerfile, if possible. That format will probably serve as the \'
+    Dockerfile, if possible. That format will probably serve as the
     basis for self-service user-created images in the future.
 3.  All done.
