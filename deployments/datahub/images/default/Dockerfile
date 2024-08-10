@@ -126,17 +126,6 @@ COPY r-packages/2024-sp-polsci-3.r /tmp/r-packages/
 RUN echo "/usr/bin/r /tmp/r-packages/2024-sp-polsci-3.r" | /usr/bin/time -f "User\t%U\nSys\t%S\nReal\t%E\nCPU\t%P" /usr/bin/bash
 RUN rm -rf /tmp/downloaded_packages
 
-# ESPM, FA 24
-# https://github.com/berkeley-dsep-infra/datahub/issues/5827
-ENV VSIX=2024.13.2024080701
-ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
-# Download the VSIX package
-RUN wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/python/${VSIX}/vspackage -O /tmp/ms-python.vsix
-# Install Code Server Python extension
-RUN code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension /tmp/ms-python.vsix
-# Install Code Server Jupyter extension 
-RUN code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
-
 ENV PATH ${CONDA_DIR}/bin:$PATH:/usr/lib/rstudio-server/bin
 
 # Set this to be on container storage, rather than under $HOME ENV IPYTHONDIR ${CONDA_DIR}/etc/ipython
@@ -186,6 +175,19 @@ RUN /usr/local/sbin/connector-text.bash
 
 #COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
 #RUN /usr/local/sbin/2021-fall-phys-188-288.bash
+
+#ESPM, FA 24
+# https://github.com/berkeley-dsep-infra/datahub/issues/5827
+ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
+ENV PATH=${CONDA_DIR}/bin:$PATH
+USER root
+RUN mkdir -p ${VSCODE_EXTENSIONS} && \
+    chown -R jovyan:jovyan ${VSCODE_EXTENSIONS}
+USER ${NB_USER}
+# Install Code Server Jupyter extension 
+RUN /srv/conda/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
+# Install Code Server Python extension
+RUN /srv/conda/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-python.python
 
 # clear out /tmp
 USER root
