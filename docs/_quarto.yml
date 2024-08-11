@@ -59,10 +59,6 @@ website:
               - admins/howto/clusterswitch.qmd
               - admins/howto/github-token.qmd
               - admins/howto/google-sheets.qmd
-          - section: "Hub Deployments"
-            contents:
-              - admins/deployments/datahub.qmd
-              - admins/deployments/stat159.qmd
       - section: "Policy"
         contents:
           - policy/create_policy.qmd
