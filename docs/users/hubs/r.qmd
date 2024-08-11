@@ -1,0 +1,10 @@
+---
+title: R
+categories:
+  - jupyterlab
+  - r
+  - rstudio
+  - vscode
+---
+
+[r.datahub.berkeley.edu](https://r.datahub.berkeley.edu) uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment.

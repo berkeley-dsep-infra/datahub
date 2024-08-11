@@ -1,5 +1,11 @@
 ---
 title: Stat 159
+categories:
+  - jupyterlab
+  - rtc 
+  - vscode
+aliases:
+  - ../admins/deployments/stat159.html
 ---
 
 stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as
@@ -71,10 +77,3 @@ CanvasAuthenticator can remain in charge of managing groups. This will
 be important for the extremely large courses. It will also be beneficial
 in that resource allocation can be performed more easily through group
 affiliations and group properties.
-
-## Historical Information
-
-The image has been periodically shared with data100 for when Fernando
-has taught both. Going forward, it is probably best to keep them
-separate and optionally kept in sync. We don\'t want changes in one
-course to come as a surprise to the other.
