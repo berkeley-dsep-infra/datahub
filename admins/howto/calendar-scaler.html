@@ -499,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The method for testing <code>scaler/scaler.py</code> is similar to above, but the only things you’ll be able test locally are the <code>make_deployment()</code> and <code>get_replica_counts()</code> functions.</p>
 <p>When you’re ready, create a PR. The deployment workflow is as follows:</p>
 <ol type="1">
-<li>Get all authed-up for <code>chartpress</code> by performing the steps listed <a href="https://docs.datahub.berkeley.edu/en/latest/admins/howto/rebuild-hub-image.html#">here</a>.</li>
+<li>Get all authed-up for <code>chartpress</code> by performing the <a href="../../admins/howto/rebuild-hub-image.html">documented steps</a>.</li>
 <li>Run <code>chartpress --push</code> from the root <code>datahub/</code> directory. If this succeeds, check your <code>git     status</code> and add <code>datahub/node-placeholder/Chart.yaml</code> and <code>datahub/node-placeholder/values.yml</code> to your PR.</li>
 <li>Merge to <code>staging</code> and then <code>prod</code>.</li>
 </ol>
@@ -513,7 +513,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Edit <code>requirements.in</code> and save your changes.</li>
 <li>Execute <code>pip-compile requirements.in</code>, which will update the <code>requirements.txt</code>.</li>
 <li>Check your git status and diffs, and create a pull request if necessary.</li>
-<li>Get all authed-up for <code>chartpress</code> by performing the steps listed <a href="https://docs.datahub.berkeley.edu/en/latest/admins/howto/rebuild-hub-image.html#">here</a>.</li>
+<li>Get all authed-up for <code>chartpress</code> by performing the <a href="../../admins/howto/rebuild-hub-image.html">documented steps</a>.</li>
 <li>Run <code>chartpress --push</code> from the root <code>datahub/</code> directory. If this succeeds, check your <code>git     status</code> and add <code>datahub/node-placeholder/Chart.yaml</code> and <code>datahub/node-placeholder/values.yml</code> to your PR.</li>
 <li>Merge to <code>staging</code> and then <code>prod</code>.</li>
 </ol>
@@ -626,7 +626,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/docs\.datahub\.berkeley\.edu");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

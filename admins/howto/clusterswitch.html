@@ -449,8 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="create-a-new-cluster" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-new-cluster">Create a new cluster</h2>
 <ol type="1">
-<li>Create a new cluster using the specifications here:<br>
-https://docs.datahub.berkeley.edu/en/latest/admins/cluster-config.html</li>
+<li>Create a new cluster using the specified <a href="../../admins/cluster-config.html">configuration</a>.</li>
 <li>Set up helm on the cluster according to the instructions here:<br>
 http://z2jh.jupyter.org/en/latest/setup-helm.html
 <ul>
@@ -487,7 +486,7 @@ For example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circle
 </section>
 <section id="create-the-node-placeholder-k8s-namespace" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-node-placeholder-k8s-namespace">Create the node-placeholder k8s namespace</h2>
-<p>The <a href="https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html">calendar autoscaler</a> requires the <code>node-placeholder</code> namespace. Run the following command to create it:</p>
+<p>The <a href="../../admins/howto/calendar-scaler.html">calendar autoscaler</a> requires the <code>node-placeholder</code> namespace. Run the following command to create it:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create namespace node-placeholder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it." class="level2">
@@ -648,7 +647,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/docs\.datahub\.berkeley\.edu");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
