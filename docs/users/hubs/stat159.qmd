@@ -5,7 +5,7 @@ categories:
   - rtc 
   - vscode
 aliases:
-  - ../admins/deployments/stat159.html
+  - ../../admins/deployments/stat159.html
 ---
 
 stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as
@@ -18,18 +18,11 @@ Notably the image contains support for RTC. As of March 2023, this
 requires:
 
 ```yaml
-- altair==4.2.2
-- boken==2.4.3
-- dask==2023.1.1
 - jupyter_server==2.2.1
 - jupyterlab==3.6.1
 - jupyterlab_server==2.19.0
-- tornado==6.2.0
 - git+https://<github.com/berkeley-dsep-infra/tmpystore.git@84765e1>
 ```
-
-Some of these are hard requirements and others were necessary to make
-conda happy.
 
 ## Configuration
 
