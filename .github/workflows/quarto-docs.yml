@@ -42,7 +42,7 @@ jobs:
           ln -s ../../_site latest
 
       - name: Publish
-          uses: quarto-dev/quarto-actions/publish@v2
+        uses: quarto-dev/quarto-actions/publish@v2
         with:
           path: ./docs
           target: gh-pages
