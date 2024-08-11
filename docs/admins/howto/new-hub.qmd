@@ -1,7 +1,7 @@
 ---
 title: Create a New Hub
 aliases:
-  - ../../en/latest/admin/howto/new-hub.html
+  - ../../en/latest/admins/howto/new-hub.html
 ---
 
 ## Why create a new hub?
