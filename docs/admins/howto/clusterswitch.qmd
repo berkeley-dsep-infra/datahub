@@ -7,8 +7,7 @@ This document describes how to switch an existing hub to a new cluster.  The exa
 You might find it easier to switch to a new cluster if you're running a [very old k8s version](https://cloud.google.com/kubernetes-engine/docs/release-notes), or in lieu of performing a [cluster credential rotation](https://cloud.google.com/kubernetes-engine/docs/how-to/credential-rotation).  Sometimes starting from scratch is easier than an iterative and potentially destructive series of operations.
 
 ## Create a new cluster
-1. Create a new cluster using the specifications here:  
-   https://docs.datahub.berkeley.edu/en/latest/admins/cluster-config.html
+1. Create a new cluster using the specified [configuration](../cluster-config.qmd).
 2. Set up helm on the cluster according to the instructions here:  
    http://z2jh.jupyter.org/en/latest/setup-helm.html
      - Make sure the version of helm you're working with matches the version CircleCI is using.  
@@ -47,7 +46,7 @@ configured on the new cluster.  Until this is done, `hubploy` and `helm` will fa
 4. Change the corresponding entry in `support/requirements.yaml` to `$cert-manager-version` and commit the changes (do not push).
 
 ## Create the node-placeholder k8s namespace
-The [calendar autoscaler](https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html) requires the `node-placeholder` namespace.  Run the following command to create it:
+The [calendar autoscaler](calendar-scaler.qmd) requires the `node-placeholder` namespace.  Run the following command to create it:
 
 ```bash
 kubectl create namespace node-placeholder
