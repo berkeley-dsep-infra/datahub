@@ -5,7 +5,7 @@ categories:
   - r
   - vscode
 aliases:
-  - ../admins/deployments/datahub.html
+  - ../../admins/deployments/datahub.html
 ---
 
 [datahub.berkeley.edu](https://datahub.berkeley.edu) is the *main* JupyterHub
