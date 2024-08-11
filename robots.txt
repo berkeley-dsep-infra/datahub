@@ -1,1 +1,0 @@
-Sitemap: https://docs.datahub.berkeley.edu/sitemap.xml
