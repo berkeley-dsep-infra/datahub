@@ -1072,28 +1072,44 @@
     "href": "users/features.html",
     "title": "Features",
     "section": "",
-    "text": "This page lists the various environments, applications, and tools we offer on DataHub. Not all those listed here are available on all hubs, but we can easily enable them."
+    "text": "This page lists the various environments, applications, and tools we offer on DataHub. Not all those listed here are available on all hubs, but we can easily enable them.",
+    "crumbs": [
+      "Using DataHub",
+      "Features"
+    ]
   },
   {
     "objectID": "users/features.html#programming-languages",
     "href": "users/features.html#programming-languages",
     "title": "Features",
     "section": "Programming Languages",
-    "text": "Programming Languages\nWe support the usual suspects - Python, R, and Julia. However, Jupyter and other applications can support many more. If you would like to use a different, open-source programming language, contact us."
+    "text": "Programming Languages\nWe support the usual suspects - Python, R, and Julia. However, Jupyter and other applications can support many more. If you would like to use a different, open-source programming language, contact us.",
+    "crumbs": [
+      "Using DataHub",
+      "Features"
+    ]
   },
   {
     "objectID": "users/features.html#applications",
     "href": "users/features.html#applications",
     "title": "Features",
     "section": "Applications",
-    "text": "Applications\nOur diverse user population has diverse needs, so we offer many different user interfaces for instructors to choose from.\n\nJupyterLab\n\n\n\nDo complex layouts with JupyterLab\n\n\nJupyterLab is a more modern and customizable version of the classic Jupyter notebook from the Jupyter project. Most of our classes use JupyterLab.\n\n\nJupyter Notebook (Classic)\nThis familiar interface is used for most of our introductory classes. It is document oriented, no-frills, and well known by a lot of people.\n\n\nRStudio\n\n\n\nRStudio Screenshot\n\n\nWe want to provide first class support for teaching with R, which means providing strong support for RStudio. This also includes support for running Shiny applications.\nTry RStudio on DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nRemote Desktop\n\n\n\nDo image processing with qt\n\n\nSometimes, you just need to use something that requires a full desktop environment to run. Instead of trying to get students to install things locally, we offer a full fledged Linux Desktop environment they can access from inside their browser! This is just a different ‘UI’ on the same infrastructure as the notebook environment, so they all use the same libraries and home directories.\nTry remote desktop on EECS DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nVisual Studio Code\n\n\n\nCompile C with vscode\n\n\nSometimes you just want an IDE, not a notebook environment. We are experimenting with a hosted, web version of the popular Visual Studio Code editor, to see if it would be useful for teaching more traditional CS classes.\nTry VS Code on EECS DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nOther Web Applications\nWe can make many web based applications work on a hub. Contact us and we’ll see what we can do!\n\n\nPostgresql\nSome of our classes require using real databases to teach. We now experimentally offer a postgresql server for each user on the data100 hub.\nThe data does not persist right now, but we can turn that on whenever needed."
+    "text": "Applications\nOur diverse user population has diverse needs, so we offer many different user interfaces for instructors to choose from.\n\nJupyterLab\n\n\n\nDo complex layouts with JupyterLab\n\n\nJupyterLab is a more modern and customizable version of the classic Jupyter notebook from the Jupyter project. Most of our classes use JupyterLab.\n\n\nJupyter Notebook (Classic)\nThis familiar interface is used for most of our introductory classes. It is document oriented, no-frills, and well known by a lot of people.\n\n\nRStudio\n\n\n\nRStudio Screenshot\n\n\nWe want to provide first class support for teaching with R, which means providing strong support for RStudio. This also includes support for running Shiny applications.\nTry RStudio on DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nRemote Desktop\n\n\n\nDo image processing with qt\n\n\nSometimes, you just need to use something that requires a full desktop environment to run. Instead of trying to get students to install things locally, we offer a full fledged Linux Desktop environment they can access from inside their browser! This is just a different ‘UI’ on the same infrastructure as the notebook environment, so they all use the same libraries and home directories.\nTry remote desktop on EECS DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nVisual Studio Code\n\n\n\nCompile C with vscode\n\n\nSometimes you just want an IDE, not a notebook environment. We are experimenting with a hosted, web version of the popular Visual Studio Code editor, to see if it would be useful for teaching more traditional CS classes.\nTry VS Code on EECS DataHub with your berkeley.edu account, or on Binder without a berkeley.edu account.\n\n\nOther Web Applications\nWe can make many web based applications work on a hub. Contact us and we’ll see what we can do!\n\n\nPostgresql\nSome of our classes require using real databases to teach. We now experimentally offer a postgresql server for each user on the data100 hub.\nThe data does not persist right now, but we can turn that on whenever needed.",
+    "crumbs": [
+      "Using DataHub",
+      "Features"
+    ]
   },
   {
     "objectID": "users/features.html#more",
     "href": "users/features.html#more",
     "title": "Features",
     "section": "More?",
-    "text": "More?\nWe want to find solution to your interesting problems, so please bring us your interesting problems. 😁"
+    "text": "More?\nWe want to find solution to your interesting problems, so please bring us your interesting problems. 😁",
+    "crumbs": [
+      "Using DataHub",
+      "Features"
+    ]
   },
   {
     "objectID": "users/hubs.html",
@@ -1132,7 +1148,7 @@
     "href": "users/hubs/stat159.html#image",
     "title": "Stat 159",
     "section": "Image",
-    "text": "Image\nNotably the image contains support for RTC. As of March 2023, this requires:\n- altair==4.2.2\n- boken==2.4.3\n- dask==2023.1.1\n- jupyter_server==2.2.1\n- jupyterlab==3.6.1\n- jupyterlab_server==2.19.0\n- tornado==6.2.0\n- git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;\nSome of these are hard requirements and others were necessary to make conda happy."
+    "text": "Image\nNotably the image contains support for RTC. As of March 2023, this requires:\n- jupyter_server==2.2.1\n- jupyterlab==3.6.1\n- jupyterlab_server==2.19.0\n- git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;"
   },
   {
     "objectID": "users/hubs/stat159.html#configuration",

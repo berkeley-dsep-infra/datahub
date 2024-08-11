@@ -125,11 +125,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../users/features.html"> 
+    <a class="nav-link active" href="../../users/features.html" aria-current="page"> 
 <span class="menu-text">Using DataHub</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../admins/pre-reqs.html" aria-current="page"> 
+    <a class="nav-link" href="../../admins/pre-reqs.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
@@ -180,8 +180,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
- <span class="menu-text">users/services.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../users/features.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../users/private-repo.html" class="sidebar-item-text sidebar-link">
@@ -428,15 +431,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="image" class="level2">
 <h2 class="anchored" data-anchor-id="image">Image</h2>
 <p>Notably the image contains support for RTC. As of March 2023, this requires:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> altair==4.2.2</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> boken==2.4.3</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> dask==2023.1.1</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyter_server==2.2.1</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab==3.6.1</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab_server==2.19.0</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> tornado==6.2.0</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Some of these are hard requirements and others were necessary to make conda happy.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyter_server==2.2.1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab==3.6.1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab_server==2.19.0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="configuration" class="level2">
 <h2 class="anchored" data-anchor-id="configuration">Configuration</h2>
