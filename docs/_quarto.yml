@@ -30,7 +30,7 @@ website:
         text: Home
       - section: "Using DataHub"
         contents:
-          - users/services.qmd
+          - users/features.qmd
           - users/private-repo.qmd
           - users/hubs.qmd
           - users/authentication.qmd
