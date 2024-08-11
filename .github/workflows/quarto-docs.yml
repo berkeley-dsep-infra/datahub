@@ -18,10 +18,34 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v2
+      ## We could render and publish in one step, however we need to, at
+      ## least temporarily, preserve the old en/latest/ paths from the
+      ## readthedocs version. So we render, create the link, then publish.
+      #- name: Render and Publish
+      #  uses: quarto-dev/quarto-actions/publish@v2
+      #  with:
+      #    path: ./docs
+      #    target: gh-pages
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Render
+        uses: quarto-dev/quarto-actions/render@v2
+        with:
+          path: ./docs
+          to: html
+
+      - name: Create en/latest symlink
+        run: |
+          mkdir ./docs/_site/en
+          cd docs/_site/en
+          ln -s ../../_site latest
+
+      - name: Publish
+          uses: quarto-dev/quarto-actions/publish@v2
         with:
           path: ./docs
           target: gh-pages
+          render: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
