@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>JupyterHubs in this repository</title>
+<title>JupyterHub Deployments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,6 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <link href="../users/authentication.html" rel="next">
 <link href="../users/private-repo.html" rel="prev">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,11 +70,69 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -120,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Using DataHub</li><li class="breadcrumb-item"><a href="../users/hubs.html">JupyterHubs in this repository</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Using DataHub</li><li class="breadcrumb-item"><a href="../users/hubs.html">JupyterHub Deployments</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -159,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../users/hubs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">JupyterHubs in this repository</span></a>
+ <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -316,40 +376,17 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Hub Deployments</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../admins/deployments/datahub.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">DataHub</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../admins/deployments/stat159.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stat 159</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Policy</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
@@ -387,13 +424,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="jupyterlab">jupyterlab <span class="quarto-category-count">(8)</span></div><div class="category" data-category="ltiauthenticator">ltiauthenticator <span class="quarto-category-count">(1)</span></div><div class="category" data-category="otter-grader">otter-grader <span class="quarto-category-count">(2)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="r">r <span class="quarto-category-count">(3)</span></div><div class="category" data-category="rstudio">rstudio <span class="quarto-category-count">(3)</span></div><div class="category" data-category="rtc">rtc <span class="quarto-category-count">(1)</span></div><div class="category" data-category="shared-folders">shared-folders <span class="quarto-category-count">(2)</span></div><div class="category" data-category="shiny">shiny <span class="quarto-category-count">(2)</span></div><div class="category" data-category="vscode">vscode <span class="quarto-category-count">(4)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Using DataHub</li><li class="breadcrumb-item"><a href="../users/hubs.html">JupyterHubs in this repository</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Using DataHub</li><li class="breadcrumb-item"><a href="../users/hubs.html">JupyterHub Deployments</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">JupyterHubs in this repository</h1>
+<h1 class="title">JupyterHub Deployments</h1>
 </div>
 
 
@@ -410,44 +449,314 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="datahub" class="level2">
-<h2 class="anchored" data-anchor-id="datahub">DataHub</h2>
-<p><a href="https://datahub.berkeley.edu">datahub.berkeley.edu</a> is the 'main' JupyterHub for use on UC Berkeley campus. It's the largest and most active hub. It has many Python &amp; R packages installed.</p>
-<p>It runs on <a href="https://cloud.google.com">Google Cloud Platform</a> in the <code>ucb-datahub-2018</code> project. You can see all config for it under <code>deployments/datahub</code>.</p>
-<section id="classes" class="level3">
-<h3 class="anchored" data-anchor-id="classes">Classes</h3>
-<ul>
-<li>The big <a href="http://data8.org/">data8</a> class.</li>
-<li>Active <a href="https://data.berkeley.edu/education/connectors">connector courses</a></li>
-<li><a href="https://data.berkeley.edu/education/modules">Data Science Modules</a></li>
-<li><a href="https://astro.berkeley.edu/course-information/3958209-astronomy-data-science-laboratory">Astro 128/256</a></li>
-</ul>
-<p>This hub is also the 'default' when folks wanna use a hub for a short period of time for any reason without super specific requirements.</p>
-</section>
-</section>
-<section id="prob140-hub" class="level2">
-<h2 class="anchored" data-anchor-id="prob140-hub">Prob140 Hub</h2>
-<p>A hub specifically for <a href="http://prob140.org/">prob140</a>. Some of the admin users on <code class="interpreted-text" role="ref">hubs/datahub</code> are students in prob140 - this would allow them to see the work of other prob140 students. Hence, this hub is separate until JupyterHub gains features around restricting admin use.</p>
-<p>It runs on <a href="https://cloud.google.com">Google Cloud Platform</a> in the <code>ucb-datahub-2018</code> project. You can see all config for it under <code>deployments/prob140</code>.</p>
-</section>
-<section id="data-100" class="level2">
-<h2 class="anchored" data-anchor-id="data-100">Data 100</h2>
-<p>This hub is for <a href="http://www.ds100.org/">Data 100</a> which has a unique user and grading environment. It runs on <a href="https://cloud.google.com">Google Cloud Platform</a> in the <code>ucb-datahub-2018</code> account. You can see all config for it under <code>deployments/data100</code>.</p>
-<p>Data100 also has shared folders between staff (professors and GSIs) and students. Staff, assuming they have been added as admins in <code>config/common.yaml</code>, can see a <code>shared</code> and a <code>shared-readwrite</code> folder. Students can only see the <code>shared</code> folder, which is read-only. Anything that gets put in <code>shared-readwrite</code> is automatically viewable in <code>shared</code>, but as read-only files. The purpose of this is to be able to share large data files instead of having one per student.</p>
-</section>
-<section id="data-102" class="level2">
-<h2 class="anchored" data-anchor-id="data-102">Data 102</h2>
-<p>Data 102 runs on <a href="https://cloud.google.com">Google Cloud Platform</a> in the <code>ucb-datahub-2018</code> project. You can see all config for it under <code>deployments/data102</code>.</p>
-</section>
-<section id="data8x-hub" class="level2">
-<h2 class="anchored" data-anchor-id="data8x-hub">Data8X Hub</h2>
-<p>A hub for the <a href="https://www.edx.org/professional-certificate/berkeleyx-foundations-of-data-science">data8x course on EdX</a>. This hub is open to use by anyone in the world, using <a href="https://github.com/jupyterhub/ltiauthenticator">LTI Authentication</a> to provide login capability from inside EdX.</p>
-<p>It runs on <a href="https://cloud.google.com">Google Cloud Platform</a> in the <code>data8x-scratch</code> project. You can see all config for it under <code>deployments/data8x</code>.</p>
 
 
-</section>
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="jupyterlab,otter-grader,shared-folders" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="72">
+<div class="thumbnail">
+<p><a href="../users/hubs/data100.html" class="no-external"></a></p><a href="../users/hubs/data100.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/data100.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/data100.html" class="no-external">Data 100</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/data100.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('otter-grader'); return false;">
+otter-grader
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('shared-folders'); return false;">
+shared-folders
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/data100.html" class="no-external">This hub is for Data 100 which has a unique user and grading environment.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/data100.html" class="no-external"></a></p><a href="../users/hubs/data100.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="jupyterlab,otter-grader,shared-folders" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="30">
+<div class="thumbnail">
+<p><a href="../users/hubs/data102.html" class="no-external"></a></p><a href="../users/hubs/data102.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/data102.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/data102.html" class="no-external">Data 102</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/data102.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('otter-grader'); return false;">
+otter-grader
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('shared-folders'); return false;">
+shared-folders
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/data102.html" class="no-external">This hub is for Data 102 which has a unique user and grading environment.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/data102.html" class="no-external"></a></p><a href="../users/hubs/data102.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="jupyterlab,ltiauthenticator" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="42">
+<div class="thumbnail">
+<p><a href="../users/hubs/edx.html" class="no-external"></a></p><a href="../users/hubs/edx.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/edx.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/edx.html" class="no-external">Data 8X</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/edx.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ltiauthenticator'); return false;">
+ltiauthenticator
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/edx.html" class="no-external">This hub is for the data8x course on EdX. It is open to use by anyone in the world, using LTI Authentication to provide login capability from inside EdX.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/edx.html" class="no-external"></a></p><a href="../users/hubs/edx.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="jupyterlab,r,vscode" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="53">
+<div class="thumbnail">
+<p><a href="../users/hubs/datahub.html" class="no-external"></a></p><a href="../users/hubs/datahub.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/datahub.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/datahub.html" class="no-external">DataHub</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/datahub.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
+r
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
+vscode
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/datahub.html" class="no-external">datahub.berkeley.edu is the <em>main</em> JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/datahub.html" class="no-external"></a></p><a href="../users/hubs/datahub.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="jupyterlab,vscode" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="44">
+<div class="thumbnail">
+<p><a href="../users/hubs/prob140.html" class="no-external"></a></p><a href="../users/hubs/prob140.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/prob140.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/prob140.html" class="no-external">Prob 140</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/prob140.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
+vscode
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/prob140.html" class="no-external">Prob 140 hub exists to isolate student files from the main hub. Some students in this course might be course staff in another course, or vice versa, so we isolate their home…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/prob140.html" class="no-external"></a></p><a href="../users/hubs/prob140.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="jupyterlab,r,rstudio,vscode" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="34">
+<div class="thumbnail">
+<p><a href="../users/hubs/r.html" class="no-external"></a></p><a href="../users/hubs/r.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/r.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/r.html" class="no-external">R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/r.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
+r
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('rstudio'); return false;">
+rstudio
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
+vscode
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/r.html" class="no-external">r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/r.html" class="no-external"></a></p><a href="../users/hubs/r.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="r,rstudio,shiny" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="34">
+<div class="thumbnail">
+<p><a href="../users/hubs/shiny.html" class="no-external"></a></p><a href="../users/hubs/shiny.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/shiny.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/shiny.html" class="no-external">Shiny</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/shiny.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
+r
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('rstudio'); return false;">
+rstudio
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('shiny'); return false;">
+shiny
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/shiny.html" class="no-external">r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/shiny.html" class="no-external"></a></p><a href="../users/hubs/shiny.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="jupyterlab,rtc,vscode" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="2" data-listing-word-count-sort="334">
+<div class="thumbnail">
+<p><a href="../users/hubs/stat159.html" class="no-external"></a></p><a href="../users/hubs/stat159.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/stat159.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/stat159.html" class="no-external">Stat 159</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/stat159.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('rtc'); return false;">
+rtc
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
+vscode
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/stat159.html" class="no-external">stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/stat159.html" class="no-external"></a></p><a href="../users/hubs/stat159.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="jupyterlab,quarto,rstudio,shiny" data-listing-file-modified-sort="1723362029463" data-listing-reading-time-sort="1" data-listing-word-count-sort="33">
+<div class="thumbnail">
+<p><a href="../users/hubs/stat20.html" class="no-external"></a></p><a href="../users/hubs/stat20.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../users/hubs/stat20.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../users/hubs/stat20.html" class="no-external">Stat 20</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../users/hubs/stat20.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
+jupyterlab
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('quarto'); return false;">
+quarto
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('rstudio'); return false;">
+rstudio
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('shiny'); return false;">
+shiny
+</div>
+</div>
+<div class="listing-description">
+<a href="../users/hubs/stat20.html" class="no-external">stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as designed by Andrew Bray. It uses RStudio as the primary users interface and students can use Quarto to…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../users/hubs/stat20.html" class="no-external"></a></p><a href="../users/hubs/stat20.html" class="no-external">
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

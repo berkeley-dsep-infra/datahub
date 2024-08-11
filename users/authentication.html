@@ -159,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../users/hubs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">JupyterHubs in this repository</span></a>
+ <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -316,40 +316,17 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Hub Deployments</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../admins/deployments/datahub.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">DataHub</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../admins/deployments/stat159.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stat 159</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Policy</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
@@ -410,20 +387,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>UC Berkeley uses a <a href="https://www.instructure.com/canvas/">Canvas</a> instance, called <a href="https://bcourses.berkeley.edu">bcourses.berkeley.edu</a>. Almost all our hubs use this for authentication, although <a href="https://github.com/berkeley-dsep-infra/datahub/issues/1574">not all yet</a>.</p>
-<section id="who-has-access" class="level2">
-<h2 class="anchored" data-anchor-id="who-has-access">Who has access?</h2>
-<p>Anyone who can log in to bcourses can log into our JupyterHubs. This includes all berkeley affiliates. If you have a working berkeley.edu email account, you can most likely log in to bcourses, and hence to our JupyterHubs.</p>
+<p>Most of our hubs use a <a href="https://www.instructure.com/canvas/">Canvas</a> instance, <a href="https://bcourses.berkeley.edu">bcourses.berkeley.edu</a>, for authentication. The hubs not using <code>CanvasOAuthenticator</code> are edx (<code>LTI1Authenticator</code>), highschool (<code>GoogleOAuthenticator</code>), and workshop (<code>dummy</code>).</p>
+<section id="authorization" class="level2">
+<h2 class="anchored" data-anchor-id="authorization">Authorization</h2>
+<p>Anyone who can log in to bCourses can log into our Canvas-based hubs. This includes all Berkeley affiliates. If you have a working berkeley.edu email account, you can most likely log in to bCourses, and hence to our JupyterHubs.</p>
 <p>Students have access for 9 months after they graduate. If they have an incomplete, they have 13 months of access instead.</p>
 </section>
 <section id="non-berkeley-affiliates" class="level2">
-<h2 class="anchored" data-anchor-id="non-berkeley-affiliates">Non-berkeley affiliates</h2>
-<p>If someone who doesn’t have a berkeley.edu account wants to use the JupyterHubs, they need to get a <a href="https://calnetweb.berkeley.edu/calnet-departments/calnet-sponsored-guests">CalNet Sponsored Guest account</a> This gives people access to <a href="https://bcourses.berkeley.edu">bcourses</a>, and hence to all the JupyterHubs.</p>
+<h2 class="anchored" data-anchor-id="non-berkeley-affiliates">Non-Berkeley affiliates</h2>
+<p>If someone who doesn’t have a berkeley.edu account wants to use the JupyterHubs, they need to obtain a <a href="https://calnetweb.berkeley.edu/calnet-departments/calnet-sponsored-guests">CalNet Sponsored Guest account</a> and get added to a bCourses course.</p>
 </section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<p>If you can log in to <a href="https://bcourses.berkeley.edu">bcourses</a> but not to any of the JupyterHubs, please contact us.</p>
-<p>If you can not log in to bcourses, please <a href="https://dls.berkeley.edu/services/bcourses-0">contact bcourses support</a></p>
+<p>If you can log in to <a href="https://bcourses.berkeley.edu">bCourses</a> but not to any of the JupyterHubs, please contact us.</p>
+<p>If you can not log in to bCourses, please <a href="https://dls.berkeley.edu/services/bcourses-0">contact bCourses support</a>.</p>
 
 
 </section>
@@ -851,8 +828,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../users/hubs.html" class="pagination-link" aria-label="JupyterHubs in this repository">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">JupyterHubs in this repository</span>
+      <a href="../users/hubs.html" class="pagination-link" aria-label="JupyterHub Deployments">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">JupyterHub Deployments</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
