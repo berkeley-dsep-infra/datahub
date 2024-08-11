@@ -1,6 +1,7 @@
 ---
 title: Prob 140
 categories:
+  - course
   - jupyterlab
   - vscode
 ---

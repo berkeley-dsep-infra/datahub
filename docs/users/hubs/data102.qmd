@@ -1,6 +1,7 @@
 ---
 title: Data 102
 categories:
+  - course
   - jupyterlab
   - otter-grader
   - shared-folders

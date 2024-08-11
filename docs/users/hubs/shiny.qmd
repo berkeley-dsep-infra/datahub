@@ -6,4 +6,4 @@ categories:
   - shiny
 ---
 
-[r.datahub.berkeley.edu](https://r.datahub.berkeley.edu) uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment.
+[shiny.datahub.berkeley.edu](https://shiny.datahub.berkeley.edu) contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio.
