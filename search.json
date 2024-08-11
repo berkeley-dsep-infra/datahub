@@ -2151,7 +2151,7 @@
     "href": "admins/structure.html#documentation",
     "title": "Repository Structure",
     "section": "Documentation",
-    "text": "Documentation\nDocumentation is under the docs/ folder, and is generated with the sphinx project. It is written with the reStructuredText (rst) format. Documentation is automatically published to https://uc-berkeley-jupyterhubs.readthedocs.io/ and https://docs.datahub.berkeley.edu/. This is performed via a webhook in the github repo.",
+    "text": "Documentation\nDocumentation is under the docs/ folder, and is generated with Quarto, where content is written in markdown. Documentation is published to https://docs.datahub.berkeley.edu/ via a GitHub Action workflow.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",

@@ -421,11 +421,11 @@ ul.task-list li input[type="checkbox"] {
 <li>Libraries installed, and which versions of those are installed</li>
 <li>Specific config for Jupyter Notebook or IPython</li>
 </ol>
-<p><a href="https://repo2docker.readthedocs.io/en/latest/">repo2docker</a> is used to build the actual user image, so you can use any of the <a href="https://repo2docker.readthedocs.io/en/latest/config_files.html">supported config files</a> to customize the image as you wish.</p>
+<p><a href="https://repo2docker.readthedocs.io">repo2docker</a> is used to build the actual user image, so you can use any of the <a href="https://repo2docker.readthedocs.io/en/latest/config_files.html">supported config files</a> to customize the image as you wish.</p>
 </section>
 <section id="hub-config-config-and-secrets" class="level3">
 <h3 class="anchored" data-anchor-id="hub-config-config-and-secrets">Hub Config (<code>config/</code> and <code>secrets/</code>)</h3>
-<p>All our JupyterHubs are based on <a href="http://z2jh.jupyter.org/">Zero to JupyterHub (z2jh)</a>. z2jh uses configuration files in <a href="https://en.wikipedia.org/wiki/YAML">YAML</a> format to specify exactly how the hub is configured. For example, it controls:</p>
+<p>All our JupyterHubs are based on <a href="https://z2jh.jupyter.org/">Zero to JupyterHub (z2jh)</a>. z2jh uses configuration files in <a href="https://en.wikipedia.org/wiki/YAML">YAML</a> format to specify exactly how the hub is configured. For example, it controls:</p>
 <ol type="1">
 <li>RAM available per user</li>
 <li>Admin user lists</li>
@@ -449,7 +449,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="documentation" class="level2">
 <h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
-<p>Documentation is under the <code>docs/</code> folder, and is generated with the <a href="http://www.sphinx-doc.org/">sphinx</a> project. It is written with the <a href="http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText (rst)</a> format. Documentation is automatically published to <a href="https://uc-berkeley-jupyterhubs.readthedocs.io/" class="uri">https://uc-berkeley-jupyterhubs.readthedocs.io/</a> and <a href="https://docs.datahub.berkeley.edu/" class="uri">https://docs.datahub.berkeley.edu/</a>. This is performed via a <a href="https://github.com/berkeley-dsep-infra/datahub/settings/hooks">webhook</a> in the github repo.</p>
+<p>Documentation is under the <code>docs/</code> folder, and is generated with <a href="https://quarto/">Quarto</a>, where content is written in <a href="https://quarto.org/docs/authoring/markdown-basics.html">markdown</a>. Documentation is published to <a href="https://docs.datahub.berkeley.edu/" class="uri">https://docs.datahub.berkeley.edu/</a> via a <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/quarto-docs.yml">GitHub Action workflow</a>.</p>
 
 
 </section>
