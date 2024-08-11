@@ -1,6 +1,7 @@
 ---
 title: Data 100
 categories:
+  - course
   - jupyterlab
   - otter-grader
   - shared-folders

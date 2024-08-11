@@ -1,8 +1,10 @@
 ---
 title: Stat 159
 categories:
+  - course
   - jupyterlab
   - rtc 
+  - shared-folders
   - vscode
 aliases:
   - ../../admins/deployments/stat159.html
