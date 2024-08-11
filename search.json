@@ -1116,7 +1116,7 @@
     "href": "users/hubs.html",
     "title": "JupyterHub Deployments",
     "section": "",
-    "text": "Data 100\n\n\n\n\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 102\n\n\n\n\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 8X\n\n\n\n\n\n\njupyterlab\n\n\nltiauthenticator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataHub\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProb 140\n\n\n\n\n\n\njupyterlab\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nrstudio\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\n\n\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 159\n\n\n\n\n\n\njupyterlab\n\n\nrtc\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 20\n\n\n\n\n\n\njupyterlab\n\n\nquarto\n\n\nrstudio\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
+    "text": "Data 100\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 102\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 8X\n\n\n\n\n\n\njupyterlab\n\n\nltiauthenticator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataHub\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProb 140\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nrstudio\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\n\n\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 159\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nrtc\n\n\nshared-folders\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 20\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nrstudio\n\n\nshared-folders\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Using DataHub",
       "JupyterHub Deployments"
@@ -1162,7 +1162,7 @@
     "href": "users/hubs/shiny.html",
     "title": "Shiny",
     "section": "",
-    "text": "r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment."
+    "text": "shiny.datahub.berkeley.edu contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio."
   },
   {
     "objectID": "users/authentication.html",
