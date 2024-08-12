@@ -11,6 +11,6 @@ resources:
       dateSuffix: '2024-07-07'
       initialNodeCount: 1
       diskSizeGb: 100
-      machineType: n2-standard-4
-      minNodeCount: 1
+      machineType: n2-standard-2
+      minNodeCount: 2
       maxNodeCount: 20
