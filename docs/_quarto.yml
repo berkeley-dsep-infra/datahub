@@ -70,7 +70,8 @@ website:
 
 format:
   html:
-    theme: book
+    theme: cosmo
+    toc: true
     #title-block-banner: datahub.svg
     navbar:
       left:
