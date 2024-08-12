@@ -16,8 +16,7 @@ options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/jammy
 # below sets it to be binary. This may improve image build times.
 # If it works, it'd be better to dynamically set the R version as above, and
 # also the RStudio Server version if possible.
-options(HTTPUserAgent = "RStudio Server (2023.12.0.369); R (4.3.2 x86_64-pc-linux-gnu x86_64 linux-gnu)")
-
+options(HTTPUserAgent = "RStudio Server (2024.04.2.764); R (4.4.1 x86_64-pc-linux-gnu x86_64 linux-gnu)")
 
 ## Source extra Rprofile files.
 #
