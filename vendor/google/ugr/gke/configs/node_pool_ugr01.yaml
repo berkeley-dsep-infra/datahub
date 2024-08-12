@@ -9,8 +9,8 @@ resources:
       clusterName: ugresearch-cluster
       region: us-central1
       dateSuffix: '2024-07-07'
-      initialNodeCount: 1
+      initialNodeCount: 2
       diskSizeGb: 100
       machineType: n2-standard-2
-      minNodeCount: 2
+      minNodeCount: 3
       maxNodeCount: 20
