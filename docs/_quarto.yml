@@ -18,7 +18,7 @@ website:
       - text: "Contributing"
         href: admins/pre-reqs.qmd
       - text: "Admin Tasks"
-        href: admins/howto/preview-local.qmd
+        href: admins/howto/documentation.qmd
       - text: "Policy"
         href: policy/create_policy.qmd
   page-navigation: true
@@ -43,7 +43,7 @@ website:
           - admins/credentials.qmd
           - section: "Common Administrator Tasks"
             contents:
-              - admins/howto/preview-local.qmd
+              - admins/howto/documentation.qmd
               - admins/howto/dns.qmd
               - admins/howto/core-pool.qmd
               - admins/howto/new-hub.qmd

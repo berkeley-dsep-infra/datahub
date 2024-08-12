@@ -1,0 +1,78 @@
+---
+title: Documentation
+---
+
+## Overview
+
+Documentation is managed under the `docs/` folder, and is generated with
+[Quarto](https://quarto/). It is published to this site,
+<https://docs.datahub.berkeley.edu>, hosted at GitHub Pages. Content is written
+in [markdown](https://quarto.org/docs/authoring/markdown-basics.html).
+
+## GitHub Pages Hosting
+
+### CNAME
+
+The hostname *docs.datahub.berkeley.edu* is registered as a CNAME for *berkeley-dsep-infra.github.io* in campus DNS. We also must specify the CNAME in the datahub repo's [GitHub Pages settings](https://github.com/berkeley-dsep-infra/datahub/settings/pages). GitHub will then know to serve up the Pages content of the datahub repo when it receives web requests at berkeley-dsep-infra.github.io.
+
+GitHub Pages also needs the file `CNAME` to exist in the base of the gh-pages branch. This is why the file exists in `docs/` directory, since content there gets pushed to gh-pages.
+
+### Action
+
+The
+[GitHub Action workflow](https://github.com/berkeley-dsep-infra/datahub/actions/workflows/quarto-docs.yml) checks merges for paths matching `docs/`. If there are matches, it will checkout the repo and use Quarto to build content in the `docs/` directory and publish static content to the `gh-pages` branch.
+
+GitHub Pages' `pages-build-deployment` action will then bundle up that content and push it to GitHub's web servers. Changes will only be visible after this step has completed.
+
+::: {.callout-note appearance="simple"}
+Our documentation automation has always run on merges to `staging` branch, not `prod`. 
+:::
+
+## Local Development
+
+You can test documentation changes locally by running Quarto on your own device. This can be done by either rendering the content and viewing the static HTML, or by running Quarto in a preview mode.
+
+### Render Static HTML
+
+Navigate to the `docs` directory and run `quarto render`. This will build the
+entire website in the `_site` directory. You can then open files in your web
+browser.
+
+You can also choose to render individual files, which saves time if you do not
+want to render the whole site. Run `quarto render ./path/to/filename.qmd`, and
+then open the corresponding HTML file in the `_site` directory.
+
+### Live Preview
+
+Navigate to the `docs` directory and run `quarto preview`. This also causes the whole site to render, but then launches a local web server and a browser that connects to that server. Quarto dynamically rebuilds pages that you modify. Quarto considers this the [ideal workflow](https://quarto.org/docs/tools/text-editors.html#workflow) for authoring content.
+
+### IDE Support
+
+Applications like RStudio and VS Code support running the live preview method internally. You may prefer starting the editing process from those applications, and letting them managing the preview lifecycle.
+
+## Style Guide
+
+These are some conventions we can use to keep the style consistent:
+
+- Use backticks (\`example\` yields `example`) for filesystem paths, program names, command execution, or anything that should be rendered in monospace font.
+- Use asterisks (\*example\* yields *example*) for emphasis or for meaningful terms.
+- Don't append colons (:) to headings, although they can appear in normal text.
+- When including hyperlinks, try using [descriptive, meaningful text](https://www.w3.org/WAI/WCAG22/quickref/?versions=2.1#link-purpose-in-context), where the purpose can be determine from the linked text. Avoid using terms like, "see this link" or "see here" as the latter are worse for web accessibility and usability.
+- Include [alt text](https://quarto.org/docs/authoring/figures.html#alt-text) for each image or figure.
+- Try to avoid arbitrarily changing file names as this will change URLs. If it makes sense to change a filename, include a redirect to the previous path in the [document front matter](https://quarto.org/docs/authoring/front-matter.html), using a relative path to the HTML, e.g.:
+  ```yaml
+    aliases:
+    - ../../admins/deployments/stat159.html
+  ```
+
+## Previous Format and Hosting
+
+This website used to be authored in reStructured Text and was published to readthedocs via a [now disabled webhook](https://github.com/berkeley-dsep-infra/datahub/settings/hooks). The hook would periodically fail, even when there were no documentation-related changes, and that would get in the way of our CI.
+
+Content was ported from RST to Markdown by using pandoc.
+
+```bash
+pandoc -f rst -t markdown -o output.qmd input.rst
+```
+
+It then had to be manually cleaned up in various ways.
