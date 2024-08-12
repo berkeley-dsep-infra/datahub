@@ -17,7 +17,7 @@ options(
 options(
   HTTPUserAgent = sprintf(
     "RStudio Server (%s); R (%s)",
-    "2022.7.1.554",
+    "2024.04.2.764",
     paste(getRversion(), R.version$platform, R.version$arch, R.version$os)
   )
 )
