@@ -179,7 +179,6 @@ RUN /usr/local/sbin/connector-text.bash
 #ESPM, FA 24
 # https://github.com/berkeley-dsep-infra/datahub/issues/5827
 ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
-ENV PATH=${CONDA_DIR}/bin:$PATH
 USER root
 RUN mkdir -p ${VSCODE_EXTENSIONS} && \
     chown -R jovyan:jovyan ${VSCODE_EXTENSIONS}
