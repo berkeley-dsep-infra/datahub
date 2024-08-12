@@ -87,4 +87,4 @@ Run the shell script to deploy:
 
 To change an existing deployment, edit the parameters to be changed in the deployment's yaml config and run its associated shell script.
 
-Note that not all parameters can be updated in place. For example, node pool autoscaling (such as min/max numbers and on/off) can be updated on the "hot" deployment, but other config settiongs (e.g., machine type and disk size) require the resources to first be undeployed, then deployed anew with the new configuration.
+Note that not all parameters can be updated in place. For example, node pool autoscaling (such as min/max numbers and on/off) can be updated on the "hot" deployment, but other config settings (e.g., machine type and disk size) require the resources to first be undeployed, then deployed anew with the new configuration.
