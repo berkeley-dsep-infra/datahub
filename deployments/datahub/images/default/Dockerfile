@@ -189,6 +189,18 @@ RUN /usr/local/sbin/connector-text.bash
 #COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
 #RUN /usr/local/sbin/2021-fall-phys-188-288.bash
 
+#ESPM, FA 24
+# https://github.com/berkeley-dsep-infra/datahub/issues/5827
+ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
+USER root
+RUN mkdir -p ${VSCODE_EXTENSIONS} && \
+    chown -R jovyan:jovyan ${VSCODE_EXTENSIONS}
+USER ${NB_USER}
+# Install Code Server Jupyter extension 
+RUN /srv/conda/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
+# Install Code Server Python extension
+RUN /srv/conda/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-python.python
+
 # clear out /tmp
 USER root
 RUN rm -rf /tmp/*

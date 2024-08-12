@@ -200,3 +200,7 @@ jupyterhub:
       course::1535590: # Data 6, https://github.com/berkeley-dsep-infra/datahub/issues/5847
         mem_limit: 2048M
         mem_guarantee: 2048M
+
+      course::1537045: # ESPM 157, https://github.com/berkeley-dsep-infra/datahub/issues/5914
+        mem_limit: 4096M
+        mem_guarantee: 4096M

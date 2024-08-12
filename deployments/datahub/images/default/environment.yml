@@ -231,6 +231,7 @@ dependencies:
   - rtree==1.2.0
 
   # [DH-319] https://github.com/berkeley-dsep-infra/datahub/issues/5827, ESPM 157
-  - ibis-framework[pandas]==9.2.0
+  - ibis-framework[pandas,duckdb]==9.2.0
+  - jupyterlab_myst==2.4.2
 
   # ATTEMPT TO PUT NEW PACKAGES IN THE CONDA LIST ABOVE FIRST, RATHER THAN PIP
