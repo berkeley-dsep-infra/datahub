@@ -1,4 +1,4 @@
-FROM buildpack-deps:focal-scm
+FROM buildpack-deps:jammy-scm
 
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -29,21 +29,10 @@ RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
         libpython2.7 > /dev/null
 
-## libraries required for mothur
-## libreadline6 required
-#RUN apt-get update -qq --yes > /dev/null && \
-#    apt-get install --yes -qq \
-#    libreadline6-dev > /dev/null
-
 ## library required for fast-PCA & https://github.com/DReichLab/EIG
 RUN apt-get update -qq --yes && \
     apt-get install --yes --no-install-recommends -qq \
         libgsl-dev >/dev/null
-
-## library required for running ccb293 package qiime
-#RUN apt-get update -qq --yes > /dev/null && \
-#    apt-get install --yes -qq \
-#    tzdata > /dev/null
 
 # Install these without 'recommended' packages to keep image smaller.
 # Useful utils that folks sort of take for granted
@@ -64,25 +53,48 @@ RUN apt-get update -qq --yes && \
 RUN echo "${LC_ALL} UTF-8" > /etc/locale.gen && \
     locale-gen
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
+# Needed by RStudio
+RUN apt-get update -qq --yes && \
+    apt-get install --yes --no-install-recommends -qq \
+        psmisc \
+        sudo \
+        libapparmor1 \
+        lsb-release \
+        libclang-dev \
+        libpq5 > /dev/null
 
+# Needed by many R libraries
+# Picked up from https://github.com/rocker-org/rocker/blob/9dc3e458d4e92a8f41ccd75687cd7e316e657cc0/r-rspm/focal/Dockerfile
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+                   libgdal-dev \
+                   libgeos3.10.2 \
+                   libproj22 \
+                   libudunits2-0 \
+                   libxml2 > /dev/null
 
-# Install R packages
-# Our pre-built R packages from rspm are built against system libs in focal
-# rstan takes forever to compile from source, and needs libnodejs
-# So we install older (10.x) nodejs from apt rather than newer from conda
-ENV R_VERSION=4.1.2-1.2004.0
+# Install R.
+# These packages must be installed into the base stage since they are in system
+# paths rather than /srv.
+# Pre-built R packages from rspm are built against system libs in jammy.
+ENV R_VERSION=4.4.1-1.2204.0
+ENV LITTLER_VERSION=0.3.19-1.2204.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list
+RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran.list
+RUN curl --silent --location --fail https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc > /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 RUN apt-get update -qq --yes > /dev/null && \
     apt-get install --yes -qq \
-    r-base-core=${R_VERSION} \
-    r-base-dev=${R_VERSION} \
-    r-cran-littler=0.3.14-1.2004.0 \
-    libglpk-dev \
-    libzmq5 \
-    nodejs npm > /dev/null
+        r-base-core=${R_VERSION} \
+        r-base-dev=${R_VERSION} \
+        littler=${LITTLER_VERSION} \
+        libglpk-dev \
+        libzmq5 \
+        nodejs npm > /dev/null
+
+ENV RSTUDIO_URL=https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb
+RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
+    apt install --no-install-recommends --yes /tmp/rstudio.deb && \
+    rm /tmp/rstudio.deb
 
 # Install desktop packages
 RUN apt-get update -qq --yes > /dev/null && \
@@ -123,30 +135,6 @@ RUN apt-get update -qq --yes > /dev/null && \
 
 WORKDIR /home/jovyan
 
-# Needed by RStudio
-RUN apt-get update -qq --yes && \
-    apt-get install --yes --no-install-recommends -qq \
-        psmisc \
-        sudo \
-        libapparmor1 \
-        lsb-release \
-        libclang-dev \
-        libpq5 > /dev/null
-
-ENV RSTUDIO_URL https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb
-RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
-    dpkg -i /tmp/rstudio.deb && \
-    rm /tmp/rstudio.deb
-
-# Needed by many R libraries
-# Picked up from https://github.com/rocker-org/rocker/blob/9dc3e458d4e92a8f41ccd75687cd7e316e657cc0/r-rspm/focal/Dockerfile
-RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
-                   libgdal26 \
-                   libgeos-3.8.0 \
-                   libproj15 \
-                   libudunits2-0 \
-                   libxml2 > /dev/null
 # R_LIBS_USER is set by default in /etc/R/Renviron, which RStudio loads.
 # We uncomment the default, and set what we wanna - so it picks up
 # the packages we install. Without this, RStudio doesn't see the packages
