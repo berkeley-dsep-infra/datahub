@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -135,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../admins/howto/preview-local.html"> 
+    <a class="nav-link" href="../../admins/howto/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a New Hub</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a New Hub</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -257,8 +257,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/howto/preview-local.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Develop Documentation</span></a>
+  <a href="../../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -401,11 +401,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-create-a-new-hub" id="toc-why-create-a-new-hub" class="nav-link active" data-scroll-target="#why-create-a-new-hub">Why create a new hub?</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#configuring-a-new-hub" id="toc-configuring-a-new-hub" class="nav-link" data-scroll-target="#configuring-a-new-hub">Configuring a New Hub</a>
+  <ul class="collapse">
+  <li><a href="#name-the-hub" id="toc-name-the-hub" class="nav-link" data-scroll-target="#name-the-hub">Name the hub</a></li>
+  <li><a href="#determine-deployment-needs" id="toc-determine-deployment-needs" class="nav-link" data-scroll-target="#determine-deployment-needs">Determine deployment needs</a></li>
+  <li><a href="#creating-a-new-node-pool" id="toc-creating-a-new-node-pool" class="nav-link" data-scroll-target="#creating-a-new-node-pool">Creating a new node pool</a></li>
+  <li><a href="#creating-a-new-filestore-instance" id="toc-creating-a-new-filestore-instance" class="nav-link" data-scroll-target="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
+  <li><a href="#create-the-hub-deployment-locally" id="toc-create-the-hub-deployment-locally" class="nav-link" data-scroll-target="#create-the-hub-deployment-locally">Create the hub deployment locally</a></li>
+  <li><a href="#configure-filestore-security-settings-and-gcp-billing-labels" id="toc-configure-filestore-security-settings-and-gcp-billing-labels" class="nav-link" data-scroll-target="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
+  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a></li>
+  <li><a href="#circleci" id="toc-circleci" class="nav-link" data-scroll-target="#circleci">CircleCI</a></li>
+  <li><a href="#add-hub-to-the-github-labeler-workflow" id="toc-add-hub-to-the-github-labeler-workflow" class="nav-link" data-scroll-target="#add-hub-to-the-github-labeler-workflow">Add hub to the github labeler workflow</a></li>
+  <li><a href="#create-placeholder-node-pool" id="toc-create-placeholder-node-pool" class="nav-link" data-scroll-target="#create-placeholder-node-pool">Create placeholder node pool</a></li>
+  <li><a href="#commit-and-deploy-staging" id="toc-commit-and-deploy-staging" class="nav-link" data-scroll-target="#commit-and-deploy-staging">Commit and deploy staging</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a New Hub</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/new-hub.html">Create a New Hub</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Create a New Hub</h1>
 </div>

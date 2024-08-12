@@ -71,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -100,7 +100,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../admins/howto/preview-local.html"> 
+    <a class="nav-link" href="../admins/howto/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
@@ -222,8 +222,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/preview-local.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Develop Documentation</span></a>
+  <a href="../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -366,7 +366,52 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#hub-information" id="toc-hub-information" class="nav-link" data-scroll-target="#hub-information">Hub information</a></li>
+  <li><a href="#timeline" id="toc-timeline" class="nav-link" data-scroll-target="#timeline">Timeline</a>
+  <ul class="collapse">
+  <li><a href="#data8-outage" id="toc-data8-outage" class="nav-link" data-scroll-target="#data8-outage">2024-03-05 Data8 outage</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">15:12:00</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">15:12:42</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">16:00:00</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">16:05:00</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">~16:05:00</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">16:05:53</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">16:05:56</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7">16:05:57-58</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8">16:05:57</a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9">~16:06:00</a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10">~16:06:00 - 16:16:00</a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11">16:16:00 - 16:49:00</a></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12">16:49:00</a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13">~16:49:00</a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14">16:49:40</a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15">16:50:25</a></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16">~16:50:00</a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17">16:54:15 - 17:15:31</a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18">18:47:19 - 18:58:10</a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19">~19:00</a></li>
+  </ul></li>
+  <li><a href="#after-action-report" id="toc-after-action-report" class="nav-link" data-scroll-target="#after-action-report">After-action report</a>
+  <ul class="collapse">
+  <li><a href="#what-went-wrong" id="toc-what-went-wrong" class="nav-link" data-scroll-target="#what-went-wrong">What went wrong</a></li>
+  <li><a href="#where-we-got-lucky" id="toc-where-we-got-lucky" class="nav-link" data-scroll-target="#where-we-got-lucky">Where we got lucky</a></li>
+  <li><a href="#action-items" id="toc-action-items" class="nav-link" data-scroll-target="#action-items">Action items</a>
+  <ul class="collapse">
+  <li><a href="#processpolicy-improvements" id="toc-processpolicy-improvements" class="nav-link" data-scroll-target="#processpolicy-improvements">Process/Policy improvements</a></li>
+  <li><a href="#documentation-improvements" id="toc-documentation-improvements" class="nav-link" data-scroll-target="#documentation-improvements">Documentation improvements</a></li>
+  <li><a href="#technical-improvements" id="toc-technical-improvements" class="nav-link" data-scroll-target="#technical-improvements">Technical improvements</a></li>
+  </ul></li>
+  <li><a href="#actions" id="toc-actions" class="nav-link" data-scroll-target="#actions">Actions</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 

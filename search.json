@@ -43,393 +43,523 @@
     ]
   },
   {
-    "objectID": "admins/howto/github-token.html",
-    "href": "admins/howto/github-token.html",
-    "title": "Create Finely Grained Access Token",
+    "objectID": "admins/howto/documentation.html",
+    "href": "admins/howto/documentation.html",
+    "title": "Documentation",
     "section": "",
-    "text": "At https://github.com/settings/personal-access-tokens/new:\n\nToken name: set something descriptive.\nExpiration: set the token to expire no earlier or later than necessary.\nDescription: elaborate on the function of the token.\nResource owner: berkeley-dsep-infra\nRepository access: Only selected repositories &gt; datahub\nPermissions: Contents &gt; Access: Read and write",
+    "text": "Documentation is managed under the docs/ folder, and is generated with Quarto. It is published to this site, https://docs.datahub.berkeley.edu, hosted at GitHub Pages. Content is written in markdown.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create Finely Grained Access Token"
+      "Documentation"
     ]
   },
   {
-    "objectID": "admins/howto/core-pool.html",
-    "href": "admins/howto/core-pool.html",
-    "title": "Core Node Pool Management",
+    "objectID": "admins/howto/documentation.html#overview",
+    "href": "admins/howto/documentation.html#overview",
+    "title": "Documentation",
     "section": "",
-    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "text": "Documentation is managed under the docs/ folder, and is generated with Quarto. It is published to this site, https://docs.datahub.berkeley.edu, hosted at GitHub Pages. Content is written in markdown.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Documentation"
     ]
   },
   {
-    "objectID": "admins/howto/core-pool.html#what-is-the-core-node-pool",
-    "href": "admins/howto/core-pool.html#what-is-the-core-node-pool",
-    "title": "Core Node Pool Management",
+    "objectID": "admins/howto/documentation.html#github-pages-hosting",
+    "href": "admins/howto/documentation.html#github-pages-hosting",
+    "title": "Documentation",
+    "section": "GitHub Pages Hosting",
+    "text": "GitHub Pages Hosting\n\nCNAME\nThe hostname docs.datahub.berkeley.edu is registered as a CNAME for berkeley-dsep-infra.github.io in campus DNS. We also must specify the CNAME in the datahub repo’s GitHub Pages settings. GitHub will then know to serve up the Pages content of the datahub repo when it receives web requests at berkeley-dsep-infra.github.io.\nGitHub Pages also needs the file CNAME to exist in the base of the gh-pages branch. This is why the file exists in docs/ directory, since content there gets pushed to gh-pages.\n\n\nAction\nThe GitHub Action workflow checks merges for paths matching docs/. If there are matches, it will checkout the repo and use Quarto to build content in the docs/ directory and publish static content to the gh-pages branch.\nGitHub Pages’ pages-build-deployment action will then bundle up that content and push it to GitHub’s web servers. Changes will only be visible after this step has completed.\n\n\n\n\n\n\nOur documentation automation has always run on merges to staging branch, not prod.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Documentation"
+    ]
+  },
+  {
+    "objectID": "admins/howto/documentation.html#local-development",
+    "href": "admins/howto/documentation.html#local-development",
+    "title": "Documentation",
+    "section": "Local Development",
+    "text": "Local Development\nYou can test documentation changes locally by running Quarto on your own device. This can be done by either rendering the content and viewing the static HTML, or by running Quarto in a preview mode.\n\nRender Static HTML\nNavigate to the docs directory and run quarto render. This will build the entire website in the _site directory. You can then open files in your web browser.\nYou can also choose to render individual files, which saves time if you do not want to render the whole site. Run quarto render ./path/to/filename.qmd, and then open the corresponding HTML file in the _site directory.\n\n\nLive Preview\nNavigate to the docs directory and run quarto preview. This also causes the whole site to render, but then launches a local web server and a browser that connects to that server. Quarto dynamically rebuilds pages that you modify. Quarto considers this the ideal workflow for authoring content.\n\n\nIDE Support\nApplications like RStudio and VS Code support running the live preview method internally. You may prefer starting the editing process from those applications, and letting them managing the preview lifecycle.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Documentation"
+    ]
+  },
+  {
+    "objectID": "admins/howto/documentation.html#style-guide",
+    "href": "admins/howto/documentation.html#style-guide",
+    "title": "Documentation",
+    "section": "Style Guide",
+    "text": "Style Guide\nThese are some conventions we can use to keep the style consistent:\n\nUse backticks (`example` yields example) for filesystem paths, program names, command execution, or anything that should be rendered in monospace font.\nUse asterisks (*example* yields example) for emphasis or for meaningful terms.\nDon’t append colons (:) to headings, although they can appear in normal text.\nWhen including hyperlinks, try using descriptive, meaningful text, where the purpose can be determine from the linked text. Avoid using terms like, “see this link” or “see here” as the latter are worse for web accessibility and usability.\nInclude alt text for each image or figure.\nTry to avoid arbitrarily changing file names as this will change URLs. If it makes sense to change a filename, include a redirect to the previous path in the document front matter, using a relative path to the HTML, e.g.:\n  aliases:\n  - ../../admins/deployments/stat159.html",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Documentation"
+    ]
+  },
+  {
+    "objectID": "admins/howto/documentation.html#previous-format-and-hosting",
+    "href": "admins/howto/documentation.html#previous-format-and-hosting",
+    "title": "Documentation",
+    "section": "Previous Format and Hosting",
+    "text": "Previous Format and Hosting\nThis website used to be authored in reStructured Text and was published to readthedocs via a now disabled webhook. The hook would periodically fail, even when there were no documentation-related changes, and that would get in the way of our CI.\nContent was ported from RST to Markdown by using pandoc.\npandoc -f rst -t markdown -o output.qmd input.rst\nIt then had to be manually cleaned up in various ways.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Documentation"
+    ]
+  },
+  {
+    "objectID": "admins/howto/dns.html",
+    "href": "admins/howto/dns.html",
+    "title": "Update DNS",
     "section": "",
-    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "text": "Some staff have access to make and update DNS entries in the .datahub.berkeley.edu and .data8x.berkeley.edu subdomains.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Update DNS"
     ]
   },
   {
-    "objectID": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
-    "href": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
-    "title": "Core Node Pool Management",
-    "section": "Deploy a New Core Node Pool",
-    "text": "Deploy a New Core Node Pool\nRun the following command from the root directory of your local datahub repo to create the node pool:\ngcloud container node-pools create \"core-&lt;YYYY-MM-DD&gt;\"  \\\n  --labels=hub=core,nodepool-deployment=core \\\n  --node-labels hub.jupyter.org/pool-name=core-pool-&lt;YYYY-MM-DD&gt; \\\n  --machine-type \"n2-standard-8\"  \\\n  --num-nodes \"1\" \\\n  --enable-autoscaling --min-nodes \"1\" --max-nodes \"3\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"100\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\" \\\n  --system-config-from-file=vendor/google/gke/node-pool/config/core-pool-sysctl.yaml\nThe system-config-from-file argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.",
+    "objectID": "admins/howto/dns.html#authorization",
+    "href": "admins/howto/dns.html#authorization",
+    "title": "Update DNS",
+    "section": "Authorization",
+    "text": "Authorization\nRequest access to make changes by creating an issue in this repository.\nAuthorization is granted via membership in the edu:berkeley:org:nos:DDI:datahub CalGroup. @yuvipanda and @ryanlovett are group admins and can update membership.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Update DNS"
     ]
   },
   {
-    "objectID": "admins/howto/new-packages.html",
-    "href": "admins/howto/new-packages.html",
-    "title": "Testing and Upgrading New Packages",
+    "objectID": "admins/howto/dns.html#making-changes",
+    "href": "admins/howto/dns.html#making-changes",
+    "title": "Update DNS",
+    "section": "Making Changes",
+    "text": "Making Changes\n\nLog into Infoblox from a campus network or through the campus VPN. Use your CalNet credentials.\nNavigate to Data Management &gt; DNS &gt; Zones and click berkeley.edu.\nNavigate to Subzones and choose either data8x or datahub, then click Records.\n\n\nFor quicker access, click the star next to the zone name to make a bookmark in the Finder pane on the left side.\n\n\nCreate a new record\n\nClick the down arrow next to + Add in the right-side Toolbar. Then choose Record &gt; A Record.\nEnter the name and IP of the A record, and uncheck Create associated PTR record.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nEdit an existing record\n\nClick the gear icon to the left of the record's name and choose Edit.\nMake a change.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nDelete a record\n\nClick the gear icon to the left of the record's name and choose Delete.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Update DNS"
+    ]
+  },
+  {
+    "objectID": "admins/howto/remove-users-orm.html",
+    "href": "admins/howto/remove-users-orm.html",
+    "title": "JupyterHub ORM Maintenance",
     "section": "",
-    "text": "It is helpful to test package additions and upgrades for yourself before they are installed for all users. You can make sure the change behaves as you think it should, and does not break anything else. Once tested, request that the change by installed for all users by by creating a new issue in github,contacting cirriculum support staff, or creating a new pull request. Ultimately, thouroughly testing changes locally and submitting a pull request will result in the software being rolled out to everyone much faster.",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Testing and Upgrading New Packages"
+      "JupyterHub ORM Maintenance"
     ]
   },
   {
-    "objectID": "admins/howto/new-packages.html#submitting-a-pull-request",
-    "href": "admins/howto/new-packages.html#submitting-a-pull-request",
-    "title": "Testing and Upgrading New Packages",
+    "objectID": "admins/howto/remove-users-orm.html#performance",
+    "href": "admins/howto/remove-users-orm.html#performance",
+    "title": "JupyterHub ORM Maintenance",
+    "section": "",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "JupyterHub ORM Maintenance"
+    ]
+  },
+  {
+    "objectID": "admins/howto/remove-users-orm.html#run-the-script",
+    "href": "admins/howto/remove-users-orm.html#run-the-script",
+    "title": "JupyterHub ORM Maintenance",
+    "section": "Run the script",
+    "text": "Run the script\nYou can run the script on your own device. The script depends on the jhub_client python library. This can be installed with pip install jhub_client.\n\nYou will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to {hub_url}/hub/token to create a new one.\nSet the environment variable JUPYTERHUB_API_TOKEN to the token.\nRun python scripts/delete-unused-users.py --hub_url {hub_url}",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "JupyterHub ORM Maintenance"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html",
+    "href": "admins/howto/clusterswitch.html",
+    "title": "Switching over a hub to a new cluster",
+    "section": "",
+    "text": "This document describes how to switch an existing hub to a new cluster. The example used here refers to moving all UC Berkeley Datahubs.\nYou might find it easier to switch to a new cluster if you’re running a very old k8s version, or in lieu of performing a cluster credential rotation. Sometimes starting from scratch is easier than an iterative and potentially destructive series of operations.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#create-a-new-cluster",
+    "href": "admins/howto/clusterswitch.html#create-a-new-cluster",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Create a new cluster",
+    "text": "Create a new cluster\n\nCreate a new cluster using the specified configuration.\nSet up helm on the cluster according to the instructions here:\nhttp://z2jh.jupyter.org/en/latest/setup-helm.html\n\nMake sure the version of helm you’re working with matches the version CircleCI is using.\nFor example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circleci/config.yml#L169\n\nRe-create all existing node pools for hubs, support and prometheus deployments in the new cluster. If the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes. Wait ~15m for the new pools to wind down to zero, and then continue.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#setting-the-context-for-kubectl-and-work-on-the-new-cluster.",
+    "href": "admins/howto/clusterswitch.html#setting-the-context-for-kubectl-and-work-on-the-new-cluster.",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Setting the ‘context’ for kubectl and work on the new cluster.",
+    "text": "Setting the ‘context’ for kubectl and work on the new cluster.\n\nEnsure you’re logged in to GCP: gcloud auth login\nPull down the credentials from the new cluster: gcloud container clusters get-credentials &lt;CLUSTER_NAME&gt; --region us-central1\nSwitch the kubectl context to this cluster: kubectl config use-context gke_ucb-datahub-2018_us-central1_&lt;CLUSTER_NAME&gt;",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#recreate-node-pools",
+    "href": "admins/howto/clusterswitch.html#recreate-node-pools",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Recreate node pools",
+    "text": "Recreate node pools\nRe-create all existing node pools for hubs, support and prometheus deployments in the new cluster.\nIf the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes. Wait ~15m for the new pools to wind down to zero, and then continue.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#install-and-configure-the-certificate-manager",
+    "href": "admins/howto/clusterswitch.html#install-and-configure-the-certificate-manager",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Install and configure the certificate manager",
+    "text": "Install and configure the certificate manager\nBefore you can deploy any of the hubs or support tooling, the certificate manager must be installed and configured on the new cluster. Until this is done, hubploy and helm will fail with the following error: ensure CRDs are installed first.\n\nCreate a new feature branch and update your helm dependencies: helm dep up\nAt this point, it’s usually wise to upgrade cert-manager to the latest version found in the chart repo. You can find this by running the following command:\ncert-manager-version=$(helm show all -n cert-manager jetstack/cert-manager | grep ^appVersion |  awk '{print $2}')\nThen, you can install the latest version of cert-manager:\nkubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/${cert-manager-version}/cert-manager.yaml\nChange the corresponding entry in support/requirements.yaml to $cert-manager-version and commit the changes (do not push).",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#create-the-node-placeholder-k8s-namespace",
+    "href": "admins/howto/clusterswitch.html#create-the-node-placeholder-k8s-namespace",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Create the node-placeholder k8s namespace",
+    "text": "Create the node-placeholder k8s namespace\nThe calendar autoscaler requires the node-placeholder namespace. Run the following command to create it:\nkubectl create namespace node-placeholder",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it.",
+    "href": "admins/howto/clusterswitch.html#create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it.",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Create a new static IP and switch DNS to point our new deployment at it.",
+    "text": "Create a new static IP and switch DNS to point our new deployment at it.\n\nCreate a new static IP in the GCP console.\nOpen infoblox and change the wildcard and empty entries for datahub.berkeley.edu to point to the IP from the previous step.\nUpdate support/values.yaml, under ingress-nginx with the newly created IP from infoblox: loadBalancerIP: xx.xx.xx.xx.\nAdd and commit this change to your feature branch (still do not push).\n\nYou will re-deploy the support chart in the next step.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#manually-deploy-the-support-and-prometheus-pools",
+    "href": "admins/howto/clusterswitch.html#manually-deploy-the-support-and-prometheus-pools",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Manually deploy the support and prometheus pools",
+    "text": "Manually deploy the support and prometheus pools\nFirst, update any node pools in the configs to point to the new cluster. Typically, this is just for the ingress-nginx controllers in support/values.yaml.\nNow we will manually deploy the support helm chart:\nsops -d support/secrets.yaml &gt; /tmp/secrets.yaml\nhelm install -f support/values.yaml -f /tmp/secrets.yaml \\\n    -n support support support/ \\\n    --set installCRDs=true --debug --create-namespace\nBefore continuing, confirm via the GCP console that the IP that was defined in step 1 is now bound to a forwarding rule. You can further confirm by listing the services in the support chart and making sure the ingress-controller is using the newly defined IP.\nOne special thing to note: our prometheus instance uses a persistent volume that contains historical monitoring data. This is specified in support/values.yaml, under the prometheus: block:\npersistentVolume:\n  size: 1000Gi\n  storageClass: ssd\n  existingClaim: prometheus-data-2024-05-15",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#manually-deploy-a-hub-to-staging",
+    "href": "admins/howto/clusterswitch.html#manually-deploy-a-hub-to-staging",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Manually deploy a hub to staging",
+    "text": "Manually deploy a hub to staging\nFinally, we can attempt to deploy a hub to the new cluster! Any hub will do, but we should start with a low-traffic hub (eg: https://dev.datahub.berkeley.edu).\nFirst, check the hub’s configs for any node pools that need updating. Typically, this is just the core pool.\nSecond, update hubploy.yaml for this hub and point it to the new cluster you’ve created.\nAfter this is done, add the changes to your feature branch (but don’t push). After that, deploy a hub manually:\nhubploy deploy dev hub staging\nWhen the deploy is done, visit that hub and confirm that things are working.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#manually-deploy-remaining-hubs-to-staging-and-prod",
+    "href": "admins/howto/clusterswitch.html#manually-deploy-remaining-hubs-to-staging-and-prod",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Manually deploy remaining hubs to staging and prod",
+    "text": "Manually deploy remaining hubs to staging and prod\nNow, update the remaining hubs’ configs to point to the new node pools and hubploy.yaml to the cluster.\nThen use hubploy to deploy them to staging as with the previous step. The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a for loop:\nfor x in $(cat hubs.txt); do hubploy deploy ${x} hub staging; done\nfor x in $(cat hubs.txt); do hubploy deploy ${x} hub prod; done\nWhen done, add the modified configs to your feature branch (and again, don’t push yet).",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#update-circleci",
+    "href": "admins/howto/clusterswitch.html#update-circleci",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Update CircleCI",
+    "text": "Update CircleCI\nOnce you’ve successfully deployed the clusters manually via hubploy, it’s time to update CircleCI to point to the new cluster.\nAll you need to do is grep for the old cluster name in .circleci/config.yaml and change this to the name of the new cluster. There should just be four entries: two for the gcloud get credentials &lt;cluster-name&gt;, and two in comments. Make these changes and add them to your existing feature branch, but don’t commit yet.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#create-and-merge-your-pr",
+    "href": "admins/howto/clusterswitch.html#create-and-merge-your-pr",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Create and merge your PR!",
+    "text": "Create and merge your PR!\nNow you can finally push your changes to github. Create a PR, merge to staging and immediately kill off the deploy jobs for node-placeholder, support and deploy.\nCreate another PR to merge to prod and that deploy should work just fine.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#update-log-and-billing-sinks-bigquery-queries-etc.",
+    "href": "admins/howto/clusterswitch.html#update-log-and-billing-sinks-bigquery-queries-etc.",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Update log and billing sinks, BigQuery queries, etc.",
+    "text": "Update log and billing sinks, BigQuery queries, etc.\nI would recommend searching GCP console for all occurrences of the old cluster name, and fixing any bits that might be left over. This should only take a few minutes, but should definitely be done.\nFIN!",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/clusterswitch.html#deleting-the-old-cluster",
+    "href": "admins/howto/clusterswitch.html#deleting-the-old-cluster",
+    "title": "Switching over a hub to a new cluster",
+    "section": "Deleting the old cluster",
+    "text": "Deleting the old cluster\nAfter waiting a reasonable period of time (a day or two just to be cautious) and after fetching the usage logs, you may delete the old cluster:\ngcloud container clusters delete ${OLDCLUSTER} --region=us-central1",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Switching over a hub to a new cluster"
+    ]
+  },
+  {
+    "objectID": "admins/howto/rebuild-hub-image.html",
+    "href": "admins/howto/rebuild-hub-image.html",
+    "title": "Customize the Hub Docker Image",
+    "section": "",
+    "text": "We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in images/hub. It must inherit from the JupyterHub image used in the Zero to JupyterHub.\nThe image is build with chartpress, which also updates hub/values.yaml with the new image version. chartpress may be installed locally with pip install chartpress.\n\nRun gcloud auth configure-docker us-central1-docker.pkg.dev once per machine to setup docker for authentication with the gcloud credential helper.\nModify the image in images/hub and make a git commit.\nRun chartpress --push. This will build and push the hub image, and modify hub/values.yaml appropriately.\nMake a commit with the hub/values.yaml file, so the new hub image name and tag are comitted.\nProceed to deployment as normal.\n\nSome of the following commands may be required to configure your environment to run the above chartpress workflow successfully:\n\ngcloud auth login.\ngcloud auth configure-docker us-central1-docker.pkg.dev\ngcloud auth application-default login\ngcloud auth configure-docker",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Customize the Hub Docker Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/google-sheets.html",
+    "href": "admins/howto/google-sheets.html",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "",
+    "text": "Available in: DataHub\nWe provision and make available credentials for a service account that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the gspread library.\nThe entire contents of the JSON formatted service account key is available as an environment variable GOOGLE_SHEETS_READONLY_KEY. You can use this to read publicly available Google Sheet documents.\nThe service account has no implicit permissions, and can be found under singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY in datahub/secrets/staging.yaml and datahub/secrets/prod.yaml.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Reading Google Sheets from DataHub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/google-sheets.html#gspread-sample-code",
+    "href": "admins/howto/google-sheets.html#gspread-sample-code",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "gspread sample code",
+    "text": "gspread sample code\nThe following sample code reads a sheet from a URL given to it, and prints the contents.\nimport gspread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\ngc = gspread.authorize(creds)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1\nsheet = gc.open_by_url(url)\nprint(sheet.sheet1.get_all_records())",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Reading Google Sheets from DataHub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
+    "href": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "gspread-pandas sample code",
+    "text": "gspread-pandas sample code\nThe gspread-pandas library helps get data from Google Sheets into a pandas dataframe.\nfrom gspread_pandas.client import Spread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1 as a dataframe\nspread = Spread(url, creds=creds)\nsheet_df = spread.sheet_to_df(sheet='sheet1')\nprint(sheet_df)",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Reading Google Sheets from DataHub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html",
+    "href": "admins/howto/new-image.html",
+    "title": "Create a New Single User Image",
+    "section": "",
+    "text": "You might need to create a new user image when deploying a new hub, or changing from a shared single user server image. We use repo2docker to generate our images.\nThere are two approaches to creating a repo2docker image:\nGenerally, we prefer to use the former approach, unless we need to install specific packages or utilities outside of python/apt as root. If that is the case, only a Dockerfile format will work.\nAs always, create a feature branch for your changes, and submit a PR when done.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Single User Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html#use-an-existing-image-as-a-template",
+    "href": "admins/howto/new-image.html#use-an-existing-image-as-a-template",
+    "title": "Create a New Single User Image",
+    "section": "Use an existing image as a template",
+    "text": "Use an existing image as a template\nBrowse through our deployments/ directory to find a hub that is similar to the one you are trying to create. This will give you a good starting point.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Single User Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html#create-the-image-directory",
+    "href": "admins/howto/new-image.html#create-the-image-directory",
+    "title": "Create a New Single User Image",
+    "section": "Create the image directory",
+    "text": "Create the image directory\nCreate a new image/ directory in the deployment. Then copy the contents (and any subdirectories) of the source image/ directory in to the new directory.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Single User Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html#modify-hubploy.yaml-for-the-hub",
+    "href": "admins/howto/new-image.html#modify-hubploy.yaml-for-the-hub",
+    "title": "Create a New Single User Image",
+    "section": "Modify hubploy.yaml for the hub",
+    "text": "Modify hubploy.yaml for the hub\nIn the deployment's hubploy.yaml file, add or modify the name, path and base_image fields to configure the image build and where it's stored in the Google Artifcat Registry.\nname should contain the path to the image in the Google Artifact Registry and the name of the image. path points to the directory containing the image configuration (typically :file::image/. base_image is the base Docker image to use for the image build.\nFor example, hubploy.yaml for the data100 image looks like this:\nimages:\n   images:\n      - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data100-user-image\n         path: image/\n         repo2docker:\n            base_image: docker.io/library/buildpack-deps:jammy\n   registry:\n      provider: gcloud\n      gcloud:\n         project: ucb-datahub-2018\n         service_key: gcr-key.json\n\ncluster:\nprovider: gcloud\ngcloud:\n   project: ucb-datahub-2018\n   service_key: gke-key.json\n   cluster: spring-2024\n   zone: us-central1",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Single User Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html#modify-the-image-configuration-as-necessary",
+    "href": "admins/howto/new-image.html#modify-the-image-configuration-as-necessary",
+    "title": "Create a New Single User Image",
+    "section": "Modify the image configuration as necessary",
+    "text": "Modify the image configuration as necessary\nThis step is straightforward: edit/modify/delete/add any files in the image/ directory to configure the image as needed.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Single User Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html#update-cicd-configuration",
+    "href": "admins/howto/new-image.html#update-cicd-configuration",
+    "title": "Create a New Single User Image",
+    "section": "Update CI/CD configuration",
+    "text": "Update CI/CD configuration\nNext, ensure that this image will be built and deployed by updating the .circleci/config.yml file in the root of the repository. Add new steps under the jobs/deploy:, workflows/test-build-images: and workflows/deploy: stanzas.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Single User Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-image.html#submitting-a-pull-request",
+    "href": "admins/howto/new-image.html#submitting-a-pull-request",
+    "title": "Create a New Single User Image",
     "section": "Submitting a pull request",
-    "text": "Submitting a pull request\nFamiliarize yourself with pull requests and repo2docker , and create a fork of the datahub staging branch.\n\nSet up your git/dev environment by following the instructions here.\nCreate a new branch for this PR.\nFind the correct environment.yml file for your class. This should be under datahub/deployments/&lt;class or hub name&gt;/image\nIn environment.yml, packages listed under dependencies are installed using conda, while packages under pip are installed using pip. Any packages that need to be installed via apt must be added to either datahub/deployments/&lt;class or hub name&gt;/image/apt.txt or datahub/deployments/&lt;class or hub name&gt;/image/Dockerfile.\nAdd any packages necessary. We typically prefer using conda packages, and pip only if necessary. Please pin to a specific version (no wildards, etc).\n\nNote that package versions for conda are specified using =, while in pip they are specified using ==\n\nTest the changes locally using repo2docker, then submit a PR to staging.\n\nTo use repo2docker, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run repo2docker deployments/data100/image from the base datahub directory.\n\nCommit and push your changes to your fork of the datahub repo, and create a new pull request at https://github.com/berkeley-dsep-infra/datahub/.\nOnce the PR is merged to staging, you can test it out on class-staging.datahub.berkeley.edu.\nChanges are only deployed to datahub once the relevant Travis CI job is completed. See https://circleci.com/gh/berkeley-dsep-infra/datahub to view Travis CI job statuses.",
+    "text": "Submitting a pull request\nFamiliarize yourself with pull requests and repo2docker , and create a fork of the datahub staging branch.\n\nSet up your git/dev environment by following the instructions here.\nCreate a new branch for this PR.\n\nTest the changes locally using repo2docker, then submit a PR to staging.\n\n\nTo use repo2docker, you have to point it at the correct image directory. For example, to build the data100 image, you would run repo2docker deployments/data100/image from the base datahub directory.\n\n\n\nCommit and push your changes to your fork of the datahub repo, and create a new pull request at https://github.com/berkeley-dsep-infra/datahub/.\nOnce the PR is merged to staging and the new image is built and pushed to Artifact Registry, you can test it out on &lt;hub&gt;-staging.datahub.berkeley.edu.\nChanges are only deployed to prod once the relevant CI job is completed. See https://circleci.com/gh/berkeley-dsep-infra/datahub to view CircleCI job statuses.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Testing and Upgrading New Packages"
+      "Create a New Single User Image"
     ]
   },
   {
-    "objectID": "admins/howto/new-packages.html#tips-for-upgrading-package",
-    "href": "admins/howto/new-packages.html#tips-for-upgrading-package",
-    "title": "Testing and Upgrading New Packages",
-    "section": "Tips for Upgrading Package",
-    "text": "Tips for Upgrading Package\n\nConda can take an extremely long time to resolve version dependency conflicts, if they are resolvable at all. When upgrading Python versions or a core package that is used by many other packages, such as requests, clean out or upgrade old packages to minimize the number of dependency conflicts.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Testing and Upgrading New Packages"
-    ]
-  },
-  {
-    "objectID": "admins/howto/prometheus-grafana.html",
-    "href": "admins/howto/prometheus-grafana.html",
-    "title": "Prometheus and Grafana",
+    "objectID": "admins/howto/delete-hub.html",
+    "href": "admins/howto/delete-hub.html",
+    "title": "Delete or spin down a Hub",
     "section": "",
-    "text": "It can be useful to interact with the cluster’s prometheus server while developing dashboards in grafana. You will need to forward a local port to the prometheus server’s pod.\n\n\nListen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.\n\n\n\nListen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Prometheus and Grafana"
+      "Delete or spin down a Hub"
     ]
   },
   {
-    "objectID": "admins/howto/prometheus-grafana.html#using-the-standard-port",
-    "href": "admins/howto/prometheus-grafana.html#using-the-standard-port",
-    "title": "Prometheus and Grafana",
+    "objectID": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
+    "href": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
+    "title": "Delete or spin down a Hub",
     "section": "",
-    "text": "Listen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.",
+    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Prometheus and Grafana"
+      "Delete or spin down a Hub"
     ]
   },
   {
-    "objectID": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
-    "href": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
-    "title": "Prometheus and Grafana",
-    "section": "",
-    "text": "Listen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "objectID": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
+    "href": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
+    "title": "Delete or spin down a Hub",
+    "section": "Steps to spin down a hub",
+    "text": "Steps to spin down a hub\nIf the hub is using a shared filestore, skip all filestore steps.\nIf the hub is using a shared node pool, skip all namespace and node pool steps.\n\nScale the node pool to zero: kubectl -n &lt;hubname-prod|staging&gt; scale --replicas=0 deployment/hub\nKill any remaining users’ servers. Find any running servers with kubectl -n &lt;hubname-prod|staging&gt; get pods | grep jupyter and then kubectl -n &lt;hubname-prod|staging&gt; delete pod &lt;pod name&gt; to stop them.\nCreate filestore backup:\n\ngcloud filestore backups create &lt;hubname&gt;-backup-YYYY-MM-DD --file-share=shares --instance=&lt;hubname-YYYY-MM-DD&gt; --region \"us-central1\" --labels=filestore-backup=&lt;hub name&gt;,hub=&lt;hub name&gt;\n\nLog in to nfsserver-01 and unmount filestore from nfsserver: sudo umount /export/&lt;hubname&gt;-filestore\nComment out the hub build steps out in .circleci/config.yaml (deploy and build steps)\nComment out GitHub label action for this hub in .github/labeler.yml\nComment hub entries out of datahub/node-placeholder/values.yaml\nDelete k8s namespace:\n\nkubectl delete namespace &lt;hubname&gt;-staging &lt;hubname&gt;-prod\n\nDelete k8s node pool:\n\ngcloud container node-pools delete &lt;hubname&gt; --project \"ucb-datahub-2018\" --cluster \"spring-2024\" --region \"us-central1\"\n\nDelete filestore\n\ngcloud filestore instances delete &lt;hubname&gt;-filestore --zone \"us-central1-b\"\n\nDelete PV: kubectl get pv --all-namespaces|grep &lt;hubname&gt; to get the PV names, and then kubectl delete pv &lt;pv names&gt;\nAll done.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Prometheus and Grafana"
-    ]
-  },
-  {
-    "objectID": "admins/howto/new-hub.html",
-    "href": "admins/howto/new-hub.html",
-    "title": "Create a New Hub",
-    "section": "",
-    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/new-hub.html#why-create-a-new-hub",
-    "href": "admins/howto/new-hub.html#why-create-a-new-hub",
-    "title": "Create a New Hub",
-    "section": "",
-    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/new-hub.html#prerequisites",
-    "href": "admins/howto/new-hub.html#prerequisites",
-    "title": "Create a New Hub",
-    "section": "Prerequisites",
-    "text": "Prerequisites\nWorking installs of the following utilities:\n\nsops\nhubploy\ngcloud\nkubectl\ncookiecutter\n\nProper access to the following systems:\n\nGoogle Cloud IAM: owner\nWrite access to the datahub repo\nCircleCI account linked to our GitHub organization.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/new-hub.html#configuring-a-new-hub",
-    "href": "admins/howto/new-hub.html#configuring-a-new-hub",
-    "title": "Create a New Hub",
-    "section": "Configuring a New Hub",
-    "text": "Configuring a New Hub\n\nName the hub\nChoose the hub name, e.g. data8, stat20, biology, julia, which is typically the name of the course or department. This is permanent.\n\n\nDetermine deployment needs\nBefore creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general “types” of hub: Heavy usage, general and small courses.\nSmall courses will usually have one or two assignments per semester, and may only have 20 or fewer users.\nGeneral courses have up to ~500 users, but don’t have large amount of data or require upgraded compute resources.\nHeavy usage courses can potentially have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.\nBoth general and heavy usage courses typically have weekly assignments.\nSmall courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).\nThis is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.\nIf you’re going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the cookiecutter.\nWhen creating a new hub, we also make sure to label the filestore and GKE/node pool resouces with both hub and &lt;nodepool|filestore&gt;-deployment. 99.999% of the time, the values for all three of these labels will be &lt;hubname&gt;.\n\n\nCreating a new node pool\nCreate the node pool:\ngcloud container node-pools create \"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\" \\\n  --labels=hub=&lt;hubname&gt;,nodepool-deployment=&lt;hubname&gt; \\\n  --node-labels hub.jupyter.org/pool-name=&lt;hubname&gt;-pool \\\n  --machine-type \"n2-highmem-8\" \\\n  --enable-autoscaling --min-nodes \"0\" --max-nodes \"20\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"200\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\"\n\n\nCreating a new filestore instance\nBefore you create a new filestore instance, be sure you know the capacity required. The smallest amount you can allocate is 1T, but larger hubs may require more. Confer with the admins and people instructing the course and determine how much they think they will need.\nWe can easily scale capacity up, but not down.\nFrom the command line, first fill in the instance name (&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;) and &lt;capacity&gt;, and then execute the following command:\ngcloud filestore instances create &lt;hubname&gt;-&lt;YYYY-MM-DD&gt; \\\n  --zone \"us-central1-b\" --tier=\"BASIC_HDD\" \\\n  --file-share=capacity=1TiB,name=shares \\\n  --network=name=default,connect-mode=DIRECT_PEERING\nOr, from the web console, click on the horizontal bar icon at the top left corner.\n\nAccess “Filestore” &gt; “Instances” and click on “Create Instance”.\nName the instance &lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\nInstance Type is Basic, Storage Type is HDD.\nAllocate capacity.\nSet the region to us-central1 and Zone to us-central1-b.\nSet the VPC network to default.\nSet the File share name to shares.\nClick “Create” and wait for it to be deployed.\nOnce it’s deployed, select the instance and copy the “NFS mount point”.\n\nYour new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create & configure the required directories.\nYou can run the following command in gcloud terminal to log in to the NFS utility VM:\ngcloud compute ssh nfsserver-01 --zone=us-central1-b\nAlternatively, launch console.cloud.google.com &gt; Select ucb-datahub-2018 as the project name.\n\nClick on the three horizontal bar icon at the top left corner.\nAccess “Compute Engine” &gt; “VM instances” &gt; and search for “nfs-server-01”.\nSelect “Open in browser window” option to access NFS server via GUI.\n\nBack in the NFS utility VM shell, mount the new share:\nmkdir /export/&lt;hubname&gt;-filestore\nmount &lt;filestore share IP&gt;:/shares /export/&lt;hubname&gt;-filestore\nCreate staging and prod directories owned by 1000:1000 under /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;. The path might differ if your hub has special home directory storage needs. Consult admins if that’s the case. Here is the command to create the directory with appropriate permissions:\ninstall -d -o 1000 -g 1000 \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/staging \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/prod\nCheck whether the directories have permissions similar to the below directories:\ndrwxr-xr-x 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore\ndrwxr-xr-x 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore\ndrwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore\n\n\nCreate the hub deployment locally\nIn the datahub/deployments directory, run cookiecutter. This sets up the hub’s configuration directory:\ncookiecutter template/\n\nThe cookiecutter template will prompt you to provide the following information:\n\n\n&lt;hub_name&gt;: Enter the chosen name of the hub.\n&lt;project_name&gt;: Default is ucb-datahub-2018, do not change.\n&lt;cluster_name&gt;: Default is spring-2024, do not change.\n&lt;pool_name&gt;: Name of the node pool (shared or individual) to deploy on.\nhub_filestore_share: Default is shares, do not change.\nhub_filestore_ip: Enter the IP address of the filestore instance. This is available from the web console.\nhub_filestore_capacity: Enter the allocated storage capacity. This is available from the web console.\n\n\n\nThis will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.\n\n\nConfigure filestore security settings and GCP billing labels\nIf you have created a new filestore instance, you will now need to apply the ROOT_SQUASH settings. Please ensure that you’ve already created the hub’s root directory and both staging and prod directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.\nSkip this step if you are using an existing/shared filestore.\ngcloud filestore instances update &lt;filestore-instance-name&gt; --zone=us-central1-b  \\\n       --update-labels=hub=&lt;hubname&gt;,filestore-deployment=&lt;hubname&gt; \\\n       --flags-file=&lt;hubname&gt;/config/filestore/squash-flags.json\n\n\nAuthentication\nSet up authentication via bcourses. We have two canvas OAuth2 clients setup in bcourses for us - one for all production hubs and one for all staging hubs. The configuration and secrets for these are provided by the cookiecutter template, however the new hubs need to be added to the authorized callback list maintained in bcourses.\n\nUse sops to edit secrets/dev.yaml and secrets/prod.yaml, replacing the cookiecutter hub_name. cookiecutter can’t do this for you since the values are encrypted.\nAdd &lt;hub_name&gt;-staging.datahub.berkeley.edu/hub/oauth_callback to the staging hub client (id 10720000000000594)\nAdd &lt;hub_name&gt;.datahub.berkeley.edu/hub/oauth_callback to the production hub client (id 10720000000000472)\n\nPlease reach out to Jonathan Felder to set this up, or bcourseshelp@berkeley.edu if he is not available.\n\n\nCircleCI\nThe CircleCI configuration file .circleci/config.yml will need to include directives for building and deploying your new hub at several phases of the CircleCI process. Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub, find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub. Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.\nHere is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:\n- run:\n    name: Deploy &lt;hubname&gt;\n      command: |\n        hubploy deploy &lt;hubname&gt; hub ${CIRCLE_BRANCH}\n\n- hubploy/build-image:\n    deployment: &lt;hubname&gt;\n    name: &lt;hubname&gt; image build\n    filters:\n      branches:\n        ignore:\n          - staging\n          - prod  \n\n\n  - hubploy/build-image:\n      deployment:  &lt;hubname&gt;\n      name:  &lt;hubname&gt; image build\n      push: true\n      filters:\n        branches:\n          only:\n            - staging\n\n\n    -  &lt;hubname&gt; image build\nReview hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,\nimage_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image\n\n\nAdd hub to the github labeler workflow\nThe new hub will now need to be added to the github labeler workflow.\nEdit the file .github/labeler.yml and add an entry for this hub (alphabetically) in the # add hub-specific labels for deployment changes block:\n\"hub: &lt;hubname&gt;\":\n  - \"deployments/&lt;hubname&gt;/**\"\n\n\nCreate placeholder node pool\nNode pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.\nIf you are deploying to a shared node pool, there is no need to perform this step.\nOtherwise, you’ll need to add the placeholder settings in node-placeholder/values.yaml.\nThe node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can’t run on a node where other system pods are running! To do this, we’ll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of “wiggle room”. This final number will be used to allocate RAM for the node placeholder.\n\nLaunch a server on https://hubname.datahub.berkeley.edu\nGet the node name (it will look something like gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs): kubectl get nodes | grep *hubname* | awk '{print $1}'\nGet the total amount of memory allocatable to pods on this node and convert to bytes: bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'\nGet the total memory used by non-user pods/containers on this node. We explicitly ignore notebook and pause. Convert to bytes and get the sum: bash     kubectl get -A pod -l 'component!=user-placeholder' \\       --field-selector spec.nodeName=&lt;nodename&gt; \\       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\       | egrep -v 'pause|notebook'\nSubract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.\nAdd an entry for the new placeholder node config in values.yaml:\n\ndata102:\n  nodeSelector:\n    hub.jupyter.org/pool-name: data102-pool\n  resources:\n    requests:\n      # Some value slightly lower than allocatable RAM on the node pool\n      memory: 60929654784\n  replicas: 1\nFor reference, here’s example output from collecting and calculating the values for data102:\n(gcpdev) ➜  ~ kubectl get nodes | grep data102 | awk '{print$1}'\ngke-spring-2024-user-data102-2023-01-05-e02d4850-t478\n(gcpdev) ➜  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes\n60055600Ki%\n(gcpdev) ➜  ~ kubectl get -A pod -l 'component!=user-placeholder' \\\n--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 \\\n-o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\\n| egrep -v 'pause|notebook' # convert all values to bytes, sum them\ncalico-node\nfluentbit       100Mi\nfluentbit-gke   100Mi\ngke-metrics-agent       60Mi\nip-masq-agent   16Mi\nkube-proxy\nprometheus-node-exporter\n(gcpdev) ➜  ~ # subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room\n(gcpdev) ➜  ~ # in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi\n(gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784\nBesides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, calendar events. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.\n\n\nCommit and deploy staging\nCommit the hub directory, and make a PR to the the staging branch in the GitHub repo. Once tests pass, merge the PR to get a working staging hub! It might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.\n\nMake a PR from the staging branch to the prod branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.\nYou may want to customize the docker image for the hub based on your unique requirements. Navigate to deployments/‘Project Name’/image and review environment.yml file and identify packages that you want to add from the conda repository &lt;https://anaconda.org/&gt;. You can copy the image manifest files from another deployment. It is recommended to use a repo2docker-style image build, without a Dockerfile, if possible. That format will probably serve as the basis for self-service user-created images in the future.\nAll done.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/calendar-scaler.html",
-    "href": "admins/howto/calendar-scaler.html",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "",
-    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
-    ]
-  },
-  {
-    "objectID": "admins/howto/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
-    "href": "admins/howto/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "",
-    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
-    ]
-  },
-  {
-    "objectID": "admins/howto/calendar-scaler.html#structure",
-    "href": "admins/howto/calendar-scaler.html#structure",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "Structure",
-    "text": "Structure\nThere is a Google Calendar calendar, DataHub Scaling Events shared with all infrastructure staff. The event descriptions should contain a YAML fragment, and are of the form pool_name: count, where the name is the corresponding hub name (data100, stat20) and the count is the number of extra nodes you want. There can be several pools defined, one per line.\nBy default, we usually have one spare node ready to go, so if the count in the calendar event is set to 0 or 1, there will be no change to the cluster. If the value is set to &gt;=2, additional hot spares will be created. If a value is set more than once, the entry with the greater value will be used.\nYou can determine how many placeholder nodes to have up based on how many people you expect to log in at once. Some of the bigger courses may require 2 or more placeholder nodes, but during “regular” hours, 1 is usually sufficient.\nThe scaling mechanism is implemented as the node-placeholder-node-placeholder-scaler deployment within the node-placeholder namespace. The source code is within https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
-    ]
-  },
-  {
-    "objectID": "admins/howto/calendar-scaler.html#calendar-autoscaler",
-    "href": "admins/howto/calendar-scaler.html#calendar-autoscaler",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "Calendar Autoscaler",
-    "text": "Calendar Autoscaler\nThe code for the calendar autoscaler is a python 3.11 script, located here: https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler/scaler\n\nHow the scaler works\nThere is a k8s pod running in the node-placeholder namespace, which simply runs python3 -m scaler. This script runs in an infinite loop, and every 60 seconds checks the scaler config and calendar for entries. It then uses the highest value provided as the number of placeholder replicas for any given hub. This means that if there’s a daily evening event to ‘cool down’ the number of replicas for all hubs to 0, and a simultaneous event to set one or more hubs to a higher number, the scaler will see this and keep however many node placeholders specified up and ready to go.\nAfter determining the number of replicas needed for each hub, the scaler will create a k8s template and run kubectl in the pod.\n\n\nUpdating the scaler config\nThe scaler config sets the default number of node-placeholders that are running at any given time. These values can be overridden by creating events in the DataHub Scaling Events calendar.\nWhen classes are in session, these defaults are all typically set to 1, and during breaks (or when a hub is not expected to be in use) they can be set to 0.\nAfter making changes to values.yaml, create a PR normally and our CI will push the new config out to the node-placeholder pod. There is no need to manually restart the node-placeholder pod as the changes will be picked up automatically.\n\n\nWorking on, testing and deploying the calendar scaler\nAll file locations in this section will assume that you are in the datahub/images/node-placeholder-scaler/ directory.\nIt is strongly recommended that you create a new python 3.11 environment before doing any dev work on the scaler. With conda, you can run the following commands to create one:\nconda create -ny scalertest python=3.11\npip install -r requirements.txt\nAny changes to the scaler code will require you to run chartpress to redeploy the scaler to GCP.\nHere is an example of how you can test any changes to scaler/calendar.py locally in the python interpreter:\n# these tests will use somes dates culled from the calendar with varying numbers of events.\nimport scaler.calendar\nimport datetime\nimport zoneinfo\n\ntz = zoneinfo.ZoneInfo(key='America/Los_Angeles')\nzero_events_noon_june = datetime.datetime(2023, 6, 14, 12, 0, 0, tzinfo=tz)\none_event_five_pm_april = datetime.datetime(2023, 4, 27, 17, 0, 0, tzinfo=tz)\nthree_events_eight_thirty_pm_march = datetime.datetime(2023, 3, 6, 20, 30, 0, tzinfo=tz)\ncalendar = scaler.calendar.get_calendar('https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics')\nzero_events = scaler.calendar.get_events(calendar, time=zero_events_noon_june)\none_event = scaler.calendar.get_events(calendar, time=one_event_five_pm_april)\nthree_events = scaler.calendar.get_events(calendar, time=three_events_eight_thirty_pm_march)\n\nassert len(zero_events) == 0\nassert len(one_event) == 1\nassert len(three_events) == 3\nget_events returns a list of ical ical.event.Event class objects.\nThe method for testing scaler/scaler.py is similar to above, but the only things you’ll be able test locally are the make_deployment() and get_replica_counts() functions.\nWhen you’re ready, create a PR. The deployment workflow is as follows:\n\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.\n\n\n\nChanging python imports\nThe python requirements file is generated using requirements.in and pip-compile. If you need to change/add/update any packages, you’ll need to do the following:\n\nEnsure you have the correct python environment activated (see above).\nPip install pip-tools\nEdit requirements.in and save your changes.\nExecute pip-compile requirements.in, which will update the requirements.txt.\nCheck your git status and diffs, and create a pull request if necessary.\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
-    ]
-  },
-  {
-    "objectID": "admins/howto/calendar-scaler.html#monitoring",
-    "href": "admins/howto/calendar-scaler.html#monitoring",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "Monitoring",
-    "text": "Monitoring\nYou can monitor the scaling by watching for events:\nkubectl -n node-placeholder get events -w\nAnd by tailing the logs of the pod with the scalar process:\nkubectl -n node-placeholder logs -l app.kubernetes.io/name=node-placeholder-scaler -f\nFor example if you set epsilon: 2, you might see in the pod logs:\n2022-10-17 21:36:45,440 Found event Stat20/Epsilon test 2 2022-10-17 14:21 PDT to 15:00 PDT\n2022-10-17 21:36:45,441 Overrides: {'epsilon': 2}\n2022-10-17 21:36:46,475 Setting epsilon to have 2 replicas",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html",
-    "href": "admins/howto/course-config.html",
-    "title": "Course Configuration",
-    "section": "",
-    "text": "It is possible to alter administrative priviliges or resources allocations (such as memory or extra volumes) of user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on users' class enrollments. The hub must be configured to use the CanvasOAuthenticator which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.\nAdditionally, it is also possible to allocate resources based on the students membership of Canvas groups. This is useful if the instructor wants to dynamically grant additional resources without CI round-trips. Group management can be performed by the course staff directly from bCourses.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html#allocating-resources",
-    "href": "admins/howto/course-config.html#allocating-resources",
-    "title": "Course Configuration",
-    "section": "",
-    "text": "It is possible to alter administrative priviliges or resources allocations (such as memory or extra volumes) of user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on users' class enrollments. The hub must be configured to use the CanvasOAuthenticator which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.\nAdditionally, it is also possible to allocate resources based on the students membership of Canvas groups. This is useful if the instructor wants to dynamically grant additional resources without CI round-trips. Group management can be performed by the course staff directly from bCourses.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html#implementation",
-    "href": "admins/howto/course-config.html#implementation",
-    "title": "Course Configuration",
-    "section": "Implementation",
-    "text": "Implementation\nThe authenticator reads users Canvas enrollments when they login, and then assigns them to JupyterHub groups based on those affiliations. Groups are named with the format \"course::{canvas_id}::enrollment_type::{canvas_role}\", e.g. \"course::123456::enrollment_type::teacher\" or \"course::234567::enrollment_type::student\". Our custom kubespawner, which we define in hub/values.yaml, reads users' group memberships prior to spawning. It then overrides various KubeSpawner paramters based on configuration we define, using the canvas ID as the key. (see below)\nNote that if a user is assigned to a new Canvas group (e.g. by the instructor manually, or by an automated Canvas/SIS system) while their server is already running, they will need to logout and then log back in in order for the authenticator to see the new affiliations. Restarting the user server is not sufficient.\nThe canvas ID is somewhat opaque to infrastructure staff -- we cannot look it up ourselves nor predict what it would be based on the name of the course. This is why we must request it from the instructor.\nThere are a number of other Canvas course attributes we could have substituted for the ID, but all had various drawbacks. An SIS ID attribute uses a consistent format that is relatively easy to predict, however it is only exposed to instructor accounts on hub login. In testing, when the Canvas admin configured student accounts to be able to read the SIS ID, we discovered that other protected SIS attributes would have been visible to all members of the course in the Canvas UI. Various friendly name attributes (e.g. \"Statistics 123, Spring '24\") were inconsistent in structure or were modifiable by the instructor. So while the Canvas ID is not predictable or easily discoverable by hub staff, it is immutable and the instructor can find it in the URL for their course.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html#assigning-scopes-to-roles",
-    "href": "admins/howto/course-config.html#assigning-scopes-to-roles",
-    "title": "Course Configuration",
-    "section": "Assigning Scopes to Roles",
-    "text": "Assigning Scopes to Roles\nWhen JupyterHub only had two roles, admin and user, we would grant admin rights to course staff. This enabled course staff to start, access, and stop user servers, but it wasn't scoped to just the students in their own course. It would give them access to the accounts of everyone on the hub. They even had access to stop the hub process itself. JupyterHub now lets us create our own roles and assign scopes to them. As a result, we can grant course staff the ability to do what they need for members of their own course, and nothing more.\nAdd the following configuration for course staff who need elevated access:\njupyterhub:\n  hub:\n    loadRoles:\n      # Data 123, Summer 2024, #9876\n      course-staff-1234567:\n        description: Enable course staff to view and access servers.\n        # this role provides permissions to...\n        scopes:\n          - admin-ui\n          - list:users!group=course::1234567\n          - admin:servers!group=course::1234567\n          - access:servers!group=course::1234567\n        # this role will be assigned to...\n        groups:\n          - course::1234567::enrollment_type::teacher\n          - course::1234567::enrollment_type::ta\nThis configuration is headed by a comment which describes the course and term and links to the github issue where the staff made the request. It defines a new role, course-staff-1234567, for a course with bCourse ID 1234567. It assigns scopes for accessing and administering the servers for users in group course::1234567. Members of that group include all students and course staff. It also assigns scopes for viewing lists of users at /hub/admin. It assignes these scopes to members of the affiliated course staff groups.\nThis stanza is more verbose than inserting lists of users under admin_users, but it the privileges are more granular. We don't need to know who the individual course staff and they won't have more permissions than they need.\nThe configuration causes JupyterHub to update information in its jupyterhub.sqlite database file. When this configuraition is removed, the hub does not automatically flush out the roles and scopes from the database. So after the semester is over, it is advisable to remove this configuration and also to flush out the information in the database. There is no formal process for this, although we should develop one. We can delete the database, or we can manually remove entries from the sqlite file.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html#defining-group-profiles",
-    "href": "admins/howto/course-config.html#defining-group-profiles",
-    "title": "Course Configuration",
-    "section": "Defining group profiles",
-    "text": "Defining group profiles\n\nRequire course staff to request additional resources through a github issue.\nObtain the bCourses course ID from the github issue. This ID is found in the course’s URL, e.g. https://bcourses.berkeley.edu/courses/123456. It should be a large integer. If the instructor requested resources for a specific group within the course, obtain the group name.\nEdit deployments/{deployment}/config/common.yaml.\nDuplicate an existing stanza, or create a new one under jupyterhub.custom.group_profiles by inserting yaml of the form:\njupyterhub:\n  custom:\n    group_profiles:\n\n      # Example: increase memory for everyone affiliated with a course.\n      # Name of Class 100, Fall '22; requested in #98765\n\n      course::123456:\n        mem_limit: 4096M\n        mem_guarantee: 2048M\n\n\n      # Example: increase memory just for course staff.\n      # Enrollment types returned by the Canvas API are `teacher`,\n      # `student`, `ta`, `observer`, and `designer`. (non-plural)\n      # https://canvas.instructure.com/doc/api/enrollments.html\n\n      # Some other class 200, Spring '23; requested in #98776\n      course::234567::enrollment_type::teacher:\n        mem_limit: 2096M\n        mem_guarantee: 2048M\n      course::234567::enrollment_type::ta:\n        mem_limit: 2096M\n        mem_guarantee: 2048M\n\n\n      # Example: a fully specified CanvasOAuthenticator group name where\n      # the resource request happens to be an additional mount path.\n      # Creating groups for temporary resource bumps could be useful\n      # where the instructor could add people to groups in the bCourses\n      # UI. This would benefit from the ability to read resource bumps\n      # from jupyterhub's properties. (attributes in the ORM)\n\n      # Name of Class 100, Fall '22; requested in #98770\n      course::123456::group::lab4-bigdata:\n        - mountPath: /home/rstudio/.ssh\n          name: home\n          subPath: _some_directory/_ssh\n          readOnly: true\nOur custom KubeSpawner knows to look for these values under jupyterhub.custom.\n123456 and 234567 are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.\nAdd a comment associating the profile identifier with a friendly name of the course. Also link to the github issue where the instructor requested the resources. This helps us to cull old configuration during maintenance windows.\nCommit the change, then ask course staff to verify the increased allocation on staging. It is recommended that they simulate completing a notebook or run through the assignment which requires extra resources.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html#defining-user-profiles",
-    "href": "admins/howto/course-config.html#defining-user-profiles",
-    "title": "Course Configuration",
-    "section": "Defining user profiles",
-    "text": "Defining user profiles\nIt may be necessary to assign additional resources to specific users, if it is too difficult to assign them to a bCourses group.\n\nEdit deployments/{deployment}/config/common.yaml.\nDuplicate an existing stanza, or create a new one under jupyterhub.custom.profiles by inserting yaml of the form:\njupyterhub:\n  custom:\n    profiles:\n\n      # Example: increase memory for these specific users.\n      special_people:\n        # Requested in #87654. Remove after YYYY-MM-DD.\n        mem_limit: 2048M\n        mem_guarantee: 2048M\n        users:\n          - user1\n          - user2\nAdd a comment which links to the github issue where the resources were requested. This helps us to cull old configuration during maintenance windows.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/course-config.html#housekeeping",
-    "href": "admins/howto/course-config.html#housekeeping",
-    "title": "Course Configuration",
-    "section": "Housekeeping",
-    "text": "Housekeeping\nGroup profiles should be removed at the end of every term because course affiliations are not necessarily removed from each person's Canvas account. So even if a user's class ended, the hub will grant additional resources for as long as the config persisted in both Canvas and the hub.\nUser profiles should also be evaluated at the end of every term.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Course Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/howto/rebuild-postgres-image.html",
-    "href": "admins/howto/rebuild-postgres-image.html",
-    "title": "Customize the Per-User Postgres Docker Image",
-    "section": "",
-    "text": "We provide each student on data100 witha postgresql server. We want the python extension installed. So we inherit from the upstream postgresql docker image, and add the appropriate package.\nThis image is in images/postgres. If you update it, you need to rebuild and push it.\n\nModify the image in images/postgres and make a git commit.\nRun chartpress --push. This will build and push the image, but not put anything in YAML. There is no place we can put thi in values.yaml, since this is only used for data100.\nNotice the image name + tag from the chartpress --push command, and put it in the appropriate place (under extraContainers) in data100/config/common.yaml.\nMake a commit with the new tag in data100/config/common.yaml.\nProceed to deploy as normal.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Customize the Per-User Postgres Docker Image"
-    ]
-  },
-  {
-    "objectID": "admins/howto/preview-local.html",
-    "href": "admins/howto/preview-local.html",
-    "title": "Develop Documentation",
-    "section": "",
-    "text": "Navigate to the docs directory and run quarto preview. You can view the documentation in a browser while you make changes.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Develop Documentation"
-    ]
-  },
-  {
-    "objectID": "admins/howto/preview-local.html#live-preview",
-    "href": "admins/howto/preview-local.html#live-preview",
-    "title": "Develop Documentation",
-    "section": "",
-    "text": "Navigate to the docs directory and run quarto preview. You can view the documentation in a browser while you make changes.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Develop Documentation"
-    ]
-  },
-  {
-    "objectID": "admins/howto/preview-local.html#render-static-html",
-    "href": "admins/howto/preview-local.html#render-static-html",
-    "title": "Develop Documentation",
-    "section": "Render Static HTML",
-    "text": "Render Static HTML\nNavigate to the docs directory and run quarto render. This will build the entire website in the _site directory. You can then open files in your web browser.\nYou can also render individual files, which saves time if you do not want to render the whole site. Run quarto render ./path/to/filename.qmd, and then open the corresponding HTML file in the _site directory.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Develop Documentation"
+      "Delete or spin down a Hub"
     ]
   },
   {
@@ -1594,445 +1724,354 @@
     ]
   },
   {
-    "objectID": "admins/howto/delete-hub.html",
-    "href": "admins/howto/delete-hub.html",
-    "title": "Delete or spin down a Hub",
+    "objectID": "admins/howto/rebuild-postgres-image.html",
+    "href": "admins/howto/rebuild-postgres-image.html",
+    "title": "Customize the Per-User Postgres Docker Image",
     "section": "",
-    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "text": "We provide each student on data100 witha postgresql server. We want the python extension installed. So we inherit from the upstream postgresql docker image, and add the appropriate package.\nThis image is in images/postgres. If you update it, you need to rebuild and push it.\n\nModify the image in images/postgres and make a git commit.\nRun chartpress --push. This will build and push the image, but not put anything in YAML. There is no place we can put thi in values.yaml, since this is only used for data100.\nNotice the image name + tag from the chartpress --push command, and put it in the appropriate place (under extraContainers) in data100/config/common.yaml.\nMake a commit with the new tag in data100/config/common.yaml.\nProceed to deploy as normal.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Customize the Per-User Postgres Docker Image"
     ]
   },
   {
-    "objectID": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
-    "href": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
-    "title": "Delete or spin down a Hub",
+    "objectID": "admins/howto/course-config.html",
+    "href": "admins/howto/course-config.html",
+    "title": "Course Configuration",
     "section": "",
-    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "text": "It is possible to alter administrative priviliges or resources allocations (such as memory or extra volumes) of user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on users' class enrollments. The hub must be configured to use the CanvasOAuthenticator which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.\nAdditionally, it is also possible to allocate resources based on the students membership of Canvas groups. This is useful if the instructor wants to dynamically grant additional resources without CI round-trips. Group management can be performed by the course staff directly from bCourses.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
-    "href": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
-    "title": "Delete or spin down a Hub",
-    "section": "Steps to spin down a hub",
-    "text": "Steps to spin down a hub\nIf the hub is using a shared filestore, skip all filestore steps.\nIf the hub is using a shared node pool, skip all namespace and node pool steps.\n\nScale the node pool to zero: kubectl -n &lt;hubname-prod|staging&gt; scale --replicas=0 deployment/hub\nKill any remaining users’ servers. Find any running servers with kubectl -n &lt;hubname-prod|staging&gt; get pods | grep jupyter and then kubectl -n &lt;hubname-prod|staging&gt; delete pod &lt;pod name&gt; to stop them.\nCreate filestore backup:\n\ngcloud filestore backups create &lt;hubname&gt;-backup-YYYY-MM-DD --file-share=shares --instance=&lt;hubname-YYYY-MM-DD&gt; --region \"us-central1\" --labels=filestore-backup=&lt;hub name&gt;,hub=&lt;hub name&gt;\n\nLog in to nfsserver-01 and unmount filestore from nfsserver: sudo umount /export/&lt;hubname&gt;-filestore\nComment out the hub build steps out in .circleci/config.yaml (deploy and build steps)\nComment out GitHub label action for this hub in .github/labeler.yml\nComment hub entries out of datahub/node-placeholder/values.yaml\nDelete k8s namespace:\n\nkubectl delete namespace &lt;hubname&gt;-staging &lt;hubname&gt;-prod\n\nDelete k8s node pool:\n\ngcloud container node-pools delete &lt;hubname&gt; --project \"ucb-datahub-2018\" --cluster \"spring-2024\" --region \"us-central1\"\n\nDelete filestore\n\ngcloud filestore instances delete &lt;hubname&gt;-filestore --zone \"us-central1-b\"\n\nDelete PV: kubectl get pv --all-namespaces|grep &lt;hubname&gt; to get the PV names, and then kubectl delete pv &lt;pv names&gt;\nAll done.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Delete or spin down a Hub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/new-image.html",
-    "href": "admins/howto/new-image.html",
-    "title": "Create a New Single User Image",
+    "objectID": "admins/howto/course-config.html#allocating-resources",
+    "href": "admins/howto/course-config.html#allocating-resources",
+    "title": "Course Configuration",
     "section": "",
-    "text": "You might need to create a new user image when deploying a new hub, or changing from a shared single user server image. We use repo2docker to generate our images.\nThere are two approaches to creating a repo2docker image:\nGenerally, we prefer to use the former approach, unless we need to install specific packages or utilities outside of python/apt as root. If that is the case, only a Dockerfile format will work.\nAs always, create a feature branch for your changes, and submit a PR when done.",
+    "text": "It is possible to alter administrative priviliges or resources allocations (such as memory or extra volumes) of user servers from within the deployment configuration. This is mostly useful for when resources need to be increased based on users' class enrollments. The hub must be configured to use the CanvasOAuthenticator which is our default. Hubs that use dummy, Google, Generic OAuth, or other authenticators are not configured to allocate additional resources in this way.\nAdditionally, it is also possible to allocate resources based on the students membership of Canvas groups. This is useful if the instructor wants to dynamically grant additional resources without CI round-trips. Group management can be performed by the course staff directly from bCourses.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/new-image.html#use-an-existing-image-as-a-template",
-    "href": "admins/howto/new-image.html#use-an-existing-image-as-a-template",
-    "title": "Create a New Single User Image",
-    "section": "Use an existing image as a template",
-    "text": "Use an existing image as a template\nBrowse through our deployments/ directory to find a hub that is similar to the one you are trying to create. This will give you a good starting point.",
+    "objectID": "admins/howto/course-config.html#implementation",
+    "href": "admins/howto/course-config.html#implementation",
+    "title": "Course Configuration",
+    "section": "Implementation",
+    "text": "Implementation\nThe authenticator reads users Canvas enrollments when they login, and then assigns them to JupyterHub groups based on those affiliations. Groups are named with the format \"course::{canvas_id}::enrollment_type::{canvas_role}\", e.g. \"course::123456::enrollment_type::teacher\" or \"course::234567::enrollment_type::student\". Our custom kubespawner, which we define in hub/values.yaml, reads users' group memberships prior to spawning. It then overrides various KubeSpawner paramters based on configuration we define, using the canvas ID as the key. (see below)\nNote that if a user is assigned to a new Canvas group (e.g. by the instructor manually, or by an automated Canvas/SIS system) while their server is already running, they will need to logout and then log back in in order for the authenticator to see the new affiliations. Restarting the user server is not sufficient.\nThe canvas ID is somewhat opaque to infrastructure staff -- we cannot look it up ourselves nor predict what it would be based on the name of the course. This is why we must request it from the instructor.\nThere are a number of other Canvas course attributes we could have substituted for the ID, but all had various drawbacks. An SIS ID attribute uses a consistent format that is relatively easy to predict, however it is only exposed to instructor accounts on hub login. In testing, when the Canvas admin configured student accounts to be able to read the SIS ID, we discovered that other protected SIS attributes would have been visible to all members of the course in the Canvas UI. Various friendly name attributes (e.g. \"Statistics 123, Spring '24\") were inconsistent in structure or were modifiable by the instructor. So while the Canvas ID is not predictable or easily discoverable by hub staff, it is immutable and the instructor can find it in the URL for their course.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/new-image.html#create-the-image-directory",
-    "href": "admins/howto/new-image.html#create-the-image-directory",
-    "title": "Create a New Single User Image",
-    "section": "Create the image directory",
-    "text": "Create the image directory\nCreate a new image/ directory in the deployment. Then copy the contents (and any subdirectories) of the source image/ directory in to the new directory.",
+    "objectID": "admins/howto/course-config.html#assigning-scopes-to-roles",
+    "href": "admins/howto/course-config.html#assigning-scopes-to-roles",
+    "title": "Course Configuration",
+    "section": "Assigning Scopes to Roles",
+    "text": "Assigning Scopes to Roles\nWhen JupyterHub only had two roles, admin and user, we would grant admin rights to course staff. This enabled course staff to start, access, and stop user servers, but it wasn't scoped to just the students in their own course. It would give them access to the accounts of everyone on the hub. They even had access to stop the hub process itself. JupyterHub now lets us create our own roles and assign scopes to them. As a result, we can grant course staff the ability to do what they need for members of their own course, and nothing more.\nAdd the following configuration for course staff who need elevated access:\njupyterhub:\n  hub:\n    loadRoles:\n      # Data 123, Summer 2024, #9876\n      course-staff-1234567:\n        description: Enable course staff to view and access servers.\n        # this role provides permissions to...\n        scopes:\n          - admin-ui\n          - list:users!group=course::1234567\n          - admin:servers!group=course::1234567\n          - access:servers!group=course::1234567\n        # this role will be assigned to...\n        groups:\n          - course::1234567::enrollment_type::teacher\n          - course::1234567::enrollment_type::ta\nThis configuration is headed by a comment which describes the course and term and links to the github issue where the staff made the request. It defines a new role, course-staff-1234567, for a course with bCourse ID 1234567. It assigns scopes for accessing and administering the servers for users in group course::1234567. Members of that group include all students and course staff. It also assigns scopes for viewing lists of users at /hub/admin. It assignes these scopes to members of the affiliated course staff groups.\nThis stanza is more verbose than inserting lists of users under admin_users, but it the privileges are more granular. We don't need to know who the individual course staff and they won't have more permissions than they need.\nThe configuration causes JupyterHub to update information in its jupyterhub.sqlite database file. When this configuraition is removed, the hub does not automatically flush out the roles and scopes from the database. So after the semester is over, it is advisable to remove this configuration and also to flush out the information in the database. There is no formal process for this, although we should develop one. We can delete the database, or we can manually remove entries from the sqlite file.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/new-image.html#modify-hubploy.yaml-for-the-hub",
-    "href": "admins/howto/new-image.html#modify-hubploy.yaml-for-the-hub",
-    "title": "Create a New Single User Image",
-    "section": "Modify hubploy.yaml for the hub",
-    "text": "Modify hubploy.yaml for the hub\nIn the deployment's hubploy.yaml file, add or modify the name, path and base_image fields to configure the image build and where it's stored in the Google Artifcat Registry.\nname should contain the path to the image in the Google Artifact Registry and the name of the image. path points to the directory containing the image configuration (typically :file::image/. base_image is the base Docker image to use for the image build.\nFor example, hubploy.yaml for the data100 image looks like this:\nimages:\n   images:\n      - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data100-user-image\n         path: image/\n         repo2docker:\n            base_image: docker.io/library/buildpack-deps:jammy\n   registry:\n      provider: gcloud\n      gcloud:\n         project: ucb-datahub-2018\n         service_key: gcr-key.json\n\ncluster:\nprovider: gcloud\ngcloud:\n   project: ucb-datahub-2018\n   service_key: gke-key.json\n   cluster: spring-2024\n   zone: us-central1",
+    "objectID": "admins/howto/course-config.html#defining-group-profiles",
+    "href": "admins/howto/course-config.html#defining-group-profiles",
+    "title": "Course Configuration",
+    "section": "Defining group profiles",
+    "text": "Defining group profiles\n\nRequire course staff to request additional resources through a github issue.\nObtain the bCourses course ID from the github issue. This ID is found in the course’s URL, e.g. https://bcourses.berkeley.edu/courses/123456. It should be a large integer. If the instructor requested resources for a specific group within the course, obtain the group name.\nEdit deployments/{deployment}/config/common.yaml.\nDuplicate an existing stanza, or create a new one under jupyterhub.custom.group_profiles by inserting yaml of the form:\njupyterhub:\n  custom:\n    group_profiles:\n\n      # Example: increase memory for everyone affiliated with a course.\n      # Name of Class 100, Fall '22; requested in #98765\n\n      course::123456:\n        mem_limit: 4096M\n        mem_guarantee: 2048M\n\n\n      # Example: increase memory just for course staff.\n      # Enrollment types returned by the Canvas API are `teacher`,\n      # `student`, `ta`, `observer`, and `designer`. (non-plural)\n      # https://canvas.instructure.com/doc/api/enrollments.html\n\n      # Some other class 200, Spring '23; requested in #98776\n      course::234567::enrollment_type::teacher:\n        mem_limit: 2096M\n        mem_guarantee: 2048M\n      course::234567::enrollment_type::ta:\n        mem_limit: 2096M\n        mem_guarantee: 2048M\n\n\n      # Example: a fully specified CanvasOAuthenticator group name where\n      # the resource request happens to be an additional mount path.\n      # Creating groups for temporary resource bumps could be useful\n      # where the instructor could add people to groups in the bCourses\n      # UI. This would benefit from the ability to read resource bumps\n      # from jupyterhub's properties. (attributes in the ORM)\n\n      # Name of Class 100, Fall '22; requested in #98770\n      course::123456::group::lab4-bigdata:\n        - mountPath: /home/rstudio/.ssh\n          name: home\n          subPath: _some_directory/_ssh\n          readOnly: true\nOur custom KubeSpawner knows to look for these values under jupyterhub.custom.\n123456 and 234567 are bCourse course identifiers from the first step. Memory limits and extra volume mounts are specified as in the examples above.\nAdd a comment associating the profile identifier with a friendly name of the course. Also link to the github issue where the instructor requested the resources. This helps us to cull old configuration during maintenance windows.\nCommit the change, then ask course staff to verify the increased allocation on staging. It is recommended that they simulate completing a notebook or run through the assignment which requires extra resources.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/new-image.html#modify-the-image-configuration-as-necessary",
-    "href": "admins/howto/new-image.html#modify-the-image-configuration-as-necessary",
-    "title": "Create a New Single User Image",
-    "section": "Modify the image configuration as necessary",
-    "text": "Modify the image configuration as necessary\nThis step is straightforward: edit/modify/delete/add any files in the image/ directory to configure the image as needed.",
+    "objectID": "admins/howto/course-config.html#defining-user-profiles",
+    "href": "admins/howto/course-config.html#defining-user-profiles",
+    "title": "Course Configuration",
+    "section": "Defining user profiles",
+    "text": "Defining user profiles\nIt may be necessary to assign additional resources to specific users, if it is too difficult to assign them to a bCourses group.\n\nEdit deployments/{deployment}/config/common.yaml.\nDuplicate an existing stanza, or create a new one under jupyterhub.custom.profiles by inserting yaml of the form:\njupyterhub:\n  custom:\n    profiles:\n\n      # Example: increase memory for these specific users.\n      special_people:\n        # Requested in #87654. Remove after YYYY-MM-DD.\n        mem_limit: 2048M\n        mem_guarantee: 2048M\n        users:\n          - user1\n          - user2\nAdd a comment which links to the github issue where the resources were requested. This helps us to cull old configuration during maintenance windows.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/new-image.html#update-cicd-configuration",
-    "href": "admins/howto/new-image.html#update-cicd-configuration",
-    "title": "Create a New Single User Image",
-    "section": "Update CI/CD configuration",
-    "text": "Update CI/CD configuration\nNext, ensure that this image will be built and deployed by updating the .circleci/config.yml file in the root of the repository. Add new steps under the jobs/deploy:, workflows/test-build-images: and workflows/deploy: stanzas.",
+    "objectID": "admins/howto/course-config.html#housekeeping",
+    "href": "admins/howto/course-config.html#housekeeping",
+    "title": "Course Configuration",
+    "section": "Housekeeping",
+    "text": "Housekeeping\nGroup profiles should be removed at the end of every term because course affiliations are not necessarily removed from each person's Canvas account. So even if a user's class ended, the hub will grant additional resources for as long as the config persisted in both Canvas and the hub.\nUser profiles should also be evaluated at the end of every term.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Course Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/new-image.html#submitting-a-pull-request",
-    "href": "admins/howto/new-image.html#submitting-a-pull-request",
-    "title": "Create a New Single User Image",
+    "objectID": "admins/howto/calendar-scaler.html",
+    "href": "admins/howto/calendar-scaler.html",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "",
+    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "admins/howto/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
+    "href": "admins/howto/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "",
+    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "admins/howto/calendar-scaler.html#structure",
+    "href": "admins/howto/calendar-scaler.html#structure",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "Structure",
+    "text": "Structure\nThere is a Google Calendar calendar, DataHub Scaling Events shared with all infrastructure staff. The event descriptions should contain a YAML fragment, and are of the form pool_name: count, where the name is the corresponding hub name (data100, stat20) and the count is the number of extra nodes you want. There can be several pools defined, one per line.\nBy default, we usually have one spare node ready to go, so if the count in the calendar event is set to 0 or 1, there will be no change to the cluster. If the value is set to &gt;=2, additional hot spares will be created. If a value is set more than once, the entry with the greater value will be used.\nYou can determine how many placeholder nodes to have up based on how many people you expect to log in at once. Some of the bigger courses may require 2 or more placeholder nodes, but during “regular” hours, 1 is usually sufficient.\nThe scaling mechanism is implemented as the node-placeholder-node-placeholder-scaler deployment within the node-placeholder namespace. The source code is within https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "admins/howto/calendar-scaler.html#calendar-autoscaler",
+    "href": "admins/howto/calendar-scaler.html#calendar-autoscaler",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "Calendar Autoscaler",
+    "text": "Calendar Autoscaler\nThe code for the calendar autoscaler is a python 3.11 script, located here: https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler/scaler\n\nHow the scaler works\nThere is a k8s pod running in the node-placeholder namespace, which simply runs python3 -m scaler. This script runs in an infinite loop, and every 60 seconds checks the scaler config and calendar for entries. It then uses the highest value provided as the number of placeholder replicas for any given hub. This means that if there’s a daily evening event to ‘cool down’ the number of replicas for all hubs to 0, and a simultaneous event to set one or more hubs to a higher number, the scaler will see this and keep however many node placeholders specified up and ready to go.\nAfter determining the number of replicas needed for each hub, the scaler will create a k8s template and run kubectl in the pod.\n\n\nUpdating the scaler config\nThe scaler config sets the default number of node-placeholders that are running at any given time. These values can be overridden by creating events in the DataHub Scaling Events calendar.\nWhen classes are in session, these defaults are all typically set to 1, and during breaks (or when a hub is not expected to be in use) they can be set to 0.\nAfter making changes to values.yaml, create a PR normally and our CI will push the new config out to the node-placeholder pod. There is no need to manually restart the node-placeholder pod as the changes will be picked up automatically.\n\n\nWorking on, testing and deploying the calendar scaler\nAll file locations in this section will assume that you are in the datahub/images/node-placeholder-scaler/ directory.\nIt is strongly recommended that you create a new python 3.11 environment before doing any dev work on the scaler. With conda, you can run the following commands to create one:\nconda create -ny scalertest python=3.11\npip install -r requirements.txt\nAny changes to the scaler code will require you to run chartpress to redeploy the scaler to GCP.\nHere is an example of how you can test any changes to scaler/calendar.py locally in the python interpreter:\n# these tests will use somes dates culled from the calendar with varying numbers of events.\nimport scaler.calendar\nimport datetime\nimport zoneinfo\n\ntz = zoneinfo.ZoneInfo(key='America/Los_Angeles')\nzero_events_noon_june = datetime.datetime(2023, 6, 14, 12, 0, 0, tzinfo=tz)\none_event_five_pm_april = datetime.datetime(2023, 4, 27, 17, 0, 0, tzinfo=tz)\nthree_events_eight_thirty_pm_march = datetime.datetime(2023, 3, 6, 20, 30, 0, tzinfo=tz)\ncalendar = scaler.calendar.get_calendar('https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics')\nzero_events = scaler.calendar.get_events(calendar, time=zero_events_noon_june)\none_event = scaler.calendar.get_events(calendar, time=one_event_five_pm_april)\nthree_events = scaler.calendar.get_events(calendar, time=three_events_eight_thirty_pm_march)\n\nassert len(zero_events) == 0\nassert len(one_event) == 1\nassert len(three_events) == 3\nget_events returns a list of ical ical.event.Event class objects.\nThe method for testing scaler/scaler.py is similar to above, but the only things you’ll be able test locally are the make_deployment() and get_replica_counts() functions.\nWhen you’re ready, create a PR. The deployment workflow is as follows:\n\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.\n\n\n\nChanging python imports\nThe python requirements file is generated using requirements.in and pip-compile. If you need to change/add/update any packages, you’ll need to do the following:\n\nEnsure you have the correct python environment activated (see above).\nPip install pip-tools\nEdit requirements.in and save your changes.\nExecute pip-compile requirements.in, which will update the requirements.txt.\nCheck your git status and diffs, and create a pull request if necessary.\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "admins/howto/calendar-scaler.html#monitoring",
+    "href": "admins/howto/calendar-scaler.html#monitoring",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "Monitoring",
+    "text": "Monitoring\nYou can monitor the scaling by watching for events:\nkubectl -n node-placeholder get events -w\nAnd by tailing the logs of the pod with the scalar process:\nkubectl -n node-placeholder logs -l app.kubernetes.io/name=node-placeholder-scaler -f\nFor example if you set epsilon: 2, you might see in the pod logs:\n2022-10-17 21:36:45,440 Found event Stat20/Epsilon test 2 2022-10-17 14:21 PDT to 15:00 PDT\n2022-10-17 21:36:45,441 Overrides: {'epsilon': 2}\n2022-10-17 21:36:46,475 Setting epsilon to have 2 replicas",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-hub.html",
+    "href": "admins/howto/new-hub.html",
+    "title": "Create a New Hub",
+    "section": "",
+    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-hub.html#why-create-a-new-hub",
+    "href": "admins/howto/new-hub.html#why-create-a-new-hub",
+    "title": "Create a New Hub",
+    "section": "",
+    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-hub.html#prerequisites",
+    "href": "admins/howto/new-hub.html#prerequisites",
+    "title": "Create a New Hub",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nWorking installs of the following utilities:\n\nsops\nhubploy\ngcloud\nkubectl\ncookiecutter\n\nProper access to the following systems:\n\nGoogle Cloud IAM: owner\nWrite access to the datahub repo\nCircleCI account linked to our GitHub organization.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-hub.html#configuring-a-new-hub",
+    "href": "admins/howto/new-hub.html#configuring-a-new-hub",
+    "title": "Create a New Hub",
+    "section": "Configuring a New Hub",
+    "text": "Configuring a New Hub\n\nName the hub\nChoose the hub name, e.g. data8, stat20, biology, julia, which is typically the name of the course or department. This is permanent.\n\n\nDetermine deployment needs\nBefore creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general “types” of hub: Heavy usage, general and small courses.\nSmall courses will usually have one or two assignments per semester, and may only have 20 or fewer users.\nGeneral courses have up to ~500 users, but don’t have large amount of data or require upgraded compute resources.\nHeavy usage courses can potentially have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.\nBoth general and heavy usage courses typically have weekly assignments.\nSmall courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).\nThis is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.\nIf you’re going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the cookiecutter.\nWhen creating a new hub, we also make sure to label the filestore and GKE/node pool resouces with both hub and &lt;nodepool|filestore&gt;-deployment. 99.999% of the time, the values for all three of these labels will be &lt;hubname&gt;.\n\n\nCreating a new node pool\nCreate the node pool:\ngcloud container node-pools create \"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\" \\\n  --labels=hub=&lt;hubname&gt;,nodepool-deployment=&lt;hubname&gt; \\\n  --node-labels hub.jupyter.org/pool-name=&lt;hubname&gt;-pool \\\n  --machine-type \"n2-highmem-8\" \\\n  --enable-autoscaling --min-nodes \"0\" --max-nodes \"20\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"200\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\"\n\n\nCreating a new filestore instance\nBefore you create a new filestore instance, be sure you know the capacity required. The smallest amount you can allocate is 1T, but larger hubs may require more. Confer with the admins and people instructing the course and determine how much they think they will need.\nWe can easily scale capacity up, but not down.\nFrom the command line, first fill in the instance name (&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;) and &lt;capacity&gt;, and then execute the following command:\ngcloud filestore instances create &lt;hubname&gt;-&lt;YYYY-MM-DD&gt; \\\n  --zone \"us-central1-b\" --tier=\"BASIC_HDD\" \\\n  --file-share=capacity=1TiB,name=shares \\\n  --network=name=default,connect-mode=DIRECT_PEERING\nOr, from the web console, click on the horizontal bar icon at the top left corner.\n\nAccess “Filestore” &gt; “Instances” and click on “Create Instance”.\nName the instance &lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\nInstance Type is Basic, Storage Type is HDD.\nAllocate capacity.\nSet the region to us-central1 and Zone to us-central1-b.\nSet the VPC network to default.\nSet the File share name to shares.\nClick “Create” and wait for it to be deployed.\nOnce it’s deployed, select the instance and copy the “NFS mount point”.\n\nYour new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create & configure the required directories.\nYou can run the following command in gcloud terminal to log in to the NFS utility VM:\ngcloud compute ssh nfsserver-01 --zone=us-central1-b\nAlternatively, launch console.cloud.google.com &gt; Select ucb-datahub-2018 as the project name.\n\nClick on the three horizontal bar icon at the top left corner.\nAccess “Compute Engine” &gt; “VM instances” &gt; and search for “nfs-server-01”.\nSelect “Open in browser window” option to access NFS server via GUI.\n\nBack in the NFS utility VM shell, mount the new share:\nmkdir /export/&lt;hubname&gt;-filestore\nmount &lt;filestore share IP&gt;:/shares /export/&lt;hubname&gt;-filestore\nCreate staging and prod directories owned by 1000:1000 under /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;. The path might differ if your hub has special home directory storage needs. Consult admins if that’s the case. Here is the command to create the directory with appropriate permissions:\ninstall -d -o 1000 -g 1000 \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/staging \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/prod\nCheck whether the directories have permissions similar to the below directories:\ndrwxr-xr-x 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore\ndrwxr-xr-x 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore\ndrwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore\n\n\nCreate the hub deployment locally\nIn the datahub/deployments directory, run cookiecutter. This sets up the hub’s configuration directory:\ncookiecutter template/\n\nThe cookiecutter template will prompt you to provide the following information:\n\n\n&lt;hub_name&gt;: Enter the chosen name of the hub.\n&lt;project_name&gt;: Default is ucb-datahub-2018, do not change.\n&lt;cluster_name&gt;: Default is spring-2024, do not change.\n&lt;pool_name&gt;: Name of the node pool (shared or individual) to deploy on.\nhub_filestore_share: Default is shares, do not change.\nhub_filestore_ip: Enter the IP address of the filestore instance. This is available from the web console.\nhub_filestore_capacity: Enter the allocated storage capacity. This is available from the web console.\n\n\n\nThis will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.\n\n\nConfigure filestore security settings and GCP billing labels\nIf you have created a new filestore instance, you will now need to apply the ROOT_SQUASH settings. Please ensure that you’ve already created the hub’s root directory and both staging and prod directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.\nSkip this step if you are using an existing/shared filestore.\ngcloud filestore instances update &lt;filestore-instance-name&gt; --zone=us-central1-b  \\\n       --update-labels=hub=&lt;hubname&gt;,filestore-deployment=&lt;hubname&gt; \\\n       --flags-file=&lt;hubname&gt;/config/filestore/squash-flags.json\n\n\nAuthentication\nSet up authentication via bcourses. We have two canvas OAuth2 clients setup in bcourses for us - one for all production hubs and one for all staging hubs. The configuration and secrets for these are provided by the cookiecutter template, however the new hubs need to be added to the authorized callback list maintained in bcourses.\n\nUse sops to edit secrets/dev.yaml and secrets/prod.yaml, replacing the cookiecutter hub_name. cookiecutter can’t do this for you since the values are encrypted.\nAdd &lt;hub_name&gt;-staging.datahub.berkeley.edu/hub/oauth_callback to the staging hub client (id 10720000000000594)\nAdd &lt;hub_name&gt;.datahub.berkeley.edu/hub/oauth_callback to the production hub client (id 10720000000000472)\n\nPlease reach out to Jonathan Felder to set this up, or bcourseshelp@berkeley.edu if he is not available.\n\n\nCircleCI\nThe CircleCI configuration file .circleci/config.yml will need to include directives for building and deploying your new hub at several phases of the CircleCI process. Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub, find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub. Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.\nHere is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:\n- run:\n    name: Deploy &lt;hubname&gt;\n      command: |\n        hubploy deploy &lt;hubname&gt; hub ${CIRCLE_BRANCH}\n\n- hubploy/build-image:\n    deployment: &lt;hubname&gt;\n    name: &lt;hubname&gt; image build\n    filters:\n      branches:\n        ignore:\n          - staging\n          - prod  \n\n\n  - hubploy/build-image:\n      deployment:  &lt;hubname&gt;\n      name:  &lt;hubname&gt; image build\n      push: true\n      filters:\n        branches:\n          only:\n            - staging\n\n\n    -  &lt;hubname&gt; image build\nReview hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,\nimage_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image\n\n\nAdd hub to the github labeler workflow\nThe new hub will now need to be added to the github labeler workflow.\nEdit the file .github/labeler.yml and add an entry for this hub (alphabetically) in the # add hub-specific labels for deployment changes block:\n\"hub: &lt;hubname&gt;\":\n  - \"deployments/&lt;hubname&gt;/**\"\n\n\nCreate placeholder node pool\nNode pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.\nIf you are deploying to a shared node pool, there is no need to perform this step.\nOtherwise, you’ll need to add the placeholder settings in node-placeholder/values.yaml.\nThe node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can’t run on a node where other system pods are running! To do this, we’ll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of “wiggle room”. This final number will be used to allocate RAM for the node placeholder.\n\nLaunch a server on https://hubname.datahub.berkeley.edu\nGet the node name (it will look something like gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs): kubectl get nodes | grep *hubname* | awk '{print $1}'\nGet the total amount of memory allocatable to pods on this node and convert to bytes: bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'\nGet the total memory used by non-user pods/containers on this node. We explicitly ignore notebook and pause. Convert to bytes and get the sum: bash     kubectl get -A pod -l 'component!=user-placeholder' \\       --field-selector spec.nodeName=&lt;nodename&gt; \\       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\       | egrep -v 'pause|notebook'\nSubract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.\nAdd an entry for the new placeholder node config in values.yaml:\n\ndata102:\n  nodeSelector:\n    hub.jupyter.org/pool-name: data102-pool\n  resources:\n    requests:\n      # Some value slightly lower than allocatable RAM on the node pool\n      memory: 60929654784\n  replicas: 1\nFor reference, here’s example output from collecting and calculating the values for data102:\n(gcpdev) ➜  ~ kubectl get nodes | grep data102 | awk '{print$1}'\ngke-spring-2024-user-data102-2023-01-05-e02d4850-t478\n(gcpdev) ➜  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes\n60055600Ki%\n(gcpdev) ➜  ~ kubectl get -A pod -l 'component!=user-placeholder' \\\n--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 \\\n-o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\\n| egrep -v 'pause|notebook' # convert all values to bytes, sum them\ncalico-node\nfluentbit       100Mi\nfluentbit-gke   100Mi\ngke-metrics-agent       60Mi\nip-masq-agent   16Mi\nkube-proxy\nprometheus-node-exporter\n(gcpdev) ➜  ~ # subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room\n(gcpdev) ➜  ~ # in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi\n(gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784\nBesides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, calendar events. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.\n\n\nCommit and deploy staging\nCommit the hub directory, and make a PR to the the staging branch in the GitHub repo. Once tests pass, merge the PR to get a working staging hub! It might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.\n\nMake a PR from the staging branch to the prod branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.\nYou may want to customize the docker image for the hub based on your unique requirements. Navigate to deployments/‘Project Name’/image and review environment.yml file and identify packages that you want to add from the conda repository &lt;https://anaconda.org/&gt;. You can copy the image manifest files from another deployment. It is recommended to use a repo2docker-style image build, without a Dockerfile, if possible. That format will probably serve as the basis for self-service user-created images in the future.\nAll done.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/prometheus-grafana.html",
+    "href": "admins/howto/prometheus-grafana.html",
+    "title": "Prometheus and Grafana",
+    "section": "",
+    "text": "It can be useful to interact with the cluster’s prometheus server while developing dashboards in grafana. You will need to forward a local port to the prometheus server’s pod.\n\n\nListen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.\n\n\n\nListen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Prometheus and Grafana"
+    ]
+  },
+  {
+    "objectID": "admins/howto/prometheus-grafana.html#using-the-standard-port",
+    "href": "admins/howto/prometheus-grafana.html#using-the-standard-port",
+    "title": "Prometheus and Grafana",
+    "section": "",
+    "text": "Listen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Prometheus and Grafana"
+    ]
+  },
+  {
+    "objectID": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
+    "href": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
+    "title": "Prometheus and Grafana",
+    "section": "",
+    "text": "Listen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Prometheus and Grafana"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-packages.html",
+    "href": "admins/howto/new-packages.html",
+    "title": "Testing and Upgrading New Packages",
+    "section": "",
+    "text": "It is helpful to test package additions and upgrades for yourself before they are installed for all users. You can make sure the change behaves as you think it should, and does not break anything else. Once tested, request that the change by installed for all users by by creating a new issue in github,contacting cirriculum support staff, or creating a new pull request. Ultimately, thouroughly testing changes locally and submitting a pull request will result in the software being rolled out to everyone much faster.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Testing and Upgrading New Packages"
+    ]
+  },
+  {
+    "objectID": "admins/howto/new-packages.html#submitting-a-pull-request",
+    "href": "admins/howto/new-packages.html#submitting-a-pull-request",
+    "title": "Testing and Upgrading New Packages",
     "section": "Submitting a pull request",
-    "text": "Submitting a pull request\nFamiliarize yourself with pull requests and repo2docker , and create a fork of the datahub staging branch.\n\nSet up your git/dev environment by following the instructions here.\nCreate a new branch for this PR.\n\nTest the changes locally using repo2docker, then submit a PR to staging.\n\n\nTo use repo2docker, you have to point it at the correct image directory. For example, to build the data100 image, you would run repo2docker deployments/data100/image from the base datahub directory.\n\n\n\nCommit and push your changes to your fork of the datahub repo, and create a new pull request at https://github.com/berkeley-dsep-infra/datahub/.\nOnce the PR is merged to staging and the new image is built and pushed to Artifact Registry, you can test it out on &lt;hub&gt;-staging.datahub.berkeley.edu.\nChanges are only deployed to prod once the relevant CI job is completed. See https://circleci.com/gh/berkeley-dsep-infra/datahub to view CircleCI job statuses.",
+    "text": "Submitting a pull request\nFamiliarize yourself with pull requests and repo2docker , and create a fork of the datahub staging branch.\n\nSet up your git/dev environment by following the instructions here.\nCreate a new branch for this PR.\nFind the correct environment.yml file for your class. This should be under datahub/deployments/&lt;class or hub name&gt;/image\nIn environment.yml, packages listed under dependencies are installed using conda, while packages under pip are installed using pip. Any packages that need to be installed via apt must be added to either datahub/deployments/&lt;class or hub name&gt;/image/apt.txt or datahub/deployments/&lt;class or hub name&gt;/image/Dockerfile.\nAdd any packages necessary. We typically prefer using conda packages, and pip only if necessary. Please pin to a specific version (no wildards, etc).\n\nNote that package versions for conda are specified using =, while in pip they are specified using ==\n\nTest the changes locally using repo2docker, then submit a PR to staging.\n\nTo use repo2docker, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run repo2docker deployments/data100/image from the base datahub directory.\n\nCommit and push your changes to your fork of the datahub repo, and create a new pull request at https://github.com/berkeley-dsep-infra/datahub/.\nOnce the PR is merged to staging, you can test it out on class-staging.datahub.berkeley.edu.\nChanges are only deployed to datahub once the relevant Travis CI job is completed. See https://circleci.com/gh/berkeley-dsep-infra/datahub to view Travis CI job statuses.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create a New Single User Image"
+      "Testing and Upgrading New Packages"
     ]
   },
   {
-    "objectID": "admins/howto/google-sheets.html",
-    "href": "admins/howto/google-sheets.html",
-    "title": "Reading Google Sheets from DataHub",
+    "objectID": "admins/howto/new-packages.html#tips-for-upgrading-package",
+    "href": "admins/howto/new-packages.html#tips-for-upgrading-package",
+    "title": "Testing and Upgrading New Packages",
+    "section": "Tips for Upgrading Package",
+    "text": "Tips for Upgrading Package\n\nConda can take an extremely long time to resolve version dependency conflicts, if they are resolvable at all. When upgrading Python versions or a core package that is used by many other packages, such as requests, clean out or upgrade old packages to minimize the number of dependency conflicts.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Testing and Upgrading New Packages"
+    ]
+  },
+  {
+    "objectID": "admins/howto/core-pool.html",
+    "href": "admins/howto/core-pool.html",
+    "title": "Core Node Pool Management",
     "section": "",
-    "text": "Available in: DataHub\nWe provision and make available credentials for a service account that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the gspread library.\nThe entire contents of the JSON formatted service account key is available as an environment variable GOOGLE_SHEETS_READONLY_KEY. You can use this to read publicly available Google Sheet documents.\nThe service account has no implicit permissions, and can be found under singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY in datahub/secrets/staging.yaml and datahub/secrets/prod.yaml.",
+    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "Core Node Pool Management"
     ]
   },
   {
-    "objectID": "admins/howto/google-sheets.html#gspread-sample-code",
-    "href": "admins/howto/google-sheets.html#gspread-sample-code",
-    "title": "Reading Google Sheets from DataHub",
-    "section": "gspread sample code",
-    "text": "gspread sample code\nThe following sample code reads a sheet from a URL given to it, and prints the contents.\nimport gspread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\ngc = gspread.authorize(creds)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1\nsheet = gc.open_by_url(url)\nprint(sheet.sheet1.get_all_records())",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
-    "href": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
-    "title": "Reading Google Sheets from DataHub",
-    "section": "gspread-pandas sample code",
-    "text": "gspread-pandas sample code\nThe gspread-pandas library helps get data from Google Sheets into a pandas dataframe.\nfrom gspread_pandas.client import Spread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1 as a dataframe\nspread = Spread(url, creds=creds)\nsheet_df = spread.sheet_to_df(sheet='sheet1')\nprint(sheet_df)",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/rebuild-hub-image.html",
-    "href": "admins/howto/rebuild-hub-image.html",
-    "title": "Customize the Hub Docker Image",
+    "objectID": "admins/howto/core-pool.html#what-is-the-core-node-pool",
+    "href": "admins/howto/core-pool.html#what-is-the-core-node-pool",
+    "title": "Core Node Pool Management",
     "section": "",
-    "text": "We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in images/hub. It must inherit from the JupyterHub image used in the Zero to JupyterHub.\nThe image is build with chartpress, which also updates hub/values.yaml with the new image version. chartpress may be installed locally with pip install chartpress.\n\nRun gcloud auth configure-docker us-central1-docker.pkg.dev once per machine to setup docker for authentication with the gcloud credential helper.\nModify the image in images/hub and make a git commit.\nRun chartpress --push. This will build and push the hub image, and modify hub/values.yaml appropriately.\nMake a commit with the hub/values.yaml file, so the new hub image name and tag are comitted.\nProceed to deployment as normal.\n\nSome of the following commands may be required to configure your environment to run the above chartpress workflow successfully:\n\ngcloud auth login.\ngcloud auth configure-docker us-central1-docker.pkg.dev\ngcloud auth application-default login\ngcloud auth configure-docker",
+    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Customize the Hub Docker Image"
+      "Core Node Pool Management"
     ]
   },
   {
-    "objectID": "admins/howto/clusterswitch.html",
-    "href": "admins/howto/clusterswitch.html",
-    "title": "Switching over a hub to a new cluster",
+    "objectID": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
+    "href": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
+    "title": "Core Node Pool Management",
+    "section": "Deploy a New Core Node Pool",
+    "text": "Deploy a New Core Node Pool\nRun the following command from the root directory of your local datahub repo to create the node pool:\ngcloud container node-pools create \"core-&lt;YYYY-MM-DD&gt;\"  \\\n  --labels=hub=core,nodepool-deployment=core \\\n  --node-labels hub.jupyter.org/pool-name=core-pool-&lt;YYYY-MM-DD&gt; \\\n  --machine-type \"n2-standard-8\"  \\\n  --num-nodes \"1\" \\\n  --enable-autoscaling --min-nodes \"1\" --max-nodes \"3\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"100\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\" \\\n  --system-config-from-file=vendor/google/gke/node-pool/config/core-pool-sysctl.yaml\nThe system-config-from-file argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "admins/howto/github-token.html",
+    "href": "admins/howto/github-token.html",
+    "title": "Create Finely Grained Access Token",
     "section": "",
-    "text": "This document describes how to switch an existing hub to a new cluster. The example used here refers to moving all UC Berkeley Datahubs.\nYou might find it easier to switch to a new cluster if you’re running a very old k8s version, or in lieu of performing a cluster credential rotation. Sometimes starting from scratch is easier than an iterative and potentially destructive series of operations.",
+    "text": "At https://github.com/settings/personal-access-tokens/new:\n\nToken name: set something descriptive.\nExpiration: set the token to expire no earlier or later than necessary.\nDescription: elaborate on the function of the token.\nResource owner: berkeley-dsep-infra\nRepository access: Only selected repositories &gt; datahub\nPermissions: Contents &gt; Access: Read and write",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#create-a-new-cluster",
-    "href": "admins/howto/clusterswitch.html#create-a-new-cluster",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Create a new cluster",
-    "text": "Create a new cluster\n\nCreate a new cluster using the specified configuration.\nSet up helm on the cluster according to the instructions here:\nhttp://z2jh.jupyter.org/en/latest/setup-helm.html\n\nMake sure the version of helm you’re working with matches the version CircleCI is using.\nFor example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circleci/config.yml#L169\n\nRe-create all existing node pools for hubs, support and prometheus deployments in the new cluster. If the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes. Wait ~15m for the new pools to wind down to zero, and then continue.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#setting-the-context-for-kubectl-and-work-on-the-new-cluster.",
-    "href": "admins/howto/clusterswitch.html#setting-the-context-for-kubectl-and-work-on-the-new-cluster.",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Setting the ‘context’ for kubectl and work on the new cluster.",
-    "text": "Setting the ‘context’ for kubectl and work on the new cluster.\n\nEnsure you’re logged in to GCP: gcloud auth login\nPull down the credentials from the new cluster: gcloud container clusters get-credentials &lt;CLUSTER_NAME&gt; --region us-central1\nSwitch the kubectl context to this cluster: kubectl config use-context gke_ucb-datahub-2018_us-central1_&lt;CLUSTER_NAME&gt;",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#recreate-node-pools",
-    "href": "admins/howto/clusterswitch.html#recreate-node-pools",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Recreate node pools",
-    "text": "Recreate node pools\nRe-create all existing node pools for hubs, support and prometheus deployments in the new cluster.\nIf the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes. Wait ~15m for the new pools to wind down to zero, and then continue.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#install-and-configure-the-certificate-manager",
-    "href": "admins/howto/clusterswitch.html#install-and-configure-the-certificate-manager",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Install and configure the certificate manager",
-    "text": "Install and configure the certificate manager\nBefore you can deploy any of the hubs or support tooling, the certificate manager must be installed and configured on the new cluster. Until this is done, hubploy and helm will fail with the following error: ensure CRDs are installed first.\n\nCreate a new feature branch and update your helm dependencies: helm dep up\nAt this point, it’s usually wise to upgrade cert-manager to the latest version found in the chart repo. You can find this by running the following command:\ncert-manager-version=$(helm show all -n cert-manager jetstack/cert-manager | grep ^appVersion |  awk '{print $2}')\nThen, you can install the latest version of cert-manager:\nkubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/${cert-manager-version}/cert-manager.yaml\nChange the corresponding entry in support/requirements.yaml to $cert-manager-version and commit the changes (do not push).",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#create-the-node-placeholder-k8s-namespace",
-    "href": "admins/howto/clusterswitch.html#create-the-node-placeholder-k8s-namespace",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Create the node-placeholder k8s namespace",
-    "text": "Create the node-placeholder k8s namespace\nThe calendar autoscaler requires the node-placeholder namespace. Run the following command to create it:\nkubectl create namespace node-placeholder",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it.",
-    "href": "admins/howto/clusterswitch.html#create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it.",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Create a new static IP and switch DNS to point our new deployment at it.",
-    "text": "Create a new static IP and switch DNS to point our new deployment at it.\n\nCreate a new static IP in the GCP console.\nOpen infoblox and change the wildcard and empty entries for datahub.berkeley.edu to point to the IP from the previous step.\nUpdate support/values.yaml, under ingress-nginx with the newly created IP from infoblox: loadBalancerIP: xx.xx.xx.xx.\nAdd and commit this change to your feature branch (still do not push).\n\nYou will re-deploy the support chart in the next step.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#manually-deploy-the-support-and-prometheus-pools",
-    "href": "admins/howto/clusterswitch.html#manually-deploy-the-support-and-prometheus-pools",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Manually deploy the support and prometheus pools",
-    "text": "Manually deploy the support and prometheus pools\nFirst, update any node pools in the configs to point to the new cluster. Typically, this is just for the ingress-nginx controllers in support/values.yaml.\nNow we will manually deploy the support helm chart:\nsops -d support/secrets.yaml &gt; /tmp/secrets.yaml\nhelm install -f support/values.yaml -f /tmp/secrets.yaml \\\n    -n support support support/ \\\n    --set installCRDs=true --debug --create-namespace\nBefore continuing, confirm via the GCP console that the IP that was defined in step 1 is now bound to a forwarding rule. You can further confirm by listing the services in the support chart and making sure the ingress-controller is using the newly defined IP.\nOne special thing to note: our prometheus instance uses a persistent volume that contains historical monitoring data. This is specified in support/values.yaml, under the prometheus: block:\npersistentVolume:\n  size: 1000Gi\n  storageClass: ssd\n  existingClaim: prometheus-data-2024-05-15",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#manually-deploy-a-hub-to-staging",
-    "href": "admins/howto/clusterswitch.html#manually-deploy-a-hub-to-staging",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Manually deploy a hub to staging",
-    "text": "Manually deploy a hub to staging\nFinally, we can attempt to deploy a hub to the new cluster! Any hub will do, but we should start with a low-traffic hub (eg: https://dev.datahub.berkeley.edu).\nFirst, check the hub’s configs for any node pools that need updating. Typically, this is just the core pool.\nSecond, update hubploy.yaml for this hub and point it to the new cluster you’ve created.\nAfter this is done, add the changes to your feature branch (but don’t push). After that, deploy a hub manually:\nhubploy deploy dev hub staging\nWhen the deploy is done, visit that hub and confirm that things are working.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#manually-deploy-remaining-hubs-to-staging-and-prod",
-    "href": "admins/howto/clusterswitch.html#manually-deploy-remaining-hubs-to-staging-and-prod",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Manually deploy remaining hubs to staging and prod",
-    "text": "Manually deploy remaining hubs to staging and prod\nNow, update the remaining hubs’ configs to point to the new node pools and hubploy.yaml to the cluster.\nThen use hubploy to deploy them to staging as with the previous step. The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a for loop:\nfor x in $(cat hubs.txt); do hubploy deploy ${x} hub staging; done\nfor x in $(cat hubs.txt); do hubploy deploy ${x} hub prod; done\nWhen done, add the modified configs to your feature branch (and again, don’t push yet).",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#update-circleci",
-    "href": "admins/howto/clusterswitch.html#update-circleci",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Update CircleCI",
-    "text": "Update CircleCI\nOnce you’ve successfully deployed the clusters manually via hubploy, it’s time to update CircleCI to point to the new cluster.\nAll you need to do is grep for the old cluster name in .circleci/config.yaml and change this to the name of the new cluster. There should just be four entries: two for the gcloud get credentials &lt;cluster-name&gt;, and two in comments. Make these changes and add them to your existing feature branch, but don’t commit yet.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#create-and-merge-your-pr",
-    "href": "admins/howto/clusterswitch.html#create-and-merge-your-pr",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Create and merge your PR!",
-    "text": "Create and merge your PR!\nNow you can finally push your changes to github. Create a PR, merge to staging and immediately kill off the deploy jobs for node-placeholder, support and deploy.\nCreate another PR to merge to prod and that deploy should work just fine.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#update-log-and-billing-sinks-bigquery-queries-etc.",
-    "href": "admins/howto/clusterswitch.html#update-log-and-billing-sinks-bigquery-queries-etc.",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Update log and billing sinks, BigQuery queries, etc.",
-    "text": "Update log and billing sinks, BigQuery queries, etc.\nI would recommend searching GCP console for all occurrences of the old cluster name, and fixing any bits that might be left over. This should only take a few minutes, but should definitely be done.\nFIN!",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/clusterswitch.html#deleting-the-old-cluster",
-    "href": "admins/howto/clusterswitch.html#deleting-the-old-cluster",
-    "title": "Switching over a hub to a new cluster",
-    "section": "Deleting the old cluster",
-    "text": "Deleting the old cluster\nAfter waiting a reasonable period of time (a day or two just to be cautious) and after fetching the usage logs, you may delete the old cluster:\ngcloud container clusters delete ${OLDCLUSTER} --region=us-central1",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Switching over a hub to a new cluster"
-    ]
-  },
-  {
-    "objectID": "admins/howto/remove-users-orm.html",
-    "href": "admins/howto/remove-users-orm.html",
-    "title": "JupyterHub ORM Maintenance",
-    "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "JupyterHub ORM Maintenance"
-    ]
-  },
-  {
-    "objectID": "admins/howto/remove-users-orm.html#performance",
-    "href": "admins/howto/remove-users-orm.html#performance",
-    "title": "JupyterHub ORM Maintenance",
-    "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "JupyterHub ORM Maintenance"
-    ]
-  },
-  {
-    "objectID": "admins/howto/remove-users-orm.html#run-the-script",
-    "href": "admins/howto/remove-users-orm.html#run-the-script",
-    "title": "JupyterHub ORM Maintenance",
-    "section": "Run the script",
-    "text": "Run the script\nYou can run the script on your own device. The script depends on the jhub_client python library. This can be installed with pip install jhub_client.\n\nYou will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to {hub_url}/hub/token to create a new one.\nSet the environment variable JUPYTERHUB_API_TOKEN to the token.\nRun python scripts/delete-unused-users.py --hub_url {hub_url}",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "JupyterHub ORM Maintenance"
-    ]
-  },
-  {
-    "objectID": "admins/howto/dns.html",
-    "href": "admins/howto/dns.html",
-    "title": "Update DNS",
-    "section": "",
-    "text": "Some staff have access to make and update DNS entries in the .datahub.berkeley.edu and .data8x.berkeley.edu subdomains.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Update DNS"
-    ]
-  },
-  {
-    "objectID": "admins/howto/dns.html#authorization",
-    "href": "admins/howto/dns.html#authorization",
-    "title": "Update DNS",
-    "section": "Authorization",
-    "text": "Authorization\nRequest access to make changes by creating an issue in this repository.\nAuthorization is granted via membership in the edu:berkeley:org:nos:DDI:datahub CalGroup. @yuvipanda and @ryanlovett are group admins and can update membership.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Update DNS"
-    ]
-  },
-  {
-    "objectID": "admins/howto/dns.html#making-changes",
-    "href": "admins/howto/dns.html#making-changes",
-    "title": "Update DNS",
-    "section": "Making Changes",
-    "text": "Making Changes\n\nLog into Infoblox from a campus network or through the campus VPN. Use your CalNet credentials.\nNavigate to Data Management &gt; DNS &gt; Zones and click berkeley.edu.\nNavigate to Subzones and choose either data8x or datahub, then click Records.\n\n\nFor quicker access, click the star next to the zone name to make a bookmark in the Finder pane on the left side.\n\n\nCreate a new record\n\nClick the down arrow next to + Add in the right-side Toolbar. Then choose Record &gt; A Record.\nEnter the name and IP of the A record, and uncheck Create associated PTR record.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nEdit an existing record\n\nClick the gear icon to the left of the record's name and choose Edit.\nMake a change.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nDelete a record\n\nClick the gear icon to the left of the record's name and choose Delete.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Update DNS"
+      "Create Finely Grained Access Token"
     ]
   },
   {

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Develop Documentation</title>
+<title>Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -101,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../admins/howto/preview-local.html"> 
+    <a class="nav-link" href="../../admins/howto/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
@@ -120,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Develop Documentation</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Documentation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -223,8 +257,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/howto/preview-local.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Develop Documentation</span></a>
+  <a href="../../admins/howto/documentation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -367,13 +401,34 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#github-pages-hosting" id="toc-github-pages-hosting" class="nav-link" data-scroll-target="#github-pages-hosting">GitHub Pages Hosting</a>
+  <ul class="collapse">
+  <li><a href="#cname" id="toc-cname" class="nav-link" data-scroll-target="#cname">CNAME</a></li>
+  <li><a href="#action" id="toc-action" class="nav-link" data-scroll-target="#action">Action</a></li>
+  </ul></li>
+  <li><a href="#local-development" id="toc-local-development" class="nav-link" data-scroll-target="#local-development">Local Development</a>
+  <ul class="collapse">
+  <li><a href="#render-static-html" id="toc-render-static-html" class="nav-link" data-scroll-target="#render-static-html">Render Static HTML</a></li>
+  <li><a href="#live-preview" id="toc-live-preview" class="nav-link" data-scroll-target="#live-preview">Live Preview</a></li>
+  <li><a href="#ide-support" id="toc-ide-support" class="nav-link" data-scroll-target="#ide-support">IDE Support</a></li>
+  </ul></li>
+  <li><a href="#style-guide" id="toc-style-guide" class="nav-link" data-scroll-target="#style-guide">Style Guide</a></li>
+  <li><a href="#previous-format-and-hosting" id="toc-previous-format-and-hosting" class="nav-link" data-scroll-target="#previous-format-and-hosting">Previous Format and Hosting</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/preview-local.html">Develop Documentation</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Documentation</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Develop Documentation</h1>
+<h1 class="title">Documentation</h1>
 </div>
 
 
@@ -390,14 +445,70 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="live-preview" class="level2">
-<h2 class="anchored" data-anchor-id="live-preview">Live Preview</h2>
-<p>Navigate to the <code>docs</code> directory and run <code>quarto preview</code>. You can view the documentation in a browser while you make changes.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Documentation is managed under the <code>docs/</code> folder, and is generated with <a href="https://quarto/">Quarto</a>. It is published to this site, <a href="https://docs.datahub.berkeley.edu" class="uri">https://docs.datahub.berkeley.edu</a>, hosted at GitHub Pages. Content is written in <a href="https://quarto.org/docs/authoring/markdown-basics.html">markdown</a>.</p>
 </section>
-<section id="render-static-html" class="level2">
-<h2 class="anchored" data-anchor-id="render-static-html">Render Static HTML</h2>
+<section id="github-pages-hosting" class="level2">
+<h2 class="anchored" data-anchor-id="github-pages-hosting">GitHub Pages Hosting</h2>
+<section id="cname" class="level3">
+<h3 class="anchored" data-anchor-id="cname">CNAME</h3>
+<p>The hostname <em>docs.datahub.berkeley.edu</em> is registered as a CNAME for <em>berkeley-dsep-infra.github.io</em> in campus DNS. We also must specify the CNAME in the datahub repo’s <a href="https://github.com/berkeley-dsep-infra/datahub/settings/pages">GitHub Pages settings</a>. GitHub will then know to serve up the Pages content of the datahub repo when it receives web requests at berkeley-dsep-infra.github.io.</p>
+<p>GitHub Pages also needs the file <code>CNAME</code> to exist in the base of the gh-pages branch. This is why the file exists in <code>docs/</code> directory, since content there gets pushed to gh-pages.</p>
+</section>
+<section id="action" class="level3">
+<h3 class="anchored" data-anchor-id="action">Action</h3>
+<p>The <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/quarto-docs.yml">GitHub Action workflow</a> checks merges for paths matching <code>docs/</code>. If there are matches, it will checkout the repo and use Quarto to build content in the <code>docs/</code> directory and publish static content to the <code>gh-pages</code> branch.</p>
+<p>GitHub Pages’ <code>pages-build-deployment</code> action will then bundle up that content and push it to GitHub’s web servers. Changes will only be visible after this step has completed.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Our documentation automation has always run on merges to <code>staging</code> branch, not <code>prod</code>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="local-development" class="level2">
+<h2 class="anchored" data-anchor-id="local-development">Local Development</h2>
+<p>You can test documentation changes locally by running Quarto on your own device. This can be done by either rendering the content and viewing the static HTML, or by running Quarto in a preview mode.</p>
+<section id="render-static-html" class="level3">
+<h3 class="anchored" data-anchor-id="render-static-html">Render Static HTML</h3>
 <p>Navigate to the <code>docs</code> directory and run <code>quarto render</code>. This will build the entire website in the <code>_site</code> directory. You can then open files in your web browser.</p>
-<p>You can also render individual files, which saves time if you do not want to render the whole site. Run <code>quarto render ./path/to/filename.qmd</code>, and then open the corresponding HTML file in the _site directory.</p>
+<p>You can also choose to render individual files, which saves time if you do not want to render the whole site. Run <code>quarto render ./path/to/filename.qmd</code>, and then open the corresponding HTML file in the <code>_site</code> directory.</p>
+</section>
+<section id="live-preview" class="level3">
+<h3 class="anchored" data-anchor-id="live-preview">Live Preview</h3>
+<p>Navigate to the <code>docs</code> directory and run <code>quarto preview</code>. This also causes the whole site to render, but then launches a local web server and a browser that connects to that server. Quarto dynamically rebuilds pages that you modify. Quarto considers this the <a href="https://quarto.org/docs/tools/text-editors.html#workflow">ideal workflow</a> for authoring content.</p>
+</section>
+<section id="ide-support" class="level3">
+<h3 class="anchored" data-anchor-id="ide-support">IDE Support</h3>
+<p>Applications like RStudio and VS Code support running the live preview method internally. You may prefer starting the editing process from those applications, and letting them managing the preview lifecycle.</p>
+</section>
+</section>
+<section id="style-guide" class="level2">
+<h2 class="anchored" data-anchor-id="style-guide">Style Guide</h2>
+<p>These are some conventions we can use to keep the style consistent:</p>
+<ul>
+<li><p>Use backticks (`example` yields <code>example</code>) for filesystem paths, program names, command execution, or anything that should be rendered in monospace font.</p></li>
+<li><p>Use asterisks (*example* yields <em>example</em>) for emphasis or for meaningful terms.</p></li>
+<li><p>Don’t append colons (:) to headings, although they can appear in normal text.</p></li>
+<li><p>When including hyperlinks, try using <a href="https://www.w3.org/WAI/WCAG22/quickref/?versions=2.1#link-purpose-in-context">descriptive, meaningful text</a>, where the purpose can be determine from the linked text. Avoid using terms like, “see this link” or “see here” as the latter are worse for web accessibility and usability.</p></li>
+<li><p>Include <a href="https://quarto.org/docs/authoring/figures.html#alt-text">alt text</a> for each image or figure.</p></li>
+<li><p>Try to avoid arbitrarily changing file names as this will change URLs. If it makes sense to change a filename, include a redirect to the previous path in the <a href="https://quarto.org/docs/authoring/front-matter.html">document front matter</a>, using a relative path to the HTML, e.g.:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">aliases</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> ../../admins/deployments/stat159.html</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</section>
+<section id="previous-format-and-hosting" class="level2">
+<h2 class="anchored" data-anchor-id="previous-format-and-hosting">Previous Format and Hosting</h2>
+<p>This website used to be authored in reStructured Text and was published to readthedocs via a <a href="https://github.com/berkeley-dsep-infra/datahub/settings/hooks">now disabled webhook</a>. The hook would periodically fail, even when there were no documentation-related changes, and that would get in the way of our CI.</p>
+<p>Content was ported from RST to Markdown by using pandoc.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> <span class="at">-f</span> rst <span class="at">-t</span> markdown <span class="at">-o</span> output.qmd input.rst</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It then had to be manually cleaned up in various ways.</p>
 
 
 </section>
