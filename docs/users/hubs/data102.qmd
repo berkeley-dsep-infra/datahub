@@ -1,0 +1,15 @@
+---
+title: Data 102
+categories:
+  - course
+  - jupyterlab
+  - otter-grader
+  - shared-folders
+---
+
+This hub is for [Data 102](http://www.ds102.org/) which has a unique
+user and grading environment.
+
+Data 102 runs on [Google Cloud Platform](https://cloud.google.com) in the
+`ucb-datahub-2018` project. You can see all config for it under
+`deployments/data102`.

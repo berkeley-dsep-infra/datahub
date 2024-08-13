@@ -1,0 +1,18 @@
+---
+title: Data 100
+categories:
+  - course
+  - jupyterlab
+  - otter-grader
+  - shared-folders
+---
+
+This hub is for [Data 100](http://www.ds100.org/) which has a unique
+user and grading environment.
+
+Data100 has shared folders between staff (professors and GSIs) and
+students. Course staff can see a `shared` and a `shared-readwrite`
+folder. Students can only see the `shared` folder, which is read-only.
+Anything that gets put in `shared-readwrite` is automatically viewable
+in `shared`, but as read-only files. The purpose of this is to be able
+to share large data files instead of having one per student.

@@ -1,5 +1,13 @@
 ---
 title: Stat 159
+categories:
+  - course
+  - jupyterlab
+  - rtc 
+  - shared-folders
+  - vscode
+aliases:
+  - ../../admins/deployments/stat159.html
 ---
 
 stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as
@@ -12,18 +20,11 @@ Notably the image contains support for RTC. As of March 2023, this
 requires:
 
 ```yaml
-- altair==4.2.2
-- boken==2.4.3
-- dask==2023.1.1
 - jupyter_server==2.2.1
 - jupyterlab==3.6.1
 - jupyterlab_server==2.19.0
-- tornado==6.2.0
 - git+https://<github.com/berkeley-dsep-infra/tmpystore.git@84765e1>
 ```
-
-Some of these are hard requirements and others were necessary to make
-conda happy.
 
 ## Configuration
 
@@ -71,10 +72,3 @@ CanvasAuthenticator can remain in charge of managing groups. This will
 be important for the extremely large courses. It will also be beneficial
 in that resource allocation can be performed more easily through group
 affiliations and group properties.
-
-## Historical Information
-
-The image has been periodically shared with data100 for when Fernando
-has taught both. Going forward, it is probably best to keep them
-separate and optionally kept in sync. We don\'t want changes in one
-course to come as a surprise to the other.

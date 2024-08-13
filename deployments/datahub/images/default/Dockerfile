@@ -50,16 +50,17 @@ RUN install -d -o ${NB_USER} -g ${NB_USER} ${R_LIBS_USER}
 # These packages must be installed into the base stage since they are in system
 # paths rather than /srv.
 # Pre-built R packages from rspm are built against system libs in jammy.
-ENV R_VERSION=4.3.2-1.2204.0
-ENV LITTLER_VERSION=0.3.18-2.2204.0
+#ENV R_VERSION=4.3.2-1.2204.0
+#ENV LITTLER_VERSION=0.3.18-2.2204.0
+ENV R_VERSION=4.4.1-1.2204.0
+ENV LITTLER_VERSION=0.3.19-1.2204.0
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran.list
 RUN curl --silent --location --fail https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc > /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 RUN apt-get update --yes > /dev/null && \
     apt-get install --yes -qq r-base-core=${R_VERSION} r-base-dev=${R_VERSION} littler=${LITTLER_VERSION} > /dev/null
 
-#ENV RSTUDIO_URL https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.06.0-421-amd64.deb
-ENV RSTUDIO_URL https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.12.0-369-amd64.deb
+ENV RSTUDIO_URL=https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb
 RUN curl --silent --location --fail ${RSTUDIO_URL} > /tmp/rstudio.deb && \
     apt install --no-install-recommends --yes /tmp/rstudio.deb && \
     rm /tmp/rstudio.deb
@@ -187,6 +188,18 @@ RUN /usr/local/sbin/connector-text.bash
 
 #COPY connectors/2021-fall-phys-188-288.bash /usr/local/sbin/
 #RUN /usr/local/sbin/2021-fall-phys-188-288.bash
+
+#ESPM, FA 24
+# https://github.com/berkeley-dsep-infra/datahub/issues/5827
+ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
+USER root
+RUN mkdir -p ${VSCODE_EXTENSIONS} && \
+    chown -R jovyan:jovyan ${VSCODE_EXTENSIONS}
+USER ${NB_USER}
+# Install Code Server Jupyter extension 
+RUN /srv/conda/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-toolsai.jupyter
+# Install Code Server Python extension
+RUN /srv/conda/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-python.python
 
 # clear out /tmp
 USER root

@@ -1,0 +1,14 @@
+---
+title: Stat 20
+categories:
+  - course
+  - jupyterlab
+  - quarto 
+  - rstudio 
+  - shared-folders
+  - shiny 
+---
+
+stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as
+designed by Andrew Bray. It uses RStudio as the primary users interface
+and students can use Quarto to author documents and Shiny to create web applications.

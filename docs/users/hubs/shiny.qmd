@@ -1,0 +1,9 @@
+---
+title: Shiny
+categories:
+  - r
+  - rstudio
+  - shiny
+---
+
+[shiny.datahub.berkeley.edu](https://shiny.datahub.berkeley.edu) contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio.

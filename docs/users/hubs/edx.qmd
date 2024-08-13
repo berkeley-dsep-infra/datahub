@@ -1,0 +1,15 @@
+---
+title: Data 8X
+categories:
+  - jupyterlab
+  - ltiauthenticator
+---
+
+This hub is for the [data8x course on EdX](https://www.edx.org/professional-certificate/berkeleyx-foundations-of-data-science).
+It is open to use by anyone in the world, using [LTI
+Authentication](https://github.com/jupyterhub/ltiauthenticator) to
+provide login capability from inside EdX.
+
+It runs on [Google Cloud Platform](https://cloud.google.com) in the
+`data8x-scratch` project. You can see all config for it under
+`deployments/data8x`.

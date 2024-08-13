@@ -1,0 +1,20 @@
+---
+title: DataHub
+categories:
+  - jupyterlab
+  - r
+  - vscode
+aliases:
+  - ../../admins/deployments/datahub.html
+---
+
+[datahub.berkeley.edu](https://datahub.berkeley.edu) is the *main* JupyterHub
+for use at UC Berkeley. It is the largest and most active hub, and provides a
+standard computing environment to many foundational courses across diverse
+disciplines.
+
+## Image
+
+The datahub image contains both Python and R environments. A user can
+create jupyter notebooks utilizing either Python or R, or can run
+RStudio using R or Python.

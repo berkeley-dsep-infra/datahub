@@ -18,7 +18,7 @@ website:
       - text: "Contributing"
         href: admins/pre-reqs.qmd
       - text: "Admin Tasks"
-        href: admins/howto/preview-local.qmd
+        href: admins/howto/documentation.qmd
       - text: "Policy"
         href: policy/create_policy.qmd
   page-navigation: true
@@ -30,7 +30,7 @@ website:
         text: Home
       - section: "Using DataHub"
         contents:
-          - users/services.qmd
+          - users/features.qmd
           - users/private-repo.qmd
           - users/hubs.qmd
           - users/authentication.qmd
@@ -43,7 +43,7 @@ website:
           - admins/credentials.qmd
           - section: "Common Administrator Tasks"
             contents:
-              - admins/howto/preview-local.qmd
+              - admins/howto/documentation.qmd
               - admins/howto/dns.qmd
               - admins/howto/core-pool.qmd
               - admins/howto/new-hub.qmd
@@ -59,10 +59,6 @@ website:
               - admins/howto/clusterswitch.qmd
               - admins/howto/github-token.qmd
               - admins/howto/google-sheets.qmd
-          - section: "Hub Deployments"
-            contents:
-              - admins/deployments/datahub.qmd
-              - admins/deployments/stat159.qmd
       - section: "Policy"
         contents:
           - policy/create_policy.qmd
@@ -74,7 +70,8 @@ website:
 
 format:
   html:
-    theme: book
+    theme: cosmo
+    toc: true
     #title-block-banner: datahub.svg
     navbar:
       left:

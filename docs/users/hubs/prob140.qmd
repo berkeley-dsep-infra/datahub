@@ -1,0 +1,12 @@
+---
+title: Prob 140
+categories:
+  - course
+  - jupyterlab
+  - vscode
+---
+
+Prob 140 hub exists to isolate student files from the main hub. Some students
+in this course might be course staff in another course, or vice versa, so we
+isolate their home directories through this hub. It uses the same singleuser
+docker image as the main hub.

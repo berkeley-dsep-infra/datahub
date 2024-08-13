@@ -1,5 +1,7 @@
 ---
 title: Create a New Hub
+aliases:
+  - ../../en/latest/admins/howto/new-hub.html
 ---
 
 ## Why create a new hub?
@@ -386,7 +388,7 @@ prometheus-node-exporter
 
 Besides setting defaults, we can dynamically change the placeholder
 counts by either adding new, or editing existing, [calendar
-events](https://docs.datahub.berkeley.edu/en/latest/admins/howto/calendar-scaler.html).
+events](calendar-scaler.qmd).
 This is useful for large courses which can have placeholder nodes set
 aside for predicatable periods of heavy ramp up.
 

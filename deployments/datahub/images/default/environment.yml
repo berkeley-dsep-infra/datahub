@@ -72,13 +72,13 @@ dependencies:
 - music21==8.3.0
 
 # data8; foundation
-- datascience==0.17.6
+#- datascience==0.17.6
 - jupyter-server-proxy==4.2.0
 - jupyter-rsession-proxy==2.2.0
 - folium==0.12.1.post1
 
 # cogsci131; spring 2018
-- nose==1.3.7
+#- nose==1.3.7
 
 # modules
 - beautifulsoup4==4.9.3
@@ -145,38 +145,41 @@ dependencies:
   # - theano-pymc==1.1.2
   # - pymc3==3.11.2
 
-  # eep 153; spring 2019
   - requests==2.31.0
-  - Pint==0.17
+
   # Google spreadsheets, Eric Van Dusen / Keeley Takimoto / Modules
   - gspread-pandas==2.3.0
   - gspread==4.0.1
 
   # eps 109; fall 2019
+  # sknapp 2024-08-12:  keeping this package as i believe it's still useful
   - ffmpeg-python==0.2.0
 
   # issue #875, global 150Q/pacs 190 - fall 2019
+  # sknapp 2024-08-12:  keeping this package as i believe it's still useful
   - wordcloud==1.9.3
 
   # issue #929, SW 282 - fall 2019
+  # sknapp 2024-08-12:  keeping this package as i believe it's still useful
   - pyreadstat==1.2.7
 
   # issue 954, EPS24 - fall 2019
+  # sknapp 2024-08-12:  keeping this package as i believe it's still useful
   - xarray==0.19.0
 
   # issue 1001, Physics 188/288 - fall 2019
-  - umap-learn==0.5.1
-  - hdbscan==0.8.31
+  #- umap-learn==0.5.1
+  #- hdbscan==0.8.31
 
   # espm 125/bio 105; fall 2019
   # see https://github.com/berkeley-dsep-infra/datahub/issues/1796
-  - bitarray==2.3.0
-  - nlmpy==1.0.1
+  #- bitarray==2.3.0
+  #- nlmpy==1.0.1
 
   # physics 188/288 fall, 2019
-  - getdist==1.3.1
-  - tensorflow-hub==0.12.0
-  - tensorflow-probability==0.13.0
+  #- getdist==1.3.1
+  #- tensorflow-hub==0.12.0
+  #- tensorflow-probability==0.13.0
 
   # cs16A/B, spring 2020
   - lcapy==0.96
@@ -228,6 +231,7 @@ dependencies:
   - rtree==1.2.0
 
   # [DH-319] https://github.com/berkeley-dsep-infra/datahub/issues/5827, ESPM 157
-  - ibis-framework[pandas]==9.2.0
+  - ibis-framework[pandas,duckdb]==9.2.0
+  - jupyterlab_myst==2.4.2
 
   # ATTEMPT TO PUT NEW PACKAGES IN THE CONDA LIST ABOVE FIRST, RATHER THAN PIP
