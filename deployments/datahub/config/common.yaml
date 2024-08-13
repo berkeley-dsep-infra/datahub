@@ -64,6 +64,20 @@ jupyterhub:
           - course::1535811::enrollment_type::teacher
           - course::1535811::enrollment_type::ta
 
+      # MBA 247, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5923
+      course-staff-1536576:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users!group=course::1536576
+          - admin:servers!group=course::1536576
+          - access:servers!group=course::1536576
+      #  # this role will be assigned to...
+        groups:
+          - course::1536576::enrollment_type::teacher
+          - course::1536576::enrollment_type::ta
+
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     initContainers:
