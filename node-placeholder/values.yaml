@@ -4,7 +4,7 @@ image:
   repository: us-central1-docker.pkg.dev/ucb-datahub-2018/core/node-placeholder-scaler
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.1-0.dev.git.6946.hdccbf2f4"
+  tag: "20240731-224556"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -48,7 +48,8 @@ priorityClass:
 
 tolerations:
 
-calendarUrl: https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics
+calendarUrl: 
+  https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics
 
 grafana:
   tags:
