@@ -6,7 +6,7 @@ dependencies:
 - jupyter-server-proxy==4.2.0
 - jupyter-rsession-proxy==2.2.0
 - jupyter-syncthing-proxy==1.0.3
-- jupyterhub==4.1.5
+- jupyterhub==4.1.6
 - jupyterlab==4.0.11
 - nbgitpuller==1.2.1
 - notebook==7.0.7
