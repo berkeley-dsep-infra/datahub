@@ -7,7 +7,7 @@ channels:
 dependencies:
 - python==3.11.*
 - git==2.39.1
-- jupyterhub==4.1.5
+- jupyterhub==4.1.6
 - jupyter_app_launcher==0.2.1
 - jupyter-cache==1.0.0
 - jupyter-resource-usage==1.0.0
