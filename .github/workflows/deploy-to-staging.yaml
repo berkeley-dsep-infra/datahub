@@ -1,5 +1,5 @@
-name: Deploy images to hubs
-
+name: Deploy images to staging hubs
+# use echo ${VAR##*: } to get the value of a variable that is a string with a colon in it
 on:
   push:
     branches:
@@ -9,6 +9,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR labels
+        id: pr-labels
+        uses: irby/get-labels-on-push@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@v4
     
@@ -28,10 +34,18 @@ jobs:
           pip install -r requirements.txt
           pip install --force-reinstall git+https://github.com/shaneknapp/hubploy.git@major-refactor
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v44
+      - name: Install Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-        files_ignore: |
-            .github/**
-            images/**
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Install SOPS
+        run: |
+          echo $SOPS_ACCOUNT_KEY > ${HOME}/repo/sops.key
+          echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/repo/sops.key' >> ${BASH_ENV}
+          mkdir -p ${HOME}/repo/bin
+          curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
+          chmod 755 ${HOME}/repo/bin/sops
+          echo 'export PATH="${HOME}/repo/bin:${PATH}"' >> ${BASH_ENV}
