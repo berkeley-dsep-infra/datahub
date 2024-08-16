@@ -1,5 +1,6 @@
----
-on: pull-request  # yamllint disable-line rule:truthy
+name: "Yaml lint"
+on:
+  - pull-request  # yamllint disable-line rule:truthy
 
 jobs:
   lint:
