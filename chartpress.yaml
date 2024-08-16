@@ -1,4 +1,3 @@
-asdfasdf
 charts:
   - name: hub
     imagePrefix: gcr.io/ucb-datahub-2018/jupyterhub-
