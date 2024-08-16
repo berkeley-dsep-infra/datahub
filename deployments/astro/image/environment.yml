@@ -72,7 +72,7 @@ dependencies:
   - lightkurve
   - ipyparallel>=8.1.0
   - jupyter-tensorboard>=0.2.0
-  - line_profiler>-3.4.0
+  - line_profiler>=3.4.0
   - snakeviz>=2.1.1
   - memory_profiler>=0.60.0
   - flask>=2.0.2
