@@ -2,11 +2,6 @@ images:
   images:
     # temporary update
     - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/logodev-user-image:829f9eaececd
-  registry:
-    provider: gcloud
-    gcloud:
-      project: ucb-datahub-2018
-      service_key: gcr-key.json
 
 cluster:
   provider: gcloud
