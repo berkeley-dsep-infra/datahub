@@ -1,7 +1,7 @@
 images:
   images:
     # temporary update
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/logodev-user-image:829f9eaececd
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/logodev-user-image:a9443779a3a9
 
 cluster:
   provider: gcloud
