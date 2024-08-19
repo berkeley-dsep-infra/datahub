@@ -7,15 +7,6 @@ channels:
 dependencies:
 - python=3.11.*
 - jupyter-server-proxy>=4.3
-- git==2.39.1
-- jupyter-resource-usage==1.0.0
-- jupyterlab==4.0.11
-- jupyterlab-favorites==3.0.0
-- jupyterlab_server==2.23.0
-- jupyterlab_widgets==3.0.8
-- jupyter_server==2.7.0
-- nbgitpuller==1.2.1
-- notebook==7.0.7
 # A linux desktop environment
 - websockify
 - numpy>=2.1.0
@@ -27,7 +18,6 @@ dependencies:
 - torchvision
 - pytorch-lightning
 - cartopy
-- cpuonly
 - pandas>=2.2.2
 - protobuf
 - jupysql
@@ -41,6 +31,7 @@ dependencies:
 - scipy==1.14.*
 - tensorflow-cpu==2.17.0
 - tensorflow==2.17.0
+- cudatoolkit
 - jax>=0.4.31
 - jaxlib>=0.4.31
 - cython==3.0.11
