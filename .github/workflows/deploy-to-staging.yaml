@@ -58,6 +58,8 @@ jobs:
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
 
       - name: Install SOPS
         if: ${{ env.DEPLOY }}
