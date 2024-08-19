@@ -78,7 +78,7 @@ jobs:
       - name: Deploy hubs to staging
         if: ${{ env.DEPLOY }}
         run: |
-          for hub in $DEPLOY_HUBS[@]; do
+          for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
             echo "Deploying $hub to staging"
             hubploy --verbose deploy $hub hub staging
           done
