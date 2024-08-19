@@ -63,7 +63,7 @@ jobs:
         if: ${{ env.DEPLOY }}
         run: |
           mkdir -p ${HOME}/bin
-          curl -sSL https://github.com/mozilla/sops/releases/download/v3.9.0/sops-v3.9.0.linux -o ${HOME}/bin/sops
+          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
           chmod 755 ${HOME}/bin/sops
           echo "${HOME}/bin" >> $GITHUB_PATH
 
