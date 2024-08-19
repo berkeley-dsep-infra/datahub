@@ -1,0 +1,94 @@
+name: Deploy images to staging hubs
+# use echo ${VAR##*: } to get the value of a variable that is a string with a colon in it
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR labels
+        id: pr-labels
+        uses: irby/get-labels-on-push@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check out the image repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Pull out any hubs that need deploying from the labels on the merge commit to staging
+        run: |
+          echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
+          HUBS=()
+          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
+            if [[ "$label" == hub-* ]]; then
+              label=$(echo $label | awk -F'-' '{print $2}')
+              HUBS+="$label"
+              echo "DEPLOY=1" >> $GITHUB_ENV
+            fi
+          done
+          echo "Hubs to deploy: $HUBS"
+          echo "DEPLOY_HUBS=${HUBS[@]}" >> $GITHUB_ENV
+
+      - name: Setup python
+        if: ${{ env.DEPLOY }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: ${{ env.DEPLOY }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install --force-reinstall git+https://github.com/shaneknapp/hubploy.git@major-refactor
+
+      - name: Auth to gcloud
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GKE_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Install Google Cloud SDK
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
+
+      - name: Install SOPS
+        if: ${{ env.DEPLOY }}
+        run: |
+          mkdir -p ${HOME}/bin
+          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
+          chmod 755 ${HOME}/bin/sops
+          echo "${HOME}/bin" >> $GITHUB_PATH
+
+      - name: Store SOPS secret in a file
+        if: ${{ env.DEPLOY }}
+        run: |
+          cat << EOF > ${HOME}/sops.key
+          ${{ secrets.SOPS_KEY }}
+          EOF
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
+
+      - name: Install Helm
+        if: ${{ env.DEPLOY }}
+        run: |
+            curl -L https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz | tar -xzf -
+            mv linux-amd64/helm /usr/local/bin
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
+      - name: Deploy hubs to staging
+        if: ${{ env.DEPLOY }}
+        run: |
+          for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
+            echo "Deploying $hub to staging"
+            hubploy --verbose deploy $hub hub staging
+          done

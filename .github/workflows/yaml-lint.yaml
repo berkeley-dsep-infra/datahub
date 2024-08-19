@@ -1,0 +1,15 @@
+name: "Yaml lint"
+on:
+  - pull_request  # yamllint disable-line rule:truthy
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint==1.35.1
+
+      - name: Lint YAML files
+        run: yamllint --no-warnings .
