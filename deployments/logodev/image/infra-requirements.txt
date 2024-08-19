@@ -1,0 +1,29 @@
+# WARNING: Original source at scripts/infra-packages/requirements.txt
+# PLEASE DO NOT EDIT ELSEWHERE
+# After editing scripts/infra-packages/requirements.txt, please run
+# scripts/infra-packages/sync.bash.
+
+# This file pins versions of notebook related python packages we want
+# across all hubs. This makes sure we don't need to upgrade them
+# everwhere one by one.
+
+# FIXME: Freeze this to get exact versions of all dependencies
+notebook==7.0.7
+jupyterlab==4.0.11
+nbgitpuller==1.2.1
+jupyter-resource-usage==1.0.1
+# Matches version in images/hub/Dockerfile
+jupyterhub==4.1.6
+appmode==0.8.0
+ipywidgets==8.0.7
+jupyter-tree-download==1.0.1
+git-credential-helpers==0.2
+# Measure popularity of different packages in our hubs
+# https://discourse.jupyter.org/t/request-for-implementation-instrument-libraries-actively-used-by-users-on-a-jupyterhub/7994?u=yuvipanda
+git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
+# RISE is useful for presentations - see https://github.com/berkeley-dsep-infra/datahub/issues/2527
+RISE==5.7.1
+# syncthing for dropbox-like functionality
+jupyter-syncthing-proxy==1.0.3
+# jupyter archival tool for easy user downloads
+jupyter-archive==3.4.0
