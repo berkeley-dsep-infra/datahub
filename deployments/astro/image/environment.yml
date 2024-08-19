@@ -18,7 +18,10 @@ dependencies:
 - torchvision
 - pytorch-lightning
 - cartopy
+- cpuonly
+- pandas>=2.2.2
 - protobuf
+- jupysql
 - setuptools>=65.3.0
 - mpich
 - mpi4py
@@ -35,7 +38,6 @@ dependencies:
 
 - pip:
   - syncthing
-  - -r infra-requirements.txt
   - jupyter-desktop-server==0.1.3
   - opencv-python>=4.5.5.62
   - nose2>=0.10.0
@@ -98,6 +100,7 @@ dependencies:
   - twine
   - otter-grader>=3.1.4
   # for notebook exporting
-  - nbconvert>=6.4.0
+  - nbconvert[webpdf]
   - nb2pdf==0.6.2
   - nbpdfexport==0.2.1
+  - pytest-notebook==0.8.1
