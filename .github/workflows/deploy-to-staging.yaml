@@ -62,10 +62,10 @@ jobs:
       - name: Install SOPS
         if: ${{ env.DEPLOY }}
         run: |
-          mkdir -p ${HOME}/repo/bin
-          curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
-          chmod 755 ${HOME}/repo/bin/sops
-          echo "${HOME}/repo/bin" >> $GITHUB_PATH
+          mkdir -p ${HOME}/bin
+          curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/bin/sops
+          chmod 755 ${HOME}/bin/sops
+          echo "${HOME}/bin" >> $GITHUB_PATH
 
       - name: Install Helm
         if: ${{ env.DEPLOY }}
@@ -78,7 +78,8 @@ jobs:
       - name: Deploy hubs to staging
         if: ${{ env.DEPLOY }}
         run: |
-          GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.SOPS_KEY }}
+          echo ${{ secrets.SOPS_KEY }} > ${HOME}/sops.key
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/sops.key"
           for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
             echo "Deploying $hub to staging"
             hubploy --verbose deploy $hub hub staging
