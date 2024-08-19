@@ -9,8 +9,8 @@ dependencies:
 - jupyter-server-proxy>=4.3
 # A linux desktop environment
 - websockify
-- numpy>=2.1.0
-- numexpr>=2.10.0
+- numpy==1.26.4
+- numexpr>=2.8.7
 - matplotlib==3.9.*
 - graphviz>=2.50.0
 - psycopg2==2.9.*
