@@ -1,0 +1,59 @@
+name: Deploy images to staging hubs
+# use echo ${VAR##*: } to get the value of a variable that is a string with a colon in it
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR labels
+        id: pr-labels
+        uses: irby/get-labels-on-push@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check out the image repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: print out labels just for testing
+        run: echo "${{ steps.pr-labels.outputs.labels }}"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install --force-reinstall git+https://github.com/shaneknapp/hubploy.git@major-refactor
+          hubploy --help
+          hubploy deploy --help
+
+      - name: Auth to gcloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Install Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: gcloud info
+        run: gcloud info
+
+      - name: Install SOPS
+        run: |
+          mkdir -p ${HOME}/repo/bin
+          curl -sSL https://github.com/mozilla/sops/releases/download/v3.7.0/sops-v3.7.0.linux -o ${HOME}/repo/bin/sops
+          chmod 755 ${HOME}/repo/bin/sops
