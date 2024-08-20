@@ -24,7 +24,7 @@ dependencies:
 - pandas==2.2.2
 - statsmodels=0.13.5
 - scikit-learn=1.4.*
-- seaborn=0.11.*
+- seaborn=0.13.2
 # - bokeh=2.3.*
 - decorator=5.0.*
 - networkx=2.6.*
@@ -232,6 +232,6 @@ dependencies:
 
   # [DH-319] https://github.com/berkeley-dsep-infra/datahub/issues/5827, ESPM 157
   - ibis-framework[pandas,duckdb]==9.2.0
-  - jupyterlab_myst==2.4.2
+ # - jupyterlab_myst==2.4.2 (Causing issues with rendering of the latex output for a CEE course)
 
   # ATTEMPT TO PUT NEW PACKAGES IN THE CONDA LIST ABOVE FIRST, RATHER THAN PIP
