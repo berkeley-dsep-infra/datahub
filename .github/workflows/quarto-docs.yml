@@ -13,7 +13,7 @@ jobs:
       contents: write
     # Don't run in forks, unless the forker sets a secret variable. I chose to
     # use a secret rather than a var because secrets are not copied to forks.
-    if: github.event.repository.fork == false || secrets.ALLOW_FORK_DEPLOY == 'true'
+    if: ${{ github.event.repository.fork == false || secrets.ALLOW_FORK_DEPLOY == 'true' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
