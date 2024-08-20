@@ -39,6 +39,7 @@ dependencies:
 - pip
 
 - pip:
+  - -r infra-requirements.txt
   - opencv-python>=4.5.5.62
   - nose2>=0.10.0
   - sympy
