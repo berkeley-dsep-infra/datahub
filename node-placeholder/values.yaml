@@ -79,7 +79,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   biology:
     nodeSelector:
       hub.jupyter.org/pool-name: biology-pool
@@ -87,7 +87,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   cee:
     nodeSelector:
       hub.jupyter.org/pool-name: cee-pool
@@ -103,7 +103,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 207314055168
-    replicas: 0
+    replicas: 1
   data101:
     nodeSelector:
       hub.jupyter.org/pool-name: data101-pool
@@ -111,7 +111,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   data102:
     nodeSelector:
       hub.jupyter.org/pool-name: data102-pool
@@ -119,7 +119,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   data8:
     nodeSelector:
       hub.jupyter.org/pool-name: data8-pool
@@ -127,7 +127,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   datahub:
     nodeSelector:
       hub.jupyter.org/pool-name: datahub-pool
@@ -143,7 +143,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 29247442944
-    replicas: 1
+    replicas: 0
   dlab:
     nodeSelector:
       hub.jupyter.org/pool-name: dlab-pool
@@ -151,7 +151,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   eecs:
     nodeSelector:
       hub.jupyter.org/pool-name: eecs-pool
@@ -159,7 +159,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   ischool:
     nodeSelector:
       hub.jupyter.org/pool-name: ischool-pool
@@ -175,7 +175,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   stat159:
     nodeSelector:
       hub.jupyter.org/pool-name: stat159-pool
@@ -191,7 +191,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   r:
     nodeSelector:
       hub.jupyter.org/pool-name: r-pool
@@ -199,7 +199,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
   small-courses:
     nodeSelector:
       hub.jupyter.org/pool-name: small-courses-pool
@@ -207,4 +207,4 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 0
+    replicas: 1
