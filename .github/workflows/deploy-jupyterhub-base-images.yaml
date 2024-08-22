@@ -28,7 +28,11 @@ jobs:
               echo "DEPLOY=1" >> $GITHUB_ENV
             fi
           done
-          echo "Deploying base hub images to all deployments"
+          if [[ -n "${DEPLOY}" ]]; then
+            echo "Deploying base hub images to all deployments"
+          else
+            echo "No hub images to deploy"
+          fi
 
       - name: Setup python
         if: ${{ env.DEPLOY }}
@@ -57,11 +61,12 @@ jobs:
           install_components: 'gke-gcloud-auth-plugin,kubectl'
 
       - name: Get GKE credentials for the cluster
+        if: ${{ env.DEPLOY }}
         uses: 'google-github-actions/get-gke-credentials@v2'
         with:
           cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
           location: ${{ secrets.GKE_CLUSTER_LOCATION }}
-
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Install SOPS
         if: ${{ env.DEPLOY }}
