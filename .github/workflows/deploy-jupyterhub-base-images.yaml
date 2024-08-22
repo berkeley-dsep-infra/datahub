@@ -56,6 +56,13 @@ jobs:
         with:
           install_components: 'gke-gcloud-auth-plugin,kubectl'
 
+      - name: Get GKE credentials for the cluster
+        uses: 'google-github-actions/get-gke-credentials@v2'
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          location: ${{ secrets.GKE_CLUSTER_LOCATION }}
+
+
       - name: Install SOPS
         if: ${{ env.DEPLOY }}
         run: |
