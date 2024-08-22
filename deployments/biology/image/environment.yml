@@ -59,6 +59,9 @@ dependencies:
 # bug w/notebook and traitlets: https://github.com/jupyter/notebook/issues/7048
 - traitlets=5.9.*
 
+# for MCELLBI201B (FA24) https://github.com/berkeley-dsep-infra/datahub/issues/5988
+- macs2==2.2.9.1
+  
 # For https://github.com/berkeley-dsep-infra/datahub/issues/1846
 # Conda does not have these
 - pip:
