@@ -799,14 +799,6 @@ workflows:
             branches:
               only:
                 - prod
-  deploy-node-placeholder:
-    jobs:
-      - deploy-node-placeholder:
-          filters:
-            branches:
-              # We don't have staging / prod for our node placeholder pods
-              # So we deploy only when deploying staging
-              only: staging
 
   deploy-support:
     jobs:
