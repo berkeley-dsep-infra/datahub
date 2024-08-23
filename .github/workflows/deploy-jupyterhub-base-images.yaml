@@ -115,7 +115,7 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-      - name: Pull out any hubs that need deploying from the labels on the merge commit to staging
+      - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
           for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
@@ -179,7 +179,7 @@ jobs:
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
-      - name: Deploy base hub images to staging
+      - name: Deploy base hub images to prod
         if: ${{ env.DEPLOY }}
         run: |
           ignored_directories=("template") # these are directories that we never want to deploy to
@@ -190,5 +190,5 @@ jobs:
               fi
             done
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --debug ${deployment} hub staging"
+            echo "hubploy deploy --debug ${deployment} hub prod"
           done < <(ls deployments/ | sed -e 's,/,,g')
