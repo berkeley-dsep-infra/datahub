@@ -1,0 +1,194 @@
+name: Deploy base hub images to staging
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - staging
+      - prod
+
+jobs:
+  deploy-hub-images-staging:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR labels
+        id: pr-labels
+        uses: irby/get-labels-on-push@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check out the image repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Pull out any hubs that need deploying from the labels on the merge commit to staging
+        run: |
+          echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
+          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
+            if [[ "$label" == jupyterhub-deployment || "$label" == hub-images ]]; then
+              echo "DEPLOY=1" >> $GITHUB_ENV
+            fi
+          done
+          if [[ -n "${DEPLOY}" ]]; then
+            echo "Deploying base hub images to all deployments"
+          else
+            echo "No hub images to deploy"
+          fi
+
+      - name: Setup python
+        if: ${{ env.DEPLOY }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: ${{ env.DEPLOY }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install --force-reinstall git+https://github.com/shaneknapp/hubploy.git@major-refactor
+
+      - name: Auth to gcloud
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GKE_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Install Google Cloud SDK
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
+
+      - name: Install SOPS
+        if: ${{ env.DEPLOY }}
+        run: |
+          mkdir -p ${HOME}/bin
+          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
+          chmod 755 ${HOME}/bin/sops
+          echo "${HOME}/bin" >> $GITHUB_PATH
+
+      - name: Store SOPS secret in a file
+        if: ${{ env.DEPLOY }}
+        run: |
+          cat << EOF > ${HOME}/sops.key
+          ${{ secrets.SOPS_KEY }}
+          EOF
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
+
+      - name: Install Helm
+        if: ${{ env.DEPLOY }}
+        run: |
+            curl -L https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz | tar -xzf -
+            mv linux-amd64/helm /usr/local/bin
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
+      - name: Deploy base hub images to staging
+        if: ${{ env.DEPLOY }}
+        run: |
+          ignored_directories=("template") # these are directories that we never want to deploy to
+          while read deployment; do
+            for ignored in "${ignored_directories[@]}"; do
+              if [[ "${deployment}" == "${ignored}" ]]; then
+                continue 2 # skip to the next iteration of "while read deployment"
+              fi
+            done
+            echo "Pretending to deploy base hub image to ${deployment}  :P"
+            echo "hubploy deploy --debug ${deployment} hub staging"
+          done < <(ls deployments/ | sed -e 's,/,,g')
+
+  deploy-hub-images-prod:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR labels
+        id: pr-labels
+        uses: irby/get-labels-on-push@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check out the image repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
+        run: |
+          echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
+          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
+            if [[ "$label" == jupyterhub-deployment || "$label" == hub-images ]]; then
+              echo "DEPLOY=1" >> $GITHUB_ENV
+            fi
+          done
+          if [[ -n "${DEPLOY}" ]]; then
+            echo "Deploying base hub images to all deployments"
+          else
+            echo "No hub images to deploy"
+          fi
+
+      - name: Setup python
+        if: ${{ env.DEPLOY }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: ${{ env.DEPLOY }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install --force-reinstall git+https://github.com/shaneknapp/hubploy.git@major-refactor
+
+      - name: Auth to gcloud
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GKE_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Install Google Cloud SDK
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
+
+      - name: Install SOPS
+        if: ${{ env.DEPLOY }}
+        run: |
+          mkdir -p ${HOME}/bin
+          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
+          chmod 755 ${HOME}/bin/sops
+          echo "${HOME}/bin" >> $GITHUB_PATH
+
+      - name: Store SOPS secret in a file
+        if: ${{ env.DEPLOY }}
+        run: |
+          cat << EOF > ${HOME}/sops.key
+          ${{ secrets.SOPS_KEY }}
+          EOF
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
+
+      - name: Install Helm
+        if: ${{ env.DEPLOY }}
+        run: |
+            curl -L https://get.helm.sh/helm-v3.13.3-linux-amd64.tar.gz | tar -xzf -
+            mv linux-amd64/helm /usr/local/bin
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
+      - name: Deploy base hub images to prod
+        if: ${{ env.DEPLOY }}
+        run: |
+          ignored_directories=("template") # these are directories that we never want to deploy to
+          while read deployment; do
+            for ignored in "${ignored_directories[@]}"; do
+              if [[ "${deployment}" == "${ignored}" ]]; then
+                continue 2 # skip to the next iteration of "while read deployment"
+              fi
+            done
+            echo "Pretending to deploy base hub image to ${deployment}  :P"
+            echo "hubploy deploy --debug ${deployment} hub prod"
+          done < <(ls deployments/ | sed -e 's,/,,g')
