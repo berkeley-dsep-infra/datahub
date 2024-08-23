@@ -91,7 +91,7 @@ jobs:
           while read deployment; do
             for ignored in "${ignored_directories[@]}"; do
               if [[ "${deployment}" == "${ignored}" ]]; then
-                continue 2 # skip to the next "read deployment"
+                continue 2 # skip to the next "while read deployment"
               fi
             done
             echo "Pretending to deploy base hub image to ${deployment}  :P"
