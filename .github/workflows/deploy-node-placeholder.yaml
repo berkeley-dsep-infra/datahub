@@ -74,7 +74,7 @@ jobs:
           sops -d -i deployments/datahub/secrets/gke-key.json
           gcloud auth \
             activate-service-account \
-            --key-file deployments/datahub/secrets/gke-key.json \
+            --key-file deployments/datahub/secrets/gke-key.json
           gcloud container clusters \
             --region=us-central1 --project=ucb-datahub-2018 \
             get-credentials spring-2024
