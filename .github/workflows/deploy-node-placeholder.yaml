@@ -1,4 +1,4 @@
-name: Deploy support helm chart
+name: Deploy node placeholder helm chart
 # use echo ${VAR##*: } to get the value of a variable that is a string with a colon in it
 on:
   workflow_dispatch:
@@ -21,12 +21,12 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-      - name: Check if the support helm chart needs to be deployed
+      - name: Check if the nbde placeholder helm chart needs to be deployed
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
           for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
-            if [[ "$label" == support-deployment ]]; then
-              echo "Deploying support charts!"
+            if [[ "$label" == node-placeholder-* ]]; then
+              echo "Deploying node placeholder charts!"
               echo "DEPLOY=1" >> $GITHUB_ENV
             fi
           done
@@ -79,14 +79,11 @@ jobs:
             --region=us-central1 --project=ucb-datahub-2018 \
             get-credentials spring-2024
 
-      - name: Deploy support helm chart
+      - name: Deploy node placeholder helm chart
         if: ${{ env.DEPLOY }}
         run: |
-          sops -d -i support/secrets.yaml
-          helm dep up support
+          sops -d -i node-placeholder/secrets.yaml
           helm upgrade \
             --install --wait \
-            --namespace=support \
-            support support/ \
-            -f support/secrets.yaml \
-            --set installCRDs=true --debug
+            --namespace=node-placeholder node-placeholder node-placeholder \
+            -f node-placeholder/secrets.yaml
