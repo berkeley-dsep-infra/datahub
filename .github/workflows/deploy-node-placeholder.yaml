@@ -86,4 +86,4 @@ jobs:
           helm upgrade \
             --install --wait \
             --namespace=node-placeholder node-placeholder node-placeholder \
-            -f node-placeholder/secrets.yaml --debug
+            -f node-placeholder/secrets.yaml

@@ -89,4 +89,4 @@ jobs:
             --namespace=support \
             support support/ \
             -f support/secrets.yaml \
-            --set installCRDs=true --debug
+            --set installCRDs=true
