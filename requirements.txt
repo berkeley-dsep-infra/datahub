@@ -8,6 +8,5 @@ jupyter-repo2docker==2024.3.0
 myst-parser
 chardet
 requests==2.31.0
-# requests==2.32.3
 urllib3<2.0.0
 yamllint==1.35.1
