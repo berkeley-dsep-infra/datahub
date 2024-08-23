@@ -87,13 +87,13 @@ jobs:
       - name: Deploy base hub images to staging
         if: ${{ env.DEPLOY }}
         run: |
-          ignored_directories=("template")
+          ignored_directories=("template") # these are directories that we never want to deploy to
           while read deployment; do
             for ignored in "${ignored_directories[@]}"; do
               if [[ "${deployment}" == "${ignored}" ]]; then
-                continue 2 # skip to the next "while read deployment"
+                continue 2 # skip to the next iteration of "while read deployment"
               fi
             done
             echo "Pretending to deploy base hub image to ${deployment}  :P"
             echo "hubploy deploy --debug ${deployment} hub staging"
-          done < <(find deployments/ -maxdepth 1 -type d -printf '%f\n' | grep -v template)
+          done < <(ls deployments/ | sed -e 's,/,,g')
