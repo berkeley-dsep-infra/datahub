@@ -31,7 +31,7 @@ jobs:
           # If the PR labels "hub-images" or "jupyterhub-deployment" are present, this
           # means the base hub image has changed, and all hubs (staging or prod) need to
           # be redeployed.  The rest of this job will not run in that case.
-          if [ -n $GITHUB_PR_LABEL_HUB_IMAGES ] || [ -n $GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]; then
+          if [ -c "${GITHUB_PR_LABEL_HUB_IMAGES}" ] || [ -c "${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT}" ]; then
             echo "Base hub image has changed, not deploying individual hubs to staging"
           else
             # deploy any hubs that have been labeled for deployment
@@ -131,7 +131,7 @@ jobs:
           # If the PR labels "hub-images" or "jupyterhub-deployment" are present, this
           # means the base hub image has changed, and all hubs (staging or prod) need to
           # be redeployed.  The rest of this job will not run in that case.
-          if [ -n $GITHUB_PR_LABEL_HUB_IMAGES ] || [ -n $GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]; then
+          if [ -c "${GITHUB_PR_LABEL_HUB_IMAGES}" ] || [ -c "${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT}" ]; then
             echo "Base hub image has changed, not deploying individual hubs to prod"
           else
             # deploy any hubs that have been labeled for deployment
