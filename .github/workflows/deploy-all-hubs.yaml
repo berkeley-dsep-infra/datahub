@@ -29,11 +29,6 @@ jobs:
               echo "DEPLOY=1" >> $GITHUB_ENV
             fi
           done
-          if [[ -n "${{ env.DEPLOY }}" ]]; then
-            echo "Deploying base hub images to all deployments on staging"
-          else
-            echo "No hub images to deploy to staging"
-          fi
 
       - name: Check out the image repo
         if: ${{ env.DEPLOY }}
@@ -123,11 +118,6 @@ jobs:
               echo "DEPLOY=1" >> $GITHUB_ENV
             fi
           done
-          if [[ -n "${{ env.DEPLOY }}" ]]; then
-            echo "Deploying base hub images to all deployments to prod"
-          else
-            echo "No hub images to deploy"
-          fi
 
       - name: Check out the image repo
         uses: actions/checkout@v4
