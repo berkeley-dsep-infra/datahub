@@ -1,8 +1,11 @@
-# if the PR labels "hub-images" or "jupyterhub-deployment" are present, this
-# means the base hub image has changed, and all hubs (staging or prod) need to
-# be redeployed.
+# this workflow re-deploys SPECIFIC hubs to staging or prod if the single-user
+# server image or config has changed based on the PR labels "hub: <hubname>".
 #
-name: Deploy base hub images to all hubs in staging and prod
+# however, this workflow will be not run if the PR labels of "hub-images" or
+# "jupyterhub-deployment" are present, as these labels will trigger the
+# "deploy-jupyterhub-base-images.yaml" workflow which re-deploys every hub.
+#
+name: Deploy staging and prod hubs
 on:
   workflow_dispatch:
   push:
@@ -11,7 +14,7 @@ on:
       - prod
 
 jobs:
-  deploy-hub-images-staging:
+  deploy-hubs-to-staging:
     if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     steps:
@@ -24,16 +27,22 @@ jobs:
       - name: Pull out any hubs that need deploying from the labels on the merge commit to staging
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
+          HUBS=()
           for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
-            if [[ "$label" == jupyterhub-deployment || "$label" == hub-images ]]; then
+            if [[ "$label" == hub-* ]]; then
+              label=$(echo $label | awk -F'-' '{print $2}')
+              HUBS+="$label"
               echo "DEPLOY=1" >> $GITHUB_ENV
             fi
           done
-          if [[ -n "${{ env.DEPLOY }}" ]]; then
-            echo "Deploying base hub images to all deployments on staging"
-          else
-            echo "No hub images to deploy to staging"
+          # If the PR labels "hub-images" or "jupyterhub-deployment" are present, this
+          # means the base hub image has changed, and all hubs (staging or prod) need to
+          # be redeployed.  This workflow will not run in that case.
+          if [ -n $GITHUB_PR_LABEL_HUB_IMAGES ] || [ -n $GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]; then
+            echo "Base hub image has changed, not deploying individual hubs to staging"
+            echo "DEPLOY=0" >> $GITHUB_ENV
           fi
+          echo "DEPLOY_HUBS=${HUBS[@]}" >> $GITHUB_ENV
 
       - name: Check out the image repo
         if: ${{ env.DEPLOY }}
@@ -91,21 +100,15 @@ jobs:
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
-      - name: Deploy base hub images to staging
+      - name: Deploy hubs to staging
         if: ${{ env.DEPLOY }}
         run: |
-          ignored_directories=("template") # these are directories that we never want to deploy
-          while read deployment; do
-            for ignored in "${ignored_directories[@]}"; do
-              if [[ "${deployment}" == "${ignored}" ]]; then
-                continue 2 # skip to the next iteration of "while read deployment"
-              fi
-            done
-            echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --debug ${deployment} hub staging"
-          done < <(ls deployments/ | sed -e 's,/,,g')
+          for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
+            echo "Deploying $hub to staging"
+            echo "hubploy --debug deploy $hub hub staging"
+          done
 
-  deploy-hub-images-prod:
+  deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
     steps:
@@ -115,24 +118,30 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
-        run: |
-          echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
-          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
-            if [[ "$label" == jupyterhub-deployment || "$label" == hub-images ]]; then
-              echo "DEPLOY=1" >> $GITHUB_ENV
-            fi
-          done
-          if [[ -n "${{ env.DEPLOY }}" ]]; then
-            echo "Deploying base hub images to all deployments to prod"
-          else
-            echo "No hub images to deploy"
-          fi
-
       - name: Check out the image repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
+        run: |
+          echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
+          HUBS=()
+          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
+            if [[ "$label" == hub-* ]]; then
+              label=$(echo $label | awk -F'-' '{print $2}')
+              HUBS+="$label"
+              echo "DEPLOY=1" >> $GITHUB_ENV
+            fi
+          done
+          # If the PR labels "hub-images" or "jupyterhub-deployment" are present, this
+          # means the base hub image has changed, and all hubs (staging or prod) need to
+          # be redeployed.  This workflow will not run in that case.
+          if [ -n $GITHUB_PR_LABEL_HUB_IMAGES ] || [ -n $GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]; then
+            echo "Base hub image has changed, not deploying individual hubs to prod"
+            echo "DEPLOY=0" >> $GITHUB_ENV
+          fi
+          echo "DEPLOY_HUBS=${HUBS[@]}" >> $GITHUB_ENV
 
       - name: Setup python
         if: ${{ env.DEPLOY }}
@@ -184,16 +193,10 @@ jobs:
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
-      - name: Deploy base hub images to prod
+      - name: Deploy hubs to prod
         if: ${{ env.DEPLOY }}
         run: |
-          ignored_directories=("template") # these are directories that we never want to deploy
-          while read deployment; do
-            for ignored in "${ignored_directories[@]}"; do
-              if [[ "${deployment}" == "${ignored}" ]]; then
-                continue 2 # skip to the next iteration of "while read deployment"
-              fi
-            done
-            echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --debug ${deployment} hub prod"
-          done < <(ls deployments/ | sed -e 's,/,,g')
+          for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
+            echo "Deploying $hub to prod"
+            echo "hubploy --debug deploy $hub hub prod"
+          done
