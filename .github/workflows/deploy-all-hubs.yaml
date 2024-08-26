@@ -21,7 +21,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull out any hubs that need deploying from the labels on the merge commit to staging
+      - name: Check to see if the base jupyterhub image has changed, and deploy all hubs to prod if it has
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
           for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
@@ -110,7 +110,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
+      - name: Check to see if the base jupyterhub image has changed, and deploy all hubs to prod if it has
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
           for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
