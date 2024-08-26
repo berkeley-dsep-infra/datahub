@@ -124,7 +124,7 @@ jobs:
             fi
           done
           if [[ -n "${{ env.DEPLOY }}" ]]; then
-            echo "Deploying base hub images to all deployments on prod"
+            echo "Deploying base hub images to all deployments to prod"
           else
             echo "No hub images to deploy"
           fi
