@@ -105,7 +105,7 @@ jobs:
         run: |
           for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
             echo "Deploying $hub to staging"
-            echo "hubploy --verbose deploy $hub hub staging"
+            echo "hubploy --debug deploy $hub hub staging"
           done
 
   deploy-hubs-to-prod:
@@ -198,5 +198,5 @@ jobs:
         run: |
           for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
             echo "Deploying $hub to prod"
-            echo "hubploy --verbose deploy $hub hub prod"
+            echo "hubploy --debug deploy $hub hub prod"
           done
