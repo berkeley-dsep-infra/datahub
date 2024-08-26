@@ -33,7 +33,6 @@ jobs:
           # be redeployed.  The rest of this job will not run in that case.
           if [ -n $GITHUB_PR_LABEL_HUB_IMAGES ] || [ -n $GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]; then
             echo "Base hub image has changed, not deploying individual hubs to staging"
-            echo "DEPLOY=0" >> $GITHUB_ENV
           else
             # deploy any hubs that have been labeled for deployment
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
@@ -134,7 +133,6 @@ jobs:
           # be redeployed.  The rest of this job will not run in that case.
           if [ -n $GITHUB_PR_LABEL_HUB_IMAGES ] || [ -n $GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]; then
             echo "Base hub image has changed, not deploying individual hubs to prod"
-            echo "DEPLOY=0" >> $GITHUB_ENV
           else
             # deploy any hubs that have been labeled for deployment
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
