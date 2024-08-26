@@ -1,0 +1,1785 @@
+INFO:__main__:Checking for and deleting ORM users on hub: https://datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging ameyachander for deletion.
+INFO:__main__:Flagging sfender for deletion.
+INFO:__main__:Not flagging gomes for deletion.
+INFO:__main__:Not flagging asyver for deletion.
+INFO:__main__:Flagging jakejuhyung for deletion.
+INFO:__main__:Flagging jedwin321 for deletion.
+INFO:__main__:Flagging nathan4505 for deletion.
+INFO:__main__:Flagging kseiki for deletion.
+INFO:__main__:Not flagging xainabmehr for deletion.
+INFO:__main__:Not flagging andrewm31033 for deletion.
+INFO:__main__:Not flagging kellyatucker for deletion.
+INFO:__main__:Not flagging omarmejia for deletion.
+INFO:__main__:Flagging arfamomin for deletion.
+INFO:__main__:Flagging sammanthagarcia for deletion.
+INFO:__main__:Flagging kostia2005 for deletion.
+INFO:__main__:Flagging jlrichland for deletion.
+INFO:__main__:Flagging yinjie for deletion.
+INFO:__main__:Flagging snatarajan549 for deletion.
+INFO:__main__:Flagging billy-berkeley-math for deletion.
+INFO:__main__:Flagging tgreen3530 for deletion.
+INFO:__main__:Flagging dhyim for deletion.
+INFO:__main__:Flagging kennethllontop for deletion.
+INFO:__main__:Flagging mbcampbell for deletion.
+INFO:__main__:Flagging kliay for deletion.
+INFO:__main__:Flagging kaedesposo for deletion.
+INFO:__main__:Flagging icecreamgirl for deletion.
+INFO:__main__:Flagging fuguan_obrien for deletion.
+INFO:__main__:Flagging yxuan for deletion.
+INFO:__main__:Flagging citlallims for deletion.
+INFO:__main__:Flagging wenjia.ma for deletion.
+INFO:__main__:Not flagging sandylee for deletion.
+INFO:__main__:Flagging namard for deletion.
+INFO:__main__:Flagging gustavo.hochman for deletion.
+INFO:__main__:Flagging jerramcl for deletion.
+INFO:__main__:Flagging carolgonzalezperez for deletion.
+INFO:__main__:Flagging kevinceballos for deletion.
+INFO:__main__:Flagging ryan_tajik for deletion.
+INFO:__main__:Flagging tolley412 for deletion.
+INFO:__main__:Flagging nayeli_deanda for deletion.
+INFO:__main__:Flagging shang11 for deletion.
+INFO:__main__:Flagging zhilieq for deletion.
+INFO:__main__:Flagging david_camper for deletion.
+INFO:__main__:Flagging ash.baghai for deletion.
+INFO:__main__:Flagging gvelasq3 for deletion.
+INFO:__main__:Flagging obeng for deletion.
+INFO:__main__:Flagging wenxiq for deletion.
+INFO:__main__:Flagging srishti_gojamgunde for deletion.
+INFO:__main__:Flagging christianw for deletion.
+INFO:__main__:Flagging bbai02 for deletion.
+INFO:__main__:Flagging bellajzhang for deletion.
+INFO:__main__:Flagging patrick.khoury for deletion.
+INFO:__main__:Flagging rishabhjvarshney for deletion.
+INFO:__main__:Flagging treves for deletion.
+INFO:__main__:Flagging rohitmittal for deletion.
+INFO:__main__:Flagging ball for deletion.
+INFO:__main__:Flagging kristykim for deletion.
+INFO:__main__:Flagging jameslukas for deletion.
+INFO:__main__:Flagging kareenahargunani for deletion.
+INFO:__main__:Flagging waitunnaing for deletion.
+INFO:__main__:Flagging rachelsoobinsang for deletion.
+INFO:__main__:Flagging qasim_javed for deletion.
+INFO:__main__:Flagging jonahg_tan for deletion.
+INFO:__main__:Not flagging hasitha for deletion.
+INFO:__main__:Not flagging amayalim for deletion.
+INFO:__main__:Flagging daisychu for deletion.
+INFO:__main__:Flagging shijin_ucb for deletion.
+INFO:__main__:Flagging andrew.little for deletion.
+INFO:__main__:Flagging ender_ricart for deletion.
+INFO:__main__:Flagging phudish_p for deletion.
+INFO:__main__:Flagging andrewdelacruz for deletion.
+INFO:__main__:Flagging pabousleiman for deletion.
+INFO:__main__:Not flagging tehyaeandersen for deletion.
+INFO:__main__:Flagging jantonioramirez for deletion.
+INFO:__main__:Flagging rachman_setiawan for deletion.
+INFO:__main__:Flagging marsmellow for deletion.
+INFO:__main__:Flagging ebhat for deletion.
+INFO:__main__:Flagging pramodmanohar for deletion.
+INFO:__main__:Flagging jchurchster for deletion.
+INFO:__main__:Flagging mingsennteo for deletion.
+INFO:__main__:Flagging gma for deletion.
+INFO:__main__:Not flagging luyiyang for deletion.
+INFO:__main__:Not flagging aditipoddar for deletion.
+INFO:__main__:Not flagging mhallal for deletion.
+INFO:__main__:Not flagging jingyuanchen for deletion.
+INFO:__main__:Flagging rissayas for deletion.
+INFO:__main__:Flagging chalicehsu for deletion.
+INFO:__main__:Flagging winstonyin for deletion.
+INFO:__main__:Flagging sathishkumar for deletion.
+INFO:__main__:Flagging isabelladuong for deletion.
+INFO:__main__:Flagging sofiaav for deletion.
+INFO:__main__:Flagging juy16thu for deletion.
+INFO:__main__:Flagging wygao for deletion.
+INFO:__main__:Flagging maya_lu for deletion.
+INFO:__main__:Flagging nishant.malpani for deletion.
+INFO:__main__:Flagging nehamasood for deletion.
+INFO:__main__:Flagging jedidiahtsang for deletion.
+INFO:__main__:Flagging kailey_ferger for deletion.
+INFO:__main__:Not flagging balajialwar for deletion.
+INFO:__main__:Flagging amywallrath for deletion.
+INFO:__main__:Flagging taiqi_li for deletion.
+INFO:__main__:Flagging karis for deletion.
+INFO:__main__:Flagging dipit.gupta for deletion.
+INFO:__main__:Flagging cxyang for deletion.
+INFO:__main__:Flagging avirukt for deletion.
+INFO:__main__:Flagging iyyah for deletion.
+INFO:__main__:Flagging adanortiz for deletion.
+INFO:__main__:Flagging fangyuan for deletion.
+INFO:__main__:Flagging varvara for deletion.
+INFO:__main__:Flagging jflesher for deletion.
+INFO:__main__:Not flagging taiki_kubo for deletion.
+INFO:__main__:Flagging lilianrod999 for deletion.
+INFO:__main__:Flagging youle for deletion.
+INFO:__main__:Flagging samuelreyes982 for deletion.
+INFO:__main__:Flagging brian.corgiat for deletion.
+INFO:__main__:Flagging heeric for deletion.
+INFO:__main__:Flagging linzefan for deletion.
+INFO:__main__:Flagging lockaflocka for deletion.
+INFO:__main__:Flagging omar.eloudghiri for deletion.
+INFO:__main__:Flagging muhammad_muhdhar for deletion.
+INFO:__main__:Flagging anahovsep for deletion.
+INFO:__main__:Not flagging william.tang for deletion.
+INFO:__main__:Flagging shreya_sheel for deletion.
+INFO:__main__:Flagging kevincam for deletion.
+INFO:__main__:Flagging nicole.fernandez for deletion.
+INFO:__main__:Not flagging aadhia for deletion.
+INFO:__main__:Flagging tongfeiyan0112 for deletion.
+INFO:__main__:Flagging caspar9999 for deletion.
+INFO:__main__:Flagging jhernandez10 for deletion.
+INFO:__main__:Flagging dayawanti01 for deletion.
+INFO:__main__:Flagging paulinaumansky for deletion.
+INFO:__main__:Flagging palshraya for deletion.
+INFO:__main__:Not flagging francisco_aguilar for deletion.
+INFO:__main__:Flagging jehan_jacobs for deletion.
+INFO:__main__:Not flagging anahi06 for deletion.
+INFO:__main__:Flagging noorulain for deletion.
+INFO:__main__:Not flagging gmerritt for deletion.
+INFO:__main__:Flagging ryanedw for deletion.
+INFO:__main__:Flagging zmfong for deletion.
+INFO:__main__:Not flagging ekfiske for deletion.
+INFO:__main__:Flagging allysonseong for deletion.
+INFO:__main__:Flagging lzx92 for deletion.
+INFO:__main__:Flagging xiangyu_yu for deletion.
+INFO:__main__:Flagging leying2007 for deletion.
+INFO:__main__:Flagging harryhuang13 for deletion.
+INFO:__main__:Flagging nicholasdhaliwal for deletion.
+INFO:__main__:Flagging joaoatam for deletion.
+INFO:__main__:Flagging emmatangshi0423 for deletion.
+INFO:__main__:Flagging eleanorwang for deletion.
+INFO:__main__:Flagging juliannepelaez for deletion.
+INFO:__main__:Flagging cecilia_0829 for deletion.
+INFO:__main__:Flagging vivian.g for deletion.
+INFO:__main__:Flagging minamohebbi for deletion.
+INFO:__main__:Flagging julianna.depaula for deletion.
+INFO:__main__:Flagging cjavier for deletion.
+INFO:__main__:Flagging florawan for deletion.
+INFO:__main__:Flagging ccmiller for deletion.
+INFO:__main__:Flagging erilu762 for deletion.
+INFO:__main__:Not flagging felder for deletion.
+INFO:__main__:Flagging auffhammer for deletion.
+INFO:__main__:Flagging dyilmaz for deletion.
+INFO:__main__:Not flagging shreygoel for deletion.
+INFO:__main__:Flagging malenabuffagni for deletion.
+INFO:__main__:Flagging zekai.wang for deletion.
+INFO:__main__:Flagging amaanansari for deletion.
+INFO:__main__:Flagging amberj for deletion.
+INFO:__main__:Flagging sach for deletion.
+INFO:__main__:Flagging sanya29012005 for deletion.
+INFO:__main__:Not flagging priyak36 for deletion.
+INFO:__main__:Flagging ssfjhfjhfjh12 for deletion.
+INFO:__main__:Not flagging ya2298y for deletion.
+INFO:__main__:Flagging ygor for deletion.
+INFO:__main__:Flagging owenhill for deletion.
+INFO:__main__:Not flagging jeremymcintyre for deletion.
+INFO:__main__:Flagging oualan for deletion.
+INFO:__main__:Flagging jdfp for deletion.
+INFO:__main__:Flagging sam_oaks for deletion.
+INFO:__main__:Flagging gnavarrete for deletion.
+INFO:__main__:Flagging markus.hohle for deletion.
+INFO:__main__:Flagging ariti for deletion.
+INFO:__main__:Flagging claire_yang for deletion.
+INFO:__main__:Flagging k.tseng for deletion.
+INFO:__main__:Not flagging j.chase for deletion.
+INFO:__main__:Flagging sohom_das for deletion.
+INFO:__main__:Flagging anastasiaginzburg for deletion.
+INFO:__main__:Flagging monicaj_martin for deletion.
+INFO:__main__:Flagging aleksandrsinelnikov for deletion.
+INFO:__main__:Flagging amyhuang0129 for deletion.
+INFO:__main__:Flagging denden for deletion.
+INFO:__main__:Flagging sadiersiegel for deletion.
+INFO:__main__:Flagging tim.x.platz for deletion.
+INFO:__main__:Flagging aadil for deletion.
+INFO:__main__:Flagging sophia.tran for deletion.
+INFO:__main__:Flagging daniela_vargas for deletion.
+INFO:__main__:Flagging smoura for deletion.
+INFO:__main__:Flagging yoko_morishita for deletion.
+INFO:__main__:Flagging joshuaedwards for deletion.
+INFO:__main__:Flagging rheegan for deletion.
+INFO:__main__:Flagging dalint19 for deletion.
+INFO:__main__:Flagging luka.zhang for deletion.
+INFO:__main__:Flagging j-shen for deletion.
+INFO:__main__:Flagging lakshmi_prasad for deletion.
+INFO:__main__:Not flagging mauxca33 for deletion.
+INFO:__main__:Flagging danika_heaney for deletion.
+INFO:__main__:Flagging jihan_zhang for deletion.
+INFO:__main__:Flagging ctechasiri for deletion.
+INFO:__main__:Flagging izzyadelhardt for deletion.
+INFO:__main__:Flagging songela for deletion.
+INFO:__main__:Not flagging diegom5213 for deletion.
+INFO:__main__:Flagging guanren_zhou for deletion.
+INFO:__main__:Flagging conor_bready for deletion.
+INFO:__main__:Flagging davidconnell for deletion.
+INFO:__main__:Flagging stephen.quiton for deletion.
+INFO:__main__:Flagging rahoulbanerjeeghosh for deletion.
+INFO:__main__:Flagging kmhightower for deletion.
+INFO:__main__:Flagging mdolich for deletion.
+INFO:__main__:Flagging brayden_glockzin for deletion.
+INFO:__main__:Flagging wrishko for deletion.
+INFO:__main__:Flagging vsaask for deletion.
+INFO:__main__:Flagging nataliekgreen for deletion.
+INFO:__main__:Flagging jian_yin for deletion.
+INFO:__main__:Flagging jack_sultan for deletion.
+INFO:__main__:Flagging gabrielokner for deletion.
+INFO:__main__:Flagging mayagarcia for deletion.
+INFO:__main__:Flagging ichiro for deletion.
+INFO:__main__:Flagging wbillings for deletion.
+INFO:__main__:Flagging nschur for deletion.
+INFO:__main__:Flagging jmcclellan for deletion.
+INFO:__main__:Flagging allisonhartley for deletion.
+INFO:__main__:Not flagging ashley.li for deletion.
+INFO:__main__:Flagging dhristov for deletion.
+INFO:__main__:Flagging dcleveland for deletion.
+INFO:__main__:Flagging shethshaan2000 for deletion.
+INFO:__main__:Flagging neelbajaria for deletion.
+INFO:__main__:Flagging guenther.scott for deletion.
+INFO:__main__:Flagging chaitali_shah for deletion.
+INFO:__main__:Flagging faithmiller for deletion.
+INFO:__main__:Flagging erfu for deletion.
+INFO:__main__:Flagging meg_takezawa for deletion.
+INFO:__main__:Flagging ygkolomensky for deletion.
+INFO:__main__:Flagging dongjin.kim for deletion.
+INFO:__main__:Flagging julia.granados for deletion.
+INFO:__main__:Flagging jessica.zhao for deletion.
+INFO:__main__:Flagging aboo for deletion.
+INFO:__main__:Not flagging junya_tsuneishi for deletion.
+INFO:__main__:Flagging jcdoig for deletion.
+INFO:__main__:Not flagging paciorek for deletion.
+INFO:__main__:Flagging michael_virtucio for deletion.
+INFO:__main__:Flagging feehan for deletion.
+INFO:__main__:Flagging mwilkers for deletion.
+INFO:__main__:Not flagging antipk93 for deletion.
+INFO:__main__:Flagging jdgg for deletion.
+INFO:__main__:Flagging 26sbyun for deletion.
+INFO:__main__:Flagging aebjorklund for deletion.
+INFO:__main__:Flagging star.cheese for deletion.
+INFO:__main__:Flagging alysiatanimura for deletion.
+INFO:__main__:Flagging sarahfxj for deletion.
+INFO:__main__:Flagging aviralpandey for deletion.
+INFO:__main__:Flagging gabriella_tom for deletion.
+INFO:__main__:Flagging mgsalama for deletion.
+INFO:__main__:Flagging tvisha.londhe for deletion.
+INFO:__main__:Flagging varshac for deletion.
+INFO:__main__:Not flagging kandywebberlove for deletion.
+INFO:__main__:Flagging jmwu for deletion.
+INFO:__main__:Flagging ivy_sim for deletion.
+INFO:__main__:Flagging kirtihargunani for deletion.
+INFO:__main__:Flagging ajcoll for deletion.
+INFO:__main__:Flagging zvnelson for deletion.
+INFO:__main__:Flagging shawnw for deletion.
+INFO:__main__:Not flagging jsadek for deletion.
+INFO:__main__:Flagging eugenejung for deletion.
+INFO:__main__:Flagging andrewdai for deletion.
+INFO:__main__:Flagging hibahalam for deletion.
+INFO:__main__:Flagging naveen.nathan for deletion.
+INFO:__main__:Not flagging qmyang for deletion.
+INFO:__main__:Flagging woodjace for deletion.
+INFO:__main__:Not flagging srandrade for deletion.
+INFO:__main__:Flagging chen_huang for deletion.
+INFO:__main__:Flagging ykaren for deletion.
+INFO:__main__:Flagging slhoover for deletion.
+INFO:__main__:Flagging danieloslund for deletion.
+INFO:__main__:Flagging allisonobrien for deletion.
+INFO:__main__:Flagging huangyq003 for deletion.
+INFO:__main__:Flagging yujiahui for deletion.
+INFO:__main__:Flagging tsaichih for deletion.
+INFO:__main__:Flagging muslimrazi for deletion.
+INFO:__main__:Not flagging yywu for deletion.
+INFO:__main__:Flagging shauryajain for deletion.
+INFO:__main__:Not flagging amas for deletion.
+INFO:__main__:Flagging kdong for deletion.
+INFO:__main__:Flagging szon for deletion.
+INFO:__main__:Not flagging siqi_qiang for deletion.
+INFO:__main__:Not flagging butlerj for deletion.
+INFO:__main__:Flagging xiaoruiliu for deletion.
+INFO:__main__:Flagging conan.smallwood for deletion.
+INFO:__main__:Flagging ayrajafri for deletion.
+INFO:__main__:Flagging shreya.bhandari for deletion.
+INFO:__main__:Not flagging lizhongyao7 for deletion.
+INFO:__main__:Flagging aditirad for deletion.
+INFO:__main__:Flagging crissjyl for deletion.
+INFO:__main__:Flagging richarddu for deletion.
+INFO:__main__:Flagging yushenglee for deletion.
+INFO:__main__:Flagging amber_galvano for deletion.
+INFO:__main__:Flagging ankitabiyani for deletion.
+INFO:__main__:Flagging cvirador for deletion.
+INFO:__main__:Flagging kensington_hartman for deletion.
+INFO:__main__:Flagging kelvin_yang for deletion.
+INFO:__main__:Flagging aydin.mc1 for deletion.
+INFO:__main__:Flagging catherinet for deletion.
+INFO:__main__:Not flagging ruiwenl for deletion.
+INFO:__main__:Flagging yanty1 for deletion.
+INFO:__main__:Not flagging aidan_anderson for deletion.
+INFO:__main__:Flagging oviya.adhan for deletion.
+INFO:__main__:Not flagging jaeyeonlee for deletion.
+INFO:__main__:Not flagging jessica.george for deletion.
+INFO:__main__:Flagging krishnatvvm for deletion.
+INFO:__main__:Flagging ashmeetsaini for deletion.
+INFO:__main__:Flagging suhanir for deletion.
+INFO:__main__:Flagging huibin.chang for deletion.
+INFO:__main__:Not flagging xiyue_liang for deletion.
+INFO:__main__:Not flagging urmisumant for deletion.
+INFO:__main__:Flagging coco.sun for deletion.
+INFO:__main__:Flagging sm3 for deletion.
+INFO:__main__:Flagging emilylaw for deletion.
+INFO:__main__:Flagging markhsi for deletion.
+INFO:__main__:Flagging emilyding for deletion.
+INFO:__main__:Not flagging rwball for deletion.
+INFO:__main__:Flagging wdt for deletion.
+INFO:__main__:Flagging ndinesh for deletion.
+INFO:__main__:Flagging magali.ruer for deletion.
+INFO:__main__:Flagging yantianzuo for deletion.
+INFO:__main__:Not flagging fulingw for deletion.
+INFO:__main__:Flagging kathyliang2025 for deletion.
+INFO:__main__:Flagging ogeokp143 for deletion.
+INFO:__main__:Not flagging jennings_ye for deletion.
+INFO:__main__:Flagging jordanandersen for deletion.
+INFO:__main__:Flagging alexparikh-briggs for deletion.
+INFO:__main__:Flagging watarukon for deletion.
+INFO:__main__:Flagging charlesklein for deletion.
+INFO:__main__:Not flagging arnita.rut for deletion.
+INFO:__main__:Flagging makiharju for deletion.
+INFO:__main__:Flagging zehao.wang for deletion.
+INFO:__main__:Flagging christian7reyes for deletion.
+INFO:__main__:Not flagging juliannalee for deletion.
+INFO:__main__:Flagging tschutzius for deletion.
+INFO:__main__:Flagging emilychau for deletion.
+INFO:__main__:Flagging d_pradyumna for deletion.
+INFO:__main__:Flagging andrew.mchaty for deletion.
+INFO:__main__:Flagging eguy for deletion.
+INFO:__main__:Flagging sveazie for deletion.
+INFO:__main__:Flagging alexandra_collard for deletion.
+INFO:__main__:Flagging chloedavid for deletion.
+INFO:__main__:Not flagging cboettig for deletion.
+INFO:__main__:Not flagging rylo for deletion.
+INFO:__main__:Not flagging witty for deletion.
+INFO:__main__:Flagging mazimi9 for deletion.
+INFO:__main__:Flagging hjfisch for deletion.
+INFO:__main__:Flagging sameenh for deletion.
+INFO:__main__:Flagging justinqu for deletion.
+INFO:__main__:Flagging bradyu for deletion.
+INFO:__main__:Flagging nathan_levy for deletion.
+INFO:__main__:Not flagging ahad97ali for deletion.
+INFO:__main__:Flagging kashish_vinayak for deletion.
+INFO:__main__:Flagging shilpi_p for deletion.
+INFO:__main__:Not flagging yiyihuo for deletion.
+INFO:__main__:Flagging abishiva for deletion.
+INFO:__main__:Not flagging johnpsu714 for deletion.
+INFO:__main__:Not flagging miaschwing for deletion.
+INFO:__main__:Not flagging brandon_chun for deletion.
+INFO:__main__:Flagging hsu-hsiang.tsao for deletion.
+INFO:__main__:Flagging atamim for deletion.
+INFO:__main__:Not flagging jingjia_wang for deletion.
+INFO:__main__:Flagging kaylaleung915 for deletion.
+INFO:__main__:Flagging anoutsala for deletion.
+INFO:__main__:Flagging oli.may1 for deletion.
+INFO:__main__:Flagging ch.123 for deletion.
+INFO:__main__:Not flagging mmseguin2003 for deletion.
+INFO:__main__:Not flagging yukiasa118 for deletion.
+INFO:__main__:Not flagging rawi_baransy for deletion.
+INFO:__main__:Not flagging peidongzhang for deletion.
+INFO:__main__:Not flagging jangwon_lee for deletion.
+INFO:__main__:Not flagging luna_mingyeong_kim for deletion.
+INFO:__main__:Not flagging arisa_sadeghpour for deletion.
+INFO:__main__:Not flagging martin_tanseco for deletion.
+INFO:__main__:Not flagging aqwang for deletion.
+INFO:__main__:Not flagging jasmine_khamuani for deletion.
+INFO:__main__:Not flagging fenny_desriani for deletion.
+INFO:__main__:Not flagging sylvia-cheng for deletion.
+INFO:__main__:Not flagging xi_cheng1017 for deletion.
+INFO:__main__:Flagging phoebe.ho for deletion.
+INFO:__main__:Not flagging lucas.schwengber for deletion.
+INFO:__main__:Not flagging faraj.sungkar for deletion.
+INFO:__main__:Not flagging wenxiu_li for deletion.
+INFO:__main__:Not flagging anantmashiana for deletion.
+INFO:__main__:Not flagging zhangyunzhe2023 for deletion.
+INFO:__main__:Not flagging mgirotto for deletion.
+INFO:__main__:Not flagging qxq for deletion.
+INFO:__main__:Not flagging descajeda for deletion.
+INFO:__main__:Not flagging yji008 for deletion.
+INFO:__main__:Not flagging wangz539 for deletion.
+INFO:__main__:Not flagging alenniu for deletion.
+INFO:__main__:Not flagging cynthiawen for deletion.
+INFO:__main__:Not flagging saili.ranabhor for deletion.
+INFO:__main__:Not flagging tianrui_yang for deletion.
+INFO:__main__:Not flagging christine.sako for deletion.
+INFO:__main__:Not flagging pwong195 for deletion.
+INFO:__main__:Not flagging songsheng for deletion.
+INFO:__main__:Not flagging xiaotong_zhan for deletion.
+INFO:__main__:Not flagging zihe_liu for deletion.
+INFO:__main__:Not flagging nicolas_polasek for deletion.
+INFO:__main__:Not flagging blakehoover for deletion.
+INFO:__main__:Not flagging willisconger for deletion.
+INFO:__main__:Not flagging zilinz for deletion.
+INFO:__main__:Not flagging christine_qqy for deletion.
+INFO:__main__:Not flagging abdullah_azhar for deletion.
+INFO:__main__:Not flagging harshitha_d for deletion.
+INFO:__main__:Not flagging hrishi.ingale for deletion.
+INFO:__main__:Not flagging minh4a11 for deletion.
+INFO:__main__:Not flagging samuel_dominguez for deletion.
+INFO:__main__:Not flagging qianhaozhong for deletion.
+INFO:__main__:Not flagging joy.xyz for deletion.
+INFO:__main__:Not flagging michaelnapoli for deletion.
+INFO:__main__:Not flagging shashwat for deletion.
+INFO:__main__:Not flagging viola.qiu for deletion.
+INFO:__main__:Not flagging lestiekayh for deletion.
+INFO:__main__:Not flagging jaredchew for deletion.
+INFO:__main__:Not flagging yujian_zhou for deletion.
+INFO:__main__:Not flagging xiang_li8 for deletion.
+INFO:__main__:Not flagging shana22 for deletion.
+INFO:__main__:Not flagging aleclam for deletion.
+INFO:__main__:Not flagging bmfernan for deletion.
+INFO:__main__:Not flagging dmason for deletion.
+INFO:__main__:Not flagging jroades for deletion.
+Flagged 313 users for deletion.
+INFO:__main__:1: deleting ameyachander
+INFO:__main__:2: deleting sfender
+INFO:__main__:3: deleting jakejuhyung
+INFO:__main__:4: deleting jedwin321
+INFO:__main__:5: deleting nathan4505
+INFO:__main__:6: deleting kseiki
+INFO:__main__:7: deleting arfamomin
+INFO:__main__:8: deleting sammanthagarcia
+INFO:__main__:9: deleting kostia2005
+INFO:__main__:10: deleting jlrichland
+INFO:__main__:11: deleting yinjie
+INFO:__main__:12: deleting snatarajan549
+INFO:__main__:13: deleting billy-berkeley-math
+INFO:__main__:14: deleting tgreen3530
+INFO:__main__:15: deleting dhyim
+INFO:__main__:16: deleting kennethllontop
+INFO:__main__:17: deleting mbcampbell
+INFO:__main__:18: deleting kliay
+INFO:__main__:19: deleting kaedesposo
+INFO:__main__:20: deleting icecreamgirl
+INFO:__main__:21: deleting fuguan_obrien
+INFO:__main__:22: deleting yxuan
+INFO:__main__:23: deleting citlallims
+INFO:__main__:24: deleting wenjia.ma
+INFO:__main__:25: deleting namard
+INFO:__main__:26: deleting gustavo.hochman
+INFO:__main__:27: deleting jerramcl
+INFO:__main__:28: deleting carolgonzalezperez
+INFO:__main__:29: deleting kevinceballos
+INFO:__main__:30: deleting ryan_tajik
+INFO:__main__:31: deleting tolley412
+INFO:__main__:32: deleting nayeli_deanda
+INFO:__main__:33: deleting shang11
+INFO:__main__:34: deleting zhilieq
+INFO:__main__:35: deleting david_camper
+INFO:__main__:36: deleting ash.baghai
+INFO:__main__:37: deleting gvelasq3
+INFO:__main__:38: deleting obeng
+INFO:__main__:39: deleting wenxiq
+INFO:__main__:40: deleting srishti_gojamgunde
+INFO:__main__:41: deleting christianw
+INFO:__main__:42: deleting bbai02
+INFO:__main__:43: deleting bellajzhang
+INFO:__main__:44: deleting patrick.khoury
+INFO:__main__:45: deleting rishabhjvarshney
+INFO:__main__:46: deleting treves
+INFO:__main__:47: deleting rohitmittal
+INFO:__main__:48: deleting ball
+INFO:__main__:49: deleting kristykim
+INFO:__main__:50: deleting jameslukas
+INFO:__main__:51: deleting kareenahargunani
+INFO:__main__:52: deleting waitunnaing
+INFO:__main__:53: deleting rachelsoobinsang
+INFO:__main__:54: deleting qasim_javed
+INFO:__main__:55: deleting jonahg_tan
+INFO:__main__:56: deleting daisychu
+INFO:__main__:57: deleting shijin_ucb
+INFO:__main__:58: deleting andrew.little
+INFO:__main__:59: deleting ender_ricart
+INFO:__main__:60: deleting phudish_p
+INFO:__main__:61: deleting andrewdelacruz
+INFO:__main__:62: deleting pabousleiman
+INFO:__main__:63: deleting jantonioramirez
+INFO:__main__:64: deleting rachman_setiawan
+INFO:__main__:65: deleting marsmellow
+INFO:__main__:66: deleting ebhat
+INFO:__main__:67: deleting pramodmanohar
+INFO:__main__:68: deleting jchurchster
+INFO:__main__:69: deleting mingsennteo
+INFO:__main__:70: deleting gma
+INFO:__main__:71: deleting rissayas
+INFO:__main__:72: deleting chalicehsu
+INFO:__main__:73: deleting winstonyin
+INFO:__main__:74: deleting sathishkumar
+INFO:__main__:75: deleting isabelladuong
+INFO:__main__:76: deleting sofiaav
+INFO:__main__:77: deleting juy16thu
+INFO:__main__:78: deleting wygao
+INFO:__main__:79: deleting maya_lu
+INFO:__main__:80: deleting nishant.malpani
+INFO:__main__:81: deleting nehamasood
+INFO:__main__:82: deleting jedidiahtsang
+INFO:__main__:83: deleting kailey_ferger
+INFO:__main__:84: deleting amywallrath
+INFO:__main__:85: deleting taiqi_li
+INFO:__main__:86: deleting karis
+INFO:__main__:87: deleting dipit.gupta
+INFO:__main__:88: deleting cxyang
+INFO:__main__:89: deleting avirukt
+INFO:__main__:90: deleting iyyah
+INFO:__main__:91: deleting adanortiz
+INFO:__main__:92: deleting fangyuan
+INFO:__main__:93: deleting varvara
+INFO:__main__:94: deleting jflesher
+INFO:__main__:95: deleting lilianrod999
+INFO:__main__:96: deleting youle
+INFO:__main__:97: deleting samuelreyes982
+INFO:__main__:98: deleting brian.corgiat
+INFO:__main__:99: deleting heeric
+INFO:__main__:100: deleting linzefan
+INFO:__main__:101: deleting lockaflocka
+INFO:__main__:102: deleting omar.eloudghiri
+INFO:__main__:103: deleting muhammad_muhdhar
+INFO:__main__:104: deleting anahovsep
+INFO:__main__:105: deleting shreya_sheel
+INFO:__main__:106: deleting kevincam
+INFO:__main__:107: deleting nicole.fernandez
+INFO:__main__:108: deleting tongfeiyan0112
+INFO:__main__:109: deleting caspar9999
+INFO:__main__:110: deleting jhernandez10
+INFO:__main__:111: deleting dayawanti01
+INFO:__main__:112: deleting paulinaumansky
+INFO:__main__:113: deleting palshraya
+INFO:__main__:114: deleting jehan_jacobs
+INFO:__main__:115: deleting noorulain
+INFO:__main__:116: deleting ryanedw
+INFO:__main__:117: deleting zmfong
+INFO:__main__:118: deleting allysonseong
+INFO:__main__:119: deleting lzx92
+INFO:__main__:120: deleting xiangyu_yu
+INFO:__main__:121: deleting leying2007
+INFO:__main__:122: deleting harryhuang13
+INFO:__main__:123: deleting nicholasdhaliwal
+INFO:__main__:124: deleting joaoatam
+INFO:__main__:125: deleting emmatangshi0423
+INFO:__main__:126: deleting eleanorwang
+INFO:__main__:127: deleting juliannepelaez
+INFO:__main__:128: deleting cecilia_0829
+INFO:__main__:129: deleting vivian.g
+INFO:__main__:130: deleting minamohebbi
+INFO:__main__:131: deleting julianna.depaula
+INFO:__main__:132: deleting cjavier
+INFO:__main__:133: deleting florawan
+INFO:__main__:134: deleting ccmiller
+INFO:__main__:135: deleting erilu762
+INFO:__main__:136: deleting auffhammer
+INFO:__main__:137: deleting dyilmaz
+INFO:__main__:138: deleting malenabuffagni
+INFO:__main__:139: deleting zekai.wang
+INFO:__main__:140: deleting amaanansari
+INFO:__main__:141: deleting amberj
+INFO:__main__:142: deleting sach
+INFO:__main__:143: deleting sanya29012005
+INFO:__main__:144: deleting ssfjhfjhfjh12
+INFO:__main__:145: deleting ygor
+INFO:__main__:146: deleting owenhill
+INFO:__main__:147: deleting oualan
+INFO:__main__:148: deleting jdfp
+INFO:__main__:149: deleting sam_oaks
+INFO:__main__:150: deleting gnavarrete
+INFO:__main__:151: deleting markus.hohle
+INFO:__main__:152: deleting ariti
+INFO:__main__:153: deleting claire_yang
+INFO:__main__:154: deleting k.tseng
+INFO:__main__:155: deleting sohom_das
+INFO:__main__:156: deleting anastasiaginzburg
+INFO:__main__:157: deleting monicaj_martin
+INFO:__main__:158: deleting aleksandrsinelnikov
+INFO:__main__:159: deleting amyhuang0129
+INFO:__main__:160: deleting denden
+INFO:__main__:161: deleting sadiersiegel
+INFO:__main__:162: deleting tim.x.platz
+INFO:__main__:163: deleting aadil
+INFO:__main__:164: deleting sophia.tran
+INFO:__main__:165: deleting daniela_vargas
+INFO:__main__:166: deleting smoura
+INFO:__main__:167: deleting yoko_morishita
+INFO:__main__:168: deleting joshuaedwards
+INFO:__main__:169: deleting rheegan
+INFO:__main__:170: deleting dalint19
+INFO:__main__:171: deleting luka.zhang
+INFO:__main__:172: deleting j-shen
+INFO:__main__:173: deleting lakshmi_prasad
+INFO:__main__:174: deleting danika_heaney
+INFO:__main__:175: deleting jihan_zhang
+INFO:__main__:176: deleting ctechasiri
+INFO:__main__:177: deleting izzyadelhardt
+INFO:__main__:178: deleting songela
+INFO:__main__:179: deleting guanren_zhou
+INFO:__main__:180: deleting conor_bready
+INFO:__main__:181: deleting davidconnell
+INFO:__main__:182: deleting stephen.quiton
+INFO:__main__:183: deleting rahoulbanerjeeghosh
+INFO:__main__:184: deleting kmhightower
+INFO:__main__:185: deleting mdolich
+INFO:__main__:186: deleting brayden_glockzin
+INFO:__main__:187: deleting wrishko
+INFO:__main__:188: deleting vsaask
+INFO:__main__:189: deleting nataliekgreen
+INFO:__main__:190: deleting jian_yin
+INFO:__main__:191: deleting jack_sultan
+INFO:__main__:192: deleting gabrielokner
+INFO:__main__:193: deleting mayagarcia
+INFO:__main__:194: deleting ichiro
+INFO:__main__:195: deleting wbillings
+INFO:__main__:196: deleting nschur
+INFO:__main__:197: deleting jmcclellan
+INFO:__main__:198: deleting allisonhartley
+INFO:__main__:199: deleting dhristov
+INFO:__main__:200: deleting dcleveland
+INFO:__main__:201: deleting shethshaan2000
+INFO:__main__:202: deleting neelbajaria
+INFO:__main__:203: deleting guenther.scott
+INFO:__main__:204: deleting chaitali_shah
+INFO:__main__:205: deleting faithmiller
+INFO:__main__:206: deleting erfu
+INFO:__main__:207: deleting meg_takezawa
+INFO:__main__:208: deleting ygkolomensky
+INFO:__main__:209: deleting dongjin.kim
+INFO:__main__:210: deleting julia.granados
+INFO:__main__:211: deleting jessica.zhao
+INFO:__main__:212: deleting aboo
+INFO:__main__:213: deleting jcdoig
+INFO:__main__:214: deleting michael_virtucio
+INFO:__main__:215: deleting feehan
+INFO:__main__:216: deleting mwilkers
+INFO:__main__:217: deleting jdgg
+INFO:__main__:218: deleting 26sbyun
+INFO:__main__:219: deleting aebjorklund
+INFO:__main__:220: deleting star.cheese
+INFO:__main__:221: deleting alysiatanimura
+INFO:__main__:222: deleting sarahfxj
+INFO:__main__:223: deleting aviralpandey
+INFO:__main__:224: deleting gabriella_tom
+INFO:__main__:225: deleting mgsalama
+INFO:__main__:226: deleting tvisha.londhe
+INFO:__main__:227: deleting varshac
+INFO:__main__:228: deleting jmwu
+INFO:__main__:229: deleting ivy_sim
+INFO:__main__:230: deleting kirtihargunani
+INFO:__main__:231: deleting ajcoll
+INFO:__main__:232: deleting zvnelson
+INFO:__main__:233: deleting shawnw
+INFO:__main__:234: deleting eugenejung
+INFO:__main__:235: deleting andrewdai
+INFO:__main__:236: deleting hibahalam
+INFO:__main__:237: deleting naveen.nathan
+INFO:__main__:238: deleting woodjace
+INFO:__main__:239: deleting chen_huang
+INFO:__main__:240: deleting ykaren
+INFO:__main__:241: deleting slhoover
+INFO:__main__:242: deleting danieloslund
+INFO:__main__:243: deleting allisonobrien
+INFO:__main__:244: deleting huangyq003
+INFO:__main__:245: deleting yujiahui
+INFO:__main__:246: deleting tsaichih
+INFO:__main__:247: deleting muslimrazi
+INFO:__main__:248: deleting shauryajain
+INFO:__main__:249: deleting kdong
+INFO:__main__:250: deleting szon
+INFO:__main__:251: deleting xiaoruiliu
+INFO:__main__:252: deleting conan.smallwood
+INFO:__main__:253: deleting ayrajafri
+INFO:__main__:254: deleting shreya.bhandari
+INFO:__main__:255: deleting aditirad
+INFO:__main__:256: deleting crissjyl
+INFO:__main__:257: deleting richarddu
+INFO:__main__:258: deleting yushenglee
+INFO:__main__:259: deleting amber_galvano
+INFO:__main__:260: deleting ankitabiyani
+INFO:__main__:261: deleting cvirador
+INFO:__main__:262: deleting kensington_hartman
+INFO:__main__:263: deleting kelvin_yang
+INFO:__main__:264: deleting aydin.mc1
+INFO:__main__:265: deleting catherinet
+INFO:__main__:266: deleting yanty1
+INFO:__main__:267: deleting oviya.adhan
+INFO:__main__:268: deleting krishnatvvm
+INFO:__main__:269: deleting ashmeetsaini
+INFO:__main__:270: deleting suhanir
+INFO:__main__:271: deleting huibin.chang
+INFO:__main__:272: deleting coco.sun
+INFO:__main__:273: deleting sm3
+INFO:__main__:274: deleting emilylaw
+INFO:__main__:275: deleting markhsi
+INFO:__main__:276: deleting emilyding
+INFO:__main__:277: deleting wdt
+INFO:__main__:278: deleting ndinesh
+INFO:__main__:279: deleting magali.ruer
+INFO:__main__:280: deleting yantianzuo
+INFO:__main__:281: deleting kathyliang2025
+INFO:__main__:282: deleting ogeokp143
+INFO:__main__:283: deleting jordanandersen
+INFO:__main__:284: deleting alexparikh-briggs
+INFO:__main__:285: deleting watarukon
+INFO:__main__:286: deleting charlesklein
+INFO:__main__:287: deleting makiharju
+INFO:__main__:288: deleting zehao.wang
+INFO:__main__:289: deleting christian7reyes
+INFO:__main__:290: deleting tschutzius
+INFO:__main__:291: deleting emilychau
+INFO:__main__:292: deleting d_pradyumna
+INFO:__main__:293: deleting andrew.mchaty
+INFO:__main__:294: deleting eguy
+INFO:__main__:295: deleting sveazie
+INFO:__main__:296: deleting alexandra_collard
+INFO:__main__:297: deleting chloedavid
+INFO:__main__:298: deleting mazimi9
+INFO:__main__:299: deleting hjfisch
+INFO:__main__:300: deleting sameenh
+INFO:__main__:301: deleting justinqu
+INFO:__main__:302: deleting bradyu
+INFO:__main__:303: deleting nathan_levy
+INFO:__main__:304: deleting kashish_vinayak
+INFO:__main__:305: deleting shilpi_p
+INFO:__main__:306: deleting abishiva
+INFO:__main__:307: deleting hsu-hsiang.tsao
+INFO:__main__:308: deleting atamim
+INFO:__main__:309: deleting kaylaleung915
+INFO:__main__:310: deleting anoutsala
+INFO:__main__:311: deleting oli.may1
+INFO:__main__:312: deleting ch.123
+INFO:__main__:313: deleting phoebe.ho
+Deleted 313 total users from the ORM for hub: https://datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://logodev.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://logodev.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+Flagged 0 users for deletion.
+Deleted 0 total users from the ORM for hub: https://logodev.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://a11y.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://a11y.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Not flagging balajialwar for deletion.
+INFO:__main__:Flagging ball for deletion.
+INFO:__main__:Flagging naveen.nathan for deletion.
+INFO:__main__:Not flagging jedwin321 for deletion.
+INFO:__main__:Not flagging lmathias for deletion.
+INFO:__main__:Not flagging aeroanish for deletion.
+Flagged 2 users for deletion.
+INFO:__main__:1: deleting ball
+INFO:__main__:2: deleting naveen.nathan
+Deleted 2 total users from the ORM for hub: https://a11y.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://astro.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://astro.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Not flagging joshbloom for deletion.
+Flagged 0 users for deletion.
+Deleted 0 total users from the ORM for hub: https://astro.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://biology.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://biology.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging kinsey.long for deletion.
+INFO:__main__:Flagging katie.sie for deletion.
+INFO:__main__:Not flagging tsaichih for deletion.
+INFO:__main__:Not flagging rwball for deletion.
+Flagged 2 users for deletion.
+INFO:__main__:1: deleting kinsey.long
+INFO:__main__:2: deleting katie.sie
+Deleted 2 total users from the ORM for hub: https://biology.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://data100.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://data100.datahub.berkeley.edu
+INFO:__main__:Not flagging evlahos for deletion.
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging isaaclim for deletion.
+INFO:__main__:Flagging kevinmiao for deletion.
+INFO:__main__:Flagging akanksharoy for deletion.
+INFO:__main__:Flagging tiana.c.cole for deletion.
+INFO:__main__:Not flagging mark.barranda for deletion.
+INFO:__main__:Flagging jerry2722 for deletion.
+INFO:__main__:Flagging echang22 for deletion.
+INFO:__main__:Flagging hannah.shiohara for deletion.
+INFO:__main__:Flagging tranquilvarun for deletion.
+INFO:__main__:Flagging rohanvuppala for deletion.
+INFO:__main__:Flagging benjamin.salop for deletion.
+INFO:__main__:Flagging sohanvuppala for deletion.
+INFO:__main__:Flagging a.brooks for deletion.
+INFO:__main__:Not flagging xesxwindlle for deletion.
+INFO:__main__:Flagging emilyho for deletion.
+INFO:__main__:Not flagging jtran658 for deletion.
+INFO:__main__:Not flagging amayalim for deletion.
+INFO:__main__:Flagging daisychu for deletion.
+INFO:__main__:Flagging dchon for deletion.
+INFO:__main__:Flagging mablepl430 for deletion.
+INFO:__main__:Flagging smuchivolu for deletion.
+INFO:__main__:Flagging cxxie for deletion.
+INFO:__main__:Flagging yaj760 for deletion.
+INFO:__main__:Flagging vvic23 for deletion.
+INFO:__main__:Flagging mrauer for deletion.
+INFO:__main__:Flagging daniellemurphy for deletion.
+INFO:__main__:Flagging aminah.merchant for deletion.
+INFO:__main__:Flagging matsunagataishi for deletion.
+INFO:__main__:Flagging bangyuhe for deletion.
+INFO:__main__:Flagging jeewonpark for deletion.
+INFO:__main__:Flagging eric_khodorenko for deletion.
+INFO:__main__:Flagging jingnan_yu for deletion.
+INFO:__main__:Flagging 26matthewho for deletion.
+INFO:__main__:Flagging leder5908 for deletion.
+INFO:__main__:Not flagging seanrezaie for deletion.
+INFO:__main__:Flagging xyt0831 for deletion.
+INFO:__main__:Flagging irvin.l for deletion.
+INFO:__main__:Flagging thomashaoqian for deletion.
+INFO:__main__:Flagging reubencochrane for deletion.
+INFO:__main__:Flagging syeddaim.ali for deletion.
+INFO:__main__:Flagging aylakarmali for deletion.
+INFO:__main__:Flagging clementlui for deletion.
+INFO:__main__:Flagging dustinduong for deletion.
+INFO:__main__:Flagging markus.bauer for deletion.
+INFO:__main__:Flagging aaronx for deletion.
+INFO:__main__:Flagging jylai for deletion.
+INFO:__main__:Flagging ericjohnson02 for deletion.
+INFO:__main__:Flagging kmeng for deletion.
+INFO:__main__:Not flagging jprado for deletion.
+INFO:__main__:Flagging arushi_sharma for deletion.
+INFO:__main__:Flagging sejal_jinturkar for deletion.
+INFO:__main__:Flagging ktesfay for deletion.
+INFO:__main__:Flagging jacobliu for deletion.
+INFO:__main__:Flagging meenakshi.mittal for deletion.
+INFO:__main__:Flagging matthewzarate for deletion.
+INFO:__main__:Flagging g.roy for deletion.
+INFO:__main__:Flagging meimeimeixian_0429 for deletion.
+INFO:__main__:Flagging li_li1sa for deletion.
+INFO:__main__:Flagging levicgalvan_cal for deletion.
+INFO:__main__:Flagging karora27 for deletion.
+INFO:__main__:Flagging anirudh.iyer for deletion.
+INFO:__main__:Flagging brandon_concepcion for deletion.
+INFO:__main__:Flagging ivy_sim for deletion.
+INFO:__main__:Flagging anikakasula for deletion.
+INFO:__main__:Flagging jxkai666 for deletion.
+INFO:__main__:Not flagging athurvas for deletion.
+INFO:__main__:Flagging jacobyim for deletion.
+INFO:__main__:Flagging wenwengu for deletion.
+INFO:__main__:Flagging silascs for deletion.
+INFO:__main__:Flagging tiannenguyen for deletion.
+INFO:__main__:Flagging liwan for deletion.
+INFO:__main__:Flagging ryanxchen for deletion.
+INFO:__main__:Flagging vicky.huang for deletion.
+INFO:__main__:Flagging rsaravanan for deletion.
+INFO:__main__:Flagging k.tseng for deletion.
+INFO:__main__:Flagging jjrcarr for deletion.
+INFO:__main__:Flagging lyh867875617 for deletion.
+INFO:__main__:Not flagging zoe9392 for deletion.
+INFO:__main__:Flagging zeanww for deletion.
+INFO:__main__:Flagging j-shen for deletion.
+INFO:__main__:Flagging armaanhira for deletion.
+INFO:__main__:Flagging yasminho for deletion.
+INFO:__main__:Flagging khani for deletion.
+INFO:__main__:Flagging prabhleenkaur for deletion.
+INFO:__main__:Flagging h___ for deletion.
+INFO:__main__:Flagging karanbir.sunner1621 for deletion.
+INFO:__main__:Flagging rose.n for deletion.
+INFO:__main__:Flagging joelep2000 for deletion.
+INFO:__main__:Not flagging mingsennteo for deletion.
+INFO:__main__:Flagging linjessica for deletion.
+INFO:__main__:Not flagging pranav.perumandla for deletion.
+INFO:__main__:Flagging lynn_kkcz for deletion.
+INFO:__main__:Flagging changlong_wu for deletion.
+INFO:__main__:Flagging iradabke for deletion.
+INFO:__main__:Flagging ciregenz for deletion.
+INFO:__main__:Flagging brian.le for deletion.
+INFO:__main__:Flagging sricharanguddanti for deletion.
+INFO:__main__:Flagging jasminema for deletion.
+INFO:__main__:Flagging jaketandrew for deletion.
+INFO:__main__:Flagging annasu for deletion.
+INFO:__main__:Flagging ritaxrt for deletion.
+INFO:__main__:Flagging malavikhasudarshan for deletion.
+INFO:__main__:Flagging ryanstevenson for deletion.
+INFO:__main__:Flagging jackxiang for deletion.
+INFO:__main__:Flagging kryslinvu for deletion.
+INFO:__main__:Flagging jlucarga for deletion.
+INFO:__main__:Flagging sieunhanqq for deletion.
+INFO:__main__:Flagging hiralpatel for deletion.
+INFO:__main__:Flagging _dylanddo for deletion.
+INFO:__main__:Flagging yujiahui for deletion.
+INFO:__main__:Flagging tpham.27 for deletion.
+INFO:__main__:Flagging sofiag26 for deletion.
+INFO:__main__:Flagging soltanjaberi for deletion.
+INFO:__main__:Flagging eryilmazbaharaylin for deletion.
+INFO:__main__:Flagging yijunsu for deletion.
+INFO:__main__:Flagging tayesin for deletion.
+INFO:__main__:Flagging nkaura for deletion.
+INFO:__main__:Flagging mpk21 for deletion.
+INFO:__main__:Flagging gmltjekds for deletion.
+INFO:__main__:Flagging temendoz for deletion.
+INFO:__main__:Not flagging kakuryu for deletion.
+INFO:__main__:Flagging amin.valiei for deletion.
+INFO:__main__:Flagging sbourche for deletion.
+INFO:__main__:Flagging cshigh22 for deletion.
+INFO:__main__:Flagging jackwhite for deletion.
+INFO:__main__:Flagging phannifin for deletion.
+INFO:__main__:Flagging rueilian.ting for deletion.
+INFO:__main__:Flagging rojehhosny for deletion.
+INFO:__main__:Not flagging pdevean for deletion.
+INFO:__main__:Flagging andria.xu for deletion.
+INFO:__main__:Flagging kellync for deletion.
+INFO:__main__:Flagging cleo.angelo2026 for deletion.
+INFO:__main__:Flagging alexrenteria for deletion.
+INFO:__main__:Flagging hanansoicher for deletion.
+INFO:__main__:Not flagging balajialwar for deletion.
+INFO:__main__:Flagging smejia for deletion.
+INFO:__main__:Flagging arvind.ganesh.ca for deletion.
+INFO:__main__:Flagging chloedavid for deletion.
+INFO:__main__:Not flagging aliothzeng for deletion.
+INFO:__main__:Flagging audrey5 for deletion.
+INFO:__main__:Flagging yvonnean8 for deletion.
+INFO:__main__:Not flagging xiaoyuniu for deletion.
+INFO:__main__:Flagging siyigobears2022 for deletion.
+INFO:__main__:Not flagging orianna.w.jia for deletion.
+INFO:__main__:Flagging annabelng for deletion.
+INFO:__main__:Flagging erinlakshmanan for deletion.
+INFO:__main__:Flagging nazrin for deletion.
+INFO:__main__:Flagging jss for deletion.
+INFO:__main__:Flagging alikhan447 for deletion.
+INFO:__main__:Flagging anoutsala for deletion.
+INFO:__main__:Flagging cheungalex008 for deletion.
+INFO:__main__:Not flagging jfenex for deletion.
+INFO:__main__:Not flagging gaelf.gutierrez for deletion.
+INFO:__main__:Not flagging adi.ayanam for deletion.
+INFO:__main__:Not flagging viti for deletion.
+INFO:__main__:Not flagging jonathanferrari for deletion.
+INFO:__main__:Not flagging kcaban13 for deletion.
+INFO:__main__:Not flagging yumeng.zhang0502 for deletion.
+INFO:__main__:Not flagging blakehoover for deletion.
+INFO:__main__:Not flagging emistry for deletion.
+INFO:__main__:Not flagging bnam1124 for deletion.
+INFO:__main__:Not flagging danielle_louie for deletion.
+INFO:__main__:Not flagging bhuvika for deletion.
+INFO:__main__:Not flagging joy.xyz for deletion.
+INFO:__main__:Not flagging yanty1 for deletion.
+INFO:__main__:Not flagging diegoo for deletion.
+INFO:__main__:Not flagging youngminpark for deletion.
+Flagged 135 users for deletion.
+INFO:__main__:1: deleting isaaclim
+INFO:__main__:2: deleting kevinmiao
+INFO:__main__:3: deleting akanksharoy
+INFO:__main__:4: deleting tiana.c.cole
+INFO:__main__:5: deleting jerry2722
+INFO:__main__:6: deleting echang22
+INFO:__main__:7: deleting hannah.shiohara
+INFO:__main__:8: deleting tranquilvarun
+INFO:__main__:9: deleting rohanvuppala
+INFO:__main__:10: deleting benjamin.salop
+INFO:__main__:11: deleting sohanvuppala
+INFO:__main__:12: deleting a.brooks
+INFO:__main__:13: deleting emilyho
+INFO:__main__:14: deleting daisychu
+INFO:__main__:15: deleting dchon
+INFO:__main__:16: deleting mablepl430
+INFO:__main__:17: deleting smuchivolu
+INFO:__main__:18: deleting cxxie
+INFO:__main__:19: deleting yaj760
+INFO:__main__:20: deleting vvic23
+INFO:__main__:21: deleting mrauer
+INFO:__main__:22: deleting daniellemurphy
+INFO:__main__:23: deleting aminah.merchant
+INFO:__main__:24: deleting matsunagataishi
+INFO:__main__:25: deleting bangyuhe
+INFO:__main__:26: deleting jeewonpark
+INFO:__main__:27: deleting eric_khodorenko
+INFO:__main__:28: deleting jingnan_yu
+INFO:__main__:29: deleting 26matthewho
+INFO:__main__:30: deleting leder5908
+INFO:__main__:31: deleting xyt0831
+INFO:__main__:32: deleting irvin.l
+INFO:__main__:33: deleting thomashaoqian
+INFO:__main__:34: deleting reubencochrane
+INFO:__main__:35: deleting syeddaim.ali
+INFO:__main__:36: deleting aylakarmali
+INFO:__main__:37: deleting clementlui
+INFO:__main__:38: deleting dustinduong
+INFO:__main__:39: deleting markus.bauer
+INFO:__main__:40: deleting aaronx
+INFO:__main__:41: deleting jylai
+INFO:__main__:42: deleting ericjohnson02
+INFO:__main__:43: deleting kmeng
+INFO:__main__:44: deleting arushi_sharma
+INFO:__main__:45: deleting sejal_jinturkar
+INFO:__main__:46: deleting ktesfay
+INFO:__main__:47: deleting jacobliu
+INFO:__main__:48: deleting meenakshi.mittal
+INFO:__main__:49: deleting matthewzarate
+INFO:__main__:50: deleting g.roy
+INFO:__main__:51: deleting meimeimeixian_0429
+INFO:__main__:52: deleting li_li1sa
+INFO:__main__:53: deleting levicgalvan_cal
+INFO:__main__:54: deleting karora27
+INFO:__main__:55: deleting anirudh.iyer
+INFO:__main__:56: deleting brandon_concepcion
+INFO:__main__:57: deleting ivy_sim
+INFO:__main__:58: deleting anikakasula
+INFO:__main__:59: deleting jxkai666
+INFO:__main__:60: deleting jacobyim
+INFO:__main__:61: deleting wenwengu
+INFO:__main__:62: deleting silascs
+INFO:__main__:63: deleting tiannenguyen
+INFO:__main__:64: deleting liwan
+INFO:__main__:65: deleting ryanxchen
+INFO:__main__:66: deleting vicky.huang
+INFO:__main__:67: deleting rsaravanan
+INFO:__main__:68: deleting k.tseng
+INFO:__main__:69: deleting jjrcarr
+INFO:__main__:70: deleting lyh867875617
+INFO:__main__:71: deleting zeanww
+INFO:__main__:72: deleting j-shen
+INFO:__main__:73: deleting armaanhira
+INFO:__main__:74: deleting yasminho
+INFO:__main__:75: deleting khani
+INFO:__main__:76: deleting prabhleenkaur
+INFO:__main__:77: deleting h___
+INFO:__main__:78: deleting karanbir.sunner1621
+INFO:__main__:79: deleting rose.n
+INFO:__main__:80: deleting joelep2000
+INFO:__main__:81: deleting linjessica
+INFO:__main__:82: deleting lynn_kkcz
+INFO:__main__:83: deleting changlong_wu
+INFO:__main__:84: deleting iradabke
+INFO:__main__:85: deleting ciregenz
+INFO:__main__:86: deleting brian.le
+INFO:__main__:87: deleting sricharanguddanti
+INFO:__main__:88: deleting jasminema
+INFO:__main__:89: deleting jaketandrew
+INFO:__main__:90: deleting annasu
+INFO:__main__:91: deleting ritaxrt
+INFO:__main__:92: deleting malavikhasudarshan
+INFO:__main__:93: deleting ryanstevenson
+INFO:__main__:94: deleting jackxiang
+INFO:__main__:95: deleting kryslinvu
+INFO:__main__:96: deleting jlucarga
+INFO:__main__:97: deleting sieunhanqq
+INFO:__main__:98: deleting hiralpatel
+INFO:__main__:99: deleting _dylanddo
+INFO:__main__:100: deleting yujiahui
+INFO:__main__:101: deleting tpham.27
+INFO:__main__:102: deleting sofiag26
+INFO:__main__:103: deleting soltanjaberi
+INFO:__main__:104: deleting eryilmazbaharaylin
+INFO:__main__:105: deleting yijunsu
+INFO:__main__:106: deleting tayesin
+INFO:__main__:107: deleting nkaura
+INFO:__main__:108: deleting mpk21
+INFO:__main__:109: deleting gmltjekds
+INFO:__main__:110: deleting temendoz
+INFO:__main__:111: deleting amin.valiei
+INFO:__main__:112: deleting sbourche
+INFO:__main__:113: deleting cshigh22
+INFO:__main__:114: deleting jackwhite
+INFO:__main__:115: deleting phannifin
+INFO:__main__:116: deleting rueilian.ting
+INFO:__main__:117: deleting rojehhosny
+INFO:__main__:118: deleting andria.xu
+INFO:__main__:119: deleting kellync
+INFO:__main__:120: deleting cleo.angelo2026
+INFO:__main__:121: deleting alexrenteria
+INFO:__main__:122: deleting hanansoicher
+INFO:__main__:123: deleting smejia
+INFO:__main__:124: deleting arvind.ganesh.ca
+INFO:__main__:125: deleting chloedavid
+INFO:__main__:126: deleting audrey5
+INFO:__main__:127: deleting yvonnean8
+INFO:__main__:128: deleting siyigobears2022
+INFO:__main__:129: deleting annabelng
+INFO:__main__:130: deleting erinlakshmanan
+INFO:__main__:131: deleting nazrin
+INFO:__main__:132: deleting jss
+INFO:__main__:133: deleting alikhan447
+INFO:__main__:134: deleting anoutsala
+INFO:__main__:135: deleting cheungalex008
+Deleted 135 total users from the ORM for hub: https://data100.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://data8.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://data8.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging yinytan2004 for deletion.
+INFO:__main__:Flagging kyardley for deletion.
+INFO:__main__:Flagging brandon_concepcion for deletion.
+INFO:__main__:Flagging andrew_chen04 for deletion.
+INFO:__main__:Flagging anupriyaislam for deletion.
+INFO:__main__:Flagging aditi.sharma for deletion.
+INFO:__main__:Flagging kliay for deletion.
+INFO:__main__:Flagging rishabhjvarshney for deletion.
+INFO:__main__:Flagging milenchitnis for deletion.
+INFO:__main__:Flagging lucapg for deletion.
+INFO:__main__:Flagging pro for deletion.
+INFO:__main__:Flagging debrachen for deletion.
+INFO:__main__:Flagging kaedesposo for deletion.
+INFO:__main__:Flagging kurosakiakira for deletion.
+INFO:__main__:Flagging dylan.tay for deletion.
+INFO:__main__:Flagging allison.yee for deletion.
+INFO:__main__:Flagging esthercchung for deletion.
+INFO:__main__:Flagging emilyliao9217 for deletion.
+INFO:__main__:Flagging rachelsoobinsang for deletion.
+INFO:__main__:Flagging nicbonville for deletion.
+INFO:__main__:Flagging shruthi476 for deletion.
+INFO:__main__:Flagging vibhashivarajan for deletion.
+INFO:__main__:Flagging andrewdelacruz for deletion.
+INFO:__main__:Flagging kseiki for deletion.
+INFO:__main__:Flagging bulaien2626 for deletion.
+INFO:__main__:Flagging neil_pattanaik for deletion.
+INFO:__main__:Flagging ann.james for deletion.
+INFO:__main__:Flagging leanna-li for deletion.
+INFO:__main__:Flagging nataliemarie for deletion.
+INFO:__main__:Flagging nathanchang for deletion.
+INFO:__main__:Flagging rumucao for deletion.
+INFO:__main__:Flagging svshr824 for deletion.
+INFO:__main__:Flagging tiffanyngo1 for deletion.
+INFO:__main__:Flagging jiyongjhun for deletion.
+INFO:__main__:Flagging 26matthewho for deletion.
+INFO:__main__:Flagging mariannaafremov for deletion.
+INFO:__main__:Flagging justinchen722 for deletion.
+INFO:__main__:Flagging paulburke for deletion.
+INFO:__main__:Flagging britney_iuit87 for deletion.
+INFO:__main__:Flagging melissaji.kim for deletion.
+INFO:__main__:Flagging wzheng0302 for deletion.
+INFO:__main__:Flagging limr for deletion.
+INFO:__main__:Flagging arushi_sharma for deletion.
+INFO:__main__:Flagging renashrestha for deletion.
+INFO:__main__:Flagging nicolecarll for deletion.
+INFO:__main__:Flagging kcaban13 for deletion.
+INFO:__main__:Flagging oliu for deletion.
+INFO:__main__:Flagging banessa.ramirez for deletion.
+INFO:__main__:Flagging minwoo1006 for deletion.
+INFO:__main__:Flagging jxkai666 for deletion.
+INFO:__main__:Flagging woojin3796 for deletion.
+INFO:__main__:Flagging joshrowe for deletion.
+INFO:__main__:Not flagging shunfujisawa for deletion.
+INFO:__main__:Flagging carolineyli for deletion.
+INFO:__main__:Flagging julianna.depaula for deletion.
+INFO:__main__:Flagging nkmetec for deletion.
+INFO:__main__:Flagging zihao-wang for deletion.
+INFO:__main__:Flagging erilu762 for deletion.
+INFO:__main__:Flagging jeremysanchez for deletion.
+INFO:__main__:Flagging armaan.juneja for deletion.
+INFO:__main__:Flagging kdramesh for deletion.
+INFO:__main__:Flagging aijing.shen for deletion.
+INFO:__main__:Flagging andrewtaylor for deletion.
+INFO:__main__:Flagging alyssa_chen for deletion.
+INFO:__main__:Flagging smhan for deletion.
+INFO:__main__:Flagging dalint19 for deletion.
+INFO:__main__:Flagging neelbajaria for deletion.
+INFO:__main__:Flagging anish_gupta123 for deletion.
+INFO:__main__:Flagging bradyu for deletion.
+INFO:__main__:Flagging 26sbyun for deletion.
+INFO:__main__:Flagging juhijadav for deletion.
+INFO:__main__:Flagging sarah.gao for deletion.
+INFO:__main__:Flagging brianhwang5 for deletion.
+INFO:__main__:Not flagging cesarjj2001 for deletion.
+INFO:__main__:Flagging virajgupta for deletion.
+INFO:__main__:Flagging sadekin for deletion.
+INFO:__main__:Flagging deniamittelman for deletion.
+INFO:__main__:Flagging winnie.yang for deletion.
+INFO:__main__:Flagging kinsey.long for deletion.
+INFO:__main__:Flagging linjieshang for deletion.
+INFO:__main__:Flagging williamlee8 for deletion.
+INFO:__main__:Flagging lynn_kkcz for deletion.
+INFO:__main__:Not flagging tpak1103 for deletion.
+INFO:__main__:Flagging lyh867875617 for deletion.
+INFO:__main__:Flagging ayrajafri for deletion.
+INFO:__main__:Flagging sieunhanqq for deletion.
+INFO:__main__:Flagging cckkura322 for deletion.
+INFO:__main__:Flagging ananya_gupta for deletion.
+INFO:__main__:Flagging 2wooinmori for deletion.
+INFO:__main__:Flagging cmitra for deletion.
+INFO:__main__:Flagging thechewy for deletion.
+INFO:__main__:Flagging mhallal for deletion.
+INFO:__main__:Flagging abho for deletion.
+INFO:__main__:Flagging catherinet for deletion.
+INFO:__main__:Flagging maryong29 for deletion.
+INFO:__main__:Flagging yiyang4 for deletion.
+INFO:__main__:Flagging eliothwang for deletion.
+INFO:__main__:Flagging yanty1 for deletion.
+INFO:__main__:Flagging ariav for deletion.
+INFO:__main__:Flagging nassibc for deletion.
+INFO:__main__:Flagging balajialwar for deletion.
+INFO:__main__:Flagging aritrod3 for deletion.
+INFO:__main__:Flagging atticus.ginsborg for deletion.
+INFO:__main__:Flagging haiyan.liang for deletion.
+INFO:__main__:Flagging kashish_vinayak for deletion.
+INFO:__main__:Flagging siyona.sarma for deletion.
+INFO:__main__:Flagging arianasiordia for deletion.
+INFO:__main__:Not flagging descajeda for deletion.
+INFO:__main__:Not flagging linchiunwang for deletion.
+INFO:__main__:Not flagging jedwin321 for deletion.
+INFO:__main__:Not flagging kherndon for deletion.
+INFO:__main__:Not flagging christinewu147 for deletion.
+INFO:__main__:Not flagging k_usovich for deletion.
+INFO:__main__:Not flagging mocchau95 for deletion.
+INFO:__main__:Not flagging eshaw4@pasadena.edu for deletion.
+INFO:__main__:Not flagging miaschwing for deletion.
+INFO:__main__:Not flagging neilkamath for deletion.
+Flagged 104 users for deletion.
+INFO:__main__:1: deleting yinytan2004
+INFO:__main__:2: deleting kyardley
+INFO:__main__:3: deleting brandon_concepcion
+INFO:__main__:4: deleting andrew_chen04
+INFO:__main__:5: deleting anupriyaislam
+INFO:__main__:6: deleting aditi.sharma
+INFO:__main__:7: deleting kliay
+INFO:__main__:8: deleting rishabhjvarshney
+INFO:__main__:9: deleting milenchitnis
+INFO:__main__:10: deleting lucapg
+INFO:__main__:11: deleting pro
+INFO:__main__:12: deleting debrachen
+INFO:__main__:13: deleting kaedesposo
+INFO:__main__:14: deleting kurosakiakira
+INFO:__main__:15: deleting dylan.tay
+INFO:__main__:16: deleting allison.yee
+INFO:__main__:17: deleting esthercchung
+INFO:__main__:18: deleting emilyliao9217
+INFO:__main__:19: deleting rachelsoobinsang
+INFO:__main__:20: deleting nicbonville
+INFO:__main__:21: deleting shruthi476
+INFO:__main__:22: deleting vibhashivarajan
+INFO:__main__:23: deleting andrewdelacruz
+INFO:__main__:24: deleting kseiki
+INFO:__main__:25: deleting bulaien2626
+INFO:__main__:26: deleting neil_pattanaik
+INFO:__main__:27: deleting ann.james
+INFO:__main__:28: deleting leanna-li
+INFO:__main__:29: deleting nataliemarie
+INFO:__main__:30: deleting nathanchang
+INFO:__main__:31: deleting rumucao
+INFO:__main__:32: deleting svshr824
+INFO:__main__:33: deleting tiffanyngo1
+INFO:__main__:34: deleting jiyongjhun
+INFO:__main__:35: deleting 26matthewho
+INFO:__main__:36: deleting mariannaafremov
+INFO:__main__:37: deleting justinchen722
+INFO:__main__:38: deleting paulburke
+INFO:__main__:39: deleting britney_iuit87
+INFO:__main__:40: deleting melissaji.kim
+INFO:__main__:41: deleting wzheng0302
+INFO:__main__:42: deleting limr
+INFO:__main__:43: deleting arushi_sharma
+INFO:__main__:44: deleting renashrestha
+INFO:__main__:45: deleting nicolecarll
+INFO:__main__:46: deleting kcaban13
+INFO:__main__:47: deleting oliu
+INFO:__main__:48: deleting banessa.ramirez
+INFO:__main__:49: deleting minwoo1006
+INFO:__main__:50: deleting jxkai666
+INFO:__main__:51: deleting woojin3796
+INFO:__main__:52: deleting joshrowe
+INFO:__main__:53: deleting carolineyli
+INFO:__main__:54: deleting julianna.depaula
+INFO:__main__:55: deleting nkmetec
+INFO:__main__:56: deleting zihao-wang
+INFO:__main__:57: deleting erilu762
+INFO:__main__:58: deleting jeremysanchez
+INFO:__main__:59: deleting armaan.juneja
+INFO:__main__:60: deleting kdramesh
+INFO:__main__:61: deleting aijing.shen
+INFO:__main__:62: deleting andrewtaylor
+INFO:__main__:63: deleting alyssa_chen
+INFO:__main__:64: deleting smhan
+INFO:__main__:65: deleting dalint19
+INFO:__main__:66: deleting neelbajaria
+INFO:__main__:67: deleting anish_gupta123
+INFO:__main__:68: deleting bradyu
+INFO:__main__:69: deleting 26sbyun
+INFO:__main__:70: deleting juhijadav
+INFO:__main__:71: deleting sarah.gao
+INFO:__main__:72: deleting brianhwang5
+INFO:__main__:73: deleting virajgupta
+INFO:__main__:74: deleting sadekin
+INFO:__main__:75: deleting deniamittelman
+INFO:__main__:76: deleting winnie.yang
+INFO:__main__:77: deleting kinsey.long
+INFO:__main__:78: deleting linjieshang
+INFO:__main__:79: deleting williamlee8
+INFO:__main__:80: deleting lynn_kkcz
+INFO:__main__:81: deleting lyh867875617
+INFO:__main__:82: deleting ayrajafri
+INFO:__main__:83: deleting sieunhanqq
+INFO:__main__:84: deleting cckkura322
+INFO:__main__:85: deleting ananya_gupta
+INFO:__main__:86: deleting 2wooinmori
+INFO:__main__:87: deleting cmitra
+INFO:__main__:88: deleting thechewy
+INFO:__main__:89: deleting mhallal
+INFO:__main__:90: deleting abho
+INFO:__main__:91: deleting catherinet
+INFO:__main__:92: deleting maryong29
+INFO:__main__:93: deleting yiyang4
+INFO:__main__:94: deleting eliothwang
+INFO:__main__:95: deleting yanty1
+INFO:__main__:96: deleting ariav
+INFO:__main__:97: deleting nassibc
+INFO:__main__:98: deleting balajialwar
+INFO:__main__:99: deleting aritrod3
+INFO:__main__:100: deleting atticus.ginsborg
+INFO:__main__:101: deleting haiyan.liang
+INFO:__main__:102: deleting kashish_vinayak
+INFO:__main__:103: deleting siyona.sarma
+INFO:__main__:104: deleting arianasiordia
+Deleted 104 total users from the ORM for hub: https://data8.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://cee.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://cee.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging balajialwar for deletion.
+INFO:__main__:Flagging sitar for deletion.
+Flagged 2 users for deletion.
+INFO:__main__:1: deleting balajialwar
+INFO:__main__:2: deleting sitar
+Deleted 2 total users from the ORM for hub: https://cee.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://data102.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://data102.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging milazou2002 for deletion.
+INFO:__main__:Not flagging adanortiz for deletion.
+INFO:__main__:Flagging pmajee for deletion.
+INFO:__main__:Flagging xiaoruiliu for deletion.
+INFO:__main__:Flagging vithai1 for deletion.
+INFO:__main__:Flagging anvithat for deletion.
+INFO:__main__:Flagging mablepl430 for deletion.
+INFO:__main__:Flagging felder for deletion.
+INFO:__main__:Flagging f.albao for deletion.
+INFO:__main__:Flagging mippi for deletion.
+INFO:__main__:Flagging shahzar for deletion.
+INFO:__main__:Flagging xiangg.a.jjf-justin for deletion.
+INFO:__main__:Flagging sjwhllw for deletion.
+INFO:__main__:Flagging j.braun for deletion.
+INFO:__main__:Flagging athurvas for deletion.
+INFO:__main__:Flagging alirezak for deletion.
+INFO:__main__:Not flagging ireneee061 for deletion.
+INFO:__main__:Not flagging yanty1 for deletion.
+Flagged 15 users for deletion.
+INFO:__main__:1: deleting milazou2002
+INFO:__main__:2: deleting pmajee
+INFO:__main__:3: deleting xiaoruiliu
+INFO:__main__:4: deleting vithai1
+INFO:__main__:5: deleting anvithat
+INFO:__main__:6: deleting mablepl430
+INFO:__main__:7: deleting felder
+INFO:__main__:8: deleting f.albao
+INFO:__main__:9: deleting mippi
+INFO:__main__:10: deleting shahzar
+INFO:__main__:11: deleting xiangg.a.jjf-justin
+INFO:__main__:12: deleting sjwhllw
+INFO:__main__:13: deleting j.braun
+INFO:__main__:14: deleting athurvas
+INFO:__main__:15: deleting alirezak
+Deleted 15 total users from the ORM for hub: https://data102.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://dlab.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://dlab.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Not flagging ahad97ali for deletion.
+INFO:__main__:Flagging davidzhongyisun for deletion.
+INFO:__main__:Flagging elsaphan for deletion.
+INFO:__main__:Flagging cathysheng06 for deletion.
+INFO:__main__:Flagging tomvannuenen for deletion.
+INFO:__main__:Not flagging drgeller for deletion.
+INFO:__main__:Flagging ateshisingh7865 for deletion.
+INFO:__main__:Flagging anastasiaginzburg for deletion.
+INFO:__main__:Flagging felder for deletion.
+INFO:__main__:Flagging ct.brown for deletion.
+INFO:__main__:Not flagging severin.saenz for deletion.
+INFO:__main__:Flagging sveazie for deletion.
+INFO:__main__:Flagging briannajordan for deletion.
+INFO:__main__:Flagging azannou for deletion.
+INFO:__main__:Flagging amileeva for deletion.
+INFO:__main__:Flagging christinederoos for deletion.
+INFO:__main__:Flagging fenny_desriani for deletion.
+INFO:__main__:Flagging yorangga_arundati for deletion.
+INFO:__main__:Flagging lpendse for deletion.
+INFO:__main__:Flagging neozhu for deletion.
+INFO:__main__:Not flagging linweiyu for deletion.
+INFO:__main__:Flagging ankita-singh for deletion.
+INFO:__main__:Not flagging rizwana_mollah for deletion.
+INFO:__main__:Flagging darryl.diptee for deletion.
+INFO:__main__:Not flagging arnita.rut for deletion.
+INFO:__main__:Not flagging ashley.li for deletion.
+INFO:__main__:Flagging amber_galvano for deletion.
+INFO:__main__:Flagging melissa_coleman for deletion.
+INFO:__main__:Flagging vivientse for deletion.
+INFO:__main__:Flagging dana_butow for deletion.
+INFO:__main__:Flagging sog for deletion.
+INFO:__main__:Not flagging muthukumar for deletion.
+INFO:__main__:Flagging taesun.yoo for deletion.
+INFO:__main__:Not flagging hozefahaidery for deletion.
+INFO:__main__:Flagging llutzker for deletion.
+INFO:__main__:Not flagging jonahg_tan for deletion.
+INFO:__main__:Flagging anthealyu for deletion.
+INFO:__main__:Not flagging soum for deletion.
+INFO:__main__:Flagging pratiyushsingh for deletion.
+INFO:__main__:Flagging jenellesoo for deletion.
+INFO:__main__:Not flagging bcastro for deletion.
+INFO:__main__:Flagging sanjanarajupalem for deletion.
+INFO:__main__:Flagging bberrellez for deletion.
+INFO:__main__:Flagging leemgjunior for deletion.
+INFO:__main__:Flagging samar_robleh for deletion.
+INFO:__main__:Not flagging hero.ashman for deletion.
+INFO:__main__:Not flagging emeka_ugwu for deletion.
+INFO:__main__:Not flagging pamelacastells for deletion.
+INFO:__main__:Not flagging tiffanytruong for deletion.
+INFO:__main__:Not flagging lana_tauzhnyanskaya for deletion.
+INFO:__main__:Not flagging jeewonpark for deletion.
+INFO:__main__:Not flagging yvonnek for deletion.
+INFO:__main__:Flagging kimypeterson for deletion.
+INFO:__main__:Not flagging drsuk84 for deletion.
+INFO:__main__:Flagging chloeortiz for deletion.
+INFO:__main__:Not flagging xihanzhang for deletion.
+INFO:__main__:Not flagging estacy for deletion.
+INFO:__main__:Flagging anthony_perry for deletion.
+INFO:__main__:Not flagging peter.kirechu for deletion.
+INFO:__main__:Not flagging dreliu for deletion.
+INFO:__main__:Not flagging alejandroanasal for deletion.
+INFO:__main__:Not flagging christina.p.lin for deletion.
+INFO:__main__:Not flagging agresham for deletion.
+INFO:__main__:Not flagging debra.summers for deletion.
+INFO:__main__:Not flagging tgaldi for deletion.
+INFO:__main__:Not flagging mitchmcd for deletion.
+INFO:__main__:Not flagging mamroheya for deletion.
+INFO:__main__:Not flagging gmerritt for deletion.
+INFO:__main__:Not flagging marialu for deletion.
+INFO:__main__:Not flagging ashtari for deletion.
+INFO:__main__:Not flagging mnrlesser for deletion.
+Flagged 36 users for deletion.
+INFO:__main__:1: deleting davidzhongyisun
+INFO:__main__:2: deleting elsaphan
+INFO:__main__:3: deleting cathysheng06
+INFO:__main__:4: deleting tomvannuenen
+INFO:__main__:5: deleting ateshisingh7865
+INFO:__main__:6: deleting anastasiaginzburg
+INFO:__main__:7: deleting felder
+INFO:__main__:8: deleting ct.brown
+INFO:__main__:9: deleting sveazie
+INFO:__main__:10: deleting briannajordan
+INFO:__main__:11: deleting azannou
+INFO:__main__:12: deleting amileeva
+INFO:__main__:13: deleting christinederoos
+INFO:__main__:14: deleting fenny_desriani
+INFO:__main__:15: deleting yorangga_arundati
+INFO:__main__:16: deleting lpendse
+INFO:__main__:17: deleting neozhu
+INFO:__main__:18: deleting ankita-singh
+INFO:__main__:19: deleting darryl.diptee
+INFO:__main__:20: deleting amber_galvano
+INFO:__main__:21: deleting melissa_coleman
+INFO:__main__:22: deleting vivientse
+INFO:__main__:23: deleting dana_butow
+INFO:__main__:24: deleting sog
+INFO:__main__:25: deleting taesun.yoo
+INFO:__main__:26: deleting llutzker
+INFO:__main__:27: deleting anthealyu
+INFO:__main__:28: deleting pratiyushsingh
+INFO:__main__:29: deleting jenellesoo
+INFO:__main__:30: deleting sanjanarajupalem
+INFO:__main__:31: deleting bberrellez
+INFO:__main__:32: deleting leemgjunior
+INFO:__main__:33: deleting samar_robleh
+INFO:__main__:34: deleting kimypeterson
+INFO:__main__:35: deleting chloeortiz
+INFO:__main__:36: deleting anthony_perry
+Deleted 36 total users from the ORM for hub: https://dlab.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://publichealth.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://publichealth.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Not flagging nicole.fernandez for deletion.
+INFO:__main__:Flagging tamerap for deletion.
+INFO:__main__:Flagging coby.havazelet for deletion.
+INFO:__main__:Flagging moyrarasheed39 for deletion.
+INFO:__main__:Flagging paulamarquez for deletion.
+INFO:__main__:Flagging junping_fan for deletion.
+INFO:__main__:Flagging oorjaa_desai for deletion.
+INFO:__main__:Flagging josue.parra for deletion.
+INFO:__main__:Flagging nikitabiswas for deletion.
+INFO:__main__:Flagging jolina_23 for deletion.
+INFO:__main__:Flagging flori.ruedamc for deletion.
+INFO:__main__:Flagging emmacott for deletion.
+INFO:__main__:Flagging siegel_brent for deletion.
+INFO:__main__:Not flagging emsmith1 for deletion.
+INFO:__main__:Flagging hxiao32 for deletion.
+INFO:__main__:Flagging jessica.george for deletion.
+INFO:__main__:Flagging avery.richards for deletion.
+INFO:__main__:Flagging davidconnell for deletion.
+INFO:__main__:Flagging kmichel77 for deletion.
+INFO:__main__:Not flagging leahmeisel for deletion.
+INFO:__main__:Flagging felder for deletion.
+INFO:__main__:Flagging balajialwar for deletion.
+INFO:__main__:Flagging wwheeler1 for deletion.
+INFO:__main__:Flagging tranphuongnghi19 for deletion.
+INFO:__main__:Flagging erinne for deletion.
+INFO:__main__:Flagging akl98 for deletion.
+INFO:__main__:Flagging areecenewman93 for deletion.
+INFO:__main__:Not flagging ashtari for deletion.
+INFO:__main__:Flagging taoran.song for deletion.
+INFO:__main__:Flagging anh.ng for deletion.
+INFO:__main__:Flagging snwihim for deletion.
+INFO:__main__:Flagging stonsing for deletion.
+INFO:__main__:Flagging brookestimmel for deletion.
+INFO:__main__:Not flagging agresham for deletion.
+INFO:__main__:Not flagging ziyuanjin for deletion.
+INFO:__main__:Not flagging jmeji003 for deletion.
+INFO:__main__:Not flagging celest61403 for deletion.
+Flagged 29 users for deletion.
+INFO:__main__:1: deleting tamerap
+INFO:__main__:2: deleting coby.havazelet
+INFO:__main__:3: deleting moyrarasheed39
+INFO:__main__:4: deleting paulamarquez
+INFO:__main__:5: deleting junping_fan
+INFO:__main__:6: deleting oorjaa_desai
+INFO:__main__:7: deleting josue.parra
+INFO:__main__:8: deleting nikitabiswas
+INFO:__main__:9: deleting jolina_23
+INFO:__main__:10: deleting flori.ruedamc
+INFO:__main__:11: deleting emmacott
+INFO:__main__:12: deleting siegel_brent
+INFO:__main__:13: deleting hxiao32
+INFO:__main__:14: deleting jessica.george
+INFO:__main__:15: deleting avery.richards
+INFO:__main__:16: deleting davidconnell
+INFO:__main__:17: deleting kmichel77
+INFO:__main__:18: deleting felder
+INFO:__main__:19: deleting balajialwar
+INFO:__main__:20: deleting wwheeler1
+INFO:__main__:21: deleting tranphuongnghi19
+INFO:__main__:22: deleting erinne
+INFO:__main__:23: deleting akl98
+INFO:__main__:24: deleting areecenewman93
+INFO:__main__:25: deleting taoran.song
+INFO:__main__:26: deleting anh.ng
+INFO:__main__:27: deleting snwihim
+INFO:__main__:28: deleting stonsing
+INFO:__main__:29: deleting brookestimmel
+Deleted 29 total users from the ORM for hub: https://publichealth.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://ischool.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://ischool.datahub.berkeley.edu
+INFO:__main__:Flagging khama for deletion.
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging npolovina for deletion.
+INFO:__main__:Flagging tyler_gustafson for deletion.
+INFO:__main__:Flagging alilu243 for deletion.
+INFO:__main__:Flagging nicole.kan for deletion.
+INFO:__main__:Flagging aharonia for deletion.
+INFO:__main__:Flagging burcuhuff for deletion.
+INFO:__main__:Flagging ryan_farhat-sabet for deletion.
+INFO:__main__:Flagging chadvo for deletion.
+INFO:__main__:Not flagging dwang89 for deletion.
+INFO:__main__:Flagging mariah.ehmke for deletion.
+INFO:__main__:Flagging cmcglynn for deletion.
+INFO:__main__:Flagging pliu27 for deletion.
+INFO:__main__:Flagging terez for deletion.
+INFO:__main__:Flagging enqiwu for deletion.
+INFO:__main__:Not flagging daniel_costa for deletion.
+INFO:__main__:Flagging bbrandom for deletion.
+INFO:__main__:Flagging sbg3 for deletion.
+INFO:__main__:Flagging theopalm@gmail.com for deletion.
+INFO:__main__:Flagging crezny for deletion.
+INFO:__main__:Not flagging vinkuruppu for deletion.
+INFO:__main__:Not flagging mayajoanduru for deletion.
+INFO:__main__:Flagging guenther.scott for deletion.
+INFO:__main__:Flagging krisr for deletion.
+INFO:__main__:Flagging qichen.liu for deletion.
+INFO:__main__:Flagging william.shu for deletion.
+INFO:__main__:Not flagging rsiddappa for deletion.
+INFO:__main__:Flagging frednam for deletion.
+INFO:__main__:Flagging simran.gill for deletion.
+INFO:__main__:Flagging ethan.moody for deletion.
+INFO:__main__:Flagging sha.na.in.12 for deletion.
+INFO:__main__:Flagging mikelaucella for deletion.
+INFO:__main__:Flagging bella_davies for deletion.
+INFO:__main__:Flagging christinaarias for deletion.
+INFO:__main__:Not flagging vishal.saxena for deletion.
+INFO:__main__:Not flagging sfarooq for deletion.
+INFO:__main__:Not flagging jh65702 for deletion.
+INFO:__main__:Not flagging carlos.schrupp for deletion.
+Flagged 29 users for deletion.
+INFO:__main__:1: deleting khama
+INFO:__main__:2: deleting npolovina
+INFO:__main__:3: deleting tyler_gustafson
+INFO:__main__:4: deleting alilu243
+INFO:__main__:5: deleting nicole.kan
+INFO:__main__:6: deleting aharonia
+INFO:__main__:7: deleting burcuhuff
+INFO:__main__:8: deleting ryan_farhat-sabet
+INFO:__main__:9: deleting chadvo
+INFO:__main__:10: deleting mariah.ehmke
+INFO:__main__:11: deleting cmcglynn
+INFO:__main__:12: deleting pliu27
+INFO:__main__:13: deleting terez
+INFO:__main__:14: deleting enqiwu
+INFO:__main__:15: deleting bbrandom
+INFO:__main__:16: deleting sbg3
+INFO:__main__:17: deleting theopalm@gmail.com
+INFO:__main__:18: deleting crezny
+INFO:__main__:19: deleting guenther.scott
+INFO:__main__:20: deleting krisr
+INFO:__main__:21: deleting qichen.liu
+INFO:__main__:22: deleting william.shu
+INFO:__main__:23: deleting frednam
+INFO:__main__:24: deleting simran.gill
+INFO:__main__:25: deleting ethan.moody
+INFO:__main__:26: deleting sha.na.in.12
+INFO:__main__:27: deleting mikelaucella
+INFO:__main__:28: deleting bella_davies
+INFO:__main__:29: deleting christinaarias
+Deleted 29 total users from the ORM for hub: https://ischool.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://eecs.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://eecs.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging sebastian.ags00 for deletion.
+INFO:__main__:Flagging ball for deletion.
+INFO:__main__:Not flagging balajialwar for deletion.
+INFO:__main__:Flagging rahulram1118 for deletion.
+INFO:__main__:Flagging rahul.bir for deletion.
+INFO:__main__:Flagging adara for deletion.
+INFO:__main__:Flagging rylo for deletion.
+INFO:__main__:Flagging stoh1 for deletion.
+INFO:__main__:Flagging dmurugan2026 for deletion.
+INFO:__main__:Flagging yanty1 for deletion.
+INFO:__main__:Not flagging aeroanish for deletion.
+Flagged 9 users for deletion.
+INFO:__main__:1: deleting sebastian.ags00
+INFO:__main__:2: deleting ball
+INFO:__main__:3: deleting rahulram1118
+INFO:__main__:4: deleting rahul.bir
+INFO:__main__:5: deleting adara
+INFO:__main__:6: deleting rylo
+INFO:__main__:7: deleting stoh1
+INFO:__main__:8: deleting dmurugan2026
+INFO:__main__:9: deleting yanty1
+Deleted 9 total users from the ORM for hub: https://eecs.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://r.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://r.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging npolovina for deletion.
+INFO:__main__:Flagging amitaismyla for deletion.
+INFO:__main__:Flagging carmenguz85 for deletion.
+INFO:__main__:Flagging xainabmehr for deletion.
+INFO:__main__:Flagging pramodmanohar for deletion.
+INFO:__main__:Flagging balajialwar for deletion.
+INFO:__main__:Flagging denysechan for deletion.
+INFO:__main__:Flagging jylai for deletion.
+INFO:__main__:Flagging viraj-sahu for deletion.
+INFO:__main__:Not flagging christina.p.lin for deletion.
+INFO:__main__:Flagging vdavis for deletion.
+INFO:__main__:Flagging mehreen_hai for deletion.
+INFO:__main__:Flagging richarddu for deletion.
+INFO:__main__:Flagging jdgg for deletion.
+INFO:__main__:Flagging lpu for deletion.
+INFO:__main__:Flagging malavikhasudarshan for deletion.
+INFO:__main__:Flagging aagarwal19 for deletion.
+INFO:__main__:Flagging danielle_ward for deletion.
+INFO:__main__:Flagging calvinlouie24 for deletion.
+INFO:__main__:Flagging 01sophiamm for deletion.
+INFO:__main__:Flagging vhovenga for deletion.
+INFO:__main__:Flagging thrishnabhandari for deletion.
+INFO:__main__:Flagging yiyihuo for deletion.
+INFO:__main__:Flagging hsim for deletion.
+INFO:__main__:Not flagging maya_lu for deletion.
+INFO:__main__:Not flagging cecilia.h.mo for deletion.
+Flagged 23 users for deletion.
+INFO:__main__:1: deleting npolovina
+INFO:__main__:2: deleting amitaismyla
+INFO:__main__:3: deleting carmenguz85
+INFO:__main__:4: deleting xainabmehr
+INFO:__main__:5: deleting pramodmanohar
+INFO:__main__:6: deleting balajialwar
+INFO:__main__:7: deleting denysechan
+INFO:__main__:8: deleting jylai
+INFO:__main__:9: deleting viraj-sahu
+INFO:__main__:10: deleting vdavis
+INFO:__main__:11: deleting mehreen_hai
+INFO:__main__:12: deleting richarddu
+INFO:__main__:13: deleting jdgg
+INFO:__main__:14: deleting lpu
+INFO:__main__:15: deleting malavikhasudarshan
+INFO:__main__:16: deleting aagarwal19
+INFO:__main__:17: deleting danielle_ward
+INFO:__main__:18: deleting calvinlouie24
+INFO:__main__:19: deleting 01sophiamm
+INFO:__main__:20: deleting vhovenga
+INFO:__main__:21: deleting thrishnabhandari
+INFO:__main__:22: deleting yiyihuo
+INFO:__main__:23: deleting hsim
+Deleted 23 total users from the ORM for hub: https://r.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://stat20.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://stat20.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging biyxb5 for deletion.
+INFO:__main__:Flagging ag1212 for deletion.
+INFO:__main__:Flagging josephreed for deletion.
+INFO:__main__:Flagging chanic888 for deletion.
+INFO:__main__:Flagging neha_suresh for deletion.
+INFO:__main__:Flagging kiwi.mtl for deletion.
+INFO:__main__:Flagging jeremysanchez for deletion.
+INFO:__main__:Flagging merriam.merchant for deletion.
+INFO:__main__:Flagging emmawu for deletion.
+INFO:__main__:Flagging wbirkman for deletion.
+INFO:__main__:Flagging menajaden for deletion.
+INFO:__main__:Flagging avaestern for deletion.
+INFO:__main__:Flagging jdgg for deletion.
+INFO:__main__:Flagging viraj-sahu for deletion.
+INFO:__main__:Flagging leo0119 for deletion.
+INFO:__main__:Flagging annie_chenggg for deletion.
+INFO:__main__:Flagging lailafayed for deletion.
+INFO:__main__:Not flagging andrewbray for deletion.
+Flagged 17 users for deletion.
+INFO:__main__:1: deleting biyxb5
+INFO:__main__:2: deleting ag1212
+INFO:__main__:3: deleting josephreed
+INFO:__main__:4: deleting chanic888
+INFO:__main__:5: deleting neha_suresh
+INFO:__main__:6: deleting kiwi.mtl
+INFO:__main__:7: deleting jeremysanchez
+INFO:__main__:8: deleting merriam.merchant
+INFO:__main__:9: deleting emmawu
+INFO:__main__:10: deleting wbirkman
+INFO:__main__:11: deleting menajaden
+INFO:__main__:12: deleting avaestern
+INFO:__main__:13: deleting jdgg
+INFO:__main__:14: deleting viraj-sahu
+INFO:__main__:15: deleting leo0119
+INFO:__main__:16: deleting annie_chenggg
+INFO:__main__:17: deleting lailafayed
+Deleted 17 total users from the ORM for hub: https://stat20.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://prob140.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://prob140.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging alex9102017 for deletion.
+INFO:__main__:Flagging jadoo for deletion.
+INFO:__main__:Flagging jupau for deletion.
+INFO:__main__:Not flagging yanty1 for deletion.
+INFO:__main__:Not flagging lizzette.cha for deletion.
+Flagged 3 users for deletion.
+INFO:__main__:1: deleting alex9102017
+INFO:__main__:2: deleting jadoo
+INFO:__main__:3: deleting jupau
+Deleted 3 total users from the ORM for hub: https://prob140.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://julia.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://julia.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+INFO:__main__:Flagging kayapoff for deletion.
+INFO:__main__:Flagging arunkamath0528 for deletion.
+Flagged 2 users for deletion.
+INFO:__main__:1: deleting kayapoff
+INFO:__main__:2: deleting arunkamath0528
+Deleted 2 total users from the ORM for hub: https://julia.datahub.berkeley.edu
+
+INFO:__main__:Checking for and deleting ORM users on hub: https://stat159.datahub.berkeley.edu
+Scanning for users eligible for deletion on hub: https://stat159.datahub.berkeley.edu
+INFO:__main__:Not flagging sknapp for deletion.
+Flagged 0 users for deletion.
+Deleted 0 total users from the ORM for hub: https://stat159.datahub.berkeley.edu
+
