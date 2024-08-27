@@ -12,7 +12,9 @@ def main(args):
             print(deployment)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate a list of deployments from the deployments/ directory.")
+    parser = argparse.ArgumentParser(
+        description="Generate a list of deployments from the deployments/ directory."
+    )
     parser.add_argument(
         "--deployments",
         "-d",
