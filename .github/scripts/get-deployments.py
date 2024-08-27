@@ -1,9 +1,12 @@
 #!/usr/bin/env python
+'''
+Get a list of deployments from the deployments/ directory, excluding any
+directories specified with the --ignore flag.
+'''
 import argparse
 import os
 
 def main(args):
-
     for deployment in next(os.walk(args.deployments))[1]:
         if deployment not in args.ignore:
             print(deployment)
