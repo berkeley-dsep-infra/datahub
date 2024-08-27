@@ -177,13 +177,7 @@ jobs:
       - name: Deploy base hub images to prod
         if: ${{ env.DEPLOY }}
         run: |
-          ignored_directories=("template") # these are directories that we never want to deploy
           while read deployment; do
-            for ignored in "${ignored_directories[@]}"; do
-              if [[ "${deployment}" == "${ignored}" ]]; then
-                continue 2 # skip to the next iteration of "while read deployment"
-              fi
-            done
             echo "Pretending to deploy base hub image to ${deployment}  :P"
             echo "hubploy deploy --verbose ${deployment} hub prod"
-          done < <(ls deployments/ | sed -e 's,/,,g')
+          done < <(.github/scripts/get-deployments.py --ignore template)
