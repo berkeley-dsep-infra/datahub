@@ -13,3 +13,7 @@ jobs:
 
       - name: Lint YAML files
         run: yamllint --no-warnings .
+
+      - name: is the CI env var set?
+        run: env | grep -i ci
+        
