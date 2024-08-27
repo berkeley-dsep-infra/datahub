@@ -38,19 +38,19 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
 
-      # PHW 142, Fall 2024, #5831
-      course-staff-1535789:
+      # PHW 142, Fall 2024, #https://github.com/berkeley-dsep-infra/datahub/issues/6026
+      course-staff-1537782:
         # description: Enable course staff to view and access servers.
         # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1535789
-          - admin:servers!group=course::1535789
-          - access:servers!group=course::1535789
+          - list:users!group=course::1537782
+          - admin:servers!group=course::1537782
+          - access:servers!group=course::1537782
         # this role will be assigned to...
         groups:
-          - course::1535789::enrollment_type::teacher
-          - course::1535789::enrollment_type::ta
+          - course::1537782::enrollment_type::teacher
+          - course::1537782::enrollment_type::ta
 
     extraConfig:
       # Use 1x-<title> in `common.yaml` extraConfig values.
