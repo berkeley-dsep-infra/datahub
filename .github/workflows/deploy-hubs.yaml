@@ -37,8 +37,8 @@ jobs:
             # deploy any hubs that have been labeled for deployment
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
               if [[ "$label" == hub-* ]]; then
-                label=$(echo $label | awk -F'-' '{print $2}')
-                HUBS+="$label"
+                hub_name=$(echo $label | awk -F'-' '{print $2}')
+                HUBS+="$hub_name "
                 echo "DEPLOY=1" >> $GITHUB_ENV
               fi
             done
@@ -119,11 +119,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check out the image repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-
       - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
@@ -137,13 +132,19 @@ jobs:
             # deploy any hubs that have been labeled for deployment
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
               if [[ "$label" == hub-* ]]; then
-                label=$(echo $label | awk -F'-' '{print $2}')
-                HUBS+="$label"
+                hub_name=$(echo $label | awk -F'-' '{print $2}')
+                HUBS+="$hub_name "
                 echo "DEPLOY=1" >> $GITHUB_ENV
               fi
             done
             echo "DEPLOY_HUBS=${HUBS[@]}" >> $GITHUB_ENV
           fi
+
+      - name: Check out the image repo
+        if: ${{ env.DEPLOY }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
       - name: Setup python
         if: ${{ env.DEPLOY }}
