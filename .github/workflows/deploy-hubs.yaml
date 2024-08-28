@@ -29,7 +29,7 @@ jobs:
           #
           # Otherwise, just check to see if the PR labels contain any hubs,
           # and if so, deploy just those hubs to staging.
-          if [ -c "${GITHUB_PR_LABEL_HUB_IMAGES}" ] || [ -c "${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT}" ]; then
+          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
             echo "DEPLOY=1" >> $GITHUB_ENV
           else
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
@@ -122,7 +122,7 @@ jobs:
           #
           # Otherwise, just check to see if the PR labels contain any hubs,
           # and if so, deploy just those hubs to prod.
-          if [ -c "${GITHUB_PR_LABEL_HUB_IMAGES}" ] || [ -c "${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT}" ]; then
+          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
             echo "DEPLOY=1" >> $GITHUB_ENV
           else
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
