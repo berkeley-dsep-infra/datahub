@@ -27,7 +27,7 @@ jobs:
           # present, this means the base hub image has changed, and all hubs
           # (staging or prod) need to be redeployed.
           #
-          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
+          if [[ -n GITHUB_PR_LABEL_HUB_IMAGES || -n GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]]; then
             echo "DEPLOY=1" >> $GITHUB_ENV
           # Otherwise, check to see if the PR labels contain any hubs, and 
           # deploy just those hubs to staging.
@@ -121,7 +121,7 @@ jobs:
           # present, this means the base hub image has changed, and all hubs
           # (staging or prod) need to be redeployed.
           #
-          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
+          if [[ -v GITHUB_PR_LABEL_HUB_IMAGES || -v GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT ]]; then
             echo "DEPLOY=1" >> $GITHUB_ENV
           # Otherwise, check to see if the PR labels contain any hubs, and 
           # deploy just those hubs to prod.
