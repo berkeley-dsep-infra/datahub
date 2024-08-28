@@ -37,6 +37,8 @@ def main(args):
 
     hubs.sort()
     for h in hubs:
+        if args.only_deploy and h not in args.only_deploy:
+            continue
         print(h)
 
 if __name__ == "__main__":
@@ -55,6 +57,12 @@ if __name__ == "__main__":
         nargs="*",
         default=["template"],
         help="Ignore one or more deployment targets."
+    )
+    parser.add_argument(
+        "--only-deploy",
+        "-o",
+        nargs="*",
+        help="Only deploy the specified hubs."
     )
     args = parser.parse_args()
 
