@@ -17,7 +17,7 @@ import os
 def main(args):
     hubs = []
 
-    # Deploy all hubs
+    # Deploy all hubs by getting deployment names from the dirs in deployments/
     if (
         "GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT" or
         "GITHUB_PR_LABEL_HUB_IMAGES"
@@ -26,7 +26,7 @@ def main(args):
             if deployment not in args.ignore:
                 hubs.append(deployment)
 
-    # Deploy specific hubs
+    # Deploy only the modified/flagged hubs by PR labels
     else:
         hub_labels = [
             k.lower() for k in os.environ.keys() 
