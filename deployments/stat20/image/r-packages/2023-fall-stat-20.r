@@ -43,7 +43,7 @@ devtools::install_github("mdbeckman/dcData", ref="56888a6")
 devtools::install_github("hadley/emo@3f03b11")
 devtools::install_github("andrewpbray/boxofdata@8afd934")
 devtools::install_github("tidymodels/infer@2806a69")
-devtools::install_github("stat20/stat20data@25f1bae")
+devtools::install_github("stat20/stat20data@11b4377")
 
 # file.symlink("/opt/shared/stat20/stat20data", "/usr/local/lib/R/site-library/stat20data")
 
