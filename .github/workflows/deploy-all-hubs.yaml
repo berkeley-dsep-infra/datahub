@@ -97,7 +97,7 @@ jobs:
               fi
             done
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --debug ${deployment} hub staging"
+            echo "hubploy deploy --verbose ${deployment} hub staging"
           done < <(ls deployments/ | sed -e 's,/,,g')
 
   deploy-hub-images-prod:
@@ -185,5 +185,5 @@ jobs:
               fi
             done
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --debug ${deployment} hub prod"
+            echo "hubploy deploy --verbose ${deployment} hub prod"
           done < <(ls deployments/ | sed -e 's,/,,g')
