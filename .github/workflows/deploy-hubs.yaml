@@ -101,7 +101,7 @@ jobs:
         run: |
           while read deployment; do
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            hubploy --verbose deploy ${deployment} hub staging
+            hubploy --verbose deploy --timeout 30m ${deployment} hub staging
           done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev)
 
   deploy-hubs-to-prod:
@@ -195,5 +195,5 @@ jobs:
         run: |
           while read deployment; do
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            hubploy --verbose deploy ${deployment} hub prod
+            hubploy --verbose deploy --timeout 30m ${deployment} hub prod
           done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev)
