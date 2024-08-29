@@ -101,8 +101,8 @@ jobs:
         run: |
           while read deployment; do
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --verbose ${deployment} hub staging"
-          done < <(python .github/scripts/determine-hub-deployments.py)
+            hubploy deploy --verbose ${deployment} hub staging
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -195,5 +195,5 @@ jobs:
         run: |
           while read deployment; do
             echo "Pretending to deploy base hub image to ${deployment}  :P"
-            echo "hubploy deploy --verbose ${deployment} hub prod"
-          done < <(python .github/scripts/determine-hub-deployments.py)
+            hubploy deploy --verbose ${deployment} hub prod
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev)
