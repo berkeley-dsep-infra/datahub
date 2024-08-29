@@ -1,9 +1,5 @@
-# this workflow re-deploys SPECIFIC hubs to staging or prod if the single-user
-# server image or config has changed based on the PR labels "hub: <hubname>".
-#
-# however, this workflow will be not run if the PR labels of "hub-images" or
-# "jupyterhub-deployment" are present, as these labels will trigger the
-# "deploy-jupyterhub-base-images.yaml" workflow which re-deploys every hub.
+# This workflow will determine if the base hub image and/or single-user server
+# image for any or all hubs has has changed, and if so, deploy accordingly.
 #
 name: Deploy staging and prod hubs
 on:
@@ -24,25 +20,24 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull out any hubs that need deploying from the labels on the merge commit to staging
+      - name: Check for hubs that need deploying from the labels on the merge commit to staging
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
-          HUBS=()
-          # If the PR labels "hub-images" or "jupyterhub-deployment" are present, this
-          # means the base hub image has changed, and all hubs (staging or prod) need to
-          # be redeployed.  The rest of this job will not run in that case.
-          if [ -c "${GITHUB_PR_LABEL_HUB_IMAGES}" ] || [ -c "${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT}" ]; then
-            echo "Base hub image has changed, not deploying individual hubs to staging"
+          # If the PR labels "hub-images" or "jupyterhub-deployment" are
+          # present, this means the base hub image has changed, and all hubs
+          # (staging or prod) need to be redeployed.
+          #
+          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
+            echo "DEPLOY=1" >> $GITHUB_ENV
+          # Otherwise, check to see if the PR labels contain any hubs, and 
+          # deploy just those hubs to staging.
+          #
           else
-            # deploy any hubs that have been labeled for deployment
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
               if [[ "$label" == hub-* ]]; then
-                hub_name=$(echo $label | awk -F'-' '{print $2}')
-                HUBS+="$hub_name "
                 echo "DEPLOY=1" >> $GITHUB_ENV
               fi
             done
-            echo "DEPLOY_HUBS=${HUBS[@]}" >> $GITHUB_ENV
           fi
 
       - name: Check out the image repo
@@ -104,10 +99,10 @@ jobs:
       - name: Deploy hubs to staging
         if: ${{ env.DEPLOY }}
         run: |
-          for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
-            echo "Deploying $hub to staging"
-            echo "hubploy --verbose deploy $hub hub staging"
-          done
+          while read deployment; do
+            echo "Pretending to deploy base hub image to ${deployment}  :P"
+            hubploy --verbose deploy --timeout 30m ${deployment} hub staging
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -119,25 +114,24 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull out any hubs that need deploying from the labels on the merge commit to prod
+      - name: Check for hubs that need deploying from the labels on the merge commit to prod
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
-          HUBS=()
-          # If the PR labels "hub-images" or "jupyterhub-deployment" are present, this
-          # means the base hub image has changed, and all hubs (staging or prod) need to
-          # be redeployed.  The rest of this job will not run in that case.
-          if [ -c "${GITHUB_PR_LABEL_HUB_IMAGES}" ] || [ -c "${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT}" ]; then
-            echo "Base hub image has changed, not deploying individual hubs to prod"
+          # If the PR labels "hub-images" or "jupyterhub-deployment" are
+          # present, this means the base hub image has changed, and all hubs
+          # (staging or prod) need to be redeployed.
+          #
+          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
+            echo "DEPLOY=1" >> $GITHUB_ENV
+          # Otherwise, check to see if the PR labels contain any hubs, and 
+          # deploy just those hubs to prod.
+          #
           else
-            # deploy any hubs that have been labeled for deployment
             for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
               if [[ "$label" == hub-* ]]; then
-                hub_name=$(echo $label | awk -F'-' '{print $2}')
-                HUBS+="$hub_name "
                 echo "DEPLOY=1" >> $GITHUB_ENV
               fi
             done
-            echo "DEPLOY_HUBS=${HUBS[@]}" >> $GITHUB_ENV
           fi
 
       - name: Check out the image repo
@@ -199,7 +193,7 @@ jobs:
       - name: Deploy hubs to prod
         if: ${{ env.DEPLOY }}
         run: |
-          for hub in $(echo -e "${{ env.DEPLOY_HUBS }}"); do
-            echo "Deploying $hub to prod"
-            echo "hubploy --verbose deploy $hub hub prod"
-          done
+          while read deployment; do
+            echo "Pretending to deploy base hub image to ${deployment}  :P"
+            hubploy --verbose deploy --timeout 30m ${deployment} hub prod
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev)

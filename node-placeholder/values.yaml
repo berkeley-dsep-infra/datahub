@@ -135,7 +135,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
-    replicas: 1
+    replicas: 2
   dev:
     nodeSelector:
       hub.jupyter.org/pool-name: dev-pool
