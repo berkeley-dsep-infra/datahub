@@ -43,6 +43,8 @@ jupyterhub:
           c.WebPDFExporter.embed_images = True
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      GH_SCOPED_CREDS_CLIENT_ID: Iv23liGBW8jtMBP0inyw
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/uc-berkeley-nature-hub-git-access
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
       hub.jupyter.org/pool-name: nature-pool
