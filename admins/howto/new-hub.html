@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -535,7 +535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>Your new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create &amp; configure the required directories.</p>
 <p>You can run the following command in gcloud terminal to log in to the NFS utility VM:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> compute ssh nfsserver-01 <span class="at">--zone</span><span class="op">=</span>us-central1-b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> compute ssh nfsserver-01 <span class="at">--zone</span><span class="op">=</span>us-central1-b <span class="at">--tunnel-through-iap</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Alternatively, launch console.cloud.google.com &gt; Select <em>ucb-datahub-2018</em> as the project name.</p>
 <ol type="1">
 <li>Click on the three horizontal bar icon at the top left corner.</li>
@@ -586,9 +586,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="authentication">Authentication</h3>
 <p>Set up authentication via <a href="https://bcourses.berkeley.edu">bcourses</a>. We have two canvas OAuth2 clients setup in bcourses for us - one for all production hubs and one for all staging hubs. The configuration and secrets for these are provided by the cookiecutter template, however the new hubs need to be added to the authorized callback list maintained in bcourses.</p>
 <ol type="1">
-<li><p>Use <code>sops</code> to edit <code>secrets/dev.yaml</code> and <code>secrets/prod.yaml</code>, replacing the cookiecutter hub_name. <code>cookiecutter</code> can’t do this for you since the values are encrypted.</p></li>
+<li><p>Use <code>sops</code> to edit <code>secrets/staging.yaml</code> and <code>secrets/prod.yaml</code>, replacing the cookiecutter hub_name. <code>cookiecutter</code> can’t do this for you since the values are encrypted.</p></li>
 <li><p>Add <code>&lt;hub_name&gt;-staging.datahub.berkeley.edu/hub/oauth_callback</code> to the staging hub client (id 10720000000000594)</p></li>
 <li><p>Add <code>&lt;hub_name&gt;.datahub.berkeley.edu/hub/oauth_callback</code> to the production hub client (id 10720000000000472)</p></li>
+<li><p>Copy gcr-key.json and gke-key.json from any other hub’s secrets to the hub’s secrets/</p></li>
 </ol>
 <p>Please reach out to Jonathan Felder to set this up, or <a href="mailto:bcourseshelp@berkeley.edu" class="email">bcourseshelp@berkeley.edu</a> if he is not available.</p>
 </section>
@@ -622,8 +623,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at">  &lt;hubname&gt; image build</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Review hubploy.yaml file inside your project directory and update the image name to the latest image. Something like this,</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image_name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Review hubploy.yaml file inside your project directory and update the images section. Example from a11y hub:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">images</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">images</span><span class="kw">:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">path</span><span class="kw">:</span><span class="at"> image/</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">repo2docker</span><span class="kw">:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">base_image</span><span class="kw">:</span><span class="at"> docker.io/library/buildpack-deps:jammy</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="add-hub-to-the-github-labeler-workflow" class="level3">
 <h3 class="anchored" data-anchor-id="add-hub-to-the-github-labeler-workflow">Add hub to the github labeler workflow</h3>
