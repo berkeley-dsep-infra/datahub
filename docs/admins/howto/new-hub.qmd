@@ -142,7 +142,7 @@ You can run the following command in gcloud terminal to log in to the
 NFS utility VM:
 
 ```bash
-gcloud compute ssh nfsserver-01 --zone=us-central1-b
+gcloud compute ssh nfsserver-01 --zone=us-central1-b --tunnel-through-iap
 ```
 
 Alternatively, launch console.cloud.google.com > Select *ucb-datahub-2018* as
@@ -232,7 +232,7 @@ secrets for these are provided by the cookiecutter template, however the
 new hubs need to be added to the authorized callback list maintained in
 bcourses.
 
-1. Use `sops` to edit `secrets/dev.yaml` and `secrets/prod.yaml`, replacing the
+1. Use `sops` to edit `secrets/staging.yaml` and `secrets/prod.yaml`, replacing the
    cookiecutter hub_name. `cookiecutter` can't do this for you since
    the values are encrypted.
 
@@ -241,6 +241,8 @@ bcourses.
 
 3. Add `<hub_name>.datahub.berkeley.edu/hub/oauth_callback` to the
    production hub client (id 10720000000000472)
+
+4. Copy gcr-key.json and gke-key.json from any other hub's secrets to the hub's secrets/
 
 Please reach out to Jonathan Felder to set this up, or
 <bcourseshelp@berkeley.edu> if he is not available.
@@ -288,10 +290,15 @@ sections of the CircleCI configuration file:
 ```
 
 Review hubploy.yaml file inside your project directory and update the
-image name to the latest image. Something like this,
+images section. Example from a11y hub:
 
 ``` yaml
-image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
+images:
+  images:
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
+      path: image/
+      repo2docker:
+        base_image: docker.io/library/buildpack-deps:jammy
 ```
 
 ### Add hub to the github labeler workflow

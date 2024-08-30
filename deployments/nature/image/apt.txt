@@ -1,0 +1,52 @@
+# Some linux packages for basic terminal work, particularly
+# oriented at users new to Unix/cmd line environments.
+
+# installing less as more just isn't enough
+less
+
+# Download tools
+curl
+wget
+vim
+
+# for easily managing multiple repositories with one command (perl-doc
+# is needed for its help pages to work)
+mr
+perl-doc
+
+# Regular build tools for compiling common stuff
+build-essential
+
+# Dependencies for nbconvert
+texlive-xetex
+texlive-fonts-recommended
+texlive-plain-generic
+texlive-lang-chinese
+lmodern
+
+# Other useful document-related tools
+pandoc
+latexdiff
+
+# Some useful git utilities use basic Ruby
+ruby
+
+# Other niceties for command-line work and life
+rsync
+
+# playwright deps https://jira-secure.berkeley.edu/browse/DH-325
+libnss3
+libnspr4
+libdbus-1-3
+libatk1.0-0
+libatk-bridge2.0-0
+libcups2
+libdrm2
+libxkbcommon0
+libatspi2.0-0
+libxcomposite1
+libxdamage1
+libxfixes3
+libxrandr2
+libgbm1
+libasound2
