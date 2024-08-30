@@ -115,6 +115,8 @@ node-placeholder-scaler:
   - 'deployments/julia/**'
 'hub: logodev':
   - 'deployments/logodev/**'
+'hub: nature':
+  - 'deployments/nature/**'
 'hub: prob140':
   - 'deployments/prob140/**'
 'hub: publichealth':
