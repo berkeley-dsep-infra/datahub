@@ -1,0 +1,19 @@
+images:
+  images:
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image
+      path: image/
+      repo2docker:
+        base_image: docker.io/library/buildpack-deps:jammy
+  registry:
+    provider: gcloud
+    gcloud:
+      project: ucb-datahub-2018
+      service_key: gcr-key.json
+
+cluster:
+  provider: gcloud
+  gcloud:
+    project: ucb-datahub-2018
+    service_key: gke-key.json
+    cluster: spring-2024
+    zone: us-central1

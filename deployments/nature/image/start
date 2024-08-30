@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# See https://jira-secure.berkeley.edu/browse/DH-305
+export PLAYWRIGHT_BROWSERS_PATH=${CONDA_DIR}
+exec "$@"
