@@ -35,6 +35,11 @@ jupyterhub:
           - course::1524699::group::all-admins
   singleuser:
     extraFiles:
+      jupyter_server_config.json:
+        mountPath: /usr/local/etc/jupyter/jupyter_server_config.json
+        data:
+          FileContentsManager:
+            always_delete_dir: true
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
         stringData: |
