@@ -6,11 +6,14 @@ channels:
 dependencies:
 
 # Items required for basic level functionality
+- gh-scoped-creds==4.1
 - git==2.46.0
 - jupyter-resource-usage=1.1.0
 - jupyterhub==4.1.6
 - jupyterlab==4.2.5
 - jupyter_server==2.14.2
+- jupyterlab-git==0.50.1
+- jupytext==1.16.4
 - nbgitpuller==1.2.1
 - notebook==7.2.2
 - python==3.11.*
@@ -21,7 +24,6 @@ dependencies:
 
 # other packages
 - altair==5.4.1
-- gh-scoped-creds==4.1
 - ibis-framework[pandas,duckdb]==9.3.0
 - jupyterlab-myst==2.4.2
 - leafmap==0.36.10
