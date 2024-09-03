@@ -24,6 +24,7 @@ dependencies:
 
 # other packages
 - altair==5.4.1
+- earthaccess==0.10.0
 - ibis-framework[pandas,duckdb]==9.3.0
 - jupyterlab-myst==2.4.2
 - leafmap==0.36.10
