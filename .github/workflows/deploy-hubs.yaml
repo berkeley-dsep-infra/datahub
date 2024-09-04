@@ -100,9 +100,10 @@ jobs:
         if: ${{ env.DEPLOY }}
         run: |
           while read deployment; do
-            echo "Pretending to deploy base hub image to ${deployment}  :P"
+            echo "Depoying base hub image to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub staging
-          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev stat159 stat20)
+            echo
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev stat159 stat20 nature a11y)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -194,6 +195,7 @@ jobs:
         if: ${{ env.DEPLOY }}
         run: |
           while read deployment; do
-            echo "Pretending to deploy base hub image to ${deployment}  :P"
+            echo "Deploying base hub image to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub prod
-          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev stat159 stat20)
+            echo
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy logodev stat159 stat20 nature a11y)
