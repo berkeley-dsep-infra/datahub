@@ -308,12 +308,6 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy ugr01
-          command: |
-            hubploy deploy --timeout 30m ugr01 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
           name: Deploy workshop
           command: |
             hubploy deploy --timeout 30m workshop hub ${CIRCLE_BRANCH}
@@ -469,15 +463,6 @@ workflows:
                 ignore:
                 - staging
                 - prod
-      - hubploy/build-image:
-          deployment: ugr01
-          name: ugr01 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
 
   deploy:
     jobs:
@@ -620,14 +605,6 @@ workflows:
           name: shiny image build
           push: true
           # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: ugr01
-          name: ugr01 image build
-          push: true
           filters:
               branches:
                 only:
