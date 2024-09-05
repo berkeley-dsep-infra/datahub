@@ -212,12 +212,6 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy data101
-          command: |
-            hubploy deploy --timeout 30m data101 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
           name: Deploy data102
           command: |
             hubploy deploy --timeout 30m data102 hub ${CIRCLE_BRANCH}
@@ -356,15 +350,6 @@ workflows:
       - hubploy/build-image:
           deployment: data100
           name: data100 image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: data101
-          name: data101 image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -511,15 +496,6 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: data101
-          name: data101 image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
           deployment: data102
           name: data102 image build
           push: true
@@ -620,7 +596,6 @@ workflows:
               - cee image build
               - data8 image build
               - data100 image build
-              - data101 image build
               - data102 image build
               - datahub image build
               - dev image build
