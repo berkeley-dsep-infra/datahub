@@ -182,24 +182,6 @@ jobs:
             gcloud components install gke-gcloud-auth-plugin
 
       - run:
-          name: Deploy astro
-          command: |
-            hubploy deploy --timeout 30m astro hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy biology
-          command: |
-            hubploy deploy --timeout 30m biology hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy cee
-          command: |
-            hubploy deploy --timeout 30m cee hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
           name: Deploy data8
           command: |
             hubploy deploy --timeout 30m data8 hub ${CIRCLE_BRANCH}
@@ -311,33 +293,6 @@ workflows:
   version: 2
   test-build-images:
     jobs:
-      - hubploy/build-image:
-          deployment: astro
-          name: astro image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: biology
-          name: biology image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: cee
-          name: cee image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
       - hubploy/build-image:
           deployment: data8
           name: data8 image build
@@ -452,33 +407,6 @@ workflows:
   deploy:
     jobs:
       - hubploy/build-image:
-          deployment: astro
-          name: astro image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: biology
-          name: biology image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
-          deployment: cee
-          name: cee image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
           deployment: data8
           name: data8 image build
           push: true
@@ -591,9 +519,6 @@ workflows:
       # CI level, we also make prod deploys go faster!
       - deploy:
           requires:
-              - astro image build
-              - biology image build
-              - cee image build
               - data8 image build
               - data100 image build
               - data102 image build
