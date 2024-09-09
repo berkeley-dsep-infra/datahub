@@ -74,7 +74,7 @@ jupyterhub:
       - display_name: "Dashboard image"
         description: "A newer repo2docker-based image with a primary focus of building dashboards."
         kubespawner_override:
-          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary-image
+          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary-image:df11f4f1caa1
       - display_name: "1524699: DataHub Infrastructure"
         slug: "1524699"
         description: "Regular image with per-course subpath."
