@@ -1,0 +1,11 @@
+images:
+  images:
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:00512349345a
+
+cluster:
+  provider: gcloud
+  gcloud:
+    project: ucb-datahub-2018
+    service_key: gke-key.json
+    cluster: spring-2024
+    zone: us-central1

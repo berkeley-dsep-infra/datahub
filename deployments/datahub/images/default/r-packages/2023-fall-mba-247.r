@@ -14,6 +14,7 @@ class_libs = c(
   "pROC", "1.18.4",
   "rpart.plot", "3.1.1",
   "randomForest","4.7-1.1",
-  "xgboost","1.7.5.1"
+  "xgboost","1.7.5.1",
+  "factoextra","1.0.7"
 )
 class_libs_install_version(class_name, class_libs)

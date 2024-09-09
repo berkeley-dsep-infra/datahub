@@ -61,19 +61,19 @@ jupyterhub:
       #    - course::N::enrollment_type::teacher
       #    - course::N::enrollment_type::ta
 
-      # Data 8, Summer 2024, https://github.com/berkeley-dsep-infra/datahub/issues/5834
-      course-staff-1535365:
+      # Data 8, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6014
+      course-staff-1538208:
       #  description: Enable course staff to view and access servers.
       #  # this role provides permissions to...
         scopes:
           - admin-ui
-          - list:users!group=course::1535365
-          - admin:servers!group=course::1535365
-          - access:servers!group=course::1535365
+          - list:users!group=course::1538208
+          - admin:servers!group=course::1538208
+          - access:servers!group=course::1538208
       #  # this role will be assigned to...
         groups:
-          - course::1535365::enrollment_type::teacher
-          - course::1535365::enrollment_type::ta
+          - course::1538208::enrollment_type::teacher
+          - course::1538208::enrollment_type::ta
 
   singleuser:
     extraFiles:
