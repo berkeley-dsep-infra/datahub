@@ -83,7 +83,7 @@ def sync(args):
 
 def branch(args):
     """
-    Create a new branch in all repositories in the config file.
+    Create a new feature branch in all repositories in the config file.
     """
     with open(args.config) as f:
         for line in f:
