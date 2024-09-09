@@ -1,7 +1,7 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-primary-image:PLACEHOLDER
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary-image:PLACEHOLDER
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-primary-image:6000a5694eab
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary-image:6000a5694eab
 
 cluster:
   provider: gcloud
