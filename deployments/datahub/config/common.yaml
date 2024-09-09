@@ -209,7 +209,6 @@ jupyterhub:
         mem_limit: 4096M
         mem_guarantee: 4096M
 
-# Data C131A, https://uctech.slack.com/archives/CC3NKQA3B/p1725853680045669 (Reported as bug by Stat 131A instructor via Slack)
-      course::1537932:
+      course::1537932: # Data C131A, https://github.com/berkeley-dsep-infra/datahub/issues/6121
         mem_limit: 2048M
         mem_guarantee: 2048M
