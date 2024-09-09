@@ -1,16 +1,7 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-user-image
-      path: images/default
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary
-      path: images/secondary
-      repo2docker:
-        base_image: docker.io/library/buildpack-deps:jammy
-  registry:
-    provider: gcloud
-    gcloud:
-      project: ucb-datahub-2018
-      service_key: gcr-key.json
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-primary-image:PLACEHOLDER
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary-image:PLACEHOLDER
 
 cluster:
   provider: gcloud
