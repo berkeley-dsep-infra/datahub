@@ -73,12 +73,56 @@ def sync(args):
 
             if args.push:
                 if not args.origin:
-                    origin = "origin"
+                    remote = "origin"
                 else:
-                    origin = args.origin
-                print(f"Pushing {name} to {origin}...")
-                subprocess.check_call(["git", "push", origin, "main"], cwd=path)
+                    remote = args.origin
+                print(f"Pushing {name} to {remote}...")
+                subprocess.check_call(["git", "push", remote, "main"], cwd=path)
 
+            print()
+
+def branch(args):
+    """
+    Create a new branch in all repositories in the config file.
+    """
+    with open(args.config) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            name = line.split("/")[-1].replace(".git", "")
+            path = os.path.join(args.destination, name)
+            if not os.path.exists(path):
+                print(f"Skipping {name} as it doesn't exist.")
+                continue
+            print(f"Creating new branch in {name} in {path}...")
+            subprocess.check_call(["git", "switch", "-c", args.branch], cwd=path)
+            print()
+
+def push(args):
+    """
+    Push all repositories in the config file to a remote.
+    """
+    if not args.branch:
+        print("Please specify a branch to push.")
+        sys.exit(1)
+
+    with open(args.config) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            name = line.split("/")[-1].replace(".git", "")
+            path = os.path.join(args.destination, name)
+            if not os.path.exists(path):
+                print(f"Skipping {name} as it doesn't exist.")
+                continue
+            print(f"Pushing {name} to {args.origin}...")
+            if not args.origin:
+                remote = "origin"
+            else:
+                remote = args.origin
+            subprocess.check_call(["git", "push", remote, args.branch], cwd=path)
             print()
 
 def main(args):
@@ -86,6 +130,10 @@ def main(args):
         clone(args)
     elif args.command == "sync":
         sync(args)
+    elif args.command == "branch":
+        branch(args)
+    elif args.command == "push":
+        push(args)
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
@@ -137,5 +185,29 @@ if __name__ == "__main__":
         help="GitHub user to set the origin to."
     )
 
+    branch_parser = subparsers.add_parser(
+        "branch",
+        help="Create a new feature branch in all image repositories."
+    )
+    branch_parser.add_argument(
+        "-b",
+        "--branch",
+        help="Name of the new feature branch to create."
+    )
+
+    push_parser = subparsers.add_parser(
+        "push",
+        help="Push all image repositories to a remote."
+    )
+    push_parser.add_argument(
+        "-o",
+        "--origin",
+        help="Origin to push to.  This is optional and defaults to 'origin'."
+    )
+    push_parser.add_argument(
+        "-b",
+        "--branch",
+        help="Name of the branch to push."
+    )
     args = argparser.parse_args()
     main(args)
