@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stat 159</title>
+<title>Transition Single User Image to GitHub Actions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,6 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../admins/howto/new-packages.html" rel="next">
+<link href="../../admins/howto/new-image.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -152,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Stat 159</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/transition-image.html">Transition Single User Image to GitHub Actions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -207,13 +209,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Contributing to DataHub</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
@@ -246,13 +248,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Common Administrator Tasks</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
@@ -297,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/howto/transition-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/transition-image.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
 </li>
@@ -410,25 +412,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#image" id="toc-image" class="nav-link active" data-scroll-target="#image">Image</a></li>
-  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">Configuration</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#create-the-repository" id="toc-create-the-repository" class="nav-link" data-scroll-target="#create-the-repository">Create the repository</a></li>
+  <li><a href="#preparing-working-directories" id="toc-preparing-working-directories" class="nav-link" data-scroll-target="#preparing-working-directories">Preparing working directories</a></li>
+  <li><a href="#preparing-continuous-integration" id="toc-preparing-continuous-integration" class="nav-link" data-scroll-target="#preparing-continuous-integration">Preparing continuous integration</a></li>
+  <li><a href="#making-changes" id="toc-making-changes" class="nav-link" data-scroll-target="#making-changes">Making changes</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/transition-image.html">Transition Single User Image to GitHub Actions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Stat 159</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">course</div>
-    <div class="quarto-category">jupyterlab</div>
-    <div class="quarto-category">rtc</div>
-    <div class="quarto-category">shared-folders</div>
-    <div class="quarto-category">vscode</div>
-  </div>
-  </div>
+<h1 class="title">Transition Single User Image to GitHub Actions</h1>
+</div>
 
 
 
@@ -444,29 +442,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their local development workflows to the cloud.</p>
-<section id="image" class="level2">
-<h2 class="anchored" data-anchor-id="image">Image</h2>
-<p>Notably the image contains support for RTC. As of March 2023, this requires:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyter_server==2.2.1</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab==3.6.1</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab_server==2.19.0</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Single user images have been maintained within the main datahub repo since its inception, however we decided to move them into their own repositories. It will make testing notebooks easier, and we will be able to delegate write access to course staff if necessary.</p>
+<p>This is the process for transitioning images to their own repositories. Eventually, once all repositories have been migrated, we can update our documentation on creating new single user image repositories, and maintaining them.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>You will need to install <code>git-filter-repo</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chmod</span> +x ~/bin/git-filter-repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="configuration" class="level2">
-<h2 class="anchored" data-anchor-id="configuration">Configuration</h2>
-<p>Along with the dependencies, the singleuser server is modified to launch as</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">singleuser</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">     </span><span class="fu">cmd</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">       </span><span class="kw">-</span><span class="at"> jupyterhub-singleuser</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">       </span><span class="kw">-</span><span class="at"> --LabApp.collaborative=true</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">       </span><span class="kw">-</span><span class="at"> --YDocExtension.ystore_class=tmpystore.TmpYStore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This turns on collaboration and moves some sqlite storage from home directories to /tmp/.</p>
-<p>In addition to RTC, the hub also has configuration to enable <a href="https://github.com/jupyterhub/jupyterhub/blob/main/docs/source/tutorial/collaboration-users.md">shared accounts with impersonation</a>. There are a handful of fabricated user accounts, e.g.&nbsp;collab-shared-1, collab-shared-2, etc. not affiliated with any real person in bCourses. There are also corresponding JupyterHub groups, shared-1, shared-2, etc. The instructors add real students to the hub groups, and some roles and scopes logic in the hub configuration gives students access to launch jupyter servers for the collaborative user accounts. The logic is in config/common.yaml while the current group affiliations are kept private in secrets.</p>
-<p>This configuration is to encourage use of RTC, and to prevent one student from having too much access to another student's home directory. The fabricated (essentially service) accounts have initally empty home directories and exist solely to provide workspaces for the group. There is currently no archive or restore procedure in mind for these shared accounts.</p>
-<p>For now, groups are defined in either the hub configuration or in the administrative /hub/admin user interface. In order to enable group assignment in this manner, we must set <code>Authenticator.managed_groups</code> to False. Ordinarily groups are provided by CanvasAuthenticator where this setting is True.</p>
-<p>Eventually instructors will be able to define groups in bCourses so that CanvasAuthenticator can remain in charge of managing groups. This will be important for the extremely large courses. It will also be beneficial in that resource allocation can be performed more easily through group affiliations and group properties.</p>
+<section id="create-the-repository" class="level2">
+<h2 class="anchored" data-anchor-id="create-the-repository">Create the repository</h2>
+<ol type="1">
+<li>Go to https://github.com/berkeley-dsep-infra/hub-user-image-template. Click “Use this template” &gt; “Create a new repository”.</li>
+<li>Set the owner to <code>berkeley-dsep-infra</code>. Name the image <code>{hub}-user-image</code>, or some approximation of there are multiple images per hub.</li>
+<li>Click create repository.</li>
+<li>In the new repository, visit Settings &gt; Secrets and variables &gt; Actions &gt; Variables tab. Create new variables:
+<ol type="a">
+<li>Set HUB to the hub deployment, e.g.&nbsp;<code>shiny</code>.</li>
+<li>Set IMAGE to ucb-datahub-2018/user-images/{hub}-user-image, e.g.&nbsp;<code>ucb-datahub-2018/user-images/shiny-user-image</code>.</li>
+</ol></li>
+<li>Fork the new image repo into your own github account.</li>
+</ol>
+</section>
+<section id="preparing-working-directories" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-working-directories">Preparing working directories</h2>
+<p>As part of this process, we will pull the previous image’s git history into the new image repo.</p>
+<ol type="1">
+<li><p>Clone the <em>datahub</em> repo into a new directory named after the image repo.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:berkeley-dsep-infra/datahub.git {hub}-user-image <span class="at">--origin</span> source</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Change into the directory.</p></li>
+<li><p>Run <code>git-filter-repo</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> filter-repo <span class="at">--subdirectory-filter</span>  deployments/{hub}/image <span class="at">--force</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Add new git remotes:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:{your_git_account}/{hub}-user-image.git</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream git@github.com:berkeley-dsep-infra/{hub}-user-image.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Pull in the contents of the new user image that was created from the template.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch upstream</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main <span class="co"># pulls in .github</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Merge the contents of the previous datahub image with the new user image.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm environment.yml</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Remove default environment.yml file."</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge staging <span class="at">--allow-unrelated-histories</span> <span class="at">-m</span> <span class="st">'Bringing in image directory from deployment repo'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push upstream main</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</section>
+<section id="preparing-continuous-integration" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-continuous-integration">Preparing continuous integration</h2>
+<ol type="1">
+<li><p>In the berkeley-dsep-infra org settings, https://github.com/organizations/berkeley-dsep-infra/settings/profile, visit Secrets and variables &gt; Actions, https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions. Edit the secrets for DATAHUB_CREATE_PR and GAR_SECRET_KEY, and enable the new repo to access each.</p></li>
+<li><p>In the datahub repo, in one PR:</p>
+<ol type="a">
+<li><p>remove the hub deployment steps for the hub:</p>
+<ul>
+<li>Deploy {hub}</li>
+<li>hubploy/build-image {hub} image build (x2)</li>
+</ul></li>
+<li><p>under <code>deployments/{hub}/hubploy.yaml</code>, remove the registry entry, and set the image_name to have <code>PLACEHOLDER</code> for the tag.</p></li>
+<li><p>In the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.</p></li>
+</ol></li>
+<li><p>Merge these changes to datahub staging.</p></li>
+<li><p>Make a commit to trigger a build of the image in its repo.</p></li>
+<li><p>In a PR in the datahub repo, under .github/workflows/deploy-hubs.yaml, add the hub with the new image under <code>determine-hub-deployments.py --only-deploy</code>.</p></li>
+<li><p>Make another commit to the image repo to trigger a build. When these jobs finish, a commit will be pushed to the datahub repo. Make a PR, and merge to staging after canceling the CircleCI builds. (these builds are an artifact of the CircleCI-to-GitHub migration – we won’t need to do that long term)</p></li>
+<li><p>Subscribe the <em>#ucb-datahubs-bots</em> channel in UC Tech slack to the repo.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/github</span> subscribe berkeley-dsep-infra/<span class="op">&lt;</span>repo<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</section>
+<section id="making-changes" class="level2">
+<h2 class="anchored" data-anchor-id="making-changes">Making changes</h2>
+<p>Once the image repo is set up, you will need to follow this procedure to update it and make it available to the hub.</p>
+<ol type="1">
+<li>Make a change in your fork of the image repo.</li>
+<li>Make a pull request to the repo in <code>berkeley-dsep-infra</code>. This will trigger a github action that will test to see if the image builds successfully.</li>
+<li>If the build succeeds, someone with sufficient access (DataHub staff, or course staff with elevated privileges) can merge the PR. This will trigger another build, and will then push the image to the image registry.</li>
+<li>In order for the newly built and pushed image to be referenced by datahub, you will need to make PR at datahub. Visit the previous merge action’s <em>update-deployment-image-tag</em> entry and expand the <em>Create feature branch, add, commit and push changes</em> step. Find the URL beneath, <em>Create a pull request for ’update-{hub}-image-tag-{slug}</em>, and visit it. This will draft a new PR at datahub for you to create.</li>
+<li>Once the PR is submitted, an action will run. It is okay if CircleCI-related tasks fail here. Merge the PR into staging once the action is complete.</li>
+</ol>
 
 
 </section>
@@ -892,6 +944,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../admins/howto/new-image.html" class="pagination-link" aria-label="Create a New Single User Image">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Create a New Single User Image</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../admins/howto/new-packages.html" class="pagination-link" aria-label="Testing and Upgrading New Packages">
+        <span class="nav-page-text">Testing and Upgrading New Packages</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
