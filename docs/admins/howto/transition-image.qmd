@@ -13,7 +13,7 @@ You will need to install `git-filter-repo`.
 
 ```bash
 wget -O ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo
-  chmod +x ~/bin/git-filter-repo
+chmod +x ~/bin/git-filter-repo
 ```
 
 ## Create the repository
@@ -23,7 +23,7 @@ wget -O ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filte
 1. Click create repository.
 1. In the new repository, visit Settings > Secrets and variables > Actions > Variables tab. Create new variables:
    a. Set HUB to the hub deployment, e.g. `shiny`.
-   b. Set IMAGE to ucb-datahub-2018/user-images/{hub}-user-image, e.g. `ucb-datahub-2018/user-images/shiny-user-image`.
+   b. Set IMAGE to `ucb-datahub-2018/user-images/{hub}-user-image`, e.g. `ucb-datahub-2018/user-images/shiny-user-image`.
 1. Fork the new image repo into your own github account.
 
 ## Preparing working directories
@@ -61,14 +61,14 @@ As part of this process, we will pull the previous image's git history into the 
 
 ## Preparing continuous integration
 
-1. In the berkeley-dsep-infra org settings, https://github.com/organizations/berkeley-dsep-infra/settings/profile, visit Secrets and variables > Actions, https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions. Edit the secrets for DATAHUB_CREATE_PR and GAR_SECRET_KEY, and enable the new repo to access each.
+1. In the [berkeley-dsep-infra org settings](https://github.com/organizations/berkeley-dsep-infra/settings/profile), visit [Secrets and variables > Actions](https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions). Edit the secrets for `DATAHUB_CREATE_PR` and `GAR_SECRET_KEY`, and enable the new repo to access each.
 
 1. In the datahub repo, in one PR:
    a. remove the hub deployment steps for the hub:
-      - Deploy {hub}
-      - hubploy/build-image {hub} image build (x2)
+      - *Deploy {hub}*
+      - *hubploy/build-image {hub} image build* (x2)
 
-   a. under `deployments/{hub}/hubploy.yaml`, remove the registry entry, and set the image_name to have `PLACEHOLDER` for the tag.
+   a. under `deployments/{hub}/hubploy.yaml`, remove the registry entry, and set the `image_name` to have `PLACEHOLDER` for the tag.
 
    a. In the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.
 
