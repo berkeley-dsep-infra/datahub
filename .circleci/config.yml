@@ -218,12 +218,6 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy eecs
-          command: |
-            hubploy deploy --timeout 30m eecs hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
           name: Deploy highschool hub
           command: |
             hubploy deploy --timeout 30m highschool hub ${CIRCLE_BRANCH}
@@ -245,12 +239,6 @@ jobs:
           name: Deploy prob140
           command: |
             hubploy deploy --timeout 30m prob140 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
-          name: Deploy publichealth
-          command: |
-            hubploy deploy --timeout 30m publichealth hub ${CIRCLE_BRANCH}
           no_output_timeout: 30m
 
       - run:
@@ -315,15 +303,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: eecs
-          name: eecs image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: ischool
           name: ischool image build
           # Filters can only be per-job? wtf
@@ -335,15 +314,6 @@ workflows:
       - hubploy/build-image:
           deployment: julia
           name: julia hub image build
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
-          deployment: publichealth
-          name: publichealth image build
           # Filters can only be per-job? wtf
           filters:
               branches:
@@ -398,15 +368,6 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: eecs
-          name: eecs image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
           deployment: ischool
           name: ischool image build
           push: true
@@ -424,15 +385,6 @@ workflows:
               branches:
                 only:
                 - staging
-      - hubploy/build-image:
-          deployment: publichealth
-          name: publichealth image build
-          push: true
-          # Filters can only be per-job? wtf
-          filters:
-              branches:
-                only:
-                - staging
       # Build images only during the staging deploy. All merges
       # to prod need to go via staging, so prod should *never*
       # use images not built for staging. By enforcing this at the
@@ -444,10 +396,8 @@ workflows:
               - data102 image build
               - datahub image build
               - edx image build
-              - eecs image build
               - ischool image build
               - julia hub image build
-              - publichealth image build
 
           filters:
             branches:

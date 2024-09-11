@@ -1,5 +1,5 @@
 images:
-  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat20-user-image:feaa2df801d9
+  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat20-user-image:130d6247d491
 
 cluster:
   provider: gcloud

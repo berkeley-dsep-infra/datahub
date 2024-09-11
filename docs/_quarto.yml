@@ -49,7 +49,9 @@ website:
               - admins/howto/new-hub.qmd
               - admins/howto/rebuild-hub-image.qmd
               - admins/howto/rebuild-postgres-image.qmd
+              - admins/howto/managing-multiple-user-image-repos.qmd
               - admins/howto/new-image.qmd
+              - admins/howto/transition-image.qmd
               - admins/howto/new-packages.qmd
               - admins/howto/course-config.qmd
               - admins/howto/calendar-scaler.qmd
