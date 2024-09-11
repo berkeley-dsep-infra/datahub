@@ -1,0 +1,126 @@
+---
+title: Managing multiple user image repos
+---
+
+## Managing user image repos
+
+Since we have many multiples of user images in their own repos, managing these
+can become burdensome... Particularly if you need to make changes to many or
+all of the images.
+
+There is a script located in the `datahub/scripts/user-image-management/`
+directory named [manage-image-repos.py](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/manage-image-repos.py).
+
+This script uses a config file with a list of all of the git remotes for the
+image repos ([config.txt](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt))
+and will allow you to perform basic git operations (sync/rebase, clone, branch
+management and pushing).
+
+The script "assumes" that you have all of your user images in their own folder
+(in my case, `$HOME/src/images/...`).
+
+### Output of `--help` for the tool
+Here are the help results from the various sub-commands:
+
+```
+./manage-image-repos.py --help
+usage: manage-image-repos.py [-h] [-c CONFIG] [-d DESTINATION] {sync,clone,branch,push} ...
+
+positional arguments:
+  {sync,clone,branch,push}
+    sync                Sync all image repositories to the latest version.
+    clone               Clone all image repositories.
+    branch              Create a new feature branch in all image repositories.
+    push                Push all image repositories to a remote.
+
+options:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        Path to file containing list of repositories to clone.
+  -d DESTINATION, --destination DESTINATION
+                        Location of the image repositories.
+```
+
+`sync` help:
+
+```
+./manage-image-repos.py sync --help
+usage: manage-image-repos.py sync [-h] [-p] [-o ORIGIN]
+
+options:
+  -h, --help            show this help message and exit
+  -p, --push            Push synced repo to a remote.
+  -o ORIGIN, --origin ORIGIN
+                        Origin to push to. This is optional and defaults to 'origin'.
+```
+
+`clone` help:
+
+```
+./manage-image-repos.py clone --help
+usage: manage-image-repos.py clone [-h] [-s] [-g GITHUB_USER]
+
+options:
+  -h, --help            show this help message and exit
+  -s, --set-origin      Set the origin of the cloned repository to the user's GitHub.
+  -g GITHUB_USER, --github-user GITHUB_USER
+                        GitHub user to set the origin to.
+```
+
+`branch` help:
+
+```
+./manage-image-repos.py branch --help
+usage: manage-image-repos.py branch [-h] [-b BRANCH]
+
+options:
+  -h, --help            show this help message and exit
+  -b BRANCH, --branch BRANCH
+                        Name of the new feature branch to create.
+```
+
+`push` help:
+
+```
+./manage-image-repos.py push --help
+usage: manage-image-repos.py push [-h] [-o ORIGIN] [-b BRANCH]
+
+options:
+  -h, --help            show this help message and exit
+  -o ORIGIN, --origin ORIGIN
+                        Origin to push to. This is optional and defaults to 'origin'.
+  -b BRANCH, --branch BRANCH
+                        Name of the branch to push.
+```
+
+### Usage examples
+
+clone all of the image repos:
+
+```
+./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone
+```
+
+clone all repos, and set `upstream` and `origin`:
+
+```
+./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone --set-origin --github-user shaneknapp
+```
+
+how to sync all image repos from upstream and push to your `origin`:
+
+```
+./manage-image-repos.py --destination ~/src/images/ --config repos.txt sync --push
+```
+
+create a feature branch in all of the image repos:
+
+```
+./manage-image-repos.py -c repos.txt -d ~/src/images branch -b test-branch
+```
+
+after you've added/committed files, push everything to a remote:
+
+```
+./manage-image-repos.py -c repos.txt -d ~/src/images push -b test-branch
+```
