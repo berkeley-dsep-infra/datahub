@@ -27,6 +27,14 @@ jupyterhub:
       JupyterHub:
         admin_access: false
         authenticator_class: dummy
+      Authenticator:
+        admin_users:
+          # infrastructure
+          - rylo
+          - sknapp
+          - felder
+          - balajialwar
+          - gmerritt
   proxy:
     chp:
       nodeSelector:

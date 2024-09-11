@@ -1,0 +1,96 @@
+---
+title: Transition Single User Image to GitHub Actions
+---
+
+Single user images have been maintained within the main datahub repo since its inception, however we decided to move them into their own repositories. It will make testing notebooks easier, and we will be able to delegate write access to course staff if necessary.
+
+This is the process for transitioning images to their own repositories. Eventually, once all repositories have been migrated, we can update our documentation on creating new single user image repositories, and maintaining them.
+
+
+## Prerequisites
+
+You will need to install `git-filter-repo`.
+
+```bash
+wget -O ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo
+  chmod +x ~/bin/git-filter-repo
+```
+
+## Create the repository
+
+1. Go to https://github.com/berkeley-dsep-infra/hub-user-image-template. Click "Use this template" > "Create a new repository".
+1. Set the owner to `berkeley-dsep-infra`. Name the image `{hub}-user-image`, or some approximation of there are multiple images per hub.
+1. Click create repository.
+1. In the new repository, visit Settings > Secrets and variables > Actions > Variables tab. Create new variables:
+   a. Set HUB to the hub deployment, e.g. `shiny`.
+   b. Set IMAGE to ucb-datahub-2018/user-images/{hub}-user-image, e.g. `ucb-datahub-2018/user-images/shiny-user-image`.
+1. Fork the new image repo into your own github account.
+
+## Preparing working directories
+
+As part of this process, we will pull the previous image's git history into the new image repo.
+
+1. Clone the *datahub* repo into a new directory named after the image repo.
+   ```bash
+   git clone git@github.com:berkeley-dsep-infra/datahub.git {hub}-user-image --origin source
+   ```
+1. Change into the directory.
+1. Run `git-filter-repo`:
+   ```bash
+   git filter-repo --subdirectory-filter  deployments/{hub}/image --force
+   ```
+1. Add new git remotes:
+   ```bash
+   git remote add origin git@github.com:{your_git_account}/{hub}-user-image.git
+   git remote add upstream git@github.com:berkeley-dsep-infra/{hub}-user-image.git
+   ```
+1. Pull in the contents of the new user image that was created from the template.
+   ```bash
+   git fetch upstream
+   git checkout main # pulls in .github
+   ```
+
+1. Merge the contents of the previous datahub image with the new user image.
+   ```bash
+   git rm environment.yml
+   git commit -m "Remove default environment.yml file."
+   git merge staging --allow-unrelated-histories -m 'Bringing in image directory from deployment repo'
+   git push upstream main
+   git push origin main
+   ```
+
+## Preparing continuous integration
+
+1. In the berkeley-dsep-infra org settings, https://github.com/organizations/berkeley-dsep-infra/settings/profile, visit Secrets and variables > Actions, https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions. Edit the secrets for DATAHUB_CREATE_PR and GAR_SECRET_KEY, and enable the new repo to access each.
+
+1. In the datahub repo, in one PR:
+   a. remove the hub deployment steps for the hub:
+      - Deploy {hub}
+      - hubploy/build-image {hub} image build (x2)
+
+   a. under `deployments/{hub}/hubploy.yaml`, remove the registry entry, and set the image_name to have `PLACEHOLDER` for the tag.
+
+   a. In the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.
+
+1. Merge these changes to datahub staging.
+
+1. Make a commit to trigger a build of the image in its repo.
+
+1. In a PR in the datahub repo, under .github/workflows/deploy-hubs.yaml, add the hub with the new image under `determine-hub-deployments.py --only-deploy`.
+
+1. Make another commit to the image repo to trigger a build. When these jobs finish, a commit will be pushed to the datahub repo. Make a PR, and merge to staging after canceling the CircleCI builds. (these builds are an artifact of the CircleCI-to-GitHub migration -- we won't need to do that long term)
+
+1. Subscribe the *#ucb-datahubs-bots* channel in UC Tech slack to the repo.
+   ```bash
+   /github subscribe berkeley-dsep-infra/<repo>
+   ```
+
+## Making changes
+
+Once the image repo is set up, you will need to follow this procedure to update it and make it available to the hub.
+
+1. Make a change in your fork of the image repo.
+1. Make a pull request to the repo in `berkeley-dsep-infra`. This will trigger a github action that will test to see if the image builds successfully.
+1. If the build succeeds, someone with sufficient access (DataHub staff, or course staff with elevated privileges) can merge the PR. This will trigger another build, and will then push the image to the image registry.
+1. In order for the newly built and pushed image to be referenced by datahub, you will need to make PR at datahub. Visit the previous merge action's *update-deployment-image-tag* entry and expand the *Create feature branch, add, commit and push changes* step. Find the URL beneath, *Create a pull request for 'update-{hub}-image-tag-{slug}*, and visit it. This will draft a new PR at datahub for you to create.
+1. Once the PR is submitted, an action will run. It is okay if CircleCI-related tasks fail here. Merge the PR into staging once the action is complete.

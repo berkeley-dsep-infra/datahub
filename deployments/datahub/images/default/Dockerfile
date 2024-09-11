@@ -22,7 +22,11 @@ RUN apt-get -qq update --yes && \
 RUN adduser --disabled-password --gecos "Default Jupyter user" ${NB_USER}
 
 # Do not exclude manpages from being installed.
-RUN sed -i -e '/usr.share.man/s/^/#/' /etc/dpkg/dpkg.cfg.d/excludes
+RUN sed -i '/usr.share.man/s/^/#/' /etc/dpkg/dpkg.cfg.d/excludes
+
+# Reinstall coreutils so that basic man pages are installed. Due to dpkg's
+# exclusion, they were not originally installed.
+RUN apt --reinstall install coreutils
 
 # Install all apt packages
 COPY apt.txt /tmp/apt.txt
