@@ -1,0 +1,14 @@
+git@github.com:berkeley-dsep-infra/a11y-user-image.git
+git@github.com:berkeley-dsep-infra/astro-user-image.git
+git@github.com:berkeley-dsep-infra/biology-user-image.git
+git@github.com:berkeley-dsep-infra/cee-user-image.git
+git@github.com:berkeley-dsep-infra/data101-user-image.git
+git@github.com:berkeley-dsep-infra/dev-primary-image.git
+git@github.com:berkeley-dsep-infra/dev-secondary-image.git
+git@github.com:berkeley-dsep-infra/logodev-user-image.git
+git@github.com:berkeley-dsep-infra/nature-user-image.git
+git@github.com:berkeley-dsep-infra/publichealth-user-image.git
+git@github.com:berkeley-dsep-infra/shiny-user-image.git
+git@github.com:berkeley-dsep-infra/stat20-user-image.git
+git@github.com:berkeley-dsep-infra/stat159-user-image.git
+git@github.com:berkeley-dsep-infra/ugr01-user-image.git
