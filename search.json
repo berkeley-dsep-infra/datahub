@@ -749,346 +749,198 @@
     ]
   },
   {
-    "objectID": "admins/howto/google-sheets.html",
-    "href": "admins/howto/google-sheets.html",
-    "title": "Reading Google Sheets from DataHub",
+    "objectID": "admins/howto/transition-image.html",
+    "href": "admins/howto/transition-image.html",
+    "title": "Transition Single User Image to GitHub Actions",
     "section": "",
-    "text": "Available in: DataHub\nWe provision and make available credentials for a service account that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the gspread library.\nThe entire contents of the JSON formatted service account key is available as an environment variable GOOGLE_SHEETS_READONLY_KEY. You can use this to read publicly available Google Sheet documents.\nThe service account has no implicit permissions, and can be found under singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY in datahub/secrets/staging.yaml and datahub/secrets/prod.yaml.",
+    "text": "Single user images have been maintained within the main datahub repo since its inception, however we decided to move them into their own repositories. It will make testing notebooks easier, and we will be able to delegate write access to course staff if necessary.\nThis is the process for transitioning images to their own repositories. Eventually, once all repositories have been migrated, we can update our documentation on creating new single user image repositories, and maintaining them.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "Transition Single User Image to GitHub Actions"
     ]
   },
   {
-    "objectID": "admins/howto/google-sheets.html#gspread-sample-code",
-    "href": "admins/howto/google-sheets.html#gspread-sample-code",
-    "title": "Reading Google Sheets from DataHub",
-    "section": "gspread sample code",
-    "text": "gspread sample code\nThe following sample code reads a sheet from a URL given to it, and prints the contents.\nimport gspread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\ngc = gspread.authorize(creds)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1\nsheet = gc.open_by_url(url)\nprint(sheet.sheet1.get_all_records())",
+    "objectID": "admins/howto/transition-image.html#prerequisites",
+    "href": "admins/howto/transition-image.html#prerequisites",
+    "title": "Transition Single User Image to GitHub Actions",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nYou will need to install git-filter-repo.\nwget -O ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo\n  chmod +x ~/bin/git-filter-repo",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "Transition Single User Image to GitHub Actions"
     ]
   },
   {
-    "objectID": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
-    "href": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
-    "title": "Reading Google Sheets from DataHub",
-    "section": "gspread-pandas sample code",
-    "text": "gspread-pandas sample code\nThe gspread-pandas library helps get data from Google Sheets into a pandas dataframe.\nfrom gspread_pandas.client import Spread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1 as a dataframe\nspread = Spread(url, creds=creds)\nsheet_df = spread.sheet_to_df(sheet='sheet1')\nprint(sheet_df)",
+    "objectID": "admins/howto/transition-image.html#create-the-repository",
+    "href": "admins/howto/transition-image.html#create-the-repository",
+    "title": "Transition Single User Image to GitHub Actions",
+    "section": "Create the repository",
+    "text": "Create the repository\n\nGo to https://github.com/berkeley-dsep-infra/hub-user-image-template. Click “Use this template” &gt; “Create a new repository”.\nSet the owner to berkeley-dsep-infra. Name the image {hub}-user-image, or some approximation of there are multiple images per hub.\nClick create repository.\nIn the new repository, visit Settings &gt; Secrets and variables &gt; Actions &gt; Variables tab. Create new variables:\n\nSet HUB to the hub deployment, e.g. shiny.\nSet IMAGE to ucb-datahub-2018/user-images/{hub}-user-image, e.g. ucb-datahub-2018/user-images/shiny-user-image.\n\nFork the new image repo into your own github account.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "Transition Single User Image to GitHub Actions"
     ]
   },
   {
-    "objectID": "admins/howto/rebuild-hub-image.html",
-    "href": "admins/howto/rebuild-hub-image.html",
-    "title": "Customize the Hub Docker Image",
-    "section": "",
-    "text": "We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in images/hub. It must inherit from the JupyterHub image used in the Zero to JupyterHub.\nThe image is build with chartpress, which also updates hub/values.yaml with the new image version. chartpress may be installed locally with pip install chartpress.\n\nRun gcloud auth configure-docker us-central1-docker.pkg.dev once per machine to setup docker for authentication with the gcloud credential helper.\nModify the image in images/hub and make a git commit.\nRun chartpress --push. This will build and push the hub image, and modify hub/values.yaml appropriately.\nMake a commit with the hub/values.yaml file, so the new hub image name and tag are comitted.\nProceed to deployment as normal.\n\nSome of the following commands may be required to configure your environment to run the above chartpress workflow successfully:\n\ngcloud auth login.\ngcloud auth configure-docker us-central1-docker.pkg.dev\ngcloud auth application-default login\ngcloud auth configure-docker",
+    "objectID": "admins/howto/transition-image.html#preparing-working-directories",
+    "href": "admins/howto/transition-image.html#preparing-working-directories",
+    "title": "Transition Single User Image to GitHub Actions",
+    "section": "Preparing working directories",
+    "text": "Preparing working directories\nAs part of this process, we will pull the previous image’s git history into the new image repo.\n\nClone the datahub repo into a new directory named after the image repo.\ngit clone git@github.com:berkeley-dsep-infra/datahub.git {hub}-user-image --origin source\nChange into the directory.\nRun git-filter-repo:\ngit filter-repo --subdirectory-filter  deployments/{hub}/image --force\nAdd new git remotes:\ngit remote add origin git@github.com:{your_git_account}/{hub}-user-image.git\ngit remote add upstream git@github.com:berkeley-dsep-infra/{hub}-user-image.git\nPull in the contents of the new user image that was created from the template.\ngit fetch upstream\ngit checkout main # pulls in .github\nMerge the contents of the previous datahub image with the new user image.\ngit rm environment.yml\ngit commit -m \"Remove default environment.yml file.\"\ngit merge staging --allow-unrelated-histories -m 'Bringing in image directory from deployment repo'\ngit push upstream main\ngit push origin main",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Customize the Hub Docker Image"
+      "Transition Single User Image to GitHub Actions"
     ]
   },
   {
-    "objectID": "admins/howto/core-pool.html",
-    "href": "admins/howto/core-pool.html",
-    "title": "Core Node Pool Management",
-    "section": "",
-    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "objectID": "admins/howto/transition-image.html#preparing-continuous-integration",
+    "href": "admins/howto/transition-image.html#preparing-continuous-integration",
+    "title": "Transition Single User Image to GitHub Actions",
+    "section": "Preparing continuous integration",
+    "text": "Preparing continuous integration\n\nIn the berkeley-dsep-infra org settings, https://github.com/organizations/berkeley-dsep-infra/settings/profile, visit Secrets and variables &gt; Actions, https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions. Edit the secrets for DATAHUB_CREATE_PR and GAR_SECRET_KEY, and enable the new repo to access each.\nIn the datahub repo, in one PR:\n\nremove the hub deployment steps for the hub:\n\nDeploy {hub}\nhubploy/build-image {hub} image build (x2)\n\nunder deployments/{hub}/hubploy.yaml, remove the registry entry, and set the image_name to have PLACEHOLDER for the tag.\nIn the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.\n\nMerge these changes to datahub staging.\nMake a commit to trigger a build of the image in its repo.\nIn a PR in the datahub repo, under .github/workflows/deploy-hubs.yaml, add the hub with the new image under determine-hub-deployments.py --only-deploy.\nMake another commit to the image repo to trigger a build. When these jobs finish, a commit will be pushed to the datahub repo. Make a PR, and merge to staging after canceling the CircleCI builds. (these builds are an artifact of the CircleCI-to-GitHub migration – we won’t need to do that long term)\nSubscribe the #ucb-datahubs-bots channel in UC Tech slack to the repo.\n/github subscribe berkeley-dsep-infra/&lt;repo&gt;",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Transition Single User Image to GitHub Actions"
     ]
   },
   {
-    "objectID": "admins/howto/core-pool.html#what-is-the-core-node-pool",
-    "href": "admins/howto/core-pool.html#what-is-the-core-node-pool",
-    "title": "Core Node Pool Management",
-    "section": "",
-    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "objectID": "admins/howto/transition-image.html#making-changes",
+    "href": "admins/howto/transition-image.html#making-changes",
+    "title": "Transition Single User Image to GitHub Actions",
+    "section": "Making changes",
+    "text": "Making changes\nOnce the image repo is set up, you will need to follow this procedure to update it and make it available to the hub.\n\nMake a change in your fork of the image repo.\nMake a pull request to the repo in berkeley-dsep-infra. This will trigger a github action that will test to see if the image builds successfully.\nIf the build succeeds, someone with sufficient access (DataHub staff, or course staff with elevated privileges) can merge the PR. This will trigger another build, and will then push the image to the image registry.\nIn order for the newly built and pushed image to be referenced by datahub, you will need to make PR at datahub. Visit the previous merge action’s update-deployment-image-tag entry and expand the Create feature branch, add, commit and push changes step. Find the URL beneath, Create a pull request for ’update-{hub}-image-tag-{slug}, and visit it. This will draft a new PR at datahub for you to create.\nOnce the PR is submitted, an action will run. It is okay if CircleCI-related tasks fail here. Merge the PR into staging once the action is complete.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Transition Single User Image to GitHub Actions"
     ]
   },
   {
-    "objectID": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
-    "href": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
-    "title": "Core Node Pool Management",
-    "section": "Deploy a New Core Node Pool",
-    "text": "Deploy a New Core Node Pool\nRun the following command from the root directory of your local datahub repo to create the node pool:\ngcloud container node-pools create \"core-&lt;YYYY-MM-DD&gt;\"  \\\n  --labels=hub=core,nodepool-deployment=core \\\n  --node-labels hub.jupyter.org/pool-name=core-pool-&lt;YYYY-MM-DD&gt; \\\n  --machine-type \"n2-standard-8\"  \\\n  --num-nodes \"1\" \\\n  --enable-autoscaling --min-nodes \"1\" --max-nodes \"3\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"100\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\" \\\n  --system-config-from-file=vendor/google/gke/node-pool/config/core-pool-sysctl.yaml\nThe system-config-from-file argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.",
+    "objectID": "admins/howto/dns.html",
+    "href": "admins/howto/dns.html",
+    "title": "Update DNS",
+    "section": "",
+    "text": "Some staff have access to make and update DNS entries in the .datahub.berkeley.edu and .data8x.berkeley.edu subdomains.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Update DNS"
     ]
   },
   {
-    "objectID": "admins/howto/rebuild-postgres-image.html",
-    "href": "admins/howto/rebuild-postgres-image.html",
-    "title": "Customize the Per-User Postgres Docker Image",
-    "section": "",
-    "text": "We provide each student on data100 witha postgresql server. We want the python extension installed. So we inherit from the upstream postgresql docker image, and add the appropriate package.\nThis image is in images/postgres. If you update it, you need to rebuild and push it.\n\nModify the image in images/postgres and make a git commit.\nRun chartpress --push. This will build and push the image, but not put anything in YAML. There is no place we can put thi in values.yaml, since this is only used for data100.\nNotice the image name + tag from the chartpress --push command, and put it in the appropriate place (under extraContainers) in data100/config/common.yaml.\nMake a commit with the new tag in data100/config/common.yaml.\nProceed to deploy as normal.",
+    "objectID": "admins/howto/dns.html#authorization",
+    "href": "admins/howto/dns.html#authorization",
+    "title": "Update DNS",
+    "section": "Authorization",
+    "text": "Authorization\nRequest access to make changes by creating an issue in this repository.\nAuthorization is granted via membership in the edu:berkeley:org:nos:DDI:datahub CalGroup. @yuvipanda and @ryanlovett are group admins and can update membership.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Customize the Per-User Postgres Docker Image"
+      "Update DNS"
     ]
   },
   {
-    "objectID": "admins/howto/prometheus-grafana.html",
-    "href": "admins/howto/prometheus-grafana.html",
-    "title": "Prometheus and Grafana",
-    "section": "",
-    "text": "It can be useful to interact with the cluster’s prometheus server while developing dashboards in grafana. You will need to forward a local port to the prometheus server’s pod.\n\n\nListen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.\n\n\n\nListen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "objectID": "admins/howto/dns.html#making-changes",
+    "href": "admins/howto/dns.html#making-changes",
+    "title": "Update DNS",
+    "section": "Making Changes",
+    "text": "Making Changes\n\nLog into Infoblox from a campus network or through the campus VPN. Use your CalNet credentials.\nNavigate to Data Management &gt; DNS &gt; Zones and click berkeley.edu.\nNavigate to Subzones and choose either data8x or datahub, then click Records.\n\n\nFor quicker access, click the star next to the zone name to make a bookmark in the Finder pane on the left side.\n\n\nCreate a new record\n\nClick the down arrow next to + Add in the right-side Toolbar. Then choose Record &gt; A Record.\nEnter the name and IP of the A record, and uncheck Create associated PTR record.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nEdit an existing record\n\nClick the gear icon to the left of the record's name and choose Edit.\nMake a change.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nDelete a record\n\nClick the gear icon to the left of the record's name and choose Delete.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Prometheus and Grafana"
+      "Update DNS"
     ]
   },
   {
-    "objectID": "admins/howto/prometheus-grafana.html#using-the-standard-port",
-    "href": "admins/howto/prometheus-grafana.html#using-the-standard-port",
-    "title": "Prometheus and Grafana",
+    "objectID": "admins/howto/delete-hub.html",
+    "href": "admins/howto/delete-hub.html",
+    "title": "Delete or spin down a Hub",
     "section": "",
-    "text": "Listen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.",
+    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Prometheus and Grafana"
+      "Delete or spin down a Hub"
     ]
   },
   {
-    "objectID": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
-    "href": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
-    "title": "Prometheus and Grafana",
+    "objectID": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
+    "href": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
+    "title": "Delete or spin down a Hub",
     "section": "",
-    "text": "Listen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Prometheus and Grafana"
+      "Delete or spin down a Hub"
     ]
   },
   {
-    "objectID": "admins/storage.html",
-    "href": "admins/storage.html",
-    "title": "User home directory storage",
-    "section": "",
-    "text": "All users on all the hubs get a home directory with persistent storage.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "User home directory storage"
-    ]
-  },
-  {
-    "objectID": "admins/storage.html#why-nfs",
-    "href": "admins/storage.html#why-nfs",
-    "title": "User home directory storage",
-    "section": "Why NFS?",
-    "text": "Why NFS?\nNFS isn't a particularly cloud-native technology. It isn't highly available nor fault tolerant by default, and is a single point of failure. However, it is currently the best of the alternatives available for user home directories, and so we use it.\n\nHome directories need to be fully POSIX compliant file systems that work with minimal edge cases, since this is what most instructional code assumes. This rules out object-store backed filesystems such as s3fs.\nUsers don't usually need guaranteed space or IOPS, so providing them each a persistent cloud disk gets unnecessarily expensive - since we are paying for it whether it is used or not.\nWhen we did use one persistent disk per user, the storage cost dwarfed everything else by an order of magnitude for no apparent benefit.\nAttaching cloud disks to user pods also takes on average about 30s on Google Cloud, and much longer on Azure. NFS mounts pretty quickly, getting this down to a second or less.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "User home directory storage"
-    ]
-  },
-  {
-    "objectID": "admins/storage.html#nfs-server",
-    "href": "admins/storage.html#nfs-server",
-    "title": "User home directory storage",
-    "section": "NFS Server",
-    "text": "NFS Server\nWe currently have two approaches to running NFS Servers.\n\nRun a hand-maintained NFS Server with ZFS SSD disks.\nThis gives us control over performance, size and most importantly, server options. We use anonuid=1000, so all reads / writes from the cluster are treated as if they have uid 1000, which is the uid all user processes run as. This prevents us from having to muck about permissions & chowns - particularly since Kubernetes creates new directories on volumes as root with strict permissions (see issue).\nUse a hosted NFS service like Google Cloud Filestore.\nWe do not have to perform any maintenance if we use this - but we have no control over the host machine either.\n\nAfter running our own NFS server from 2020 through the end of 2022, we decided to move wholesale to Google Cloud Filestore. This was mostly due to NFS daemon stability issues, which caused many outages and impacted thousands of our users and courses.\nCurrently each hub has it's own filestore instance, except for a few small courses that share one. This has proven to be much more stable and able to handle the load.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "User home directory storage"
-    ]
-  },
-  {
-    "objectID": "admins/storage.html#home-directory-paths",
-    "href": "admins/storage.html#home-directory-paths",
-    "title": "User home directory storage",
-    "section": "Home directory paths",
-    "text": "Home directory paths\nEach user on each hub gets their own directory on the server that gets treated as their home directory. The staging & prod servers share home directory paths, so users get the same home directories on both.\nFor most hubs, the user's home directory path relative to the exported filestore share is &lt;hub-name&gt;-filestore/&lt;hub-name&gt;/&lt;prod|staging&gt;/home/&lt;user-name&gt;.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "User home directory storage"
-    ]
-  },
-  {
-    "objectID": "admins/storage.html#nfs-client",
-    "href": "admins/storage.html#nfs-client",
-    "title": "User home directory storage",
-    "section": "NFS Client",
-    "text": "NFS Client\nWe currently have two approaches for mounting the user's home directory into each user's pod.\n\nMount the NFS Share once per node to a well known location, and use hostpath volumes with a subpath on the user pod to mount the correct directory on the user pod.\nThis lets us get away with one NFS mount per node, rather than one per pod.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "User home directory storage"
-    ]
-  },
-  {
-    "objectID": "admins/pre-reqs.html",
-    "href": "admins/pre-reqs.html",
-    "title": "Pre-requisites",
-    "section": "",
-    "text": "Smoothly working with the JupyterHubs maintained in this repository has a number of pre-requisite skills you must possess. The rest of the documentation assumes you have at least a basic level of these skills, and know how to get help related to these technologies when necessary.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "admins/pre-reqs.html#basic",
-    "href": "admins/pre-reqs.html#basic",
-    "title": "Pre-requisites",
-    "section": "Basic",
-    "text": "Basic\nThese skills let you interact with the repository in a basic manner. This lets you do most 'self-service' tasks - such as adding admin users, libraries, making changes to resource allocation, etc. This doesn't give you any skills to debug things when they break, however.\n\nBasic git & GitHub skills.\nThe Git Book & GitHub Help are good resources for this.\nFamiliarity with YAML syntax.\nUnderstanding of how packages are installed in the languages we support.\nRights to merge changes into this repository on GitHub.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "admins/pre-reqs.html#full",
-    "href": "admins/pre-reqs.html#full",
-    "title": "Pre-requisites",
-    "section": "Full",
-    "text": "Full\nIn addition to the basic skills, you'll need the following skills to 'fully' work with this repository. Primarily, you need this to debug issues when things break -since we strive to never have things break in the same way more than twice.\n\nKnowledge of our tech stack:\n\nKubernetes\nGoogle Cloud\nHelm\nDocker\nrepo2docker\nJupyter\nLanguages we support: Python & R\n\nUnderstanding of our JupyterHub distribution, Zero to JupyterHub.\nFull access to the various cloud providers we use.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "admins/credentials.html",
-    "href": "admins/credentials.html",
-    "title": "Cloud Credentials",
-    "section": "",
-    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Cloud Credentials"
-    ]
-  },
-  {
-    "objectID": "admins/credentials.html#google-cloud",
-    "href": "admins/credentials.html#google-cloud",
-    "title": "Cloud Credentials",
-    "section": "",
-    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Cloud Credentials"
-    ]
-  },
-  {
-    "objectID": "admins/structure.html",
-    "href": "admins/structure.html",
-    "title": "Repository Structure",
-    "section": "",
-    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nThe contents of the image/ directory determine the environment provided to the user. For example, it controls:\n\nVersions of Python / R / Julia available\nLibraries installed, and which versions of those are installed\nSpecific config for Jupyter Notebook or IPython\n\nrepo2docker is used to build the actual user image, so you can use any of the supported config files to customize the image as you wish.\n\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Repository Structure"
-    ]
-  },
-  {
-    "objectID": "admins/structure.html#hub-configuration",
-    "href": "admins/structure.html#hub-configuration",
-    "title": "Repository Structure",
-    "section": "",
-    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nThe contents of the image/ directory determine the environment provided to the user. For example, it controls:\n\nVersions of Python / R / Julia available\nLibraries installed, and which versions of those are installed\nSpecific config for Jupyter Notebook or IPython\n\nrepo2docker is used to build the actual user image, so you can use any of the supported config files to customize the image as you wish.\n\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Repository Structure"
-    ]
-  },
-  {
-    "objectID": "admins/structure.html#documentation",
-    "href": "admins/structure.html#documentation",
-    "title": "Repository Structure",
-    "section": "Documentation",
-    "text": "Documentation\nDocumentation is under the docs/ folder, and is generated with Quarto, where content is written in markdown. Documentation is published to https://docs.datahub.berkeley.edu/ via a GitHub Action workflow.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Repository Structure"
-    ]
-  },
-  {
-    "objectID": "admins/cluster-config.html",
-    "href": "admins/cluster-config.html",
-    "title": "Kubernetes Cluster Configuration",
-    "section": "",
-    "text": "We use kubernetes to run our JupyterHubs. It has a healthy open source community, managed offerings from multiple vendors & a fast pace of development. We can run easily on many different cloud providers with similar config by running on top of Kubernetes, so it is also our cloud agnostic abstraction layer.\nWe prefer using a managed Kubernetes service (such as Google Kubernetes Engine). This document lays out our preferred cluster configuration on various cloud providers.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Kubernetes Cluster Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/cluster-config.html#google-kubernetes-engine",
-    "href": "admins/cluster-config.html#google-kubernetes-engine",
-    "title": "Kubernetes Cluster Configuration",
-    "section": "Google Kubernetes Engine",
-    "text": "Google Kubernetes Engine\nIn our experience, Google Kubernetes Engine (GKE) has been the most stable, performant, and reliable managed kubernetes service. We prefer running on this when possible.\nA gcloud container clusters create command can succintly express the configuration of our kubernetes cluster. The following command represents the currently favored configuration.\nThis creates the GKE cluster. It may host one or more node pools:\ngcloud container clusters create \\\n     --enable-ip-alias \\\n     --enable-autoscaling \\\n     --max-nodes=20 --min-nodes=1 \\\n     --region=us-central1 --node-locations=us-central1-b \\\n     --image-type=cos_containerd \\\n     --disk-size=100 --disk-type=pd-balanced \\\n     --machine-type=n2-highmem-8 \\\n     --cluster-version latest \\\n     --no-enable-autoupgrade \\\n     --enable-network-policy \\\n     --create-subnetwork=\"\" \\\n     --tags=hub-cluster \\\n     &lt;cluster-name&gt;\nHere's how we add a node pool to the cluster, beyond the default pool:\ngcloud container node-pools create  \\\n    --machine-type n2-highmem-8 \\\n    --num-nodes 1 \\\n    --enable-autoscaling \\\n    --min-nodes 1 --max-nodes 20 \\\n    --node-labels hub.jupyter.org/pool-name=&lt;pool-name&gt;-pool \\\n    --node-taints hub.jupyter.org_dedicated=user:NoSchedule \\\n    --region=us-central1 \\\n    --image-type=cos_containerd \\\n    --disk-size=200 --disk-type=pd-balanced \\\n    --no-enable-autoupgrade \\\n    --tags=hub-cluster \\\n    --cluster=&lt;cluster-name&gt; \\\n    user-&lt;pool-name&gt;-&lt;yyyy&gt;-&lt;mm&gt;-&lt;dd&gt;\n\nIP Aliasing\n--enable-ip-alias creates VPC Native Clusters.\nThis becomes the default soon, and can be removed once it is the default.\n\n\nAutoscaling\nWe use the kubernetes cluster autoscaler to scale our node count up and down based on demand. It waits until the cluster is completely full before triggering creation of a new node - but that's ok, since new node creation time on GKE is pretty quick.\n--enable-autoscaling turns the cluster autoscaler on.\n--min-nodes sets the minimum number of nodes that will be maintained regardless of demand. This should ideally be 2, to give us some headroom for quick starts without requiring scale ups when the cluster is completely empty.\n--max-nodes sets the maximum number of nodes that the cluster autoscaler will use - this sets the maximum number of concurrent users we can support. This should be set to a reasonably high number, but not too high - to protect against runaway creation of hundreds of VMs that might drain all our credits due to accident or security breach.\n\n\nHighly available master\nThe kubernetes cluster's master nodes are managed by Google Cloud automatically. By default, it is deployed in a non-highly-available configuration - only one node. This means that upgrades and master configuration changes cause a few minutes of downtime for the kubernetes API, causing new user server starts / stops to fail.\nWe request our cluster masters to have highly available masters with --region parameter. This specifies the region where our 3 master nodes will be spread across in different zones. It costs us extra, but it is totally worth it.\nBy default, asking for highly available masters also asks for 3x the node count, spread across multiple zones. We don't want that, since all our user pods have in-memory state & can't be relocated. Specifying --node-locations explicitly lets us control how many and which zones the nodes are located in.\n\n\nRegion / Zone selection\nWe generally use the us-central1 region and a zone in it for our clusters -simply because that is where we have asked for quota.\nThere are regions closer to us, but latency hasn't really mattered so we are currently still in us-central1. There are also unsubstantiated rumors that us-central1 is their biggest data center and hence less likely to run out of quota.\n\n\nDisk Size\n--disk-size sets the size of the root disk on all the kubernetes nodes. This isn't used for any persistent storage such as user home directories. It is only used ephemerally for the operations of the cluster - primarily storing docker images and other temporary storage. We can make this larger if we use a large number of big images, or if we want our image pulls to be faster (since disk performance increases with disk size ).\n--disk-type=pd-standard gives us standard spinning disks, which are cheaper. We can also request SSDs instead with --disk-type=pd-ssd - it is much faster, but also much more expensive. We compromise with --disk-type=pd-balanced, faster than spinning disks but not as fast as ssds all the time.\n\n\nNode size\n--machine-type lets us select how much RAM and CPU each of our nodes have. For non-trivial hubs, we generally pick n2-highmem-8, with 64G of RAM and 8 cores. This is based on the following heuristics:\n\nStudents generally are memory limited than CPU limited. In fact, while we have a hard limit on memory use per-user pod, we do not have a CPU limit -it hasn't proven necessary.\nWe try overprovision clusters by about 2x - so we try to fit about 100G of total RAM use in a node with about 50G of RAM. This is accomplished by setting the memory request to be about half of the memory limit on user pods. This leads to massive cost savings, and works out ok.\nThere is a kubernetes limit on 100 pods per node.\n\nBased on these heuristics, n2-highmem-8 seems to be most bang for the buck currently. We should revisit this for every cluster creation.\n\n\nCluster version\nGKE automatically upgrades cluster masters, so there is generally no harm in being on the latest version available.\n\n\nNode autoupgrades\nWhen node autoupgrades are enabled, GKE will automatically try to upgrade our nodes whenever needed (our GKE version falling off the support window, security issues, etc). However, since we run stateful workloads, we disable this right now so we can do the upgrades manually.\n\n\nNetwork Policy\nKubernetes Network Policy lets you firewall internal access inside a kubernetes cluster, whitelisting only the flows you want. The JupyterHub chart we use supports setting up appropriate NetworkPolicy objects it needs, so we should turn it on for additional security depth. Note that any extra in-cluster services we run must have a NetworkPolicy set up for them to work reliabliy.\n\n\nSubnetwork\nWe put each cluster in its own subnetwork, since seems to be a limit on how many clusters you can create in the same network with IP aliasing on - you just run out of addresses. This also gives us some isolation - subnetworks are isolated by default and can't reach other resources. You must add firewall rules to provide access, including access to any manually run NFS servers. We add tags for this.\n\n\nTags\nTo help with firewalling, we add network tags to all our cluster nodes. This lets us add firewall rules to control traffic between subnetworks.\n\n\nCluster name\nWe try use a descriptive name as much as possible.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Kubernetes Cluster Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/index.html",
-    "href": "admins/index.html",
-    "title": "",
-    "section": "",
-    "text": "======================= Contributing to DataHub =======================\n.. toctree:: :titlesonly: :maxdepth: 2\npre-reqs structure storage cluster-config credentials incidents/index\n.. toctree:: :titlesonly: :maxdepth: 2\nhowto/index\ndeployments/index"
-  },
-  {
-    "objectID": "admins/howto/github-token.html",
-    "href": "admins/howto/github-token.html",
-    "title": "Create Finely Grained Access Token",
-    "section": "",
-    "text": "At https://github.com/settings/personal-access-tokens/new:\n\nToken name: set something descriptive.\nExpiration: set the token to expire no earlier or later than necessary.\nDescription: elaborate on the function of the token.\nResource owner: berkeley-dsep-infra\nRepository access: Only selected repositories &gt; datahub\nPermissions: Contents &gt; Access: Read and write",
+    "objectID": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
+    "href": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
+    "title": "Delete or spin down a Hub",
+    "section": "Steps to spin down a hub",
+    "text": "Steps to spin down a hub\nIf the hub is using a shared filestore, skip all filestore steps.\nIf the hub is using a shared node pool, skip all namespace and node pool steps.\n\nScale the node pool to zero: kubectl -n &lt;hubname-prod|staging&gt; scale --replicas=0 deployment/hub\nKill any remaining users’ servers. Find any running servers with kubectl -n &lt;hubname-prod|staging&gt; get pods | grep jupyter and then kubectl -n &lt;hubname-prod|staging&gt; delete pod &lt;pod name&gt; to stop them.\nCreate filestore backup:\n\ngcloud filestore backups create &lt;hubname&gt;-backup-YYYY-MM-DD --file-share=shares --instance=&lt;hubname-YYYY-MM-DD&gt; --region \"us-central1\" --labels=filestore-backup=&lt;hub name&gt;,hub=&lt;hub name&gt;\n\nLog in to nfsserver-01 and unmount filestore from nfsserver: sudo umount /export/&lt;hubname&gt;-filestore\nComment out the hub build steps out in .circleci/config.yaml (deploy and build steps)\nComment out GitHub label action for this hub in .github/labeler.yml\nComment hub entries out of datahub/node-placeholder/values.yaml\nDelete k8s namespace:\n\nkubectl delete namespace &lt;hubname&gt;-staging &lt;hubname&gt;-prod\n\nDelete k8s node pool:\n\ngcloud container node-pools delete &lt;hubname&gt; --project \"ucb-datahub-2018\" --cluster \"spring-2024\" --region \"us-central1\"\n\nDelete filestore\n\ngcloud filestore instances delete &lt;hubname&gt;-filestore --zone \"us-central1-b\"\n\nDelete PV: kubectl get pv --all-namespaces|grep &lt;hubname&gt; to get the PV names, and then kubectl delete pv &lt;pv names&gt;\nAll done.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Create Finely Grained Access Token"
+      "Delete or spin down a Hub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/remove-users-orm.html",
+    "href": "admins/howto/remove-users-orm.html",
+    "title": "JupyterHub ORM Maintenance",
+    "section": "",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "JupyterHub ORM Maintenance"
+    ]
+  },
+  {
+    "objectID": "admins/howto/remove-users-orm.html#performance",
+    "href": "admins/howto/remove-users-orm.html#performance",
+    "title": "JupyterHub ORM Maintenance",
+    "section": "",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "JupyterHub ORM Maintenance"
+    ]
+  },
+  {
+    "objectID": "admins/howto/remove-users-orm.html#run-the-script",
+    "href": "admins/howto/remove-users-orm.html#run-the-script",
+    "title": "JupyterHub ORM Maintenance",
+    "section": "Run the script",
+    "text": "Run the script\nYou can run the script on your own device. The script depends on the jhub_client python library. This can be installed with pip install jhub_client.\n\nYou will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to {hub_url}/hub/token to create a new one.\nSet the environment variable JUPYTERHUB_API_TOKEN to the token.\nRun python scripts/delete-unused-users.py --hub_url {hub_url}",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "JupyterHub ORM Maintenance"
     ]
   },
   {
@@ -1170,199 +1022,361 @@
     ]
   },
   {
-    "objectID": "admins/howto/remove-users-orm.html",
-    "href": "admins/howto/remove-users-orm.html",
-    "title": "JupyterHub ORM Maintenance",
+    "objectID": "admins/howto/github-token.html",
+    "href": "admins/howto/github-token.html",
+    "title": "Create Finely Grained Access Token",
     "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "text": "At https://github.com/settings/personal-access-tokens/new:\n\nToken name: set something descriptive.\nExpiration: set the token to expire no earlier or later than necessary.\nDescription: elaborate on the function of the token.\nResource owner: berkeley-dsep-infra\nRepository access: Only selected repositories &gt; datahub\nPermissions: Contents &gt; Access: Read and write",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "JupyterHub ORM Maintenance"
+      "Create Finely Grained Access Token"
     ]
   },
   {
-    "objectID": "admins/howto/remove-users-orm.html#performance",
-    "href": "admins/howto/remove-users-orm.html#performance",
-    "title": "JupyterHub ORM Maintenance",
+    "objectID": "admins/index.html",
+    "href": "admins/index.html",
+    "title": "",
     "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "JupyterHub ORM Maintenance"
-    ]
+    "text": "======================= Contributing to DataHub =======================\n.. toctree:: :titlesonly: :maxdepth: 2\npre-reqs structure storage cluster-config credentials incidents/index\n.. toctree:: :titlesonly: :maxdepth: 2\nhowto/index\ndeployments/index"
   },
   {
-    "objectID": "admins/howto/remove-users-orm.html#run-the-script",
-    "href": "admins/howto/remove-users-orm.html#run-the-script",
-    "title": "JupyterHub ORM Maintenance",
-    "section": "Run the script",
-    "text": "Run the script\nYou can run the script on your own device. The script depends on the jhub_client python library. This can be installed with pip install jhub_client.\n\nYou will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to {hub_url}/hub/token to create a new one.\nSet the environment variable JUPYTERHUB_API_TOKEN to the token.\nRun python scripts/delete-unused-users.py --hub_url {hub_url}",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "JupyterHub ORM Maintenance"
-    ]
-  },
-  {
-    "objectID": "admins/howto/delete-hub.html",
-    "href": "admins/howto/delete-hub.html",
-    "title": "Delete or spin down a Hub",
+    "objectID": "admins/cluster-config.html",
+    "href": "admins/cluster-config.html",
+    "title": "Kubernetes Cluster Configuration",
     "section": "",
-    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "text": "We use kubernetes to run our JupyterHubs. It has a healthy open source community, managed offerings from multiple vendors & a fast pace of development. We can run easily on many different cloud providers with similar config by running on top of Kubernetes, so it is also our cloud agnostic abstraction layer.\nWe prefer using a managed Kubernetes service (such as Google Kubernetes Engine). This document lays out our preferred cluster configuration on various cloud providers.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Kubernetes Cluster Configuration"
     ]
   },
   {
-    "objectID": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
-    "href": "admins/howto/delete-hub.html#why-delete-or-spin-down-a-hub",
-    "title": "Delete or spin down a Hub",
+    "objectID": "admins/cluster-config.html#google-kubernetes-engine",
+    "href": "admins/cluster-config.html#google-kubernetes-engine",
+    "title": "Kubernetes Cluster Configuration",
+    "section": "Google Kubernetes Engine",
+    "text": "Google Kubernetes Engine\nIn our experience, Google Kubernetes Engine (GKE) has been the most stable, performant, and reliable managed kubernetes service. We prefer running on this when possible.\nA gcloud container clusters create command can succintly express the configuration of our kubernetes cluster. The following command represents the currently favored configuration.\nThis creates the GKE cluster. It may host one or more node pools:\ngcloud container clusters create \\\n     --enable-ip-alias \\\n     --enable-autoscaling \\\n     --max-nodes=20 --min-nodes=1 \\\n     --region=us-central1 --node-locations=us-central1-b \\\n     --image-type=cos_containerd \\\n     --disk-size=100 --disk-type=pd-balanced \\\n     --machine-type=n2-highmem-8 \\\n     --cluster-version latest \\\n     --no-enable-autoupgrade \\\n     --enable-network-policy \\\n     --create-subnetwork=\"\" \\\n     --tags=hub-cluster \\\n     &lt;cluster-name&gt;\nHere's how we add a node pool to the cluster, beyond the default pool:\ngcloud container node-pools create  \\\n    --machine-type n2-highmem-8 \\\n    --num-nodes 1 \\\n    --enable-autoscaling \\\n    --min-nodes 1 --max-nodes 20 \\\n    --node-labels hub.jupyter.org/pool-name=&lt;pool-name&gt;-pool \\\n    --node-taints hub.jupyter.org_dedicated=user:NoSchedule \\\n    --region=us-central1 \\\n    --image-type=cos_containerd \\\n    --disk-size=200 --disk-type=pd-balanced \\\n    --no-enable-autoupgrade \\\n    --tags=hub-cluster \\\n    --cluster=&lt;cluster-name&gt; \\\n    user-&lt;pool-name&gt;-&lt;yyyy&gt;-&lt;mm&gt;-&lt;dd&gt;\n\nIP Aliasing\n--enable-ip-alias creates VPC Native Clusters.\nThis becomes the default soon, and can be removed once it is the default.\n\n\nAutoscaling\nWe use the kubernetes cluster autoscaler to scale our node count up and down based on demand. It waits until the cluster is completely full before triggering creation of a new node - but that's ok, since new node creation time on GKE is pretty quick.\n--enable-autoscaling turns the cluster autoscaler on.\n--min-nodes sets the minimum number of nodes that will be maintained regardless of demand. This should ideally be 2, to give us some headroom for quick starts without requiring scale ups when the cluster is completely empty.\n--max-nodes sets the maximum number of nodes that the cluster autoscaler will use - this sets the maximum number of concurrent users we can support. This should be set to a reasonably high number, but not too high - to protect against runaway creation of hundreds of VMs that might drain all our credits due to accident or security breach.\n\n\nHighly available master\nThe kubernetes cluster's master nodes are managed by Google Cloud automatically. By default, it is deployed in a non-highly-available configuration - only one node. This means that upgrades and master configuration changes cause a few minutes of downtime for the kubernetes API, causing new user server starts / stops to fail.\nWe request our cluster masters to have highly available masters with --region parameter. This specifies the region where our 3 master nodes will be spread across in different zones. It costs us extra, but it is totally worth it.\nBy default, asking for highly available masters also asks for 3x the node count, spread across multiple zones. We don't want that, since all our user pods have in-memory state & can't be relocated. Specifying --node-locations explicitly lets us control how many and which zones the nodes are located in.\n\n\nRegion / Zone selection\nWe generally use the us-central1 region and a zone in it for our clusters -simply because that is where we have asked for quota.\nThere are regions closer to us, but latency hasn't really mattered so we are currently still in us-central1. There are also unsubstantiated rumors that us-central1 is their biggest data center and hence less likely to run out of quota.\n\n\nDisk Size\n--disk-size sets the size of the root disk on all the kubernetes nodes. This isn't used for any persistent storage such as user home directories. It is only used ephemerally for the operations of the cluster - primarily storing docker images and other temporary storage. We can make this larger if we use a large number of big images, or if we want our image pulls to be faster (since disk performance increases with disk size ).\n--disk-type=pd-standard gives us standard spinning disks, which are cheaper. We can also request SSDs instead with --disk-type=pd-ssd - it is much faster, but also much more expensive. We compromise with --disk-type=pd-balanced, faster than spinning disks but not as fast as ssds all the time.\n\n\nNode size\n--machine-type lets us select how much RAM and CPU each of our nodes have. For non-trivial hubs, we generally pick n2-highmem-8, with 64G of RAM and 8 cores. This is based on the following heuristics:\n\nStudents generally are memory limited than CPU limited. In fact, while we have a hard limit on memory use per-user pod, we do not have a CPU limit -it hasn't proven necessary.\nWe try overprovision clusters by about 2x - so we try to fit about 100G of total RAM use in a node with about 50G of RAM. This is accomplished by setting the memory request to be about half of the memory limit on user pods. This leads to massive cost savings, and works out ok.\nThere is a kubernetes limit on 100 pods per node.\n\nBased on these heuristics, n2-highmem-8 seems to be most bang for the buck currently. We should revisit this for every cluster creation.\n\n\nCluster version\nGKE automatically upgrades cluster masters, so there is generally no harm in being on the latest version available.\n\n\nNode autoupgrades\nWhen node autoupgrades are enabled, GKE will automatically try to upgrade our nodes whenever needed (our GKE version falling off the support window, security issues, etc). However, since we run stateful workloads, we disable this right now so we can do the upgrades manually.\n\n\nNetwork Policy\nKubernetes Network Policy lets you firewall internal access inside a kubernetes cluster, whitelisting only the flows you want. The JupyterHub chart we use supports setting up appropriate NetworkPolicy objects it needs, so we should turn it on for additional security depth. Note that any extra in-cluster services we run must have a NetworkPolicy set up for them to work reliabliy.\n\n\nSubnetwork\nWe put each cluster in its own subnetwork, since seems to be a limit on how many clusters you can create in the same network with IP aliasing on - you just run out of addresses. This also gives us some isolation - subnetworks are isolated by default and can't reach other resources. You must add firewall rules to provide access, including access to any manually run NFS servers. We add tags for this.\n\n\nTags\nTo help with firewalling, we add network tags to all our cluster nodes. This lets us add firewall rules to control traffic between subnetworks.\n\n\nCluster name\nWe try use a descriptive name as much as possible.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Kubernetes Cluster Configuration"
+    ]
+  },
+  {
+    "objectID": "admins/structure.html",
+    "href": "admins/structure.html",
+    "title": "Repository Structure",
     "section": "",
-    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nThe contents of the image/ directory determine the environment provided to the user. For example, it controls:\n\nVersions of Python / R / Julia available\nLibraries installed, and which versions of those are installed\nSpecific config for Jupyter Notebook or IPython\n\nrepo2docker is used to build the actual user image, so you can use any of the supported config files to customize the image as you wish.\n\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Repository Structure"
     ]
   },
   {
-    "objectID": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
-    "href": "admins/howto/delete-hub.html#steps-to-spin-down-a-hub",
-    "title": "Delete or spin down a Hub",
-    "section": "Steps to spin down a hub",
-    "text": "Steps to spin down a hub\nIf the hub is using a shared filestore, skip all filestore steps.\nIf the hub is using a shared node pool, skip all namespace and node pool steps.\n\nScale the node pool to zero: kubectl -n &lt;hubname-prod|staging&gt; scale --replicas=0 deployment/hub\nKill any remaining users’ servers. Find any running servers with kubectl -n &lt;hubname-prod|staging&gt; get pods | grep jupyter and then kubectl -n &lt;hubname-prod|staging&gt; delete pod &lt;pod name&gt; to stop them.\nCreate filestore backup:\n\ngcloud filestore backups create &lt;hubname&gt;-backup-YYYY-MM-DD --file-share=shares --instance=&lt;hubname-YYYY-MM-DD&gt; --region \"us-central1\" --labels=filestore-backup=&lt;hub name&gt;,hub=&lt;hub name&gt;\n\nLog in to nfsserver-01 and unmount filestore from nfsserver: sudo umount /export/&lt;hubname&gt;-filestore\nComment out the hub build steps out in .circleci/config.yaml (deploy and build steps)\nComment out GitHub label action for this hub in .github/labeler.yml\nComment hub entries out of datahub/node-placeholder/values.yaml\nDelete k8s namespace:\n\nkubectl delete namespace &lt;hubname&gt;-staging &lt;hubname&gt;-prod\n\nDelete k8s node pool:\n\ngcloud container node-pools delete &lt;hubname&gt; --project \"ucb-datahub-2018\" --cluster \"spring-2024\" --region \"us-central1\"\n\nDelete filestore\n\ngcloud filestore instances delete &lt;hubname&gt;-filestore --zone \"us-central1-b\"\n\nDelete PV: kubectl get pv --all-namespaces|grep &lt;hubname&gt; to get the PV names, and then kubectl delete pv &lt;pv names&gt;\nAll done.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Delete or spin down a Hub"
-    ]
-  },
-  {
-    "objectID": "admins/howto/dns.html",
-    "href": "admins/howto/dns.html",
-    "title": "Update DNS",
+    "objectID": "admins/structure.html#hub-configuration",
+    "href": "admins/structure.html#hub-configuration",
+    "title": "Repository Structure",
     "section": "",
-    "text": "Some staff have access to make and update DNS entries in the .datahub.berkeley.edu and .data8x.berkeley.edu subdomains.",
+    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nThe contents of the image/ directory determine the environment provided to the user. For example, it controls:\n\nVersions of Python / R / Julia available\nLibraries installed, and which versions of those are installed\nSpecific config for Jupyter Notebook or IPython\n\nrepo2docker is used to build the actual user image, so you can use any of the supported config files to customize the image as you wish.\n\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Update DNS"
+      "Repository Structure"
     ]
   },
   {
-    "objectID": "admins/howto/dns.html#authorization",
-    "href": "admins/howto/dns.html#authorization",
-    "title": "Update DNS",
-    "section": "Authorization",
-    "text": "Authorization\nRequest access to make changes by creating an issue in this repository.\nAuthorization is granted via membership in the edu:berkeley:org:nos:DDI:datahub CalGroup. @yuvipanda and @ryanlovett are group admins and can update membership.",
+    "objectID": "admins/structure.html#documentation",
+    "href": "admins/structure.html#documentation",
+    "title": "Repository Structure",
+    "section": "Documentation",
+    "text": "Documentation\nDocumentation is under the docs/ folder, and is generated with Quarto, where content is written in markdown. Documentation is published to https://docs.datahub.berkeley.edu/ via a GitHub Action workflow.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Update DNS"
+      "Repository Structure"
     ]
   },
   {
-    "objectID": "admins/howto/dns.html#making-changes",
-    "href": "admins/howto/dns.html#making-changes",
-    "title": "Update DNS",
-    "section": "Making Changes",
-    "text": "Making Changes\n\nLog into Infoblox from a campus network or through the campus VPN. Use your CalNet credentials.\nNavigate to Data Management &gt; DNS &gt; Zones and click berkeley.edu.\nNavigate to Subzones and choose either data8x or datahub, then click Records.\n\n\nFor quicker access, click the star next to the zone name to make a bookmark in the Finder pane on the left side.\n\n\nCreate a new record\n\nClick the down arrow next to + Add in the right-side Toolbar. Then choose Record &gt; A Record.\nEnter the name and IP of the A record, and uncheck Create associated PTR record.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nEdit an existing record\n\nClick the gear icon to the left of the record's name and choose Edit.\nMake a change.\nConsider adding a comment with a timestamp, your ID, and the nature of the change.\nClick Save & Close.\n\n\n\nDelete a record\n\nClick the gear icon to the left of the record's name and choose Delete.",
-    "crumbs": [
-      "Using DataHub",
-      "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Update DNS"
-    ]
-  },
-  {
-    "objectID": "admins/howto/transition-image.html",
-    "href": "admins/howto/transition-image.html",
-    "title": "Transition Single User Image to GitHub Actions",
+    "objectID": "admins/credentials.html",
+    "href": "admins/credentials.html",
+    "title": "Cloud Credentials",
     "section": "",
-    "text": "Single user images have been maintained within the main datahub repo since its inception, however we decided to move them into their own repositories. It will make testing notebooks easier, and we will be able to delegate write access to course staff if necessary.\nThis is the process for transitioning images to their own repositories. Eventually, once all repositories have been migrated, we can update our documentation on creating new single user image repositories, and maintaining them.",
+    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Transition Single User Image to GitHub Actions"
+      "Cloud Credentials"
     ]
   },
   {
-    "objectID": "admins/howto/transition-image.html#prerequisites",
-    "href": "admins/howto/transition-image.html#prerequisites",
-    "title": "Transition Single User Image to GitHub Actions",
-    "section": "Prerequisites",
-    "text": "Prerequisites\nYou will need to install git-filter-repo.\nwget -O ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo\n  chmod +x ~/bin/git-filter-repo",
+    "objectID": "admins/credentials.html#google-cloud",
+    "href": "admins/credentials.html#google-cloud",
+    "title": "Cloud Credentials",
+    "section": "",
+    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Transition Single User Image to GitHub Actions"
+      "Cloud Credentials"
     ]
   },
   {
-    "objectID": "admins/howto/transition-image.html#create-the-repository",
-    "href": "admins/howto/transition-image.html#create-the-repository",
-    "title": "Transition Single User Image to GitHub Actions",
-    "section": "Create the repository",
-    "text": "Create the repository\n\nGo to https://github.com/berkeley-dsep-infra/hub-user-image-template. Click “Use this template” &gt; “Create a new repository”.\nSet the owner to berkeley-dsep-infra. Name the image {hub}-user-image, or some approximation of there are multiple images per hub.\nClick create repository.\nIn the new repository, visit Settings &gt; Secrets and variables &gt; Actions &gt; Variables tab. Create new variables:\n\nSet HUB to the hub deployment, e.g. shiny.\nSet IMAGE to ucb-datahub-2018/user-images/{hub}-user-image, e.g. ucb-datahub-2018/user-images/shiny-user-image.\n\nFork the new image repo into your own github account.",
+    "objectID": "admins/pre-reqs.html",
+    "href": "admins/pre-reqs.html",
+    "title": "Pre-requisites",
+    "section": "",
+    "text": "Smoothly working with the JupyterHubs maintained in this repository has a number of pre-requisite skills you must possess. The rest of the documentation assumes you have at least a basic level of these skills, and know how to get help related to these technologies when necessary.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Transition Single User Image to GitHub Actions"
+      "Pre-requisites"
     ]
   },
   {
-    "objectID": "admins/howto/transition-image.html#preparing-working-directories",
-    "href": "admins/howto/transition-image.html#preparing-working-directories",
-    "title": "Transition Single User Image to GitHub Actions",
-    "section": "Preparing working directories",
-    "text": "Preparing working directories\nAs part of this process, we will pull the previous image’s git history into the new image repo.\n\nClone the datahub repo into a new directory named after the image repo.\ngit clone git@github.com:berkeley-dsep-infra/datahub.git {hub}-user-image --origin source\nChange into the directory.\nRun git-filter-repo:\ngit filter-repo --subdirectory-filter  deployments/{hub}/image --force\nAdd new git remotes:\ngit remote add origin git@github.com:{your_git_account}/{hub}-user-image.git\ngit remote add upstream git@github.com:berkeley-dsep-infra/{hub}-user-image.git\nPull in the contents of the new user image that was created from the template.\ngit fetch upstream\ngit checkout main # pulls in .github\nMerge the contents of the previous datahub image with the new user image.\ngit rm environment.yml\ngit commit -m \"Remove default environment.yml file.\"\ngit merge staging --allow-unrelated-histories -m 'Bringing in image directory from deployment repo'\ngit push upstream main\ngit push origin main",
+    "objectID": "admins/pre-reqs.html#basic",
+    "href": "admins/pre-reqs.html#basic",
+    "title": "Pre-requisites",
+    "section": "Basic",
+    "text": "Basic\nThese skills let you interact with the repository in a basic manner. This lets you do most 'self-service' tasks - such as adding admin users, libraries, making changes to resource allocation, etc. This doesn't give you any skills to debug things when they break, however.\n\nBasic git & GitHub skills.\nThe Git Book & GitHub Help are good resources for this.\nFamiliarity with YAML syntax.\nUnderstanding of how packages are installed in the languages we support.\nRights to merge changes into this repository on GitHub.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Transition Single User Image to GitHub Actions"
+      "Pre-requisites"
     ]
   },
   {
-    "objectID": "admins/howto/transition-image.html#preparing-continuous-integration",
-    "href": "admins/howto/transition-image.html#preparing-continuous-integration",
-    "title": "Transition Single User Image to GitHub Actions",
-    "section": "Preparing continuous integration",
-    "text": "Preparing continuous integration\n\nIn the berkeley-dsep-infra org settings, https://github.com/organizations/berkeley-dsep-infra/settings/profile, visit Secrets and variables &gt; Actions, https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions. Edit the secrets for DATAHUB_CREATE_PR and GAR_SECRET_KEY, and enable the new repo to access each.\nIn the datahub repo, in one PR:\n\nremove the hub deployment steps for the hub:\n\nDeploy {hub}\nhubploy/build-image {hub} image build (x2)\n\nunder deployments/{hub}/hubploy.yaml, remove the registry entry, and set the image_name to have PLACEHOLDER for the tag.\nIn the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.\n\nMerge these changes to datahub staging.\nMake a commit to trigger a build of the image in its repo.\nIn a PR in the datahub repo, under .github/workflows/deploy-hubs.yaml, add the hub with the new image under determine-hub-deployments.py --only-deploy.\nMake another commit to the image repo to trigger a build. When these jobs finish, a commit will be pushed to the datahub repo. Make a PR, and merge to staging after canceling the CircleCI builds. (these builds are an artifact of the CircleCI-to-GitHub migration – we won’t need to do that long term)\nSubscribe the #ucb-datahubs-bots channel in UC Tech slack to the repo.\n/github subscribe berkeley-dsep-infra/&lt;repo&gt;",
+    "objectID": "admins/pre-reqs.html#full",
+    "href": "admins/pre-reqs.html#full",
+    "title": "Pre-requisites",
+    "section": "Full",
+    "text": "Full\nIn addition to the basic skills, you'll need the following skills to 'fully' work with this repository. Primarily, you need this to debug issues when things break -since we strive to never have things break in the same way more than twice.\n\nKnowledge of our tech stack:\n\nKubernetes\nGoogle Cloud\nHelm\nDocker\nrepo2docker\nJupyter\nLanguages we support: Python & R\n\nUnderstanding of our JupyterHub distribution, Zero to JupyterHub.\nFull access to the various cloud providers we use.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
-      "Common Administrator Tasks",
-      "Transition Single User Image to GitHub Actions"
+      "Pre-requisites"
     ]
   },
   {
-    "objectID": "admins/howto/transition-image.html#making-changes",
-    "href": "admins/howto/transition-image.html#making-changes",
-    "title": "Transition Single User Image to GitHub Actions",
-    "section": "Making changes",
-    "text": "Making changes\nOnce the image repo is set up, you will need to follow this procedure to update it and make it available to the hub.\n\nMake a change in your fork of the image repo.\nMake a pull request to the repo in berkeley-dsep-infra. This will trigger a github action that will test to see if the image builds successfully.\nIf the build succeeds, someone with sufficient access (DataHub staff, or course staff with elevated privileges) can merge the PR. This will trigger another build, and will then push the image to the image registry.\nIn order for the newly built and pushed image to be referenced by datahub, you will need to make PR at datahub. Visit the previous merge action’s update-deployment-image-tag entry and expand the Create feature branch, add, commit and push changes step. Find the URL beneath, Create a pull request for ’update-{hub}-image-tag-{slug}, and visit it. This will draft a new PR at datahub for you to create.\nOnce the PR is submitted, an action will run. It is okay if CircleCI-related tasks fail here. Merge the PR into staging once the action is complete.",
+    "objectID": "admins/storage.html",
+    "href": "admins/storage.html",
+    "title": "User home directory storage",
+    "section": "",
+    "text": "All users on all the hubs get a home directory with persistent storage.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "User home directory storage"
+    ]
+  },
+  {
+    "objectID": "admins/storage.html#why-nfs",
+    "href": "admins/storage.html#why-nfs",
+    "title": "User home directory storage",
+    "section": "Why NFS?",
+    "text": "Why NFS?\nNFS isn't a particularly cloud-native technology. It isn't highly available nor fault tolerant by default, and is a single point of failure. However, it is currently the best of the alternatives available for user home directories, and so we use it.\n\nHome directories need to be fully POSIX compliant file systems that work with minimal edge cases, since this is what most instructional code assumes. This rules out object-store backed filesystems such as s3fs.\nUsers don't usually need guaranteed space or IOPS, so providing them each a persistent cloud disk gets unnecessarily expensive - since we are paying for it whether it is used or not.\nWhen we did use one persistent disk per user, the storage cost dwarfed everything else by an order of magnitude for no apparent benefit.\nAttaching cloud disks to user pods also takes on average about 30s on Google Cloud, and much longer on Azure. NFS mounts pretty quickly, getting this down to a second or less.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "User home directory storage"
+    ]
+  },
+  {
+    "objectID": "admins/storage.html#nfs-server",
+    "href": "admins/storage.html#nfs-server",
+    "title": "User home directory storage",
+    "section": "NFS Server",
+    "text": "NFS Server\nWe currently have two approaches to running NFS Servers.\n\nRun a hand-maintained NFS Server with ZFS SSD disks.\nThis gives us control over performance, size and most importantly, server options. We use anonuid=1000, so all reads / writes from the cluster are treated as if they have uid 1000, which is the uid all user processes run as. This prevents us from having to muck about permissions & chowns - particularly since Kubernetes creates new directories on volumes as root with strict permissions (see issue).\nUse a hosted NFS service like Google Cloud Filestore.\nWe do not have to perform any maintenance if we use this - but we have no control over the host machine either.\n\nAfter running our own NFS server from 2020 through the end of 2022, we decided to move wholesale to Google Cloud Filestore. This was mostly due to NFS daemon stability issues, which caused many outages and impacted thousands of our users and courses.\nCurrently each hub has it's own filestore instance, except for a few small courses that share one. This has proven to be much more stable and able to handle the load.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "User home directory storage"
+    ]
+  },
+  {
+    "objectID": "admins/storage.html#home-directory-paths",
+    "href": "admins/storage.html#home-directory-paths",
+    "title": "User home directory storage",
+    "section": "Home directory paths",
+    "text": "Home directory paths\nEach user on each hub gets their own directory on the server that gets treated as their home directory. The staging & prod servers share home directory paths, so users get the same home directories on both.\nFor most hubs, the user's home directory path relative to the exported filestore share is &lt;hub-name&gt;-filestore/&lt;hub-name&gt;/&lt;prod|staging&gt;/home/&lt;user-name&gt;.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "User home directory storage"
+    ]
+  },
+  {
+    "objectID": "admins/storage.html#nfs-client",
+    "href": "admins/storage.html#nfs-client",
+    "title": "User home directory storage",
+    "section": "NFS Client",
+    "text": "NFS Client\nWe currently have two approaches for mounting the user's home directory into each user's pod.\n\nMount the NFS Share once per node to a well known location, and use hostpath volumes with a subpath on the user pod to mount the correct directory on the user pod.\nThis lets us get away with one NFS mount per node, rather than one per pod.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "User home directory storage"
+    ]
+  },
+  {
+    "objectID": "admins/howto/prometheus-grafana.html",
+    "href": "admins/howto/prometheus-grafana.html",
+    "title": "Prometheus and Grafana",
+    "section": "",
+    "text": "It can be useful to interact with the cluster’s prometheus server while developing dashboards in grafana. You will need to forward a local port to the prometheus server’s pod.\n\n\nListen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.\n\n\n\nListen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
     "crumbs": [
       "Using DataHub",
       "Contributing to DataHub",
       "Common Administrator Tasks",
-      "Transition Single User Image to GitHub Actions"
+      "Prometheus and Grafana"
     ]
+  },
+  {
+    "objectID": "admins/howto/prometheus-grafana.html#using-the-standard-port",
+    "href": "admins/howto/prometheus-grafana.html#using-the-standard-port",
+    "title": "Prometheus and Grafana",
+    "section": "",
+    "text": "Listen on port 9090 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 9090\nthen visit http://localhost:9090.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Prometheus and Grafana"
+    ]
+  },
+  {
+    "objectID": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
+    "href": "admins/howto/prometheus-grafana.html#using-an-alternative-port",
+    "title": "Prometheus and Grafana",
+    "section": "",
+    "text": "Listen on port 8000 locally, forwarding to the prometheus server’s port 9090.\nkubectl -n support port-forward deployment/support-prometheus-server 8000:9090\nthen visit http://localhost:8000.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Prometheus and Grafana"
+    ]
+  },
+  {
+    "objectID": "admins/howto/rebuild-postgres-image.html",
+    "href": "admins/howto/rebuild-postgres-image.html",
+    "title": "Customize the Per-User Postgres Docker Image",
+    "section": "",
+    "text": "We provide each student on data100 witha postgresql server. We want the python extension installed. So we inherit from the upstream postgresql docker image, and add the appropriate package.\nThis image is in images/postgres. If you update it, you need to rebuild and push it.\n\nModify the image in images/postgres and make a git commit.\nRun chartpress --push. This will build and push the image, but not put anything in YAML. There is no place we can put thi in values.yaml, since this is only used for data100.\nNotice the image name + tag from the chartpress --push command, and put it in the appropriate place (under extraContainers) in data100/config/common.yaml.\nMake a commit with the new tag in data100/config/common.yaml.\nProceed to deploy as normal.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Customize the Per-User Postgres Docker Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/core-pool.html",
+    "href": "admins/howto/core-pool.html",
+    "title": "Core Node Pool Management",
+    "section": "",
+    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "admins/howto/core-pool.html#what-is-the-core-node-pool",
+    "href": "admins/howto/core-pool.html#what-is-the-core-node-pool",
+    "title": "Core Node Pool Management",
+    "section": "",
+    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
+    "href": "admins/howto/core-pool.html#deploy-a-new-core-node-pool",
+    "title": "Core Node Pool Management",
+    "section": "Deploy a New Core Node Pool",
+    "text": "Deploy a New Core Node Pool\nRun the following command from the root directory of your local datahub repo to create the node pool:\ngcloud container node-pools create \"core-&lt;YYYY-MM-DD&gt;\"  \\\n  --labels=hub=core,nodepool-deployment=core \\\n  --node-labels hub.jupyter.org/pool-name=core-pool-&lt;YYYY-MM-DD&gt; \\\n  --machine-type \"n2-standard-8\"  \\\n  --num-nodes \"1\" \\\n  --enable-autoscaling --min-nodes \"1\" --max-nodes \"3\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"100\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\" \\\n  --system-config-from-file=vendor/google/gke/node-pool/config/core-pool-sysctl.yaml\nThe system-config-from-file argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "admins/howto/rebuild-hub-image.html",
+    "href": "admins/howto/rebuild-hub-image.html",
+    "title": "Customize the Hub Docker Image",
+    "section": "",
+    "text": "We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in images/hub. It must inherit from the JupyterHub image used in the Zero to JupyterHub.\nThe image is build with chartpress, which also updates hub/values.yaml with the new image version. chartpress may be installed locally with pip install chartpress.\n\nRun gcloud auth configure-docker us-central1-docker.pkg.dev once per machine to setup docker for authentication with the gcloud credential helper.\nModify the image in images/hub and make a git commit.\nRun chartpress --push. This will build and push the hub image, and modify hub/values.yaml appropriately.\nMake a commit with the hub/values.yaml file, so the new hub image name and tag are comitted.\nProceed to deployment as normal.\n\nSome of the following commands may be required to configure your environment to run the above chartpress workflow successfully:\n\ngcloud auth login.\ngcloud auth configure-docker us-central1-docker.pkg.dev\ngcloud auth application-default login\ngcloud auth configure-docker",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Customize the Hub Docker Image"
+    ]
+  },
+  {
+    "objectID": "admins/howto/google-sheets.html",
+    "href": "admins/howto/google-sheets.html",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "",
+    "text": "Available in: DataHub\nWe provision and make available credentials for a service account that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the gspread library.\nThe entire contents of the JSON formatted service account key is available as an environment variable GOOGLE_SHEETS_READONLY_KEY. You can use this to read publicly available Google Sheet documents.\nThe service account has no implicit permissions, and can be found under singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY in datahub/secrets/staging.yaml and datahub/secrets/prod.yaml.",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Reading Google Sheets from DataHub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/google-sheets.html#gspread-sample-code",
+    "href": "admins/howto/google-sheets.html#gspread-sample-code",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "gspread sample code",
+    "text": "gspread sample code\nThe following sample code reads a sheet from a URL given to it, and prints the contents.\nimport gspread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\ngc = gspread.authorize(creds)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1\nsheet = gc.open_by_url(url)\nprint(sheet.sheet1.get_all_records())",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Reading Google Sheets from DataHub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
+    "href": "admins/howto/google-sheets.html#gspread-pandas-sample-code",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "gspread-pandas sample code",
+    "text": "gspread-pandas sample code\nThe gspread-pandas library helps get data from Google Sheets into a pandas dataframe.\nfrom gspread_pandas.client import Spread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1 as a dataframe\nspread = Spread(url, creds=creds)\nsheet_df = spread.sheet_to_df(sheet='sheet1')\nprint(sheet_df)",
+    "crumbs": [
+      "Using DataHub",
+      "Contributing to DataHub",
+      "Common Administrator Tasks",
+      "Reading Google Sheets from DataHub"
+    ]
+  },
+  {
+    "objectID": "admins/howto/managing-multiple-user-image-repos.html",
+    "href": "admins/howto/managing-multiple-user-image-repos.html",
+    "title": "Managing multiple user image repos",
+    "section": "",
+    "text": "Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.\nThere is a script located in the datahub/scripts/user-image-management/ directory named manage-image-repos.py.\nThis script uses a config file with a list of all of the git remotes for the image repos (config.txt) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).\nThe script “assumes” that you have all of your user images in their own folder (in my case, $HOME/src/images/...).\n\n\nHere are the help results from the various sub-commands:\n./manage-image-repos.py --help\nusage: manage-image-repos.py [-h] [-c CONFIG] [-d DESTINATION] {sync,clone,branch,push} ...\n\npositional arguments:\n  {sync,clone,branch,push}\n    sync                Sync all image repositories to the latest version.\n    clone               Clone all image repositories.\n    branch              Create a new feature branch in all image repositories.\n    push                Push all image repositories to a remote.\n\noptions:\n  -h, --help            show this help message and exit\n  -c CONFIG, --config CONFIG\n                        Path to file containing list of repositories to clone.\n  -d DESTINATION, --destination DESTINATION\n                        Location of the image repositories.\nsync help:\n./manage-image-repos.py sync --help\nusage: manage-image-repos.py sync [-h] [-p] [-o ORIGIN]\n\noptions:\n  -h, --help            show this help message and exit\n  -p, --push            Push synced repo to a remote.\n  -o ORIGIN, --origin ORIGIN\n                        Origin to push to. This is optional and defaults to 'origin'.\nclone help:\n./manage-image-repos.py clone --help\nusage: manage-image-repos.py clone [-h] [-s] [-g GITHUB_USER]\n\noptions:\n  -h, --help            show this help message and exit\n  -s, --set-origin      Set the origin of the cloned repository to the user's GitHub.\n  -g GITHUB_USER, --github-user GITHUB_USER\n                        GitHub user to set the origin to.\nbranch help:\n./manage-image-repos.py branch --help\nusage: manage-image-repos.py branch [-h] [-b BRANCH]\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH, --branch BRANCH\n                        Name of the new feature branch to create.\npush help:\n./manage-image-repos.py push --help\nusage: manage-image-repos.py push [-h] [-o ORIGIN] [-b BRANCH]\n\noptions:\n  -h, --help            show this help message and exit\n  -o ORIGIN, --origin ORIGIN\n                        Origin to push to. This is optional and defaults to 'origin'.\n  -b BRANCH, --branch BRANCH\n                        Name of the branch to push.\n\n\n\nclone all of the image repos:\n./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone\nclone all repos, and set upstream and origin:\n./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone --set-origin --github-user shaneknapp\nhow to sync all image repos from upstream and push to your origin:\n./manage-image-repos.py --destination ~/src/images/ --config repos.txt sync --push\ncreate a feature branch in all of the image repos:\n./manage-image-repos.py -c repos.txt -d ~/src/images branch -b test-branch\nafter you’ve added/committed files, push everything to a remote:\n./manage-image-repos.py -c repos.txt -d ~/src/images push -b test-branch"
+  },
+  {
+    "objectID": "admins/howto/managing-multiple-user-image-repos.html#managing-user-image-repos",
+    "href": "admins/howto/managing-multiple-user-image-repos.html#managing-user-image-repos",
+    "title": "Managing multiple user image repos",
+    "section": "",
+    "text": "Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.\nThere is a script located in the datahub/scripts/user-image-management/ directory named manage-image-repos.py.\nThis script uses a config file with a list of all of the git remotes for the image repos (config.txt) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).\nThe script “assumes” that you have all of your user images in their own folder (in my case, $HOME/src/images/...).\n\n\nHere are the help results from the various sub-commands:\n./manage-image-repos.py --help\nusage: manage-image-repos.py [-h] [-c CONFIG] [-d DESTINATION] {sync,clone,branch,push} ...\n\npositional arguments:\n  {sync,clone,branch,push}\n    sync                Sync all image repositories to the latest version.\n    clone               Clone all image repositories.\n    branch              Create a new feature branch in all image repositories.\n    push                Push all image repositories to a remote.\n\noptions:\n  -h, --help            show this help message and exit\n  -c CONFIG, --config CONFIG\n                        Path to file containing list of repositories to clone.\n  -d DESTINATION, --destination DESTINATION\n                        Location of the image repositories.\nsync help:\n./manage-image-repos.py sync --help\nusage: manage-image-repos.py sync [-h] [-p] [-o ORIGIN]\n\noptions:\n  -h, --help            show this help message and exit\n  -p, --push            Push synced repo to a remote.\n  -o ORIGIN, --origin ORIGIN\n                        Origin to push to. This is optional and defaults to 'origin'.\nclone help:\n./manage-image-repos.py clone --help\nusage: manage-image-repos.py clone [-h] [-s] [-g GITHUB_USER]\n\noptions:\n  -h, --help            show this help message and exit\n  -s, --set-origin      Set the origin of the cloned repository to the user's GitHub.\n  -g GITHUB_USER, --github-user GITHUB_USER\n                        GitHub user to set the origin to.\nbranch help:\n./manage-image-repos.py branch --help\nusage: manage-image-repos.py branch [-h] [-b BRANCH]\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH, --branch BRANCH\n                        Name of the new feature branch to create.\npush help:\n./manage-image-repos.py push --help\nusage: manage-image-repos.py push [-h] [-o ORIGIN] [-b BRANCH]\n\noptions:\n  -h, --help            show this help message and exit\n  -o ORIGIN, --origin ORIGIN\n                        Origin to push to. This is optional and defaults to 'origin'.\n  -b BRANCH, --branch BRANCH\n                        Name of the branch to push.\n\n\n\nclone all of the image repos:\n./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone\nclone all repos, and set upstream and origin:\n./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone --set-origin --github-user shaneknapp\nhow to sync all image repos from upstream and push to your origin:\n./manage-image-repos.py --destination ~/src/images/ --config repos.txt sync --push\ncreate a feature branch in all of the image repos:\n./manage-image-repos.py -c repos.txt -d ~/src/images branch -b test-branch\nafter you’ve added/committed files, push everything to a remote:\n./manage-image-repos.py -c repos.txt -d ~/src/images push -b test-branch"
   },
   {
     "objectID": "admins/howto/new-image.html",

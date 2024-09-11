@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>JupyterHub Deployments</title>
+<title>Managing multiple user image repos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../users/authentication.html" rel="next">
-<link href="../users/private-repo.html" rel="prev">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,65 +66,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -139,10 +77,10 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../datahub.svg" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DataHub</span>
     </a>
   </div>
@@ -153,19 +91,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../users/features.html" aria-current="page"> 
+    <a class="nav-link active" href="../../users/features.html" aria-current="page"> 
 <span class="menu-text">Using DataHub</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../admins/pre-reqs.html"> 
+    <a class="nav-link" href="../../admins/pre-reqs.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../admins/howto/documentation.html"> 
+    <a class="nav-link" href="../../admins/howto/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../policy/create_policy.html"> 
+    <a class="nav-link" href="../../policy/create_policy.html"> 
 <span class="menu-text">Policy</span></a>
   </li>  
 </ul>
@@ -180,7 +118,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../users/features.html">Using DataHub</a></li><li class="breadcrumb-item"><a href="../users/hubs.html">JupyterHub Deployments</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Managing multiple user image repos</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -194,40 +132,40 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Using DataHub</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/features.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/features.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Features</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/private-repo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/private-repo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Accessing private GitHub repos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/hubs.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../users/hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/authentication.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User Authentication</span></a>
   </div>
 </li>
@@ -244,31 +182,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-requisites</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Repository Structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/storage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User home directory storage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kubernetes Cluster Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/credentials.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Credentials</span></a>
   </div>
 </li>
@@ -283,103 +221,103 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/dns.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/dns.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update DNS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Hub Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/new-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/new-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Single User Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/transition-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/transition-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/new-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/new-packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Testing and Upgrading New Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/course-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/course-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/calendar-scaler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/calendar-scaler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calendar Node Pool Autoscaler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prometheus and Grafana</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/remove-users-orm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/remove-users-orm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub ORM Maintenance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/delete-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/delete-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Delete or spin down a Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/clusterswitch.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/clusterswitch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Switching over a hub to a new cluster</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/github-token.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/github-token.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create Finely Grained Access Token</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/google-sheets.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/google-sheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Google Sheets from DataHub</span></a>
   </div>
 </li>
@@ -398,25 +336,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/create_policy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Process to publish policy proposals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for creating a new hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for deploying to the main Datahub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/principles.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/principles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Principles to be considered while creating new policies</span></a>
   </div>
 </li>
@@ -424,7 +362,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../incidents/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Incident Reports</span></a>
   </div>
 </li>
@@ -434,14 +372,24 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="course">course <span class="quarto-category-count">(5)</span></div><div class="category" data-category="jupyterlab">jupyterlab <span class="quarto-category-count">(8)</span></div><div class="category" data-category="ltiauthenticator">ltiauthenticator <span class="quarto-category-count">(1)</span></div><div class="category" data-category="otter-grader">otter-grader <span class="quarto-category-count">(2)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="r">r <span class="quarto-category-count">(3)</span></div><div class="category" data-category="rstudio">rstudio <span class="quarto-category-count">(3)</span></div><div class="category" data-category="rtc">rtc <span class="quarto-category-count">(1)</span></div><div class="category" data-category="shared-folders">shared-folders <span class="quarto-category-count">(4)</span></div><div class="category" data-category="shiny">shiny <span class="quarto-category-count">(2)</span></div><div class="category" data-category="vscode">vscode <span class="quarto-category-count">(4)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#managing-user-image-repos" id="toc-managing-user-image-repos" class="nav-link active" data-scroll-target="#managing-user-image-repos">Managing user image repos</a>
+  <ul class="collapse">
+  <li><a href="#output-of---help-for-the-tool" id="toc-output-of---help-for-the-tool" class="nav-link" data-scroll-target="#output-of---help-for-the-tool">Output of <code>--help</code> for the tool</a></li>
+  <li><a href="#usage-examples" id="toc-usage-examples" class="nav-link" data-scroll-target="#usage-examples">Usage examples</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../users/features.html">Using DataHub</a></li><li class="breadcrumb-item"><a href="../users/hubs.html">JupyterHub Deployments</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">JupyterHub Deployments</h1>
+<h1 class="title">Managing multiple user image repos</h1>
 </div>
 
 
@@ -458,335 +406,86 @@ window.Quarto = {
 </header>
 
 
+<section id="managing-user-image-repos" class="level2">
+<h2 class="anchored" data-anchor-id="managing-user-image-repos">Managing user image repos</h2>
+<p>Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.</p>
+<p>There is a script located in the <code>datahub/scripts/user-image-management/</code> directory named <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/manage-image-repos.py">manage-image-repos.py</a>.</p>
+<p>This script uses a config file with a list of all of the git remotes for the image repos (<a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">config.txt</a>) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).</p>
+<p>The script “assumes” that you have all of your user images in their own folder (in my case, <code>$HOME/src/images/...</code>).</p>
+<section id="output-of---help-for-the-tool" class="level3">
+<h3 class="anchored" data-anchor-id="output-of---help-for-the-tool">Output of <code>--help</code> for the tool</h3>
+<p>Here are the help results from the various sub-commands:</p>
+<pre><code>./manage-image-repos.py --help
+usage: manage-image-repos.py [-h] [-c CONFIG] [-d DESTINATION] {sync,clone,branch,push} ...
+
+positional arguments:
+  {sync,clone,branch,push}
+    sync                Sync all image repositories to the latest version.
+    clone               Clone all image repositories.
+    branch              Create a new feature branch in all image repositories.
+    push                Push all image repositories to a remote.
+
+options:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        Path to file containing list of repositories to clone.
+  -d DESTINATION, --destination DESTINATION
+                        Location of the image repositories.</code></pre>
+<p><code>sync</code> help:</p>
+<pre><code>./manage-image-repos.py sync --help
+usage: manage-image-repos.py sync [-h] [-p] [-o ORIGIN]
+
+options:
+  -h, --help            show this help message and exit
+  -p, --push            Push synced repo to a remote.
+  -o ORIGIN, --origin ORIGIN
+                        Origin to push to. This is optional and defaults to 'origin'.</code></pre>
+<p><code>clone</code> help:</p>
+<pre><code>./manage-image-repos.py clone --help
+usage: manage-image-repos.py clone [-h] [-s] [-g GITHUB_USER]
+
+options:
+  -h, --help            show this help message and exit
+  -s, --set-origin      Set the origin of the cloned repository to the user's GitHub.
+  -g GITHUB_USER, --github-user GITHUB_USER
+                        GitHub user to set the origin to.</code></pre>
+<p><code>branch</code> help:</p>
+<pre><code>./manage-image-repos.py branch --help
+usage: manage-image-repos.py branch [-h] [-b BRANCH]
+
+options:
+  -h, --help            show this help message and exit
+  -b BRANCH, --branch BRANCH
+                        Name of the new feature branch to create.</code></pre>
+<p><code>push</code> help:</p>
+<pre><code>./manage-image-repos.py push --help
+usage: manage-image-repos.py push [-h] [-o ORIGIN] [-b BRANCH]
+
+options:
+  -h, --help            show this help message and exit
+  -o ORIGIN, --origin ORIGIN
+                        Origin to push to. This is optional and defaults to 'origin'.
+  -b BRANCH, --branch BRANCH
+                        Name of the branch to push.</code></pre>
+</section>
+<section id="usage-examples" class="level3">
+<h3 class="anchored" data-anchor-id="usage-examples">Usage examples</h3>
+<p>clone all of the image repos:</p>
+<pre><code>./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone</code></pre>
+<p>clone all repos, and set <code>upstream</code> and <code>origin</code>:</p>
+<pre><code>./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone --set-origin --github-user shaneknapp</code></pre>
+<p>how to sync all image repos from upstream and push to your <code>origin</code>:</p>
+<pre><code>./manage-image-repos.py --destination ~/src/images/ --config repos.txt sync --push</code></pre>
+<p>create a feature branch in all of the image repos:</p>
+<pre><code>./manage-image-repos.py -c repos.txt -d ~/src/images branch -b test-branch</code></pre>
+<p>after you’ve added/committed files, push everything to a remote:</p>
+<pre><code>./manage-image-repos.py -c repos.txt -d ~/src/images push -b test-branch</code></pre>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="course,jupyterlab,otter-grader,shared-folders" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="72">
-<div class="thumbnail">
-<p><a href="../users/hubs/data100.html" class="no-external"></a></p><a href="../users/hubs/data100.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/data100.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/data100.html" class="no-external">Data 100</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/data100.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('course'); return false;">
-course
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('otter-grader'); return false;">
-otter-grader
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('shared-folders'); return false;">
-shared-folders
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/data100.html" class="no-external">This hub is for Data 100 which has a unique user and grading environment.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/data100.html" class="no-external"></a></p><a href="../users/hubs/data100.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="course,jupyterlab,otter-grader,shared-folders" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="30">
-<div class="thumbnail">
-<p><a href="../users/hubs/data102.html" class="no-external"></a></p><a href="../users/hubs/data102.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/data102.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/data102.html" class="no-external">Data 102</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/data102.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('course'); return false;">
-course
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('otter-grader'); return false;">
-otter-grader
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('shared-folders'); return false;">
-shared-folders
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/data102.html" class="no-external">This hub is for Data 102 which has a unique user and grading environment.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/data102.html" class="no-external"></a></p><a href="../users/hubs/data102.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="jupyterlab,ltiauthenticator" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="42">
-<div class="thumbnail">
-<p><a href="../users/hubs/edx.html" class="no-external"></a></p><a href="../users/hubs/edx.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/edx.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/edx.html" class="no-external">Data 8X</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/edx.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ltiauthenticator'); return false;">
-ltiauthenticator
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/edx.html" class="no-external">This hub is for the data8x course on EdX. It is open to use by anyone in the world, using LTI Authentication to provide login capability from inside EdX.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/edx.html" class="no-external"></a></p><a href="../users/hubs/edx.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="jupyterlab,r,vscode" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="53">
-<div class="thumbnail">
-<p><a href="../users/hubs/datahub.html" class="no-external"></a></p><a href="../users/hubs/datahub.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/datahub.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/datahub.html" class="no-external">DataHub</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/datahub.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
-r
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
-vscode
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/datahub.html" class="no-external">datahub.berkeley.edu is the <em>main</em> JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational…</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/datahub.html" class="no-external"></a></p><a href="../users/hubs/datahub.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="course,jupyterlab,vscode" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="44">
-<div class="thumbnail">
-<p><a href="../users/hubs/prob140.html" class="no-external"></a></p><a href="../users/hubs/prob140.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/prob140.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/prob140.html" class="no-external">Prob 140</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/prob140.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('course'); return false;">
-course
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
-vscode
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/prob140.html" class="no-external">Prob 140 hub exists to isolate student files from the main hub. Some students in this course might be course staff in another course, or vice versa, so we isolate their home…</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/prob140.html" class="no-external"></a></p><a href="../users/hubs/prob140.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="jupyterlab,r,rstudio,vscode" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="34">
-<div class="thumbnail">
-<p><a href="../users/hubs/r.html" class="no-external"></a></p><a href="../users/hubs/r.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/r.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/r.html" class="no-external">R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/r.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
-r
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('rstudio'); return false;">
-rstudio
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
-vscode
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/r.html" class="no-external">r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can…</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/r.html" class="no-external"></a></p><a href="../users/hubs/r.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="r,rstudio,shiny" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="16">
-<div class="thumbnail">
-<p><a href="../users/hubs/shiny.html" class="no-external"></a></p><a href="../users/hubs/shiny.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/shiny.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/shiny.html" class="no-external">Shiny</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/shiny.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
-r
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('rstudio'); return false;">
-rstudio
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('shiny'); return false;">
-shiny
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/shiny.html" class="no-external">shiny.datahub.berkeley.edu contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/shiny.html" class="no-external"></a></p><a href="../users/hubs/shiny.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="course,jupyterlab,rtc,shared-folders,vscode" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="2" data-listing-word-count-sort="318">
-<div class="thumbnail">
-<p><a href="../users/hubs/stat159.html" class="no-external"></a></p><a href="../users/hubs/stat159.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/stat159.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/stat159.html" class="no-external">Stat 159</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/stat159.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('course'); return false;">
-course
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('rtc'); return false;">
-rtc
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('shared-folders'); return false;">
-shared-folders
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('vscode'); return false;">
-vscode
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/stat159.html" class="no-external">stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their…</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/stat159.html" class="no-external"></a></p><a href="../users/hubs/stat159.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="course,jupyterlab,quarto,rstudio,shared-folders,shiny" data-listing-file-modified-sort="1726079477411" data-listing-reading-time-sort="1" data-listing-word-count-sort="33">
-<div class="thumbnail">
-<p><a href="../users/hubs/stat20.html" class="no-external"></a></p><a href="../users/hubs/stat20.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="../users/hubs/stat20.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../users/hubs/stat20.html" class="no-external">Stat 20</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../users/hubs/stat20.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('course'); return false;">
-course
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('jupyterlab'); return false;">
-jupyterlab
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('quarto'); return false;">
-quarto
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('rstudio'); return false;">
-rstudio
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('shared-folders'); return false;">
-shared-folders
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('shiny'); return false;">
-shiny
-</div>
-</div>
-<div class="listing-description">
-<a href="../users/hubs/stat20.html" class="no-external">stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as designed by Andrew Bray. It uses RStudio as the primary users interface and students can use Quarto to…</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../users/hubs/stat20.html" class="no-external"></a></p><a href="../users/hubs/stat20.html" class="no-external">
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1207,18 +906,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../users/private-repo.html" class="pagination-link" aria-label="Accessing private GitHub repos">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Accessing private GitHub repos</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../users/authentication.html" class="pagination-link" aria-label="User Authentication">
-        <span class="nav-page-text">User Authentication</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
