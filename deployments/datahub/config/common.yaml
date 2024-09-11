@@ -184,24 +184,6 @@ jupyterhub:
         mem_limit: 4096M
         mem_guarantee: 4096M
 
-      # Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
-      course::1534506::enrollment_type::teacher:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/demog-dataevent-readwrite
-            subPath: _shared/course/demog-dataevent
-      course::1534506::enrollment_type::ta:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/demog-dataevent-readwrite
-            subPath: _shared/course/demog-dataevent
-      course::1534506::enrollment_type::student:
-        extraVolumeMounts:
-          - name: home
-            mountPath: /home/jovyan/demog-dataevent
-            subPath: _shared/course/demog-dataevent
-            readOnly: true
-
       # MBA 247, Fall 2024
       course::1536576::enrollment_type::teacher:
         extraVolumeMounts:
@@ -219,7 +201,7 @@ jupyterhub:
             mountPath: /home/jovyan/mba-247
             subPath: _shared/course/mba-247
             readOnly: true
-
+            
       # COMPSS 214A, Fall 2024, https://jira-secure.berkeley.edu/browse/DH-311
       course::1538139::enrollment_type::teacher:
         extraVolumeMounts:
@@ -237,10 +219,6 @@ jupyterhub:
             mountPath: /home/jovyan/compss-214a
             subPath: _shared/course/compss-214a
             readOnly: true
-
-      course::1534506: # Demog Data Event, April 1 - Sep 30, https://github.com/berkeley-dsep-infra/datahub/issues/5643
-        mem_limit: 8192M
-        mem_guarantee: 8192M
 
       course::1535590: # Data 6, https://github.com/berkeley-dsep-infra/datahub/issues/5847
         mem_limit: 2048M
