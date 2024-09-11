@@ -454,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
 <p>You will need to install <code>git-filter-repo</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chmod</span> +x ~/bin/git-filter-repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x ~/bin/git-filter-repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-the-repository" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-repository">Create the repository</h2>
@@ -465,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>In the new repository, visit Settings &gt; Secrets and variables &gt; Actions &gt; Variables tab. Create new variables:
 <ol type="a">
 <li>Set HUB to the hub deployment, e.g.&nbsp;<code>shiny</code>.</li>
-<li>Set IMAGE to ucb-datahub-2018/user-images/{hub}-user-image, e.g.&nbsp;<code>ucb-datahub-2018/user-images/shiny-user-image</code>.</li>
+<li>Set IMAGE to <code>ucb-datahub-2018/user-images/{hub}-user-image</code>, e.g.&nbsp;<code>ucb-datahub-2018/user-images/shiny-user-image</code>.</li>
 </ol></li>
 <li>Fork the new image repo into your own github account.</li>
 </ol>
@@ -496,15 +496,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preparing-continuous-integration" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-continuous-integration">Preparing continuous integration</h2>
 <ol type="1">
-<li><p>In the berkeley-dsep-infra org settings, https://github.com/organizations/berkeley-dsep-infra/settings/profile, visit Secrets and variables &gt; Actions, https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions. Edit the secrets for DATAHUB_CREATE_PR and GAR_SECRET_KEY, and enable the new repo to access each.</p></li>
+<li><p>In the <a href="https://github.com/organizations/berkeley-dsep-infra/settings/profile">berkeley-dsep-infra org settings</a>, visit <a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">Secrets and variables &gt; Actions</a>. Edit the secrets for <code>DATAHUB_CREATE_PR</code> and <code>GAR_SECRET_KEY</code>, and enable the new repo to access each.</p></li>
 <li><p>In the datahub repo, in one PR:</p>
 <ol type="a">
 <li><p>remove the hub deployment steps for the hub:</p>
 <ul>
-<li>Deploy {hub}</li>
-<li>hubploy/build-image {hub} image build (x2)</li>
+<li><em>Deploy {hub}</em></li>
+<li><em>hubploy/build-image {hub} image build</em> (x2)</li>
 </ul></li>
-<li><p>under <code>deployments/{hub}/hubploy.yaml</code>, remove the registry entry, and set the image_name to have <code>PLACEHOLDER</code> for the tag.</p></li>
+<li><p>under <code>deployments/{hub}/hubploy.yaml</code>, remove the registry entry, and set the <code>image_name</code> to have <code>PLACEHOLDER</code> for the tag.</p></li>
 <li><p>In the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.</p></li>
 </ol></li>
 <li><p>Merge these changes to datahub staging.</p></li>
