@@ -1,12 +1,6 @@
 images:
   images:
     - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/publichealth-user-image
-      path: image
-  registry:
-    provider: gcloud
-    gcloud:
-      project: ucb-datahub-2018
-      service_key: gcr-key.json
 
 cluster:
   provider: gcloud
