@@ -53,7 +53,7 @@ jupyterhub:
           cpu: 0.001
           memory: 64Mi
         limits:
-          memory: 3Gi
+          memory: 1.5Gi
     traefik:
       resources:
         requests:
