@@ -117,6 +117,19 @@ jupyterhub:
           - course::1538138::enrollment_type::teacher
           - course::1538138::enrollment_type::ta
 
+      # Data 6, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6158
+      course-staff-1538010:
+      #  description: Enable course staff to view and access servers.
+      #  # this role provides permissions to...
+        scopes:
+          - list:users!group=course::1538010
+          - admin:servers!group=course::1538010
+          - access:servers!group=course::1538010
+      #  # this role will be assigned to...
+        groups:
+          - course::1538010::enrollment_type::teacher
+          - course::1538010::enrollment_type::ta
+
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     initContainers:
