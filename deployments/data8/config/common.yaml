@@ -28,7 +28,7 @@ jupyterhub:
           # FIXME: We want no guarantees here!!!
           # This is lowest possible value
           cpu: 0.001
-          memory: 64Mi
+          memory: 3Gi
         limits:
           memory: 3Gi
 
