@@ -23,6 +23,15 @@ jupyterhub:
     chp:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
+      resources:
+        requests:
+          # FIXME: We want no guarantees here!!!
+          # This is lowest possible value
+          cpu: 0.001
+          memory: 3Gi
+        limits:
+          memory: 3Gi
+
     traefik:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
