@@ -1,5 +1,5 @@
 images:
-  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/julia-user-image:PLACEHOLDER
+  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/julia-user-image:381ff83b5850
 
 cluster:
   provider: gcloud
