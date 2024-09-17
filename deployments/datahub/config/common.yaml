@@ -168,9 +168,6 @@ jupyterhub:
 
   proxy:
     chp:
-      extraCommandLineFlags:
-        - "--timeout=5000"
-        - "--proxy-timeout=5000"
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
       resources:
