@@ -1,3 +1,8 @@
+# this will hopefully help chp not to run out of ephemeral ports
+#
+# https://jira-secure.berkeley.edu/browse/DH-377
+# https://devops-insider.mygraphql.com/zh-cn/latest/network/tcp/ephemeral-port/ephemeral-port-exhaustion-and-how-to-avoid-it.html
+# https://blog.cloudflare.com/how-to-stop-running-out-of-ephemeral-ports-and-start-to-love-long-lived-connections/
 spec:
   template:
     spec:
