@@ -1,11 +1,14 @@
-# installing less as more just isn't enough
+# editors, pagers, tools
 less
-
 tar
 vim
 micro
 tini
 locales
+nano
+
+# for ops debugging
+net-tools
 
 # for timing builds
 time
