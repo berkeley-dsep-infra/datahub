@@ -61,7 +61,7 @@ body:
   - type: textarea
     attributes:
       label: End Date
-      description: Until when is elevated access needed
+      description: When should elevated privileges for course staff get removed?
       value: |
         - <!-- MM/DD/YY -->
     validations:
@@ -69,7 +69,7 @@ body:
   - type: textarea
     attributes:
       label: Request Deadline
-      description: By when do you need elavated access provisioned
+      description: By when do you need this request to be completed?
       value: |
         <!-- Any specific date(s) (MM/DD) to prioritize this request at our end? -->
     validations:
