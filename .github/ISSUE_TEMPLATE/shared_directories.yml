@@ -1,0 +1,78 @@
+name: Setup Shared/Shared-readwrite directories
+description: To store large datasets that can be read by student notebooks
+labels: "support"
+assignees:
+- balajialg
+body:
+  - type: markdown
+    attributes:
+      value: | 
+        In scenarios where you have large datasets or commonly used libraries, a shared directory can serve as a centralized location for these resources. This prevents the need for duplicating files across multiple user spaces, saving disk space and bandwidth. 
+        **Shared Directory:** The shared folder allows read only access to the students enrolled in your course. Students can read the dataset from the shared folder while no write operations can be performed. The shared directories will be mounted to /home/jovyan user path. 
+        **Shared-ReadWrite Directory:** As an instructor, you’ll have both read and write access to a “shared-readwrite” directory. You can upload datasets there, and they will automatically be updated in the “shared” directory, which is accessible to all students with read-only permissions.
+  - type: input
+    attributes:
+      label: Your Name
+      description:
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Affiliated Course Name
+      description: Name of the course for which you are part of the teaching team
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: bCourses ID
+      description: bCourses ID for the course you are teaching. You can find that in the URL to your course -- it is a seven digit number. The course needs to be set to Published in bCourses, otherwise the hub will not be able to assign extra privileges.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Role
+      description: Your role as part of the teaching team
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Hub URL
+      description: Hub that you are currently using for teaching/research
+      options:
+        - datahub.berkeley.edu
+        - r.datahub.berkeley.edu
+        - a11y.datahub.berkeley.edu
+        - astro.datahub.berkeley.edu
+        - biology.datahub.berkeley.edu
+        - cee.datahub.berkeley.edu
+        - data100.datahub.berkeley.edu
+        - data101.datahub.berkeley.edu
+        - data102.datahub.berkeley.edu
+        - data8.datahub.berkeley.edu
+        - dlab.datahub.berkeley.edu
+        - eecs.datahub.berkeley.edu
+        - ischool.datahub.berkeley.edu
+        - julia.datahub.berkeley.edu
+        - prob140.datahub.berkeley.edu
+        - publichealth.datahub.berkeley.edu
+        - stat159.datahub.berkeley.edu
+        - stat20.datahub.berkeley.edu
+        - other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: End Date
+      description: When should the shared directories be de-provisioned?
+      value: |
+        - <!-- MM/DD/YY -->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Request Deadline
+      description: By when do you need the shared directories to be set up in the hub
+      value: |
+        <!-- Any specific date(s) (MM/DD) to prioritize this request at our end? -->
+    validations:
+      required: true
