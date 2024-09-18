@@ -10,6 +10,7 @@ body:
         In scenarios where you have large datasets or commonly used libraries, a shared directory can serve as a centralized location for these resources. This prevents the need for duplicating files across multiple user spaces, saving disk space and bandwidth. 
         **Shared Directory:** The shared folder allows read only access to the students enrolled in your course. Students can read the dataset from the shared folder while no write operations can be performed. The shared directories will be mounted to /home/jovyan user path. 
         **Shared-ReadWrite Directory:** As an instructor, you’ll have both read and write access to a “shared-readwrite” directory. You can upload datasets there, and they will automatically be updated in the “shared” directory, which is accessible to all students with read-only permissions.
+        For more information, check the [documentation](https://ds-modules.github.io/curriculum-guide/technology/jupyter/large-datasets.html?highlight=shared#shared-directory) for shared directories.
   - type: input
     attributes:
       label: Your Name
@@ -58,6 +59,14 @@ body:
         - stat159.datahub.berkeley.edu
         - stat20.datahub.berkeley.edu
         - other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Shared Directory Name
+      description: What should be the name of the shared and shared-readwrite directories?
+      value: |
+        - <!-- Eg: coursename-shared and coursename-readwrite can be the directory names. Eg: compss-214a-readwrite and compss-214a-shared are the shared-readwrite and shared directories for the COMPSS-214A course -->
     validations:
       required: true
   - type: textarea
