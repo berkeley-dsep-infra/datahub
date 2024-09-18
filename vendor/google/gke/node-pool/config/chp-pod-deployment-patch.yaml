@@ -1,0 +1,16 @@
+spec:
+  template:
+    spec:
+      initContainers:
+      - command:
+        - sysctl
+        - -w
+        - net.ipv4.ip_local_port_range=10000 65000
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        name: init-sysctl
+        resources: {}
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
