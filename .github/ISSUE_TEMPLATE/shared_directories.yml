@@ -1,13 +1,16 @@
-name: Request Elevated Privileges for Course Staff
-description: Enable course staff to manage student servers
+name: Setup Shared/Shared-readwrite directories
+description: To store large datasets that can be read by student notebooks
 labels: "support"
 assignees:
 - balajialg
 body:
   - type: markdown
     attributes:
-      value: |
-        Course staff may be assigned elevated privileges on a hub to view and manage student servers. Please follow the sections in the template below and share the required information. If you are curious to understand the process through which we assign privileges, please refer to [our documentation](https://docs.datahub.berkeley.edu/en/latest/admins/howto/course-config.html#defining-group-profiles).
+      value: | 
+        In scenarios where you have large datasets or commonly used libraries, a shared directory can serve as a centralized location for these resources. This prevents the need for duplicating files across multiple user spaces, saving disk space and bandwidth. 
+        **Shared Directory:** The shared folder allows read only access to the students enrolled in your course. Students can read the dataset from the shared folder while no write operations can be performed. The shared directories will be mounted to /home/jovyan user path. 
+        **Shared-ReadWrite Directory:** As an instructor, you’ll have both read and write access to a “shared-readwrite” directory. You can upload datasets there, and they will automatically be updated in the “shared” directory, which is accessible to all students with read-only permissions.
+        For more information, check the [documentation](https://ds-modules.github.io/curriculum-guide/technology/jupyter/large-datasets.html?highlight=shared#shared-directory) for shared directories.
   - type: input
     attributes:
       label: Your Name
@@ -60,8 +63,16 @@ body:
       required: true
   - type: textarea
     attributes:
+      label: Shared Directory Name
+      description: What should be the name of the shared and shared-readwrite directories?
+      value: |
+        - <!-- Eg: coursename-shared and coursename-readwrite can be the directory names. Eg: compss-214a-readwrite and compss-214a-shared are the shared-readwrite and shared directories for the COMPSS-214A course -->
+    validations:
+      required: true
+  - type: textarea
+    attributes:
       label: End Date
-      description: When should elevated privileges for course staff get removed?
+      description: When should the shared directories be de-provisioned?
       value: |
         - <!-- MM/DD/YY -->
     validations:
@@ -69,7 +80,7 @@ body:
   - type: textarea
     attributes:
       label: Request Deadline
-      description: By when do you need this request to be completed?
+      description: By when do you need the shared directories to be set up in the hub
       value: |
         <!-- Any specific date(s) (MM/DD) to prioritize this request at our end? -->
     validations:
