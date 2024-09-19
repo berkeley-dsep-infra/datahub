@@ -194,12 +194,6 @@ jobs:
           no_output_timeout: 30m
 
       - run:
-          name: Deploy data102
-          command: |
-            hubploy deploy --timeout 30m data102 hub ${CIRCLE_BRANCH}
-          no_output_timeout: 30m
-
-      - run:
           name: Deploy datahub
           command: |
             hubploy deploy --timeout 30m datahub hub ${CIRCLE_BRANCH}
@@ -270,14 +264,6 @@ workflows:
                 - staging
                 - prod
       - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
-          filters:
-              branches:
-                ignore:
-                - staging
-                - prod
-      - hubploy/build-image:
           deployment: datahub
           # Workshop hub also uses this
           name: datahub image build
@@ -326,14 +312,6 @@ workflows:
                 only:
                 - staging
       - hubploy/build-image:
-          deployment: data102
-          name: data102 image build
-          push: true
-          filters:
-              branches:
-                only:
-                - staging
-      - hubploy/build-image:
           # workshop hub also uses this image
           deployment: datahub
           name: datahub image build
@@ -369,7 +347,6 @@ workflows:
           requires:
               - data8 image build
               - data100 image build
-              - data102 image build
               - datahub image build
               - edx image build
               - ischool image build
