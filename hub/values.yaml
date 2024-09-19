@@ -38,14 +38,14 @@ jupyterhub:
       # https://github.com/http-party/node-http-proxy/pull/1559
       # https://github.com/Jimbly/http-proxy-node16/commit/56283e33edfc7aad8c2605dd493da8a196b4371d
       # https://github.com/consideRatio/configurable-http-proxy/commits/main/
-      #
+      # https://jira-secure.berkeley.edu/browse/DH-382 timeouts break stuff
       image:
         tag: 4.6.2
-      extraCommandLineFlags:
+      # extraCommandLineFlags:
         # set the timeout and proxyTimeout to 5 seconds
         # https://github.com/http-party/node-http-proxy?tab=readme-ov-file#options
-        - "--timeout=5000"
-        - "--proxy-timeout=5000"
+        # - "--timeout=5000"
+        # - "--proxy-timeout=5000"
       resources:
         requests:
           # FIXME: We want no guarantees here!!!
