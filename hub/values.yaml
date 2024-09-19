@@ -108,7 +108,7 @@ jupyterhub:
             # shutdown kernels after 30 mins of no activity
             cull_idle_timeout: 1800
             # check for idle kernels this often
-            cull_interval: 60
+            cull_interval: 600
             # a kernel with open connections but no activity still counts as idle
             # this is what allows us to shutdown servers
             # when people leave a notebook open and wander off
