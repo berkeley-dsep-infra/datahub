@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data102-user-image:PLACEHOLDER
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data102-user-image:ba17dfb0e793
 
   registry:
     provider: gcloud
