@@ -15,9 +15,8 @@ dependencies:
 - jupyterlab-git==0.50.1
 - jupyterlab_server==2.27.3
 - jupyterlab_widgets==3.0.8
-- jupyter_server==2.27.3
-# pulled in by ottr, if not pinned to 1.16.2, 1.16.3 causes DH-323
-- jupytext==1.16.2
+- jupyter_server==2.14.2
+- jupytext==1.16.4
 - nbgitpuller==1.2.1
 - notebook==7.2.2
 - folium==0.14.0
@@ -30,13 +29,13 @@ dependencies:
 - numpy==1.24.2
 - pandas==2.0.2
 - plotly==5.13.1
-- requests==2.28.2
+- requests==2.32.2
 - scikit-image==0.19.3
 - scikit-learn==1.2.2
 - scipy==1.10.1
-- seaborn==0.12.2
+- seaborn==0.13.2
 - statsmodels==0.14.0
-- tensorflow-cpu==2.12.1
+- tensorflow-cpu==2.17.0
 - sqlalchemy==2.0.16
 - mlxtend==0.23.0
 # Spring 2024 data 100
@@ -55,7 +54,7 @@ dependencies:
   - ipywidgets==8.0.7
   # disable until fixed (probably this:  https://github.com/jupyterlab/jupyter-collaboration/issues/162)
   # - jupyter_collaboration==1.0.1
-  - nbconvert[webpdf]
+  - nbconvert[webpdf]==7.16.4
   #  - pyppeteer==2.0.0
   - pytest-notebook==0.8.1
   - git+https://github.com/shaneknapp/python-popularity-contest.git@add-error-handling
