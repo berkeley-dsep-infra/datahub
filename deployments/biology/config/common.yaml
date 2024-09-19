@@ -55,6 +55,30 @@ jupyterhub:
         - name: home
           mountPath: /home/jovyan/shared-readwrite
           subPath: _shared
+    group_profiles:
+      # DataHub Infrastructure staff
+      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
+      course::1524699::group::all-admins:
+        mem_limit: 4096M
+        mem_guarantee: 4096M
+
+      # BioE C149, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6205
+      course::1537116::enrollment_type::teacher:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/bioe-c149-readwrite
+            subPath: _shared/course/bioe-c149-readwrite
+      course::1537116::enrollment_type::ta:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/bioe-c149-readwrite
+            subPath: _shared/course/bioe-c149-readwrite
+      course::1537116::enrollment_type::student:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/bioe-c149-shared
+            subPath: _shared/course/bioe-c149-shared
+            readOnly: true
   singleuser:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
