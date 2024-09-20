@@ -4,7 +4,6 @@ title: "Request my old files stored in Datahub"
 labels: ["support", "data retrieval"]
 assignees:
   - balajialg
-  - shaneknapp
 body:
   - type: markdown
     attributes:
