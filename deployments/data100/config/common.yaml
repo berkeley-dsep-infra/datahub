@@ -123,6 +123,11 @@ jupyterhub:
         mem_guarantee: 16G
         cpu_limit: 2
         cpu_guarantee: 2
+      course::1537664::enrollment_type::student: # Fall 2024, Data 100 TAs, ensured 16G RAM
+        mem_limit: 16G
+        mem_guarantee: 16G
+        cpu_limit: 2
+        cpu_guarantee: 2
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:
