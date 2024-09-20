@@ -112,7 +112,7 @@ jupyterhub:
         admin: true
         mem_limit: 4G
 
-      # Data 100, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6167
+      # Data 100, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6167, To be removed by Sep 30, 2024
       course::1537664::enrollment_type::teacher: # Fall 2024, Data 100 Instructors, ensured 16G RAM
         mem_limit: 16G
         mem_guarantee: 16G
