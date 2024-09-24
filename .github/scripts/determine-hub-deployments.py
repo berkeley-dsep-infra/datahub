@@ -18,7 +18,7 @@ def main(args):
     hubs = []
 
     # Deploy all hubs by getting deployment names from the dirs in deployments/
-    if "GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT" or \
+    if "GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT" in os.environ.keys() or \
         "GITHUB_PR_LABEL_HUB_IMAGES" in os.environ.keys():
         for deployment in next(os.walk(args.deployments))[1]:
             if deployment not in args.ignore:
