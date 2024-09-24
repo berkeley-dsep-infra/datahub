@@ -1,12 +1,6 @@
 images:
   images:
-    - name: gcr.io/data8x-scratch/edx-user-image
-      path: image/
-  registry:
-    provider: gcloud
-    gcloud:
-      project: data8x-scratch
-      service_key: gcloud-service-key.json
+    - name: us-central1-docker.pkg.dev/data8x-scratch/user-images/edx-user-image:PLACEHOLDER
 
 cluster:
   provider: gcloud
