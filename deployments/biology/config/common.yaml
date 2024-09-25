@@ -79,6 +79,25 @@ jupyterhub:
             mountPath: /home/jovyan/bioe-c149-shared
             subPath: _shared/course/bioe-c149-shared
             readOnly: true
+
+      # MCB 201B, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6255
+      course::1537301::enrollment_type::teacher:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/mcb201b-shared-readwrite
+            subPath: _shared/course/mcb201b-shared-readwrite
+      course::1537301::enrollment_type::ta:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/mcb201b-shared-readwrite
+            subPath: _shared/course/mcb201b-shared-readwrite
+      course::1537301::enrollment_type::student:
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/mcb201b-shared
+            subPath: _shared/course/mcb201b-shared
+            readOnly: true
+
   singleuser:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
