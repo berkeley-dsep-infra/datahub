@@ -1,7 +1,7 @@
 # This workflow will determine if the edx hub image and/or single-user server
 # image has changed, and if so, deploy accordingly.
 #
-name: Deploy staging and prod hubs
+name: Deploy edx staging and prod hub
 on:
   workflow_dispatch:
   push:
@@ -10,7 +10,7 @@ on:
       - prod
 
 jobs:
-  deploy-hubs-to-staging:
+  deploy-edx-hub-to-staging:
     if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     steps:
@@ -94,7 +94,7 @@ jobs:
             echo
           done < <(python .github/scripts/determine-hub-deployments.py --only-deploy edx)
 
-  deploy-hubs-to-prod:
+  deploy-edx-hub-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
     steps:
