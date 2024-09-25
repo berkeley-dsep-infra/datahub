@@ -53,6 +53,7 @@ if __name__ == "__main__":
         "--ignore",
         "-i",
         nargs="*",
+        action="extend",
         default=["template"],
         help="Ignore one or more deployment targets."
     )
