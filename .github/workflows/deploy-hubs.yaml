@@ -1,5 +1,5 @@
 # This workflow will determine if the base hub image and/or single-user server
-# image for any or all hubs has has changed, and if so, deploy accordingly.
+# image for any or all hubs has changed, and if so, deploy accordingly.
 #
 name: Deploy staging and prod hubs
 on:
