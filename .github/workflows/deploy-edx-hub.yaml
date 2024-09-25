@@ -85,7 +85,7 @@ jobs:
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
-      - name: Deploy hubs to staging
+      - name: Deploy hub to staging
         if: ${{ env.DEPLOY }}
         run: |
           while read deployment; do
@@ -169,7 +169,7 @@ jobs:
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
-      - name: Deploy hubs to prod
+      - name: Deploy hub to prod
         if: ${{ env.DEPLOY }}
         run: |
           while read deployment; do
