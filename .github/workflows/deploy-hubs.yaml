@@ -103,7 +103,7 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub staging
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy gradebook logodev shiny stat159 stat20 nature a11y ugr01 data101 astro biology cee dev publichealth eecs julia data102 ischool data8 data100)
+          done < <(python .github/scripts/determine-hub-deployments.py --ignore edx)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -198,4 +198,4 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub prod
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy gradebook logodev shiny stat159 stat20 nature a11y ugr01 data101 astro biology cee dev publichealth eecs julia data102 ischool data8 data100)
+          done < <(python .github/scripts/determine-hub-deployments.py --ignore edx)
