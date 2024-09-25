@@ -1,5 +1,5 @@
-# This workflow will determine if the base hub image and/or single-user server
-# image for any or all hubs has changed, and if so, deploy accordingly.
+# This workflow will determine if the edx hub image and/or single-user server
+# image has changed, and if so, deploy accordingly.
 #
 name: Deploy staging and prod hubs
 on:
@@ -20,25 +20,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check for hubs that need deploying from the labels on the merge commit to staging
+      - name: Check edx hub changes that need deploying from the labels on the merge commit to staging
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
-          # If the PR labels "hub-images" or "jupyterhub-deployment" are
-          # present, this means the base hub image has changed, and all hubs
-          # (staging or prod) need to be redeployed.
-          #
-          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
-            echo "DEPLOY=1" >> $GITHUB_ENV
-          # Otherwise, check to see if the PR labels contain any hubs, and 
-          # deploy just those hubs to staging.
-          #
-          else
-            for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
-              if [[ "$label" == hub-* ]]; then
-                echo "DEPLOY=1" >> $GITHUB_ENV
-              fi
-            done
-          fi
+          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
+            if [[ "$label" == hub-edx ]]; then
+              echo "DEPLOY=1" >> $GITHUB_ENV
+            fi
+          done
 
       - name: Check out the image repo
         if: ${{ env.DEPLOY }}
@@ -63,8 +52,8 @@ jobs:
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GKE_KEY }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials_json: ${{ secrets.GKE_KEY_EDX }}
+          project_id: ${{ secrets.GCP_PROJECT_ID_EDX }}
 
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
@@ -103,7 +92,7 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub staging
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy gradebook logodev shiny stat159 stat20 nature a11y ugr01 data101 astro biology cee dev publichealth eecs julia data102 ischool)
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy edx)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -115,25 +104,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check for hubs that need deploying from the labels on the merge commit to prod
+      - name: Check edx hub changes that need deploying from the labels on the merge commit to prod
         run: |
           echo "PR labels: ${{ steps.pr-labels.outputs.labels }}"
-          # If the PR labels "hub-images" or "jupyterhub-deployment" are
-          # present, this means the base hub image has changed, and all hubs
-          # (staging or prod) need to be redeployed.
-          #
-          if [[ -n ${GITHUB_PR_LABEL_HUB_IMAGES} || -n ${GITHUB_PR_LABEL_JUPYTERHUB_DEPLOYMENT} ]]; then
-            echo "DEPLOY=1" >> $GITHUB_ENV
-          # Otherwise, check to see if the PR labels contain any hubs, and 
-          # deploy just those hubs to prod.
-          #
-          else
-            for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
-              if [[ "$label" == hub-* ]]; then
-                echo "DEPLOY=1" >> $GITHUB_ENV
-              fi
-            done
-          fi
+          for label in $(echo -e "${{ steps.pr-labels.outputs.labels }}"); do
+            if [[ "$label" == hub-edx ]]; then
+              echo "DEPLOY=1" >> $GITHUB_ENV
+            fi
+          done
 
       - name: Check out the image repo
         if: ${{ env.DEPLOY }}
@@ -158,8 +136,8 @@ jobs:
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GKE_KEY }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials_json: ${{ secrets.GKE_KEY_EDX }}
+          project_id: ${{ secrets.GCP_PROJECT_ID_EDX }}
 
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
@@ -198,4 +176,4 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub prod
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy gradebook logodev shiny stat159 stat20 nature a11y ugr01 data101 astro biology cee dev publichealth eecs julia data102 ischool)
+          done < <(python .github/scripts/determine-hub-deployments.py --only-deploy edx)
