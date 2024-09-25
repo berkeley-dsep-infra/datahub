@@ -6,6 +6,7 @@ git@github.com:berkeley-dsep-infra/data101-user-image.git
 git@github.com:berkeley-dsep-infra/data102-user-image.git
 git@github.com:berkeley-dsep-infra/dev-primary-image.git
 git@github.com:berkeley-dsep-infra/dev-secondary-image.git
+git@github.com:berkeley-dsep-infra/edx-user-image.git
 git@github.com:berkeley-dsep-infra/eecs-user-image.git
 git@github.com:berkeley-dsep-infra/ischool-user-image.git
 git@github.com:berkeley-dsep-infra/julia-user-image.git
