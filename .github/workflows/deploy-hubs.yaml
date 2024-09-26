@@ -58,13 +58,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-#      - name: Auth to gcloud
-#        if: ${{ env.DEPLOY }}
-#        uses: google-github-actions/auth@v2
-#        with:
-#          credentials_json: ${{ secrets.GKE_KEY }}
-#          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/setup-gcloud@v2
@@ -152,13 +145,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Auth to gcloud
-        if: ${{ env.DEPLOY }}
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GKE_KEY }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/setup-gcloud@v2
@@ -196,4 +182,4 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub prod
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py --ignore edx)
+          done < <(python .github/scripts/determine-hub-deployments.py)
