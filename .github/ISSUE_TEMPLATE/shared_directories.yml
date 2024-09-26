@@ -11,6 +11,8 @@ body:
         **Shared Directory:** The shared folder allows read only access to the students enrolled in your course. Students can read the dataset from the shared folder while no write operations can be performed. The shared directories will be mounted to /home/jovyan user path. 
         **Shared-ReadWrite Directory:** As an instructor, you’ll have both read and write access to a “shared-readwrite” directory. You can upload datasets there, and they will automatically be updated in the “shared” directory, which is accessible to all students with read-only permissions.
         For more information, check the [documentation](https://ds-modules.github.io/curriculum-guide/technology/jupyter/large-datasets.html?highlight=shared#shared-directory) for shared directories.
+        **Note:** Please verify that neither you nor your teaching team members are enrolled in multiple roles (e.g., both Teacher and TA) on your course's bCourses site. Being assigned multiple roles may cause errors during hub spawning, as the system attempts to mount multiple shared read-write directories associated with different group roles (e.g., Teacher and TA).
+
   - type: input
     attributes:
       label: Your Name

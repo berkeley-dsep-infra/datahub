@@ -279,3 +279,7 @@ jupyterhub:
       course::1539545: # Demog 213, https://github.com/berkeley-dsep-infra/datahub/issues/6094
         mem_limit: 4096M
         mem_guarantee: 4096M
+
+      course::1536576: # MBA 247, https://github.com/berkeley-dsep-infra/datahub/issues/6276
+        mem_limit: 2048M
+        mem_guarantee: 2048M
