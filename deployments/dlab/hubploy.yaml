@@ -1,12 +1,7 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/primary-user-image
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image:8ae97e7410ae
       path: ../datahub/images/default
-  registry:
-    provider: gcloud
-    gcloud:
-      project: ucb-datahub-2018
-      service_key: gcr-key.json
 
 cluster:
   provider: gcloud
