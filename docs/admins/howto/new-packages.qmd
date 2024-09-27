@@ -30,7 +30,8 @@ To avoid complicated errors, make sure you always specify a version. You
 can find the latest version by searching on
 [pypi.org](https://pypi.org).
 
-Find current version of a python package ===============================
+Find current version of a python package
+===============================
 
 To find the current version of a particular installed package, you can
 run the following in a notebook.
@@ -103,7 +104,7 @@ fork of the the image repo.
 
 7.  Commit and push your changes to your fork of the image repo, and
     create a new pull request at
-    https://github.com/berkeley-dsep-infra/<image-name>.
+    https://github.com/berkeley-dsep-infra/`<image-name>`.
 
 8.  After the build passes, merge your PR in to `main` and the image will
     be built again and pushed to the Artifact Registry.  If that succeeds,

@@ -113,7 +113,9 @@ When done, add the modified configs to your feature branch (and again, don't pus
 ## Update Github Actions
 Once you've successfully deployed the clusters manually via `hubploy`, it's time to update the Github Actions to point to the new cluster.
 
-All you need to do is `grep` for the old cluster name in `.github/workflows/` and change this to the name of the new cluster.  There should just be four entries:  two for the `gcloud get credentials <cluster-name>`, and two in comments.  Make these changes and add them to your existing feature branch, but don't commit yet.
+All you need to do is `grep` for the old cluster name in `.github/workflows/` and change this to the name of the new cluster.
+There should just be two entries, one each in the support and node placeholder deploy workflows.
+Make these changes and add them to your existing feature branch, but don't commit yet.
 
 ```
 $ grep -ir spring .github/workflows

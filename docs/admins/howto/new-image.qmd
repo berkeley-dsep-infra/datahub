@@ -44,8 +44,10 @@ Scroll back up to the top of the settings, and in the left menu bar, click on
 
 From there, click on the `Variables` tab and then `New repository variable`. We
 will be adding two new variables:
+
 1. `HUB`:  the name of the hub (eg: datahub)
-2. `IMAGE`:  the Google Artifact Registry path and image name.  The path will
+
+1. `IMAGE`:  the Google Artifact Registry path and image name.  The path will
 always be `ucb-datahub-2018/user-images/<image-name>` and the
 image name will always be the same as the repo:  `<hubname>-user-image`.
 
@@ -66,8 +68,8 @@ Now, go to the `berkeley-dsep-infra` [Secrets and Variables](https://github.com/
 You will need to give your repo permissions to push to the Artifact Registry,
 as well as to push a branch to the [datahub repo](https://github.com/berkeley-dsep-infra/datahub).
 
-Edit both `DATAHUB_CREATE_PR` and `GAR_SECRET_KEY`, and click on the gear icon
-(:gear:), search for your repo name, check the box and save.
+Edit both `DATAHUB_CREATE_PR` and `GAR_SECRET_KEY`, and click on the gear icon,
+search for your repo name, check the box and save.
 
 ### Update your deployment's `hubploy.yaml` and add the image to the primary list of repos.
 
