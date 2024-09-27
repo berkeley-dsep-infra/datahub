@@ -35,7 +35,7 @@ Proper access to the following systems:
 
   -   Google Cloud IAM: *owner*
   -   Write access to the [datahub repo](https://github.com/berkeley-dsep-infra/datahub)
-  -   CircleCI account linked to our GitHub organization.
+  -   Owner or admin access to the [berkeley-dsep-infra organization](https://github.com/berkeley-dsep-infra/)
 
 ## Configuring a New Hub
 
@@ -247,71 +247,48 @@ bcourses.
 Please reach out to Jonathan Felder to set this up, or
 <bcourseshelp@berkeley.edu> if he is not available.
 
-### CircleCI
+### CI/CD and single-user server image
 
-The CircleCI configuration file `.circleci/config.yml` will need to
-include directives for building and deploying your new hub at several
-phases of the CircleCI process. Generally speaking, an adequate manual
-strategy for this is to pick the name of an existing hub, find each
-occurrence of that name, and add analogous entries for your new hub
-alongside your example existing hub. Please order new entries for your
-new hub in alphabetical order amongst the entries for existing hubs.
+CI/CD is managed through Github Actions, and the relevant workflows are located
+in `.github/workflows/`.  Deploying all hubs are managed via Pull Request
+Labels, which are applied automatically on PR creation.
 
-Here is a partial (but incomplete) sampling of some of the relevant
-sections of the CircleCI configuration file:
-
-``` yaml
-- run:
-    name: Deploy <hubname>
-      command: |
-        hubploy deploy <hubname> hub ${CIRCLE_BRANCH}
-
-- hubploy/build-image:
-    deployment: <hubname>
-    name: <hubname> image build
-    filters:
-      branches:
-        ignore:
-          - staging
-          - prod  
-
-
-  - hubploy/build-image:
-      deployment:  <hubname>
-      name:  <hubname> image build
-      push: true
-      filters:
-        branches:
-          only:
-            - staging
-
-
-    -  <hubname> image build
-```
-
-Review hubploy.yaml file inside your project directory and update the
-images section. Example from a11y hub:
-
-``` yaml
-images:
-  images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
-      path: image/
-      repo2docker:
-        base_image: docker.io/library/buildpack-deps:jammy
-```
-
-### Add hub to the github labeler workflow
-
-The new hub will now need to be added to the github labeler workflow.
-
-Edit the file `.github/labeler.yml` and add an entry for this hub
-(alphabetically) in the
-`# add hub-specific labels for deployment changes` block:
+To ensure the new hub is deployed, all that needs to be done is add a new entry
+(alphabetically) in `.github/labeler.yml` under the `# add hub-specific labels
+for deployment changes` stanza:
 
 ``` yaml
 "hub: <hubname>":
   - "deployments/<hubname>/**"
+```
+
+#### Hubs using a custom single-user server image
+
+If this hub will be using its own image, then follow the
+[instructions here](https://docs.datahub.berkeley.edu/admins/howto/new-image.html)
+to create the new image and repository.  In this case, the image tag will be
+`PLACEHOLDER` and will be updated AFTER your PR to datahub is merged.
+
+*NOTE:* The changes to the `datahub` repo are required to be merged BEFORE the new
+image configuration is pushed to `main` in the image repo.  This is due to
+the image building/pushing workflow requiring this deployment's
+`hubploy.yaml` to be present in the `deployments/<hubname>/` subdirectory, as
+it updates the image tag.
+
+#### Hubs inheriting an existing single-user server image
+
+If this hub will inherit an existing image, you can just copy `hubploy.yaml`
+from an existing deployment which will contain the latest image hash.
+
+#### Review the deployment's `hubploy.yaml`
+
+Next, review `hubploy.yaml` inside your project directory to confirm that
+looks cromulent.  An example from the `a11y` hub:
+
+``` yaml
+images:
+  images:
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image:<image tag OR "PLACEHOLDER">
 ```
 
 ### Create placeholder node pool
@@ -402,22 +379,34 @@ aside for predicatable periods of heavy ramp up.
 ### Commit and deploy staging
 
 Commit the hub directory, and make a PR to the the `staging` branch in
-the GitHub repo. Once tests pass, merge the PR to get a working staging
-hub! It might take a few minutes for HTTPS to work, but after that you
+the GitHub repo. 
+
+#### Hubs using a custom single-user server image
+
+If this hub is using a custom image, and you're using `PLACEHOLDER` for the
+image tag in `hubploy.yaml`, be sure to remove the hub-specific Github
+label that is automatically attached to this pull request.  It will look
+something like `hub: <hubname>`.  If you don't do this the deployment will
+fail as the image sha of `PLACEHOLDER` doesn't exist.
+
+After this PR is merged, perform the `git push` in your image repo.  This will
+trigger the workflow that builds the image, pushes it to the Artifact Registry,
+and finally creates a commit that updates the image hash in `hubploy.yaml` and
+pushes to the datahub repo.  Once this is merged in to `staging`, the
+deployment pipeline will run and your hub will finally be deployed.
+
+#### Hubs inheriting an existing single-user server image
+
+Your hub's deployment will proceed automatically through the CI/CD pipeline.
+
+It might take a few minutes for HTTPS to work, but after that you
 can log into it at <https://>\<hub_name\>-staging.datahub.berkeley.edu.
 Test it out and make sure things work as you think they should.
 
-1.  Make a PR from the `staging` branch to the `prod` branch. When this
-    PR is merged, it'll deploy the production hub. It might take a few
-    minutes for HTTPS to work, but after that you can log into it at
-    <https://>\<hub_name\>.datahub.berkeley.edu. Test it out and make
-    sure things work as you think they should.
-2.  You may want to customize the docker image for the hub based on your
-    unique requirements. Navigate to deployments/'Project Name'/image
-    and review environment.yml file and identify packages that you want
-    to add from the `conda repository` \<<https://anaconda.org/>\>. You
-    can copy the image manifest files from another deployment. It is
-    recommended to use a repo2docker-style image build, without a
-    Dockerfile, if possible. That format will probably serve as the
-    basis for self-service user-created images in the future.
-3.  All done.
+#### Final step
+
+Make a PR from the `staging` branch to the `prod` branch. When this
+PR is merged, it'll deploy the production hub. It might take a few
+minutes for HTTPS to work, but after that you can log into it at
+<https://>\<hub_name\>.datahub.berkeley.edu. Test it out and make
+sure things work as you think they should.

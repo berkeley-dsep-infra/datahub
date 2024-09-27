@@ -28,8 +28,7 @@ gcloud filestore backups create <hubname>-backup-YYYY-MM-DD --file-share=shares 
 ```
 4.  Log in to `nfsserver-01` and unmount filestore from nfsserver:
     `sudo umount /export/<hubname>-filestore`
-5.  Comment out the hub build steps out in `.circleci/config.yaml`
-    (deploy and build steps)
+5.  Comment out the hub's image repo entry (if applicable) in `scripts/user-image-management/repos.txt`
 6.  Comment out GitHub label action for this hub in
     `.github/labeler.yml`
 7.  Comment hub entries out of `datahub/node-placeholder/values.yaml`
