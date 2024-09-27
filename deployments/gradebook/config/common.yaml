@@ -59,6 +59,7 @@ jupyterhub:
           - name: home
             mountPath: /home/rstudio
             subPath: "{username}"
+        imagePullPolicy: Always
     extraFiles:
       # DH-216
       remove-exporters:
