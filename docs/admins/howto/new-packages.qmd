@@ -30,7 +30,8 @@ To avoid complicated errors, make sure you always specify a version. You
 can find the latest version by searching on
 [pypi.org](https://pypi.org).
 
-Find current version of a python package ===============================
+Find current version of a python package
+===============================
 
 To find the current version of a particular installed package, you can
 run the following in a notebook.
@@ -74,48 +75,52 @@ its current version.
 Familiarize yourself with [pull
 requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
 and [repo2docker](https://github.com/jupyter/repo2docker) , and create a
-fork of the [datahub staging
-branch](https://github.com/berkeley-dsep-infra/datahub).
+fork of the the image repo.
 
 1.  Set up your git/dev environment by [following the instructions
-    here](https://github.com/berkeley-dsep-infra/datahub/#setting-up-your-fork-and-clones).
+    here](https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/CONTRIBUTING.md).
 
 2.  Create a new branch for this PR.
 
 3.  Find the correct `environment.yml`{.interpreted-text role="file"}
-    file for your class. This should be under
-    `datahub/deployments/<class or hub name>/image`
+    file for your class. This should be in the root of the image repo.
 
 4.  In `environment.yml`{.interpreted-text role="file"}, packages listed
     under `dependencies` are installed using `conda`, while packages
     under `pip` are installed using `pip`. Any packages that need to be
     installed via `apt` must be added to either
-    `datahub/deployments/<class or hub name>/image/apt.txt` or
-    `datahub/deployments/<class or hub name>/image/Dockerfile`.
+    `apt.txt` or
+    `Dockerfile`.
 
 5.  Add any packages necessary. We typically prefer using `conda` packages, and `pip` only if necessary. Please pin to a specific version (no wildards, etc).
 
     - Note that package versions for `conda` are specified using
       `=`, while in `pip` they are specified using `==`
 
-6.  Test the changes locally using `repo2docker`, then submit a PR to `staging`.
+6.  Test the changes locally using `repo2docker`, then submit a PR to `main`.
 
-    -   To use `repo2docker`, you have to point it at the right
-        Dockerfile for your class. For example, to test the data100
-        datahub, you would run `repo2docker deployments/data100/image` from the
-        base datahub directory.
+    -   To use `repo2docker`, be sure that you are inside the image
+        repo directory on your device, and then run `repo2docker .`.
 
-7.  Commit and push your changes to your fork of the datahub repo, and
+7.  Commit and push your changes to your fork of the image repo, and
     create a new pull request at
-    <https://github.com/berkeley-dsep-infra/datahub/>.
+    https://github.com/berkeley-dsep-infra/`<image-name>`.
 
-8.  Once the PR is merged to staging, you can test it out on
-    `class-staging.datahub.berkeley.edu`.
+8.  After the build passes, merge your PR in to `main` and the image will
+    be built again and pushed to the Artifact Registry.  If that succeeds,
+    then a commit will be crafted that will update the `PLACEHOLDER` field in
+    `hubploy.yaml` with the image's SHA and pushed to the datahub repo.
+    You can check on the progress of this workflow in your root image repo's
+    `Actions` tab.
 
-9.  Changes are only deployed to datahub once the relevant Travis CI job
-    is completed. See
-    <https://circleci.com/gh/berkeley-dsep-infra/datahub> to view Travis
-    CI job statuses.
+9.  After 4 is completed successfully, go to the Datahub repo and click on
+    the [New pull request](https://github.com/berkeley-dsep-infra/datahub/compare)
+    button.  Next, click on the `compare: staging` drop down, and you should see
+    a branch named something like `update-<hubname>-image-tag-<SHA>`.  Select that,
+    and create a new pull request.
+
+10.  Once the checks has passed, merge to `staging` and your new image will be
+    deployed!  You can watch the progress [here](https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml).
 
 ## Tips for Upgrading Package
 

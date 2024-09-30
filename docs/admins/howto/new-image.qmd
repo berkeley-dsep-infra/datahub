@@ -19,61 +19,103 @@ As always, create a feature branch for your changes, and submit a PR when done.
 
 ## Use an existing image as a template
 
-Browse through our `deployments/` directory to find a hub that is similar to
-the one you are trying to create. This will give you a good starting point.
+Browse through our [image repos](https://github.com/orgs/berkeley-dsep-infra/repositories?language=&q=image&sort=&type=all)
+to find a hub that is similar to the one you are trying to create. This will
+give you a good starting point.
 
-## Create the image directory
+## Create the image repos
 
-Create a new `image/` directory in the deployment. Then copy the contents (and
-any subdirectories) of the source `image/` directory in to the new directory.
+Create a new image repo from the [hub-user-image-template](https://github.com/berkeley-dsep-infra/hub-user-image-template).
+Click "Use this template" > "Create a new repository".
 
-## Modify `hubploy.yaml` for the hub
+Be sure to follow convention and name the repo `<hubname>-user-image`, and the
+owner needs to be `berkeley-dsep-infra`. When that is done, create your own
+fork of the new repo.
 
-In the deployment\'s `hubploy.yaml` file,
-add or modify the `name`, `path` and `base_image` fields to configure
-the image build and where it\'s stored in the Google Artifcat Registry.
+### Configuring the root image repo
 
-`name` should contain the path to the image in the Google Artifact
-Registry and the name of the image. `path` points to the directory
-containing the image configuration (typically :file::`image/`. `base_image` is
-the base Docker image to use for the image build.
+There are now a few steps to set up the CI/CD for the new image repo.  In the
+`berkeley-dsep-infra` image repo, click on `Settings`, and under `General`,
+scroll down to `Pull Requests` and check the box labeled `Automatically delete
+head branches`.
 
-For example, `hubploy.yaml` for the data100 image looks like this:
+Scroll back up to the top of the settings, and in the left menu bar, click on
+`Secrets and variables`, and then `Actions`.
 
-``` yaml
+From there, click on the `Variables` tab and then `New repository variable`. We
+will be adding two new variables:
+
+1. `HUB`:  the name of the hub (eg: datahub)
+
+1. `IMAGE`:  the Google Artifact Registry path and image name.  The path will
+always be `ucb-datahub-2018/user-images/<image-name>` and the
+image name will always be the same as the repo:  `<hubname>-user-image`.
+
+### Configure your fork
+
+Now you will want to disable Github Actions for your fork of the image repo.
+If you don't, whenever you push PRs to the root repo the workflows *in your
+fork* will attempt to run, but don't have the proper permissions to
+successfully complete.  This will then send you a nag email about a workflow
+failure.
+
+To disable this for your fork, click on `Settings`, `Actions` and `General`.
+Check the `Disable actions` box and click save.
+
+### Add the root image repo to the list of allowed repos in the `berkeley-dsep-infra` secrets.
+
+Now, go to the `berkeley-dsep-infra` [Secrets and Variables](https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions).
+You will need to give your repo permissions to push to the Artifact Registry,
+as well as to push a branch to the [datahub repo](https://github.com/berkeley-dsep-infra/datahub).
+
+Edit both `DATAHUB_CREATE_PR` and `GAR_SECRET_KEY`, and click on the gear icon,
+search for your repo name, check the box and save.
+
+### Update your deployment's `hubploy.yaml` and add the image to the primary list of repos.
+
+You need to let `hubploy` know the specifics of the image. Change the `name` of the image in
+`deployments/<hubname>/hubploy.yaml` to point to your new image name, and after the name add
+`:PLACEHOLDER` in place of the image sha.  This will be automatically updated after your new image
+is built and pushed to the Artifact Registry.
+
+Example:
+
+```
 images:
-   images:
-      - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data100-user-image
-         path: image/
-         repo2docker:
-            base_image: docker.io/library/buildpack-deps:jammy
-   registry:
-      provider: gcloud
-      gcloud:
-         project: ucb-datahub-2018
-         service_key: gcr-key.json
+  images:
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/fancynewhub-user-image:PLACEHOLDER
 
 cluster:
-provider: gcloud
-gcloud:
-   project: ucb-datahub-2018
-   service_key: gke-key.json
-   cluster: spring-2024
-   zone: us-central1
+  provider: gcloud
+  gcloud:
+    project: ucb-datahub-2018
+    service_key: gke-key.json
+    cluster: spring-2024
+    zone: us-central1
+```
+
+Next, add the ssh clone path of the root image repo to [repos.txt](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt).
+
+Create a PR and merge to staging.  You can cancel the
+[`Deploy staging and prod hubs` job in Actions](https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml),
+or just let it fail.
+
+## Add a github bot notification in Slack
+
+Go to the #ucb-datahubs-bots channel, and run the following command:
+
+```
+/github subscribe berkeley-dsep-infra/<your repo name>
 ```
 
 ## Modify the image configuration as necessary
 
-This step is straightforward: edit/modify/delete/add any files in the
-`image/` directory to configure the image
-as needed.
+This step is straightforward: create a feature branch, edit/modify/delete/add
+any files in the image repo to configure the image as needed.
 
-## Update CI/CD configuration
-
-Next, ensure that this image will be built and deployed by updating the
-`.circleci/config.yml` file in the root
-of the repository. Add new steps under the `jobs/deploy:`,
-`workflows/test-build-images:` and `workflows/deploy:` stanzas.
+We also strongly recommend copying `README-template.md` over the default
+`README.md`, and modifying it to replace all occurrences of `<HUBNAME>` with
+the name of your image.
 
 ## Submitting a pull request
 
@@ -84,27 +126,30 @@ fork of the [datahub staging
 branch](https://github.com/berkeley-dsep-infra/datahub).
 
 1.  Set up your git/dev environment by [following the instructions
-    here](https://github.com/berkeley-dsep-infra/datahub/#setting-up-your-fork-and-clones).
+    here](https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/CONTRIBUTING.md).
+    :   - This guide is also located in your image repo!
 
-2.  Create a new branch for this PR.
+2.  Test the changes locally using `repo2docker`, then submit a PR to `staging`.
 
-3.  
+    :   -   To use `repo2docker`, be sure that you are inside the image
+            repo directory on your device, and then run `repo2docker .`.
 
-    Test the changes locally using `repo2docker`, then submit a PR to `staging`.
-
-    :   -   To use `repo2docker`, you have to point it at the correct
-            image directory. For example, to build the data100 image,
-            you would run `repo2docker deployments/data100/image` from
-            the base datahub directory.
-
-4.  Commit and push your changes to your fork of the datahub repo, and
+3.  Commit and push your changes to your fork of the image repo, and
     create a new pull request at
-    <https://github.com/berkeley-dsep-infra/datahub/>.
+    https://github.com/berkeley-dsep-infra/<hubname-user-image>.
 
-5.  Once the PR is merged to staging and the new image is built and
-    pushed to Artifact Registry, you can test it out on
-    `<hub>-staging.datahub.berkeley.edu`.
+4.  After the build passes, merge your PR in to `main` and the image will
+    be built again and pushed to the Artifact Registry.  If that succeeds,
+    then a commit will be crafted that will update the `PLACEHOLDER` field in
+    `hubploy.yaml` with the image's SHA and pushed to the datahub repo.
+    You can check on the progress of this workflow in your root image repo's
+    `Actions` tab.
 
-6.  Changes are only deployed to prod once the relevant CI job is
-    completed. See <https://circleci.com/gh/berkeley-dsep-infra/datahub>
-    to view CircleCI job statuses.
+5.  After 4 is completed successfully, go to the Datahub repo and click on
+    the [New pull request](https://github.com/berkeley-dsep-infra/datahub/compare)
+    button.  Next, click on the `compare: staging` drop down, and you should see
+    a branch named something like `update-<hubname>-image-tag-<SHA>`.  Select that,
+    and create a new pull request.
+
+6.  Once the checks has passed, merge to `staging` and your new image will be
+    deployed!  You can watch the progress [here](https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml).

@@ -1,5 +1,5 @@
 images:
-  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/biology-user-image:c6aa3725c360
+  image_name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/biology-user-image:a81b11cbb998
 
 cluster:
   provider: gcloud

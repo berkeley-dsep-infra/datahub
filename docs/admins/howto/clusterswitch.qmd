@@ -10,8 +10,8 @@ You might find it easier to switch to a new cluster if you're running a [very ol
 1. Create a new cluster using the specified [configuration](../cluster-config.qmd).
 2. Set up helm on the cluster according to the instructions here:  
    http://z2jh.jupyter.org/en/latest/setup-helm.html
-     - Make sure the version of helm you're working with matches the version CircleCI is using.  
-       For example:  https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circleci/config.yml#L169
+     - Make sure the version of helm you're working with matches the version Github Actions is using.
+       For example:  https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml#L66
 3. Re-create all existing node pools for hubs, support and prometheus deployments in the new cluster.  If the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes.  Wait ~15m for the new pools to wind down to zero, and then continue.
 
 ## Setting the 'context' for kubectl and work on the new cluster.
@@ -110,13 +110,21 @@ for x in $(cat hubs.txt); do hubploy deploy ${x} hub prod; done
 
 When done, add the modified configs to your feature branch (and again, don't push yet).
 
-## Update CircleCI
-Once you've successfully deployed the clusters manually via `hubploy`, it's time to update CircleCI to point to the new cluster.
+## Update Github Actions
+Once you've successfully deployed the clusters manually via `hubploy`, it's time to update the Github Actions to point to the new cluster.
 
-All you need to do is `grep` for the old cluster name in `.circleci/config.yaml` and change this to the name of the new cluster.  There should just be four entries:  two for the `gcloud get credentials <cluster-name>`, and two in comments.  Make these changes and add them to your existing feature branch, but don't commit yet.
+All you need to do is `grep` for the old cluster name in `.github/workflows/` and change this to the name of the new cluster.
+There should just be two entries, one each in the support and node placeholder deploy workflows.
+Make these changes and add them to your existing feature branch, but don't commit yet.
+
+```
+$ grep -ir spring .github/workflows
+.github/workflows/deploy-node-placeholder.yaml:            get-credentials spring-2024
+.github/workflows/deploy-support.yaml:            get-credentials spring-2024
+```
 
 ## Create and merge your PR!
-Now you can finally push your changes to github.  Create a PR, merge to `staging` and immediately kill off the deploy jobs for `node-placeholder`, `support` and `deploy`.
+Now you can finally push your changes to github.  Create a PR, merge to `staging` and immediately kill off the [deploy jobs](https://github.com/berkeley-dsep-infra/datahub/actions) for `node-placeholder`, `support` and `deploy`.
 
 Create another PR to merge to `prod` and that deploy should work just fine.
 

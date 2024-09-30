@@ -5,7 +5,7 @@ title: Documentation
 ## Overview
 
 Documentation is managed under the `docs/` folder, and is generated with
-[Quarto](https://quarto/). It is published to this site,
+[Quarto](https://quarto.org/). It is published to this site,
 <https://docs.datahub.berkeley.edu>, hosted at GitHub Pages. Content is written
 in [markdown](https://quarto.org/docs/authoring/markdown-basics.html).
 
