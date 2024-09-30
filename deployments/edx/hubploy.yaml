@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/data8x-scratch/user-images/edx-user-image:64d38046ca94
+    - name: us-central1-docker.pkg.dev/data8x-scratch/user-images/edx-user-image:44cfbcb5cc13
 
 cluster:
   provider: gcloud
