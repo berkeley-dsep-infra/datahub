@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data8-user-image:949086545647
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data8-user-image:84d9c800dba0
 
 cluster:
   provider: gcloud
