@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/publichealth-user-image:8b70e125f905
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/publichealth-user-image:017e1f8f1a30
 
 cluster:
   provider: gcloud
