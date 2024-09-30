@@ -117,11 +117,11 @@ def push(args):
             if not os.path.exists(path):
                 print(f"Skipping {name} as it doesn't exist.")
                 continue
-            print(f"Pushing {name} to {args.origin}...")
             if not args.origin:
                 remote = "origin"
             else:
                 remote = args.origin
+            print(f"Pushing {name} to {remote}...")
             subprocess.check_call(["git", "push", remote, args.branch], cwd=path)
             print()
 
