@@ -1,5 +1,3 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/berkeley-dsep-infra/datahub/tree/staging.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/berkeley-dsep-infra/datahub/tree/staging)
-
 # Berkeley JupyterHubs 
 
 Contains a fully reproducible configuration for JupyterHub on datahub.berkeley.edu,
@@ -8,6 +6,13 @@ as well as the single user images.
 [UC Berkeley Datahub](https://cdss.berkeley.edu/data)
 
 [UC Berkeley CDSS](https://cdss.berkeley.edu)
+
+## Single-user server images
+All user images are located in their own repositories located in the
+[Berkeley DSEP infra repo](https://github.com/berkeley-dsep-infra).  You can
+find them either by [searching there](https://github.com/orgs/berkeley-dsep-infra/repositories?language=&q=image&sort=&type=all)
+or from links in the deployment's `image/README.md`
+([eg: Datahub's](https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/datahub/image)).
 
 ## Branches
 
@@ -107,7 +112,7 @@ branch of this repo while the choice for `head` is your fork.
 
 Once this is complete and if there are no problems, you can request that
 someone review the PR before merging, or you can merge yourself if you are
-confident. This merge will trigger a CircleCI process which upgrades the
+confident. This merge will trigger a Github Actions workflow which upgrades the
 helm deployment on the staging site. When this is complete, test your
 changes there. For example if you updated a library, make sure that a new
 user server instance has the new version. If you spot any problems you can
