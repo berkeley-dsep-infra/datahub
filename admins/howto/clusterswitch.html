@@ -427,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#manually-deploy-the-support-and-prometheus-pools" id="toc-manually-deploy-the-support-and-prometheus-pools" class="nav-link" data-scroll-target="#manually-deploy-the-support-and-prometheus-pools">Manually deploy the support and prometheus pools</a></li>
   <li><a href="#manually-deploy-a-hub-to-staging" id="toc-manually-deploy-a-hub-to-staging" class="nav-link" data-scroll-target="#manually-deploy-a-hub-to-staging">Manually deploy a hub to staging</a></li>
   <li><a href="#manually-deploy-remaining-hubs-to-staging-and-prod" id="toc-manually-deploy-remaining-hubs-to-staging-and-prod" class="nav-link" data-scroll-target="#manually-deploy-remaining-hubs-to-staging-and-prod">Manually deploy remaining hubs to staging and prod</a></li>
-  <li><a href="#update-circleci" id="toc-update-circleci" class="nav-link" data-scroll-target="#update-circleci">Update CircleCI</a></li>
+  <li><a href="#update-github-actions" id="toc-update-github-actions" class="nav-link" data-scroll-target="#update-github-actions">Update Github Actions</a></li>
   <li><a href="#create-and-merge-your-pr" id="toc-create-and-merge-your-pr" class="nav-link" data-scroll-target="#create-and-merge-your-pr">Create and merge your PR!</a></li>
   <li><a href="#update-log-and-billing-sinks-bigquery-queries-etc." id="toc-update-log-and-billing-sinks-bigquery-queries-etc." class="nav-link" data-scroll-target="#update-log-and-billing-sinks-bigquery-queries-etc.">Update log and billing sinks, BigQuery queries, etc.</a></li>
   <li><a href="#deleting-the-old-cluster" id="toc-deleting-the-old-cluster" class="nav-link" data-scroll-target="#deleting-the-old-cluster">Deleting the old cluster</a></li>
@@ -465,8 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Set up helm on the cluster according to the instructions here:<br>
 http://z2jh.jupyter.org/en/latest/setup-helm.html
 <ul>
-<li>Make sure the version of helm you’re working with matches the version CircleCI is using.<br>
-For example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circleci/config.yml#L169</li>
+<li>Make sure the version of helm you’re working with matches the version Github Actions is using. For example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml#L66</li>
 </ul></li>
 <li>Re-create all existing node pools for hubs, support and prometheus deployments in the new cluster. If the old cluster is still up and running, you will probably run out of CPU quota, as the new node pools will immediately default to three nodes. Wait ~15m for the new pools to wind down to zero, and then continue.</li>
 </ol>
@@ -543,14 +542,17 @@ For example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circle
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> hubs.txt<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">hubploy</span> deploy <span class="va">${x}</span> hub prod<span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When done, add the modified configs to your feature branch (and again, don’t push yet).</p>
 </section>
-<section id="update-circleci" class="level2">
-<h2 class="anchored" data-anchor-id="update-circleci">Update CircleCI</h2>
-<p>Once you’ve successfully deployed the clusters manually via <code>hubploy</code>, it’s time to update CircleCI to point to the new cluster.</p>
-<p>All you need to do is <code>grep</code> for the old cluster name in <code>.circleci/config.yaml</code> and change this to the name of the new cluster. There should just be four entries: two for the <code>gcloud get credentials &lt;cluster-name&gt;</code>, and two in comments. Make these changes and add them to your existing feature branch, but don’t commit yet.</p>
+<section id="update-github-actions" class="level2">
+<h2 class="anchored" data-anchor-id="update-github-actions">Update Github Actions</h2>
+<p>Once you’ve successfully deployed the clusters manually via <code>hubploy</code>, it’s time to update the Github Actions to point to the new cluster.</p>
+<p>All you need to do is <code>grep</code> for the old cluster name in <code>.github/workflows/</code> and change this to the name of the new cluster. There should just be two entries, one each in the support and node placeholder deploy workflows. Make these changes and add them to your existing feature branch, but don’t commit yet.</p>
+<pre><code>$ grep -ir spring .github/workflows
+.github/workflows/deploy-node-placeholder.yaml:            get-credentials spring-2024
+.github/workflows/deploy-support.yaml:            get-credentials spring-2024</code></pre>
 </section>
 <section id="create-and-merge-your-pr" class="level2">
 <h2 class="anchored" data-anchor-id="create-and-merge-your-pr">Create and merge your PR!</h2>
-<p>Now you can finally push your changes to github. Create a PR, merge to <code>staging</code> and immediately kill off the deploy jobs for <code>node-placeholder</code>, <code>support</code> and <code>deploy</code>.</p>
+<p>Now you can finally push your changes to github. Create a PR, merge to <code>staging</code> and immediately kill off the <a href="https://github.com/berkeley-dsep-infra/datahub/actions">deploy jobs</a> for <code>node-placeholder</code>, <code>support</code> and <code>deploy</code>.</p>
 <p>Create another PR to merge to <code>prod</code> and that deploy should work just fine.</p>
 </section>
 <section id="update-log-and-billing-sinks-bigquery-queries-etc." class="level2">
@@ -561,7 +563,7 @@ For example: https://github.com/berkeley-dsep-infra/datahub/blob/staging/.circle
 <section id="deleting-the-old-cluster" class="level2">
 <h2 class="anchored" data-anchor-id="deleting-the-old-cluster">Deleting the old cluster</h2>
 <p>After waiting a reasonable period of time (a day or two just to be cautious) and after fetching the usage logs, you may delete the old cluster:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container clusters delete <span class="va">${OLDCLUSTER}</span> <span class="at">--region</span><span class="op">=</span>us-central1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container clusters delete <span class="va">${OLDCLUSTER}</span> <span class="at">--region</span><span class="op">=</span>us-central1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>

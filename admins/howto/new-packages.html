@@ -419,6 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#install-a-python-package-in-your-notebook" id="toc-install-a-python-package-in-your-notebook" class="nav-link active" data-scroll-target="#install-a-python-package-in-your-notebook">Install a python package in your notebook</a></li>
+  <li><a href="#find-current-version-of-a-python-package" id="toc-find-current-version-of-a-python-package" class="nav-link" data-scroll-target="#find-current-version-of-a-python-package">Find current version of a python package</a></li>
   <li><a href="#installupdate-a-r-package-in-your-rstudio" id="toc-installupdate-a-r-package-in-your-rstudio" class="nav-link" data-scroll-target="#installupdate-a-r-package-in-your-rstudio">Install/Update a R package in your RStudio</a>
   <ul class="collapse">
   <li><a href="#submitting-a-pull-request" id="toc-submitting-a-pull-request" class="nav-link" data-scroll-target="#submitting-a-pull-request">Submitting a pull request</a></li>
@@ -456,7 +457,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">!pip</span> install <span class="at">--upgrade</span> packagename==version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You can then execute this cell every time you run the notebook. This will ensure you have the version you think you have when running your code.</p>
 <p>To avoid complicated errors, make sure you always specify a version. You can find the latest version by searching on <a href="https://pypi.org">pypi.org</a>.</p>
-<p>Find current version of a python package ===============================</p>
+</section>
+<section id="find-current-version-of-a-python-package" class="level1">
+<h1>Find current version of a python package</h1>
 <p>To find the current version of a particular installed package, you can run the following in a notebook.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">!pip</span> list <span class="kw">|</span> <span class="fu">grep</span> <span class="op">&lt;</span>name-of-package<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This should show you the particular package you are interested in and its current version.</p>
@@ -472,23 +475,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This should show you the particular package you are interested in and its current version.</p>
 <section id="submitting-a-pull-request" class="level2">
 <h2 class="anchored" data-anchor-id="submitting-a-pull-request">Submitting a pull request</h2>
-<p>Familiarize yourself with <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a> and <a href="https://github.com/jupyter/repo2docker">repo2docker</a> , and create a fork of the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub staging branch</a>.</p>
+<p>Familiarize yourself with <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a> and <a href="https://github.com/jupyter/repo2docker">repo2docker</a> , and create a fork of the the image repo.</p>
 <ol type="1">
-<li><p>Set up your git/dev environment by <a href="https://github.com/berkeley-dsep-infra/datahub/#setting-up-your-fork-and-clones">following the instructions here</a>.</p></li>
+<li><p>Set up your git/dev environment by <a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/CONTRIBUTING.md">following the instructions here</a>.</p></li>
 <li><p>Create a new branch for this PR.</p></li>
-<li><p>Find the correct <code class="interpreted-text" role="file">environment.yml</code> file for your class. This should be under <code>datahub/deployments/&lt;class or hub name&gt;/image</code></p></li>
-<li><p>In <code class="interpreted-text" role="file">environment.yml</code>, packages listed under <code>dependencies</code> are installed using <code>conda</code>, while packages under <code>pip</code> are installed using <code>pip</code>. Any packages that need to be installed via <code>apt</code> must be added to either <code>datahub/deployments/&lt;class or hub name&gt;/image/apt.txt</code> or <code>datahub/deployments/&lt;class or hub name&gt;/image/Dockerfile</code>.</p></li>
+<li><p>Find the correct <code class="interpreted-text" role="file">environment.yml</code> file for your class. This should be in the root of the image repo.</p></li>
+<li><p>In <code class="interpreted-text" role="file">environment.yml</code>, packages listed under <code>dependencies</code> are installed using <code>conda</code>, while packages under <code>pip</code> are installed using <code>pip</code>. Any packages that need to be installed via <code>apt</code> must be added to either <code>apt.txt</code> or <code>Dockerfile</code>.</p></li>
 <li><p>Add any packages necessary. We typically prefer using <code>conda</code> packages, and <code>pip</code> only if necessary. Please pin to a specific version (no wildards, etc).</p>
 <ul>
 <li>Note that package versions for <code>conda</code> are specified using <code>=</code>, while in <code>pip</code> they are specified using <code>==</code></li>
 </ul></li>
-<li><p>Test the changes locally using <code>repo2docker</code>, then submit a PR to <code>staging</code>.</p>
+<li><p>Test the changes locally using <code>repo2docker</code>, then submit a PR to <code>main</code>.</p>
 <ul>
-<li>To use <code>repo2docker</code>, you have to point it at the right Dockerfile for your class. For example, to test the data100 datahub, you would run <code>repo2docker deployments/data100/image</code> from the base datahub directory.</li>
+<li>To use <code>repo2docker</code>, be sure that you are inside the image repo directory on your device, and then run <code>repo2docker .</code>.</li>
 </ul></li>
-<li><p>Commit and push your changes to your fork of the datahub repo, and create a new pull request at <a href="https://github.com/berkeley-dsep-infra/datahub/" class="uri">https://github.com/berkeley-dsep-infra/datahub/</a>.</p></li>
-<li><p>Once the PR is merged to staging, you can test it out on <code>class-staging.datahub.berkeley.edu</code>.</p></li>
-<li><p>Changes are only deployed to datahub once the relevant Travis CI job is completed. See <a href="https://circleci.com/gh/berkeley-dsep-infra/datahub" class="uri">https://circleci.com/gh/berkeley-dsep-infra/datahub</a> to view Travis CI job statuses.</p></li>
+<li><p>Commit and push your changes to your fork of the image repo, and create a new pull request at https://github.com/berkeley-dsep-infra/<code>&lt;image-name&gt;</code>.</p></li>
+<li><p>After the build passes, merge your PR in to <code>main</code> and the image will be built again and pushed to the Artifact Registry. If that succeeds, then a commit will be crafted that will update the <code>PLACEHOLDER</code> field in <code>hubploy.yaml</code> with the image’s SHA and pushed to the datahub repo. You can check on the progress of this workflow in your root image repo’s <code>Actions</code> tab.</p></li>
+<li><p>After 4 is completed successfully, go to the Datahub repo and click on the <a href="https://github.com/berkeley-dsep-infra/datahub/compare">New pull request</a> button. Next, click on the <code>compare: staging</code> drop down, and you should see a branch named something like <code>update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;</code>. Select that, and create a new pull request.</p></li>
+<li><p>Once the checks has passed, merge to <code>staging</code> and your new image will be deployed! You can watch the progress <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml">here</a>.</p></li>
 </ol>
 </section>
 <section id="tips-for-upgrading-package" class="level2">

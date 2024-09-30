@@ -429,10 +429,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-the-hub-deployment-locally" id="toc-create-the-hub-deployment-locally" class="nav-link" data-scroll-target="#create-the-hub-deployment-locally">Create the hub deployment locally</a></li>
   <li><a href="#configure-filestore-security-settings-and-gcp-billing-labels" id="toc-configure-filestore-security-settings-and-gcp-billing-labels" class="nav-link" data-scroll-target="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
   <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a></li>
-  <li><a href="#circleci" id="toc-circleci" class="nav-link" data-scroll-target="#circleci">CircleCI</a></li>
-  <li><a href="#add-hub-to-the-github-labeler-workflow" id="toc-add-hub-to-the-github-labeler-workflow" class="nav-link" data-scroll-target="#add-hub-to-the-github-labeler-workflow">Add hub to the github labeler workflow</a></li>
+  <li><a href="#cicd-and-single-user-server-image" id="toc-cicd-and-single-user-server-image" class="nav-link" data-scroll-target="#cicd-and-single-user-server-image">CI/CD and single-user server image</a></li>
   <li><a href="#create-placeholder-node-pool" id="toc-create-placeholder-node-pool" class="nav-link" data-scroll-target="#create-placeholder-node-pool">Create placeholder node pool</a></li>
-  <li><a href="#commit-and-deploy-staging" id="toc-commit-and-deploy-staging" class="nav-link" data-scroll-target="#commit-and-deploy-staging">Commit and deploy staging</a></li>
+  <li><a href="#commit-and-deploy-to-staging" id="toc-commit-and-deploy-to-staging" class="nav-link" data-scroll-target="#commit-and-deploy-to-staging">Commit and deploy to <code>staging</code></a></li>
+  <li><a href="#commit-and-deploy-to-prod" id="toc-commit-and-deploy-to-prod" class="nav-link" data-scroll-target="#commit-and-deploy-to-prod">Commit and deploy to <code>prod</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -486,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Google Cloud IAM: <em>owner</em></li>
 <li>Write access to the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub repo</a></li>
-<li>CircleCI account linked to our GitHub organization.</li>
+<li>Owner or admin access to the <a href="https://github.com/berkeley-dsep-infra/">berkeley-dsep-infra organization</a></li>
 </ul>
 </section>
 <section id="configuring-a-new-hub" class="level2">
@@ -605,50 +605,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>Please reach out to Jonathan Felder to set this up, or <a href="mailto:bcourseshelp@berkeley.edu" class="email">bcourseshelp@berkeley.edu</a> if he is not available.</p>
 </section>
-<section id="circleci" class="level3">
-<h3 class="anchored" data-anchor-id="circleci">CircleCI</h3>
-<p>The CircleCI configuration file <code>.circleci/config.yml</code> will need to include directives for building and deploying your new hub at several phases of the CircleCI process. Generally speaking, an adequate manual strategy for this is to pick the name of an existing hub, find each occurrence of that name, and add analogous entries for your new hub alongside your example existing hub. Please order new entries for your new hub in alphabetical order amongst the entries for existing hubs.</p>
-<p>Here is a partial (but incomplete) sampling of some of the relevant sections of the CircleCI configuration file:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy &lt;hubname&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">      command</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        hubploy deploy &lt;hubname&gt; hub ${CIRCLE_BRANCH}</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">deployment</span><span class="kw">:</span><span class="at"> &lt;hubname&gt;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> &lt;hubname&gt; image build</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">ignore</span><span class="kw">:</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> staging</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> prod  </span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">hubploy/build-image</span><span class="kw">:</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">deployment</span><span class="kw">:</span><span class="at">  &lt;hubname&gt;</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at">  &lt;hubname&gt; image build</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">push</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">only</span><span class="kw">:</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> staging</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at">  &lt;hubname&gt; image build</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Review hubploy.yaml file inside your project directory and update the images section. Example from a11y hub:</p>
+<section id="cicd-and-single-user-server-image" class="level3">
+<h3 class="anchored" data-anchor-id="cicd-and-single-user-server-image">CI/CD and single-user server image</h3>
+<p>CI/CD is managed through Github Actions, and the relevant workflows are located in <code>.github/workflows/</code>. Deploying all hubs are managed via Pull Request Labels, which are applied automatically on PR creation.</p>
+<p>To ensure the new hub is deployed, all that needs to be done is add a new entry (alphabetically) in <code>.github/labeler.yml</code> under the <code># add hub-specific labels for deployment changes</code> stanza:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="hubs-using-a-custom-single-user-server-image" class="level4">
+<h4 class="anchored" data-anchor-id="hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</h4>
+<p>If this hub will be using its own image, then follow the <a href="https://docs.datahub.berkeley.edu/admins/howto/new-image.html">instructions here</a> to create the new image and repository. In this case, the image tag will be <code>PLACEHOLDER</code> and will be updated AFTER your PR to datahub is merged.</p>
+<p><em>NOTE:</em> The changes to the <code>datahub</code> repo are required to be merged BEFORE the new image configuration is pushed to <code>main</code> in the image repo. This is due to the image building/pushing workflow requiring this deployment’s <code>hubploy.yaml</code> to be present in the <code>deployments/&lt;hubname&gt;/</code> subdirectory, as it updates the image tag.</p>
+</section>
+<section id="hubs-inheriting-an-existing-single-user-server-image" class="level4">
+<h4 class="anchored" data-anchor-id="hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</h4>
+<p>If this hub will inherit an existing image, you can just copy <code>hubploy.yaml</code> from an existing deployment which will contain the latest image hash.</p>
+</section>
+<section id="review-the-deployments-hubploy.yaml" class="level4">
+<h4 class="anchored" data-anchor-id="review-the-deployments-hubploy.yaml">Review the deployment’s <code>hubploy.yaml</code></h4>
+<p>Next, review <code>hubploy.yaml</code> inside your project directory to confirm that looks cromulent. An example from the <code>a11y</code> hub:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">images</span><span class="kw">:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">images</span><span class="kw">:</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">path</span><span class="kw">:</span><span class="at"> image/</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">repo2docker</span><span class="kw">:</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">base_image</span><span class="kw">:</span><span class="at"> docker.io/library/buildpack-deps:jammy</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image:&lt;image tag OR "PLACEHOLDER"&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="add-hub-to-the-github-labeler-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="add-hub-to-the-github-labeler-workflow">Add hub to the github labeler workflow</h3>
-<p>The new hub will now need to be added to the github labeler workflow.</p>
-<p>Edit the file <code>.github/labeler.yml</code> and add an entry for this hub (alphabetically) in the <code># add hub-specific labels for deployment changes</code> block:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="create-placeholder-node-pool" class="level3">
 <h3 class="anchored" data-anchor-id="create-placeholder-node-pool">Create placeholder node pool</h3>
@@ -664,43 +642,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Subract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.</p></li>
 <li><p>Add an entry for the new placeholder node config in <code>values.yaml</code>:</p></li>
 </ol>
-<div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hub.jupyter.org/pool-name</span><span class="kw">:</span><span class="at"> data102-pool</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">requests</span><span class="kw">:</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hub.jupyter.org/pool-name</span><span class="kw">:</span><span class="at"> data102-pool</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">requests</span><span class="kw">:</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For reference, here’s example output from collecting and calculating the values for <code>data102</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">60055600Ki%</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="dt">\</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>-o jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span> <span class="co"># convert all values to bytes, sum them</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="ex">calico-node</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit</span>       100Mi</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit-gke</span>   100Mi</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-metrics-agent</span>       60Mi</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ip-masq-agent</span>   16Mi</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="ex">kube-proxy</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="ex">prometheus-node-exporter</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">60055600Ki%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="dt">\</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>-o jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span> <span class="co"># convert all values to bytes, sum them</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">calico-node</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit</span>       100Mi</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit-gke</span>   100Mi</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-metrics-agent</span>       60Mi</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ip-masq-agent</span>   16Mi</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="ex">kube-proxy</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="ex">prometheus-node-exporter</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, <a href="../../admins/howto/calendar-scaler.html">calendar events</a>. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.</p>
 </section>
-<section id="commit-and-deploy-staging" class="level3">
-<h3 class="anchored" data-anchor-id="commit-and-deploy-staging">Commit and deploy staging</h3>
-<p>Commit the hub directory, and make a PR to the the <code>staging</code> branch in the GitHub repo. Once tests pass, merge the PR to get a working staging hub! It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</p>
-<ol type="1">
-<li>Make a PR from the <code>staging</code> branch to the <code>prod</code> branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</li>
-<li>You may want to customize the docker image for the hub based on your unique requirements. Navigate to deployments/‘Project Name’/image and review environment.yml file and identify packages that you want to add from the <code>conda repository</code> &lt;<a href="https://anaconda.org/" class="uri">https://anaconda.org/</a>&gt;. You can copy the image manifest files from another deployment. It is recommended to use a repo2docker-style image build, without a Dockerfile, if possible. That format will probably serve as the basis for self-service user-created images in the future.</li>
-<li>All done.</li>
-</ol>
+<section id="commit-and-deploy-to-staging" class="level3">
+<h3 class="anchored" data-anchor-id="commit-and-deploy-to-staging">Commit and deploy to <code>staging</code></h3>
+<p>Commit the hub directory, and make a PR to the the <code>staging</code> branch in the GitHub repo.</p>
+<section id="hubs-using-a-custom-single-user-server-image-1" class="level4">
+<h4 class="anchored" data-anchor-id="hubs-using-a-custom-single-user-server-image-1">Hubs using a custom single-user server image</h4>
+<p>If this hub is using a custom image, and you’re using <code>PLACEHOLDER</code> for the image tag in <code>hubploy.yaml</code>, be sure to remove the hub-specific Github label that is automatically attached to this pull request. It will look something like <code>hub: &lt;hubname&gt;</code>. If you don’t do this the deployment will fail as the image sha of <code>PLACEHOLDER</code> doesn’t exist.</p>
+<p>After this PR is merged, perform the <code>git push</code> in your image repo. This will trigger the workflow that builds the image, pushes it to the Artifact Registry, and finally creates a commit that updates the image hash in <code>hubploy.yaml</code> and pushes to the datahub repo. Once this is merged in to <code>staging</code>, the deployment pipeline will run and your hub will finally be deployed.</p>
+</section>
+<section id="hubs-inheriting-an-existing-single-user-server-image-1" class="level4">
+<h4 class="anchored" data-anchor-id="hubs-inheriting-an-existing-single-user-server-image-1">Hubs inheriting an existing single-user server image</h4>
+<p>Your hub’s deployment will proceed automatically through the CI/CD pipeline.</p>
+<p>It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</p>
+</section>
+</section>
+<section id="commit-and-deploy-to-prod" class="level3">
+<h3 class="anchored" data-anchor-id="commit-and-deploy-to-prod">Commit and deploy to <code>prod</code></h3>
+<p>Make a PR from the <code>staging</code> branch to the <code>prod</code> branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</p>
 
 
 </section>

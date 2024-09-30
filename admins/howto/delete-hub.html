@@ -465,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore backups create <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-backup-YYYY-MM-DD <span class="at">--file-share</span><span class="op">=</span>shares <span class="at">--instance</span><span class="op">=&lt;</span>hubname-YYYY-MM-DD<span class="op">&gt;</span> --region <span class="st">"us-central1"</span> <span class="at">--labels</span><span class="op">=</span>filestore-backup=<span class="op">&lt;</span>hub name<span class="op">&gt;</span>,hub=<span class="op">&lt;</span>hub name<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>Log in to <code>nfsserver-01</code> and unmount filestore from nfsserver: <code>sudo umount /export/&lt;hubname&gt;-filestore</code></li>
-<li>Comment out the hub build steps out in <code>.circleci/config.yaml</code> (deploy and build steps)</li>
+<li>Comment out the hub’s image repo entry (if applicable) in <code>scripts/user-image-management/repos.txt</code></li>
 <li>Comment out GitHub label action for this hub in <code>.github/labeler.yml</code></li>
 <li>Comment hub entries out of <code>datahub/node-placeholder/values.yaml</code></li>
 <li>Delete k8s namespace:</li>
