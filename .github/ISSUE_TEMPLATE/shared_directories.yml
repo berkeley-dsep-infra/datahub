@@ -1,4 +1,4 @@
-name: Setup Shared/Shared-readwrite directories
+name: Setup Shared directories
 description: To store large datasets that can be read by student notebooks
 labels: "support"
 assignees:
@@ -68,7 +68,7 @@ body:
       label: Shared Directory Name
       description: What should be the name of the shared and shared-readwrite directories?
       value: |
-        - <!-- Eg: coursename-shared and coursename-readwrite can be the directory names. Eg: compss-214a-readwrite and compss-214a-shared are the shared-readwrite and shared directories for the COMPSS-214A course -->
+        - <!-- Eg: coursename-shared and coursename-readwrite can be the directory names. Eg: data100-shared and data100-shared-readwrite are the shared and shared-readwrite  directories for the Data100 course -->
     validations:
       required: true
   - type: textarea
