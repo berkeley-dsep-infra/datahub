@@ -61,6 +61,7 @@ website:
               - admins/howto/clusterswitch.qmd
               - admins/howto/github-token.qmd
               - admins/howto/google-sheets.qmd
+              - admins/howto/cheatsheet.qmd
       - section: "Policy"
         contents:
           - policy/create_policy.qmd
