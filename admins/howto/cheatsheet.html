@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2017-02-24">
 
-<title>Custom Autoscaler gonee haywire</title>
+<title>Operations Cheatsheet</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,25 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../policy/create_policy.html" rel="next">
+<link href="../../admins/howto/google-sheets.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,10 +113,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../datahub.svg" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DataHub</span>
     </a>
   </div>
@@ -92,19 +127,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../users/features.html" aria-current="page"> 
+    <a class="nav-link active" href="../../users/features.html" aria-current="page"> 
 <span class="menu-text">Using DataHub</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../admins/pre-reqs.html"> 
+    <a class="nav-link" href="../../admins/pre-reqs.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../admins/howto/documentation.html"> 
+    <a class="nav-link" href="../../admins/howto/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../policy/create_policy.html"> 
+    <a class="nav-link" href="../../policy/create_policy.html"> 
 <span class="menu-text">Policy</span></a>
   </li>  
 </ul>
@@ -119,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Custom Autoscaler gonee haywire</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/cheatsheet.html">Operations Cheatsheet</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -133,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -148,25 +183,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/features.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/features.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Features</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/private-repo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/private-repo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Accessing private GitHub repos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../users/authentication.html" class="sidebar-item-text sidebar-link">
+  <a href="../../users/authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User Authentication</span></a>
   </div>
 </li>
@@ -174,163 +209,163 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Contributing to DataHub</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-requisites</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Repository Structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/storage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User home directory storage</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kubernetes Cluster Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/credentials.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Credentials</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Common Administrator Tasks</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/dns.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/dns.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update DNS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/core-pool.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/new-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Hub Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Managing multiple user image repos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/new-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/new-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Single User Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/transition-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/transition-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/new-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/new-packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Testing and Upgrading New Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/course-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/course-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/calendar-scaler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/calendar-scaler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calendar Node Pool Autoscaler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prometheus and Grafana</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/remove-users-orm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/remove-users-orm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub ORM Maintenance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/delete-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/delete-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Delete or spin down a Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/clusterswitch.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/clusterswitch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Switching over a hub to a new cluster</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/github-token.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/github-token.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create Finely Grained Access Token</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/google-sheets.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/google-sheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Google Sheets from DataHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/howto/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/howto/cheatsheet.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Operations Cheatsheet</span></a>
   </div>
 </li>
@@ -349,25 +384,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/create_policy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Process to publish policy proposals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for creating a new hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for deploying to the main Datahub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/principles.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/principles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Principles to be considered while creating new policies</span></a>
   </div>
 </li>
@@ -375,7 +410,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../incidents/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Incident Reports</span></a>
   </div>
 </li>
@@ -389,27 +424,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#timeline" id="toc-timeline" class="nav-link" data-scroll-target="#timeline">Timeline</a>
-  <ul class="collapse">
-  <li><a href="#pm" id="toc-pm" class="nav-link" data-scroll-target="#pm">2017-02-24 11:14 PM</a></li>
-  <li><a href="#pm-1" id="toc-pm-1" class="nav-link" data-scroll-target="#pm-1">2017-02-24 11:26 PM</a></li>
-  </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#action-items" id="toc-action-items" class="nav-link" data-scroll-target="#action-items">Action Items</a>
-  <ul class="collapse">
-  <li><a href="#datahub-deployment-changes" id="toc-datahub-deployment-changes" class="nav-link" data-scroll-target="#datahub-deployment-changes">Datahub Deployment Changes</a></li>
-  <li><a href="#future-organizational-change" id="toc-future-organizational-change" class="nav-link" data-scroll-target="#future-organizational-change">Future organizational change</a></li>
-  </ul></li>
+  <li><a href="#get-root-access-in-a-user-pod" id="toc-get-root-access-in-a-user-pod" class="nav-link active" data-scroll-target="#get-root-access-in-a-user-pod">Get Root Access in a User Pod</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../../admins/howto/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../admins/howto/cheatsheet.html">Operations Cheatsheet</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Custom Autoscaler gonee haywire</h1>
+<h1 class="title">Operations Cheatsheet</h1>
 </div>
 
 
@@ -417,12 +441,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 24, 2017</p>
-    </div>
-  </div>
   
     
   </div>
@@ -432,43 +450,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>On the evening of February 24, 2017, a premature version of the Autoscaler script for the Datahub deployment was mistakenly run on the prod cluster, resulting in a large amount of nodes (roughly 30-40) being set as unschedulable for about 20 minutes. Though no information was lost nor service critically disturbed, it was necessary to manually re-enable these nodes to be scheduled.</p>
-</section>
-<section id="timeline" class="level2">
-<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
-<p>As of this <a href="https://github.com/data-8/jupyterhub-k8s/commit/6c042ebb6a88f0059d80e664795f4ce9252c043f">commit</a> in the Autoscaler branch history, there exists a <code>scale.py</code> file that would based on the utilization of the cluster, mark a certain number of nodes unschedulable before attempting to shut down nodes with no pods in them. Unfortunately, this script was executed prematurely, and without configuration, looked to execute in whatever context currently specified in <code>.kube/config</code>, which ended up being the production cluster rather than the dev cluster.</p>
-<section id="pm" class="level3">
-<h3 class="anchored" data-anchor-id="pm">2017-02-24 11:14 PM</h3>
-<p>Script is mistakenly executed. A bug in the calculations for the utilization of the cluster leads to about 40 nodes being marked as unschedulable. The mistake is noted immediately.</p>
-</section>
-<section id="pm-1" class="level3">
-<h3 class="anchored" data-anchor-id="pm-1">2017-02-24 11:26 PM</h3>
-<p>The unschedulability of these nodes is reverted. All nodes in the cluster were first all set to be schedulable to ensure that no students current and future would be disturbed. Immediately after, 10 of the most idle nodes on the cluster were manually set to be unschedulable (to facilitate them later being manually descaled - to deal with https://github.com/data-8/infrastructure/issues/6) using <code>kubectl cordon &lt;node_name&gt;</code>.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>A cluster autoscaler script was accidentally run against the production cluster instead of the dev cluster, reducing capacity for new user logins for about 12 minutes. There was still enough capacity so we had no adverse effects.</p>
-</section>
-<section id="action-items" class="level2">
-<h2 class="anchored" data-anchor-id="action-items">Action Items</h2>
-<section id="datahub-deployment-changes" class="level3">
-<h3 class="anchored" data-anchor-id="datahub-deployment-changes">Datahub Deployment Changes</h3>
-<ol type="1">
-<li>The Autoscaler should not be run unless the context is explicitly set via environment variables or command line arguments. This is noted in the comments of the <a href="https://github.com/data-8/jupyterhub-k8s/pull/117">pull request</a> for the Autoscaler.</li>
-<li>The idea of the ‘current context’ should be abolished in all the tools we build / read.</li>
-</ol>
-</section>
-<section id="future-organizational-change" class="level3">
-<h3 class="anchored" data-anchor-id="future-organizational-change">Future organizational change</h3>
-<ol type="1">
-<li>Use a separate billing account for production vs development clusters. This makes it harder to accidentally run things on the wrong cluster</li>
-</ol>
+<p>We periodically need to perform various tasks that can be quickly described by short shell fragments. This page is meant to be a dumping ground for them. It may be useful on occasion to move such fragments into more relevant pages.</p>
+<section id="get-root-access-in-a-user-pod" class="level2">
+<h2 class="anchored" data-anchor-id="get-root-access-in-a-user-pod">Get Root Access in a User Pod</h2>
+<p>It can be useful to run commands as root in a user’s pod to quickly install or reconfigure software. This could be done during the development of a PR to change a user image.</p>
+<p>In this fragment, <code>local$</code> conveys operations performed on your own device and <code>node$</code> shows operations performed on the cloud node.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">local$</span> pod=jupyter-username</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">local$</span> ns=datahub-prod</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain and display the user's container ID</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">local$</span> cid=<span class="va">$(</span><span class="ex">kubectl</span> <span class="at">-n</span> <span class="va">$ns</span> get pod <span class="va">$pod</span> <span class="at">-o</span> jsonpath=<span class="st">"{.status.containerStatuses[].containerID}"</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s,.*//,,'</span><span class="va">)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">local$</span> echo <span class="va">$cid</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ssh into the node hosting the user's pod, substituting `NODE_NAME`</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">local$</span> kubectl <span class="at">-n</span> <span class="va">$ns</span> get pod <span class="va">$pod</span> <span class="at">-o</span> wide</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">local$</span> gcloud compute ssh <span class="at">--zone</span> us-central1-b <span class="at">--project</span> ucb-datahub-2018 NODE_NAME</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Exec into the user's container as root, where `CID_FROM_ABOVE` is the</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># value of $cid from above</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">node$</span> sudo <span class="at">-i</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">node#</span> runc <span class="at">--root</span> /run/containerd/runc/k8s.io/ exec <span class="at">-t</span> <span class="at">-u</span> 0 CID_FROM_ABOVE bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -892,6 +895,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../admins/howto/google-sheets.html" class="pagination-link" aria-label="Reading Google Sheets from DataHub">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Reading Google Sheets from DataHub</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../policy/create_policy.html" class="pagination-link" aria-label="Process to publish policy proposals">
+        <span class="nav-page-text">Process to publish policy proposals</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
