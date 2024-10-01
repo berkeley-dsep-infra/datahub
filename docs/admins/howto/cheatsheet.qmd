@@ -6,6 +6,8 @@ We periodically need to perform various tasks that can be quickly described by s
 
 ## Get Root Access in a User Pod
 
+It can be useful to run commands as root in a user's pod to quickly install or reconfigure software. This could be done during the development of a PR to change a user image.
+
 In this fragment, `local$` conveys operations performed on your own device and `node$` shows operations performed on the cloud node.
 
 ```bash
