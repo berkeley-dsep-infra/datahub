@@ -1,0 +1,27 @@
+---
+title: Operations Cheatsheet
+---
+
+We periodically need to perform various tasks that can be quickly described by short shell fragments. This page is meant to be a dumping ground for them. It may be useful on occasion to move such fragments into more relevant pages.
+
+## Get Root Access in a User Pod
+
+In this fragment, `local$` conveys operations performed on your own device and `node$` shows operations performed on the cloud node.
+
+```bash
+local$ pod=jupyter-username
+local$ ns=datahub-prod
+
+# obtain a display the user's container ID
+local$ cid=$(kubectl -n $ns get pod $pod -o jsonpath="{.status.containerStatuses[].containerID}" | sed 's,.*//,,')
+local$ echo $cid
+
+# ssh into the node hosting the user's pod
+local$ kubectl -n $ns get pod $pod -o wide
+local$ gcloud compute ssh --zone us-central1-b --project ucb-datahub-2018 node_name
+
+# become root, and exec into the user's container, where `CID_FROM_ABOVE` the
+# value of $cid above
+node$ sudo -i
+node# runc --root /run/containerd/runc/k8s.io/ exec -t -u 0 CID_FROM_ABOVE bash
+```
