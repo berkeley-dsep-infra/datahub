@@ -111,23 +111,6 @@ jupyterhub:
       course::1524699::group::all-admins:
         admin: true
         mem_limit: 4G
-
-      # Data 100, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6167, To be removed by Sep 30, 2024
-      course::1537664::enrollment_type::teacher: # Fall 2024, Data 100 Instructors, ensured 16G RAM
-        mem_limit: 16G
-        mem_guarantee: 16G
-        cpu_limit: 2
-        cpu_guarantee: 2
-      course::1537664::enrollment_type::ta: # Fall 2024, Data 100 TAs, ensured 16G RAM
-        mem_limit: 16G
-        mem_guarantee: 16G
-        cpu_limit: 2
-        cpu_guarantee: 2
-      course::1537664::enrollment_type::student: # Fall 2024, Data 100 TAs, ensured 16G RAM
-        mem_limit: 16G
-        mem_guarantee: 16G
-        cpu_limit: 2
-        cpu_guarantee: 2
     admin:
       mem_guarantee: 2G
       extraVolumeMounts:
