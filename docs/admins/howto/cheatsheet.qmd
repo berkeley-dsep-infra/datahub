@@ -12,16 +12,16 @@ In this fragment, `local$` conveys operations performed on your own device and `
 local$ pod=jupyter-username
 local$ ns=datahub-prod
 
-# obtain a display the user's container ID
+# Obtain and display the user's container ID
 local$ cid=$(kubectl -n $ns get pod $pod -o jsonpath="{.status.containerStatuses[].containerID}" | sed 's,.*//,,')
 local$ echo $cid
 
-# ssh into the node hosting the user's pod
+# ssh into the node hosting the user's pod, substituting `NODE_NAME`
 local$ kubectl -n $ns get pod $pod -o wide
-local$ gcloud compute ssh --zone us-central1-b --project ucb-datahub-2018 node_name
+local$ gcloud compute ssh --zone us-central1-b --project ucb-datahub-2018 NODE_NAME
 
-# become root, and exec into the user's container, where `CID_FROM_ABOVE` the
-# value of $cid above
+# Exec into the user's container as root, where `CID_FROM_ABOVE` is the
+# value of $cid from above
 node$ sudo -i
 node# runc --root /run/containerd/runc/k8s.io/ exec -t -u 0 CID_FROM_ABOVE bash
 ```
