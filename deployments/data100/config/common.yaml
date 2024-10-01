@@ -116,18 +116,18 @@ jupyterhub:
       course::1537664::enrollment_type::teacher:
         extraVolumeMounts:
           - name: home
-            mountPath: /home/jovyan/data-100-readwrite
-            subPath: _shared/course/data-100
+            mountPath: /home/jovyan/data100-shared-readwrite
+            subPath: _shared/course/data100-shared-readwrite
       course::1537664::enrollment_type::ta:
         extraVolumeMounts:
           - name: homes
-            mountPath: /home/jovyan/data-100-readwrite
-            subPath: _shared/course/data-100
+            mountPath: /home/jovyan/data100-shared-readwrite
+            subPath: _shared/course/data100-shared-readwrite
       course::1537664::enrollment_type::student:
         extraVolumeMounts:
           - name: home
-            mountPath: /home/jovyan/data-100-shared
-            subPath: _shared/course/data-100
+            mountPath: /home/jovyan/data100-shared
+            subPath: _shared/course/data100-shared
             readOnly: true
     admin:
       mem_guarantee: 2G
