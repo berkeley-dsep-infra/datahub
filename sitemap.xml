@@ -2,266 +2,266 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2018-01-25-helm-chart-upgrade.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2018-02-28-hung-node.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2024-core-node-incidents.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-02-24-proxy-death-incident.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-04-03-cluster-full-incident.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-05-09-gce-billing.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2018-01-26-hub-slow-startup.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2018-06-11-course-subscription-canceled.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-03-06-helm-config-image-mismatch.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-02-09-datahub-db-outage-pvc-recreate-script.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-10-10-hung-nodes.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/data102.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/stat20.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/data100.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/prob140.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/r.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/storage.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/pre-reqs.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/dns.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/new-image.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/transition-image.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/google-sheets.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/remove-users-orm.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/prometheus-grafana.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/new-packages.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/calendar-scaler.html</loc>
-    <lastmod>2024-10-02T16:00:02.557Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/new-hub.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/structure.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/policy/policy_create_hubs.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/policy/principles.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/policy/storage-retention.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/policy/index.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/policy/policy_deploy_mainhubs.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/policy/create_policy.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/index.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/index.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/cheatsheet.html</loc>
-    <lastmod>2024-10-02T16:00:02.557Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/github-token.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/rebuild-postgres-image.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/documentation.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/clusterswitch.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/course-config.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/delete-hub.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/rebuild-hub-image.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/managing-multiple-user-image-repos.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/howto/core-pool.html</loc>
-    <lastmod>2024-10-02T16:00:02.558Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.631Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/credentials.html</loc>
-    <lastmod>2024-10-02T16:00:02.557Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.630Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/admins/cluster-config.html</loc>
-    <lastmod>2024-10-02T16:00:02.557Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.630Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/edx.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/stat159.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/shiny.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/hubs/datahub.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/features.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/private-repo.html</loc>
-    <lastmod>2024-10-02T16:00:02.568Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.641Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/users/authentication.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-03-20-too-many-volumes.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/index.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-10-19-course-subscription-canceled.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2019-05-01-service-account-leak.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2018-02-06-hub-db-dir.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-02-24-autoscaler-incident.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2019-02-25-k8s-api-server-down.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2022-01-20-package-dependency-upgrade-incident.html</loc>
-    <lastmod>2024-10-02T16:00:02.560Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.633Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-03-23-kernel-deaths-incident.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
   <url>
     <loc>https://docs.datahub.berkeley.edu/incidents/2017-02-09-datahub-db-outage.html</loc>
-    <lastmod>2024-10-02T16:00:02.559Z</lastmod>
+    <lastmod>2024-10-02T21:17:11.632Z</lastmod>
   </url>
 </urlset>
