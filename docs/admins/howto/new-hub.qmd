@@ -1,5 +1,4 @@
-
---
+---
 title: Create a New Hub
 aliases:
   - ../../en/latest/admins/howto/new-hub.html
