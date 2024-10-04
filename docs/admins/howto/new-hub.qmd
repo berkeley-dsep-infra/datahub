@@ -242,7 +242,7 @@ bcourses.
 3. Add `<hub_name>.datahub.berkeley.edu/hub/oauth_callback` to the
    production hub client (id 10720000000000472)
 
-4. Copy gcr-key.json and gke-key.json from any other hub's secrets to the hub's secrets/
+4. Copy gke-key.json from any other hub's secrets to the hub's secrets/
 
 Please reach out to Jonathan Felder to set this up, or
 <bcourseshelp@berkeley.edu> if he is not available.
