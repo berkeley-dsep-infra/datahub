@@ -5,9 +5,11 @@ General tool for mass cloning and syncing of user image repositories.
 To use this tool, copy it to a directory in your PATH or run it directly from
 this directory.
 """
+
 import argparse
 import subprocess
 import os
+
 
 def clone(args):
     """
@@ -36,19 +38,18 @@ def clone(args):
                     continue
                 print("Renaming origin to upstream...")
                 subprocess.check_call(
-                    ["git", "remote", "rename", "origin", "upstream"],
-                    cwd=path
+                    ["git", "remote", "rename", "origin", "upstream"], cwd=path
                 )
 
                 origin = line.replace("berkeley-dsep-infra", args.github_user)
                 print(f"Setting origin to {origin}...")
                 subprocess.check_call(
-                    ["git", "remote", "add", "origin", origin],
-                    cwd=path
+                    ["git", "remote", "add", "origin", origin], cwd=path
                 )
 
             subprocess.check_call(["git", "remote", "-v"], cwd=path)
             print()
+
 
 def sync(args):
     """
@@ -81,6 +82,7 @@ def sync(args):
 
             print()
 
+
 def branch(args):
     """
     Create a new feature branch in all repositories in the config file.
@@ -98,6 +100,7 @@ def branch(args):
             print(f"Creating new branch in {name} in {path}...")
             subprocess.check_call(["git", "switch", "-c", args.branch], cwd=path)
             print()
+
 
 def push(args):
     """
@@ -125,6 +128,7 @@ def push(args):
             subprocess.check_call(["git", "push", remote, args.branch], cwd=path)
             print()
 
+
 def main(args):
     if args.command == "clone":
         clone(args)
@@ -135,6 +139,7 @@ def main(args):
     elif args.command == "push":
         push(args)
 
+
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
     subparsers = argparser.add_subparsers(dest="command")
@@ -143,71 +148,51 @@ if __name__ == "__main__":
         "-c",
         "--config",
         default="repos.txt",
-        help="Path to file containing list of repositories to clone."
+        help="Path to file containing list of repositories to clone.",
     )
     argparser.add_argument(
-        "-d",
-        "--destination",
-        default=".",
-        help="Location of the image repositories."
+        "-d", "--destination", default=".", help="Location of the image repositories."
     )
 
     sync_parser = subparsers.add_parser(
-        "sync",
-        help="Sync all image repositories to the latest version."
+        "sync", help="Sync all image repositories to the latest version."
     )
     sync_parser.add_argument(
-        "-p",
-        "--push",
-        action="store_true",
-        help="Push synced repo to a remote."
+        "-p", "--push", action="store_true", help="Push synced repo to a remote."
     )
     sync_parser.add_argument(
         "-o",
         "--origin",
         default="origin",
-        help="Origin to push to.  This is optional and defaults to 'origin'."
+        help="Origin to push to.  This is optional and defaults to 'origin'.",
     )
 
-    clone_parser = subparsers.add_parser(
-        "clone",
-        help="Clone all image repositories."
-    )
+    clone_parser = subparsers.add_parser("clone", help="Clone all image repositories.")
     clone_parser.add_argument(
         "-s",
         "--set-origin",
         action="store_true",
-        help="Set the origin of the cloned repository to the user's GitHub."
+        help="Set the origin of the cloned repository to the user's GitHub.",
     )
     clone_parser.add_argument(
-        "-g",
-        "--github-user",
-        help="GitHub user to set the origin to."
+        "-g", "--github-user", help="GitHub user to set the origin to."
     )
 
     branch_parser = subparsers.add_parser(
-        "branch",
-        help="Create a new feature branch in all image repositories."
+        "branch", help="Create a new feature branch in all image repositories."
     )
     branch_parser.add_argument(
-        "-b",
-        "--branch",
-        help="Name of the new feature branch to create."
+        "-b", "--branch", help="Name of the new feature branch to create."
     )
 
     push_parser = subparsers.add_parser(
-        "push",
-        help="Push all image repositories to a remote."
+        "push", help="Push all image repositories to a remote."
     )
     push_parser.add_argument(
         "-o",
         "--origin",
-        help="Origin to push to.  This is optional and defaults to 'origin'."
+        help="Origin to push to.  This is optional and defaults to 'origin'.",
     )
-    push_parser.add_argument(
-        "-b",
-        "--branch",
-        help="Name of the branch to push."
-    )
+    push_parser.add_argument("-b", "--branch", help="Name of the branch to push.")
     args = argparser.parse_args()
     main(args)

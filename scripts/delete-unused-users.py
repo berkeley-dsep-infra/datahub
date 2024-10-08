@@ -14,6 +14,7 @@ ok.
 Core functionality from @minrk:
 https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
+
 import argparse
 from datetime import timedelta, datetime
 import json
@@ -36,8 +37,8 @@ def parse_timedelta(args):
     https://docs.python.org/3/library/datetime.html#datetime.timedelta
     """
     result = {}
-    for arg in args.split(','):
-        key, value = arg.split('=')
+    for arg in args.split(","):
+        key, value = arg.split("=")
         try:
             value = int(value)
         except ValueError:
@@ -47,6 +48,7 @@ def parse_timedelta(args):
                 raise argparse.ArgumentError from e
         result[key] = value
     return timedelta(**result)
+
 
 def retrieve_users(hub_url, headers, inactive_since):
     """Returns generator of user models that should be deleted"""
@@ -72,35 +74,43 @@ def retrieve_users(hub_url, headers, inactive_since):
                 "limit": next_page["limit"],
             }
 
+
 def should_delete(user, inactive_since):
     """
     Returns a boolean if user is to be deleted.  The critera are:
       - was the user active in the past inactive_since period?
       - is there a current user server running?
     """
-    last_activity_str = user.get('last_activity', False)
+    last_activity_str = user.get("last_activity", False)
     if last_activity_str:
         try:
-            last_activity = parse(user['last_activity'])
+            last_activity = parse(user["last_activity"])
         except:
-            logger.error(f"Unexpected value for user['last_activity']: {user['last_activity']}")
+            logger.error(
+                f"Unexpected value for user['last_activity']: {user['last_activity']}"
+            )
             raise
         if isinstance(last_activity, datetime):
-            was_active_recently = datetime.now().astimezone() - last_activity < inactive_since
+            was_active_recently = (
+                datetime.now().astimezone() - last_activity < inactive_since
+            )
         else:
-            logger.error(f"For user {user['name']}, expected datetime.datetime class for last_activity but got {type(last_activity)} instead.")
+            logger.error(
+                f"For user {user['name']}, expected datetime.datetime class for last_activity but got {type(last_activity)} instead."
+            )
             raise
 
         logger.debug(f"User: {user['name']}")
         logger.debug(f"Last login: {last_activity}")
         logger.debug(f"Recent activity: {was_active_recently}")
         logger.debug(f"Running server: {user['server']}")
-        if was_active_recently or user['server'] is not None:
+        if was_active_recently or user["server"] is not None:
             logger.info(f"Not flagging {user['name']} for deletion.")
             return False
         else:
             logger.info(f"Flagging {user['name']} for deletion.")
             return True
+
 
 def delete_user(hub_url, headers, name):
     """Delete a given user by name via JupyterHub API"""
@@ -109,6 +119,7 @@ def delete_user(hub_url, headers, name):
         headers=headers,
     )
     r.raise_for_status()
+
 
 def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
     """Delete users from a provided hub url"""
@@ -124,7 +135,7 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
     count = 1
     for user in users:
         if not dry_run:
-            delete_user(hub_url, headers, user['name'])
+            delete_user(hub_url, headers, user["name"])
             logger.info(f"{count}: deleting {user['name']}")
         else:
             logger.info(f"Skipped {user['name']} due to dry run.")
@@ -134,7 +145,10 @@ def delete_users_from_hub(hub_url, token, inactive_since, dry_run=False):
     if not dry_run:
         print(f"Deleted {count} total users from the ORM for hub: {hub_url}")
     else:
-        print(f"Dry run:  Did not delete {count} total users from the ORM for hub: {hub_url}")
+        print(
+            f"Dry run:  Did not delete {count} total users from the ORM for hub: {hub_url}"
+        )
+
 
 def main(args):
     """
@@ -142,11 +156,15 @@ def main(args):
     and if so, delete them!
     """
     if args.credentials and args.hub_url:
-        logger.error("Please use only one of --hub_url or --credentials options when executing the script.")
+        logger.error(
+            "Please use only one of --hub_url or --credentials options when executing the script."
+        )
         raise
 
     if args.hub_url:
-        logger.info(f"Checking for and deleting ORM users on a single hub: {args.hub_url}")
+        logger.info(
+            f"Checking for and deleting ORM users on a single hub: {args.hub_url}"
+        )
         token = os.environ["JUPYTERHUB_API_TOKEN"]
 
         if not token:
@@ -169,48 +187,44 @@ def main(args):
             print()
 
     else:
-        logger.error("You must specify a single hub with the --hub_url argument, or a json file containing hubs and api keys with the --credentials argument.")
+        logger.error(
+            "You must specify a single hub with the --hub_url argument, or a json file containing hubs and api keys with the --credentials argument."
+        )
         raise
 
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
     argparser.add_argument(
-        '-c',
-        '--credentials',
-        dest='credentials',
-        help='Path to a json file containing hub url and api keys.  Format is: {"hub1_url": "hub1_key", "hub2_url":, "hub2_key"}'
+        "-c",
+        "--credentials",
+        dest="credentials",
+        help='Path to a json file containing hub url and api keys.  Format is: {"hub1_url": "hub1_key", "hub2_url":, "hub2_key"}',
     )
     argparser.add_argument(
-        '-H',
-        '--hub_url',
-        help='Fully qualified URL to the JupyterHub. You must also set the JUPYTERHUB_API_TOKEN environment variable with the API key.'
+        "-H",
+        "--hub_url",
+        help="Fully qualified URL to the JupyterHub. You must also set the JUPYTERHUB_API_TOKEN environment variable with the API key.",
     )
     argparser.add_argument(
-        '--dry_run',
-        action='store_true',
-        help='Dry run without deleting users.'
+        "--dry_run", action="store_true", help="Dry run without deleting users."
     )
     argparser.add_argument(
-        '--inactive_since',
-        default='hours=24',
+        "--inactive_since",
+        default="hours=24",
         type=parse_timedelta,
-        help='Period of inactivity after which users are considered for deletion (literal string constructor values for timedelta objects).'
+        help="Period of inactivity after which users are considered for deletion (literal string constructor values for timedelta objects).",
         # https://docs.python.org/3/library/datetime.html#timedelta-objects
     )
     argparser.add_argument(
-        '-v',
-        '--verbose',
-        dest='verbose',
-        action='store_true',
-        help='Set info log level.'
+        "-v",
+        "--verbose",
+        dest="verbose",
+        action="store_true",
+        help="Set info log level.",
     )
     argparser.add_argument(
-        '-d',
-        '--debug',
-        dest='debug',
-        action='store_true',
-        help='Set debug log level.'
+        "-d", "--debug", dest="debug", action="store_true", help="Set debug log level."
     )
     args = argparser.parse_args()
 
