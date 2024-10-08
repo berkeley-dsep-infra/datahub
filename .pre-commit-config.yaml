@@ -1,0 +1,75 @@
+# pre-commit is a tool to perform a predefined set of tasks manually and/or
+# automatically before git commits are made.
+#
+# Config reference: https://pre-commit.com/#pre-commit-configyaml---top-level
+#
+# Common tasks
+#
+# - Run on all files:   pre-commit run --all-files
+# - Register git hooks: pre-commit install --install-hooks
+#
+repos:
+  # Autoformat: Python code
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.6.9
+    hooks:
+      # Run the linter.
+      - id: ruff
+        types_or: [ python, pyi ]
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format
+        types_or: [ python, pyi ]
+
+  # Autoformat: Python code, syntax patterns are modernized
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.17.0
+    hooks:
+      - id: pyupgrade
+        args:
+          - --py36-plus
+
+  # Autoformat: Python code
+  - repo: https://github.com/pycqa/isort
+    rev: "5.13.2"
+    hooks:
+      - id: isort
+
+  # Autoformat: Python code
+  - repo: https://github.com/psf/black
+    rev: "24.10.0"
+    hooks:
+      - id: black
+        # This is a `.py` file but is encrypted with sops
+
+  # Lint: Python code
+  - repo: https://github.com/pycqa/flake8
+    rev: "7.1.1"
+    hooks:
+      - id: flake8
+        # This is a `.py` file but is encrypted with sops
+        exclude: deployer/commands/generate/cryptnono_config/enc-blocklist-generator.secret.py
+
+  # Prevent unencrypted files from being committed
+  - repo: https://github.com/yuvipanda/pre-commit-hook-ensure-sops
+    rev: v1.1
+    hooks:
+      - id: sops-encryption
+        # Add files here if they contain the word 'secret' but should not be encrypted
+        exclude: secrets\.md|helm-charts/support/templates/prometheus-ingres-auth/secret\.yaml|helm-charts/basehub/templates/dex/secret\.yaml|helm-charts/basehub/templates/static/secret\.yaml|config/clusters/templates/common/support\.secret\.values\.yaml|helm-charts/basehub/templates/ingress-auth/secret\.yaml
+
+  # Prevent known typos from being committed
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        args:
+          # Autofix known typos
+          - --write-changes
+        additional_dependencies:
+          - tomli
+
+# pre-commit.ci config reference: https://pre-commit.ci/#configuration
+#ci:
+#  autoupdate_schedule: monthly

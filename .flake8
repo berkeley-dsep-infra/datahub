@@ -1,0 +1,11 @@
+[flake8]
+# Ignore style and complexity
+# E: style errors
+# W: style warnings
+# C: complexity
+# E402: module level import not at top of file
+# I100: Import statements are in the wrong order
+# I101: Imported names are in the wrong order. Should be
+# F841: local variable ... is assigned to but never used
+ignore = E, C, W, I100, I101, D400, F841
+builtins = c
