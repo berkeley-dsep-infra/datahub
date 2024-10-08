@@ -103,7 +103,7 @@ nodePools:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 207314055168
-    replicas: 2
+    replicas: 1
   data101:
     nodeSelector:
       hub.jupyter.org/pool-name: data101-pool
