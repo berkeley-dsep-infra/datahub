@@ -9,6 +9,7 @@ from ical.calendar_stream import IcsCalendarStream
 
 log = logging.getLogger(__name__)
 
+
 def _event_repr(event):
     """
     Simple repr of a calenar event
@@ -24,6 +25,7 @@ def _event_repr(event):
         else:
             return f"{event.summary} {event.start.strftime('%Y-%m-%d %H:%M %Z')} to {event.end.strftime('%Y-%m-%d %H:%M %Z')}"
 
+
 def _get_cal_tz(calendar):
     """
     Get the calendar timezone.
@@ -37,6 +39,7 @@ def _get_cal_tz(calendar):
     # ...otherwise return UTC
     else:
         return zoneinfo.ZoneInfo("UTC")
+
 
 def get_calendar(url: str):
     """
@@ -62,6 +65,7 @@ def get_calendar(url: str):
     else:
         logging.error(f"Unable to get calendar from resource: {url}")
 
+
 def get_events(calendar, time=None):
     """
     Get events from a calendar.  If no time is passed, assume now.
@@ -80,6 +84,6 @@ def get_events(calendar, time=None):
     # https://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
     events = [x for x in events_iter]
     for ev in events:
-        ev.description = re.sub('<[^<]+?>', '', ev.description)
+        ev.description = re.sub("<[^<]+?>", "", ev.description)
 
     return events
