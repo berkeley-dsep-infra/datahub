@@ -11,6 +11,7 @@ import time
 from .calendar import get_calendar, get_events, _event_repr
 
 from ruamel.yaml import YAML
+
 yaml = YAML(typ="safe")
 
 
@@ -54,7 +55,9 @@ def get_replica_counts(events):
             try:
                 pools_replica_config = yaml.load(ev.description)
             except Exception as e:
-                logging.error(f"Caught unhandled exception parsing event description:\n{e}")
+                logging.error(
+                    f"Caught unhandled exception parsing event description:\n{e}"
+                )
                 logging.error(f"Error in parsing description of {_event_repr(ev)}")
                 logging.error(f"{ev.description=}")
                 pass
