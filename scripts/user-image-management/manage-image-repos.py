@@ -8,6 +8,7 @@ this directory.
 
 import argparse
 import subprocess
+import sys
 import os
 
 
@@ -70,7 +71,7 @@ def sync(args):
             print(f"Syncing {name} from {line} in {path}...")
             subprocess.check_call(["git", "switch", "main"], cwd=path)
             subprocess.check_call(["git", "fetch", "--all", "--prune"], cwd=path)
-            subprocess.check_call(["git", "rebase", f"upstream/main"], cwd=path)
+            subprocess.check_call(["git", "rebase", "upstream/main"], cwd=path)
 
             if args.push:
                 if not args.origin:
