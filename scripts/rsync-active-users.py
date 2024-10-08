@@ -10,7 +10,7 @@ An environment variable 'JUPYTERHUB_ADMIN' must be set with an admin token,
 obtainable from {hub_url}/hub/token by an admin user.
 """
 import os
-import requests
+import niquests as requests
 from dateutil.parser import parse
 from datetime import datetime, timedelta, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
