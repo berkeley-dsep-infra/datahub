@@ -1,6 +1,6 @@
 certifi==2024.07.04
 DateTime
 ical==5.0.0
-requests
+niquests==3.7.2
 ruamel.yaml
 urllib3==2.2.2
