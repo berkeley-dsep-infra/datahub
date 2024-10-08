@@ -7,6 +7,6 @@ chartpress
 jupyter-repo2docker==2024.07.0
 myst-parser
 chardet
-requests==2.31.0
+niquests==3.7.2
 urllib3<2.0.0
 yamllint==1.35.1

@@ -13,7 +13,7 @@ This script requires:
 - The requests library
 """
 import argparse
-import requests
+import niquests as requests
 import os
 import time
 

@@ -2,7 +2,7 @@
 import datetime
 import logging
 import re
-import requests
+import niquests as requests
 import zoneinfo
 
 from ical.calendar_stream import IcsCalendarStream

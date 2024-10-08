@@ -3,7 +3,7 @@ import logging
 import argparse
 import tempfile
 import subprocess
-import requests
+import niquests as requests
 import os
 from copy import deepcopy
 import time
