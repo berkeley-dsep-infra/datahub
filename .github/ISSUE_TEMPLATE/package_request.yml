@@ -17,7 +17,14 @@ body:
   - type: input
     attributes:
       label: Package Name
-      description: Which package do you want installed?
+      description: Which package do you want to get installed?
+      value:
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Package Version
+      description: What is the version of the package?
       value:
     validations:
       required: true
@@ -45,6 +52,15 @@ body:
         - stat159.datahub.berkeley.edu
         - stat20.datahub.berkeley.edu
         - other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproducible test case
+      description: Please provide instructions to admins by uploading a reproducible test notebook (ipynb, rmd) or a code block (Python/R/Julia)
+        <!-- 1. Click the following notebook URL to Launch server on x.datahub.berkeley.edu URL
+             2. Run cell no. y to execute the code block using the requested package
+             3. You should get the following output to confirm that the package installation worked as expected.
     validations:
       required: true
   - type: textarea
