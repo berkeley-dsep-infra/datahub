@@ -1,5 +1,4 @@
-# allow for base image specification in hubploy.yaml
-git+https://github.com/shaneknapp/hubploy.git@major-refactor
+git+https://github.com/berkeley-dsep-infra/hubploy.git
 pygithub
 pyrsistent==0.19.3
 attrs==23.1.0
