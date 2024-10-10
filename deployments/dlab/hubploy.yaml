@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image:35cc413668b8
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image:91798b9f377b
       path: ../datahub/images/default
 
 cluster:
