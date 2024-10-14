@@ -1,3 +1,0 @@
-[codespell]
-skip = '.git,*.svg,*.secret.*,*.key,./vendor/grafana/dashboards/*'
-ignore-words-list = 'demog'

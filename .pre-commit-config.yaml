@@ -70,6 +70,24 @@ repos:
         additional_dependencies:
           - tomli
 
+  # misc stuff
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    # ref: https://github.com/pre-commit/pre-commit-hooks#hooks-available
+    hooks:
+      # Autoformat: Makes sure files end in a newline and only a newline.
+      - id: end-of-file-fixer
+
+      # Autoformat: Sorts entries in requirements.txt.
+      - id: requirements-txt-fixer
+
+      # Lint: Check for files with names that would conflict on a
+      # case-insensitive filesystem like MacOS HFS+ or Windows FAT.
+      - id: check-case-conflict
+
+      # Lint: Checks that non-binary executables have a proper shebang.
+      - id: check-executables-have-shebangs
+
 # pre-commit.ci config reference: https://pre-commit.ci/#configuration
 #ci:
 #  autoupdate_schedule: monthly

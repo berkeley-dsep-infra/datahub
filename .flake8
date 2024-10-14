@@ -8,4 +8,3 @@
 # I101: Imported names are in the wrong order. Should be
 # F841: local variable ... is assigned to but never used
 ignore = E, C, W, I100, I101, D400, F841
-builtins = c
