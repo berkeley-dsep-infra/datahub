@@ -12,7 +12,7 @@ There is a script located in the `datahub/scripts/user-image-management/`
 directory named [manage-image-repos.py](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/manage-image-repos.py).
 
 This script uses a config file with a list of all of the git remotes for the
-image repos ([config.txt](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt))
+image repos ([repos.txt](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt))
 and will allow you to perform basic git operations (sync/rebase, clone, branch
 management and pushing).
 
