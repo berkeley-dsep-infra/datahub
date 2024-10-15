@@ -9,6 +9,13 @@
 # - Register git hooks: pre-commit install --install-hooks
 #
 repos:
+  # yaml linter
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: [--no-warnings, -c=./.yamllint.yaml]
+
   # Autoformat: Python code
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
