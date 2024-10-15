@@ -424,7 +424,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="managing-user-image-repos">Managing user image repos</h2>
 <p>Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.</p>
 <p>There is a script located in the <code>datahub/scripts/user-image-management/</code> directory named <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/manage-image-repos.py">manage-image-repos.py</a>.</p>
-<p>This script uses a config file with a list of all of the git remotes for the image repos (<a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">config.txt</a>) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).</p>
+<p>This script uses a config file with a list of all of the git remotes for the image repos (<a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">repos.txt</a>) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).</p>
 <p>The script “assumes” that you have all of your user images in their own folder (in my case, <code>$HOME/src/images/...</code>).</p>
 <section id="output-of---help-for-the-tool" class="level3">
 <h3 class="anchored" data-anchor-id="output-of---help-for-the-tool">Output of <code>--help</code> for the tool</h3>
