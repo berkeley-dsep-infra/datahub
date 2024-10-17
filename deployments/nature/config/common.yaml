@@ -46,6 +46,12 @@ jupyterhub:
           c.QtPDFExporter.enabled = False
           c.QtPNGExporter.enabled = False
           c.WebPDFExporter.embed_images = True
+      jupyter-lab-overrides:
+        mountPath: /srv/conda/envs/notebook/share/jupyter/lab/settings/overrides.json
+        data:
+          "@jupyterlab/notebook-extension:tracker":
+            scrollPastEnd: false
+
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       GH_SCOPED_CREDS_CLIENT_ID: Iv23liGBW8jtMBP0inyw
