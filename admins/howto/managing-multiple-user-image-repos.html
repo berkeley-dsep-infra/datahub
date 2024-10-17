@@ -390,9 +390,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#managing-user-image-repos" id="toc-managing-user-image-repos" class="nav-link active" data-scroll-target="#managing-user-image-repos">Managing user image repos</a>
+  <li><a href="#managing-user-image-repos" id="toc-managing-user-image-repos" class="nav-link active" data-scroll-target="#managing-user-image-repos">Managing user image repos</a></li>
+  <li><a href="#installation-of-instructions" id="toc-installation-of-instructions" class="nav-link" data-scroll-target="#installation-of-instructions">Installation of instructions</a>
   <ul class="collapse">
-  <li><a href="#output-of---help-for-the-tool" id="toc-output-of---help-for-the-tool" class="nav-link" data-scroll-target="#output-of---help-for-the-tool">Output of <code>--help</code> for the tool</a></li>
+  <li><a href="#via-cloning-and-manual-installation" id="toc-via-cloning-and-manual-installation" class="nav-link" data-scroll-target="#via-cloning-and-manual-installation">Via cloning and manual installation</a></li>
+  <li><a href="#via-pip" id="toc-via-pip" class="nav-link" data-scroll-target="#via-pip">Via <code>pip</code></a></li>
+  </ul></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-git-operations-included-in-manage-repos" id="toc-overview-of-git-operations-included-in-manage-repos" class="nav-link" data-scroll-target="#overview-of-git-operations-included-in-manage-repos">Overview of git operations included in <code>manage-repos</code>:</a></li>
+  <li><a href="#usage-overview" id="toc-usage-overview" class="nav-link" data-scroll-target="#usage-overview">Usage overview</a></li>
+  <li><a href="#sub-commands" id="toc-sub-commands" class="nav-link" data-scroll-target="#sub-commands">Sub-commands</a></li>
   <li><a href="#usage-examples" id="toc-usage-examples" class="nav-link" data-scroll-target="#usage-examples">Usage examples</a></li>
   </ul></li>
   </ul>
@@ -423,77 +431,173 @@ ul.task-list li input[type="checkbox"] {
 <section id="managing-user-image-repos" class="level2">
 <h2 class="anchored" data-anchor-id="managing-user-image-repos">Managing user image repos</h2>
 <p>Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.</p>
-<p>There is a script located in the <code>datahub/scripts/user-image-management/</code> directory named <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/manage-image-repos.py">manage-image-repos.py</a>.</p>
-<p>This script uses a config file with a list of all of the git remotes for the image repos (<a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">repos.txt</a>) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).</p>
-<p>The script “assumes” that you have all of your user images in their own folder (in my case, <code>$HOME/src/images/...</code>).</p>
-<section id="output-of---help-for-the-tool" class="level3">
-<h3 class="anchored" data-anchor-id="output-of---help-for-the-tool">Output of <code>--help</code> for the tool</h3>
-<p>Here are the help results from the various sub-commands:</p>
-<pre><code>./manage-image-repos.py --help
-usage: manage-image-repos.py [-h] [-c CONFIG] [-d DESTINATION] {sync,clone,branch,push} ...
+<p>For this, we have aa tool named <a href="https://github.com/berkeley-dsep-infra/manage-repos">manage-repos</a>.</p>
+<p><code>manage-repos</code> uses a config file with a list of all of the git remotes for the image repos (<a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">repos.txt</a>) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).</p>
+<p>The script “assumes” that you have all of your user images in their own sub-folder (in my case, <code>$HOME/src/images/...</code>).</p>
+</section>
+<section id="installation-of-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="installation-of-instructions">Installation of instructions</h2>
+<section id="via-cloning-and-manual-installation" class="level3">
+<h3 class="anchored" data-anchor-id="via-cloning-and-manual-installation">Via cloning and manual installation</h3>
+<p>Clone <a href="https://github.com/berkeley-dsep-infra/manage-repos">the repo</a>, and from within that directory run:</p>
+<pre><code>pip install --editable .</code></pre>
+<p>The <code>--editable</code> flag allows you to hack on the tool and have those changes usable without reinstalling it or needing to hack your <code>PATH</code>.</p>
+</section>
+<section id="via-pip" class="level3">
+<h3 class="anchored" data-anchor-id="via-pip">Via <code>pip</code></h3>
+<pre><code>python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/manage-repos</code></pre>
+</section>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<section id="overview-of-git-operations-included-in-manage-repos" class="level3">
+<h3 class="anchored" data-anchor-id="overview-of-git-operations-included-in-manage-repos">Overview of git operations included in <code>manage-repos</code>:</h3>
+<p><code>manage-repos</code> allows you to perform basic <code>git</code> operations on a large number of similar repositories:</p>
+<ul>
+<li><code>branch</code>: Create a feature branch</li>
+<li><code>clone</code>: Clone all repositories in the config file to a location on the filesystem specified by the <code>--destination</code> argument.</li>
+<li><code>patch</code>: Apply a <a href="https://git-scm.com/docs/git-apply">git patch</a> to all repositories in the config file.</li>
+<li><code>push</code>: Push a branch from all repos to a remote. The remote defaults to <code>origin</code>.</li>
+<li><code>stage</code>: Performs a <code>git add</code> and <code>git commit</code> to stage changes before pushing.</li>
+<li><code>sync</code>: Sync all of the repositories, and optionally push to your fork.</li>
+</ul>
+</section>
+<section id="usage-overview" class="level3">
+<h3 class="anchored" data-anchor-id="usage-overview">Usage overview</h3>
+<p>The following sections will describe in more detail the options and commands available with the script.</p>
+<section id="primary-arguments-for-the-script" class="level4">
+<h4 class="anchored" data-anchor-id="primary-arguments-for-the-script">Primary arguments for the script</h4>
+<pre><code>$ manage-repos.py --help
 
 positional arguments:
-  {sync,clone,branch,push}
-    sync                Sync all image repositories to the latest version.
-    clone               Clone all image repositories.
-    branch              Create a new feature branch in all image repositories.
-    push                Push all image repositories to a remote.
+  {branch,clone,patch,push,stage,sync}
+                        Command to execute. Additional help is available for each command.
 
 options:
   -h, --help            show this help message and exit
   -c CONFIG, --config CONFIG
-                        Path to file containing list of repositories to clone.
+                        Path to file containing list of repositories to operate on.
   -d DESTINATION, --destination DESTINATION
-                        Location of the image repositories.</code></pre>
-<p><code>sync</code> help:</p>
-<pre><code>./manage-image-repos.py sync --help
-usage: manage-image-repos.py sync [-h] [-p] [-o ORIGIN]
-
-options:
-  -h, --help            show this help message and exit
-  -p, --push            Push synced repo to a remote.
-  -o ORIGIN, --origin ORIGIN
-                        Origin to push to. This is optional and defaults to 'origin'.</code></pre>
-<p><code>clone</code> help:</p>
-<pre><code>./manage-image-repos.py clone --help
-usage: manage-image-repos.py clone [-h] [-s] [-g GITHUB_USER]
-
-options:
-  -h, --help            show this help message and exit
-  -s, --set-origin      Set the origin of the cloned repository to the user's GitHub.
-  -g GITHUB_USER, --github-user GITHUB_USER
-                        GitHub user to set the origin to.</code></pre>
-<p><code>branch</code> help:</p>
-<pre><code>./manage-image-repos.py branch --help
-usage: manage-image-repos.py branch [-h] [-b BRANCH]
+                        Location on the filesystem of the managed repositories. If the directory does not exist, it will be created. Defaults to the current working directory.</code></pre>
+<p><code>--config</code> is required, and setting <code>--destination</code> is recommended.</p>
+</section>
+</section>
+<section id="sub-commands" class="level3">
+<h3 class="anchored" data-anchor-id="sub-commands">Sub-commands</h3>
+<section id="branch" class="level4">
+<h4 class="anchored" data-anchor-id="branch"><code>branch</code></h4>
+<pre><code>$ manage-repos branch --help
+usage: manage-repos branch [-h] [-b BRANCH]
 
 options:
   -h, --help            show this help message and exit
   -b BRANCH, --branch BRANCH
                         Name of the new feature branch to create.</code></pre>
-<p><code>push</code> help:</p>
-<pre><code>./manage-image-repos.py push --help
-usage: manage-image-repos.py push [-h] [-o ORIGIN] [-b BRANCH]
+<p>The feature branch to create is required, and the tool will switch to <code>main</code> before creating and switching to the new branch.</p>
+</section>
+<section id="clone" class="level4">
+<h4 class="anchored" data-anchor-id="clone"><code>clone</code></h4>
+<pre><code>$ manage-repos.py clone --help
+usage: manage-repos clone [-h] [-s] [-g GITHUB_USER]
+
+Clone repositories in the config file and optionally set a remote for a fork.
 
 options:
   -h, --help            show this help message and exit
-  -o ORIGIN, --origin ORIGIN
-                        Origin to push to. This is optional and defaults to 'origin'.
+  -s, --set-remote      Set the user's GitHub fork as a remote.
+  -r REMOTE, --remote REMOTE
+                        If --set-remote is used, override the name of the remote to set for the fork. This is optional and defaults to 'origin'.
+  -g GITHUB_USER, --github-user GITHUB_USER
+                        The GitHub username of the fork to set in the remote.</code></pre>
+<p>This command will clone all repositories found in the config, and if you’ve created a fork, use the <code>--set-remote</code> and <code>--github-user</code> arguments to update the remotes in the cloned repositories. This will set the primary repository’s remote to <code>upstream</code> and your fork to <code>origin</code> (unless you override this by using the <code>--remote</code> argument).</p>
+<p>After cloning, <code>git remote -v</code> will be executed for each repository to allow you to confirm that the remotes are properly set.</p>
+</section>
+<section id="patch" class="level4">
+<h4 class="anchored" data-anchor-id="patch"><code>patch</code></h4>
+<pre><code>$ manage-repos patch --help
+usage: manage-repos patch [-h] [-p PATCH]
+
+Apply a git patch to managed repositories.
+
+options:
+  -h, --help            show this help message and exit
+  -p PATCH, --patch PATCH
+                        Path to the patch file to apply.</code></pre>
+<p>This command applies a git patch file to all of the repositories. The patch is created by making changes to one file, and redirecting the output of <code>git diff</code> to a new file, eg:</p>
+<pre><code>git diff &lt;filename&gt; &gt; patchfile.txt</code></pre>
+<p>You then provide the location of the patch file with the <code>--patch</code> argument, and the script will attempt to apply the patch to all of the repositories.</p>
+<p>If it is unable to apply the patch, the script will continue to run and notify you when complete which repositories failed to accept the patch.</p>
+</section>
+<section id="push" class="level4">
+<h4 class="anchored" data-anchor-id="push"><code>push</code></h4>
+<pre><code>$ manage-repos push --help
+usage: manage-repos push [-h] [-b BRANCH] [-r REMOTE]
+
+Push managed repositories to a remote.
+
+options:
+  -h, --help            show this help message and exit
   -b BRANCH, --branch BRANCH
-                        Name of the branch to push.</code></pre>
+                        Name of the branch to push.
+  -r REMOTE, --remote REMOTE
+                        Name of the remote to push to. This is optional and defaults to 'origin'.</code></pre>
+<p>This command will attempt to push all staged commits to a remote. The <code>--branch</code> argument is required, and will be the name of the feature branch. The remote that is pushed to defaults to <code>origin</code>, but you can override this with the <code>--remote</code> argument.</p>
+</section>
+<section id="stage" class="level4">
+<h4 class="anchored" data-anchor-id="stage"><code>stage</code></h4>
+<pre><code>$ manage-repos stage --help
+usage: manage-repos stage [-h] [-f FILES [FILES ...]] [-m MESSAGE]
+
+Stage changes in managed repositories. This performs a git add and commit.
+
+options:
+  -h, --help            show this help message and exit
+  -f FILES [FILES ...], --files FILES [FILES ...]
+                        List of files to stage in the repositories. Optional, and defaults to all modified files in the repository
+  -m MESSAGE, --message MESSAGE
+                        Commit message to use for the changes.</code></pre>
+<p><code>stage</code> combines both <code>git add ...</code> and <code>git commit -m</code>, adding and commiting one or more files to the staging area before you push to a remote.</p>
+<p>The commit message must be a text string enclosed in quotes.</p>
+<p>By default, <code>--files</code> is set to <code>.</code>, which will add all modified files to the staging area. You can also specify any number of files, separated by a space.</p>
+</section>
+<section id="sync" class="level4">
+<h4 class="anchored" data-anchor-id="sync"><code>sync</code></h4>
+<pre><code>$ manage-image-repos.py sync --help
+usage: manage-repos sync [-h] [-b BRANCH_DEFAULT] [-u UPSTREAM] [-p] [-r REMOTE]
+
+Sync managed repositories to the latest version using 'git rebase'. Optionally push to a remote fork.
+
+options:
+  -h, --help            show this help message and exit
+  -b BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT
+                        Default remote branch to sync to. This is optional and defaults to 'main'.
+  -u UPSTREAM, --upstream UPSTREAM
+                        Name of the parent remote to sync from. This is optional and defaults to 'upstream'.
+  -p, --push            Push the locally synced repo to a remote fork.
+  -r REMOTE, --remote REMOTE
+                        The name of the remote fork to push to. This is optional and defaults to 'origin'.</code></pre>
+<p>This command will switch your local repositories to the <code>main</code> branch, and sync all repositories from the config to your device from a remote. With the <code>--push</code> argument, it will push the local repository to another remote.</p>
+<p>By default, the script will switch to the <code>main</code> branch before syncing, and can be overridden with the <code>--branch-default</code> argument.</p>
+<p>The primary remote that is used to sync is <code>upstream</code>, but that can also be overridden with the <code>--upstream</code> argument. The remote for a fork defaults to <code>origin</code>, and can be overridden via the <code>--remote</code> argument.</p>
+</section>
 </section>
 <section id="usage-examples" class="level3">
 <h3 class="anchored" data-anchor-id="usage-examples">Usage examples</h3>
-<p>clone all of the image repos:</p>
-<pre><code>./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone</code></pre>
-<p>clone all repos, and set <code>upstream</code> and <code>origin</code>:</p>
-<pre><code>./manage-image-repos.py --destination ~/src/images/ --config repos.txt clone --set-origin --github-user shaneknapp</code></pre>
-<p>how to sync all image repos from upstream and push to your <code>origin</code>:</p>
-<pre><code>./manage-image-repos.py --destination ~/src/images/ --config repos.txt sync --push</code></pre>
-<p>create a feature branch in all of the image repos:</p>
-<pre><code>./manage-image-repos.py -c repos.txt -d ~/src/images branch -b test-branch</code></pre>
-<p>after you’ve added/committed files, push everything to a remote:</p>
-<pre><code>./manage-image-repos.py -c repos.txt -d ~/src/images push -b test-branch</code></pre>
+<p>Clone all of the image repos to a common directory:</p>
+<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone</code></pre>
+<p>Clone all repos, and set <code>upstream</code> and <code>origin</code> for your fork:</p>
+<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone --set-origin --github-user &lt;username&gt;</code></pre>
+<p>Sync all repos from <code>upstream</code> and push to your <code>origin</code>:</p>
+<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt sync --push</code></pre>
+<p>Create a feature branch in all of the repos:</p>
+<pre><code>manage-repos -c /path/to/repos.txt -d ~/src/images branch -b test-branch</code></pre>
+<p>Create a git patch and apply it to all image repos:</p>
+<pre><code>git diff envorinment.yml &gt; /tmp/git-patch.txt
+manage-repos -c /path/to/repos.txt -d ~/src/images patch -p /tmp/git-patch.txt</code></pre>
+<p>Once you’ve tested everything and are ready to push and create a PR, add and commit all modified files in the repositories:</p>
+<pre><code>manage-repos -c /path/to/repos.txt -d ~/src/images stage -m "this is a commit"</code></pre>
+<p>After staging, push everything to a remote:</p>
+<pre><code>manage-repos -c repos.txt -d ~/src/images push -b test-branch</code></pre>
 
 
 </section>
