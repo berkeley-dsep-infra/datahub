@@ -1,0 +1,10 @@
+[tool.black]
+# target-version should be all supported versions
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg,vendor/grafana/dashboards/*,deployments/*/secrets/*'
+ignore-words-list = 'demog,wasn'
