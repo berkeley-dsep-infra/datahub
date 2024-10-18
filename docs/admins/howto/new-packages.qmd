@@ -9,7 +9,7 @@ request that the change by installed for all users by by [creating a new
 issue in
 github](https://github.com/berkeley-dsep-infra/datahub/issues),contacting
 cirriculum support staff, or creating a new pull request. Ultimately,
-thouroughly testing changes locally and submitting a pull request will
+thoroughly testing changes locally and submitting a pull request will
 result in the software being rolled out to everyone much faster.
 
 Install a python package in your notebook

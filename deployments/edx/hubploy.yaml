@@ -9,5 +9,3 @@ cluster:
     service_key: gcloud-service-key.json
     cluster: edx
     zone: us-central1
-
-

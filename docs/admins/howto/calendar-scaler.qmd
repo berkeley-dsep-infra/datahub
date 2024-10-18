@@ -101,7 +101,7 @@ Here is an example of how you can test any changes to
 `scaler/calendar.py` locally in the python interpreter:
 
 ``` python
-# these tests will use somes dates culled from the calendar with varying numbers of events.
+# these tests will use some dates culled from the calendar with varying numbers of events.
 import scaler.calendar
 import datetime
 import zoneinfo

@@ -28,5 +28,3 @@ A cluster autoscaler script was accidentally run against the production cluster 
 ### Future organizational change ###
 
 1. Use a separate billing account for production vs development clusters. This makes it harder to accidentally run things on the wrong cluster
-
-

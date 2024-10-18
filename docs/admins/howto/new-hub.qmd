@@ -75,7 +75,7 @@ you can skip either or both of the following steps and pick back up at
 the `cookiecutter`.
 
 When creating a new hub, we also make sure to label the filestore and
-GKE/node pool resouces with both `hub` and
+GKE/node pool resources with both `hub` and
 `<nodepool|filestore>-deployment`. 99.999% of the time, the values for
 all three of these labels will be `<hubname>`.
 
@@ -331,7 +331,7 @@ will be used to allocate RAM for the node placeholder.
       | egrep -v 'pause|notebook'
     ```
 
-1.  Subract the second number from the first, and then subtract another
+1.  Subtract the second number from the first, and then subtract another
     277872640 bytes (256Mi) for "wiggle room".
 2.  Add an entry for the new placeholder node config in `values.yaml`:
 

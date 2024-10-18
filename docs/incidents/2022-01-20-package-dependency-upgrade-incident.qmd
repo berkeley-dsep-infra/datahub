@@ -9,7 +9,7 @@ date: 2022-01-20
 
 Due to these changes, image rebuild happened which broke multiple hubs which used that image including Datahub, ISchool, R, Data 100 and Data 140 hubs.
 
-One of the dependenices highlighted as part of the image build had an upgrade which resulted in R hub throwing 505 error and Data 100/140 hub throwing "Error starting Kernel". [Yuvi to fill in the right technical information]
+One of the dependencies highlighted as part of the image build had an upgrade which resulted in R hub throwing 505 error and Data 100/140 hub throwing "Error starting Kernel". [Yuvi to fill in the right technical information]
 
 User Impact:
 

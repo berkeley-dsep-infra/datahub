@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please refer to the commmon causes for the performance issues by referring to this documentation - https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If the above mentioned reasons are not the cause for the performance issues in the hub then or you lack clarity about the issue then  please do raise a request by filling the details below:
+        Please refer to the common causes for the performance issues by referring to this documentation - https://ds-modules.github.io/curriculum-guide/workflow/performance_issue.html. If the above mentioned reasons are not the cause for the performance issues in the hub then or you lack clarity about the issue then  please do raise a request by filling the details below:
   - type: dropdown
     attributes:
       label: Your Role
@@ -91,7 +91,7 @@ body:
   - type: input
     attributes:
       label: Issue timeline
-      description: Mention the date/time when this issue occured
+      description: Mention the date/time when this issue occurred
     validations:
       required: true
   - type: textarea

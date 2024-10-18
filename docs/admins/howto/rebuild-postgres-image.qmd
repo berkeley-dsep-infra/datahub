@@ -2,7 +2,7 @@
 title: "Customize the Per-User Postgres Docker Image"
 ---
 
-We provide each student on `data100` witha postgresql server. We want the
+We provide each student on `data100` with a postgresql server. We want the
 [python extension](https://www.postgresql.org/docs/current/plpython.html)
 installed. So we inherit from the [upstream postgresql docker
 image](https://hub.docker.com/_/postgres), and add the appropriate
@@ -13,7 +13,7 @@ rebuild and push it.
 
 1. Modify the image in `images/postgres` and make a git commit.
 2. Run `chartpress --push`. This will build and push the image, *but
-   not put anything in YAML*. There is no place we can put thi in
+   not put anything in YAML*. There is no place we can put this in
    `values.yaml`, since this is only used for data100.
 3. Notice the image name + tag from the `chartpress --push` command,
    and put it in the appropriate place (under `extraContainers`) in

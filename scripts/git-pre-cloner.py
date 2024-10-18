@@ -40,7 +40,7 @@ def copy_repo(username):
     dest_dir = os.path.join(home_dir, repo_dirname)
     if os.path.exists(dest_dir):
         if args.verbose:
-            print("Skipping {}".format(safe))
+            print(f"Skipping {safe}")
     else:
         if args.verbose:
             print(safe)
