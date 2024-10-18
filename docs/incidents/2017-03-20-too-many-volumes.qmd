@@ -11,7 +11,7 @@ From sometime early March 20 2017 till about 1300, some new student servers were
 
 ### March 18, 16:30 ##
 
-RAM per student is [reduced](https://github.com/data-8/infrastructure/issues/16) from 2G to 1G, as a resource optimization measure. The size of our nodes remains the same (26G RAM), and many are cordonned off and slowly decomissioned over the coming few days.
+RAM per student is [reduced](https://github.com/data-8/infrastructure/issues/16) from 2G to 1G, as a resource optimization measure. The size of our nodes remains the same (26G RAM), and many are cordonned off and slowly decommissioned over the coming few days.
 
 Life seems fine, given the circumstances.
 
@@ -39,7 +39,7 @@ This new instance group was then set to expand for 30 new nodes, which will prov
 
 ### 13:04 ###
 
-The simple autoscaler is stopped, on fear that it'll be confused by the unusal mixed state of the nodes and do something wonky.
+The simple autoscaler is stopped, on fear that it'll be confused by the unusual mixed state of the nodes and do something wonky.
 
 ### 13:11 ###
 

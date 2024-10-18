@@ -2,8 +2,10 @@ attrs==23.1.0
 chardet==5.2.0
 chartpress==2.2.0
 git+https://github.com/berkeley-dsep-infra/hubploy.git
+jupyter-repo2docker==2024.07.0
 myst-parser==4.0.0
 niquests==3.7.2
+pre-commit==4.0.1
 pygithub==2.4.0
 pyrsistent==0.19.3
 urllib3==2.2.3

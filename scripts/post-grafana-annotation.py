@@ -14,9 +14,10 @@ This script requires:
 """
 
 import argparse
-import niquests as requests
 import os
 import time
+
+import niquests as requests
 
 
 def create_annotation(grafana_url, grafana_api_key, tags, text):

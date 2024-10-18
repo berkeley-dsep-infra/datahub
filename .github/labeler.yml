@@ -16,6 +16,7 @@ configuration:
   - '**/apt.txt'
   - '**/infra-requirements.txt'
   - '**/requirements.in'
+  - '**/dev-requirements.txt'
   - '**/requirements.txt'
   - '**/runtime.txt'
   - '**/*.json'

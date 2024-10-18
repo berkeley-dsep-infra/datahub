@@ -19,7 +19,7 @@ which also updates `hub/values.yaml` with the new image version.
 3. Run `chartpress --push`. This will build and push the hub image, and
    modify `hub/values.yaml` appropriately.
 4. Make a commit with the `hub/values.yaml` file, so the new hub image
-   name and tag are comitted.
+   name and tag are committed.
 5. Proceed to deployment as normal.
 
 Some of the following commands may be required to configure your

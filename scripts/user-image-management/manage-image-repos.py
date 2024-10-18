@@ -7,9 +7,9 @@ this directory.
 """
 
 import argparse
+import os
 import subprocess
 import sys
-import os
 
 
 def clone(args):

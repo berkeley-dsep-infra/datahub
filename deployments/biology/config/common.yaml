@@ -61,6 +61,10 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 4096M
         mem_guarantee: 4096M
+      course::1537301: # MCELLBI 201B, https://github.com/berkeley-dsep-infra/datahub/issues/6385
+        mem_limit: 5120M
+        mem_guarantee: 5120M
+
 
       # BioE C149, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6205
       course::1537116::enrollment_type::teacher:
@@ -119,9 +123,6 @@ jupyterhub:
       git-credential-helper-private-key:
         mountPath: /etc/github/github-app-private-key.pem
         # data in secret file
-
-
-
 
     nodeSelector:
       hub.jupyter.org/pool-name: biology-pool
