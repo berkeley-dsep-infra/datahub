@@ -186,7 +186,7 @@ options:
                         Commit message to use for the changes.
 ```
 
-`stage` combines both `git add ...` and `git commit -m`, adding and commiting
+`stage` combines both `git add ...` and `git commit -m`, adding and committing
 one or more files to the staging area before you push to a remote.
 
 The commit message must be a text string enclosed in quotes.

@@ -18,7 +18,7 @@ In our experience, Google Kubernetes Engine (GKE) has been the most
 stable, performant, and reliable managed kubernetes service. We prefer
 running on this when possible.
 
-A `gcloud container clusters create` command can succintly express the
+A `gcloud container clusters create` command can succinctly express the
 configuration of our kubernetes cluster. The following command
 represents the currently favored configuration.
 

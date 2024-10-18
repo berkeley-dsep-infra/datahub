@@ -3,11 +3,12 @@
 Lists R packages in one docker image but not the other
 """
 
-import docker
 import argparse
 import json
-from urllib.request import urlopen
 from urllib.error import HTTPError
+from urllib.request import urlopen
+
+import docker
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument(
@@ -52,7 +53,7 @@ def packages_list(image_name):
         .split("\n")[2:]
     )
 
-    return set([rp.split()[0] for rp in raw_packages if len(rp.split()) == 3])
+    return {rp.split()[0] for rp in raw_packages if len(rp.split()) == 3}
 
 
 def main():

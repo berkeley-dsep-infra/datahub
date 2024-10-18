@@ -14,7 +14,7 @@ gcloud deployment-manager deployments create ... || \
 gcloud deployment-manager deployments update ...
 ```
 
-That is, the script will run the create version; if this fails (due to the deployement already existing), then it will update the deployment, only taking actions to effect changes in the "deltas" between the live deployment and the new local configuration.
+That is, the script will run the create version; if this fails (due to the deployment already existing), then it will update the deployment, only taking actions to effect changes in the "deltas" between the live deployment and the new local configuration.
 
 Deployments may be destroyed wholesale with "one click" in the web console, or with gcloud as described in the shell script comments:
 
@@ -52,7 +52,7 @@ When choosing python for the template language, the following function is expect
 def GenerateConfig(context):
 ```
 
-At deployment, the template has access to the properties set in the associated yaml, and this function's one job is to return a dictionary that descries the deployment:
+At deployment, the template has access to the properties set in the associated yaml, and this function's one job is to return a dictionary that describes the deployment:
 
 ```
     return {'resources': resources}

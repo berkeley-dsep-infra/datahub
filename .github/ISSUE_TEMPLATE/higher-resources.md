@@ -45,4 +45,3 @@ This will help us with the prioritization of this request.
 This will help us scale down resources when the RAM increase is no longer required
 
 **Any additional information we should know about?**
-

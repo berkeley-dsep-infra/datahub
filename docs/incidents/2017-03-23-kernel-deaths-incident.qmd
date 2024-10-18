@@ -47,7 +47,7 @@ https://github.com/data-8/jupyterhub-k8s/pull/146 is identified as the culprit. 
 ### 17:25 ###
 A very involved and laborious revert of the offending part of the patch is done in https://github.com/jupyterhub/kubespawner/pull/37. Core Jupyter Notebook dev continues to confirm this makes no sense.
 
-https://github.com/data-8/jupyterhub-k8s/pull/152 is also merged, and deployed shortly after verifiying that everything (including starting kernels & executing code) works fine on dev. Deployed to prod and everything is fine.
+https://github.com/data-8/jupyterhub-k8s/pull/152 is also merged, and deployed shortly after verifying that everything (including starting kernels & executing code) works fine on dev. Deployed to prod and everything is fine.
 
 ## Conclusion ##
 

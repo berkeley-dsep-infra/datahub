@@ -24,7 +24,7 @@ body:
       label: Detailed Requirements
       description: Rationale for requesting increased compute
       value: |
-        - <!--Eg: Conducting Live Workshops/Exams/Flipped Clasroom(s) or due to Deadline for Compute Intensive Assignment-->
+        - <!--Eg: Conducting Live Workshops/Exams/Flipped Classroom(s) or due to Deadline for Compute Intensive Assignment-->
     validations:
       required: true
   - type: dropdown
@@ -40,7 +40,7 @@ body:
   - type: textarea
     attributes:
       label: Request Deadline
-      description: Sepcify the time duration for which you are expecting this increase in compute
+      description: Specify the time duration for which you are expecting this increase in compute
       value: |
         <!-- Specify the start date/time and end date/time -->
     validations:

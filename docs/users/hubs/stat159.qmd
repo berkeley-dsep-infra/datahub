@@ -56,7 +56,7 @@ in secrets.
 
 This configuration is to encourage use of RTC, and to prevent one
 student from having too much access to another student\'s home
-directory. The fabricated (essentially service) accounts have initally
+directory. The fabricated (essentially service) accounts have initially
 empty home directories and exist solely to provide workspaces for the
 group. There is currently no archive or restore procedure in mind for
 these shared accounts.

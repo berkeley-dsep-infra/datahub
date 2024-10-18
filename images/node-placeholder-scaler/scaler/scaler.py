@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-import logging
 import argparse
-import tempfile
-import subprocess
-import niquests as requests
+import logging
 import os
-from copy import deepcopy
+import subprocess
+import tempfile
 import time
+from copy import deepcopy
 
-from .calendar import get_calendar, get_events, _event_repr
-
+import niquests as requests
 from ruamel.yaml import YAML
+
+from .calendar import _event_repr, get_calendar, get_events
 
 yaml = YAML(typ="safe")
 

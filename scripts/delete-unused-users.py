@@ -16,13 +16,13 @@ https://discourse.jupyter.org/t/is-there-a-way-to-bulk-delete-old-users/20866/3
 """
 
 import argparse
-from datetime import timedelta, datetime
 import json
 import logging
 import os
-import niquests
 import sys
+from datetime import datetime, timedelta
 
+import niquests
 from dateutil.parser import parse
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
@@ -77,7 +77,7 @@ def retrieve_users(hub_url, headers, inactive_since):
 
 def should_delete(user, inactive_since):
     """
-    Returns a boolean if user is to be deleted.  The critera are:
+    Returns a boolean if user is to be deleted.  The criteria are:
       - was the user active in the past inactive_since period?
       - is there a current user server running?
     """

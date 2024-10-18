@@ -4,7 +4,7 @@ title: Course Configuration
 
 ## Allocating Resources
 
-It is possible to alter administrative priviliges or resources
+It is possible to alter administrative privileges or resources
 allocations (such as memory or extra volumes) of user servers from
 within the deployment configuration. This is mostly useful for when
 resources need to be increased based on users\' class enrollments. The
@@ -30,7 +30,7 @@ Groups are named with the format
 \"course::234567::enrollment_type::student\". Our custom kubespawner,
 which we define in `hub/values.yaml`, reads users\' group
 memberships prior to spawning. It then overrides various KubeSpawner
-paramters based on configuration we define, using the canvas ID as the
+parameters based on configuration we define, using the canvas ID as the
 key. (see below)
 
 Note that if a user is assigned to a new Canvas group (e.g. by the
@@ -96,7 +96,7 @@ with bCourse ID `1234567`. It assigns scopes for accessing
 and administering the servers for users in group
 `course::1234567`. Members of that group include all
 students and course staff. It also assigns scopes for viewing lists of
-users at /hub/admin. It assignes these scopes to members of the
+users at /hub/admin. It assigns these scopes to members of the
 affiliated course staff groups.
 
 This stanza is more verbose than inserting lists of users under

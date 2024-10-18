@@ -2,9 +2,9 @@
 import datetime
 import logging
 import re
-import niquests as requests
 import zoneinfo
 
+import niquests as requests
 from ical.calendar_stream import IcsCalendarStream
 
 log = logging.getLogger(__name__)
