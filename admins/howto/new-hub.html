@@ -511,7 +511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Small courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).</p>
 <p>This is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.</p>
 <p>If you’re going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the <code>cookiecutter</code>.</p>
-<p>When creating a new hub, we also make sure to label the filestore and GKE/node pool resouces with both <code>hub</code> and <code>&lt;nodepool|filestore&gt;-deployment</code>. 99.999% of the time, the values for all three of these labels will be <code>&lt;hubname&gt;</code>.</p>
+<p>When creating a new hub, we also make sure to label the filestore and GKE/node pool resources with both <code>hub</code> and <code>&lt;nodepool|filestore&gt;-deployment</code>. 99.999% of the time, the values for all three of these labels will be <code>&lt;hubname&gt;</code>.</p>
 </section>
 <section id="creating-a-new-node-pool" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-new-node-pool">Creating a new node pool</h3>
@@ -645,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Get the node name (it will look something like <code>gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs</code>): <code>kubectl get nodes | grep *hubname* | awk '{print $1}'</code></p></li>
 <li><p>Get the total amount of memory allocatable to pods on this node and convert to bytes: <code>bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'</code></p></li>
 <li><p>Get the total memory used by non-user pods/containers on this node. We explicitly ignore <code>notebook</code> and <code>pause</code>. Convert to bytes and get the sum: <code>bash     kubectl get -A pod -l 'component!=user-placeholder' \       --field-selector spec.nodeName=&lt;nodename&gt; \       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \       | egrep -v 'pause|notebook'</code></p></li>
-<li><p>Subract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.</p></li>
+<li><p>Subtract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.</p></li>
 <li><p>Add an entry for the new placeholder node config in <code>values.yaml</code>:</p></li>
 </ol>
 <div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>

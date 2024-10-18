@@ -410,11 +410,11 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We provide each student on <code>data100</code> witha postgresql server. We want the <a href="https://www.postgresql.org/docs/current/plpython.html">python extension</a> installed. So we inherit from the <a href="https://hub.docker.com/_/postgres">upstream postgresql docker image</a>, and add the appropriate package.</p>
+<p>We provide each student on <code>data100</code> with a postgresql server. We want the <a href="https://www.postgresql.org/docs/current/plpython.html">python extension</a> installed. So we inherit from the <a href="https://hub.docker.com/_/postgres">upstream postgresql docker image</a>, and add the appropriate package.</p>
 <p>This image is in <code>images/postgres</code>. If you update it, you need to rebuild and push it.</p>
 <ol type="1">
 <li>Modify the image in <code>images/postgres</code> and make a git commit.</li>
-<li>Run <code>chartpress --push</code>. This will build and push the image, <em>but not put anything in YAML</em>. There is no place we can put thi in <code>values.yaml</code>, since this is only used for data100.</li>
+<li>Run <code>chartpress --push</code>. This will build and push the image, <em>but not put anything in YAML</em>. There is no place we can put this in <code>values.yaml</code>, since this is only used for data100.</li>
 <li>Notice the image name + tag from the <code>chartpress --push</code> command, and put it in the appropriate place (under <code>extraContainers</code>) in <code>data100/config/common.yaml</code>.</li>
 <li>Make a commit with the new tag in <code>data100/config/common.yaml</code>.</li>
 <li>Proceed to deploy as normal.</li>

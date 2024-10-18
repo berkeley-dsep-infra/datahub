@@ -416,7 +416,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Run <code>gcloud auth configure-docker us-central1-docker.pkg.dev</code> <em>once per machine</em> to setup docker for authentication with the <a href="https://cloud.google.com/artifact-registry/docs/docker/authentication">gcloud credential helper</a>.</li>
 <li>Modify the image in <code>images/hub</code> and make a git commit.</li>
 <li>Run <code>chartpress --push</code>. This will build and push the hub image, and modify <code>hub/values.yaml</code> appropriately.</li>
-<li>Make a commit with the <code>hub/values.yaml</code> file, so the new hub image name and tag are comitted.</li>
+<li>Make a commit with the <code>hub/values.yaml</code> file, so the new hub image name and tag are committed.</li>
 <li>Proceed to deployment as normal.</li>
 </ol>
 <p>Some of the following commands may be required to configure your environment to run the above chartpress workflow successfully:</p>

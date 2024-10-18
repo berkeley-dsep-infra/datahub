@@ -469,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="google-kubernetes-engine" class="level2">
 <h2 class="anchored" data-anchor-id="google-kubernetes-engine">Google Kubernetes Engine</h2>
 <p>In our experience, Google Kubernetes Engine (GKE) has been the most stable, performant, and reliable managed kubernetes service. We prefer running on this when possible.</p>
-<p>A <code>gcloud container clusters create</code> command can succintly express the configuration of our kubernetes cluster. The following command represents the currently favored configuration.</p>
+<p>A <code>gcloud container clusters create</code> command can succinctly express the configuration of our kubernetes cluster. The following command represents the currently favored configuration.</p>
 <p>This creates the GKE cluster. It may host one or more node pools:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container clusters create <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">--enable-ip-alias</span> <span class="dt">\</span></span>
