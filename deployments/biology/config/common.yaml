@@ -61,6 +61,10 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 4096M
         mem_guarantee: 4096M
+      course::1537301: # MCELLBI 201B, https://github.com/berkeley-dsep-infra/datahub/issues/6385
+        mem_limit: 5120M
+        mem_guarantee: 5120M
+
 
       # BioE C149, Fall 2024, https://github.com/berkeley-dsep-infra/datahub/issues/6205
       course::1537116::enrollment_type::teacher:
@@ -140,13 +144,3 @@ jupyterhub:
       # users on the nodes. So we reduce the max amount of CPU available to them, from 7
       # (defined in hub/values.yaml) to 4.
       limit: 4
-
-    group_profiles:
-      # DataHub Infrastructure staff
-      # https://bcourses.berkeley.edu/courses/1524699/groups#tab-80607
-      course::1524699::group::all-admins:
-        admin: true
-
-      course::1537301: # MCELLBI 201B, https://github.com/berkeley-dsep-infra/datahub/issues/6385
-        mem_limit: 5120M
-        mem_guarantee: 5120M
