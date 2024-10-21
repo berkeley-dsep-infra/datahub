@@ -431,7 +431,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="managing-user-image-repos" class="level2">
 <h2 class="anchored" data-anchor-id="managing-user-image-repos">Managing user image repos</h2>
 <p>Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.</p>
-<p>For this, we have aa tool named <a href="https://github.com/berkeley-dsep-infra/manage-repos">manage-repos</a>.</p>
+<p>For this, we have a tool named <a href="https://github.com/berkeley-dsep-infra/manage-repos">manage-repos</a>.</p>
 <p><code>manage-repos</code> uses a config file with a list of all of the git remotes for the image repos (<a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">repos.txt</a>) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).</p>
 <p>The script “assumes” that you have all of your user images in their own sub-folder (in my case, <code>$HOME/src/images/...</code>).</p>
 </section>
@@ -586,7 +586,7 @@ options:
 <p>Clone all of the image repos to a common directory:</p>
 <pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone</code></pre>
 <p>Clone all repos, and set <code>upstream</code> and <code>origin</code> for your fork:</p>
-<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone --set-origin --github-user &lt;username&gt;</code></pre>
+<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone --set-remote --github-user &lt;username&gt;</code></pre>
 <p>Sync all repos from <code>upstream</code> and push to your <code>origin</code>:</p>
 <pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt sync --push</code></pre>
 <p>Create a feature branch in all of the repos:</p>
