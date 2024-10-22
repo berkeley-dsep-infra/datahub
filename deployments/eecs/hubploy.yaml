@@ -1,6 +1,6 @@
 images:
   images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/eecs-user-image:9b1242a17579
+    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/eecs-user-image:cd59fd081aad
 
 cluster:
   provider: gcloud
