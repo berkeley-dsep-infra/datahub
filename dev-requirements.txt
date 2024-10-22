@@ -9,5 +9,6 @@ niquests==3.7.2
 pre-commit==4.0.1
 pygithub==2.4.0
 pyrsistent==0.19.3
+ruff==0.7.0
 urllib3==2.2.3
 yamllint==1.35.1
