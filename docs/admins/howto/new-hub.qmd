@@ -9,7 +9,8 @@ aliases:
 The major reasons for making a new hub are:
 
 1. A new course wants to join the Berkeley DataHub community.
-2. One of your *students* are course staff in another course and have *elevated access*, enabling them to see other students' work.
+2. One of your *students* are course staff in another course and have
+   *elevated access*, enabling them to see other students' work.
 3. You want to use a different kind of authenticator.
 4. You are running in a different cloud, or using a different billing
    account.
@@ -25,11 +26,15 @@ Please let us know if you have some other justification for creating a new hub.
 
 Working installs of the following utilities:
 
-  -   [sops](https://github.com/mozilla/sops/releases)
-  -   [hubploy](https://hubploy.readthedocs.io/en/latest/index.html)
+  -   [chartpress](https://pypi.org/project/chartpress/)
+  -   [cookiecutter](https://pypi.org/project/cookiecutter/)
   -   [gcloud](https://cloud.google.com/sdk/docs/install)
+  -   [hubploy](https://github.com/berkeley-dsep-infra/hubploy)
   -   [kubectl](https://kubernetes.io/docs/tasks/tools/)
-  -   [cookiecutter](https://github.com/audreyr/cookiecutter)
+  -   [sops](https://github.com/mozilla/sops/releases)
+
+The easiest way to install `chartpress`, `cookiecutter` and `hubploy` is to
+run `pip install -r dev-requirements.txt` from the root of the `datahub` repo.
 
 Proper access to the following systems:
 
@@ -53,7 +58,7 @@ will be required for the course. Typically, there are three general
 Small courses will usually have one or two assignments per semester, and
 may only have 20 or fewer users.
 
-General courses have up to \~500 users, but don't have large amount of
+General courses have up to ~500 users, but don't have large amount of
 data or require upgraded compute resources.
 
 Heavy usage courses can potentially have thousands of users, require

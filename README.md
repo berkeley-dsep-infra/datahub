@@ -19,7 +19,18 @@ or from links in the deployment's `image/README.md`
 The `staging` branch always reflects the state of the [staging JupyterHub](http://staging.datahub.berkeley.edu),
 and the `prod` branch reflects the state of the [production JupyterHub](http://datahub.berkeley.edu).
 
+## Installing the required python packages for working with datahub
+
+In the root directory of this repo, install `dev-requirements.txt` with the
+following command:  `pip install -r dev-requirements.txt`.  This will install
+the base python packages that are required to perform the tasks associated with
+editing, testing, building and deploying hubs.
+
+The other python package definition file, `requirements.txt` is used solely by
+our Github Actions CI/CD pipeline.
+
 ## Setting up your fork and clones
+
 First, go to your [github profile settings](https://github.com/settings/keys)
 and make sure you have an SSH key uploaded.
 
@@ -59,7 +70,6 @@ git rebase upstream/staging && \
 git push origin staging
 ```
 
-
 ## Procedure
 
 When developing for this deployment, always work in a fork of this repo.
@@ -67,6 +77,9 @@ You should also make sure that your repo is up-to-date with this one prior
 to making changes. This is because other contributors may have pushed changes
 after you last synced with this repo but before you upstreamed your changes.
 
+### Syncing your repo
+
+The following commands will sync the local clone of your fork with `upstream`:
 ```
 git checkout staging && \
 git fetch --prune --all && \
@@ -74,14 +87,19 @@ git rebase upstream/staging && \
 git push origin staging
 ```
 
-To create a new branch and switch to it, run the following command:
+### Creating a feature branch
+
+To create a new feature branch and switch to it, run the following command:
 ```
 git checkout -b <branch name>
 ```
 
+### Checking the status and diffs of your local work
+
 After you make your changes, you can use the following commands to see
 what's been modified and check out the diffs:  `git status` and `git diff`.
 
+### Adding, committing and pushing changes
 
 When you're ready to push these changes, first you'll need to stage them for a
 commit:
@@ -98,6 +116,8 @@ Now push to your fork:
 ```
 git push origin <branch name>
 ```
+
+### Creating a pull request
 
 Once you've pushed to your fork, you can go to the
 [Datahub repo](https://github.com/berkeley-dsep-infra/datahub) and there
