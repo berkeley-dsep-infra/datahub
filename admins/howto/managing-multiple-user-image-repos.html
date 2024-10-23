@@ -401,7 +401,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overview-of-git-operations-included-in-manage-repos" id="toc-overview-of-git-operations-included-in-manage-repos" class="nav-link" data-scroll-target="#overview-of-git-operations-included-in-manage-repos">Overview of git operations included in <code>manage-repos</code>:</a></li>
   <li><a href="#usage-overview" id="toc-usage-overview" class="nav-link" data-scroll-target="#usage-overview">Usage overview</a></li>
   <li><a href="#sub-commands" id="toc-sub-commands" class="nav-link" data-scroll-target="#sub-commands">Sub-commands</a></li>
-  <li><a href="#usage-examples" id="toc-usage-examples" class="nav-link" data-scroll-target="#usage-examples">Usage examples</a></li>
+  <li><a href="#tips-tricks-and-usage-examples" id="toc-tips-tricks-and-usage-examples" class="nav-link" data-scroll-target="#tips-tricks-and-usage-examples">Tips, tricks and usage examples</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -441,7 +441,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="via-cloning-and-manual-installation">Via cloning and manual installation</h3>
 <p>Clone <a href="https://github.com/berkeley-dsep-infra/manage-repos">the repo</a>, and from within that directory run:</p>
 <pre><code>pip install --editable .</code></pre>
-<p>The <code>--editable</code> flag allows you to hack on the tool and have those changes usable without reinstalling it or needing to hack your <code>PATH</code>.</p>
+<p>The <code>--editable</code> flag is optional, and allows you to hack on the tool and have those changes usable without reinstalling or needing to hack your <code>PATH</code>.</p>
 </section>
 <section id="via-pip" class="level3">
 <h3 class="anchored" data-anchor-id="via-pip">Via <code>pip</code></h3>
@@ -468,6 +468,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="primary-arguments-for-the-script" class="level4">
 <h4 class="anchored" data-anchor-id="primary-arguments-for-the-script">Primary arguments for the script</h4>
 <pre><code>$ manage-repos.py --help
+usage: manage-repos [-h] [-c CONFIG] [-d DESTINATION] {branch,clone,patch,push,stage,sync} ...
 
 positional arguments:
   {branch,clone,patch,push,stage,sync}
@@ -476,9 +477,10 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -c CONFIG, --config CONFIG
-                        Path to file containing list of repositories to operate on.
+                        Path to the file containing list of repositories to operate on. Defaults to repos.txt located in the current working
+                        directory.
   -d DESTINATION, --destination DESTINATION
-                        Location on the filesystem of the managed repositories. If the directory does not exist, it will be created. Defaults to the current working directory.</code></pre>
+                        Location on the filesystem of the directory containing the managed repositories. Defaults to the current working directory.</code></pre>
 <p><code>--config</code> is required, and setting <code>--destination</code> is recommended.</p>
 </section>
 </section>
@@ -498,18 +500,19 @@ options:
 <section id="clone" class="level4">
 <h4 class="anchored" data-anchor-id="clone"><code>clone</code></h4>
 <pre><code>$ manage-repos.py clone --help
-usage: manage-repos clone [-h] [-s] [-g GITHUB_USER]
+usage: manage-repos clone [-h] [-s [SET_REMOTE]] [-g GITHUB_USER]
 
 Clone repositories in the config file and optionally set a remote for a fork.
+If a repository sub-directory does not exist, it will be created.
 
 options:
   -h, --help            show this help message and exit
-  -s, --set-remote      Set the user's GitHub fork as a remote.
-  -r REMOTE, --remote REMOTE
-                        If --set-remote is used, override the name of the remote to set for the fork. This is optional and defaults to 'origin'.
+  -s [SET_REMOTE], --set-remote [SET_REMOTE]
+                        Set the user's GitHub fork as a remote. Defaults to 'origin'.
   -g GITHUB_USER, --github-user GITHUB_USER
-                        The GitHub username of the fork to set in the remote.</code></pre>
-<p>This command will clone all repositories found in the config, and if you’ve created a fork, use the <code>--set-remote</code> and <code>--github-user</code> arguments to update the remotes in the cloned repositories. This will set the primary repository’s remote to <code>upstream</code> and your fork to <code>origin</code> (unless you override this by using the <code>--remote</code> argument).</p>
+                        The GitHub username of the fork to set in the remote.
+                        Required if --set-remote is used.</code></pre>
+<p>This command will clone all repositories found in the config, and if you’ve created a fork, use the <code>--set-remote</code> and <code>--github-user</code> arguments to update the remotes in the cloned repositories. This will set the primary repository’s remote to <code>upstream</code> and your fork to <code>origin</code> (unless you override this by passing a different remote name with the <code>--set-remote</code> argument).</p>
 <p>After cloning, <code>git remote -v</code> will be executed for each repository to allow you to confirm that the remotes are properly set.</p>
 </section>
 <section id="patch" class="level4">
@@ -540,8 +543,10 @@ options:
   -b BRANCH, --branch BRANCH
                         Name of the branch to push.
   -r REMOTE, --remote REMOTE
-                        Name of the remote to push to. This is optional and defaults to 'origin'.</code></pre>
-<p>This command will attempt to push all staged commits to a remote. The <code>--branch</code> argument is required, and will be the name of the feature branch. The remote that is pushed to defaults to <code>origin</code>, but you can override this with the <code>--remote</code> argument.</p>
+                        Name of the remote to push to. This is optional and
+                        defaults to 'origin'.</code></pre>
+<p>This command will attempt to push all staged commits to a remote. The <code>--branch</code> argument is required, and needs to be the name of the feature branch that will be pushed.</p>
+<p>The remote that is pushed to defaults to <code>origin</code>, but you can override this with the <code>--remote</code> argument.</p>
 </section>
 <section id="stage" class="level4">
 <h4 class="anchored" data-anchor-id="stage"><code>stage</code></h4>
@@ -553,7 +558,9 @@ Stage changes in managed repositories. This performs a git add and commit.
 options:
   -h, --help            show this help message and exit
   -f FILES [FILES ...], --files FILES [FILES ...]
-                        List of files to stage in the repositories. Optional, and defaults to all modified files in the repository
+                        Space-delimited list of files to stage in the
+                        repositories. Optional, and if left blank will default
+                        to all modified files.
   -m MESSAGE, --message MESSAGE
                         Commit message to use for the changes.</code></pre>
 <p><code>stage</code> combines both <code>git add ...</code> and <code>git commit -m</code>, adding and committing one or more files to the staging area before you push to a remote.</p>
@@ -563,43 +570,60 @@ options:
 <section id="sync" class="level4">
 <h4 class="anchored" data-anchor-id="sync"><code>sync</code></h4>
 <pre><code>$ manage-image-repos.py sync --help
-usage: manage-repos sync [-h] [-b BRANCH_DEFAULT] [-u UPSTREAM] [-p] [-r REMOTE]
+usage: manage-repos sync [-h] [-b BRANCH_DEFAULT] [-u UPSTREAM] [-p]
+                         [-r REMOTE]
 
-Sync managed repositories to the latest version using 'git rebase'. Optionally push to a remote fork.
+Sync managed repositories to the latest version using 'git rebase'. Optionally
+push to a remote fork.
 
 options:
   -h, --help            show this help message and exit
   -b BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT
-                        Default remote branch to sync to. This is optional and defaults to 'main'.
+                        Default remote branch to sync to. This is optional and
+                        defaults to 'main'.
   -u UPSTREAM, --upstream UPSTREAM
-                        Name of the parent remote to sync from. This is optional and defaults to 'upstream'.
+                        Name of the parent remote to sync from. This is
+                        optional and defaults to 'upstream'.
   -p, --push            Push the locally synced repo to a remote fork.
   -r REMOTE, --remote REMOTE
-                        The name of the remote fork to push to. This is optional and defaults to 'origin'.</code></pre>
+                        The name of the remote fork to push to. This is
+                        optional and defaults to 'origin'.</code></pre>
 <p>This command will switch your local repositories to the <code>main</code> branch, and sync all repositories from the config to your device from a remote. With the <code>--push</code> argument, it will push the local repository to another remote.</p>
 <p>By default, the script will switch to the <code>main</code> branch before syncing, and can be overridden with the <code>--branch-default</code> argument.</p>
 <p>The primary remote that is used to sync is <code>upstream</code>, but that can also be overridden with the <code>--upstream</code> argument. The remote for a fork defaults to <code>origin</code>, and can be overridden via the <code>--remote</code> argument.</p>
 </section>
 </section>
-<section id="usage-examples" class="level3">
-<h3 class="anchored" data-anchor-id="usage-examples">Usage examples</h3>
+<section id="tips-tricks-and-usage-examples" class="level3">
+<h3 class="anchored" data-anchor-id="tips-tricks-and-usage-examples">Tips, tricks and usage examples</h3>
+<section id="tips-and-tricks" class="level4">
+<h4 class="anchored" data-anchor-id="tips-and-tricks">Tips and tricks</h4>
+<p><code>manage-repos</code> is best run from the parent folder that will contain all of the repositories that you will be managing as the default value of <code>--destination</code> is the current working directory (<code>.</code>).</p>
+<p>You can also create a symlink in the parent folder that points to the config file elsewhere on your filesystem:</p>
+<pre><code>ln -s  &lt;path to datahub repo&gt;/scripts/user-image-management/repos.txt repos.txt</code></pre>
+<p>With this in mind, you can safely drop the <code>--config</code> and <code>--destination</code> arguments when running <code>manage-repos</code>. Eg:</p>
+<pre><code>manage-repos sync -p</code></pre>
+<p>Another tip is to comment out or delete entries in your config when performing git operations on a limited set of repositories. Be sure to <code>git restore</code> the file when you’re done!</p>
+</section>
+<section id="usage-examples" class="level4">
+<h4 class="anchored" data-anchor-id="usage-examples">Usage examples</h4>
 <p>Clone all of the image repos to a common directory:</p>
 <pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone</code></pre>
 <p>Clone all repos, and set <code>upstream</code> and <code>origin</code> for your fork:</p>
-<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt clone --set-remote --github-user &lt;username&gt;</code></pre>
+<pre><code>manage-repos -d ~/src/images/ -c /path/to/repos.txt clone --set-remote --github-user &lt;username&gt;</code></pre>
 <p>Sync all repos from <code>upstream</code> and push to your <code>origin</code>:</p>
-<pre><code>manage-repos --destination ~/src/images/ --config /path/to/repos.txt sync --push</code></pre>
+<pre><code>manage-repos -d ~/src/images/ -c /path/to/repos.txt sync --push</code></pre>
 <p>Create a feature branch in all of the repos:</p>
-<pre><code>manage-repos -c /path/to/repos.txt -d ~/src/images branch -b test-branch</code></pre>
+<pre><code>manage-repos -d ~/src/images -c /path/to/repos.txt branch -b test-branch</code></pre>
 <p>Create a git patch and apply it to all image repos:</p>
 <pre><code>git diff envorinment.yml &gt; /tmp/git-patch.txt
-manage-repos -c /path/to/repos.txt -d ~/src/images patch -p /tmp/git-patch.txt</code></pre>
+manage-repos -d ~/src/images -c /path/to/repos.txt patch -p /tmp/git-patch.txt</code></pre>
 <p>Once you’ve tested everything and are ready to push and create a PR, add and commit all modified files in the repositories:</p>
-<pre><code>manage-repos -c /path/to/repos.txt -d ~/src/images stage -m "this is a commit"</code></pre>
+<pre><code>manage-repos -d ~/src/images -c /path/to/repos.txt stage -m "this is a commit"</code></pre>
 <p>After staging, push everything to a remote:</p>
-<pre><code>manage-repos -c repos.txt -d ~/src/images push -b test-branch</code></pre>
+<pre><code>manage-repos -d ~/src/images -c /path/to/repos.txt push -b test-branch</code></pre>
 
 
+</section>
 </section>
 </section>
 
