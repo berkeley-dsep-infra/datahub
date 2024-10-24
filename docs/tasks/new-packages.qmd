@@ -1,5 +1,7 @@
 ---
 title: Testing and Upgrading New Packages
+aliases:
+  - ../admins/howto/new-packages.html
 ---
 
 It is helpful to test package additions and upgrades for yourself before

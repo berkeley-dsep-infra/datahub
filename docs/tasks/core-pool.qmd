@@ -1,5 +1,7 @@
 ---
 title: Core Node Pool Management
+aliases:
+  - ../admins/howto/core-pool.html
 ---
 
 ## What is the core node pool?

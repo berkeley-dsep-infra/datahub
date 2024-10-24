@@ -1,5 +1,7 @@
 ---
 title: JupyterHub ORM Maintenance
+aliases:
+  - ../admins/howto/remove-users-orm.html
 ---
 
 ## Performance

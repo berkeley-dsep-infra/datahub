@@ -1,5 +1,7 @@
 ---
 title: Calendar Node Pool Autoscaler
+aliases:
+  - ../admins/howto/calendar-scaler.html
 ---
 
 ## Why scale node pools with Google Calendar?

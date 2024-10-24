@@ -1,5 +1,7 @@
 ---
 title: Operations Cheatsheet
+aliases:
+  - ../admins/howto/cheatsheet.html
 ---
 
 We periodically need to perform various tasks that can be quickly described by short shell fragments. This page is meant to be a dumping ground for them. It may be useful on occasion to move such fragments into more relevant pages.
