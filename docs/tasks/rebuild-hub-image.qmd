@@ -1,5 +1,7 @@
 ---
 title: "Customize the Hub Docker Image"
+aliases:
+  - ../admins/howto/rebuild-hub-image.html
 ---
 
 We use a customized JupyterHub docker image so we can install extra packages

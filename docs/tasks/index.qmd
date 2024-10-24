@@ -1,3 +1,5 @@
 ---
 title: Common Administrator Tasks
+aliases:
+  - ../admins/howto/index.html
 ---

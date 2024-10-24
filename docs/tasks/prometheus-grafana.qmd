@@ -1,5 +1,7 @@
 ---
 title: Prometheus and Grafana
+aliases:
+  - ../admins/howto/prometheus-grafana.html
 ---
 
 # Accessing the Prometheus Server

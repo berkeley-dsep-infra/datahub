@@ -1,5 +1,7 @@
 ---
 title: Managing multiple user image repos
+aliases:
+  - ../admins/howto/managing-multiple-user-image-repos.html
 ---
 
 ## Managing user image repos

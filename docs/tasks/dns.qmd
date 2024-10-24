@@ -1,5 +1,7 @@
 ---
 title: Update DNS
+aliases:
+  - ../admins/howto/dns.html
 ---
 
 Some staff have access to make and update DNS entries in the

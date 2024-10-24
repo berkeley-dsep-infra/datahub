@@ -1,5 +1,7 @@
 ---
 title: "Customize the Per-User Postgres Docker Image"
+aliases:
+  - ../admins/howto/rebuild-postgres-image.html
 ---
 
 We provide each student on `data100` with a postgresql server. We want the
