@@ -1,0 +1,160 @@
+---
+title: Datahub CI/CD
+---
+
+## Datahub CI/CD 
+
+Datahub's continuous integration and deployment system uses both
+[Github Actions](https://github.com/features/actions) and
+[workflows](https://docs.github.com/en/actions/writing-workflows).
+
+These workflows are stored in the Datahub repo in the
+[.github/workflows/ directory](https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows).
+
+The basic order of operations is as follows:
+
+1. PR is created in the datahub repo.
+2. The labeler workflow applies labels based on the [file type and/or location](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml).
+3. On PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.
+4. On PR merge to prod, only hubs are deployed (again based on labels).
+
+The hubs are deployed via [hubploy](https://github.com/berkeley-dsep-infra/hubploy),
+which is our custom wrapper for `gcloud`, `sops` and `helm`.
+
+## Github Actions architecture
+
+### Secrets and variables
+
+All of these workflows depend on a few Actions secrets and variables, with
+some at the organization level, and others at the repository level.
+
+#### Organization secrets and variables
+
+All of the organizational secrets and variables are located [here](https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions).
+
+##### Organization Secrets
+
+**DATAHUB_CREATE_PR**
+
+This secret is a fine-grained personal [access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens), and has the following permissions defined:
+
+* Select repositories (only berkeley-dsep-infra/datahub)
+* Repository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)
+
+When adding a new image repository in the berkeley-dsep-infra org, you must
+edit this secret and manually add this repository to the access list.
+
+*IMPORTANT!* This PAT has an lifetime of 366 days, and should be rotated at the
+beginning of every maintenance window!
+
+**GAR_SECRET_KEY** and **GAR_SECRET_KEY_EDX**
+
+These secrets are for the GCP IAM roles for each GCP project given
+`roles/storage.admin` permissions. This allows us to push the built images to
+the Artifact Registry.
+
+When adding a new image repository in the berkeley-dsep-infra org, you must
+edit this secret and manually add this repository to the access list.
+
+##### Organization Variables
+
+**IMAGE_BUILDER_BOT_EMAIL** and **IMAGE_BUILDER_BOT_NAME**
+
+These are used to set the git identity in the image build workflow step that
+pushes a commit and creates a PR in the datahub repo.
+
+#### Repository secrets and variables
+
+##### Datahub repository secrets
+
+**GCP_PROJECT_ID**
+
+This is the name of our GCP project.
+
+**GKE_KEY**
+
+This key is used in the workflows that deploy the `support` and
+`node-placeholder` namespaces.  It's attached to the `hubploy` service account,
+and has the assigned roles of `roles/container.clusterViewer` and
+`roles/container.developer`.
+
+**SOPS_KEY**
+
+This key is used to decrypt our secrets using `sops`, and is attached to the
+`sopsaccount` service account and provides KMS access.
+
+##### Image repository variables
+
+Each image repository contains two variables, which are used to identify the
+name of the hub, and the path within the Artifact Registry that it's published
+to.
+
+**HUB**
+
+The name of the hub, natch!  datahub, data100, etc.
+
+**IMAGE**
+
+The path within the artifact registry:  `ucb-datahub-2018/user-images/<hubname>-user-image`
+
+### Single user server image modification workflow
+
+Each hub's user image is located in the berkeley-dsep-infra's organization.
+When a pull request is submitted, there are two workflows that run:
+
+1. [YAML lint](https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/yaml-lint.yaml)
+2. [Build and test the image](https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/build-test-image.yaml)
+
+When both tests pass, and the pull request is merged in to the `main` branch,
+a third and final workflow is run:
+
+3. [Build push and create PR](https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/build-push-create-pr.yaml)
+
+This builds the image again, and when successful pushes it to our Google
+Artifact Registry and creates a pull request in the datahub repository with the
+updated image tag for that hub's deployment.
+
+### Updating the datahub repository
+
+#### Single user server image tag updates
+
+When a pull request is opened to update one or more image tags for deployments,
+the [labeler](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml)
+will apply the `hub: <hubname>` label upon creation.  When this pull request is
+merged, the [deploy-hubs workflow](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-hubs.yaml)
+is triggered.
+
+This workflow will then grab the labels from the merged pull request, see if
+any hubs need to be deployed and if so, execute a [python script](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/scripts/determine-hub-deployments.py)
+that checks the environment variables within that workflow for hubs, and emits
+a list of what's to be deployed.
+
+That list is iterated over, and [hubploy](https://github.com/berkeley-dsep-infra/hubploy)
+is used to deploy only the flagged hubs.
+
+#### Support and node-placeholder charts
+
+Each of these deployments has their own workflow, which only runs on pushes to
+`staging`:
+
+* [deploy-support.yaml](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml)
+* [deploy-node-placeholder.yaml](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml)
+
+If the correct labels are found, it will use the **GKE_KEY** secret to run
+`helm upgrade` for the necessary deployments.
+
+#### Misc workflows
+
+There are also a couple of other workflows in the datahub repository:
+
+* [ prevent-prod-merges.yml](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/prevent-prod-merges.yml)
+
+This workflow will only allow us to merge to `prod` from `staging`.
+
+* [quarto-docs.yml](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml)
+
+This builds, renders and pushes our docs to Github Pages.
+
+## Original design document
+
+https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing
