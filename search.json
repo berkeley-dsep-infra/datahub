@@ -1458,7 +1458,7 @@
     "href": "tasks/remove-users-orm.html",
     "title": "JupyterHub ORM Maintenance",
     "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
     "crumbs": [
       "Contributing",
       "Common Administrator Tasks",
@@ -1470,7 +1470,7 @@
     "href": "tasks/remove-users-orm.html#performance",
     "title": "JupyterHub ORM Maintenance",
     "section": "",
-    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
+    "text": "JupyterHub performance sometimes scales with the total number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.\nThe script scripts/delete-unused-users.py will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub.\nThis should be done before the start of each semester, particularly on hubs with a lot of users.",
     "crumbs": [
       "Contributing",
       "Common Administrator Tasks",
@@ -1478,11 +1478,11 @@
     ]
   },
   {
-    "objectID": "tasks/remove-users-orm.html#run-the-script",
-    "href": "tasks/remove-users-orm.html#run-the-script",
+    "objectID": "tasks/remove-users-orm.html#running-the-script",
+    "href": "tasks/remove-users-orm.html#running-the-script",
     "title": "JupyterHub ORM Maintenance",
-    "section": "Run the script",
-    "text": "Run the script\nYou can run the script on your own device. The script depends on the jhub_client python library. This can be installed with pip install jhub_client.\n\nYou will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to {hub_url}/hub/token to create a new one.\nSet the environment variable JUPYTERHUB_API_TOKEN to the token.\nRun python scripts/delete-unused-users.py --hub_url {hub_url}",
+    "section": "Running the script",
+    "text": "Running the script\n./delete-unused-users.py --help\nusage: delete-unused-users.py [-h] [-c CREDENTIALS] [-H HUB_URL] [--dry_run]\n                              [--inactive_since INACTIVE_SINCE] [-v] [-d]\n\noptions:\n  -h, --help            show this help message and exit\n  -c CREDENTIALS, --credentials CREDENTIALS\n                        Path to a json file containing hub url and api keys.\n                        Format is: {\"hub1_url\": \"hub1_key\", \"hub2_url\":, \"hub2_key\"}\n  -H HUB_URL, --hub_url HUB_URL\n                        Fully qualified URL to the JupyterHub. You must also\n                        set the JUPYTERHUB_API_TOKEN environment variable with\n                        the API key.\n  --dry_run             Dry run without deleting users.\n  --inactive_since INACTIVE_SINCE\n                        Period of inactivity after which users are considered\n                        for deletion (literal string constructor values for\n                        timedelta objects).\n  -v, --verbose         Set info log level.\n  -d, --debug           Set debug log level.\nThe ‘best’ way to run this script is to log in to each hub and in the Admin page, generate a token. The URL will be {hub_url}/hub/token. You can store the tokens in a json-like configuration file on your device with the following format:\n{\n  \"https://a11y.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n  \"https://astro.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n  \"https://biology.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n  \"https://cee.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n  \"https://data8.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n  \"https://data100.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n  \"https://data101.datahub.berkeley.edu\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n}\nThen you can execute the script as such:\n./delete-unused-users.py -c ~/.datahub/hub-api-tokens.json -v --inactive_since=days=30",
     "crumbs": [
       "Contributing",
       "Common Administrator Tasks",

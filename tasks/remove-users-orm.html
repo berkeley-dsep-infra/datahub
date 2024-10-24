@@ -358,7 +358,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#performance" id="toc-performance" class="nav-link active" data-scroll-target="#performance">Performance</a></li>
-  <li><a href="#run-the-script" id="toc-run-the-script" class="nav-link" data-scroll-target="#run-the-script">Run the script</a></li>
+  <li><a href="#running-the-script" id="toc-running-the-script" class="nav-link" data-scroll-target="#running-the-script">Running the script</a></li>
   </ul>
 </nav>
     </div>
@@ -387,17 +387,43 @@ ul.task-list li input[type="checkbox"] {
 <section id="performance" class="level2">
 <h2 class="anchored" data-anchor-id="performance">Performance</h2>
 <p>JupyterHub performance sometimes scales with the <em>total</em> number of users in its ORM database, rather than the number of running users. Reducing the user count enables the hub to restart much faster. While this issue should be addressed, we can work around it by deleting inactive users from the hub database once in a while. Note that this does not delete the user’s storage.</p>
-<p>The script <code>scripts/delete-unused-users.py</code> will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub, but that is probably fine.</p>
+<p>The script <code>scripts/delete-unused-users.py</code> will delete anyone who hasn’t registered any activity in a given period of time, double checking to make sure they aren’t active right now. This will require users to log in again the next time they use the hub.</p>
 <p>This should be done before the start of each semester, particularly on hubs with a lot of users.</p>
 </section>
-<section id="run-the-script" class="level2">
-<h2 class="anchored" data-anchor-id="run-the-script">Run the script</h2>
-<p>You can run the script on your own device. The script depends on the <code>jhub_client</code> python library. This can be installed with <code>pip install jhub_client</code>.</p>
-<ol type="1">
-<li>You will need to acquire a JupyterHub API token with administrative rights. A hub admin can go to <code>{hub_url}/hub/token</code> to create a new one.</li>
-<li>Set the environment variable <code>JUPYTERHUB_API_TOKEN</code> to the token.</li>
-<li>Run <code>python scripts/delete-unused-users.py --hub_url {hub_url}</code></li>
-</ol>
+<section id="running-the-script" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-script">Running the script</h2>
+<pre><code>./delete-unused-users.py --help
+usage: delete-unused-users.py [-h] [-c CREDENTIALS] [-H HUB_URL] [--dry_run]
+                              [--inactive_since INACTIVE_SINCE] [-v] [-d]
+
+options:
+  -h, --help            show this help message and exit
+  -c CREDENTIALS, --credentials CREDENTIALS
+                        Path to a json file containing hub url and api keys.
+                        Format is: {"hub1_url": "hub1_key", "hub2_url":, "hub2_key"}
+  -H HUB_URL, --hub_url HUB_URL
+                        Fully qualified URL to the JupyterHub. You must also
+                        set the JUPYTERHUB_API_TOKEN environment variable with
+                        the API key.
+  --dry_run             Dry run without deleting users.
+  --inactive_since INACTIVE_SINCE
+                        Period of inactivity after which users are considered
+                        for deletion (literal string constructor values for
+                        timedelta objects).
+  -v, --verbose         Set info log level.
+  -d, --debug           Set debug log level.</code></pre>
+<p>The ‘best’ way to run this script is to log in to each hub and in the Admin page, generate a token. The URL will be <code>{hub_url}/hub/token</code>. You can store the tokens in a json-like configuration file on your device with the following format:</p>
+<pre><code>{
+  "https://a11y.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "https://astro.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "https://biology.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "https://cee.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "https://data8.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "https://data100.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "https://data101.datahub.berkeley.edu": "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+}</code></pre>
+<p>Then you can execute the script as such:</p>
+<pre><code>./delete-unused-users.py -c ~/.datahub/hub-api-tokens.json -v --inactive_since=days=30</code></pre>
 
 
 </section>
