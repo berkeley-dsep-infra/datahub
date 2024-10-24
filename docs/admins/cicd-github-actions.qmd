@@ -154,3 +154,7 @@ This workflow will only allow us to merge to `prod` from `staging`.
 * [quarto-docs.yml](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml)
 
 This builds, renders and pushes our docs to Github Pages.
+
+## Original design document
+
+https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing
