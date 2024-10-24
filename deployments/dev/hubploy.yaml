@@ -1,7 +1,3 @@
-# you will also need to update config/common.yaml to include the following for
-# the secondary image tag:
-# kubespawner_override:
-#   image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-secondary-image:df11f4f1caa1
 images:
   images:
     - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/dev-primary-image:6000a5694eab
