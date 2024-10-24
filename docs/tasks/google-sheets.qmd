@@ -1,5 +1,7 @@
 ---
 title: Reading Google Sheets from DataHub
+aliases:
+  - ../admins/howto/google-sheets.html
 ---
 
 Available in: DataHub

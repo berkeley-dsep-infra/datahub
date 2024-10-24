@@ -1,5 +1,7 @@
 ---
 title: Create Finely Grained Access Token
+aliases:
+  - ../admins/howto/github-token.html
 ---
 
 At <https://github.com/settings/personal-access-tokens/new>:

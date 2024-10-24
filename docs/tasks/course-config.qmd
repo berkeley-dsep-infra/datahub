@@ -1,5 +1,7 @@
 ---
 title: Course Configuration
+aliases:
+  - ../admins/howto/course-config.html
 ---
 
 ## Allocating Resources

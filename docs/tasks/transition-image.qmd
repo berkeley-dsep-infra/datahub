@@ -1,5 +1,7 @@
 ---
 title: Transition Single User Image to GitHub Actions
+aliases:
+  - ../admins/howto/transition-image.html
 ---
 
 Single user images have been maintained within the main datahub repo since its inception, however we decided to move them into their own repositories. It will make testing notebooks easier, and we will be able to delegate write access to course staff if necessary.

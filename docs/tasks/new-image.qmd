@@ -1,5 +1,7 @@
 ---
 title: Create a New Single User Image
+aliases:
+  - ../admins/howto/new-image.html
 ---
 
 You might need to create a new user image when deploying a new hub, or changing

@@ -1,5 +1,7 @@
 ---
 title: Delete or spin down a Hub
+aliases:
+  - ../admins/howto/delete-hub.html
 ---
 
 ## Why delete or spin down a hub?
