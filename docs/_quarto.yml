@@ -26,10 +26,8 @@ website:
     contents:
       - href: index.qmd
         text: Home
-      - section: "Using DataHub"
-        contents:
-          - users/private-repo.qmd
-          - users/hubs.qmd
+      - href: hubs.qmd
+        text: JupyterHub Deployments
       - section: "Contributing to DataHub"
         contents:
           - admins/pre-reqs.qmd
