@@ -30,7 +30,6 @@ website:
         contents:
           - users/private-repo.qmd
           - users/hubs.qmd
-          - users/authentication.qmd
       - section: "Contributing to DataHub"
         contents:
           - admins/pre-reqs.qmd
