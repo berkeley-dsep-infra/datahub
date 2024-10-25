@@ -68,6 +68,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -403,10 +406,10 @@ ul.task-list li input[type="checkbox"] {
 <p>These workflows are stored in the DataHub repo in the <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows">.github/workflows/</a> directory.</p>
 <p>The basic order of operations is as follows:</p>
 <ol type="1">
-<li>PR is created in the datahub repo.</li>
+<li>A pull request is created in the datahub repo.</li>
 <li>The labeler workflow applies labels based on the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">file type and/or location</a>.</li>
-<li>On PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.</li>
-<li>On PR merge to prod, only hubs are deployed (again based on labels).</li>
+<li>When the pull request is merged to <code>staging</code>, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.</li>
+<li>When the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).</li>
 </ol>
 <p>The hubs are deployed via <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a>, which is our custom wrapper for <code>gcloud</code>, <code>sops</code> and <code>helm</code>.</p>
 </section>
@@ -514,6 +517,38 @@ The path within the artifact registry: <code>ucb-datahub-2018/user-images/&lt;hu
 <p>When a pull request is opened to update one or more image tags for deployments, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">labeler</a> will apply the <code>hub: &lt;hubname&gt;</code> label upon creation. When this pull request is merged, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-hubs.yaml">deploy-hubs workflow</a> is triggered.</p>
 <p>This workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/scripts/determine-hub-deployments.py">python script</a> that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.</p>
 <p>That list is iterated over, and <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a> is used to deploy only the flagged hubs.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%% State diagram documentation at
+%% https://mermaid.js.org/syntax/stateDiagram.html
+
+stateDiagram-v2
+    image_repo: github.com/berkeley-dsep-infra/hubname-user-image
+    forked_repo: github.com/github username/hubname-user-image
+    image_test_build: Image is built and tested
+    image_push_build: Image is built and pushed to registry
+    pr_created: A pull request is automatically&lt;br/&gt;created in the Datahub repo
+    deploy_to_staging: Hub is deployed to staging
+    contributor_tests: The contributor logs into the&lt;br/&gt;staging hub and tests the image.
+    deploy_to_prod: Hub is deployed to prod
+
+    image_repo --&gt; forked_repo: Contributor forks the image repo.
+    forked_repo --&gt; image_repo: Contributor creates a PR.
+    image_repo --&gt; image_test_build
+    image_test_build --&gt; image_push_build: Test build passes and Datahub staff merge pull request
+    image_push_build --&gt; pr_created
+    pr_created --&gt; deploy_to_staging: Datahub staff review and merge to staging
+    deploy_to_staging --&gt; contributor_tests
+    contributor_tests --&gt; deploy_to_prod: Datahub staff create a PR to merge to prod
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
 <section id="support-and-node-placeholder-charts" class="level4">
 <h4 class="anchored" data-anchor-id="support-and-node-placeholder-charts">Support and node-placeholder charts</h4>
