@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Datahub CI/CD</title>
+<title>Continuous Integration and Deployment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Datahub architecture and contribution overview</a></li><li class="breadcrumb-item"><a href="../admins/cicd-github-actions.html">Datahub CI/CD</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Datahub architecture and contribution overview</a></li><li class="breadcrumb-item"><a href="../admins/cicd-github-actions.html">Continuous Integration and Deployment</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -164,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Datahub CI/CD</span></a>
+ <span class="menu-text">Continuous Integration and Deployment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -363,31 +363,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#datahub-cicd-overview" id="toc-datahub-cicd-overview" class="nav-link active" data-scroll-target="#datahub-cicd-overview">Datahub CI/CD overview</a></li>
-  <li><a href="#github-actions-architecture" id="toc-github-actions-architecture" class="nav-link" data-scroll-target="#github-actions-architecture">Github Actions architecture</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#github-actions-architecture" id="toc-github-actions-architecture" class="nav-link" data-scroll-target="#github-actions-architecture">Github Actions Architecture</a>
   <ul class="collapse">
-  <li><a href="#secrets-and-variables" id="toc-secrets-and-variables" class="nav-link" data-scroll-target="#secrets-and-variables">Secrets and variables</a>
-  <ul class="collapse">
-  <li><a href="#organization-secrets-and-variables" id="toc-organization-secrets-and-variables" class="nav-link" data-scroll-target="#organization-secrets-and-variables">Organization secrets and variables</a></li>
-  </ul></li>
+  <li><a href="#secrets-and-variables" id="toc-secrets-and-variables" class="nav-link" data-scroll-target="#secrets-and-variables">Secrets and Variables</a></li>
   <li><a href="#single-user-server-image-modification-workflow" id="toc-single-user-server-image-modification-workflow" class="nav-link" data-scroll-target="#single-user-server-image-modification-workflow">Single user server image modification workflow</a></li>
-  <li><a href="#updating-the-datahub-repository" id="toc-updating-the-datahub-repository" class="nav-link" data-scroll-target="#updating-the-datahub-repository">Updating the datahub repository</a>
-  <ul class="collapse">
-  <li><a href="#single-user-server-image-tag-updates" id="toc-single-user-server-image-tag-updates" class="nav-link" data-scroll-target="#single-user-server-image-tag-updates">Single user server image tag updates</a></li>
-  <li><a href="#support-and-node-placeholder-charts" id="toc-support-and-node-placeholder-charts" class="nav-link" data-scroll-target="#support-and-node-placeholder-charts">Support and node-placeholder charts</a></li>
-  <li><a href="#misc-workflows" id="toc-misc-workflows" class="nav-link" data-scroll-target="#misc-workflows">Misc workflows</a></li>
+  <li><a href="#updating-the-datahub-repository" id="toc-updating-the-datahub-repository" class="nav-link" data-scroll-target="#updating-the-datahub-repository">Updating the datahub repository</a></li>
+  <li><a href="#documentations-workflow" id="toc-documentations-workflow" class="nav-link" data-scroll-target="#documentations-workflow">Documentation’s Workflow</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#original-design-document" id="toc-original-design-document" class="nav-link" data-scroll-target="#original-design-document">Original design document</a></li>
+  <li><a href="#original-design-document" id="toc-original-design-document" class="nav-link" data-scroll-target="#original-design-document">Original Design Document</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Datahub architecture and contribution overview</a></li><li class="breadcrumb-item"><a href="../admins/cicd-github-actions.html">Datahub CI/CD</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Datahub architecture and contribution overview</a></li><li class="breadcrumb-item"><a href="../admins/cicd-github-actions.html">Continuous Integration and Deployment</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Datahub CI/CD</h1>
+<h1 class="title">Continuous Integration and Deployment</h1>
 </div>
 
 
@@ -404,10 +397,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="datahub-cicd-overview" class="level1">
-<h1>Datahub CI/CD overview</h1>
-<p>Datahub’s continuous integration and deployment system uses both <a href="https://github.com/features/actions">Github Actions</a> and <a href="https://docs.github.com/en/actions/writing-workflows">workflows</a>.</p>
-<p>These workflows are stored in the Datahub repo in the <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows">.github/workflows/ directory</a>.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>DataHub’s continuous integration and deployment system uses both <a href="https://github.com/features/actions">Github Actions</a> and <a href="https://docs.github.com/en/actions/writing-workflows">workflows</a>.</p>
+<p>These workflows are stored in the DataHub repo in the <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows">.github/workflows/</a> directory.</p>
 <p>The basic order of operations is as follows:</p>
 <ol type="1">
 <li>PR is created in the datahub repo.</li>
@@ -417,57 +410,92 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>The hubs are deployed via <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a>, which is our custom wrapper for <code>gcloud</code>, <code>sops</code> and <code>helm</code>.</p>
 </section>
-<section id="github-actions-architecture" class="level1">
-<h1>Github Actions architecture</h1>
-<section id="secrets-and-variables" class="level2">
-<h2 class="anchored" data-anchor-id="secrets-and-variables">Secrets and variables</h2>
+<section id="github-actions-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="github-actions-architecture">Github Actions Architecture</h2>
+<section id="secrets-and-variables" class="level3">
+<h3 class="anchored" data-anchor-id="secrets-and-variables">Secrets and Variables</h3>
 <p>All of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.</p>
-<section id="organization-secrets-and-variables" class="level3">
-<h3 class="anchored" data-anchor-id="organization-secrets-and-variables">Organization secrets and variables</h3>
-<p>All of the organizational secrets and variables are located <a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">here</a>.</p>
-<section id="organization-secrets" class="level4">
-<h4 class="anchored" data-anchor-id="organization-secrets">Organization Secrets</h4>
-<p><strong>DATAHUB_CREATE_PR</strong></p>
-<p>This secret is a fine-grained personal <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">access token</a>, and has the following permissions defined:</p>
+<section id="organization-secrets-and-variables" class="level4">
+<h4 class="anchored" data-anchor-id="organization-secrets-and-variables">Organization secrets and variables</h4>
+<p><a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">GitHub Actions settings</a> contain all of the organizational secrets and variables.</p>
+<section id="organization-secrets" class="level5">
+<h5 class="anchored" data-anchor-id="organization-secrets">Organization Secrets</h5>
+<dl>
+<dt>DATAHUB_CREATE_PR</dt>
+<dd>
+This secret is a fine-grained personal <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">access token</a>, and has the following permissions defined:
+</dd>
+</dl>
 <ul>
 <li>Select repositories (only berkeley-dsep-infra/datahub)</li>
 <li>Repository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)</li>
 </ul>
 <p>When adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.</p>
-<p><em>IMPORTANT:</em> This PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window!</p>
-<p><strong>GAR_SECRET_KEY</strong> and <strong>GAR_SECRET_KEY_EDX</strong></p>
-<p>These secrets are for the GCP IAM roles for each GCP project given <code>roles/storage.admin</code> permissions. This allows us to push the built images to the Artifact Registry.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window.</p>
+</div>
+</div>
+<dl>
+<dt>GAR_SECRET_KEY and GAR_SECRET_KEY_EDX</dt>
+<dd>
+These secrets are for the GCP IAM roles for each GCP project given <code>roles/storage.admin</code> permissions. This allows us to push the built images to the Artifact Registry.
+</dd>
+</dl>
 <p>When adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.</p>
 </section>
-<section id="organization-variables" class="level4">
-<h4 class="anchored" data-anchor-id="organization-variables">Organization Variables</h4>
-<p><strong>IMAGE_BUILDER_BOT_EMAIL</strong> and <strong>IMAGE_BUILDER_BOT_NAME</strong></p>
-<p>These are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.</p>
+<section id="organization-variables" class="level5">
+<h5 class="anchored" data-anchor-id="organization-variables">Organization Variables</h5>
+<dl>
+<dt>IMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME</dt>
+<dd>
+These are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.
+</dd>
+</dl>
+<section id="datahub-repository-secrets" class="level6">
+<h6 class="anchored" data-anchor-id="datahub-repository-secrets">DataHub repository secrets</h6>
+<dl>
+<dt>GCP_PROJECT_ID</dt>
+<dd>
+This is the name of our GCP project.
+</dd>
+<dt>GKE_KEY</dt>
+<dd>
+This key is used in the workflows that deploy the <code>support</code> and <code>node-placeholder</code> namespaces. It’s attached to the <code>hubploy</code> service account, and has the assigned roles of <code>roles/container.clusterViewer</code> and <code>roles/container.developer</code>.
+</dd>
+<dt>SOPS_KEY</dt>
+<dd>
+This key is used to decrypt our secrets using <code>sops</code>, and is attached to the <code>sopsaccount</code> service account and provides KMS access.
+</dd>
+</dl>
 </section>
-<section id="repository-secrets-and-variables" class="level4">
-<h4 class="anchored" data-anchor-id="repository-secrets-and-variables">Repository secrets and variables</h4>
-<section id="datahub-repository-secrets" class="level5">
-<h5 class="anchored" data-anchor-id="datahub-repository-secrets">Datahub repository secrets</h5>
-<p><strong>GCP_PROJECT_ID</strong></p>
-<p>This is the name of our GCP project.</p>
-<p><strong>GKE_KEY</strong></p>
-<p>This key is used in the workflows that deploy the <code>support</code> and <code>node-placeholder</code> namespaces. It’s attached to the <code>hubploy</code> service account, and has the assigned roles of <code>roles/container.clusterViewer</code> and <code>roles/container.developer</code>.</p>
-<p><strong>SOPS_KEY</strong></p>
-<p>This key is used to decrypt our secrets using <code>sops</code>, and is attached to the <code>sopsaccount</code> service account and provides KMS access.</p>
 </section>
-</section>
-<section id="image-repository-variables" class="level4">
-<h4 class="anchored" data-anchor-id="image-repository-variables">Image repository variables</h4>
+<section id="user-image-repository-variables" class="level5">
+<h5 class="anchored" data-anchor-id="user-image-repository-variables">User Image Repository Variables</h5>
 <p>Each image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.</p>
-<p><strong>HUB</strong></p>
-<p>The name of the hub, natch! datahub, data100, etc.</p>
-<p><strong>IMAGE</strong></p>
-<p>The path within the artifact registry: <code>ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image</code></p>
+<dl>
+<dt>HUB</dt>
+<dd>
+The name of the hub, natch! <code>datahub</code>, <code>data100</code>, etc.
+</dd>
+<dt>IMAGE</dt>
+<dd>
+The path within the artifact registry: <code>ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image</code>
+</dd>
+</dl>
 </section>
 </section>
 </section>
-<section id="single-user-server-image-modification-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="single-user-server-image-modification-workflow">Single user server image modification workflow</h2>
+<section id="single-user-server-image-modification-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="single-user-server-image-modification-workflow">Single user server image modification workflow</h3>
 <p>Each hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:</p>
 <ol type="1">
 <li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/yaml-lint.yaml">YAML lint</a></li>
@@ -479,16 +507,16 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>This builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.</p>
 </section>
-<section id="updating-the-datahub-repository" class="level2">
-<h2 class="anchored" data-anchor-id="updating-the-datahub-repository">Updating the datahub repository</h2>
-<section id="single-user-server-image-tag-updates" class="level3">
-<h3 class="anchored" data-anchor-id="single-user-server-image-tag-updates">Single user server image tag updates</h3>
+<section id="updating-the-datahub-repository" class="level3">
+<h3 class="anchored" data-anchor-id="updating-the-datahub-repository">Updating the datahub repository</h3>
+<section id="single-user-server-image-tag-updates" class="level4">
+<h4 class="anchored" data-anchor-id="single-user-server-image-tag-updates">Single user server image tag updates</h4>
 <p>When a pull request is opened to update one or more image tags for deployments, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">labeler</a> will apply the <code>hub: &lt;hubname&gt;</code> label upon creation. When this pull request is merged, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-hubs.yaml">deploy-hubs workflow</a> is triggered.</p>
 <p>This workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/scripts/determine-hub-deployments.py">python script</a> that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.</p>
 <p>That list is iterated over, and <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a> is used to deploy only the flagged hubs.</p>
 </section>
-<section id="support-and-node-placeholder-charts" class="level3">
-<h3 class="anchored" data-anchor-id="support-and-node-placeholder-charts">Support and node-placeholder charts</h3>
+<section id="support-and-node-placeholder-charts" class="level4">
+<h4 class="anchored" data-anchor-id="support-and-node-placeholder-charts">Support and node-placeholder charts</h4>
 <p>Each of these deployments has their own workflow, which only runs on pushes to <code>staging</code>:</p>
 <ul>
 <li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml">deploy-support.yaml</a></li>
@@ -496,23 +524,29 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>If the correct labels are found, it will use the <strong>GKE_KEY</strong> secret to run <code>helm upgrade</code> for the necessary deployments.</p>
 </section>
-<section id="misc-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="misc-workflows">Misc workflows</h3>
+<section id="miscellaneous-workflows" class="level4">
+<h4 class="anchored" data-anchor-id="miscellaneous-workflows">Miscellaneous workflows</h4>
 <p>There are also a couple of other workflows in the datahub repository:</p>
-<ul>
-<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/prevent-prod-merges.yml">prevent-prod-merges.yml</a></li>
-</ul>
-<p>This workflow will only allow us to merge to <code>prod</code> from <code>staging</code>.</p>
-<ul>
-<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml">quarto-docs.yml</a></li>
-</ul>
-<p>This builds, renders and pushes our docs to Github Pages.</p>
+<dl>
+<dt><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/prevent-prod-merges.yml">prevent-prod-merges.yml</a></dt>
+<dd>
+This workflow will only allow us to merge to <code>prod</code> from <code>staging</code>.
+</dd>
+<dt><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml">quarto-docs.yml</a></dt>
+<dd>
+This builds, renders and pushes our docs to Github Pages.
+</dd>
+</dl>
 </section>
 </section>
+<section id="documentations-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="documentations-workflow">Documentation’s Workflow</h3>
+<p>This documentation is also <a href="../tasks/documentation.html#action">deployed by GitHub Actions</a>.</p>
 </section>
-<section id="original-design-document" class="level1">
-<h1>Original design document</h1>
-<p>Here are the <a href="https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing">slides</a> that describe the process in some more detail.</p>
+</section>
+<section id="original-design-document" class="level2">
+<h2 class="anchored" data-anchor-id="original-design-document">Original Design Document</h2>
+<p><a href="https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing">Slides</a> describe the process in some more detail.</p>
 
 
 </section>

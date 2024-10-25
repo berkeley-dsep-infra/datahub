@@ -2055,49 +2055,49 @@
   {
     "objectID": "admins/cicd-github-actions.html",
     "href": "admins/cicd-github-actions.html",
-    "title": "Datahub CI/CD",
+    "title": "Continuous Integration and Deployment",
     "section": "",
-    "text": "Datahub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the Datahub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nPR is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nOn PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nOn PR merge to prod, only hubs are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
+    "text": "DataHub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the DataHub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nPR is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nOn PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nOn PR merge to prod, only hubs are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
     "crumbs": [
       "Architecture and contributing",
       "Datahub architecture and contribution overview",
-      "Datahub CI/CD"
+      "Continuous Integration and Deployment"
     ]
   },
   {
-    "objectID": "admins/cicd-github-actions.html#secrets-and-variables",
-    "href": "admins/cicd-github-actions.html#secrets-and-variables",
-    "title": "Datahub CI/CD",
-    "section": "Secrets and variables",
-    "text": "Secrets and variables\nAll of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.\n\nOrganization secrets and variables\nAll of the organizational secrets and variables are located here.\n\nOrganization Secrets\nDATAHUB_CREATE_PR\nThis secret is a fine-grained personal access token, and has the following permissions defined:\n\nSelect repositories (only berkeley-dsep-infra/datahub)\nRepository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\nIMPORTANT: This PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window!\nGAR_SECRET_KEY and GAR_SECRET_KEY_EDX\nThese secrets are for the GCP IAM roles for each GCP project given roles/storage.admin permissions. This allows us to push the built images to the Artifact Registry.\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\nOrganization Variables\nIMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME\nThese are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.\n\n\nRepository secrets and variables\n\nDatahub repository secrets\nGCP_PROJECT_ID\nThis is the name of our GCP project.\nGKE_KEY\nThis key is used in the workflows that deploy the support and node-placeholder namespaces. It’s attached to the hubploy service account, and has the assigned roles of roles/container.clusterViewer and roles/container.developer.\nSOPS_KEY\nThis key is used to decrypt our secrets using sops, and is attached to the sopsaccount service account and provides KMS access.\n\n\n\nImage repository variables\nEach image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.\nHUB\nThe name of the hub, natch! datahub, data100, etc.\nIMAGE\nThe path within the artifact registry: ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image",
+    "objectID": "admins/cicd-github-actions.html#overview",
+    "href": "admins/cicd-github-actions.html#overview",
+    "title": "Continuous Integration and Deployment",
+    "section": "",
+    "text": "DataHub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the DataHub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nPR is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nOn PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nOn PR merge to prod, only hubs are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
     "crumbs": [
       "Architecture and contributing",
       "Datahub architecture and contribution overview",
-      "Datahub CI/CD"
+      "Continuous Integration and Deployment"
     ]
   },
   {
-    "objectID": "admins/cicd-github-actions.html#single-user-server-image-modification-workflow",
-    "href": "admins/cicd-github-actions.html#single-user-server-image-modification-workflow",
-    "title": "Datahub CI/CD",
-    "section": "Single user server image modification workflow",
-    "text": "Single user server image modification workflow\nEach hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:\n\nYAML lint\nBuild and test the image\n\nWhen both tests pass, and the pull request is merged in to the main branch, a third and final workflow is run:\n\nBuild push and create PR\n\nThis builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.",
+    "objectID": "admins/cicd-github-actions.html#github-actions-architecture",
+    "href": "admins/cicd-github-actions.html#github-actions-architecture",
+    "title": "Continuous Integration and Deployment",
+    "section": "Github Actions Architecture",
+    "text": "Github Actions Architecture\n\nSecrets and Variables\nAll of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.\n\nOrganization secrets and variables\nGitHub Actions settings contain all of the organizational secrets and variables.\n\nOrganization Secrets\n\nDATAHUB_CREATE_PR\n\nThis secret is a fine-grained personal access token, and has the following permissions defined:\n\n\n\nSelect repositories (only berkeley-dsep-infra/datahub)\nRepository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\n\n\n\n\nImportant\n\n\n\nThis PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window.\n\n\n\nGAR_SECRET_KEY and GAR_SECRET_KEY_EDX\n\nThese secrets are for the GCP IAM roles for each GCP project given roles/storage.admin permissions. This allows us to push the built images to the Artifact Registry.\n\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\nOrganization Variables\n\nIMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME\n\nThese are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.\n\n\n\nDataHub repository secrets\n\nGCP_PROJECT_ID\n\nThis is the name of our GCP project.\n\nGKE_KEY\n\nThis key is used in the workflows that deploy the support and node-placeholder namespaces. It’s attached to the hubploy service account, and has the assigned roles of roles/container.clusterViewer and roles/container.developer.\n\nSOPS_KEY\n\nThis key is used to decrypt our secrets using sops, and is attached to the sopsaccount service account and provides KMS access.\n\n\n\n\n\nUser Image Repository Variables\nEach image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.\n\nHUB\n\nThe name of the hub, natch! datahub, data100, etc.\n\nIMAGE\n\nThe path within the artifact registry: ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image\n\n\n\n\n\n\nSingle user server image modification workflow\nEach hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:\n\nYAML lint\nBuild and test the image\n\nWhen both tests pass, and the pull request is merged in to the main branch, a third and final workflow is run:\n\nBuild push and create PR\n\nThis builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.\n\n\nUpdating the datahub repository\n\nSingle user server image tag updates\nWhen a pull request is opened to update one or more image tags for deployments, the labeler will apply the hub: &lt;hubname&gt; label upon creation. When this pull request is merged, the deploy-hubs workflow is triggered.\nThis workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a python script that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.\nThat list is iterated over, and hubploy is used to deploy only the flagged hubs.\n\n\nSupport and node-placeholder charts\nEach of these deployments has their own workflow, which only runs on pushes to staging:\n\ndeploy-support.yaml\ndeploy-node-placeholder.yaml\n\nIf the correct labels are found, it will use the GKE_KEY secret to run helm upgrade for the necessary deployments.\n\n\nMiscellaneous workflows\nThere are also a couple of other workflows in the datahub repository:\n\nprevent-prod-merges.yml\n\nThis workflow will only allow us to merge to prod from staging.\n\nquarto-docs.yml\n\nThis builds, renders and pushes our docs to Github Pages.\n\n\n\n\n\nDocumentation’s Workflow\nThis documentation is also deployed by GitHub Actions.",
     "crumbs": [
       "Architecture and contributing",
       "Datahub architecture and contribution overview",
-      "Datahub CI/CD"
+      "Continuous Integration and Deployment"
     ]
   },
   {
-    "objectID": "admins/cicd-github-actions.html#updating-the-datahub-repository",
-    "href": "admins/cicd-github-actions.html#updating-the-datahub-repository",
-    "title": "Datahub CI/CD",
-    "section": "Updating the datahub repository",
-    "text": "Updating the datahub repository\n\nSingle user server image tag updates\nWhen a pull request is opened to update one or more image tags for deployments, the labeler will apply the hub: &lt;hubname&gt; label upon creation. When this pull request is merged, the deploy-hubs workflow is triggered.\nThis workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a python script that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.\nThat list is iterated over, and hubploy is used to deploy only the flagged hubs.\n\n\nSupport and node-placeholder charts\nEach of these deployments has their own workflow, which only runs on pushes to staging:\n\ndeploy-support.yaml\ndeploy-node-placeholder.yaml\n\nIf the correct labels are found, it will use the GKE_KEY secret to run helm upgrade for the necessary deployments.\n\n\nMisc workflows\nThere are also a couple of other workflows in the datahub repository:\n\nprevent-prod-merges.yml\n\nThis workflow will only allow us to merge to prod from staging.\n\nquarto-docs.yml\n\nThis builds, renders and pushes our docs to Github Pages.",
+    "objectID": "admins/cicd-github-actions.html#original-design-document",
+    "href": "admins/cicd-github-actions.html#original-design-document",
+    "title": "Continuous Integration and Deployment",
+    "section": "Original Design Document",
+    "text": "Original Design Document\nSlides describe the process in some more detail.",
     "crumbs": [
       "Architecture and contributing",
       "Datahub architecture and contribution overview",
-      "Datahub CI/CD"
+      "Continuous Integration and Deployment"
     ]
   },
   {
