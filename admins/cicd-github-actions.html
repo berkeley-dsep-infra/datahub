@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Incident Reports</title>
+<title>Datahub CI/CD</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,9 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../policy/principles.html" rel="prev">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,65 +66,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -175,7 +114,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../incidents/index.html">Incident Reports</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Datahub CI/CD</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -402,7 +341,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Incident Reports</span></a>
   </div>
 </li>
@@ -411,15 +350,36 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#datahub-cicd-overview" id="toc-datahub-cicd-overview" class="nav-link active" data-scroll-target="#datahub-cicd-overview">Datahub CI/CD overview</a></li>
+  <li><a href="#github-actions-architecture" id="toc-github-actions-architecture" class="nav-link" data-scroll-target="#github-actions-architecture">Github Actions architecture</a>
+  <ul class="collapse">
+  <li><a href="#secrets-and-variables" id="toc-secrets-and-variables" class="nav-link" data-scroll-target="#secrets-and-variables">Secrets and variables</a>
+  <ul class="collapse">
+  <li><a href="#organization-secrets-and-variables" id="toc-organization-secrets-and-variables" class="nav-link" data-scroll-target="#organization-secrets-and-variables">Organization secrets and variables</a></li>
+  </ul></li>
+  <li><a href="#single-user-server-image-modification-workflow" id="toc-single-user-server-image-modification-workflow" class="nav-link" data-scroll-target="#single-user-server-image-modification-workflow">Single user server image modification workflow</a></li>
+  <li><a href="#updating-the-datahub-repository" id="toc-updating-the-datahub-repository" class="nav-link" data-scroll-target="#updating-the-datahub-repository">Updating the datahub repository</a>
+  <ul class="collapse">
+  <li><a href="#single-user-server-image-tag-updates" id="toc-single-user-server-image-tag-updates" class="nav-link" data-scroll-target="#single-user-server-image-tag-updates">Single user server image tag updates</a></li>
+  <li><a href="#support-and-node-placeholder-charts" id="toc-support-and-node-placeholder-charts" class="nav-link" data-scroll-target="#support-and-node-placeholder-charts">Support and node-placeholder charts</a></li>
+  <li><a href="#misc-workflows" id="toc-misc-workflows" class="nav-link" data-scroll-target="#misc-workflows">Misc workflows</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#original-design-document" id="toc-original-design-document" class="nav-link" data-scroll-target="#original-design-document">Original design document</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Incident Reports</h1>
+<h1 class="title">Datahub CI/CD</h1>
 </div>
 
 
@@ -436,203 +396,120 @@ window.Quarto = {
 </header>
 
 
+<section id="datahub-cicd-overview" class="level1">
+<h1>Datahub CI/CD overview</h1>
+<p>Datahub’s continuous integration and deployment system uses both <a href="https://github.com/features/actions">Github Actions</a> and <a href="https://docs.github.com/en/actions/writing-workflows">workflows</a>.</p>
+<p>These workflows are stored in the Datahub repo in the <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows">.github/workflows/ directory</a>.</p>
+<p>The basic order of operations is as follows:</p>
+<ol type="1">
+<li>PR is created in the datahub repo.</li>
+<li>The labeler workflow applies labels based on the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">file type and/or location</a>.</li>
+<li>On PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.</li>
+<li>On PR merge to prod, only hubs are deployed (again based on labels).</li>
+</ol>
+<p>The hubs are deployed via <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a>, which is our custom wrapper for <code>gcloud</code>, <code>sops</code> and <code>helm</code>.</p>
+</section>
+<section id="github-actions-architecture" class="level1">
+<h1>Github Actions architecture</h1>
+<section id="secrets-and-variables" class="level2">
+<h2 class="anchored" data-anchor-id="secrets-and-variables">Secrets and variables</h2>
+<p>All of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.</p>
+<section id="organization-secrets-and-variables" class="level3">
+<h3 class="anchored" data-anchor-id="organization-secrets-and-variables">Organization secrets and variables</h3>
+<p>All of the organizational secrets and variables are located <a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">here</a>.</p>
+<section id="organization-secrets" class="level4">
+<h4 class="anchored" data-anchor-id="organization-secrets">Organization Secrets</h4>
+<p><strong>DATAHUB_CREATE_PR</strong></p>
+<p>This secret is a fine-grained personal <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">access token</a>, and has the following permissions defined:</p>
+<ul>
+<li>Select repositories (only berkeley-dsep-infra/datahub)</li>
+<li>Repository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)</li>
+</ul>
+<p>When adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.</p>
+<p><em>IMPORTANT:</em> This PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window!</p>
+<p><strong>GAR_SECRET_KEY</strong> and <strong>GAR_SECRET_KEY_EDX</strong></p>
+<p>These secrets are for the GCP IAM roles for each GCP project given <code>roles/storage.admin</code> permissions. This allows us to push the built images to the Artifact Registry.</p>
+<p>When adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.</p>
+</section>
+<section id="organization-variables" class="level4">
+<h4 class="anchored" data-anchor-id="organization-variables">Organization Variables</h4>
+<p><strong>IMAGE_BUILDER_BOT_EMAIL</strong> and <strong>IMAGE_BUILDER_BOT_NAME</strong></p>
+<p>These are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.</p>
+</section>
+<section id="repository-secrets-and-variables" class="level4">
+<h4 class="anchored" data-anchor-id="repository-secrets-and-variables">Repository secrets and variables</h4>
+<section id="datahub-repository-secrets" class="level5">
+<h5 class="anchored" data-anchor-id="datahub-repository-secrets">Datahub repository secrets</h5>
+<p><strong>GCP_PROJECT_ID</strong></p>
+<p>This is the name of our GCP project.</p>
+<p><strong>GKE_KEY</strong></p>
+<p>This key is used in the workflows that deploy the <code>support</code> and <code>node-placeholder</code> namespaces. It’s attached to the <code>hubploy</code> service account, and has the assigned roles of <code>roles/container.clusterViewer</code> and <code>roles/container.developer</code>.</p>
+<p><strong>SOPS_KEY</strong></p>
+<p>This key is used to decrypt our secrets using <code>sops</code>, and is attached to the <code>sopsaccount</code> service account and provides KMS access.</p>
+</section>
+</section>
+<section id="image-repository-variables" class="level4">
+<h4 class="anchored" data-anchor-id="image-repository-variables">Image repository variables</h4>
+<p>Each image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.</p>
+<p><strong>HUB</strong></p>
+<p>The name of the hub, natch! datahub, data100, etc.</p>
+<p><strong>IMAGE</strong></p>
+<p>The path within the artifact registry: <code>ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image</code></p>
+</section>
+</section>
+</section>
+<section id="single-user-server-image-modification-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="single-user-server-image-modification-workflow">Single user server image modification workflow</h2>
+<p>Each hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:</p>
+<ol type="1">
+<li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/yaml-lint.yaml">YAML lint</a></li>
+<li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/build-test-image.yaml">Build and test the image</a></li>
+</ol>
+<p>When both tests pass, and the pull request is merged in to the <code>main</code> branch, a third and final workflow is run:</p>
+<ol start="3" type="1">
+<li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/build-push-create-pr.yaml">Build push and create PR</a></li>
+</ol>
+<p>This builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.</p>
+</section>
+<section id="updating-the-datahub-repository" class="level2">
+<h2 class="anchored" data-anchor-id="updating-the-datahub-repository">Updating the datahub repository</h2>
+<section id="single-user-server-image-tag-updates" class="level3">
+<h3 class="anchored" data-anchor-id="single-user-server-image-tag-updates">Single user server image tag updates</h3>
+<p>When a pull request is opened to update one or more image tags for deployments, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">labeler</a> will apply the <code>hub: &lt;hubname&gt;</code> label upon creation. When this pull request is merged, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-hubs.yaml">deploy-hubs workflow</a> is triggered.</p>
+<p>This workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/scripts/determine-hub-deployments.py">python script</a> that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.</p>
+<p>That list is iterated over, and <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a> is used to deploy only the flagged hubs.</p>
+</section>
+<section id="support-and-node-placeholder-charts" class="level3">
+<h3 class="anchored" data-anchor-id="support-and-node-placeholder-charts">Support and node-placeholder charts</h3>
+<p>Each of these deployments has their own workflow, which only runs on pushes to <code>staging</code>:</p>
+<ul>
+<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml">deploy-support.yaml</a></li>
+<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml">deploy-node-placeholder.yaml</a></li>
+</ul>
+<p>If the correct labels are found, it will use the <strong>GKE_KEY</strong> secret to run <code>helm upgrade</code> for the necessary deployments.</p>
+</section>
+<section id="misc-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="misc-workflows">Misc workflows</h3>
+<p>There are also a couple of other workflows in the datahub repository:</p>
+<ul>
+<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/prevent-prod-merges.yml">prevent-prod-merges.yml</a></li>
+</ul>
+<p>This workflow will only allow us to merge to <code>prod</code> from <code>staging</code>.</p>
+<ul>
+<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml">quarto-docs.yml</a></li>
+</ul>
+<p>This builds, renders and pushes our docs to Github Pages.</p>
+</section>
+</section>
+</section>
+<section id="original-design-document" class="level1">
+<h1>Original design document</h1>
+<p>Here are the <a href="https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing">slides</a> that describe the process in some more detail.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
-</th>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-listing-date-sort="1486598400000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1292" data-listing-title-sort="JupyterHub db manual overwrite" data-listing-filename-sort="2017-02-09-datahub-db-outage.qmd">
-<td>
-<span class="listing-date">Feb 9, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-02-09-datahub-db-outage.html" class="title listing-title">JupyterHub db manual overwrite</a>
-</td>
-</tr>
-<tr data-index="1" data-listing-date-sort="1487894400000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="353" data-listing-title-sort="Custom Autoscaler gonee haywire" data-listing-filename-sort="2017-02-24-autoscaler-incident.qmd">
-<td>
-<span class="listing-date">Feb 24, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-02-24-autoscaler-incident.html" class="title listing-title">Custom Autoscaler gonee haywire</a>
-</td>
-</tr>
-<tr data-index="2" data-listing-date-sort="1487894400000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="628" data-listing-title-sort="Proxy eviction strands user" data-listing-filename-sort="2017-02-24-proxy-death-incident.qmd">
-<td>
-<span class="listing-date">Feb 24, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-02-24-proxy-death-incident.html" class="title listing-title">Proxy eviction strands user</a>
-</td>
-</tr>
-<tr data-index="3" data-listing-date-sort="1488758400000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="576" data-listing-title-sort="Non-matching hub image tags cause downtime" data-listing-filename-sort="2017-03-06-helm-config-image-mismatch.qmd">
-<td>
-<span class="listing-date">Mar 6, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-03-06-helm-config-image-mismatch.html" class="title listing-title">Non-matching hub image tags cause downtime</a>
-</td>
-</tr>
-<tr data-index="4" data-listing-date-sort="1489968000000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="580" data-listing-title-sort="Too many volumes per disk leave students stuck" data-listing-filename-sort="2017-03-20-too-many-volumes.qmd">
-<td>
-<span class="listing-date">Mar 20, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-03-20-too-many-volumes.html" class="title listing-title">Too many volumes per disk leave students stuck</a>
-</td>
-</tr>
-<tr data-index="5" data-listing-date-sort="1490227200000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="526" data-listing-title-sort="Weird upstream ipython bug kills kernels" data-listing-filename-sort="2017-03-23-kernel-deaths-incident.qmd">
-<td>
-<span class="listing-date">Mar 23, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-03-23-kernel-deaths-incident.html" class="title listing-title">Weird upstream ipython bug kills kernels</a>
-</td>
-</tr>
-<tr data-index="6" data-listing-date-sort="1491177600000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="290" data-listing-title-sort="Custom autoscaler does not scale up when it should" data-listing-filename-sort="2017-04-03-cluster-full-incident.qmd">
-<td>
-<span class="listing-date">Apr 3, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-04-03-cluster-full-incident.html" class="title listing-title">Custom autoscaler does not scale up when it should</a>
-</td>
-</tr>
-<tr data-index="7" data-listing-date-sort="1494288000000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="333" data-listing-title-sort="Oops we forgot to pay the bill" data-listing-filename-sort="2017-05-09-gce-billing.qmd">
-<td>
-<span class="listing-date">May 9, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-05-09-gce-billing.html" class="title listing-title">Oops we forgot to pay the bill</a>
-</td>
-</tr>
-<tr data-index="8" data-listing-date-sort="1507593600000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="813" data-listing-title-sort="Docker dies on a few Azure nodes" data-listing-filename-sort="2017-10-10-hung-nodes.qmd">
-<td>
-<span class="listing-date">Oct 10, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-10-10-hung-nodes.html" class="title listing-title">Docker dies on a few Azure nodes</a>
-</td>
-</tr>
-<tr data-index="9" data-listing-date-sort="1508371200000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="746" data-listing-title-sort="Billing confusion with Azure portal causes summer hub to be lost" data-listing-filename-sort="2017-10-19-course-subscription-canceled.qmd">
-<td>
-<span class="listing-date">Oct 19, 2017</span>
-</td>
-<td>
-<a href="../incidents/2017-10-19-course-subscription-canceled.html" class="title listing-title">Billing confusion with Azure portal causes summer hub to be lost</a>
-</td>
-</tr>
-<tr data-index="10" data-listing-date-sort="1516838400000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="342" data-listing-title-sort="Accidental merge to prod brings things down" data-listing-filename-sort="2018-01-25-helm-chart-upgrade.qmd">
-<td>
-<span class="listing-date">Jan 25, 2018</span>
-</td>
-<td>
-<a href="../incidents/2018-01-25-helm-chart-upgrade.html" class="title listing-title">Accidental merge to prod brings things down</a>
-</td>
-</tr>
-<tr data-index="11" data-listing-date-sort="1516924800000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="377" data-listing-title-sort="Hub starts up very slow, causing outage for users" data-listing-filename-sort="2018-01-26-hub-slow-startup.qmd">
-<td>
-<span class="listing-date">Jan 26, 2018</span>
-</td>
-<td>
-<a href="../incidents/2018-01-26-hub-slow-startup.html" class="title listing-title">Hub starts up very slow, causing outage for users</a>
-</td>
-</tr>
-<tr data-index="12" data-listing-date-sort="1517875200000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="284" data-listing-title-sort="Azure PD refuses to detach, causing downtime for data100" data-listing-filename-sort="2018-02-06-hub-db-dir.qmd">
-<td>
-<span class="listing-date">Feb 6, 2018</span>
-</td>
-<td>
-<a href="../incidents/2018-02-06-hub-db-dir.html" class="title listing-title">Azure PD refuses to detach, causing downtime for data100</a>
-</td>
-</tr>
-<tr data-index="13" data-listing-date-sort="1519776000000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="222" data-listing-title-sort="A node hangs, causing a subset of users to report issues" data-listing-filename-sort="2018-02-28-hung-node.qmd">
-<td>
-<span class="listing-date">Feb 28, 2018</span>
-</td>
-<td>
-<a href="../incidents/2018-02-28-hung-node.html" class="title listing-title">A node hangs, causing a subset of users to report issues</a>
-</td>
-</tr>
-<tr data-index="14" data-listing-date-sort="1528675200000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="338" data-listing-title-sort="Azure billing issue causes downtime" data-listing-filename-sort="2018-06-11-course-subscription-canceled.qmd">
-<td>
-<span class="listing-date">Jun 11, 2018</span>
-</td>
-<td>
-<a href="../incidents/2018-06-11-course-subscription-canceled.html" class="title listing-title">Azure billing issue causes downtime</a>
-</td>
-</tr>
-<tr data-index="15" data-listing-date-sort="1551052800000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="447" data-listing-title-sort="Azure Kubernetes API Server outage causes downtime" data-listing-filename-sort="2019-02-25-k8s-api-server-down.qmd">
-<td>
-<span class="listing-date">Feb 25, 2019</span>
-</td>
-<td>
-<a href="../incidents/2019-02-25-k8s-api-server-down.html" class="title listing-title">Azure Kubernetes API Server outage causes downtime</a>
-</td>
-</tr>
-<tr data-index="16" data-listing-date-sort="1556668800000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="174" data-listing-title-sort="Service Account key leak incident" data-listing-filename-sort="2019-05-01-service-account-leak.qmd">
-<td>
-<span class="listing-date">May 1, 2019</span>
-</td>
-<td>
-<a href="../incidents/2019-05-01-service-account-leak.html" class="title listing-title">Service Account key leak incident</a>
-</td>
-</tr>
-<tr data-index="17" data-listing-date-sort="1642636800000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="767" data-listing-title-sort="Hubs throwing 505 errors" data-listing-filename-sort="2022-01-20-package-dependency-upgrade-incident.qmd">
-<td>
-<span class="listing-date">Jan 20, 2022</span>
-</td>
-<td>
-<a href="../incidents/2022-01-20-package-dependency-upgrade-incident.html" class="title listing-title">Hubs throwing 505 errors</a>
-</td>
-</tr>
-<tr data-index="18" data-listing-date-sort="1706745600000" data-listing-file-modified-sort="1729885554794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="874" data-listing-title-sort="Core nodes being autoscaled, configurable HTTP proxy crashes" data-listing-filename-sort="2024-core-node-incidents.qmd">
-<td>
-<span class="listing-date">Feb 1, 2024</span>
-</td>
-<td>
-<a href="../incidents/2024-core-node-incidents.html" class="title listing-title">Core nodes being autoscaled, configurable HTTP proxy crashes</a>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1053,15 +930,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../policy/principles.html" class="pagination-link" aria-label="Principles to be considered while creating new policies">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Principles to be considered while creating new policies</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-  </div>
-</nav>
 </div> <!-- /content -->
 
 
