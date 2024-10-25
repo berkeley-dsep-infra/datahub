@@ -527,7 +527,7 @@ The path within the artifact registry: <code>ucb-datahub-2018/user-images/&lt;hu
 
 stateDiagram-v2
     image_repo: github.com/berkeley-dsep-infra/hubname-user-image
-    forked_repo: github.com/github username/hubname-user-image
+    user_repo: github.com/username/hubname-user-image
     image_test_build: Image is built and tested
     image_push_build: Image is built and pushed to registry
     pr_created: A pull request is automatically&lt;br/&gt;created in the Datahub repo
@@ -535,8 +535,8 @@ stateDiagram-v2
     contributor_tests: The contributor logs into the&lt;br/&gt;staging hub and tests the image.
     deploy_to_prod: Hub is deployed to prod
 
-    image_repo --&gt; forked_repo: Contributor forks the image repo.
-    forked_repo --&gt; image_repo: Contributor creates a PR.
+    image_repo --&gt; user_repo: Contributor forks the image repo.
+    user_repo --&gt; image_repo: Contributor creates a PR.
     image_repo --&gt; image_test_build
     image_test_build --&gt; image_push_build: Test build passes and Datahub staff merge pull request
     image_push_build --&gt; pr_created
