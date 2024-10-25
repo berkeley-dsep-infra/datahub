@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../admins/cluster-config.html" rel="next">
-<link href="../admins/structure.html" rel="prev">
+<link href="../tasks/documentation.html" rel="next">
+<link href="../admins/credentials.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -94,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link active" href="../admins/pre-reqs.html" aria-current="page"> 
-<span class="menu-text">Contributing</span></a>
+<span class="menu-text">Architecture and contributing</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tasks/documentation.html"> 
@@ -116,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../admins/storage.html">User home directory storage</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Datahub architecture and contribution overview</a></li><li class="breadcrumb-item"><a href="../admins/storage.html">User home directory storage</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -143,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Contributing to DataHub</span></a>
+ <span class="menu-text">Datahub architecture and contribution overview</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -163,8 +163,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">User home directory storage</span></a>
+  <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datahub CI/CD</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -177,6 +177,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../admins/credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Credentials</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">User home directory storage</span></a>
   </div>
 </li>
       </ul>
@@ -357,7 +363,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-nfs" id="toc-why-nfs" class="nav-link active" data-scroll-target="#why-nfs">Why NFS?</a></li>
+  <li><a href="#why-google-filestore" id="toc-why-google-filestore" class="nav-link active" data-scroll-target="#why-google-filestore">Why Google Filestore?</a></li>
   <li><a href="#nfs-server" id="toc-nfs-server" class="nav-link" data-scroll-target="#nfs-server">NFS Server</a></li>
   <li><a href="#home-directory-paths" id="toc-home-directory-paths" class="nav-link" data-scroll-target="#home-directory-paths">Home directory paths</a></li>
   <li><a href="#nfs-client" id="toc-nfs-client" class="nav-link" data-scroll-target="#nfs-client">NFS Client</a></li>
@@ -367,7 +373,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Contributing to DataHub</a></li><li class="breadcrumb-item"><a href="../admins/storage.html">User home directory storage</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Datahub architecture and contribution overview</a></li><li class="breadcrumb-item"><a href="../admins/storage.html">User home directory storage</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">User home directory storage</h1>
 </div>
@@ -387,12 +393,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>All users on all the hubs get a home directory with persistent storage.</p>
-<section id="why-nfs" class="level2">
-<h2 class="anchored" data-anchor-id="why-nfs">Why NFS?</h2>
-<p>NFS isn't a particularly cloud-native technology. It isn't highly available nor fault tolerant by default, and is a single point of failure. However, it is currently the best of the alternatives available for user home directories, and so we use it.</p>
+<section id="why-google-filestore" class="level2">
+<h2 class="anchored" data-anchor-id="why-google-filestore">Why Google Filestore?</h2>
+<p>After hosting our own NFS server for user home directories, we found that NFS is much more difficult to manage at the scale we were at.</p>
+<p>Filestore has been rock-solid after moving to it in early 2023, and we are happy with the performance and cost.</p>
+<p>Our basic requirements for user storage are as follows:</p>
 <ol type="1">
 <li><p>Home directories need to be fully POSIX compliant file systems that work with minimal edge cases, since this is what most instructional code assumes. This rules out object-store backed filesystems such as <a href="https://github.com/s3fs-fuse/s3fs-fuse">s3fs</a>.</p></li>
-<li><p>Users don't usually need guaranteed space or IOPS, so providing them each a <a href="https://cloud.google.com/persistent-disk/">persistent cloud disk</a> gets unnecessarily expensive - since we are paying for it whether it is used or not.</p>
+<li><p>Users don’t usually need guaranteed space or IOPS, so providing them each a <a href="https://cloud.google.com/persistent-disk/">persistent cloud disk</a> gets unnecessarily expensive - since we are paying for it whether it is used or not.</p>
 <p>When we did use one persistent disk per user, the storage cost dwarfed everything else by an order of magnitude for no apparent benefit.</p>
 <p>Attaching cloud disks to user pods also takes on average about 30s on Google Cloud, and much longer on Azure. NFS mounts pretty quickly, getting this down to a second or less.</p></li>
 </ol>
@@ -407,16 +415,17 @@ ul.task-list li input[type="checkbox"] {
 <p>We do not have to perform any maintenance if we use this - but we have no control over the host machine either.</p></li>
 </ol>
 <p>After running our own NFS server from 2020 through the end of 2022, we decided to move wholesale to <a href="https://cloud.google.com/filestore/">Google Cloud Filestore</a>. This was mostly due to NFS daemon stability issues, which caused many outages and impacted thousands of our users and courses.</p>
-<p>Currently each hub has it's own filestore instance, except for a few small courses that share one. This has proven to be much more stable and able to handle the load.</p>
+<p>Currently each hub has it’s own filestore instance, except for a few small courses that share one. This has proven to be much more stable and able to handle the load.</p>
+<p>We also still have our legacy NFS server VM running, which we use to mount the Filestore shares and access home directories for troubleshooting and running the archiver tool at the end of each semester.</p>
 </section>
 <section id="home-directory-paths" class="level2">
 <h2 class="anchored" data-anchor-id="home-directory-paths">Home directory paths</h2>
 <p>Each user on each hub gets their own directory on the server that gets treated as their home directory. The staging &amp; prod servers share home directory paths, so users get the same home directories on both.</p>
-<p>For most hubs, the user's home directory path relative to the exported filestore share is <code>&lt;hub-name&gt;-filestore/&lt;hub-name&gt;/&lt;prod|staging&gt;/home/&lt;user-name&gt;</code>.</p>
+<p>For most hubs, the user’s home directory path relative to the exported filestore share is <code>&lt;hub-name&gt;-filestore/&lt;hub-name&gt;/&lt;prod|staging&gt;/home/&lt;user-name&gt;</code>.</p>
 </section>
 <section id="nfs-client" class="level2">
 <h2 class="anchored" data-anchor-id="nfs-client">NFS Client</h2>
-<p>We currently have two approaches for mounting the user's home directory into each user's pod.</p>
+<p>We currently have two approaches for mounting the user’s home directory into each user’s pod.</p>
 <ol type="1">
 <li><p>Mount the NFS Share once per node to a well known location, and use <a href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath">hostpath</a> volumes with a <a href="https://kubernetes.io/docs/concepts/storage/volumes/#using-subpath">subpath</a> on the user pod to mount the correct directory on the user pod.</p>
 <p>This lets us get away with one NFS mount per node, rather than one per pod.</p></li>
@@ -848,13 +857,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../admins/structure.html" class="pagination-link" aria-label="Repository Structure">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Repository Structure</span>
+      <a href="../admins/credentials.html" class="pagination-link" aria-label="Cloud Credentials">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud Credentials</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../admins/cluster-config.html" class="pagination-link" aria-label="Kubernetes Cluster Configuration">
-        <span class="nav-page-text">Kubernetes Cluster Configuration</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../tasks/documentation.html" class="pagination-link" aria-label="Documentation">
+        <span class="nav-page-text">Documentation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
