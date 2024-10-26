@@ -368,6 +368,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#via-cloning-and-manual-installation" id="toc-via-cloning-and-manual-installation" class="nav-link" data-scroll-target="#via-cloning-and-manual-installation">Via cloning and manual installation</a></li>
   <li><a href="#via-pip" id="toc-via-pip" class="nav-link" data-scroll-target="#via-pip">Via <code>pip</code></a></li>
+  <li><a href="#installing-the-gh-tool" id="toc-installing-the-gh-tool" class="nav-link" data-scroll-target="#installing-the-gh-tool">Installing the <code>gh</code> tool</a></li>
   </ul></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
   <ul class="collapse">
@@ -420,6 +421,10 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="via-pip">Via <code>pip</code></h3>
 <pre><code>python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/manage-repos</code></pre>
 </section>
+<section id="installing-the-gh-tool" class="level3">
+<h3 class="anchored" data-anchor-id="installing-the-gh-tool">Installing the <code>gh</code> tool</h3>
+<p>To use the <code>pr</code> and <code>merge</code> sub-commands, you will also need to install the Github CLI tool: https://github.com/cli/cli#installation</p>
+</section>
 </section>
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
@@ -429,7 +434,9 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><code>branch</code>: Create a feature branch</li>
 <li><code>clone</code>: Clone all repositories in the config file to a location on the filesystem specified by the <code>--destination</code> argument.</li>
+<li><code>merge</code>: Merge the most recent pull request in the managed repositories.</li>
 <li><code>patch</code>: Apply a <a href="https://git-scm.com/docs/git-apply">git patch</a> to all repositories in the config file.</li>
+<li><code>pr</code>: Create pull requests in the managed repositories.</li>
 <li><code>push</code>: Push a branch from all repos to a remote. The remote defaults to <code>origin</code>.</li>
 <li><code>stage</code>: Performs a <code>git add</code> and <code>git commit</code> to stage changes before pushing.</li>
 <li><code>sync</code>: Sync all of the repositories, and optionally push to your fork.</li>
@@ -453,7 +460,8 @@ options:
                         Path to the file containing list of repositories to operate on. Defaults to repos.txt located in the current working
                         directory.
   -d DESTINATION, --destination DESTINATION
-                        Location on the filesystem of the directory containing the managed repositories. Defaults to the current working directory.</code></pre>
+                        Location on the filesystem of the directory containing the managed repositories. Defaults to the current working directory.
+  --version             show program's version number and exit</code></pre>
 <p><code>--config</code> is required, and setting <code>--destination</code> is recommended.</p>
 </section>
 </section>
@@ -488,6 +496,24 @@ options:
 <p>This command will clone all repositories found in the config, and if you’ve created a fork, use the <code>--set-remote</code> and <code>--github-user</code> arguments to update the remotes in the cloned repositories. This will set the primary repository’s remote to <code>upstream</code> and your fork to <code>origin</code> (unless you override this by passing a different remote name with the <code>--set-remote</code> argument).</p>
 <p>After cloning, <code>git remote -v</code> will be executed for each repository to allow you to confirm that the remotes are properly set.</p>
 </section>
+<section id="merge" class="level4">
+<h4 class="anchored" data-anchor-id="merge"><code>merge</code></h4>
+<pre><code>$ usage: manage-repos merge [-h] [-b BODY] [-d] [-s {merge,rebase,squash}]
+
+Using the gh tool, merge the most recent pull request in the managed
+repositories. Before using this command, you must authenticate with gh to
+ensure that you have the correct permission for the required scopes.
+
+options:
+  -h, --help            show this help message and exit
+  -b BODY, --body BODY  The commit message to apply to the merge (optional).
+  -d, --delete          Delete your local feature branch after the pull request
+                        is merged (optional).
+  -s {merge,rebase,squash}, --strategy {merge,rebase,squash}
+                        The pull request merge strategy to use, defaults to
+                        'merge'.</code></pre>
+<p>Be aware that the default behavior is to merge only the newest pull request in the managed repositories. The reasoning behind this is that if you have created pull requests across many repositories, the pull request numbers will almost certainly be different, and adding interactive steps to merge specific pull requests will be cumbersome.</p>
+</section>
 <section id="patch" class="level4">
 <h4 class="anchored" data-anchor-id="patch"><code>patch</code></h4>
 <pre><code>$ manage-repos patch --help
@@ -503,6 +529,26 @@ options:
 <pre><code>git diff &lt;filename&gt; &gt; patchfile.txt</code></pre>
 <p>You then provide the location of the patch file with the <code>--patch</code> argument, and the script will attempt to apply the patch to all of the repositories.</p>
 <p>If it is unable to apply the patch, the script will continue to run and notify you when complete which repositories failed to accept the patch.</p>
+</section>
+<section id="pr" class="level4">
+<h4 class="anchored" data-anchor-id="pr"><code>pr</code></h4>
+<pre><code>$ manage-repos pr --help
+usage: manage-repos pr [-h] [-t TITLE] [-b BODY] [-B BRANCH_DEFAULT]
+                       [-g GITHUB_USER]
+
+Using the gh tool, create a pull request after pushing.
+
+options:
+  -h, --help            show this help message and exit
+  -t TITLE, --title TITLE
+                        Title of the pull request.
+  -b BODY, --body BODY  Body of the pull request (optional).
+  -B BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT
+                        Default remote branch that the pull requests will be
+                        merged to. This is optional and defaults to 'main'.
+  -g GITHUB_USER, --github-user GITHUB_USER
+                        The GitHub username used to create the pull request.</code></pre>
+<p>After you’ve <code>stage</code>d and <code>push</code>ed your changes, this command will then create a pull request using the <code>gh</code> tool.</p>
 </section>
 <section id="push" class="level4">
 <h4 class="anchored" data-anchor-id="push"><code>push</code></h4>
@@ -533,7 +579,7 @@ options:
   -f FILES [FILES ...], --files FILES [FILES ...]
                         Space-delimited list of files to stage in the
                         repositories. Optional, and if left blank will default
-                        to all modified files.
+                        to all modified files in the directory.
   -m MESSAGE, --message MESSAGE
                         Commit message to use for the changes.</code></pre>
 <p><code>stage</code> combines both <code>git add ...</code> and <code>git commit -m</code>, adding and committing one or more files to the staging area before you push to a remote.</p>
