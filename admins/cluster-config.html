@@ -457,7 +457,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">--enable-network-policy</span> <span class="dt">\</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">--create-subnetwork</span><span class="op">=</span><span class="st">""</span> <span class="dt">\</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">--tags</span><span class="op">=</span>hub-cluster <span class="dt">\</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>     <span class="op">&lt;</span>cluster-name<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">--no-enable-insecure-kubelet-readonly-port</span> <span class="dt">\</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>     <span class="op">&lt;</span>cluster-name<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here's how we add a node pool to the cluster, beyond the default pool:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create  <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--machine-type</span> n2-highmem-8 <span class="dt">\</span></span>
@@ -472,7 +473,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--no-enable-autoupgrade</span> <span class="dt">\</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--tags</span><span class="op">=</span>hub-cluster <span class="dt">\</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cluster</span><span class="op">=&lt;</span>cluster-name<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    user-<span class="op">&lt;</span>pool-name<span class="op">&gt;</span>-<span class="op">&lt;</span>yyyy<span class="op">&gt;</span>-<span class="op">&lt;</span>mm<span class="op">&gt;</span>-<span class="op">&lt;</span>dd<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--no-enable-insecure-kubelet-readonly-port</span> <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    user-<span class="op">&lt;</span>pool-name<span class="op">&gt;</span>-<span class="op">&lt;</span>yyyy<span class="op">&gt;</span>-<span class="op">&lt;</span>mm<span class="op">&gt;</span>-<span class="op">&lt;</span>dd<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="ip-aliasing" class="level3">
 <h3 class="anchored" data-anchor-id="ip-aliasing">IP Aliasing</h3>
 <p><code>--enable-ip-alias</code> creates <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips">VPC Native Clusters</a>.</p>
