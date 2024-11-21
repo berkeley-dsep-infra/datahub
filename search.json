@@ -822,339 +822,172 @@
     ]
   },
   {
-    "objectID": "tasks/rebuild-postgres-image.html",
-    "href": "tasks/rebuild-postgres-image.html",
-    "title": "Customize the Per-User Postgres Docker Image",
+    "objectID": "tasks/semester-start-end-tasks.html",
+    "href": "tasks/semester-start-end-tasks.html",
+    "title": "DataHub Semester Start and End Tasks",
     "section": "",
-    "text": "We provide each student on data100 with a postgresql server. We want the python extension installed. So we inherit from the upstream postgresql docker image, and add the appropriate package.\nThis image is in images/postgres. If you update it, you need to rebuild and push it.\n\nModify the image in images/postgres and make a git commit.\nRun chartpress --push. This will build and push the image, but not put anything in YAML. There is no place we can put this in values.yaml, since this is only used for data100.\nNotice the image name + tag from the chartpress --push command, and put it in the appropriate place (under extraContainers) in data100/config/common.yaml.\nMake a commit with the new tag in data100/config/common.yaml.\nProceed to deploy as normal.",
+    "text": "This document outlines the tasks for preparing DataHub for the start of a semester and for concluding semester activities.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Customize the Per-User Postgres Docker Image"
+      "DataHub Semester Start and End Tasks"
     ]
   },
   {
-    "objectID": "tasks/calendar-scaler.html",
-    "href": "tasks/calendar-scaler.html",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "",
-    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
+    "objectID": "tasks/semester-start-end-tasks.html#semester-start-tasks",
+    "href": "tasks/semester-start-end-tasks.html#semester-start-tasks",
+    "title": "DataHub Semester Start and End Tasks",
+    "section": "Semester Start Tasks",
+    "text": "Semester Start Tasks\n\n1. Setup and Configuration\n\nBump Replica Values: Bump replica values in values.yaml\nSet Node Count: Set the appropriate number of node count for each node pool in GKE console\n\n\n\n2. User Management\n\nIdentify Unused Hubs: Identify hubs that will not be used during a particular semester\nSend Onboarding Email: Send onboarding instructions to all the instructors and GSIs added to datahub-announce listserv",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
+      "DataHub Semester Start and End Tasks"
     ]
   },
   {
-    "objectID": "tasks/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
-    "href": "tasks/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "",
-    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
+    "objectID": "tasks/semester-start-end-tasks.html#semester-end-tasks",
+    "href": "tasks/semester-start-end-tasks.html#semester-end-tasks",
+    "title": "DataHub Semester Start and End Tasks",
+    "section": "Semester End Tasks",
+    "text": "Semester End Tasks\n\n1. Operational Tasks\n\nUpdate Kubernetes: Check for and apply updates to Kubernetes\nUpdate Ubuntu Single User Images:\n\nUbuntu and rocker base image.\nPython\nR/RStudio (for non-rocker based images)\nJupyterHub: Check for and apply updates to Z2JH JupyterHub (if required).\nJupyterLab/Notebook: Check for and apply updates to JupyterLab and Notebook (if required)\nConda-forge distribution\nOtter Grader: Check for and apply updates to Otter Grader across all hubs (if required)\nQuarto\n\nUpdate Hub Image:\n\nJupyterHub: Check for and apply updates to Z2JH JupyterHub (if required).\noauthenticator\nltiauthenticator\n\nReduce Resources:\n\nScale down node placeholder pods to 0\nReduce the number of nodes allocated for each node pool\n\nClear SQLite DB: Clear SQLite database that caches user info for hub pods\nArchive User Data: Archive user home directories across hubs (if required)\nResize/Consolidate Filestores: Resize/Consolidate filestore based on the storage snapshot (if required)\nRemove Config: Remove stanzas added to provide elevated privileges to instructors, increased RAM for courses, shared directories etc..\nRemove Packages: Remove packages that were requested for the previous term or older.\nRemove Calendar Events: Remove calendar events added to support courses in DataHub Scaling Events\nResolve Alerts: Resolve any dependabot alerts reported\nVersion Packages: Version any packages that are unversioned in environment.yml file\nUpdate Postgres: Check for and apply updates to Postgres server and client (if required)\nCreate Tokens: Create a new github personal access token for our CI/CD pipeline\n\n\n\n2. User Communication\n\nBackup Data: Notify users to back up their own files.\nMaintenance Window: Decide and communicate Maintenance Window (MW) dates with users\n\n\n\n3. Review\n\nAudit Hubs: Audit courses and identify the ones that doesn’t need their own hub\nGather feedback: If necessary, gather feedback about any features piloted during the semester\nUpdate documentation: Review documentation and keep it up to date",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
+      "DataHub Semester Start and End Tasks"
     ]
   },
   {
-    "objectID": "tasks/calendar-scaler.html#structure",
-    "href": "tasks/calendar-scaler.html#structure",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "Structure",
-    "text": "Structure\nThere is a Google Calendar calendar, DataHub Scaling Events shared with all infrastructure staff. The event descriptions should contain a YAML fragment, and are of the form pool_name: count, where the name is the corresponding hub name (data100, stat20) and the count is the number of extra nodes you want. There can be several pools defined, one per line.\nBy default, we usually have one spare node ready to go, so if the count in the calendar event is set to 0 or 1, there will be no change to the cluster. If the value is set to &gt;=2, additional hot spares will be created. If a value is set more than once, the entry with the greater value will be used.\nYou can determine how many placeholder nodes to have up based on how many people you expect to log in at once. Some of the bigger courses may require 2 or more placeholder nodes, but during “regular” hours, 1 is usually sufficient.\nThe scaling mechanism is implemented as the node-placeholder-node-placeholder-scaler deployment within the node-placeholder namespace. The source code is within https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler.",
+    "objectID": "tasks/google-sheets.html",
+    "href": "tasks/google-sheets.html",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "",
+    "text": "Available in: DataHub\nWe provision and make available credentials for a service account that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the gspread library.\nThe entire contents of the JSON formatted service account key is available as an environment variable GOOGLE_SHEETS_READONLY_KEY. You can use this to read publicly available Google Sheet documents.\nThe service account has no implicit permissions, and can be found under singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY in datahub/secrets/staging.yaml and datahub/secrets/prod.yaml.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
+      "Reading Google Sheets from DataHub"
     ]
   },
   {
-    "objectID": "tasks/calendar-scaler.html#calendar-autoscaler",
-    "href": "tasks/calendar-scaler.html#calendar-autoscaler",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "Calendar Autoscaler",
-    "text": "Calendar Autoscaler\nThe code for the calendar autoscaler is a python 3.11 script, located here: https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler/scaler\n\nHow the scaler works\nThere is a k8s pod running in the node-placeholder namespace, which simply runs python3 -m scaler. This script runs in an infinite loop, and every 60 seconds checks the scaler config and calendar for entries. It then uses the highest value provided as the number of placeholder replicas for any given hub. This means that if there’s a daily evening event to ‘cool down’ the number of replicas for all hubs to 0, and a simultaneous event to set one or more hubs to a higher number, the scaler will see this and keep however many node placeholders specified up and ready to go.\nAfter determining the number of replicas needed for each hub, the scaler will create a k8s template and run kubectl in the pod.\n\n\nUpdating the scaler config\nThe scaler config sets the default number of node-placeholders that are running at any given time. These values can be overridden by creating events in the DataHub Scaling Events calendar.\nWhen classes are in session, these defaults are all typically set to 1, and during breaks (or when a hub is not expected to be in use) they can be set to 0.\nAfter making changes to values.yaml, create a PR normally and our CI will push the new config out to the node-placeholder pod. There is no need to manually restart the node-placeholder pod as the changes will be picked up automatically.\n\n\nWorking on, testing and deploying the calendar scaler\nAll file locations in this section will assume that you are in the datahub/images/node-placeholder-scaler/ directory.\nIt is strongly recommended that you create a new python 3.11 environment before doing any dev work on the scaler. With conda, you can run the following commands to create one:\nconda create -ny scalertest python=3.11\npip install -r images/node-placeholder-scaler/requirements.txt\nAny changes to the scaler code will require you to run chartpress to redeploy the scaler to GCP.\nHere is an example of how you can test any changes to scaler/calendar.py locally in the python interpreter:\n# these tests will use some dates culled from the calendar with varying numbers of events.\nimport scaler.calendar\nimport datetime\nimport zoneinfo\n\ntz = zoneinfo.ZoneInfo(key='America/Los_Angeles')\nzero_events_noon_june = datetime.datetime(2023, 6, 14, 12, 0, 0, tzinfo=tz)\none_event_five_pm_april = datetime.datetime(2023, 4, 27, 17, 0, 0, tzinfo=tz)\nthree_events_eight_thirty_pm_march = datetime.datetime(2023, 3, 6, 20, 30, 0, tzinfo=tz)\ncalendar = scaler.calendar.get_calendar('https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics')\nzero_events = scaler.calendar.get_events(calendar, time=zero_events_noon_june)\none_event = scaler.calendar.get_events(calendar, time=one_event_five_pm_april)\nthree_events = scaler.calendar.get_events(calendar, time=three_events_eight_thirty_pm_march)\n\nassert len(zero_events) == 0\nassert len(one_event) == 1\nassert len(three_events) == 3\nget_events returns a list of ical ical.event.Event class objects.\nThe method for testing scaler/scaler.py is similar to above, but the only things you’ll be able test locally are the make_deployment() and get_replica_counts() functions.\nWhen you’re ready, create a PR. The deployment workflow is as follows:\n\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.\n\n\n\nChanging python imports\nThe python requirements file is generated using requirements.in and pip-compile. If you need to change/add/update any packages, you’ll need to do the following:\n\nEnsure you have the correct python environment activated (see above).\nPip install pip-tools\nEdit requirements.in and save your changes.\nExecute pip-compile requirements.in, which will update the requirements.txt.\nCheck your git status and diffs, and create a pull request if necessary.\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.",
+    "objectID": "tasks/google-sheets.html#gspread-sample-code",
+    "href": "tasks/google-sheets.html#gspread-sample-code",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "gspread sample code",
+    "text": "gspread sample code\nThe following sample code reads a sheet from a URL given to it, and prints the contents.\nimport gspread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\ngc = gspread.authorize(creds)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1\nsheet = gc.open_by_url(url)\nprint(sheet.sheet1.get_all_records())",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
+      "Reading Google Sheets from DataHub"
     ]
   },
   {
-    "objectID": "tasks/calendar-scaler.html#monitoring",
-    "href": "tasks/calendar-scaler.html#monitoring",
-    "title": "Calendar Node Pool Autoscaler",
-    "section": "Monitoring",
-    "text": "Monitoring\nYou can monitor the scaling by watching for events:\nkubectl -n node-placeholder get events -w\nAnd by tailing the logs of the pod with the scalar process:\nkubectl -n node-placeholder logs -l app.kubernetes.io/name=node-placeholder-scaler -f\nFor example if you set epsilon: 2, you might see in the pod logs:\n2022-10-17 21:36:45,440 Found event Stat20/Epsilon test 2 2022-10-17 14:21 PDT to 15:00 PDT\n2022-10-17 21:36:45,441 Overrides: {'epsilon': 2}\n2022-10-17 21:36:46,475 Setting epsilon to have 2 replicas",
+    "objectID": "tasks/google-sheets.html#gspread-pandas-sample-code",
+    "href": "tasks/google-sheets.html#gspread-pandas-sample-code",
+    "title": "Reading Google Sheets from DataHub",
+    "section": "gspread-pandas sample code",
+    "text": "gspread-pandas sample code\nThe gspread-pandas library helps get data from Google Sheets into a pandas dataframe.\nfrom gspread_pandas.client import Spread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1 as a dataframe\nspread = Spread(url, creds=creds)\nsheet_df = spread.sheet_to_df(sheet='sheet1')\nprint(sheet_df)",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Calendar Node Pool Autoscaler"
+      "Reading Google Sheets from DataHub"
     ]
   },
   {
-    "objectID": "tasks/delete-hub.html",
-    "href": "tasks/delete-hub.html",
-    "title": "Delete or spin down a Hub",
+    "objectID": "tasks/new-packages.html",
+    "href": "tasks/new-packages.html",
+    "title": "Testing and Upgrading New Packages",
     "section": "",
-    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "text": "It is helpful to test package additions and upgrades for yourself before they are installed for all users. You can make sure the change behaves as you think it should, and does not break anything else. Once tested, request that the change by installed for all users by by creating a new issue in github,contacting cirriculum support staff, or creating a new pull request. Ultimately, thoroughly testing changes locally and submitting a pull request will result in the software being rolled out to everyone much faster.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Testing and Upgrading New Packages"
     ]
   },
   {
-    "objectID": "tasks/delete-hub.html#why-delete-or-spin-down-a-hub",
-    "href": "tasks/delete-hub.html#why-delete-or-spin-down-a-hub",
-    "title": "Delete or spin down a Hub",
-    "section": "",
-    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "objectID": "tasks/new-packages.html#submitting-a-pull-request",
+    "href": "tasks/new-packages.html#submitting-a-pull-request",
+    "title": "Testing and Upgrading New Packages",
+    "section": "Submitting a pull request",
+    "text": "Submitting a pull request\nFamiliarize yourself with pull requests and repo2docker , and create a fork of the the image repo.\n\nSet up your git/dev environment by following the instructions here.\nCreate a new branch for this PR.\nFind the correct environment.yml file for your class. This should be in the root of the image repo.\nIn environment.yml, packages listed under dependencies are installed using conda, while packages under pip are installed using pip. Any packages that need to be installed via apt must be added to either apt.txt or Dockerfile.\nAdd any packages necessary. We typically prefer using conda packages, and pip only if necessary. Please pin to a specific version (no wildards, etc).\n\nNote that package versions for conda are specified using =, while in pip they are specified using ==\n\nTest the changes locally using repo2docker, then submit a PR to main.\n\nTo use repo2docker, be sure that you are inside the image repo directory on your device, and then run repo2docker ..\n\nCommit and push your changes to your fork of the image repo, and create a new pull request at https://github.com/berkeley-dsep-infra/&lt;image-name&gt;.\nAfter the build passes, merge your PR in to main and the image will be built again and pushed to the Artifact Registry. If that succeeds, then a commit will be crafted that will update the PLACEHOLDER field in hubploy.yaml with the image’s SHA and pushed to the datahub repo. You can check on the progress of this workflow in your root image repo’s Actions tab.\nAfter 4 is completed successfully, go to the Datahub repo and click on the New pull request button. Next, click on the compare: staging drop down, and you should see a branch named something like update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;. Select that, and create a new pull request.\nOnce the checks has passed, merge to staging and your new image will be deployed! You can watch the progress here.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Testing and Upgrading New Packages"
     ]
   },
   {
-    "objectID": "tasks/delete-hub.html#steps-to-spin-down-a-hub",
-    "href": "tasks/delete-hub.html#steps-to-spin-down-a-hub",
-    "title": "Delete or spin down a Hub",
-    "section": "Steps to spin down a hub",
-    "text": "Steps to spin down a hub\nIf the hub is using a shared filestore, skip all filestore steps.\nIf the hub is using a shared node pool, skip all namespace and node pool steps.\n\nScale the node pool to zero: kubectl -n &lt;hubname-prod|staging&gt; scale --replicas=0 deployment/hub\nKill any remaining users’ servers. Find any running servers with kubectl -n &lt;hubname-prod|staging&gt; get pods | grep jupyter and then kubectl -n &lt;hubname-prod|staging&gt; delete pod &lt;pod name&gt; to stop them.\nCreate filestore backup:\n\ngcloud filestore backups create &lt;hubname&gt;-backup-YYYY-MM-DD --file-share=shares --instance=&lt;hubname-YYYY-MM-DD&gt; --region \"us-central1\" --labels=filestore-backup=&lt;hub name&gt;,hub=&lt;hub name&gt;\n\nLog in to nfsserver-01 and unmount filestore from nfsserver: sudo umount /export/&lt;hubname&gt;-filestore\nComment out the hub’s image repo entry (if applicable) in scripts/user-image-management/repos.txt\nComment out GitHub label action for this hub in .github/labeler.yml\nComment hub entries out of datahub/node-placeholder/values.yaml\nDelete k8s namespace:\n\nkubectl delete namespace &lt;hubname&gt;-staging &lt;hubname&gt;-prod\n\nDelete k8s node pool:\n\ngcloud container node-pools delete &lt;hubname&gt; --project \"ucb-datahub-2018\" --cluster \"spring-2024\" --region \"us-central1\"\n\nDelete filestore\n\ngcloud filestore instances delete &lt;hubname&gt;-filestore --zone \"us-central1-b\"\n\nDelete PV: kubectl get pv --all-namespaces|grep &lt;hubname&gt; to get the PV names, and then kubectl delete pv &lt;pv names&gt;\nAll done.",
+    "objectID": "tasks/new-packages.html#tips-for-upgrading-package",
+    "href": "tasks/new-packages.html#tips-for-upgrading-package",
+    "title": "Testing and Upgrading New Packages",
+    "section": "Tips for Upgrading Package",
+    "text": "Tips for Upgrading Package\n\nConda can take an extremely long time to resolve version dependency conflicts, if they are resolvable at all. When upgrading Python versions or a core package that is used by many other packages, such as requests, clean out or upgrade old packages to minimize the number of dependency conflicts.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Delete or spin down a Hub"
+      "Testing and Upgrading New Packages"
     ]
   },
   {
-    "objectID": "tasks/core-pool.html",
-    "href": "tasks/core-pool.html",
-    "title": "Core Node Pool Management",
+    "objectID": "tasks/rebuild-hub-image.html",
+    "href": "tasks/rebuild-hub-image.html",
+    "title": "Customize the Hub Docker Image",
     "section": "",
-    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "text": "We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in images/hub. It must inherit from the JupyterHub image used in the Zero to JupyterHub.\nThe image is build with chartpress, which also updates hub/values.yaml with the new image version. chartpress may be installed locally with pip install chartpress.\n\nRun gcloud auth configure-docker us-central1-docker.pkg.dev once per machine to setup docker for authentication with the gcloud credential helper.\nModify the image in images/hub and make a git commit.\nRun chartpress --push. This will build and push the hub image, and modify hub/values.yaml appropriately.\nMake a commit with the hub/values.yaml file, so the new hub image name and tag are committed.\nProceed to deployment as normal.\n\nSome of the following commands may be required to configure your environment to run the above chartpress workflow successfully:\n\ngcloud auth login.\ngcloud auth configure-docker us-central1-docker.pkg.dev\ngcloud auth application-default login\ngcloud auth configure-docker",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Customize the Hub Docker Image"
     ]
   },
   {
-    "objectID": "tasks/core-pool.html#what-is-the-core-node-pool",
-    "href": "tasks/core-pool.html#what-is-the-core-node-pool",
-    "title": "Core Node Pool Management",
+    "objectID": "tasks/new-image.html",
+    "href": "tasks/new-image.html",
+    "title": "Create a New Single User Image",
     "section": "",
-    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "text": "You might need to create a new user image when deploying a new hub, or changing from a shared single user server image. We use repo2docker to generate our images.\nThere are two approaches to creating a repo2docker image:\nGenerally, we prefer to use the former approach, unless we need to install specific packages or utilities outside of python/apt as root. If that is the case, only a Dockerfile format will work.\nAs always, create a feature branch for your changes, and submit a PR when done.\nThere are two approaches to pre-populate the image’s assets:",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Create a New Single User Image"
     ]
   },
   {
-    "objectID": "tasks/core-pool.html#deploy-a-new-core-node-pool",
-    "href": "tasks/core-pool.html#deploy-a-new-core-node-pool",
-    "title": "Core Node Pool Management",
-    "section": "Deploy a New Core Node Pool",
-    "text": "Deploy a New Core Node Pool\nRun the following command from the root directory of your local datahub repo to create the node pool:\ngcloud container node-pools create \"core-&lt;YYYY-MM-DD&gt;\"  \\\n  --labels=hub=core,nodepool-deployment=core \\\n  --node-labels hub.jupyter.org/pool-name=core-pool-&lt;YYYY-MM-DD&gt; \\\n  --machine-type \"n2-standard-8\"  \\\n  --num-nodes \"1\" \\\n  --enable-autoscaling --min-nodes \"1\" --max-nodes \"3\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"100\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\" \\\n  --system-config-from-file=vendor/google/gke/node-pool/config/core-pool-sysctl.yaml\nThe system-config-from-file argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.",
+    "objectID": "tasks/new-image.html#subscribe-to-github-repo-in-slack",
+    "href": "tasks/new-image.html#subscribe-to-github-repo-in-slack",
+    "title": "Create a New Single User Image",
+    "section": "Subscribe to GitHub Repo in Slack",
+    "text": "Subscribe to GitHub Repo in Slack\nGo to the #ucb-datahubs-bots channel, and run the following command:\n/github subscribe berkeley-dsep-infra/&lt;your repo name&gt;",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Core Node Pool Management"
+      "Create a New Single User Image"
     ]
   },
   {
-    "objectID": "tasks/managing-multiple-user-image-repos.html",
-    "href": "tasks/managing-multiple-user-image-repos.html",
-    "title": "Managing multiple user image repos",
-    "section": "",
-    "text": "Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.\nFor this, we have a tool named manage-repos.\nmanage-repos uses a config file with a list of all of the git remotes for the image repos (repos.txt) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).\nThe script “assumes” that you have all of your user images in their own sub-folder (in my case, $HOME/src/images/...).",
+    "objectID": "tasks/new-image.html#modify-the-image",
+    "href": "tasks/new-image.html#modify-the-image",
+    "title": "Create a New Single User Image",
+    "section": "Modify the Image",
+    "text": "Modify the Image\nThis step is straightforward: create a feature branch, and edit, delete, or add any files to configure the image as needed.\nWe also strongly recommend copying README-template.md over the default README.md, and modifying it to replace all occurrences of &lt;HUBNAME&gt; with the name of your image.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Managing multiple user image repos"
+      "Create a New Single User Image"
     ]
   },
   {
-    "objectID": "tasks/managing-multiple-user-image-repos.html#managing-user-image-repos",
-    "href": "tasks/managing-multiple-user-image-repos.html#managing-user-image-repos",
-    "title": "Managing multiple user image repos",
-    "section": "",
-    "text": "Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.\nFor this, we have a tool named manage-repos.\nmanage-repos uses a config file with a list of all of the git remotes for the image repos (repos.txt) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).\nThe script “assumes” that you have all of your user images in their own sub-folder (in my case, $HOME/src/images/...).",
+    "objectID": "tasks/new-image.html#submit-pull-requests",
+    "href": "tasks/new-image.html#submit-pull-requests",
+    "title": "Create a New Single User Image",
+    "section": "Submit Pull Requests",
+    "text": "Submit Pull Requests\nFamiliarize yourself with pull requests and repo2docker, and create a fork of the datahub staging branch.\n\nSet up your git/dev environment by following the image templat’s contributing guide.\nTest the image locally using repo2docker.\nSubmit a PR to staging.\nCommit and push your changes to your fork of the image repo, and create a new pull request at https://github.com/berkeley-dsep-infra/.\nAfter the build passes, merge your PR in to main and the image will be built again and pushed to the Artifact Registry. If that succeeds, then a commit will be crafted that will update the PLACEHOLDER field in hubploy.yaml with the image’s SHA and pushed to the datahub repo. You can check on the progress of this workflow in your root image repo’s Actions tab.\nAfter the previous step is completed successfully, go to the Datahub repo and click on the New pull request button. Next, click on the compare: staging drop down, and you should see a branch named something like update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;. Select that, and create a new pull request.\nOnce the checks has passed, merge to staging and your new image will be deployed! You can watch the progress in the deploy-hubs workflow.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Managing multiple user image repos"
+      "Create a New Single User Image"
     ]
-  },
-  {
-    "objectID": "tasks/managing-multiple-user-image-repos.html#installation-of-instructions",
-    "href": "tasks/managing-multiple-user-image-repos.html#installation-of-instructions",
-    "title": "Managing multiple user image repos",
-    "section": "Installation of instructions",
-    "text": "Installation of instructions\n\nVia cloning and manual installation\nClone the repo, and from within that directory run:\npip install --editable .\nThe --editable flag is optional, and allows you to hack on the tool and have those changes usable without reinstalling or needing to hack your PATH.\n\n\nVia pip\npython3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/manage-repos\n\n\nInstalling the gh tool\nTo use the pr and merge sub-commands, you will also need to install the Github CLI tool: https://github.com/cli/cli#installation",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Managing multiple user image repos"
-    ]
-  },
-  {
-    "objectID": "tasks/managing-multiple-user-image-repos.html#usage",
-    "href": "tasks/managing-multiple-user-image-repos.html#usage",
-    "title": "Managing multiple user image repos",
-    "section": "Usage",
-    "text": "Usage\n\nOverview of git operations included in manage-repos:\nmanage-repos allows you to perform basic git operations on a large number of similar repositories:\n\nbranch: Create a feature branch\nclone: Clone all repositories in the config file to a location on the filesystem specified by the --destination argument.\nmerge: Merge the most recent pull request in the managed repositories.\npatch: Apply a git patch to all repositories in the config file.\npr: Create pull requests in the managed repositories.\npush: Push a branch from all repos to a remote. The remote defaults to origin.\nstage: Performs a git add and git commit to stage changes before pushing.\nsync: Sync all of the repositories, and optionally push to your fork.\n\n\n\nUsage overview\nThe following sections will describe in more detail the options and commands available with the script.\n\nPrimary arguments for the script\n$ manage-repos.py --help\nusage: manage-repos [-h] [-c CONFIG] [-d DESTINATION] {branch,clone,patch,push,stage,sync} ...\n\npositional arguments:\n  {branch,clone,patch,push,stage,sync}\n                        Command to execute. Additional help is available for each command.\n\noptions:\n  -h, --help            show this help message and exit\n  -c CONFIG, --config CONFIG\n                        Path to the file containing list of repositories to operate on. Defaults to repos.txt located in the current working\n                        directory.\n  -d DESTINATION, --destination DESTINATION\n                        Location on the filesystem of the directory containing the managed repositories. Defaults to the current working directory.\n  --version             show program's version number and exit\n--config is required, and setting --destination is recommended.\n\n\n\nSub-commands\n\nbranch\n$ manage-repos branch --help\nusage: manage-repos branch [-h] [-b BRANCH]\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH, --branch BRANCH\n                        Name of the new feature branch to create.\nThe feature branch to create is required, and the tool will switch to main before creating and switching to the new branch.\n\n\nclone\n$ manage-repos.py clone --help\nusage: manage-repos clone [-h] [-s [SET_REMOTE]] [-g GITHUB_USER]\n\nClone repositories in the config file and optionally set a remote for a fork.\nIf a repository sub-directory does not exist, it will be created.\n\noptions:\n  -h, --help            show this help message and exit\n  -s [SET_REMOTE], --set-remote [SET_REMOTE]\n                        Set the user's GitHub fork as a remote. Defaults to 'origin'.\n  -g GITHUB_USER, --github-user GITHUB_USER\n                        The GitHub username of the fork to set in the remote.\n                        Required if --set-remote is used.\nThis command will clone all repositories found in the config, and if you’ve created a fork, use the --set-remote and --github-user arguments to update the remotes in the cloned repositories. This will set the primary repository’s remote to upstream and your fork to origin (unless you override this by passing a different remote name with the --set-remote argument).\nAfter cloning, git remote -v will be executed for each repository to allow you to confirm that the remotes are properly set.\n\n\nmerge\n$ usage: manage-repos merge [-h] [-b BODY] [-d] [-s {merge,rebase,squash}]\n\nUsing the gh tool, merge the most recent pull request in the managed\nrepositories. Before using this command, you must authenticate with gh to\nensure that you have the correct permission for the required scopes.\n\noptions:\n  -h, --help            show this help message and exit\n  -b BODY, --body BODY  The commit message to apply to the merge (optional).\n  -d, --delete          Delete your local feature branch after the pull request\n                        is merged (optional).\n  -s {merge,rebase,squash}, --strategy {merge,rebase,squash}\n                        The pull request merge strategy to use, defaults to\n                        'merge'.\nBe aware that the default behavior is to merge only the newest pull request in the managed repositories. The reasoning behind this is that if you have created pull requests across many repositories, the pull request numbers will almost certainly be different, and adding interactive steps to merge specific pull requests will be cumbersome.\n\n\npatch\n$ manage-repos patch --help\nusage: manage-repos patch [-h] [-p PATCH]\n\nApply a git patch to managed repositories.\n\noptions:\n  -h, --help            show this help message and exit\n  -p PATCH, --patch PATCH\n                        Path to the patch file to apply.\nThis command applies a git patch file to all of the repositories. The patch is created by making changes to one file, and redirecting the output of git diff to a new file, eg:\ngit diff &lt;filename&gt; &gt; patchfile.txt\nYou then provide the location of the patch file with the --patch argument, and the script will attempt to apply the patch to all of the repositories.\nIf it is unable to apply the patch, the script will continue to run and notify you when complete which repositories failed to accept the patch.\n\n\npr\n$ manage-repos pr --help\nusage: manage-repos pr [-h] [-t TITLE] [-b BODY] [-B BRANCH_DEFAULT]\n                       [-g GITHUB_USER]\n\nUsing the gh tool, create a pull request after pushing.\n\noptions:\n  -h, --help            show this help message and exit\n  -t TITLE, --title TITLE\n                        Title of the pull request.\n  -b BODY, --body BODY  Body of the pull request (optional).\n  -B BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT\n                        Default remote branch that the pull requests will be\n                        merged to. This is optional and defaults to 'main'.\n  -g GITHUB_USER, --github-user GITHUB_USER\n                        The GitHub username used to create the pull request.\nAfter you’ve staged and pushed your changes, this command will then create a pull request using the gh tool.\n\n\npush\n$ manage-repos push --help\nusage: manage-repos push [-h] [-b BRANCH] [-r REMOTE]\n\nPush managed repositories to a remote.\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH, --branch BRANCH\n                        Name of the branch to push.\n  -r REMOTE, --remote REMOTE\n                        Name of the remote to push to. This is optional and\n                        defaults to 'origin'.\nThis command will attempt to push all staged commits to a remote. The --branch argument is required, and needs to be the name of the feature branch that will be pushed.\nThe remote that is pushed to defaults to origin, but you can override this with the --remote argument.\n\n\nstage\n$ manage-repos stage --help\nusage: manage-repos stage [-h] [-f FILES [FILES ...]] [-m MESSAGE]\n\nStage changes in managed repositories. This performs a git add and commit.\n\noptions:\n  -h, --help            show this help message and exit\n  -f FILES [FILES ...], --files FILES [FILES ...]\n                        Space-delimited list of files to stage in the\n                        repositories. Optional, and if left blank will default\n                        to all modified files in the directory.\n  -m MESSAGE, --message MESSAGE\n                        Commit message to use for the changes.\nstage combines both git add ... and git commit -m, adding and committing one or more files to the staging area before you push to a remote.\nThe commit message must be a text string enclosed in quotes.\nBy default, --files is set to ., which will add all modified files to the staging area. You can also specify any number of files, separated by a space.\n\n\nsync\n$ manage-image-repos.py sync --help\nusage: manage-repos sync [-h] [-b BRANCH_DEFAULT] [-u UPSTREAM] [-p]\n                         [-r REMOTE]\n\nSync managed repositories to the latest version using 'git rebase'. Optionally\npush to a remote fork.\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT\n                        Default remote branch to sync to. This is optional and\n                        defaults to 'main'.\n  -u UPSTREAM, --upstream UPSTREAM\n                        Name of the parent remote to sync from. This is\n                        optional and defaults to 'upstream'.\n  -p, --push            Push the locally synced repo to a remote fork.\n  -r REMOTE, --remote REMOTE\n                        The name of the remote fork to push to. This is\n                        optional and defaults to 'origin'.\nThis command will switch your local repositories to the main branch, and sync all repositories from the config to your device from a remote. With the --push argument, it will push the local repository to another remote.\nBy default, the script will switch to the main branch before syncing, and can be overridden with the --branch-default argument.\nThe primary remote that is used to sync is upstream, but that can also be overridden with the --upstream argument. The remote for a fork defaults to origin, and can be overridden via the --remote argument.\n\n\n\nTips, tricks and usage examples\n\nTips and tricks\nmanage-repos is best run from the parent folder that will contain all of the repositories that you will be managing as the default value of --destination is the current working directory (.).\nYou can also create a symlink in the parent folder that points to the config file elsewhere on your filesystem:\nln -s  &lt;path to datahub repo&gt;/scripts/user-image-management/repos.txt repos.txt\nWith this in mind, you can safely drop the --config and --destination arguments when running manage-repos. Eg:\nmanage-repos sync -p\nAnother tip is to comment out or delete entries in your config when performing git operations on a limited set of repositories. Be sure to git restore the file when you’re done!\n\n\nUsage examples\nClone all of the image repos to a common directory:\nmanage-repos --destination ~/src/images/ --config /path/to/repos.txt clone\nClone all repos, and set upstream and origin for your fork:\nmanage-repos -d ~/src/images/ -c /path/to/repos.txt clone --set-remote --github-user &lt;username&gt;\nSync all repos from upstream and push to your origin:\nmanage-repos -d ~/src/images/ -c /path/to/repos.txt sync --push\nCreate a feature branch in all of the repos:\nmanage-repos -d ~/src/images -c /path/to/repos.txt branch -b test-branch\nCreate a git patch and apply it to all image repos:\ngit diff envorinment.yml &gt; /tmp/git-patch.txt\nmanage-repos -d ~/src/images -c /path/to/repos.txt patch -p /tmp/git-patch.txt\nOnce you’ve tested everything and are ready to push and create a PR, add and commit all modified files in the repositories:\nmanage-repos -d ~/src/images -c /path/to/repos.txt stage -m \"this is a commit\"\nAfter staging, push everything to a remote:\nmanage-repos -d ~/src/images -c /path/to/repos.txt push -b test-branch",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Managing multiple user image repos"
-    ]
-  },
-  {
-    "objectID": "tasks/new-hub.html",
-    "href": "tasks/new-hub.html",
-    "title": "Create a New Hub",
-    "section": "",
-    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "tasks/new-hub.html#why-create-a-new-hub",
-    "href": "tasks/new-hub.html#why-create-a-new-hub",
-    "title": "Create a New Hub",
-    "section": "",
-    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "tasks/new-hub.html#prerequisites",
-    "href": "tasks/new-hub.html#prerequisites",
-    "title": "Create a New Hub",
-    "section": "Prerequisites",
-    "text": "Prerequisites\nWorking installs of the following utilities:\n\nchartpress\ncookiecutter\ngcloud\nhubploy\nkubectl\nsops\n\nThe easiest way to install chartpress, cookiecutter and hubploy is to run pip install -r dev-requirements.txt from the root of the datahub repo.\nProper access to the following systems:\n\nGoogle Cloud IAM: owner\nWrite access to the datahub repo\nOwner or admin access to the berkeley-dsep-infra organization",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "tasks/new-hub.html#configuring-a-new-hub",
-    "href": "tasks/new-hub.html#configuring-a-new-hub",
-    "title": "Create a New Hub",
-    "section": "Configuring a New Hub",
-    "text": "Configuring a New Hub\n\nName the hub\nChoose the hub name, e.g. data8, stat20, biology, julia, which is typically the name of the course or department. This is permanent.\n\n\nDetermine deployment needs\nBefore creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general “types” of hub: Heavy usage, general and small courses.\nSmall courses will usually have one or two assignments per semester, and may only have 20 or fewer users.\nGeneral courses have up to ~500 users, but don’t have large amount of data or require upgraded compute resources.\nHeavy usage courses can potentially have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.\nBoth general and heavy usage courses typically have weekly assignments.\nSmall courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).\nThis is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.\nIf you’re going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the cookiecutter.\nWhen creating a new hub, we also make sure to label the filestore and GKE/node pool resources with both hub and &lt;nodepool|filestore&gt;-deployment. 99.999% of the time, the values for all three of these labels will be &lt;hubname&gt;.\n\n\nCreating a new node pool\nCreate the node pool:\ngcloud container node-pools create \"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\" \\\n  --labels=hub=&lt;hubname&gt;,nodepool-deployment=&lt;hubname&gt; \\\n  --node-labels hub.jupyter.org/pool-name=&lt;hubname&gt;-pool \\\n  --machine-type \"n2-highmem-8\" \\\n  --enable-autoscaling --min-nodes \"0\" --max-nodes \"20\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"200\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\"\n\n\nCreating a new filestore instance\nBefore you create a new filestore instance, be sure you know the capacity required. The smallest amount you can allocate is 1T, but larger hubs may require more. Confer with the admins and people instructing the course and determine how much they think they will need.\nWe can easily scale capacity up, but not down.\nFrom the command line, first fill in the instance name (&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;) and &lt;capacity&gt;, and then execute the following command:\ngcloud filestore instances create &lt;hubname&gt;-&lt;YYYY-MM-DD&gt; \\\n  --zone \"us-central1-b\" --tier=\"BASIC_HDD\" \\\n  --file-share=capacity=1TiB,name=shares \\\n  --network=name=default,connect-mode=DIRECT_PEERING\nOr, from the web console, click on the horizontal bar icon at the top left corner.\n\nAccess “Filestore” &gt; “Instances” and click on “Create Instance”.\nName the instance &lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\nInstance Type is Basic, Storage Type is HDD.\nAllocate capacity.\nSet the region to us-central1 and Zone to us-central1-b.\nSet the VPC network to default.\nSet the File share name to shares.\nClick “Create” and wait for it to be deployed.\nOnce it’s deployed, select the instance and copy the “NFS mount point”.\n\nYour new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create & configure the required directories.\nYou can run the following command in gcloud terminal to log in to the NFS utility VM:\ngcloud compute ssh nfsserver-01 --zone=us-central1-b --tunnel-through-iap\nAlternatively, launch console.cloud.google.com &gt; Select ucb-datahub-2018 as the project name.\n\nClick on the three horizontal bar icon at the top left corner.\nAccess “Compute Engine” &gt; “VM instances” &gt; and search for “nfs-server-01”.\nSelect “Open in browser window” option to access NFS server via GUI.\n\nBack in the NFS utility VM shell, mount the new share:\nmkdir /export/&lt;hubname&gt;-filestore\nmount &lt;filestore share IP&gt;:/shares /export/&lt;hubname&gt;-filestore\nCreate staging and prod directories owned by 1000:1000 under /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;. The path might differ if your hub has special home directory storage needs. Consult admins if that’s the case. Here is the command to create the directory with appropriate permissions:\ninstall -d -o 1000 -g 1000 \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/staging \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/prod\nCheck whether the directories have permissions similar to the below directories:\ndrwxr-xr-x 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore\ndrwxr-xr-x 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore\ndrwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore\n\n\nCreate the hub deployment locally\nIn the datahub/deployments directory, run cookiecutter. This sets up the hub’s configuration directory:\ncookiecutter template/\n\nThe cookiecutter template will prompt you to provide the following information:\n\n\n&lt;hub_name&gt;: Enter the chosen name of the hub.\n&lt;project_name&gt;: Default is ucb-datahub-2018, do not change.\n&lt;cluster_name&gt;: Default is spring-2024, do not change.\n&lt;pool_name&gt;: Name of the node pool (shared or individual) to deploy on.\nhub_filestore_share: Default is shares, do not change.\nhub_filestore_ip: Enter the IP address of the filestore instance. This is available from the web console.\nhub_filestore_capacity: Enter the allocated storage capacity. This is available from the web console.\n\n\n\nThis will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.\n\n\nConfigure filestore security settings and GCP billing labels\nIf you have created a new filestore instance, you will now need to apply the ROOT_SQUASH settings. Please ensure that you’ve already created the hub’s root directory and both staging and prod directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.\nSkip this step if you are using an existing/shared filestore.\ngcloud filestore instances update &lt;filestore-instance-name&gt; --zone=us-central1-b  \\\n       --update-labels=hub=&lt;hubname&gt;,filestore-deployment=&lt;hubname&gt; \\\n       --flags-file=&lt;hubname&gt;/config/filestore/squash-flags.json\n\n\nAuthentication\nSet up authentication via bcourses. We have two canvas OAuth2 clients setup in bcourses for us - one for all production hubs and one for all staging hubs. The configuration and secrets for these are provided by the cookiecutter template, however the new hubs need to be added to the authorized callback list maintained in bcourses.\n\nUse sops to edit secrets/staging.yaml and secrets/prod.yaml, replacing the cookiecutter hub_name. cookiecutter can’t do this for you since the values are encrypted.\nAdd &lt;hub_name&gt;-staging.datahub.berkeley.edu/hub/oauth_callback to the staging hub client (id 10720000000000594)\nAdd &lt;hub_name&gt;.datahub.berkeley.edu/hub/oauth_callback to the production hub client (id 10720000000000472)\nCopy gke-key.json from any other hub’s secrets to the hub’s secrets/\n\nPlease reach out to Jonathan Felder to set this up, or bcourseshelp@berkeley.edu if he is not available.\n\n\nCI/CD and single-user server image\nCI/CD is managed through Github Actions, and the relevant workflows are located in .github/workflows/. Deploying all hubs are managed via Pull Request Labels, which are applied automatically on PR creation.\nTo ensure the new hub is deployed, all that needs to be done is add a new entry (alphabetically) in .github/labeler.yml under the # add hub-specific labels for deployment changes stanza:\n\"hub: &lt;hubname&gt;\":\n  - \"deployments/&lt;hubname&gt;/**\"\n\nHubs using a custom single-user server image\nIf this hub will be using its own image, then follow the instructions here to create the new image and repository. In this case, the image tag will be PLACEHOLDER and will be updated AFTER your PR to datahub is merged.\nNOTE: The changes to the datahub repo are required to be merged BEFORE the new image configuration is pushed to main in the image repo. This is due to the image building/pushing workflow requiring this deployment’s hubploy.yaml to be present in the deployments/&lt;hubname&gt;/ subdirectory, as it updates the image tag.\n\n\nHubs inheriting an existing single-user server image\nIf this hub will inherit an existing image, you can just copy hubploy.yaml from an existing deployment which will contain the latest image hash.\n\n\nReview the deployment’s hubploy.yaml\nNext, review hubploy.yaml inside your project directory to confirm that looks cromulent. An example from the a11y hub:\nimages:\n  images:\n    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image:&lt;image tag OR \"PLACEHOLDER\"&gt;\n\n\n\nCreate placeholder node pool\nNode pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.\nIf you are deploying to a shared node pool, there is no need to perform this step.\nOtherwise, you’ll need to add the placeholder settings in node-placeholder/values.yaml.\nThe node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can’t run on a node where other system pods are running! To do this, we’ll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of “wiggle room”. This final number will be used to allocate RAM for the node placeholder.\n\nLaunch a server on https://hubname.datahub.berkeley.edu\nGet the node name (it will look something like gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs): kubectl get nodes | grep *hubname* | awk '{print $1}'\nGet the total amount of memory allocatable to pods on this node and convert to bytes: bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'\nGet the total memory used by non-user pods/containers on this node. We explicitly ignore notebook and pause. Convert to bytes and get the sum: bash     kubectl get -A pod -l 'component!=user-placeholder' \\       --field-selector spec.nodeName=&lt;nodename&gt; \\       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\       | egrep -v 'pause|notebook'\nSubtract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.\nAdd an entry for the new placeholder node config in values.yaml:\n\ndata102:\n  nodeSelector:\n    hub.jupyter.org/pool-name: data102-pool\n  resources:\n    requests:\n      # Some value slightly lower than allocatable RAM on the node pool\n      memory: 60929654784\n  replicas: 1\nFor reference, here’s example output from collecting and calculating the values for data102:\n(gcpdev) ➜  ~ kubectl get nodes | grep data102 | awk '{print$1}'\ngke-spring-2024-user-data102-2023-01-05-e02d4850-t478\n(gcpdev) ➜  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes\n60055600Ki%\n(gcpdev) ➜  ~ kubectl get -A pod -l 'component!=user-placeholder' \\\n--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 \\\n-o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\\n| egrep -v 'pause|notebook' # convert all values to bytes, sum them\ncalico-node\nfluentbit       100Mi\nfluentbit-gke   100Mi\ngke-metrics-agent       60Mi\nip-masq-agent   16Mi\nkube-proxy\nprometheus-node-exporter\n(gcpdev) ➜  ~ # subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room\n(gcpdev) ➜  ~ # in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi\n(gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784\nBesides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, calendar events. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.\n\n\nCommit and deploy to staging\nCommit the hub directory, and make a PR to the the staging branch in the GitHub repo.\n\nHubs using a custom single-user server image\nIf this hub is using a custom image, and you’re using PLACEHOLDER for the image tag in hubploy.yaml, be sure to remove the hub-specific Github label that is automatically attached to this pull request. It will look something like hub: &lt;hubname&gt;. If you don’t do this the deployment will fail as the image sha of PLACEHOLDER doesn’t exist.\nAfter this PR is merged, perform the git push in your image repo. This will trigger the workflow that builds the image, pushes it to the Artifact Registry, and finally creates a commit that updates the image hash in hubploy.yaml and pushes to the datahub repo. Once this is merged in to staging, the deployment pipeline will run and your hub will finally be deployed.\n\n\nHubs inheriting an existing single-user server image\nYour hub’s deployment will proceed automatically through the CI/CD pipeline.\nIt might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.\n\n\n\nCommit and deploy to prod\nMake a PR from the staging branch to the prod branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Hub"
-    ]
-  },
-  {
-    "objectID": "hubs/shiny.html",
-    "href": "hubs/shiny.html",
-    "title": "Shiny",
-    "section": "",
-    "text": "shiny.datahub.berkeley.edu contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio."
-  },
-  {
-    "objectID": "hubs/prob140.html",
-    "href": "hubs/prob140.html",
-    "title": "Prob 140",
-    "section": "",
-    "text": "Prob 140 hub exists to isolate student files from the main hub. Some students in this course might be course staff in another course, or vice versa, so we isolate their home directories through this hub. It uses the same singleuser docker image as the main hub."
-  },
-  {
-    "objectID": "hubs/r.html",
-    "href": "hubs/r.html",
-    "title": "R",
-    "section": "",
-    "text": "r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment."
-  },
-  {
-    "objectID": "hubs/data100.html",
-    "href": "hubs/data100.html",
-    "title": "Data 100",
-    "section": "",
-    "text": "This hub is for Data 100 which has a unique user and grading environment.\nData100 has shared folders between staff (professors and GSIs) and students. Course staff can see a shared and a shared-readwrite folder. Students can only see the shared folder, which is read-only. Anything that gets put in shared-readwrite is automatically viewable in shared, but as read-only files. The purpose of this is to be able to share large data files instead of having one per student."
-  },
-  {
-    "objectID": "hubs.html",
-    "href": "hubs.html",
-    "title": "JupyterHub Deployments",
-    "section": "",
-    "text": "Data 100\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 102\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 8X\n\n\n\n\n\n\njupyterlab\n\n\nltiauthenticator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataHub\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProb 140\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nrstudio\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\n\n\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 159\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nrtc\n\n\nshared-folders\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 20\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nrstudio\n\n\nshared-folders\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Architecture and contributing",
-      "JupyterHub Deployments"
-    ]
-  },
-  {
-    "objectID": "hubs/data102.html",
-    "href": "hubs/data102.html",
-    "title": "Data 102",
-    "section": "",
-    "text": "This hub is for Data 102 which has a unique user and grading environment.\nData 102 runs on Google Cloud Platform in the ucb-datahub-2018 project. You can see all config for it under deployments/data102."
-  },
-  {
-    "objectID": "hubs/stat20.html",
-    "href": "hubs/stat20.html",
-    "title": "Stat 20",
-    "section": "",
-    "text": "stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as designed by Andrew Bray. It uses RStudio as the primary users interface and students can use Quarto to author documents and Shiny to create web applications."
-  },
-  {
-    "objectID": "hubs/edx.html",
-    "href": "hubs/edx.html",
-    "title": "Data 8X",
-    "section": "",
-    "text": "This hub is for the data8x course on EdX. It is open to use by anyone in the world, using LTI Authentication to provide login capability from inside EdX.\nIt runs on Google Cloud Platform in the data8x-scratch project. You can see all config for it under deployments/data8x."
-  },
-  {
-    "objectID": "hubs/stat159.html",
-    "href": "hubs/stat159.html",
-    "title": "Stat 159",
-    "section": "",
-    "text": "stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their local development workflows to the cloud."
-  },
-  {
-    "objectID": "hubs/stat159.html#image",
-    "href": "hubs/stat159.html#image",
-    "title": "Stat 159",
-    "section": "Image",
-    "text": "Image\nNotably the image contains support for RTC. As of March 2023, this requires:\n- jupyter_server==2.2.1\n- jupyterlab==3.6.1\n- jupyterlab_server==2.19.0\n- git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;"
-  },
-  {
-    "objectID": "hubs/stat159.html#configuration",
-    "href": "hubs/stat159.html#configuration",
-    "title": "Stat 159",
-    "section": "Configuration",
-    "text": "Configuration\nAlong with the dependencies, the singleuser server is modified to launch as\nsingleuser:\n     cmd:\n       - jupyterhub-singleuser\n       - --LabApp.collaborative=true\n       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration\n       - --YDocExtension.ystore_class=tmpystore.TmpYStore\nThis turns on collaboration and moves some sqlite storage from home directories to /tmp/.\nIn addition to RTC, the hub also has configuration to enable shared accounts with impersonation. There are a handful of fabricated user accounts, e.g. collab-shared-1, collab-shared-2, etc. not affiliated with any real person in bCourses. There are also corresponding JupyterHub groups, shared-1, shared-2, etc. The instructors add real students to the hub groups, and some roles and scopes logic in the hub configuration gives students access to launch jupyter servers for the collaborative user accounts. The logic is in config/common.yaml while the current group affiliations are kept private in secrets.\nThis configuration is to encourage use of RTC, and to prevent one student from having too much access to another student's home directory. The fabricated (essentially service) accounts have initially empty home directories and exist solely to provide workspaces for the group. There is currently no archive or restore procedure in mind for these shared accounts.\nFor now, groups are defined in either the hub configuration or in the administrative /hub/admin user interface. In order to enable group assignment in this manner, we must set Authenticator.managed_groups to False. Ordinarily groups are provided by CanvasAuthenticator where this setting is True.\nEventually instructors will be able to define groups in bCourses so that CanvasAuthenticator can remain in charge of managing groups. This will be important for the extremely large courses. It will also be beneficial in that resource allocation can be performed more easily through group affiliations and group properties."
-  },
-  {
-    "objectID": "hubs/datahub.html",
-    "href": "hubs/datahub.html",
-    "title": "DataHub",
-    "section": "",
-    "text": "datahub.berkeley.edu is the main JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational courses across diverse disciplines."
-  },
-  {
-    "objectID": "hubs/datahub.html#image",
-    "href": "hubs/datahub.html#image",
-    "title": "DataHub",
-    "section": "Image",
-    "text": "Image\nThe datahub image contains both Python and R environments. A user can create jupyter notebooks utilizing either Python or R, or can run RStudio using R or Python."
   },
   {
     "objectID": "tasks/course-config.html",
@@ -1241,135 +1074,338 @@
     ]
   },
   {
-    "objectID": "tasks/new-image.html",
-    "href": "tasks/new-image.html",
-    "title": "Create a New Single User Image",
+    "objectID": "hubs/datahub.html",
+    "href": "hubs/datahub.html",
+    "title": "DataHub",
     "section": "",
-    "text": "You might need to create a new user image when deploying a new hub, or changing from a shared single user server image. We use repo2docker to generate our images.\nThere are two approaches to creating a repo2docker image:\nGenerally, we prefer to use the former approach, unless we need to install specific packages or utilities outside of python/apt as root. If that is the case, only a Dockerfile format will work.\nAs always, create a feature branch for your changes, and submit a PR when done.\nThere are two approaches to pre-populate the image’s assets:",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Single User Image"
-    ]
+    "text": "datahub.berkeley.edu is the main JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational courses across diverse disciplines."
   },
   {
-    "objectID": "tasks/new-image.html#subscribe-to-github-repo-in-slack",
-    "href": "tasks/new-image.html#subscribe-to-github-repo-in-slack",
-    "title": "Create a New Single User Image",
-    "section": "Subscribe to GitHub Repo in Slack",
-    "text": "Subscribe to GitHub Repo in Slack\nGo to the #ucb-datahubs-bots channel, and run the following command:\n/github subscribe berkeley-dsep-infra/&lt;your repo name&gt;",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Single User Image"
-    ]
+    "objectID": "hubs/datahub.html#image",
+    "href": "hubs/datahub.html#image",
+    "title": "DataHub",
+    "section": "Image",
+    "text": "Image\nThe datahub image contains both Python and R environments. A user can create jupyter notebooks utilizing either Python or R, or can run RStudio using R or Python."
   },
   {
-    "objectID": "tasks/new-image.html#modify-the-image",
-    "href": "tasks/new-image.html#modify-the-image",
-    "title": "Create a New Single User Image",
-    "section": "Modify the Image",
-    "text": "Modify the Image\nThis step is straightforward: create a feature branch, and edit, delete, or add any files to configure the image as needed.\nWe also strongly recommend copying README-template.md over the default README.md, and modifying it to replace all occurrences of &lt;HUBNAME&gt; with the name of your image.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Single User Image"
-    ]
-  },
-  {
-    "objectID": "tasks/new-image.html#submit-pull-requests",
-    "href": "tasks/new-image.html#submit-pull-requests",
-    "title": "Create a New Single User Image",
-    "section": "Submit Pull Requests",
-    "text": "Submit Pull Requests\nFamiliarize yourself with pull requests and repo2docker, and create a fork of the datahub staging branch.\n\nSet up your git/dev environment by following the image templat’s contributing guide.\nTest the image locally using repo2docker.\nSubmit a PR to staging.\nCommit and push your changes to your fork of the image repo, and create a new pull request at https://github.com/berkeley-dsep-infra/.\nAfter the build passes, merge your PR in to main and the image will be built again and pushed to the Artifact Registry. If that succeeds, then a commit will be crafted that will update the PLACEHOLDER field in hubploy.yaml with the image’s SHA and pushed to the datahub repo. You can check on the progress of this workflow in your root image repo’s Actions tab.\nAfter the previous step is completed successfully, go to the Datahub repo and click on the New pull request button. Next, click on the compare: staging drop down, and you should see a branch named something like update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;. Select that, and create a new pull request.\nOnce the checks has passed, merge to staging and your new image will be deployed! You can watch the progress in the deploy-hubs workflow.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Create a New Single User Image"
-    ]
-  },
-  {
-    "objectID": "tasks/rebuild-hub-image.html",
-    "href": "tasks/rebuild-hub-image.html",
-    "title": "Customize the Hub Docker Image",
+    "objectID": "hubs/stat159.html",
+    "href": "hubs/stat159.html",
+    "title": "Stat 159",
     "section": "",
-    "text": "We use a customized JupyterHub docker image so we can install extra packages such as authenticators. The image is located in images/hub. It must inherit from the JupyterHub image used in the Zero to JupyterHub.\nThe image is build with chartpress, which also updates hub/values.yaml with the new image version. chartpress may be installed locally with pip install chartpress.\n\nRun gcloud auth configure-docker us-central1-docker.pkg.dev once per machine to setup docker for authentication with the gcloud credential helper.\nModify the image in images/hub and make a git commit.\nRun chartpress --push. This will build and push the hub image, and modify hub/values.yaml appropriately.\nMake a commit with the hub/values.yaml file, so the new hub image name and tag are committed.\nProceed to deployment as normal.\n\nSome of the following commands may be required to configure your environment to run the above chartpress workflow successfully:\n\ngcloud auth login.\ngcloud auth configure-docker us-central1-docker.pkg.dev\ngcloud auth application-default login\ngcloud auth configure-docker",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Customize the Hub Docker Image"
-    ]
+    "text": "stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their local development workflows to the cloud."
   },
   {
-    "objectID": "tasks/new-packages.html",
-    "href": "tasks/new-packages.html",
-    "title": "Testing and Upgrading New Packages",
+    "objectID": "hubs/stat159.html#image",
+    "href": "hubs/stat159.html#image",
+    "title": "Stat 159",
+    "section": "Image",
+    "text": "Image\nNotably the image contains support for RTC. As of March 2023, this requires:\n- jupyter_server==2.2.1\n- jupyterlab==3.6.1\n- jupyterlab_server==2.19.0\n- git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;"
+  },
+  {
+    "objectID": "hubs/stat159.html#configuration",
+    "href": "hubs/stat159.html#configuration",
+    "title": "Stat 159",
+    "section": "Configuration",
+    "text": "Configuration\nAlong with the dependencies, the singleuser server is modified to launch as\nsingleuser:\n     cmd:\n       - jupyterhub-singleuser\n       - --LabApp.collaborative=true\n       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration\n       - --YDocExtension.ystore_class=tmpystore.TmpYStore\nThis turns on collaboration and moves some sqlite storage from home directories to /tmp/.\nIn addition to RTC, the hub also has configuration to enable shared accounts with impersonation. There are a handful of fabricated user accounts, e.g. collab-shared-1, collab-shared-2, etc. not affiliated with any real person in bCourses. There are also corresponding JupyterHub groups, shared-1, shared-2, etc. The instructors add real students to the hub groups, and some roles and scopes logic in the hub configuration gives students access to launch jupyter servers for the collaborative user accounts. The logic is in config/common.yaml while the current group affiliations are kept private in secrets.\nThis configuration is to encourage use of RTC, and to prevent one student from having too much access to another student's home directory. The fabricated (essentially service) accounts have initially empty home directories and exist solely to provide workspaces for the group. There is currently no archive or restore procedure in mind for these shared accounts.\nFor now, groups are defined in either the hub configuration or in the administrative /hub/admin user interface. In order to enable group assignment in this manner, we must set Authenticator.managed_groups to False. Ordinarily groups are provided by CanvasAuthenticator where this setting is True.\nEventually instructors will be able to define groups in bCourses so that CanvasAuthenticator can remain in charge of managing groups. This will be important for the extremely large courses. It will also be beneficial in that resource allocation can be performed more easily through group affiliations and group properties."
+  },
+  {
+    "objectID": "hubs/edx.html",
+    "href": "hubs/edx.html",
+    "title": "Data 8X",
     "section": "",
-    "text": "It is helpful to test package additions and upgrades for yourself before they are installed for all users. You can make sure the change behaves as you think it should, and does not break anything else. Once tested, request that the change by installed for all users by by creating a new issue in github,contacting cirriculum support staff, or creating a new pull request. Ultimately, thoroughly testing changes locally and submitting a pull request will result in the software being rolled out to everyone much faster.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Testing and Upgrading New Packages"
-    ]
+    "text": "This hub is for the data8x course on EdX. It is open to use by anyone in the world, using LTI Authentication to provide login capability from inside EdX.\nIt runs on Google Cloud Platform in the data8x-scratch project. You can see all config for it under deployments/data8x."
   },
   {
-    "objectID": "tasks/new-packages.html#submitting-a-pull-request",
-    "href": "tasks/new-packages.html#submitting-a-pull-request",
-    "title": "Testing and Upgrading New Packages",
-    "section": "Submitting a pull request",
-    "text": "Submitting a pull request\nFamiliarize yourself with pull requests and repo2docker , and create a fork of the the image repo.\n\nSet up your git/dev environment by following the instructions here.\nCreate a new branch for this PR.\nFind the correct environment.yml file for your class. This should be in the root of the image repo.\nIn environment.yml, packages listed under dependencies are installed using conda, while packages under pip are installed using pip. Any packages that need to be installed via apt must be added to either apt.txt or Dockerfile.\nAdd any packages necessary. We typically prefer using conda packages, and pip only if necessary. Please pin to a specific version (no wildards, etc).\n\nNote that package versions for conda are specified using =, while in pip they are specified using ==\n\nTest the changes locally using repo2docker, then submit a PR to main.\n\nTo use repo2docker, be sure that you are inside the image repo directory on your device, and then run repo2docker ..\n\nCommit and push your changes to your fork of the image repo, and create a new pull request at https://github.com/berkeley-dsep-infra/&lt;image-name&gt;.\nAfter the build passes, merge your PR in to main and the image will be built again and pushed to the Artifact Registry. If that succeeds, then a commit will be crafted that will update the PLACEHOLDER field in hubploy.yaml with the image’s SHA and pushed to the datahub repo. You can check on the progress of this workflow in your root image repo’s Actions tab.\nAfter 4 is completed successfully, go to the Datahub repo and click on the New pull request button. Next, click on the compare: staging drop down, and you should see a branch named something like update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;. Select that, and create a new pull request.\nOnce the checks has passed, merge to staging and your new image will be deployed! You can watch the progress here.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Testing and Upgrading New Packages"
-    ]
-  },
-  {
-    "objectID": "tasks/new-packages.html#tips-for-upgrading-package",
-    "href": "tasks/new-packages.html#tips-for-upgrading-package",
-    "title": "Testing and Upgrading New Packages",
-    "section": "Tips for Upgrading Package",
-    "text": "Tips for Upgrading Package\n\nConda can take an extremely long time to resolve version dependency conflicts, if they are resolvable at all. When upgrading Python versions or a core package that is used by many other packages, such as requests, clean out or upgrade old packages to minimize the number of dependency conflicts.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Testing and Upgrading New Packages"
-    ]
-  },
-  {
-    "objectID": "tasks/google-sheets.html",
-    "href": "tasks/google-sheets.html",
-    "title": "Reading Google Sheets from DataHub",
+    "objectID": "hubs/stat20.html",
+    "href": "hubs/stat20.html",
+    "title": "Stat 20",
     "section": "",
-    "text": "Available in: DataHub\nWe provision and make available credentials for a service account that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the gspread library.\nThe entire contents of the JSON formatted service account key is available as an environment variable GOOGLE_SHEETS_READONLY_KEY. You can use this to read publicly available Google Sheet documents.\nThe service account has no implicit permissions, and can be found under singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY in datahub/secrets/staging.yaml and datahub/secrets/prod.yaml.",
+    "text": "stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as designed by Andrew Bray. It uses RStudio as the primary users interface and students can use Quarto to author documents and Shiny to create web applications."
+  },
+  {
+    "objectID": "hubs/data102.html",
+    "href": "hubs/data102.html",
+    "title": "Data 102",
+    "section": "",
+    "text": "This hub is for Data 102 which has a unique user and grading environment.\nData 102 runs on Google Cloud Platform in the ucb-datahub-2018 project. You can see all config for it under deployments/data102."
+  },
+  {
+    "objectID": "hubs.html",
+    "href": "hubs.html",
+    "title": "JupyterHub Deployments",
+    "section": "",
+    "text": "Data 100\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 102\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 8X\n\n\n\n\n\n\njupyterlab\n\n\nltiauthenticator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataHub\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProb 140\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nrstudio\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\n\n\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 159\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nrtc\n\n\nshared-folders\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 20\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nrstudio\n\n\nshared-folders\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Architecture and contributing",
-      "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "JupyterHub Deployments"
     ]
   },
   {
-    "objectID": "tasks/google-sheets.html#gspread-sample-code",
-    "href": "tasks/google-sheets.html#gspread-sample-code",
-    "title": "Reading Google Sheets from DataHub",
-    "section": "gspread sample code",
-    "text": "gspread sample code\nThe following sample code reads a sheet from a URL given to it, and prints the contents.\nimport gspread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\ngc = gspread.authorize(creds)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1\nsheet = gc.open_by_url(url)\nprint(sheet.sheet1.get_all_records())",
+    "objectID": "hubs/data100.html",
+    "href": "hubs/data100.html",
+    "title": "Data 100",
+    "section": "",
+    "text": "This hub is for Data 100 which has a unique user and grading environment.\nData100 has shared folders between staff (professors and GSIs) and students. Course staff can see a shared and a shared-readwrite folder. Students can only see the shared folder, which is read-only. Anything that gets put in shared-readwrite is automatically viewable in shared, but as read-only files. The purpose of this is to be able to share large data files instead of having one per student."
+  },
+  {
+    "objectID": "hubs/r.html",
+    "href": "hubs/r.html",
+    "title": "R",
+    "section": "",
+    "text": "r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment."
+  },
+  {
+    "objectID": "hubs/prob140.html",
+    "href": "hubs/prob140.html",
+    "title": "Prob 140",
+    "section": "",
+    "text": "Prob 140 hub exists to isolate student files from the main hub. Some students in this course might be course staff in another course, or vice versa, so we isolate their home directories through this hub. It uses the same singleuser docker image as the main hub."
+  },
+  {
+    "objectID": "hubs/shiny.html",
+    "href": "hubs/shiny.html",
+    "title": "Shiny",
+    "section": "",
+    "text": "shiny.datahub.berkeley.edu contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio."
+  },
+  {
+    "objectID": "tasks/new-hub.html",
+    "href": "tasks/new-hub.html",
+    "title": "Create a New Hub",
+    "section": "",
+    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "Create a New Hub"
     ]
   },
   {
-    "objectID": "tasks/google-sheets.html#gspread-pandas-sample-code",
-    "href": "tasks/google-sheets.html#gspread-pandas-sample-code",
-    "title": "Reading Google Sheets from DataHub",
-    "section": "gspread-pandas sample code",
-    "text": "gspread-pandas sample code\nThe gspread-pandas library helps get data from Google Sheets into a pandas dataframe.\nfrom gspread_pandas.client import Spread\nimport os\nimport json\nfrom oauth2client.service_account import ServiceAccountCredentials\n\n# Authenticate to Google\nscope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']\ncreds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_SHEETS_READONLY_KEY']), scope)\n\n# Pick URL of Google Sheet to open\nurl = 'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'\n\n# Open the Google Sheet, and print contents of sheet 1 as a dataframe\nspread = Spread(url, creds=creds)\nsheet_df = spread.sheet_to_df(sheet='sheet1')\nprint(sheet_df)",
+    "objectID": "tasks/new-hub.html#why-create-a-new-hub",
+    "href": "tasks/new-hub.html#why-create-a-new-hub",
+    "title": "Create a New Hub",
+    "section": "",
+    "text": "The major reasons for making a new hub are:\n\nA new course wants to join the Berkeley DataHub community.\nOne of your students are course staff in another course and have elevated access, enabling them to see other students’ work.\nYou want to use a different kind of authenticator.\nYou are running in a different cloud, or using a different billing account.\nYour environment is different enough and specialized enough that a different hub is a good idea. By default, everyone uses the same image as datahub.berkeley.edu.\nYou want a different URL (X.datahub.berkeley.edu vs just datahub.berkeley.edu)\n\nPlease let us know if you have some other justification for creating a new hub.",
     "crumbs": [
       "Architecture and contributing",
       "Common Administrator Tasks",
-      "Reading Google Sheets from DataHub"
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "tasks/new-hub.html#prerequisites",
+    "href": "tasks/new-hub.html#prerequisites",
+    "title": "Create a New Hub",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nWorking installs of the following utilities:\n\nchartpress\ncookiecutter\ngcloud\nhubploy\nkubectl\nsops\n\nThe easiest way to install chartpress, cookiecutter and hubploy is to run pip install -r dev-requirements.txt from the root of the datahub repo.\nProper access to the following systems:\n\nGoogle Cloud IAM: owner\nWrite access to the datahub repo\nOwner or admin access to the berkeley-dsep-infra organization",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "tasks/new-hub.html#configuring-a-new-hub",
+    "href": "tasks/new-hub.html#configuring-a-new-hub",
+    "title": "Create a New Hub",
+    "section": "Configuring a New Hub",
+    "text": "Configuring a New Hub\n\nName the hub\nChoose the hub name, e.g. data8, stat20, biology, julia, which is typically the name of the course or department. This is permanent.\n\n\nDetermine deployment needs\nBefore creating a new hub, have a discussion with the instructor about the system requirements, frequency of assignments and how much storage will be required for the course. Typically, there are three general “types” of hub: Heavy usage, general and small courses.\nSmall courses will usually have one or two assignments per semester, and may only have 20 or fewer users.\nGeneral courses have up to ~500 users, but don’t have large amount of data or require upgraded compute resources.\nHeavy usage courses can potentially have thousands of users, require upgraded node specs and/or have Terabytes of data each semester.\nBoth general and heavy usage courses typically have weekly assignments.\nSmall courses (and some general usage courses) can use either or both of a shared node pool and filestore to save money (Basic HDD filestore instances start at 1T).\nThis is also a good time to determine if there are any specific software packages/libraries that need to be installed, as well as what language(s) the course will be using. This will determine which image to use, and if we will need to add additional packages to the image build.\nIf you’re going to use an existing node pool and/or filestore instance, you can skip either or both of the following steps and pick back up at the cookiecutter.\nWhen creating a new hub, we also make sure to label the filestore and GKE/node pool resources with both hub and &lt;nodepool|filestore&gt;-deployment. 99.999% of the time, the values for all three of these labels will be &lt;hubname&gt;.\n\n\nCreating a new node pool\nCreate the node pool:\ngcloud container node-pools create \"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\" \\\n  --labels=hub=&lt;hubname&gt;,nodepool-deployment=&lt;hubname&gt; \\\n  --node-labels hub.jupyter.org/pool-name=&lt;hubname&gt;-pool \\\n  --machine-type \"n2-highmem-8\" \\\n  --enable-autoscaling --min-nodes \"0\" --max-nodes \"20\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --node-taints hub.jupyter.org_dedicated=user:NoSchedule --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"200\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\"\n\n\nCreating a new filestore instance\nBefore you create a new filestore instance, be sure you know the capacity required. The smallest amount you can allocate is 1T, but larger hubs may require more. Confer with the admins and people instructing the course and determine how much they think they will need.\nWe can easily scale capacity up, but not down.\nFrom the command line, first fill in the instance name (&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;) and &lt;capacity&gt;, and then execute the following command:\ngcloud filestore instances create &lt;hubname&gt;-&lt;YYYY-MM-DD&gt; \\\n  --zone \"us-central1-b\" --tier=\"BASIC_HDD\" \\\n  --file-share=capacity=1TiB,name=shares \\\n  --network=name=default,connect-mode=DIRECT_PEERING\nOr, from the web console, click on the horizontal bar icon at the top left corner.\n\nAccess “Filestore” &gt; “Instances” and click on “Create Instance”.\nName the instance &lt;hubname&gt;-&lt;YYYY-MM-DD&gt;\nInstance Type is Basic, Storage Type is HDD.\nAllocate capacity.\nSet the region to us-central1 and Zone to us-central1-b.\nSet the VPC network to default.\nSet the File share name to shares.\nClick “Create” and wait for it to be deployed.\nOnce it’s deployed, select the instance and copy the “NFS mount point”.\n\nYour new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create & configure the required directories.\nYou can run the following command in gcloud terminal to log in to the NFS utility VM:\ngcloud compute ssh nfsserver-01 --zone=us-central1-b --tunnel-through-iap\nAlternatively, launch console.cloud.google.com &gt; Select ucb-datahub-2018 as the project name.\n\nClick on the three horizontal bar icon at the top left corner.\nAccess “Compute Engine” &gt; “VM instances” &gt; and search for “nfs-server-01”.\nSelect “Open in browser window” option to access NFS server via GUI.\n\nBack in the NFS utility VM shell, mount the new share:\nmkdir /export/&lt;hubname&gt;-filestore\nmount &lt;filestore share IP&gt;:/shares /export/&lt;hubname&gt;-filestore\nCreate staging and prod directories owned by 1000:1000 under /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;. The path might differ if your hub has special home directory storage needs. Consult admins if that’s the case. Here is the command to create the directory with appropriate permissions:\ninstall -d -o 1000 -g 1000 \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/staging \\\n  /export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/prod\nCheck whether the directories have permissions similar to the below directories:\ndrwxr-xr-x 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore\ndrwxr-xr-x 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore\ndrwxr-xr-x 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore\n\n\nCreate the hub deployment locally\nIn the datahub/deployments directory, run cookiecutter. This sets up the hub’s configuration directory:\ncookiecutter template/\n\nThe cookiecutter template will prompt you to provide the following information:\n\n\n&lt;hub_name&gt;: Enter the chosen name of the hub.\n&lt;project_name&gt;: Default is ucb-datahub-2018, do not change.\n&lt;cluster_name&gt;: Default is spring-2024, do not change.\n&lt;pool_name&gt;: Name of the node pool (shared or individual) to deploy on.\nhub_filestore_share: Default is shares, do not change.\nhub_filestore_ip: Enter the IP address of the filestore instance. This is available from the web console.\nhub_filestore_capacity: Enter the allocated storage capacity. This is available from the web console.\n\n\n\nThis will generate a directory with the name of the hub you provided with a skeleton configuration and all the necessary secrets.\n\n\nConfigure filestore security settings and GCP billing labels\nIf you have created a new filestore instance, you will now need to apply the ROOT_SQUASH settings. Please ensure that you’ve already created the hub’s root directory and both staging and prod directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.\nSkip this step if you are using an existing/shared filestore.\ngcloud filestore instances update &lt;filestore-instance-name&gt; --zone=us-central1-b  \\\n       --update-labels=hub=&lt;hubname&gt;,filestore-deployment=&lt;hubname&gt; \\\n       --flags-file=&lt;hubname&gt;/config/filestore/squash-flags.json\n\n\nAuthentication\nSet up authentication via bcourses. We have two canvas OAuth2 clients setup in bcourses for us - one for all production hubs and one for all staging hubs. The configuration and secrets for these are provided by the cookiecutter template, however the new hubs need to be added to the authorized callback list maintained in bcourses.\n\nUse sops to edit secrets/staging.yaml and secrets/prod.yaml, replacing the cookiecutter hub_name. cookiecutter can’t do this for you since the values are encrypted.\nAdd &lt;hub_name&gt;-staging.datahub.berkeley.edu/hub/oauth_callback to the staging hub client (id 10720000000000594)\nAdd &lt;hub_name&gt;.datahub.berkeley.edu/hub/oauth_callback to the production hub client (id 10720000000000472)\nCopy gke-key.json from any other hub’s secrets to the hub’s secrets/\n\nPlease reach out to Jonathan Felder to set this up, or bcourseshelp@berkeley.edu if he is not available.\n\n\nCI/CD and single-user server image\nCI/CD is managed through Github Actions, and the relevant workflows are located in .github/workflows/. Deploying all hubs are managed via Pull Request Labels, which are applied automatically on PR creation.\nTo ensure the new hub is deployed, all that needs to be done is add a new entry (alphabetically) in .github/labeler.yml under the # add hub-specific labels for deployment changes stanza:\n\"hub: &lt;hubname&gt;\":\n  - \"deployments/&lt;hubname&gt;/**\"\n\nHubs using a custom single-user server image\nIf this hub will be using its own image, then follow the instructions here to create the new image and repository. In this case, the image tag will be PLACEHOLDER and will be updated AFTER your PR to datahub is merged.\nNOTE: The changes to the datahub repo are required to be merged BEFORE the new image configuration is pushed to main in the image repo. This is due to the image building/pushing workflow requiring this deployment’s hubploy.yaml to be present in the deployments/&lt;hubname&gt;/ subdirectory, as it updates the image tag.\n\n\nHubs inheriting an existing single-user server image\nIf this hub will inherit an existing image, you can just copy hubploy.yaml from an existing deployment which will contain the latest image hash.\n\n\nReview the deployment’s hubploy.yaml\nNext, review hubploy.yaml inside your project directory to confirm that looks cromulent. An example from the a11y hub:\nimages:\n  images:\n    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image:&lt;image tag OR \"PLACEHOLDER\"&gt;\n\n\n\nCreate placeholder node pool\nNode pools have a configured minimum size, but our cluster has the ability to set aside additional placeholder nodes. These are nodes that get spun up in anticipation of the pool needing to suddenly grow in size, for example when large classes begin.\nIf you are deploying to a shared node pool, there is no need to perform this step.\nOtherwise, you’ll need to add the placeholder settings in node-placeholder/values.yaml.\nThe node placeholder pod should have enough RAM allocated to it that it needs to be kicked out to get even a single user pod on the node - but not so big that it can’t run on a node where other system pods are running! To do this, we’ll find out how much memory is allocatable to pods on that node, then subtract the sum of all non-user pod memory requests and an additional 256Mi of “wiggle room”. This final number will be used to allocate RAM for the node placeholder.\n\nLaunch a server on https://hubname.datahub.berkeley.edu\nGet the node name (it will look something like gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs): kubectl get nodes | grep *hubname* | awk '{print $1}'\nGet the total amount of memory allocatable to pods on this node and convert to bytes: bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'\nGet the total memory used by non-user pods/containers on this node. We explicitly ignore notebook and pause. Convert to bytes and get the sum: bash     kubectl get -A pod -l 'component!=user-placeholder' \\       --field-selector spec.nodeName=&lt;nodename&gt; \\       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\       | egrep -v 'pause|notebook'\nSubtract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.\nAdd an entry for the new placeholder node config in values.yaml:\n\ndata102:\n  nodeSelector:\n    hub.jupyter.org/pool-name: data102-pool\n  resources:\n    requests:\n      # Some value slightly lower than allocatable RAM on the node pool\n      memory: 60929654784\n  replicas: 1\nFor reference, here’s example output from collecting and calculating the values for data102:\n(gcpdev) ➜  ~ kubectl get nodes | grep data102 | awk '{print$1}'\ngke-spring-2024-user-data102-2023-01-05-e02d4850-t478\n(gcpdev) ➜  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 -o jsonpath='{.status.allocatable.memory}' # convert to bytes\n60055600Ki%\n(gcpdev) ➜  ~ kubectl get -A pod -l 'component!=user-placeholder' \\\n--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 \\\n-o jsonpath='{range .items[*].spec.containers[*]}{.name}{\"\\t\"}{.resources.requests.memory}{\"\\n\"}{end}' \\\n| egrep -v 'pause|notebook' # convert all values to bytes, sum them\ncalico-node\nfluentbit       100Mi\nfluentbit-gke   100Mi\ngke-metrics-agent       60Mi\nip-masq-agent   16Mi\nkube-proxy\nprometheus-node-exporter\n(gcpdev) ➜  ~ # subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room\n(gcpdev) ➜  ~ # in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi\n(gcpdev) ➜  ~ # (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784\nBesides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, calendar events. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.\n\n\nCommit and deploy to staging\nCommit the hub directory, and make a PR to the the staging branch in the GitHub repo.\n\nHubs using a custom single-user server image\nIf this hub is using a custom image, and you’re using PLACEHOLDER for the image tag in hubploy.yaml, be sure to remove the hub-specific Github label that is automatically attached to this pull request. It will look something like hub: &lt;hubname&gt;. If you don’t do this the deployment will fail as the image sha of PLACEHOLDER doesn’t exist.\nAfter this PR is merged, perform the git push in your image repo. This will trigger the workflow that builds the image, pushes it to the Artifact Registry, and finally creates a commit that updates the image hash in hubploy.yaml and pushes to the datahub repo. Once this is merged in to staging, the deployment pipeline will run and your hub will finally be deployed.\n\n\nHubs inheriting an existing single-user server image\nYour hub’s deployment will proceed automatically through the CI/CD pipeline.\nIt might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;-staging.datahub.berkeley.edu. Test it out and make sure things work as you think they should.\n\n\n\nCommit and deploy to prod\nMake a PR from the staging branch to the prod branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at https://&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Create a New Hub"
+    ]
+  },
+  {
+    "objectID": "tasks/managing-multiple-user-image-repos.html",
+    "href": "tasks/managing-multiple-user-image-repos.html",
+    "title": "Managing multiple user image repos",
+    "section": "",
+    "text": "Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.\nFor this, we have a tool named manage-repos.\nmanage-repos uses a config file with a list of all of the git remotes for the image repos (repos.txt) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).\nThe script “assumes” that you have all of your user images in their own sub-folder (in my case, $HOME/src/images/...).",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Managing multiple user image repos"
+    ]
+  },
+  {
+    "objectID": "tasks/managing-multiple-user-image-repos.html#managing-user-image-repos",
+    "href": "tasks/managing-multiple-user-image-repos.html#managing-user-image-repos",
+    "title": "Managing multiple user image repos",
+    "section": "",
+    "text": "Since we have many multiples of user images in their own repos, managing these can become burdensome… Particularly if you need to make changes to many or all of the images.\nFor this, we have a tool named manage-repos.\nmanage-repos uses a config file with a list of all of the git remotes for the image repos (repos.txt) and will allow you to perform basic git operations (sync/rebase, clone, branch management and pushing).\nThe script “assumes” that you have all of your user images in their own sub-folder (in my case, $HOME/src/images/...).",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Managing multiple user image repos"
+    ]
+  },
+  {
+    "objectID": "tasks/managing-multiple-user-image-repos.html#installation-of-instructions",
+    "href": "tasks/managing-multiple-user-image-repos.html#installation-of-instructions",
+    "title": "Managing multiple user image repos",
+    "section": "Installation of instructions",
+    "text": "Installation of instructions\n\nVia cloning and manual installation\nClone the repo, and from within that directory run:\npip install --editable .\nThe --editable flag is optional, and allows you to hack on the tool and have those changes usable without reinstalling or needing to hack your PATH.\n\n\nVia pip\npython3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/manage-repos\n\n\nInstalling the gh tool\nTo use the pr and merge sub-commands, you will also need to install the Github CLI tool: https://github.com/cli/cli#installation",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Managing multiple user image repos"
+    ]
+  },
+  {
+    "objectID": "tasks/managing-multiple-user-image-repos.html#usage",
+    "href": "tasks/managing-multiple-user-image-repos.html#usage",
+    "title": "Managing multiple user image repos",
+    "section": "Usage",
+    "text": "Usage\n\nOverview of git operations included in manage-repos:\nmanage-repos allows you to perform basic git operations on a large number of similar repositories:\n\nbranch: Create a feature branch\nclone: Clone all repositories in the config file to a location on the filesystem specified by the --destination argument.\nmerge: Merge the most recent pull request in the managed repositories.\npatch: Apply a git patch to all repositories in the config file.\npr: Create pull requests in the managed repositories.\npush: Push a branch from all repos to a remote. The remote defaults to origin.\nstage: Performs a git add and git commit to stage changes before pushing.\nsync: Sync all of the repositories, and optionally push to your fork.\n\n\n\nUsage overview\nThe following sections will describe in more detail the options and commands available with the script.\n\nPrimary arguments for the script\n$ manage-repos.py --help\nusage: manage-repos [-h] [-c CONFIG] [-d DESTINATION] {branch,clone,patch,push,stage,sync} ...\n\npositional arguments:\n  {branch,clone,patch,push,stage,sync}\n                        Command to execute. Additional help is available for each command.\n\noptions:\n  -h, --help            show this help message and exit\n  -c CONFIG, --config CONFIG\n                        Path to the file containing list of repositories to operate on. Defaults to repos.txt located in the current working\n                        directory.\n  -d DESTINATION, --destination DESTINATION\n                        Location on the filesystem of the directory containing the managed repositories. Defaults to the current working directory.\n  --version             show program's version number and exit\n--config is required, and setting --destination is recommended.\n\n\n\nSub-commands\n\nbranch\n$ manage-repos branch --help\nusage: manage-repos branch [-h] [-b BRANCH]\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH, --branch BRANCH\n                        Name of the new feature branch to create.\nThe feature branch to create is required, and the tool will switch to main before creating and switching to the new branch.\n\n\nclone\n$ manage-repos.py clone --help\nusage: manage-repos clone [-h] [-s [SET_REMOTE]] [-g GITHUB_USER]\n\nClone repositories in the config file and optionally set a remote for a fork.\nIf a repository sub-directory does not exist, it will be created.\n\noptions:\n  -h, --help            show this help message and exit\n  -s [SET_REMOTE], --set-remote [SET_REMOTE]\n                        Set the user's GitHub fork as a remote. Defaults to 'origin'.\n  -g GITHUB_USER, --github-user GITHUB_USER\n                        The GitHub username of the fork to set in the remote.\n                        Required if --set-remote is used.\nThis command will clone all repositories found in the config, and if you’ve created a fork, use the --set-remote and --github-user arguments to update the remotes in the cloned repositories. This will set the primary repository’s remote to upstream and your fork to origin (unless you override this by passing a different remote name with the --set-remote argument).\nAfter cloning, git remote -v will be executed for each repository to allow you to confirm that the remotes are properly set.\n\n\nmerge\n$ usage: manage-repos merge [-h] [-b BODY] [-d] [-s {merge,rebase,squash}]\n\nUsing the gh tool, merge the most recent pull request in the managed\nrepositories. Before using this command, you must authenticate with gh to\nensure that you have the correct permission for the required scopes.\n\noptions:\n  -h, --help            show this help message and exit\n  -b BODY, --body BODY  The commit message to apply to the merge (optional).\n  -d, --delete          Delete your local feature branch after the pull request\n                        is merged (optional).\n  -s {merge,rebase,squash}, --strategy {merge,rebase,squash}\n                        The pull request merge strategy to use, defaults to\n                        'merge'.\nBe aware that the default behavior is to merge only the newest pull request in the managed repositories. The reasoning behind this is that if you have created pull requests across many repositories, the pull request numbers will almost certainly be different, and adding interactive steps to merge specific pull requests will be cumbersome.\n\n\npatch\n$ manage-repos patch --help\nusage: manage-repos patch [-h] [-p PATCH]\n\nApply a git patch to managed repositories.\n\noptions:\n  -h, --help            show this help message and exit\n  -p PATCH, --patch PATCH\n                        Path to the patch file to apply.\nThis command applies a git patch file to all of the repositories. The patch is created by making changes to one file, and redirecting the output of git diff to a new file, eg:\ngit diff &lt;filename&gt; &gt; patchfile.txt\nYou then provide the location of the patch file with the --patch argument, and the script will attempt to apply the patch to all of the repositories.\nIf it is unable to apply the patch, the script will continue to run and notify you when complete which repositories failed to accept the patch.\n\n\npr\n$ manage-repos pr --help\nusage: manage-repos pr [-h] [-t TITLE] [-b BODY] [-B BRANCH_DEFAULT]\n                       [-g GITHUB_USER]\n\nUsing the gh tool, create a pull request after pushing.\n\noptions:\n  -h, --help            show this help message and exit\n  -t TITLE, --title TITLE\n                        Title of the pull request.\n  -b BODY, --body BODY  Body of the pull request (optional).\n  -B BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT\n                        Default remote branch that the pull requests will be\n                        merged to. This is optional and defaults to 'main'.\n  -g GITHUB_USER, --github-user GITHUB_USER\n                        The GitHub username used to create the pull request.\nAfter you’ve staged and pushed your changes, this command will then create a pull request using the gh tool.\n\n\npush\n$ manage-repos push --help\nusage: manage-repos push [-h] [-b BRANCH] [-r REMOTE]\n\nPush managed repositories to a remote.\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH, --branch BRANCH\n                        Name of the branch to push.\n  -r REMOTE, --remote REMOTE\n                        Name of the remote to push to. This is optional and\n                        defaults to 'origin'.\nThis command will attempt to push all staged commits to a remote. The --branch argument is required, and needs to be the name of the feature branch that will be pushed.\nThe remote that is pushed to defaults to origin, but you can override this with the --remote argument.\n\n\nstage\n$ manage-repos stage --help\nusage: manage-repos stage [-h] [-f FILES [FILES ...]] [-m MESSAGE]\n\nStage changes in managed repositories. This performs a git add and commit.\n\noptions:\n  -h, --help            show this help message and exit\n  -f FILES [FILES ...], --files FILES [FILES ...]\n                        Space-delimited list of files to stage in the\n                        repositories. Optional, and if left blank will default\n                        to all modified files in the directory.\n  -m MESSAGE, --message MESSAGE\n                        Commit message to use for the changes.\nstage combines both git add ... and git commit -m, adding and committing one or more files to the staging area before you push to a remote.\nThe commit message must be a text string enclosed in quotes.\nBy default, --files is set to ., which will add all modified files to the staging area. You can also specify any number of files, separated by a space.\n\n\nsync\n$ manage-image-repos.py sync --help\nusage: manage-repos sync [-h] [-b BRANCH_DEFAULT] [-u UPSTREAM] [-p]\n                         [-r REMOTE]\n\nSync managed repositories to the latest version using 'git rebase'. Optionally\npush to a remote fork.\n\noptions:\n  -h, --help            show this help message and exit\n  -b BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT\n                        Default remote branch to sync to. This is optional and\n                        defaults to 'main'.\n  -u UPSTREAM, --upstream UPSTREAM\n                        Name of the parent remote to sync from. This is\n                        optional and defaults to 'upstream'.\n  -p, --push            Push the locally synced repo to a remote fork.\n  -r REMOTE, --remote REMOTE\n                        The name of the remote fork to push to. This is\n                        optional and defaults to 'origin'.\nThis command will switch your local repositories to the main branch, and sync all repositories from the config to your device from a remote. With the --push argument, it will push the local repository to another remote.\nBy default, the script will switch to the main branch before syncing, and can be overridden with the --branch-default argument.\nThe primary remote that is used to sync is upstream, but that can also be overridden with the --upstream argument. The remote for a fork defaults to origin, and can be overridden via the --remote argument.\n\n\n\nTips, tricks and usage examples\n\nTips and tricks\nmanage-repos is best run from the parent folder that will contain all of the repositories that you will be managing as the default value of --destination is the current working directory (.).\nYou can also create a symlink in the parent folder that points to the config file elsewhere on your filesystem:\nln -s  &lt;path to datahub repo&gt;/scripts/user-image-management/repos.txt repos.txt\nWith this in mind, you can safely drop the --config and --destination arguments when running manage-repos. Eg:\nmanage-repos sync -p\nAnother tip is to comment out or delete entries in your config when performing git operations on a limited set of repositories. Be sure to git restore the file when you’re done!\n\n\nUsage examples\nClone all of the image repos to a common directory:\nmanage-repos --destination ~/src/images/ --config /path/to/repos.txt clone\nClone all repos, and set upstream and origin for your fork:\nmanage-repos -d ~/src/images/ -c /path/to/repos.txt clone --set-remote --github-user &lt;username&gt;\nSync all repos from upstream and push to your origin:\nmanage-repos -d ~/src/images/ -c /path/to/repos.txt sync --push\nCreate a feature branch in all of the repos:\nmanage-repos -d ~/src/images -c /path/to/repos.txt branch -b test-branch\nCreate a git patch and apply it to all image repos:\ngit diff envorinment.yml &gt; /tmp/git-patch.txt\nmanage-repos -d ~/src/images -c /path/to/repos.txt patch -p /tmp/git-patch.txt\nOnce you’ve tested everything and are ready to push and create a PR, add and commit all modified files in the repositories:\nmanage-repos -d ~/src/images -c /path/to/repos.txt stage -m \"this is a commit\"\nAfter staging, push everything to a remote:\nmanage-repos -d ~/src/images -c /path/to/repos.txt push -b test-branch",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Managing multiple user image repos"
+    ]
+  },
+  {
+    "objectID": "tasks/core-pool.html",
+    "href": "tasks/core-pool.html",
+    "title": "Core Node Pool Management",
+    "section": "",
+    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "tasks/core-pool.html#what-is-the-core-node-pool",
+    "href": "tasks/core-pool.html#what-is-the-core-node-pool",
+    "title": "Core Node Pool Management",
+    "section": "",
+    "text": "The core node pool is the primary entrypoint for all hubs we host. It manages all incoming traffic, and redirects said traffic (via the nginx ingress controller) to the proper hub.\nIt also does other stuff.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "tasks/core-pool.html#deploy-a-new-core-node-pool",
+    "href": "tasks/core-pool.html#deploy-a-new-core-node-pool",
+    "title": "Core Node Pool Management",
+    "section": "Deploy a New Core Node Pool",
+    "text": "Deploy a New Core Node Pool\nRun the following command from the root directory of your local datahub repo to create the node pool:\ngcloud container node-pools create \"core-&lt;YYYY-MM-DD&gt;\"  \\\n  --labels=hub=core,nodepool-deployment=core \\\n  --node-labels hub.jupyter.org/pool-name=core-pool-&lt;YYYY-MM-DD&gt; \\\n  --machine-type \"n2-standard-8\"  \\\n  --num-nodes \"1\" \\\n  --enable-autoscaling --min-nodes \"1\" --max-nodes \"3\" \\\n  --project \"ucb-datahub-2018\" --cluster \"spring-2024\" \\\n  --region \"us-central1\" --node-locations \"us-central1-b\" \\\n  --tags hub-cluster \\\n  --image-type \"COS_CONTAINERD\" --disk-type \"pd-balanced\" --disk-size \"100\"  \\\n  --metadata disable-legacy-endpoints=true \\\n  --scopes \"https://www.googleapis.com/auth/devstorage.read_only\",\"https://www.googleapis.com/auth/logging.write\",\"https://www.googleapis.com/auth/monitoring\",\"https://www.googleapis.com/auth/servicecontrol\",\"https://www.googleapis.com/auth/service.management.readonly\",\"https://www.googleapis.com/auth/trace.append\" \\\n  --no-enable-autoupgrade --enable-autorepair \\\n  --max-surge-upgrade 1 --max-unavailable-upgrade 0 --max-pods-per-node \"110\" \\\n  --system-config-from-file=vendor/google/gke/node-pool/config/core-pool-sysctl.yaml\nThe system-config-from-file argument is important, as we need to tune the kernel TCP settings to handle large numbers of concurrent users and keep nginx from using up all of the TCP ram.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Core Node Pool Management"
+    ]
+  },
+  {
+    "objectID": "tasks/delete-hub.html",
+    "href": "tasks/delete-hub.html",
+    "title": "Delete or spin down a Hub",
+    "section": "",
+    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Delete or spin down a Hub"
+    ]
+  },
+  {
+    "objectID": "tasks/delete-hub.html#why-delete-or-spin-down-a-hub",
+    "href": "tasks/delete-hub.html#why-delete-or-spin-down-a-hub",
+    "title": "Delete or spin down a Hub",
+    "section": "",
+    "text": "Sometimes we want to spin down or delete a hub:\n\nA course or department won’t be needing their hub for a while\nThe hub will be re-deployed in to a new or shared node pool.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Delete or spin down a Hub"
+    ]
+  },
+  {
+    "objectID": "tasks/delete-hub.html#steps-to-spin-down-a-hub",
+    "href": "tasks/delete-hub.html#steps-to-spin-down-a-hub",
+    "title": "Delete or spin down a Hub",
+    "section": "Steps to spin down a hub",
+    "text": "Steps to spin down a hub\nIf the hub is using a shared filestore, skip all filestore steps.\nIf the hub is using a shared node pool, skip all namespace and node pool steps.\n\nScale the node pool to zero: kubectl -n &lt;hubname-prod|staging&gt; scale --replicas=0 deployment/hub\nKill any remaining users’ servers. Find any running servers with kubectl -n &lt;hubname-prod|staging&gt; get pods | grep jupyter and then kubectl -n &lt;hubname-prod|staging&gt; delete pod &lt;pod name&gt; to stop them.\nCreate filestore backup:\n\ngcloud filestore backups create &lt;hubname&gt;-backup-YYYY-MM-DD --file-share=shares --instance=&lt;hubname-YYYY-MM-DD&gt; --region \"us-central1\" --labels=filestore-backup=&lt;hub name&gt;,hub=&lt;hub name&gt;\n\nLog in to nfsserver-01 and unmount filestore from nfsserver: sudo umount /export/&lt;hubname&gt;-filestore\nComment out the hub’s image repo entry (if applicable) in scripts/user-image-management/repos.txt\nComment out GitHub label action for this hub in .github/labeler.yml\nComment hub entries out of datahub/node-placeholder/values.yaml\nDelete k8s namespace:\n\nkubectl delete namespace &lt;hubname&gt;-staging &lt;hubname&gt;-prod\n\nDelete k8s node pool:\n\ngcloud container node-pools delete &lt;hubname&gt; --project \"ucb-datahub-2018\" --cluster \"spring-2024\" --region \"us-central1\"\n\nDelete filestore\n\ngcloud filestore instances delete &lt;hubname&gt;-filestore --zone \"us-central1-b\"\n\nDelete PV: kubectl get pv --all-namespaces|grep &lt;hubname&gt; to get the PV names, and then kubectl delete pv &lt;pv names&gt;\nAll done.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Delete or spin down a Hub"
+    ]
+  },
+  {
+    "objectID": "tasks/calendar-scaler.html",
+    "href": "tasks/calendar-scaler.html",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "",
+    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "tasks/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
+    "href": "tasks/calendar-scaler.html#why-scale-node-pools-with-google-calendar",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "",
+    "text": "The scheduler isn’t perfect for us, especially when large classes have assignments due and a hub is flooded with students. This “hack” was introduced to improve cluster scaling prior to known events.\nThese ‘placeholder’ nodes are used to minimize the delay that occurs when GCP creates new node pools during mass user logins. This common, especially for larger classes.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "tasks/calendar-scaler.html#structure",
+    "href": "tasks/calendar-scaler.html#structure",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "Structure",
+    "text": "Structure\nThere is a Google Calendar calendar, DataHub Scaling Events shared with all infrastructure staff. The event descriptions should contain a YAML fragment, and are of the form pool_name: count, where the name is the corresponding hub name (data100, stat20) and the count is the number of extra nodes you want. There can be several pools defined, one per line.\nBy default, we usually have one spare node ready to go, so if the count in the calendar event is set to 0 or 1, there will be no change to the cluster. If the value is set to &gt;=2, additional hot spares will be created. If a value is set more than once, the entry with the greater value will be used.\nYou can determine how many placeholder nodes to have up based on how many people you expect to log in at once. Some of the bigger courses may require 2 or more placeholder nodes, but during “regular” hours, 1 is usually sufficient.\nThe scaling mechanism is implemented as the node-placeholder-node-placeholder-scaler deployment within the node-placeholder namespace. The source code is within https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "tasks/calendar-scaler.html#calendar-autoscaler",
+    "href": "tasks/calendar-scaler.html#calendar-autoscaler",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "Calendar Autoscaler",
+    "text": "Calendar Autoscaler\nThe code for the calendar autoscaler is a python 3.11 script, located here: https://github.com/berkeley-dsep-infra/datahub/tree/staging/images/node-placeholder-scaler/scaler\n\nHow the scaler works\nThere is a k8s pod running in the node-placeholder namespace, which simply runs python3 -m scaler. This script runs in an infinite loop, and every 60 seconds checks the scaler config and calendar for entries. It then uses the highest value provided as the number of placeholder replicas for any given hub. This means that if there’s a daily evening event to ‘cool down’ the number of replicas for all hubs to 0, and a simultaneous event to set one or more hubs to a higher number, the scaler will see this and keep however many node placeholders specified up and ready to go.\nAfter determining the number of replicas needed for each hub, the scaler will create a k8s template and run kubectl in the pod.\n\n\nUpdating the scaler config\nThe scaler config sets the default number of node-placeholders that are running at any given time. These values can be overridden by creating events in the DataHub Scaling Events calendar.\nWhen classes are in session, these defaults are all typically set to 1, and during breaks (or when a hub is not expected to be in use) they can be set to 0.\nAfter making changes to values.yaml, create a PR normally and our CI will push the new config out to the node-placeholder pod. There is no need to manually restart the node-placeholder pod as the changes will be picked up automatically.\n\n\nWorking on, testing and deploying the calendar scaler\nAll file locations in this section will assume that you are in the datahub/images/node-placeholder-scaler/ directory.\nIt is strongly recommended that you create a new python 3.11 environment before doing any dev work on the scaler. With conda, you can run the following commands to create one:\nconda create -ny scalertest python=3.11\npip install -r images/node-placeholder-scaler/requirements.txt\nAny changes to the scaler code will require you to run chartpress to redeploy the scaler to GCP.\nHere is an example of how you can test any changes to scaler/calendar.py locally in the python interpreter:\n# these tests will use some dates culled from the calendar with varying numbers of events.\nimport scaler.calendar\nimport datetime\nimport zoneinfo\n\ntz = zoneinfo.ZoneInfo(key='America/Los_Angeles')\nzero_events_noon_june = datetime.datetime(2023, 6, 14, 12, 0, 0, tzinfo=tz)\none_event_five_pm_april = datetime.datetime(2023, 4, 27, 17, 0, 0, tzinfo=tz)\nthree_events_eight_thirty_pm_march = datetime.datetime(2023, 3, 6, 20, 30, 0, tzinfo=tz)\ncalendar = scaler.calendar.get_calendar('https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics')\nzero_events = scaler.calendar.get_events(calendar, time=zero_events_noon_june)\none_event = scaler.calendar.get_events(calendar, time=one_event_five_pm_april)\nthree_events = scaler.calendar.get_events(calendar, time=three_events_eight_thirty_pm_march)\n\nassert len(zero_events) == 0\nassert len(one_event) == 1\nassert len(three_events) == 3\nget_events returns a list of ical ical.event.Event class objects.\nThe method for testing scaler/scaler.py is similar to above, but the only things you’ll be able test locally are the make_deployment() and get_replica_counts() functions.\nWhen you’re ready, create a PR. The deployment workflow is as follows:\n\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.\n\n\n\nChanging python imports\nThe python requirements file is generated using requirements.in and pip-compile. If you need to change/add/update any packages, you’ll need to do the following:\n\nEnsure you have the correct python environment activated (see above).\nPip install pip-tools\nEdit requirements.in and save your changes.\nExecute pip-compile requirements.in, which will update the requirements.txt.\nCheck your git status and diffs, and create a pull request if necessary.\nGet all authed-up for chartpress by performing the documented steps.\nRun chartpress --push from the root datahub/ directory. If this succeeds, check your git     status and add datahub/node-placeholder/Chart.yaml and datahub/node-placeholder/values.yml to your PR.\nMerge to staging and then prod.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "tasks/calendar-scaler.html#monitoring",
+    "href": "tasks/calendar-scaler.html#monitoring",
+    "title": "Calendar Node Pool Autoscaler",
+    "section": "Monitoring",
+    "text": "Monitoring\nYou can monitor the scaling by watching for events:\nkubectl -n node-placeholder get events -w\nAnd by tailing the logs of the pod with the scalar process:\nkubectl -n node-placeholder logs -l app.kubernetes.io/name=node-placeholder-scaler -f\nFor example if you set epsilon: 2, you might see in the pod logs:\n2022-10-17 21:36:45,440 Found event Stat20/Epsilon test 2 2022-10-17 14:21 PDT to 15:00 PDT\n2022-10-17 21:36:45,441 Overrides: {'epsilon': 2}\n2022-10-17 21:36:46,475 Setting epsilon to have 2 replicas",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Calendar Node Pool Autoscaler"
+    ]
+  },
+  {
+    "objectID": "tasks/rebuild-postgres-image.html",
+    "href": "tasks/rebuild-postgres-image.html",
+    "title": "Customize the Per-User Postgres Docker Image",
+    "section": "",
+    "text": "We provide each student on data100 with a postgresql server. We want the python extension installed. So we inherit from the upstream postgresql docker image, and add the appropriate package.\nThis image is in images/postgres. If you update it, you need to rebuild and push it.\n\nModify the image in images/postgres and make a git commit.\nRun chartpress --push. This will build and push the image, but not put anything in YAML. There is no place we can put this in values.yaml, since this is only used for data100.\nNotice the image name + tag from the chartpress --push command, and put it in the appropriate place (under extraContainers) in data100/config/common.yaml.\nMake a commit with the new tag in data100/config/common.yaml.\nProceed to deploy as normal.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Common Administrator Tasks",
+      "Customize the Per-User Postgres Docker Image"
     ]
   },
   {
