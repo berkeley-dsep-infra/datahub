@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Reading Google Sheets from DataHub</title>
+<title>Test User Images Locally</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../tasks/cheatsheet.html" rel="next">
-<link href="../tasks/github-token.html" rel="prev">
+<link href="../tasks/transition-image.html" rel="next">
+<link href="../tasks/new-image.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -150,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/google-sheets.html">Reading Google Sheets from DataHub</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/repo2docker-local.html">Test User Images Locally</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -280,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/repo2docker-local.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/repo2docker-local.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Test User Images Locally</span></a>
   </div>
 </li>
@@ -340,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/google-sheets.html" class="sidebar-item-text sidebar-link active">
+  <a href="../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Google Sheets from DataHub</span></a>
   </div>
 </li>
@@ -403,17 +369,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#gspread-sample-code" id="toc-gspread-sample-code" class="nav-link active" data-scroll-target="#gspread-sample-code"><code>gspread</code> sample code</a></li>
-  <li><a href="#gspread-pandas-sample-code" id="toc-gspread-pandas-sample-code" class="nav-link" data-scroll-target="#gspread-pandas-sample-code"><code>gspread-pandas</code> sample code</a></li>
+  <li><a href="#common-usage" id="toc-common-usage" class="nav-link active" data-scroll-target="#common-usage">Common Usage</a></li>
+  <li><a href="#on-apple-silicon" id="toc-on-apple-silicon" class="nav-link" data-scroll-target="#on-apple-silicon">On Apple Silicon</a>
+  <ul class="collapse">
+  <li><a href="#docker-py-default" id="toc-docker-py-default" class="nav-link" data-scroll-target="#docker-py-default">docker-py (default)</a></li>
+  <li><a href="#docker-cli" id="toc-docker-cli" class="nav-link" data-scroll-target="#docker-cli"><code>docker</code> CLI</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/google-sheets.html">Reading Google Sheets from DataHub</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/repo2docker-local.html">Test User Images Locally</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Reading Google Sheets from DataHub</h1>
+<h1 class="title">Test User Images Locally</h1>
 </div>
 
 
@@ -430,51 +400,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Available in: DataHub</p>
-<p>We provision and make available credentials for a <a href="https://cloud.google.com/iam/docs/understanding-service-accounts">service account</a> that can be used to provide readonly access to Google Sheets. This is useful in pedagogical situations where data is read from Google Sheets, particularly with the <a href="https://gspread.readthedocs.io/">gspread</a> library.</p>
-<p>The entire contents of the JSON formatted service account key is available as an environment variable <code>GOOGLE_SHEETS_READONLY_KEY</code>. You can use this to read publicly available Google Sheet documents.</p>
-<p>The service account has no implicit permissions, and can be found under <code>singleuser.extraEnv.GOOGLE_SHEETS_READONLY_KEY</code> in <code>datahub/secrets/staging.yaml</code> and <code>datahub/secrets/prod.yaml</code>.</p>
-<section id="gspread-sample-code" class="level2">
-<h2 class="anchored" data-anchor-id="gspread-sample-code"><code>gspread</code> sample code</h2>
-<p>The following sample code reads a sheet from a URL given to it, and prints the contents.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gspread</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> oauth2client.service_account <span class="im">import</span> ServiceAccountCredentials</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Authenticate to Google</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>scope <span class="op">=</span> [<span class="st">'https://spreadsheets.google.com/feeds'</span>, <span class="st">'https://www.googleapis.com/auth/drive'</span>]</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>creds <span class="op">=</span> ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ[<span class="st">'GOOGLE_SHEETS_READONLY_KEY'</span>]), scope)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>gc <span class="op">=</span> gspread.authorize(creds)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick URL of Google Sheet to open</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the Google Sheet, and print contents of sheet 1</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>sheet <span class="op">=</span> gc.open_by_url(url)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sheet.sheet1.get_all_records())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should use <code>repo2docker</code> to build and test the image on your own device before you push and create a PR. It is often faster to do this first before using CI/CD since you can take advantage of local caching and rapid iteration. There’s no need to waste Github Action minutes to test build images when you can do this on your own device.</p>
+<section id="common-usage" class="level2">
+<h2 class="anchored" data-anchor-id="common-usage">Common Usage</h2>
+<p>One can simply run <code>repo2docker /path/to/image/assets</code>. For example if one has changed into the directory containing the <code>repo2docker</code> files (such as <code>environment.yml</code> and/or <code>Dockerfile</code>), the command would be:</p>
+<pre class="shell"><code>repo2docker .</code></pre>
+<p>This works on Linux and Windows Subsystem for Linux (WSL). It will build the image, then launch jupyter server and display a localhost URL. Copy the URL and paste it into a local web browser.</p>
+<p>If you just want to build the image without also running the server, add the <code>--no-run</code> argument:</p>
+<pre class="shell"><code>repo2docker --no-run .</code></pre>
 </section>
-<section id="gspread-pandas-sample-code" class="level2">
-<h2 class="anchored" data-anchor-id="gspread-pandas-sample-code"><code>gspread-pandas</code> sample code</h2>
-<p>The <a href="https://gspread-pandas.readthedocs.io/">gspread-pandas</a> library helps get data from Google Sheets into a <a href="https://pandas.pydata.org/">pandas</a> dataframe.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gspread_pandas.client <span class="im">import</span> Spread</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> oauth2client.service_account <span class="im">import</span> ServiceAccountCredentials</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Authenticate to Google</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>scope <span class="op">=</span> [<span class="st">'https://spreadsheets.google.com/feeds'</span>, <span class="st">'https://www.googleapis.com/auth/drive'</span>]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>creds <span class="op">=</span> ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ[<span class="st">'GOOGLE_SHEETS_READONLY_KEY'</span>]), scope)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick URL of Google Sheet to open</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://docs.google.com/spreadsheets/d/1SVRsQZWlzw9lV0MT3pWlha_VCVxWovqvu-7cb3feb4k/edit#gid=0'</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the Google Sheet, and print contents of sheet 1 as a dataframe</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>spread <span class="op">=</span> Spread(url, creds<span class="op">=</span>creds)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>sheet_df <span class="op">=</span> spread.sheet_to_df(sheet<span class="op">=</span><span class="st">'sheet1'</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sheet_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="on-apple-silicon" class="level2">
+<h2 class="anchored" data-anchor-id="on-apple-silicon">On Apple Silicon</h2>
+<p>Apple’s ARM-based CPUs (the “M” chips) are different from those run on the virtual machines in our clusters. macOS is capable of emulating x86_64/amd64, but it is necessary to optimize docker for this emulation, and to explicitly tell your local docker runtime that the images should be built on the <code>linux/amd64</code> platform.</p>
+<p>In Docker’s settings:</p>
+<ul>
+<li>Under <strong>General</strong> &gt; <strong>Virtual Machine Options</strong>, either enable both <strong>Apple Virtualization framework</strong> and <strong>Use Rosetta for x86_64/amd64 emulation on Apple Silicon</strong>, or enable <strong>Docker VMM</strong>.</li>
+<li>Under <strong>Resources</strong> it is also recommended to raise the memory limit to at least 4GB.</li>
+</ul>
+<p>There are two methods for building <code>linux/amd64</code> images. The default uses <code>repo2docker</code>’s support for <code>docker-py</code>, while the second uses a <code>repo2docker</code> plugin that can invoke your local docker command-line interface.</p>
+<section id="docker-py-default" class="level3">
+<h3 class="anchored" data-anchor-id="docker-py-default">docker-py (default)</h3>
+<p>Run <code>jupyter-repo2docker</code> with the following arguments:</p>
+<pre><code>repo2docker \
+  --Repo2Docker.platform=linux/amd64 \
+  -e PLAYWRIGHT_BROWSERS_PATH=/srv/conda \
+  --user-id=1000 --user-name=jovyan \
+  --target-repo-dir=/home/jovyan/.cache \
+  .</code></pre>
+<p>where the final parameter is the path to the assets or <code>.</code> if they are in the current directory.</p>
+<p>The <code>--user-id</code> and <code>--user-name</code> options are for non-Dockerfile based builds. Images with Dockerfiles do not need those options.</p>
+<p>Note that you may see (possibly harmless) architecture mismatch warnings with this method.</p>
+</section>
+<section id="docker-cli" class="level3">
+<h3 class="anchored" data-anchor-id="docker-cli"><code>docker</code> CLI</h3>
+<p>You can instruct <code>repo2docker</code> to use your machine’s local <code>docker</code> executable directly rather than the default of <code>docker-py</code>. You will first need to install <a href="https://github.com/manics/repo2podman">repo2podman</a>, a plugin that lets you use any container runtime with a command-line user interface similar to that of <code>docker</code>. This is useful if you want to leverage <a href="https://github.com/docker/buildx/">docker buildx</a> (for things like multi-stage builds) or if you want to use an alternative executable like <code>podman</code>. This also eliminates architecture mismatch warnings.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>repo2podman reportedly does not work yet on WSL.</p>
+</div>
+</div>
+<pre><code>repo2docker \
+  --Repo2Docker.platform=linux/amd64 \
+  -e PLAYWRIGHT_BROWSERS_PATH=/srv/conda \
+  --engine podman --PodmanEngine.podman_executable=docker \
+  .</code></pre>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -900,13 +880,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../tasks/github-token.html" class="pagination-link" aria-label="Create Finely Grained Access Token">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Create Finely Grained Access Token</span>
+      <a href="../tasks/new-image.html" class="pagination-link" aria-label="Create a New Single User Image">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Create a New Single User Image</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../tasks/cheatsheet.html" class="pagination-link" aria-label="Operations Cheatsheet">
-        <span class="nav-page-text">Operations Cheatsheet</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../tasks/transition-image.html" class="pagination-link" aria-label="Transition Single User Image to GitHub Actions">
+        <span class="nav-page-text">Transition Single User Image to GitHub Actions</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

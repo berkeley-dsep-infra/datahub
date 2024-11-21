@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../tasks/transition-image.html" rel="next">
+<link href="../tasks/repo2docker-local.html" rel="next">
 <link href="../tasks/managing-multiple-user-image-repos.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -246,6 +280,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../tasks/repo2docker-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test User Images Locally</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../tasks/transition-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
@@ -363,17 +403,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#use-an-existing-image-as-a-template" id="toc-use-an-existing-image-as-a-template" class="nav-link active" data-scroll-target="#use-an-existing-image-as-a-template">Use an existing image as a template</a></li>
-  <li><a href="#create-the-image-repos" id="toc-create-the-image-repos" class="nav-link" data-scroll-target="#create-the-image-repos">Create the image repos</a>
-  <ul class="collapse">
-  <li><a href="#configuring-the-root-image-repo" id="toc-configuring-the-root-image-repo" class="nav-link" data-scroll-target="#configuring-the-root-image-repo">Configuring the root image repo</a></li>
-  <li><a href="#configure-your-fork" id="toc-configure-your-fork" class="nav-link" data-scroll-target="#configure-your-fork">Configure your fork</a></li>
-  <li><a href="#add-the-root-image-repo-to-the-list-of-allowed-repos-in-the-berkeley-dsep-infra-secrets." id="toc-add-the-root-image-repo-to-the-list-of-allowed-repos-in-the-berkeley-dsep-infra-secrets." class="nav-link" data-scroll-target="#add-the-root-image-repo-to-the-list-of-allowed-repos-in-the-berkeley-dsep-infra-secrets.">Add the root image repo to the list of allowed repos in the <code>berkeley-dsep-infra</code> secrets.</a></li>
-  <li><a href="#update-your-deployments-hubploy.yaml-and-add-the-image-to-the-primary-list-of-repos." id="toc-update-your-deployments-hubploy.yaml-and-add-the-image-to-the-primary-list-of-repos." class="nav-link" data-scroll-target="#update-your-deployments-hubploy.yaml-and-add-the-image-to-the-primary-list-of-repos.">Update your deployment’s <code>hubploy.yaml</code> and add the image to the primary list of repos.</a></li>
-  </ul></li>
-  <li><a href="#add-a-github-bot-notification-in-slack" id="toc-add-a-github-bot-notification-in-slack" class="nav-link" data-scroll-target="#add-a-github-bot-notification-in-slack">Add a github bot notification in Slack</a></li>
-  <li><a href="#modify-the-image-configuration-as-necessary" id="toc-modify-the-image-configuration-as-necessary" class="nav-link" data-scroll-target="#modify-the-image-configuration-as-necessary">Modify the image configuration as necessary</a></li>
-  <li><a href="#submitting-a-pull-request" id="toc-submitting-a-pull-request" class="nav-link" data-scroll-target="#submitting-a-pull-request">Submitting a pull request</a></li>
+  <li><a href="#image-repository-settings" id="toc-image-repository-settings" class="nav-link active" data-scroll-target="#image-repository-settings">Image Repository Settings</a></li>
+  <li><a href="#your-forks-repository-settings" id="toc-your-forks-repository-settings" class="nav-link" data-scroll-target="#your-forks-repository-settings">Your Fork’s Repository Settings</a></li>
+  <li><a href="#enable-artifact-registry-pushing" id="toc-enable-artifact-registry-pushing" class="nav-link" data-scroll-target="#enable-artifact-registry-pushing">Enable Artifact Registry Pushing</a></li>
+  <li><a href="#configure-hubploy" id="toc-configure-hubploy" class="nav-link" data-scroll-target="#configure-hubploy">Configure <code>hubploy</code></a></li>
+  <li><a href="#subscribe-to-github-repo-in-slack" id="toc-subscribe-to-github-repo-in-slack" class="nav-link" data-scroll-target="#subscribe-to-github-repo-in-slack">Subscribe to GitHub Repo in Slack</a></li>
+  <li><a href="#modify-the-image" id="toc-modify-the-image" class="nav-link" data-scroll-target="#modify-the-image">Modify the Image</a></li>
+  <li><a href="#submit-pull-requests" id="toc-submit-pull-requests" class="nav-link" data-scroll-target="#submit-pull-requests">Submit Pull Requests</a></li>
   </ul>
 </nav>
     </div>
@@ -407,16 +443,13 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Generally, we prefer to use the former approach, unless we need to install specific packages or utilities outside of python/apt as <code>root</code>. If that is the case, only a <code>Dockerfile</code> format will work.</p>
 <p>As always, create a feature branch for your changes, and submit a PR when done.</p>
-<section id="use-an-existing-image-as-a-template" class="level2">
-<h2 class="anchored" data-anchor-id="use-an-existing-image-as-a-template">Use an existing image as a template</h2>
-<p>Browse through our <a href="https://github.com/orgs/berkeley-dsep-infra/repositories?language=&amp;q=image&amp;sort=&amp;type=all">image repos</a> to find a hub that is similar to the one you are trying to create. This will give you a good starting point.</p>
-</section>
-<section id="create-the-image-repos" class="level2">
-<h2 class="anchored" data-anchor-id="create-the-image-repos">Create the image repos</h2>
-<p>Create a new image repo from the <a href="https://github.com/berkeley-dsep-infra/hub-user-image-template">hub-user-image-template</a>. Click “Use this template” &gt; “Create a new repository”.</p>
-<p>Be sure to follow convention and name the repo <code>&lt;hubname&gt;-user-image</code>, and the owner needs to be <code>berkeley-dsep-infra</code>. When that is done, create your own fork of the new repo.</p>
-<section id="configuring-the-root-image-repo" class="level3">
-<h3 class="anchored" data-anchor-id="configuring-the-root-image-repo">Configuring the root image repo</h3>
+<p>There are two approaches to pre-populate the image’s assets:</p>
+<ul>
+<li><p>Use an existing image as a template. Browse through our <a href="https://github.com/orgs/berkeley-dsep-infra/repositories?language=&amp;q=image&amp;sort=&amp;type=all">image repos</a> to find a hub that is similar to the one you are trying to create. This will give you a good starting point.</p></li>
+<li><p>Fork <a href="https://github.com/berkeley-dsep-infra/hub-user-image-template">hub-user-image-template</a>. Click “Use this template” &gt; “Create a new repository”. Be sure to follow convention and name the repo <code>&lt;hubname&gt;-user-image</code>, and the owner needs to be <code>berkeley-dsep-infra</code>. When that is done, create your own fork of the new repo.</p></li>
+</ul>
+<section id="image-repository-settings" class="level3">
+<h3 class="anchored" data-anchor-id="image-repository-settings">Image Repository Settings</h3>
 <p>There are now a few steps to set up the CI/CD for the new image repo. In the <code>berkeley-dsep-infra</code> image repo, click on <code>Settings</code>, and under <code>General</code>, scroll down to <code>Pull Requests</code> and check the box labeled <code>Automatically delete head branches</code>.</p>
 <p>Scroll back up to the top of the settings, and in the left menu bar, click on <code>Secrets and variables</code>, and then <code>Actions</code>.</p>
 <p>From there, click on the <code>Variables</code> tab and then <code>New repository variable</code>. We will be adding two new variables:</p>
@@ -425,62 +458,55 @@ ul.task-list li input[type="checkbox"] {
 <li><p><code>IMAGE</code>: the Google Artifact Registry path and image name. The path will always be <code>ucb-datahub-2018/user-images/&lt;image-name&gt;</code> and the image name will always be the same as the repo: <code>&lt;hubname&gt;-user-image</code>.</p></li>
 </ol>
 </section>
-<section id="configure-your-fork" class="level3">
-<h3 class="anchored" data-anchor-id="configure-your-fork">Configure your fork</h3>
+<section id="your-forks-repository-settings" class="level3">
+<h3 class="anchored" data-anchor-id="your-forks-repository-settings">Your Fork’s Repository Settings</h3>
 <p>Now you will want to disable Github Actions for your fork of the image repo. If you don’t, whenever you push PRs to the root repo the workflows <em>in your fork</em> will attempt to run, but don’t have the proper permissions to successfully complete. This will then send you a nag email about a workflow failure.</p>
 <p>To disable this for your fork, click on <code>Settings</code>, <code>Actions</code> and <code>General</code>. Check the <code>Disable actions</code> box and click save.</p>
 </section>
-<section id="add-the-root-image-repo-to-the-list-of-allowed-repos-in-the-berkeley-dsep-infra-secrets." class="level3">
-<h3 class="anchored" data-anchor-id="add-the-root-image-repo-to-the-list-of-allowed-repos-in-the-berkeley-dsep-infra-secrets.">Add the root image repo to the list of allowed repos in the <code>berkeley-dsep-infra</code> secrets.</h3>
-<p>Now, go to the <code>berkeley-dsep-infra</code> <a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">Secrets and Variables</a>. You will need to give your repo permissions to push to the Artifact Registry, as well as to push a branch to the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub repo</a>.</p>
+<section id="enable-artifact-registry-pushing" class="level3">
+<h3 class="anchored" data-anchor-id="enable-artifact-registry-pushing">Enable Artifact Registry Pushing</h3>
+<p>The image repository needs to be added to the list of allowed repositories in the <code>berkeley-dsep-infra</code> secrets. Go to the <code>berkeley-dsep-infra</code> <a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">Secrets and Variables</a>. Give your repository permissions to push to the Artifact Registry, as well as to push a branch to the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub repo</a>.</p>
 <p>Edit both <code>DATAHUB_CREATE_PR</code> and <code>GAR_SECRET_KEY</code>, and click on the gear icon, search for your repo name, check the box and save.</p>
 </section>
-<section id="update-your-deployments-hubploy.yaml-and-add-the-image-to-the-primary-list-of-repos." class="level3">
-<h3 class="anchored" data-anchor-id="update-your-deployments-hubploy.yaml-and-add-the-image-to-the-primary-list-of-repos.">Update your deployment’s <code>hubploy.yaml</code> and add the image to the primary list of repos.</h3>
-<p>You need to let <code>hubploy</code> know the specifics of the image. Change the <code>name</code> of the image in <code>deployments/&lt;hubname&gt;/hubploy.yaml</code> to point to your new image name, and after the name add <code>:PLACEHOLDER</code> in place of the image sha. This will be automatically updated after your new image is built and pushed to the Artifact Registry.</p>
+<section id="configure-hubploy" class="level3">
+<h3 class="anchored" data-anchor-id="configure-hubploy">Configure <code>hubploy</code></h3>
+<p>You need to let <code>hubploy</code> know the specifics of the image by updating your deployment’s <code>hubploy.yaml</code>. Change the <code>name</code> of the image in <code>deployments/&lt;hubname&gt;/hubploy.yaml</code> to point to your new image name, and after the name add <code>:PLACEHOLDER</code> in place of the image sha. This will be automatically updated after your new image is built and pushed to the Artifact Registry.</p>
 <p>Example:</p>
-<pre><code>images:
-  images:
-    - name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/fancynewhub-user-image:PLACEHOLDER
-
-cluster:
-  provider: gcloud
-  gcloud:
-    project: ucb-datahub-2018
-    service_key: gke-key.json
-    cluster: spring-2024
-    zone: us-central1</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">images</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">images</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/fancynewhub-user-image:PLACEHOLDER</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cluster</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> gcloud</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gcloud</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">project</span><span class="kw">:</span><span class="at"> ucb-datahub-2018</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">service_key</span><span class="kw">:</span><span class="at"> gke-key.json</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">cluster</span><span class="kw">:</span><span class="at"> spring-2024</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">zone</span><span class="kw">:</span><span class="at"> us-central1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Next, add the ssh clone path of the root image repo to <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt">repos.txt</a>.</p>
 <p>Create a PR and merge to staging. You can cancel the <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml"><code>Deploy staging and prod hubs</code> job in Actions</a>, or just let it fail.</p>
 </section>
-</section>
-<section id="add-a-github-bot-notification-in-slack" class="level2">
-<h2 class="anchored" data-anchor-id="add-a-github-bot-notification-in-slack">Add a github bot notification in Slack</h2>
+<section id="subscribe-to-github-repo-in-slack" class="level2">
+<h2 class="anchored" data-anchor-id="subscribe-to-github-repo-in-slack">Subscribe to GitHub Repo in Slack</h2>
 <p>Go to the #ucb-datahubs-bots channel, and run the following command:</p>
 <pre><code>/github subscribe berkeley-dsep-infra/&lt;your repo name&gt;</code></pre>
 </section>
-<section id="modify-the-image-configuration-as-necessary" class="level2">
-<h2 class="anchored" data-anchor-id="modify-the-image-configuration-as-necessary">Modify the image configuration as necessary</h2>
-<p>This step is straightforward: create a feature branch, edit/modify/delete/add any files in the image repo to configure the image as needed.</p>
+<section id="modify-the-image" class="level2">
+<h2 class="anchored" data-anchor-id="modify-the-image">Modify the Image</h2>
+<p>This step is straightforward: create a feature branch, and edit, delete, or add any files to configure the image as needed.</p>
 <p>We also strongly recommend copying <code>README-template.md</code> over the default <code>README.md</code>, and modifying it to replace all occurrences of <code>&lt;HUBNAME&gt;</code> with the name of your image.</p>
 </section>
-<section id="submitting-a-pull-request" class="level2">
-<h2 class="anchored" data-anchor-id="submitting-a-pull-request">Submitting a pull request</h2>
-<p>Familiarize yourself with <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a> and <a href="https://github.com/jupyter/repo2docker">repo2docker</a> , and create a fork of the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub staging branch</a>.</p>
+<section id="submit-pull-requests" class="level2">
+<h2 class="anchored" data-anchor-id="submit-pull-requests">Submit Pull Requests</h2>
+<p>Familiarize yourself with <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a> and <a href="https://github.com/jupyter/repo2docker">repo2docker</a>, and create a fork of the <a href="https://github.com/berkeley-dsep-infra/datahub">datahub staging branch</a>.</p>
 <ol type="1">
-<li><p>Set up your git/dev environment by <a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/CONTRIBUTING.md">following the instructions here</a>. : - This guide is also located in your image repo!</p></li>
-<li><dl>
-<dt>Test the changes locally using <code>repo2docker</code>, then submit a PR to <code>staging</code>.</dt>
-<dd>
-<ul>
-<li>To use <code>repo2docker</code>, be sure that you are inside the image repo directory on your device, and then run <code>repo2docker .</code>.</li>
-</ul>
-</dd>
-</dl></li>
+<li><p>Set up your git/dev environment by following the <a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/CONTRIBUTING.md">image templat’s contributing guide</a>.</p></li>
+<li><p><a href="../tasks/repo2docker-local.html">Test the image locally</a> using <code>repo2docker</code>.</p></li>
+<li><p>Submit a PR to <code>staging</code>.</p></li>
 <li><p>Commit and push your changes to your fork of the image repo, and create a new pull request at https://github.com/berkeley-dsep-infra/<hubname-user-image>.</hubname-user-image></p></li>
 <li><p>After the build passes, merge your PR in to <code>main</code> and the image will be built again and pushed to the Artifact Registry. If that succeeds, then a commit will be crafted that will update the <code>PLACEHOLDER</code> field in <code>hubploy.yaml</code> with the image’s SHA and pushed to the datahub repo. You can check on the progress of this workflow in your root image repo’s <code>Actions</code> tab.</p></li>
-<li><p>After 4 is completed successfully, go to the Datahub repo and click on the <a href="https://github.com/berkeley-dsep-infra/datahub/compare">New pull request</a> button. Next, click on the <code>compare: staging</code> drop down, and you should see a branch named something like <code>update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;</code>. Select that, and create a new pull request.</p></li>
-<li><p>Once the checks has passed, merge to <code>staging</code> and your new image will be deployed! You can watch the progress <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml">here</a>.</p></li>
+<li><p>After the previous step is completed successfully, go to the Datahub repo and click on the <a href="https://github.com/berkeley-dsep-infra/datahub/compare">New pull request</a> button. Next, click on the <code>compare: staging</code> drop down, and you should see a branch named something like <code>update-&lt;hubname&gt;-image-tag-&lt;SHA&gt;</code>. Select that, and create a new pull request.</p></li>
+<li><p>Once the checks has passed, merge to <code>staging</code> and your new image will be deployed! You can watch the progress in the <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml">deploy-hubs workflow</a>.</p></li>
 </ol>
 
 
@@ -914,8 +940,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../tasks/transition-image.html" class="pagination-link" aria-label="Transition Single User Image to GitHub Actions">
-        <span class="nav-page-text">Transition Single User Image to GitHub Actions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../tasks/repo2docker-local.html" class="pagination-link" aria-label="Test User Images Locally">
+        <span class="nav-page-text">Test User Images Locally</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
