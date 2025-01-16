@@ -11,20 +11,6 @@
     ]
   },
   {
-    "listing": "/hubs.html",
-    "items": [
-      "/hubs/data100.html",
-      "/hubs/data102.html",
-      "/hubs/edx.html",
-      "/hubs/datahub.html",
-      "/hubs/prob140.html",
-      "/hubs/r.html",
-      "/hubs/shiny.html",
-      "/hubs/stat159.html",
-      "/hubs/stat20.html"
-    ]
-  },
-  {
     "listing": "/incidents/index.html",
     "items": [
       "/incidents/2017-02-09-datahub-db-outage.html",
@@ -46,6 +32,21 @@
       "/incidents/2019-05-01-service-account-leak.html",
       "/incidents/2022-01-20-package-dependency-upgrade-incident.html",
       "/incidents/2024-core-node-incidents.html"
+    ]
+  },
+  {
+    "listing": "/hubs.html",
+    "items": [
+      "/hubs/data100.html",
+      "/hubs/data102.html",
+      "/hubs/edx.html",
+      "/hubs/datahub.html",
+      "/hubs/nature.html",
+      "/hubs/prob140.html",
+      "/hubs/r.html",
+      "/hubs/shiny.html",
+      "/hubs/stat159.html",
+      "/hubs/stat20.html"
     ]
   }
 ]
