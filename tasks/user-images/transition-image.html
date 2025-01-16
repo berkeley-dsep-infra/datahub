@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>DataHub</title>
+<title>Transition Single User Image to GitHub Actions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,25 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f5e97281d83e8aca93dd11b55e22a511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../tasks/user-images/rebuild-postgres-image.html" rel="next">
+<link href="../../tasks/user-images/managing-multiple-user-image-repos.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f5e97281d83e8aca93dd11b55e22a511.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,10 +113,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../datahub.svg" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DataHub</span>
     </a>
   </div>
@@ -91,15 +127,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../admins/pre-reqs.html" aria-current="page"> 
+    <a class="nav-link active" href="../../admins/pre-reqs.html" aria-current="page"> 
 <span class="menu-text">Architecture and contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tasks/documentation.html"> 
+    <a class="nav-link" href="../../tasks/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../policy/create_policy.html"> 
+    <a class="nav-link" href="../../policy/create_policy.html"> 
 <span class="menu-text">Policy</span></a>
   </li>  
 </ul>
@@ -114,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DataHub</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/new-image.html">User Images</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/transition-image.html">Transition Single User Image to GitHub Actions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -128,13 +164,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
@@ -149,37 +185,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-requisites</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Repository Structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Integration and Deployment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kubernetes Cluster Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/credentials.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Credentials</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/storage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User home directory storage</span></a>
   </div>
 </li>
@@ -187,91 +223,91 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Common Administrator Tasks</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/documentation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/dns.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/dns.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update DNS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/core-pool.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/core-pool.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/new-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/new-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Hub Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">User Images</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/new-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/new-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Single User Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/update-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/update-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update the Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/new-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/new-packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Testing and Upgrading New Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/repo2docker-local.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/repo2docker-local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Test User Images Locally</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Managing multiple user image repos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/transition-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/transition-image.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
@@ -279,61 +315,61 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/course-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/course-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/calendar-scaler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/calendar-scaler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calendar Node Pool Autoscaler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prometheus and Grafana</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/remove-users-orm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/remove-users-orm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub ORM Maintenance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/delete-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/delete-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Delete or spin down a Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/clusterswitch.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/clusterswitch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Switching over a hub to a new cluster</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/github-token.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/github-token.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create Finely Grained Access Token</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Google Sheets from DataHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/cheatsheet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operations Cheatsheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/semester-start-end-tasks.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/semester-start-end-tasks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DataHub Semester Start and End Tasks</span></a>
   </div>
 </li>
@@ -350,25 +386,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/create_policy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Process to publish policy proposals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for creating a new hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for deploying to the main Datahub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/principles.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/principles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Principles to be considered while creating new policies</span></a>
   </div>
 </li>
@@ -376,7 +412,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../incidents/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Incident Reports</span></a>
   </div>
 </li>
@@ -390,22 +426,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#image" id="toc-image" class="nav-link active" data-scroll-target="#image">Image</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#create-the-repository" id="toc-create-the-repository" class="nav-link" data-scroll-target="#create-the-repository">Create the repository</a></li>
+  <li><a href="#preparing-working-directories" id="toc-preparing-working-directories" class="nav-link" data-scroll-target="#preparing-working-directories">Preparing working directories</a></li>
+  <li><a href="#preparing-continuous-integration" id="toc-preparing-continuous-integration" class="nav-link" data-scroll-target="#preparing-continuous-integration">Preparing continuous integration</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/new-image.html">User Images</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/transition-image.html">Transition Single User Image to GitHub Actions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DataHub</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">jupyterlab</div>
-    <div class="quarto-category">r</div>
-    <div class="quarto-category">vscode</div>
-  </div>
-  </div>
+<h1 class="title">Transition Single User Image to GitHub Actions</h1>
+</div>
 
 
 
@@ -421,10 +455,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="https://datahub.berkeley.edu">datahub.berkeley.edu</a> is the <em>main</em> JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational courses across diverse disciplines.</p>
-<section id="image" class="level2">
-<h2 class="anchored" data-anchor-id="image">Image</h2>
-<p>The datahub image contains both Python and R environments. A user can create jupyter notebooks utilizing either Python or R, or can run RStudio using R or Python.</p>
+<p>Single user images were originally maintained within the main datahub repo, however we moved them into their own repositories. It makes testing notebooks easier, and we can delegate write access to course staff if necessary.</p>
+<p>This was the process for transitioning images to their own repositories.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>You will need to install <code>git-filter-repo</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> ~/bin/git-filter-repo https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x ~/bin/git-filter-repo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="create-the-repository" class="level2">
+<h2 class="anchored" data-anchor-id="create-the-repository">Create the repository</h2>
+<ol type="1">
+<li>Go to https://github.com/berkeley-dsep-infra/hub-user-image-template. Click “Use this template” &gt; “Create a new repository”.</li>
+<li>Set the owner to <code>berkeley-dsep-infra</code>. Name the image <code>{hub}-user-image</code>, or some approximation of there are multiple images per hub.</li>
+<li>Click create repository.</li>
+<li>In the new repository, visit Settings &gt; Secrets and variables &gt; Actions &gt; Variables tab. Create new variables:
+<ol type="a">
+<li>Set HUB to the hub deployment, e.g.&nbsp;<code>shiny</code>.</li>
+<li>Set IMAGE to <code>ucb-datahub-2018/user-images/{hub}-user-image</code>, e.g.&nbsp;<code>ucb-datahub-2018/user-images/shiny-user-image</code>.</li>
+</ol></li>
+<li>Fork the new image repo into your own github account.</li>
+</ol>
+</section>
+<section id="preparing-working-directories" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-working-directories">Preparing working directories</h2>
+<p>As part of this process, we will pull the previous image’s git history into the new image repo.</p>
+<ol type="1">
+<li><p>Clone the <em>datahub</em> repo into a new directory named after the image repo.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:berkeley-dsep-infra/datahub.git {hub}-user-image <span class="at">--origin</span> source</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Change into the directory.</p></li>
+<li><p>Run <code>git-filter-repo</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> filter-repo <span class="at">--subdirectory-filter</span>  deployments/{hub}/image <span class="at">--force</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Add new git remotes:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:{your_git_account}/{hub}-user-image.git</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream git@github.com:berkeley-dsep-infra/{hub}-user-image.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Pull in the contents of the new user image that was created from the template.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch upstream</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main <span class="co"># pulls in .github</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Merge the contents of the previous datahub image with the new user image.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm environment.yml</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Remove default environment.yml file."</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge staging <span class="at">--allow-unrelated-histories</span> <span class="at">-m</span> <span class="st">'Bringing in image directory from deployment repo'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push upstream main</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</section>
+<section id="preparing-continuous-integration" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-continuous-integration">Preparing continuous integration</h2>
+<ol type="1">
+<li><p>In the <a href="https://github.com/organizations/berkeley-dsep-infra/settings/profile">berkeley-dsep-infra org settings</a>, visit <a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">Secrets and variables &gt; Actions</a>. Edit the secrets for <code>DATAHUB_CREATE_PR</code> and <code>GAR_SECRET_KEY</code>, and enable the new repo to access each.</p></li>
+<li><p>In the datahub repo, in one PR:</p>
+<ol type="a">
+<li><p>remove the hub deployment steps for the hub:</p>
+<ul>
+<li><em>Deploy {hub}</em></li>
+<li><em>hubploy/build-image {hub} image build</em> (x2)</li>
+</ul></li>
+<li><p>under <code>deployments/{hub}/hubploy.yaml</code>, remove the registry entry, and set the <code>image_name</code> to have <code>PLACEHOLDER</code> for the tag.</p></li>
+<li><p>In the datahub repo, under the deployment image directory, update the README to point to the new repo. Delete everything else in the image directory.</p></li>
+</ol></li>
+<li><p>Merge these changes to datahub staging.</p></li>
+<li><p>Make a commit to trigger a build of the image in its repo.</p></li>
+<li><p>In a PR in the datahub repo, under .github/workflows/deploy-hubs.yaml, add the hub with the new image under <code>determine-hub-deployments.py --only-deploy</code>.</p></li>
+<li><p>Make another commit to the image repo to trigger a build. When these jobs finish, a commit will be pushed to the datahub repo. Make a PR, and merge to staging after canceling the CircleCI builds. (these builds are an artifact of the CircleCI-to-GitHub migration – we won’t need to do that long term)</p></li>
+<li><p>Subscribe the <em>#ucb-datahubs-bots</em> channel in UC Tech slack to the repo.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/github</span> subscribe berkeley-dsep-infra/<span class="op">&lt;</span>repo<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
 
 
 </section>
@@ -847,6 +943,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../tasks/user-images/managing-multiple-user-image-repos.html" class="pagination-link" aria-label="Managing multiple user image repos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Managing multiple user image repos</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../tasks/user-images/rebuild-postgres-image.html" class="pagination-link" aria-label="Customize the Per-User Postgres Docker Image">
+        <span class="nav-page-text">Customize the Per-User Postgres Docker Image</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
