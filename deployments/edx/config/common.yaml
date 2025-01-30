@@ -29,8 +29,9 @@ jupyterhub:
         - otter_grade
     config:
       JupyterHub:
-        authenticator_class: ltiauthenticator.lti11.auth.LTI11Authenticator
+        authenticator_class: ltiauthenticator.lti13.auth.LTI13Authenticator
       Authenticator:
+        manage_groups: false
         admin_users:
           # 2813 Eric Van Dusen
           # sean morris
