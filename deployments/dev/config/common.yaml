@@ -26,6 +26,11 @@ jupyterhub:
       20-hubHome: |
         # Direct users to named server list
         c.JupyterHub.default_url = '/hub/home'
+        # Enable RTC in Dev hub for testing
+      collaborative: |
+        c.ServerApp.jpserver_extensions = {
+            'jupyter_collaboration': True
+        }
 
     loadRoles:
       # datahub staff
