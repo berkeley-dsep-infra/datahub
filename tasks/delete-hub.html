@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9550f07aae3da1547ff839ddd95c4b22.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3191cbc881a39ab053458d5a7598cd0d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -428,6 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#why-delete-or-spin-down-a-hub" id="toc-why-delete-or-spin-down-a-hub" class="nav-link active" data-scroll-target="#why-delete-or-spin-down-a-hub">Why delete or spin down a hub?</a></li>
   <li><a href="#steps-to-spin-down-a-hub" id="toc-steps-to-spin-down-a-hub" class="nav-link" data-scroll-target="#steps-to-spin-down-a-hub">Steps to spin down a hub</a></li>
+  <li><a href="#archive-user-image" id="toc-archive-user-image" class="nav-link" data-scroll-target="#archive-user-image">Archive User Image</a></li>
   </ul>
 </nav>
     </div>
@@ -491,6 +492,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Delete PV: <code>kubectl get pv --all-namespaces|grep &lt;hubname&gt;</code> to get the PV names, and then <code>kubectl delete pv &lt;pv names&gt;</code></li>
 <li>All done.</li>
 </ol>
+</section>
+<section id="archive-user-image" class="level2">
+<h2 class="anchored" data-anchor-id="archive-user-image">Archive User Image</h2>
+<p>If you delete a hub, consider archiving the git repository associated with its singleuser docker image. This indicates to everyone that the image is not being used, prevents people from creating new issues, and stops any active bots from scanning the repo.</p>
+<p>Before you do this, you may want to note this in the repository’s README, and close open pull requests and issues.</p>
+<p>The repository can always be unarchived later if needed.</p>
 
 
 </section>
