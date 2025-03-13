@@ -998,113 +998,170 @@
     "text": "nature.datahub.berkeley.edu is a hub for courses within the College of Natural Resources. The user environment is based on repo2docker and contains a Jupyter stack, RStudio, Shiny, and VS Code."
   },
   {
-    "objectID": "hubs/datahub.html",
-    "href": "hubs/datahub.html",
-    "title": "DataHub",
+    "objectID": "hubs/stat20.html",
+    "href": "hubs/stat20.html",
+    "title": "Stat 20",
     "section": "",
-    "text": "datahub.berkeley.edu is the main JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational courses across diverse disciplines."
+    "text": "stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as designed by Andrew Bray. It uses RStudio as the primary users interface and students can use Quarto to author documents and Shiny to create web applications."
   },
   {
-    "objectID": "hubs/datahub.html#image",
-    "href": "hubs/datahub.html#image",
-    "title": "DataHub",
-    "section": "Image",
-    "text": "Image\nThe datahub image contains both Python and R environments. A user can create jupyter notebooks utilizing either Python or R, or can run RStudio using R or Python."
-  },
-  {
-    "objectID": "hubs/data100.html",
-    "href": "hubs/data100.html",
-    "title": "Data 100",
+    "objectID": "hubs/data102.html",
+    "href": "hubs/data102.html",
+    "title": "Data 102",
     "section": "",
-    "text": "This hub is for Data 100 which has a unique user and grading environment.\nData100 has shared folders between staff (professors and GSIs) and students. Course staff can see a shared and a shared-readwrite folder. Students can only see the shared folder, which is read-only. Anything that gets put in shared-readwrite is automatically viewable in shared, but as read-only files. The purpose of this is to be able to share large data files instead of having one per student."
+    "text": "This hub is for Data 102 which has a unique user and grading environment.\nData 102 runs on Google Cloud Platform in the ucb-datahub-2018 project. You can see all config for it under deployments/data102."
   },
   {
-    "objectID": "hubs/stat159.html",
-    "href": "hubs/stat159.html",
-    "title": "Stat 159",
+    "objectID": "hubs/edx.html",
+    "href": "hubs/edx.html",
+    "title": "Data 8X",
     "section": "",
-    "text": "stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their local development workflows to the cloud."
+    "text": "This hub is for the data8x course on EdX. It is open to use by anyone in the world, using LTI Authentication to provide login capability from inside EdX.\nIt runs on Google Cloud Platform in the data8x-scratch project. You can see all config for it under deployments/data8x."
   },
   {
-    "objectID": "hubs/stat159.html#image",
-    "href": "hubs/stat159.html#image",
-    "title": "Stat 159",
-    "section": "Image",
-    "text": "Image\nNotably the image contains support for RTC. As of March 2023, this requires:\n- jupyter_server==2.2.1\n- jupyterlab==3.6.1\n- jupyterlab_server==2.19.0\n- git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;"
-  },
-  {
-    "objectID": "hubs/stat159.html#configuration",
-    "href": "hubs/stat159.html#configuration",
-    "title": "Stat 159",
-    "section": "Configuration",
-    "text": "Configuration\nAlong with the dependencies, the singleuser server is modified to launch as\nsingleuser:\n     cmd:\n       - jupyterhub-singleuser\n       - --LabApp.collaborative=true\n       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration\n       - --YDocExtension.ystore_class=tmpystore.TmpYStore\nThis turns on collaboration and moves some sqlite storage from home directories to /tmp/.\nIn addition to RTC, the hub also has configuration to enable shared accounts with impersonation. There are a handful of fabricated user accounts, e.g. collab-shared-1, collab-shared-2, etc. not affiliated with any real person in bCourses. There are also corresponding JupyterHub groups, shared-1, shared-2, etc. The instructors add real students to the hub groups, and some roles and scopes logic in the hub configuration gives students access to launch jupyter servers for the collaborative user accounts. The logic is in config/common.yaml while the current group affiliations are kept private in secrets.\nThis configuration is to encourage use of RTC, and to prevent one student from having too much access to another student's home directory. The fabricated (essentially service) accounts have initially empty home directories and exist solely to provide workspaces for the group. There is currently no archive or restore procedure in mind for these shared accounts.\nFor now, groups are defined in either the hub configuration or in the administrative /hub/admin user interface. In order to enable group assignment in this manner, we must set Authenticator.managed_groups to False. Ordinarily groups are provided by CanvasAuthenticator where this setting is True.\nEventually instructors will be able to define groups in bCourses so that CanvasAuthenticator can remain in charge of managing groups. This will be important for the extremely large courses. It will also be beneficial in that resource allocation can be performed more easily through group affiliations and group properties."
-  },
-  {
-    "objectID": "hubs/prob140.html",
-    "href": "hubs/prob140.html",
-    "title": "Prob 140",
+    "objectID": "hubs/r.html",
+    "href": "hubs/r.html",
+    "title": "R",
     "section": "",
-    "text": "Prob 140 hub exists to isolate student files from the main hub. Some students in this course might be course staff in another course, or vice versa, so we isolate their home directories through this hub. It uses the same singleuser docker image as the main hub."
+    "text": "r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment."
   },
   {
-    "objectID": "admins/cluster-config.html",
-    "href": "admins/cluster-config.html",
-    "title": "Kubernetes Cluster Configuration",
+    "objectID": "admins/credentials.html",
+    "href": "admins/credentials.html",
+    "title": "Cloud Credentials",
     "section": "",
-    "text": "We use kubernetes to run our JupyterHubs. It has a healthy open source community, managed offerings from multiple vendors & a fast pace of development. We can run easily on many different cloud providers with similar config by running on top of Kubernetes, so it is also our cloud agnostic abstraction layer.\nWe prefer using a managed Kubernetes service (such as Google Kubernetes Engine). This document lays out our preferred cluster configuration on various cloud providers.",
+    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Kubernetes Cluster Configuration"
+      "Cloud Credentials"
     ]
   },
   {
-    "objectID": "admins/cluster-config.html#google-kubernetes-engine",
-    "href": "admins/cluster-config.html#google-kubernetes-engine",
-    "title": "Kubernetes Cluster Configuration",
-    "section": "Google Kubernetes Engine",
-    "text": "Google Kubernetes Engine\nIn our experience, Google Kubernetes Engine (GKE) has been the most stable, performant, and reliable managed kubernetes service. We prefer running on this when possible.\nA gcloud container clusters create command can succinctly express the configuration of our kubernetes cluster. The following command represents the currently favored configuration.\nThis creates the GKE cluster. It may host one or more node pools:\ngcloud container clusters create \\\n     --enable-ip-alias \\\n     --enable-autoscaling \\\n     --max-nodes=20 --min-nodes=1 \\\n     --region=us-central1 --node-locations=us-central1-b \\\n     --image-type=cos_containerd \\\n     --disk-size=100 --disk-type=pd-balanced \\\n     --machine-type=n2-highmem-8 \\\n     --cluster-version latest \\\n     --no-enable-autoupgrade \\\n     --enable-network-policy \\\n     --create-subnetwork=\"\" \\\n     --tags=hub-cluster \\\n     --no-enable-insecure-kubelet-readonly-port \\\n     &lt;cluster-name&gt;\nHere's how we add a node pool to the cluster, beyond the default pool:\ngcloud container node-pools create  \\\n    --machine-type n2-highmem-8 \\\n    --num-nodes 1 \\\n    --enable-autoscaling \\\n    --min-nodes 1 --max-nodes 20 \\\n    --node-labels hub.jupyter.org/pool-name=&lt;pool-name&gt;-pool \\\n    --node-taints hub.jupyter.org_dedicated=user:NoSchedule \\\n    --region=us-central1 \\\n    --image-type=cos_containerd \\\n    --disk-size=200 --disk-type=pd-balanced \\\n    --no-enable-autoupgrade \\\n    --tags=hub-cluster \\\n    --cluster=&lt;cluster-name&gt; \\\n    --no-enable-insecure-kubelet-readonly-port \\\n    user-&lt;pool-name&gt;-&lt;yyyy&gt;-&lt;mm&gt;-&lt;dd&gt;\n\nIP Aliasing\n--enable-ip-alias creates VPC Native Clusters.\nThis becomes the default soon, and can be removed once it is the default.\n\n\nAutoscaling\nWe use the kubernetes cluster autoscaler to scale our node count up and down based on demand. It waits until the cluster is completely full before triggering creation of a new node - but that's ok, since new node creation time on GKE is pretty quick.\n--enable-autoscaling turns the cluster autoscaler on.\n--min-nodes sets the minimum number of nodes that will be maintained regardless of demand. This should ideally be 2, to give us some headroom for quick starts without requiring scale ups when the cluster is completely empty.\n--max-nodes sets the maximum number of nodes that the cluster autoscaler will use - this sets the maximum number of concurrent users we can support. This should be set to a reasonably high number, but not too high - to protect against runaway creation of hundreds of VMs that might drain all our credits due to accident or security breach.\n\n\nHighly available master\nThe kubernetes cluster's master nodes are managed by Google Cloud automatically. By default, it is deployed in a non-highly-available configuration - only one node. This means that upgrades and master configuration changes cause a few minutes of downtime for the kubernetes API, causing new user server starts / stops to fail.\nWe request our cluster masters to have highly available masters with --region parameter. This specifies the region where our 3 master nodes will be spread across in different zones. It costs us extra, but it is totally worth it.\nBy default, asking for highly available masters also asks for 3x the node count, spread across multiple zones. We don't want that, since all our user pods have in-memory state & can't be relocated. Specifying --node-locations explicitly lets us control how many and which zones the nodes are located in.\n\n\nRegion / Zone selection\nWe generally use the us-central1 region and a zone in it for our clusters -simply because that is where we have asked for quota.\nThere are regions closer to us, but latency hasn't really mattered so we are currently still in us-central1. There are also unsubstantiated rumors that us-central1 is their biggest data center and hence less likely to run out of quota.\n\n\nDisk Size\n--disk-size sets the size of the root disk on all the kubernetes nodes. This isn't used for any persistent storage such as user home directories. It is only used ephemerally for the operations of the cluster - primarily storing docker images and other temporary storage. We can make this larger if we use a large number of big images, or if we want our image pulls to be faster (since disk performance increases with disk size ).\n--disk-type=pd-standard gives us standard spinning disks, which are cheaper. We can also request SSDs instead with --disk-type=pd-ssd - it is much faster, but also much more expensive. We compromise with --disk-type=pd-balanced, faster than spinning disks but not as fast as ssds all the time.\n\n\nNode size\n--machine-type lets us select how much RAM and CPU each of our nodes have. For non-trivial hubs, we generally pick n2-highmem-8, with 64G of RAM and 8 cores. This is based on the following heuristics:\n\nStudents generally are memory limited than CPU limited. In fact, while we have a hard limit on memory use per-user pod, we do not have a CPU limit -it hasn't proven necessary.\nWe try overprovision clusters by about 2x - so we try to fit about 100G of total RAM use in a node with about 50G of RAM. This is accomplished by setting the memory request to be about half of the memory limit on user pods. This leads to massive cost savings, and works out ok.\nThere is a kubernetes limit on 100 pods per node.\n\nBased on these heuristics, n2-highmem-8 seems to be most bang for the buck currently. We should revisit this for every cluster creation.\n\n\nCluster version\nGKE automatically upgrades cluster masters, so there is generally no harm in being on the latest version available.\n\n\nNode autoupgrades\nWhen node autoupgrades are enabled, GKE will automatically try to upgrade our nodes whenever needed (our GKE version falling off the support window, security issues, etc). However, since we run stateful workloads, we disable this right now so we can do the upgrades manually.\n\n\nNetwork Policy\nKubernetes Network Policy lets you firewall internal access inside a kubernetes cluster, whitelisting only the flows you want. The JupyterHub chart we use supports setting up appropriate NetworkPolicy objects it needs, so we should turn it on for additional security depth. Note that any extra in-cluster services we run must have a NetworkPolicy set up for them to work reliabliy.\n\n\nSubnetwork\nWe put each cluster in its own subnetwork, since seems to be a limit on how many clusters you can create in the same network with IP aliasing on - you just run out of addresses. This also gives us some isolation - subnetworks are isolated by default and can't reach other resources. You must add firewall rules to provide access, including access to any manually run NFS servers. We add tags for this.\n\n\nTags\nTo help with firewalling, we add network tags to all our cluster nodes. This lets us add firewall rules to control traffic between subnetworks.\n\n\nCluster name\nWe try use a descriptive name as much as possible.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Architecture and Contribution Overview",
-      "Kubernetes Cluster Configuration"
-    ]
-  },
-  {
-    "objectID": "admins/pre-reqs.html",
-    "href": "admins/pre-reqs.html",
-    "title": "Pre-requisites",
+    "objectID": "admins/credentials.html#google-cloud",
+    "href": "admins/credentials.html#google-cloud",
+    "title": "Cloud Credentials",
     "section": "",
-    "text": "Smoothly working with the JupyterHubs maintained in this repository has a number of pre-requisite skills you must possess. The rest of the documentation assumes you have at least a basic level of these skills, and know how to get help related to these technologies when necessary.",
+    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Pre-requisites"
+      "Cloud Credentials"
     ]
   },
   {
-    "objectID": "admins/pre-reqs.html#basic",
-    "href": "admins/pre-reqs.html#basic",
-    "title": "Pre-requisites",
-    "section": "Basic",
-    "text": "Basic\nThese skills let you interact with the repository in a basic manner. This lets you do most 'self-service' tasks - such as adding admin users, libraries, making changes to resource allocation, etc. This doesn't give you any skills to debug things when they break, however.\n\nBasic git & GitHub skills.\nThe Git Book & GitHub Help are good resources for this.\nFamiliarity with YAML syntax.\nUnderstanding of how packages are installed in the languages we support.\nRights to merge changes into this repository on GitHub.",
+    "objectID": "admins/structure.html",
+    "href": "admins/structure.html",
+    "title": "Repository Structure",
+    "section": "",
+    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Pre-requisites"
+      "Repository Structure"
     ]
   },
   {
-    "objectID": "admins/pre-reqs.html#full",
-    "href": "admins/pre-reqs.html#full",
-    "title": "Pre-requisites",
-    "section": "Full",
-    "text": "Full\nIn addition to the basic skills, you'll need the following skills to 'fully' work with this repository. Primarily, you need this to debug issues when things break -since we strive to never have things break in the same way more than twice.\n\nKnowledge of our tech stack:\n\nKubernetes\nGoogle Cloud\nHelm\nDocker\nrepo2docker\nJupyter\nLanguages we support: Python & R\n\nUnderstanding of our JupyterHub distribution, Zero to JupyterHub.\nFull access to the various cloud providers we use.",
+    "objectID": "admins/structure.html#hub-configuration",
+    "href": "admins/structure.html#hub-configuration",
+    "title": "Repository Structure",
+    "section": "",
+    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Pre-requisites"
+      "Repository Structure"
     ]
+  },
+  {
+    "objectID": "admins/structure.html#documentation",
+    "href": "admins/structure.html#documentation",
+    "title": "Repository Structure",
+    "section": "Documentation",
+    "text": "Documentation\nDocumentation is under the docs/ folder, and is generated with Quarto, where content is written in markdown. Documentation is published to https://docs.datahub.berkeley.edu/ via a GitHub Action workflow.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Architecture and Contribution Overview",
+      "Repository Structure"
+    ]
+  },
+  {
+    "objectID": "admins/structure.html#user-images",
+    "href": "admins/structure.html#user-images",
+    "title": "Repository Structure",
+    "section": "User Images",
+    "text": "User Images\nEach user image is managed in separate repositories in the berkeley-dsep-infra organization.\nThese repositories determine the environment provided to the user. For example, it controls:\n\nVersions of Python / R / Julia available\nLibraries installed, and which versions of those are installed\nSpecific config for Jupyter Notebook or IPython\n\nrepo2docker is used to build the actual user image, so you can use any of the supported config files to customize the image as you wish.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Architecture and Contribution Overview",
+      "Repository Structure"
+    ]
+  },
+  {
+    "objectID": "admins/cicd-github-actions.html",
+    "href": "admins/cicd-github-actions.html",
+    "title": "Continuous Integration and Deployment",
+    "section": "",
+    "text": "DataHub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the DataHub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nA pull request is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nWhen the pull request is merged to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nWhen the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Architecture and Contribution Overview",
+      "Continuous Integration and Deployment"
+    ]
+  },
+  {
+    "objectID": "admins/cicd-github-actions.html#overview",
+    "href": "admins/cicd-github-actions.html#overview",
+    "title": "Continuous Integration and Deployment",
+    "section": "",
+    "text": "DataHub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the DataHub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nA pull request is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nWhen the pull request is merged to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nWhen the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Architecture and Contribution Overview",
+      "Continuous Integration and Deployment"
+    ]
+  },
+  {
+    "objectID": "admins/cicd-github-actions.html#github-actions-architecture",
+    "href": "admins/cicd-github-actions.html#github-actions-architecture",
+    "title": "Continuous Integration and Deployment",
+    "section": "Github Actions Architecture",
+    "text": "Github Actions Architecture\n\nSecrets and Variables\nAll of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.\n\nOrganization secrets and variables\nGitHub Actions settings contain all of the organizational secrets and variables.\n\nOrganization Secrets\n\nDATAHUB_CREATE_PR\n\nThis secret is a fine-grained personal access token, and has the following permissions defined:\n\n\n\nSelect repositories (only berkeley-dsep-infra/datahub)\nRepository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\n\n\n\n\nImportant\n\n\n\nThis PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window.\n\n\n\nGAR_SECRET_KEY and GAR_SECRET_KEY_EDX\n\nThese secrets are for the GCP IAM roles for each GCP project given roles/storage.admin permissions. This allows us to push the built images to the Artifact Registry.\n\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\nOrganization Variables\n\nIMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME\n\nThese are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.\n\n\n\nDataHub repository secrets\n\nGCP_PROJECT_ID\n\nThis is the name of our GCP project.\n\nGKE_KEY\n\nThis key is used in the workflows that deploy the support and node-placeholder namespaces. It’s attached to the hubploy service account, and has the assigned roles of roles/container.clusterViewer and roles/container.developer.\n\nSOPS_KEY\n\nThis key is used to decrypt our secrets using sops, and is attached to the sopsaccount service account and provides KMS access.\n\n\n\n\n\nUser Image Repository Variables\nEach image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.\n\nHUB\n\nThe name of the hub, natch! datahub, data100, etc.\n\nIMAGE\n\nThe path within the artifact registry: ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image\n\n\n\n\n\n\nSingle user server image modification workflow\nEach hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:\n\nYAML lint\nBuild and test the image\n\nWhen both tests pass, and the pull request is merged in to the main branch, a third and final workflow is run:\n\nBuild push and create PR\n\nThis builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.\n\n\nUpdating the datahub repository\n\nSingle user server image tag updates\nWhen a pull request is opened to update one or more image tags for deployments, the labeler will apply the hub: &lt;hubname&gt; label upon creation. When this pull request is merged, the deploy-hubs workflow is triggered.\nThis workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a python script that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.\nThat list is iterated over, and hubploy is used to deploy only the flagged hubs.\n\n\n\n\n\n%% State diagram documentation at\n%% https://mermaid.js.org/syntax/stateDiagram.html\n\nstateDiagram-v2\n    image_repo: github.com/berkeley-dsep-infra/hubname-user-image\n    user_repo: github.com/username/hubname-user-image\n    image_test_build: Image is built and tested\n    image_push_build: Image is built and pushed to registry\n    pr_created: A pull request is automatically&lt;br/&gt;created in the Datahub repo\n    deploy_to_staging: Hub is deployed to staging\n    contributor_tests: The contributor logs into the&lt;br/&gt;staging hub and tests the image.\n    deploy_to_prod: Hub is deployed to prod\n\n    image_repo --&gt; user_repo: Contributor forks the image repo.\n    user_repo --&gt; image_repo: Contributor creates a PR.\n    image_repo --&gt; image_test_build\n    image_test_build --&gt; image_push_build: Test build passes and Datahub staff merge pull request\n    image_push_build --&gt; pr_created\n    pr_created --&gt; deploy_to_staging: Datahub staff review and merge to staging\n    deploy_to_staging --&gt; contributor_tests\n    contributor_tests --&gt; deploy_to_prod: Datahub staff create a PR to merge to prod\n\n\n\n\n\n\n\n\nSupport and node-placeholder charts\nEach of these deployments has their own workflow, which only runs on pushes to staging:\n\ndeploy-support.yaml\ndeploy-node-placeholder.yaml\n\nIf the correct labels are found, it will use the GKE_KEY secret to run helm upgrade for the necessary deployments.\n\n\nMiscellaneous workflows\nThere are also a couple of other workflows in the datahub repository:\n\nprevent-prod-merges.yml\n\nThis workflow will only allow us to merge to prod from staging.\n\nquarto-docs.yml\n\nThis builds, renders and pushes our docs to Github Pages.\n\n\n\n\n\nDocumentation’s Workflow\nThis documentation is also deployed by GitHub Actions.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Architecture and Contribution Overview",
+      "Continuous Integration and Deployment"
+    ]
+  },
+  {
+    "objectID": "admins/cicd-github-actions.html#original-design-document",
+    "href": "admins/cicd-github-actions.html#original-design-document",
+    "title": "Continuous Integration and Deployment",
+    "section": "Original Design Document",
+    "text": "Original Design Document\nSlides describe the process in some more detail.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Architecture and Contribution Overview",
+      "Continuous Integration and Deployment"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "UC Berkeley DataHub Documentation",
+    "section": "",
+    "text": "This repository contains configuration and documentation (including policies) for the many JupyterHubs used by various organizations in UC Berkeley.",
+    "crumbs": [
+      "Architecture and contributing",
+      "Home"
+    ]
+  },
+  {
+    "objectID": "admins/index.html",
+    "href": "admins/index.html",
+    "title": "Architecture and Contribution Overview",
+    "section": "",
+    "text": "Pre-requisites\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRepository Structure\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nContinuous Integration and Deployment\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nKubernetes Cluster Configuration\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCloud Credentials\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUser home directory storage\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "admins/storage.html",
@@ -1167,184 +1224,120 @@
     ]
   },
   {
-    "objectID": "admins/index.html",
-    "href": "admins/index.html",
-    "title": "Architecture and Contribution Overview",
+    "objectID": "admins/pre-reqs.html",
+    "href": "admins/pre-reqs.html",
+    "title": "Pre-requisites",
     "section": "",
-    "text": "Pre-requisites\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRepository Structure\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nContinuous Integration and Deployment\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nKubernetes Cluster Configuration\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCloud Credentials\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUser home directory storage\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "UC Berkeley DataHub Documentation",
-    "section": "",
-    "text": "This repository contains configuration and documentation (including policies) for the many JupyterHubs used by various organizations in UC Berkeley.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Home"
-    ]
-  },
-  {
-    "objectID": "admins/cicd-github-actions.html",
-    "href": "admins/cicd-github-actions.html",
-    "title": "Continuous Integration and Deployment",
-    "section": "",
-    "text": "DataHub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the DataHub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nA pull request is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nWhen the pull request is merged to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nWhen the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
+    "text": "Smoothly working with the JupyterHubs maintained in this repository has a number of pre-requisite skills you must possess. The rest of the documentation assumes you have at least a basic level of these skills, and know how to get help related to these technologies when necessary.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Continuous Integration and Deployment"
+      "Pre-requisites"
     ]
   },
   {
-    "objectID": "admins/cicd-github-actions.html#overview",
-    "href": "admins/cicd-github-actions.html#overview",
-    "title": "Continuous Integration and Deployment",
-    "section": "",
-    "text": "DataHub’s continuous integration and deployment system uses both Github Actions and workflows.\nThese workflows are stored in the DataHub repo in the .github/workflows/ directory.\nThe basic order of operations is as follows:\n\nA pull request is created in the datahub repo.\nThe labeler workflow applies labels based on the file type and/or location.\nWhen the pull request is merged to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.\nWhen the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).\n\nThe hubs are deployed via hubploy, which is our custom wrapper for gcloud, sops and helm.",
+    "objectID": "admins/pre-reqs.html#basic",
+    "href": "admins/pre-reqs.html#basic",
+    "title": "Pre-requisites",
+    "section": "Basic",
+    "text": "Basic\nThese skills let you interact with the repository in a basic manner. This lets you do most 'self-service' tasks - such as adding admin users, libraries, making changes to resource allocation, etc. This doesn't give you any skills to debug things when they break, however.\n\nBasic git & GitHub skills.\nThe Git Book & GitHub Help are good resources for this.\nFamiliarity with YAML syntax.\nUnderstanding of how packages are installed in the languages we support.\nRights to merge changes into this repository on GitHub.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Continuous Integration and Deployment"
+      "Pre-requisites"
     ]
   },
   {
-    "objectID": "admins/cicd-github-actions.html#github-actions-architecture",
-    "href": "admins/cicd-github-actions.html#github-actions-architecture",
-    "title": "Continuous Integration and Deployment",
-    "section": "Github Actions Architecture",
-    "text": "Github Actions Architecture\n\nSecrets and Variables\nAll of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.\n\nOrganization secrets and variables\nGitHub Actions settings contain all of the organizational secrets and variables.\n\nOrganization Secrets\n\nDATAHUB_CREATE_PR\n\nThis secret is a fine-grained personal access token, and has the following permissions defined:\n\n\n\nSelect repositories (only berkeley-dsep-infra/datahub)\nRepository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\n\n\n\n\nImportant\n\n\n\nThis PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window.\n\n\n\nGAR_SECRET_KEY and GAR_SECRET_KEY_EDX\n\nThese secrets are for the GCP IAM roles for each GCP project given roles/storage.admin permissions. This allows us to push the built images to the Artifact Registry.\n\n\nWhen adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.\n\n\nOrganization Variables\n\nIMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME\n\nThese are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.\n\n\n\nDataHub repository secrets\n\nGCP_PROJECT_ID\n\nThis is the name of our GCP project.\n\nGKE_KEY\n\nThis key is used in the workflows that deploy the support and node-placeholder namespaces. It’s attached to the hubploy service account, and has the assigned roles of roles/container.clusterViewer and roles/container.developer.\n\nSOPS_KEY\n\nThis key is used to decrypt our secrets using sops, and is attached to the sopsaccount service account and provides KMS access.\n\n\n\n\n\nUser Image Repository Variables\nEach image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.\n\nHUB\n\nThe name of the hub, natch! datahub, data100, etc.\n\nIMAGE\n\nThe path within the artifact registry: ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image\n\n\n\n\n\n\nSingle user server image modification workflow\nEach hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:\n\nYAML lint\nBuild and test the image\n\nWhen both tests pass, and the pull request is merged in to the main branch, a third and final workflow is run:\n\nBuild push and create PR\n\nThis builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.\n\n\nUpdating the datahub repository\n\nSingle user server image tag updates\nWhen a pull request is opened to update one or more image tags for deployments, the labeler will apply the hub: &lt;hubname&gt; label upon creation. When this pull request is merged, the deploy-hubs workflow is triggered.\nThis workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a python script that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.\nThat list is iterated over, and hubploy is used to deploy only the flagged hubs.\n\n\n\n\n\n%% State diagram documentation at\n%% https://mermaid.js.org/syntax/stateDiagram.html\n\nstateDiagram-v2\n    image_repo: github.com/berkeley-dsep-infra/hubname-user-image\n    user_repo: github.com/username/hubname-user-image\n    image_test_build: Image is built and tested\n    image_push_build: Image is built and pushed to registry\n    pr_created: A pull request is automatically&lt;br/&gt;created in the Datahub repo\n    deploy_to_staging: Hub is deployed to staging\n    contributor_tests: The contributor logs into the&lt;br/&gt;staging hub and tests the image.\n    deploy_to_prod: Hub is deployed to prod\n\n    image_repo --&gt; user_repo: Contributor forks the image repo.\n    user_repo --&gt; image_repo: Contributor creates a PR.\n    image_repo --&gt; image_test_build\n    image_test_build --&gt; image_push_build: Test build passes and Datahub staff merge pull request\n    image_push_build --&gt; pr_created\n    pr_created --&gt; deploy_to_staging: Datahub staff review and merge to staging\n    deploy_to_staging --&gt; contributor_tests\n    contributor_tests --&gt; deploy_to_prod: Datahub staff create a PR to merge to prod\n\n\n\n\n\n\n\n\nSupport and node-placeholder charts\nEach of these deployments has their own workflow, which only runs on pushes to staging:\n\ndeploy-support.yaml\ndeploy-node-placeholder.yaml\n\nIf the correct labels are found, it will use the GKE_KEY secret to run helm upgrade for the necessary deployments.\n\n\nMiscellaneous workflows\nThere are also a couple of other workflows in the datahub repository:\n\nprevent-prod-merges.yml\n\nThis workflow will only allow us to merge to prod from staging.\n\nquarto-docs.yml\n\nThis builds, renders and pushes our docs to Github Pages.\n\n\n\n\n\nDocumentation’s Workflow\nThis documentation is also deployed by GitHub Actions.",
+    "objectID": "admins/pre-reqs.html#full",
+    "href": "admins/pre-reqs.html#full",
+    "title": "Pre-requisites",
+    "section": "Full",
+    "text": "Full\nIn addition to the basic skills, you'll need the following skills to 'fully' work with this repository. Primarily, you need this to debug issues when things break -since we strive to never have things break in the same way more than twice.\n\nKnowledge of our tech stack:\n\nKubernetes\nGoogle Cloud\nHelm\nDocker\nrepo2docker\nJupyter\nLanguages we support: Python & R\n\nUnderstanding of our JupyterHub distribution, Zero to JupyterHub.\nFull access to the various cloud providers we use.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Continuous Integration and Deployment"
+      "Pre-requisites"
     ]
   },
   {
-    "objectID": "admins/cicd-github-actions.html#original-design-document",
-    "href": "admins/cicd-github-actions.html#original-design-document",
-    "title": "Continuous Integration and Deployment",
-    "section": "Original Design Document",
-    "text": "Original Design Document\nSlides describe the process in some more detail.",
+    "objectID": "admins/cluster-config.html",
+    "href": "admins/cluster-config.html",
+    "title": "Kubernetes Cluster Configuration",
+    "section": "",
+    "text": "We use kubernetes to run our JupyterHubs. It has a healthy open source community, managed offerings from multiple vendors & a fast pace of development. We can run easily on many different cloud providers with similar config by running on top of Kubernetes, so it is also our cloud agnostic abstraction layer.\nWe prefer using a managed Kubernetes service (such as Google Kubernetes Engine). This document lays out our preferred cluster configuration on various cloud providers.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Continuous Integration and Deployment"
+      "Kubernetes Cluster Configuration"
     ]
   },
   {
-    "objectID": "admins/structure.html",
-    "href": "admins/structure.html",
-    "title": "Repository Structure",
-    "section": "",
-    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
+    "objectID": "admins/cluster-config.html#google-kubernetes-engine",
+    "href": "admins/cluster-config.html#google-kubernetes-engine",
+    "title": "Kubernetes Cluster Configuration",
+    "section": "Google Kubernetes Engine",
+    "text": "Google Kubernetes Engine\nIn our experience, Google Kubernetes Engine (GKE) has been the most stable, performant, and reliable managed kubernetes service. We prefer running on this when possible.\nA gcloud container clusters create command can succinctly express the configuration of our kubernetes cluster. The following command represents the currently favored configuration.\nThis creates the GKE cluster. It may host one or more node pools:\ngcloud container clusters create \\\n     --enable-ip-alias \\\n     --enable-autoscaling \\\n     --max-nodes=20 --min-nodes=1 \\\n     --region=us-central1 --node-locations=us-central1-b \\\n     --image-type=cos_containerd \\\n     --disk-size=100 --disk-type=pd-balanced \\\n     --machine-type=n2-highmem-8 \\\n     --cluster-version latest \\\n     --no-enable-autoupgrade \\\n     --enable-network-policy \\\n     --create-subnetwork=\"\" \\\n     --tags=hub-cluster \\\n     --no-enable-insecure-kubelet-readonly-port \\\n     &lt;cluster-name&gt;\nHere's how we add a node pool to the cluster, beyond the default pool:\ngcloud container node-pools create  \\\n    --machine-type n2-highmem-8 \\\n    --num-nodes 1 \\\n    --enable-autoscaling \\\n    --min-nodes 1 --max-nodes 20 \\\n    --node-labels hub.jupyter.org/pool-name=&lt;pool-name&gt;-pool \\\n    --node-taints hub.jupyter.org_dedicated=user:NoSchedule \\\n    --region=us-central1 \\\n    --image-type=cos_containerd \\\n    --disk-size=200 --disk-type=pd-balanced \\\n    --no-enable-autoupgrade \\\n    --tags=hub-cluster \\\n    --cluster=&lt;cluster-name&gt; \\\n    --no-enable-insecure-kubelet-readonly-port \\\n    user-&lt;pool-name&gt;-&lt;yyyy&gt;-&lt;mm&gt;-&lt;dd&gt;\n\nIP Aliasing\n--enable-ip-alias creates VPC Native Clusters.\nThis becomes the default soon, and can be removed once it is the default.\n\n\nAutoscaling\nWe use the kubernetes cluster autoscaler to scale our node count up and down based on demand. It waits until the cluster is completely full before triggering creation of a new node - but that's ok, since new node creation time on GKE is pretty quick.\n--enable-autoscaling turns the cluster autoscaler on.\n--min-nodes sets the minimum number of nodes that will be maintained regardless of demand. This should ideally be 2, to give us some headroom for quick starts without requiring scale ups when the cluster is completely empty.\n--max-nodes sets the maximum number of nodes that the cluster autoscaler will use - this sets the maximum number of concurrent users we can support. This should be set to a reasonably high number, but not too high - to protect against runaway creation of hundreds of VMs that might drain all our credits due to accident or security breach.\n\n\nHighly available master\nThe kubernetes cluster's master nodes are managed by Google Cloud automatically. By default, it is deployed in a non-highly-available configuration - only one node. This means that upgrades and master configuration changes cause a few minutes of downtime for the kubernetes API, causing new user server starts / stops to fail.\nWe request our cluster masters to have highly available masters with --region parameter. This specifies the region where our 3 master nodes will be spread across in different zones. It costs us extra, but it is totally worth it.\nBy default, asking for highly available masters also asks for 3x the node count, spread across multiple zones. We don't want that, since all our user pods have in-memory state & can't be relocated. Specifying --node-locations explicitly lets us control how many and which zones the nodes are located in.\n\n\nRegion / Zone selection\nWe generally use the us-central1 region and a zone in it for our clusters -simply because that is where we have asked for quota.\nThere are regions closer to us, but latency hasn't really mattered so we are currently still in us-central1. There are also unsubstantiated rumors that us-central1 is their biggest data center and hence less likely to run out of quota.\n\n\nDisk Size\n--disk-size sets the size of the root disk on all the kubernetes nodes. This isn't used for any persistent storage such as user home directories. It is only used ephemerally for the operations of the cluster - primarily storing docker images and other temporary storage. We can make this larger if we use a large number of big images, or if we want our image pulls to be faster (since disk performance increases with disk size ).\n--disk-type=pd-standard gives us standard spinning disks, which are cheaper. We can also request SSDs instead with --disk-type=pd-ssd - it is much faster, but also much more expensive. We compromise with --disk-type=pd-balanced, faster than spinning disks but not as fast as ssds all the time.\n\n\nNode size\n--machine-type lets us select how much RAM and CPU each of our nodes have. For non-trivial hubs, we generally pick n2-highmem-8, with 64G of RAM and 8 cores. This is based on the following heuristics:\n\nStudents generally are memory limited than CPU limited. In fact, while we have a hard limit on memory use per-user pod, we do not have a CPU limit -it hasn't proven necessary.\nWe try overprovision clusters by about 2x - so we try to fit about 100G of total RAM use in a node with about 50G of RAM. This is accomplished by setting the memory request to be about half of the memory limit on user pods. This leads to massive cost savings, and works out ok.\nThere is a kubernetes limit on 100 pods per node.\n\nBased on these heuristics, n2-highmem-8 seems to be most bang for the buck currently. We should revisit this for every cluster creation.\n\n\nCluster version\nGKE automatically upgrades cluster masters, so there is generally no harm in being on the latest version available.\n\n\nNode autoupgrades\nWhen node autoupgrades are enabled, GKE will automatically try to upgrade our nodes whenever needed (our GKE version falling off the support window, security issues, etc). However, since we run stateful workloads, we disable this right now so we can do the upgrades manually.\n\n\nNetwork Policy\nKubernetes Network Policy lets you firewall internal access inside a kubernetes cluster, whitelisting only the flows you want. The JupyterHub chart we use supports setting up appropriate NetworkPolicy objects it needs, so we should turn it on for additional security depth. Note that any extra in-cluster services we run must have a NetworkPolicy set up for them to work reliabliy.\n\n\nSubnetwork\nWe put each cluster in its own subnetwork, since seems to be a limit on how many clusters you can create in the same network with IP aliasing on - you just run out of addresses. This also gives us some isolation - subnetworks are isolated by default and can't reach other resources. You must add firewall rules to provide access, including access to any manually run NFS servers. We add tags for this.\n\n\nTags\nTo help with firewalling, we add network tags to all our cluster nodes. This lets us add firewall rules to control traffic between subnetworks.\n\n\nCluster name\nWe try use a descriptive name as much as possible.",
     "crumbs": [
       "Architecture and contributing",
       "Architecture and Contribution Overview",
-      "Repository Structure"
+      "Kubernetes Cluster Configuration"
     ]
   },
   {
-    "objectID": "admins/structure.html#hub-configuration",
-    "href": "admins/structure.html#hub-configuration",
-    "title": "Repository Structure",
+    "objectID": "hubs/prob140.html",
+    "href": "hubs/prob140.html",
+    "title": "Prob 140",
     "section": "",
-    "text": "Each hub has a directory under deployments/ where all configuration for that particular hub is stored in a standard format. For example, all the configuration for the primary hub used on campus (datahub) is stored under deployments/datahub/.\n\n\nAll our JupyterHubs are based on Zero to JupyterHub (z2jh). z2jh uses configuration files in YAML format to specify exactly how the hub is configured. For example, it controls:\n\nRAM available per user\nAdmin user lists\nUser storage information\nPer-class & Per-user RAM overrides (when classes or individuals need more RAM)\nAuthentication secret keys\n\nThese files are split between files that are visible to everyone (config/) and files that are visible only to a select few illuminati (secrets/). To get access to the secret files, please consult the illuminati.\nFiles are further split into:\n\ncommon.yaml - Configuration common to staging and production instances of this hub. Most config should be here.\nstaging.yaml - Configuration specific to the staging instance of the hub.\nprod.yaml - Configuration specific to the production instance of the hub.\n\n\n\n\nWe use hubploy to deploy our hubs in a repeatable fashion. hubploy.yaml contains information required for hubploy to work - such as cluster name, region, provider, etc.\nVarious secret keys used to authenticate to cloud providers are kept under secrets/ and referred to from hubploy.yaml.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Architecture and Contribution Overview",
-      "Repository Structure"
-    ]
+    "text": "Prob 140 hub exists to isolate student files from the main hub. Some students in this course might be course staff in another course, or vice versa, so we isolate their home directories through this hub. It uses the same singleuser docker image as the main hub."
   },
   {
-    "objectID": "admins/structure.html#documentation",
-    "href": "admins/structure.html#documentation",
-    "title": "Repository Structure",
-    "section": "Documentation",
-    "text": "Documentation\nDocumentation is under the docs/ folder, and is generated with Quarto, where content is written in markdown. Documentation is published to https://docs.datahub.berkeley.edu/ via a GitHub Action workflow.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Architecture and Contribution Overview",
-      "Repository Structure"
-    ]
-  },
-  {
-    "objectID": "admins/structure.html#user-images",
-    "href": "admins/structure.html#user-images",
-    "title": "Repository Structure",
-    "section": "User Images",
-    "text": "User Images\nEach user image is managed in separate repositories in the berkeley-dsep-infra organization.\nThese repositories determine the environment provided to the user. For example, it controls:\n\nVersions of Python / R / Julia available\nLibraries installed, and which versions of those are installed\nSpecific config for Jupyter Notebook or IPython\n\nrepo2docker is used to build the actual user image, so you can use any of the supported config files to customize the image as you wish.",
-    "crumbs": [
-      "Architecture and contributing",
-      "Architecture and Contribution Overview",
-      "Repository Structure"
-    ]
-  },
-  {
-    "objectID": "admins/credentials.html",
-    "href": "admins/credentials.html",
-    "title": "Cloud Credentials",
+    "objectID": "hubs/stat159.html",
+    "href": "hubs/stat159.html",
+    "title": "Stat 159",
     "section": "",
-    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
-    "crumbs": [
-      "Architecture and contributing",
-      "Architecture and Contribution Overview",
-      "Cloud Credentials"
-    ]
+    "text": "stat159.datahub.berkeley.edu is a course-specific hub for Stat 159 as taught by Fernando Perez. It tends to include a lot of applications so that students can shift their local development workflows to the cloud."
   },
   {
-    "objectID": "admins/credentials.html#google-cloud",
-    "href": "admins/credentials.html#google-cloud",
-    "title": "Cloud Credentials",
-    "section": "",
-    "text": "Service accounts are identified by a service key, and help us grant specific access to an automated process. Our CI process needs two service accounts to operate:\n\nA gcr-readwrite key. This is used to build and push the user images. Based on the docs, this is assigned the role roles/storage.admin.\nA gke key. This is used to interact with the Google Kubernetes cluster. Roles roles/container.clusterViewer and roles/container.developer are granted to it.\n\nThese are currently copied into the secrets/ dir of every deployment, and explicitly referenced from hubploy.yaml in each deployment. They should be rotated every few months.\nYou can create service accounts through the web console or the commandline. Remember to not leave around copies of the private key elsewhere on your local computer!",
-    "crumbs": [
-      "Architecture and contributing",
-      "Architecture and Contribution Overview",
-      "Cloud Credentials"
-    ]
+    "objectID": "hubs/stat159.html#image",
+    "href": "hubs/stat159.html#image",
+    "title": "Stat 159",
+    "section": "Image",
+    "text": "Image\nNotably the image contains support for RTC. As of March 2023, this requires:\n- jupyter_server==2.2.1\n- jupyterlab==3.6.1\n- jupyterlab_server==2.19.0\n- git+https://&lt;github.com/berkeley-dsep-infra/tmpystore.git@84765e1&gt;"
   },
   {
-    "objectID": "hubs/r.html",
-    "href": "hubs/r.html",
-    "title": "R",
-    "section": "",
-    "text": "r.datahub.berkeley.edu uses the same user environment as the main datahub, however it launches RStudio by default instead of JupyterLab. As with the main datahub, people can use R or Python in either authoring environment."
+    "objectID": "hubs/stat159.html#configuration",
+    "href": "hubs/stat159.html#configuration",
+    "title": "Stat 159",
+    "section": "Configuration",
+    "text": "Configuration\nAlong with the dependencies, the singleuser server is modified to launch as\nsingleuser:\n     cmd:\n       - jupyterhub-singleuser\n       - --LabApp.collaborative=true\n       # https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/configuration.html#configuration\n       - --YDocExtension.ystore_class=tmpystore.TmpYStore\nThis turns on collaboration and moves some sqlite storage from home directories to /tmp/.\nIn addition to RTC, the hub also has configuration to enable shared accounts with impersonation. There are a handful of fabricated user accounts, e.g. collab-shared-1, collab-shared-2, etc. not affiliated with any real person in bCourses. There are also corresponding JupyterHub groups, shared-1, shared-2, etc. The instructors add real students to the hub groups, and some roles and scopes logic in the hub configuration gives students access to launch jupyter servers for the collaborative user accounts. The logic is in config/common.yaml while the current group affiliations are kept private in secrets.\nThis configuration is to encourage use of RTC, and to prevent one student from having too much access to another student's home directory. The fabricated (essentially service) accounts have initially empty home directories and exist solely to provide workspaces for the group. There is currently no archive or restore procedure in mind for these shared accounts.\nFor now, groups are defined in either the hub configuration or in the administrative /hub/admin user interface. In order to enable group assignment in this manner, we must set Authenticator.managed_groups to False. Ordinarily groups are provided by CanvasAuthenticator where this setting is True.\nEventually instructors will be able to define groups in bCourses so that CanvasAuthenticator can remain in charge of managing groups. This will be important for the extremely large courses. It will also be beneficial in that resource allocation can be performed more easily through group affiliations and group properties."
   },
   {
-    "objectID": "hubs/edx.html",
-    "href": "hubs/edx.html",
-    "title": "Data 8X",
+    "objectID": "hubs/data100.html",
+    "href": "hubs/data100.html",
+    "title": "Data 100",
     "section": "",
-    "text": "This hub is for the data8x course on EdX. It is open to use by anyone in the world, using LTI Authentication to provide login capability from inside EdX.\nIt runs on Google Cloud Platform in the data8x-scratch project. You can see all config for it under deployments/data8x."
+    "text": "This hub is for Data 100 which has a unique user and grading environment.\nData100 has shared folders between staff (professors and GSIs) and students. Course staff can see a shared and a shared-readwrite folder. Students can only see the shared folder, which is read-only. Anything that gets put in shared-readwrite is automatically viewable in shared, but as read-only files. The purpose of this is to be able to share large data files instead of having one per student."
   },
   {
-    "objectID": "hubs/data102.html",
-    "href": "hubs/data102.html",
-    "title": "Data 102",
+    "objectID": "hubs/datahub.html",
+    "href": "hubs/datahub.html",
+    "title": "DataHub",
     "section": "",
-    "text": "This hub is for Data 102 which has a unique user and grading environment.\nData 102 runs on Google Cloud Platform in the ucb-datahub-2018 project. You can see all config for it under deployments/data102."
+    "text": "datahub.berkeley.edu is the main JupyterHub for use at UC Berkeley. It is the largest and most active hub, and provides a standard computing environment to many foundational courses across diverse disciplines."
   },
   {
-    "objectID": "hubs/stat20.html",
-    "href": "hubs/stat20.html",
-    "title": "Stat 20",
-    "section": "",
-    "text": "stat20.datahub.berkeley.edu is a course-specific hub for Stat 20 as designed by Andrew Bray. It uses RStudio as the primary users interface and students can use Quarto to author documents and Shiny to create web applications."
-  },
-  {
-    "objectID": "hubs/shiny.html",
-    "href": "hubs/shiny.html",
-    "title": "Shiny",
-    "section": "",
-    "text": "shiny.datahub.berkeley.edu contains the Shiny application services and it launches by default instead of JupyterLab or RSutdio."
+    "objectID": "hubs/datahub.html#image",
+    "href": "hubs/datahub.html#image",
+    "title": "DataHub",
+    "section": "Image",
+    "text": "Image\nThe datahub image contains both Python and R environments. A user can create jupyter notebooks utilizing either Python or R, or can run RStudio using R or Python."
   },
   {
     "objectID": "hubs.html",
     "href": "hubs.html",
     "title": "JupyterHub Deployments",
     "section": "",
-    "text": "Data 100\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 102\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 8X\n\n\n\n\n\n\njupyterlab\n\n\nltiauthenticator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataHub\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNature\n\n\n\n\n\n\ncollege\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProb 140\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nrstudio\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\n\n\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 159\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nrtc\n\n\nshared-folders\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 20\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nrstudio\n\n\nshared-folders\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
+    "text": "Data 100\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 102\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\notter-grader\n\n\nshared-folders\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData 8X\n\n\n\n\n\n\njupyterlab\n\n\nltiauthenticator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDataHub\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNature\n\n\n\n\n\n\ncollege\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nr\n\n\nrstudio\n\n\nshiny\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProb 140\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nR\n\n\n\n\n\n\njupyterlab\n\n\nr\n\n\nrstudio\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 159\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nrtc\n\n\nshared-folders\n\n\nvscode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStat 20\n\n\n\n\n\n\ncourse\n\n\njupyterlab\n\n\nquarto\n\n\nrstudio\n\n\nshared-folders\n\n\nshiny\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Architecture and contributing",
       "JupyterHub Deployments"
