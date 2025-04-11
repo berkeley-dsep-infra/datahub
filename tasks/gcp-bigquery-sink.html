@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2017-02-09">
 
-<title>JupyterHub db manual overwrite</title>
+<title>Collecting Course Information from GCP Logs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,6 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../policy/create_policy.html" rel="next">
+<link href="../tasks/semester-start-end-tasks.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -149,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">JupyterHub db manual overwrite</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/gcp-bigquery-sink.html">Collecting Course Information from GCP Logs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -222,13 +223,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Common Administrator Tasks</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/documentation.html" class="sidebar-item-text sidebar-link">
@@ -374,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/gcp-bigquery-sink.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/gcp-bigquery-sink.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Collecting Course Information from GCP Logs</span></a>
   </div>
 </li>
@@ -431,42 +432,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#timeline" id="toc-timeline" class="nav-link" data-scroll-target="#timeline">Timeline</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#step-1-configure-logs-collection-using-a-gcp-sink" id="toc-step-1-configure-logs-collection-using-a-gcp-sink" class="nav-link" data-scroll-target="#step-1-configure-logs-collection-using-a-gcp-sink">Step 1: Configure Logs Collection Using a GCP Sink</a>
   <ul class="collapse">
-  <li><a href="#am" id="toc-am" class="nav-link" data-scroll-target="#am">2017-02-09 00:25 - 00:29 AM</a></li>
-  <li><a href="#am-1" id="toc-am-1" class="nav-link" data-scroll-target="#am-1">0:25:59 AM</a></li>
-  <li><a href="#am-2" id="toc-am-2" class="nav-link" data-scroll-target="#am-2">1:12 AM</a></li>
-  <li><a href="#am-3" id="toc-am-3" class="nav-link" data-scroll-target="#am-3">1:28 AM</a></li>
-  <li><a href="#am-4" id="toc-am-4" class="nav-link" data-scroll-target="#am-4">2:34 AM</a></li>
-  <li><a href="#am-5" id="toc-am-5" class="nav-link" data-scroll-target="#am-5">2:42 AM</a></li>
-  <li><a href="#am-6" id="toc-am-6" class="nav-link" data-scroll-target="#am-6">10:11 AM</a></li>
-  <li><a href="#am-7" id="toc-am-7" class="nav-link" data-scroll-target="#am-7">10:17 AM</a></li>
-  <li><a href="#am-8" id="toc-am-8" class="nav-link" data-scroll-target="#am-8">10:29 AM</a></li>
-  <li><a href="#am-9" id="toc-am-9" class="nav-link" data-scroll-target="#am-9">10:36 AM</a></li>
-  <li><a href="#am-10" id="toc-am-10" class="nav-link" data-scroll-target="#am-10">10:45 AM</a></li>
-  <li><a href="#am-11" id="toc-am-11" class="nav-link" data-scroll-target="#am-11">10:53 AM</a></li>
-  <li><a href="#am-12" id="toc-am-12" class="nav-link" data-scroll-target="#am-12">11:05 AM</a></li>
-  <li><a href="#am-13" id="toc-am-13" class="nav-link" data-scroll-target="#am-13">11:15 AM</a></li>
-  <li><a href="#am-14" id="toc-am-14" class="nav-link" data-scroll-target="#am-14">11:17 AM</a></li>
-  <li><a href="#am-15" id="toc-am-15" class="nav-link" data-scroll-target="#am-15">11:19 AM</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions:</a></li>
   </ul></li>
-  <li><a href="#action-items" id="toc-action-items" class="nav-link" data-scroll-target="#action-items">Action items</a>
-  <ul class="collapse">
-  <li><a href="#upstream-bug-reports-for-jupyterhub" id="toc-upstream-bug-reports-for-jupyterhub" class="nav-link" data-scroll-target="#upstream-bug-reports-for-jupyterhub">Upstream bug reports for JupyterHub</a></li>
-  <li><a href="#upstream-bug-reports-for-kubespawner" id="toc-upstream-bug-reports-for-kubespawner" class="nav-link" data-scroll-target="#upstream-bug-reports-for-kubespawner">Upstream bug reports for KubeSpawner</a></li>
-  <li><a href="#upstream-bug-reports-for-oauthenticator" id="toc-upstream-bug-reports-for-oauthenticator" class="nav-link" data-scroll-target="#upstream-bug-reports-for-oauthenticator">Upstream bug reports for OAuthenticator</a></li>
-  <li><a href="#datahub-deployment-changes" id="toc-datahub-deployment-changes" class="nav-link" data-scroll-target="#datahub-deployment-changes">DataHub deployment changes</a></li>
-  </ul></li>
+  <li><a href="#step-2-post-process-logs-from-bigquery-table" id="toc-step-2-post-process-logs-from-bigquery-table" class="nav-link" data-scroll-target="#step-2-post-process-logs-from-bigquery-table">Step 2: Post Process Logs from BigQuery Table</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/gcp-bigquery-sink.html">Collecting Course Information from GCP Logs</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">JupyterHub db manual overwrite</h1>
+<h1 class="title">Collecting Course Information from GCP Logs</h1>
 </div>
 
 
@@ -474,12 +454,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 9, 2017</p>
-    </div>
-  </div>
   
     
   </div>
@@ -489,135 +463,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>Datahub was reportedly down at 1am. Users attempting to log in to datahub were greeted with a proxy error. The hub pod was up but the log was full of sqlite errors. After the hub pod was deleted and a new one came up, students logging in to datahub found their notebooks were missing and their home directories were empty. Once this was fixed, some students still were being logged in as a different particular user. Finally, students with a ‘.’ in their username were still having issues after everyone else was fine. This was all fixed and an all-clear signalled at about 2017-02-09 11:35 AM.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>To collect course information using logs, we are using a workflow that uses GCP Logging sinks, BigQuery, and Jupyter notebooks. The workflow is outlined below in detail.</p>
+<hr>
 </section>
-<section id="timeline" class="level2">
-<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
-<section id="am" class="level3">
-<h3 class="anchored" data-anchor-id="am">2017-02-09 00:25 - 00:29 AM</h3>
-<p><strong>Attempting to debug some earlier 400 errors, Trying to set base_url and ip to something incorrect to see if it will cause a problem.</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> exec hub-deployment-something <span class="at">--namespace</span><span class="op">=</span>datahub <span class="at">-it</span> bash</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt-get</span> install sqlite3</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sqlite3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ATTACH <span class="st">'jupyterhub.sqlite AS my_db;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT name FROM my_db.sqlite_master WHERE type='</span>table<span class="st">';</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT * FROM servers;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT * FROM servers WHERE base_url LIKE '</span>%<span class="op">&lt;</span><span class="fu">USER</span><span class="op">&gt;</span>%<span class="st">';</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">UPDATE servers SET ip=</span><span class="ch">''</span><span class="st"> WHERE base_url LIKE '</span>%<span class="op">&lt;</span><span class="fu">USER</span><span class="op">&gt;</span>%<span class="st">';</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">UPDATE servers SET base_url='</span><span class="op">/&lt;</span>something<span class="op">-</span>wrong<span class="op">&gt;</span> <span class="kw">WHERE</span> base_url <span class="kw">LIKE</span> <span class="st">'%&lt;USER&gt;%'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><em>Ctrl+D</em> (exit back into bash shell)</p>
-<p><em>checked datahub.berkeley.edu, and nothing happened to the account</em> <em>saw that the sql db was not updated, attempt to run .save</em></p>
-<pre><code>```bash
-sqlite3</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>.save jupyterhub.sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>This replaced the db with an empty one, since ATTACH was not run beforehand.</strong></p>
-</section>
-<section id="am-1" class="level3">
-<h3 class="anchored" data-anchor-id="am-1">0:25:59 AM</h3>
-<p>Following exception shows up in hub logs:</p>
-<pre><code>sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: proxies [SQL: 'SELECT proxies.id AS proxies_id, proxies._public_server_id AS proxies__public_server_id, proxies._api_server_id AS proxies__api_server_id \nFROM proxies \nWHERE proxies.id = ?'] [parameters: (1,)]</code></pre>
-<p>This continues for hub table as well, since those two seem to be most frequently used.</p>
-</section>
-<section id="am-2" class="level3">
-<h3 class="anchored" data-anchor-id="am-2">1:12 AM</h3>
-<p>Sam’s roommate notices that he can log in to datahub but all his notebooks are gone. We notice that there are only ~50 users on the JHub admin panel when there used to be ~1000, so we believe that this is because the JHub sqlite user database got wiped/corrupted, then created an account for his roommate when he logged in, then created a new persistent disk since it lost track of his old one.</p>
-<p>This is confirmed soon after:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> kubectl <span class="at">--namespace</span><span class="op">=</span>datahub get pvc <span class="kw">|</span> <span class="fu">grep</span>  <span class="op">&lt;</span>username<span class="op">&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claim-</span><span class="op">&lt;</span>username<span class="op">&gt;</span>-257     Bound     pvc-3b405e13-ddb4-11e6-98ef-42010af000c3   10Gi       RWO           21d</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">claim-</span><span class="op">&lt;</span>username<span class="op">&gt;</span>-51      Bound     pvc-643dd900-eea7-11e6-a291-42010af000c3   10Gi       RWO           5m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="am-3" class="level3">
-<h3 class="anchored" data-anchor-id="am-3">1:28 AM</h3>
-<p>We shut down the hub pod by scaling the replicas to 0.</p>
-<p>We then begin recreating the JHub sqlite database by taking the Kubernetes PVCs and matching them back with the user ids. We could do this because the name of the PVC contains a sanitized form of the username and the userid.</p>
-<p>Here’s the notebook that was used to recreate the db from PVCs: <a href="pvc-sqlite.ipynb 2017-02-09-datahub-db-outage-pvc-recreate-script.ipynb">pvc-sqlite.ipynb 2017-02-09-datahub-db-outage-pvc-recreate-script.ipynb</a></p>
-</section>
-<section id="am-4" class="level3">
-<h3 class="anchored" data-anchor-id="am-4">2:34 AM</h3>
-<p>We recreate the sqlite3 database. Initially each user’s cookie_id was set to a dummy cookie value.</p>
-</section>
-<section id="am-5" class="level3">
-<h3 class="anchored" data-anchor-id="am-5">2:42 AM</h3>
-<p>User cookie_id values are changed to null rather than dummy value. The sqlite file is then attached back to datahub. The number of users shown on admin page is back to ~1000. The hub was up, and a spot check of starting other user’s servers seem to work. Some users get redirected to one particular user, but deleting and recreating the affected user seems to fix this.</p>
-</section>
-<section id="am-6" class="level3">
-<h3 class="anchored" data-anchor-id="am-6">10:11 AM</h3>
-<p>Attempt to log everyone out by changing cookie secret in hub pod at /srv/jupyterhub/jupyterhub_cookie_secret. Just one character near the end was changed, and pod restarted. No effect. One character at the beginning of secret was changed next, and restarted - this caused actual change, and logged all users out.</p>
-<p>People are still being redirected to one particular user’s account when they log in. More looking around required.</p>
-</section>
-<section id="am-7" class="level3">
-<h3 class="anchored" data-anchor-id="am-7">10:17 AM</h3>
-<p>John Denero advises students to use ds8.berkeley.edu right now. ds8.berkeley.edu promptly starts crashing because it does not have resources for a data8 level class.</p>
-</section>
-<section id="am-8" class="level3">
-<h3 class="anchored" data-anchor-id="am-8">10:29 AM</h3>
-<p>All user pods are deleted, which finally properly logs everyone out. However, people logging in are still all getting the same user’s pods.</p>
-</section>
-<section id="am-9" class="level3">
-<h3 class="anchored" data-anchor-id="am-9">10:36 AM</h3>
-<p>Notice that <code>cookie_id</code> column in the user database table is empty for many users, and the user that everyone is being logged in as has an empty <code>cookie_id</code> too and is the ‘first’ on the table when sorted in ascending by id. Looking at the JupyterHub code, <code>cookie_id</code> is always supposed to be set to a uuid, and never supposed to be empty. Setting <code>cookie_id</code> for users fixes their issues, and seems to spawn them into their own notebook.</p>
-</section>
-<section id="am-10" class="level3">
-<h3 class="anchored" data-anchor-id="am-10">10:45 AM</h3>
-<p>A script is run that populates <code>cookie_id</code> for all users, and restarts the hub to make sure there’s no stale cache in RAM. All user pods are deleted again. Most users are back online now! More users start testing and confirming things are working for them.</p>
-</section>
-<section id="am-11" class="level3">
-<h3 class="anchored" data-anchor-id="am-11">10:53 AM</h3>
-<p>User with a ‘.’ in their name reports that they’re getting an empty home directory. More investigation shows two users - one with a ‘.’ in their name that is newer, and one with a ‘-’ in their name instead of ‘.’ that is older. Hypothesis is that one of them is the ‘original’, but they’re all attaching to a new one that is empty. Looking at pvcs confirms this - there are two PVCs for users with a . in their name who have tried to log in, and they differ only by ids.</p>
-<p>There is some confusion about users ending up on prob140, because the data8.org homework link is changed to use that temporarily.</p>
-</section>
-<section id="am-12" class="level3">
-<h3 class="anchored" data-anchor-id="am-12">11:05 AM</h3>
-<p>Directly modifying the user table to rename the user with the ‘-’ in the name to have a ‘.’ seems to work for people.</p>
-</section>
-<section id="am-13" class="level3">
-<h3 class="anchored" data-anchor-id="am-13">11:15 AM</h3>
-<p>A script is run that modifies the database user table for all users with a ‘-’ in their name, and the ‘-’ is replaced with a ‘.’. The new users created with the ‘.’ in their name are dropped before this.</p>
-</section>
-<section id="am-14" class="level3">
-<h3 class="anchored" data-anchor-id="am-14">11:17 AM</h3>
-<p>All clear given for datahub.berkeley.edu</p>
-</section>
-<section id="am-15" class="level3">
-<h3 class="anchored" data-anchor-id="am-15">11:19 AM</h3>
-<p>Locally verified that running .save <filename> on sqlite3 will overwrite the db file without any confirmation, and is most likely cause of the issue. Conclusion Accidental overwriting of the sqlite file during routine debugging operation led all tables being deleted. Users were getting new user ids when they were logging in now, causing them to get new disks provisioned - and these disks were empty. During reconstruction of the db, cookie_id was missing for several users, causing them all to log in to one particular user’s notebook. Users with ‘.’ in their name were also set up slightly incorrectly - their pods have ‘-’ in them but the user name should have a ‘.’.</filename></p>
-</section>
-</section>
-<section id="action-items" class="level2">
-<h2 class="anchored" data-anchor-id="action-items">Action items</h2>
-<section id="upstream-bug-reports-for-jupyterhub" class="level3">
-<h3 class="anchored" data-anchor-id="upstream-bug-reports-for-jupyterhub">Upstream bug reports for JupyterHub</h3>
+<section id="step-1-configure-logs-collection-using-a-gcp-sink" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-configure-logs-collection-using-a-gcp-sink">Step 1: Configure Logs Collection Using a GCP Sink</h2>
+<section id="instructions" class="level3">
+<h3 class="anchored" data-anchor-id="instructions">Instructions:</h3>
 <ol type="1">
-<li>JupyterHub only uses a certain length of the cookie secret, and discards the rest. This causes confusion when trying to change it to log people out. <a href="https://github.com/jupyterhub/jupyterhub/issues/986">Issue</a></li>
-<li>The cookie_id column in the users table should have UNIQUE and NOT NULL constraints. <a href="https://github.com/jupyterhub/jupyterhub/issues/985">Issue</a></li>
+<li><strong>Access Logs Router</strong>:
+<ul>
+<li>Navigate to the Google Cloud Console.</li>
+<li>Go to “Logging” &gt; “Logs Router”.</li>
+</ul></li>
+<li><strong>Create a New Sink</strong>:
+<ul>
+<li>Provide a sink name, e.g., <code>Datahub-Semester-Year</code> (replace “Semester-Year” with the relevant term, e.g., “Fall-24”).</li>
+<li>Add a descriptive note for the sink.</li>
+</ul></li>
+<li><strong>Specify Sink Destination</strong>:
+<ul>
+<li>Set destination service as “BigQuery dataset”.</li>
+<li>Create a new BigQuery dataset and assign a “Dataset ID”:<br>
+<code>SinkName_SemesterYear</code> (e.g., <code>datahub_fall2024</code>).</li>
+</ul></li>
+<li><strong>Configure Log Filters</strong>:
+<ul>
+<li>Input filters to ensure only relevant logs are routed. Example configuration for Fall 2024:</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">timestamp</span> <span class="op">&gt;=</span> <span class="ot">"2024-08-21T00:00:00Z"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="dt">timestamp</span> <span class="op">&lt;=</span> <span class="ot">"2024-12-20T23:59:59Z"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> logName<span class="op">=</span><span class="ot">"projects/ucb-datahub-2018/logs/stderr"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="kw">resource</span>.<span class="kw">type</span><span class="op">=</span><span class="ot">"k8s_container"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> <span class="kw">resource</span>.labels.cluster_name<span class="op">=</span><span class="ot">""</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> (</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  textPayload : <span class="ot">"302 GET /hub/user-redirect/git-sync?"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> textPayload : <span class="ot">"302 GET /hub/user-redirect/git-pull?"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">OR</span> textPayload : <span class="ot">"302 GET /hub/user-redirect/interact?"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="5" type="1">
+<li><strong>Confirmation</strong>:
+<ul>
+<li>Create Sink and you should get a confirmation that the sink is successfully created. You should also be able to see the bigquery dataset when you access Big Query service.</li>
+</ul></li>
 </ol>
 </section>
-<section id="upstream-bug-reports-for-kubespawner" class="level3">
-<h3 class="anchored" data-anchor-id="upstream-bug-reports-for-kubespawner">Upstream bug reports for KubeSpawner</h3>
-<ol type="1">
-<li>Support using username hashes in PVC and Pod Names rather than user ids, so that pod and PVC names remain constant even when DB is deleted. <a href="https://github.com/jupyterhub/kubespawner/issues/21">Issue</a></li>
-</ol>
 </section>
-<section id="upstream-bug-reports-for-oauthenticator" class="level3">
-<h3 class="anchored" data-anchor-id="upstream-bug-reports-for-oauthenticator">Upstream bug reports for OAuthenticator</h3>
+<section id="step-2-post-process-logs-from-bigquery-table" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-post-process-logs-from-bigquery-table">Step 2: Post Process Logs from BigQuery Table</h2>
 <ol type="1">
-<li>Support setting id of user in user table to be same as ‘id’ provided by Google authenticator, thus providing a stable userid regardless of when the user first logged in. <a href="https://github.com/jupyterhub/oauthenticator/issues/65">Issue</a></li>
+<li><p><strong>Create Service Account</strong>: Create a Service Account in GCP and download the JSON key to authenticate BigQuery access.</p></li>
+<li><p><strong>Launch Jupyter Notebook</strong>: Open the Jupyter Notebook provided in the <a href="https://github.com/berkeley-dsep-infra/datahub-usage-analysis/blob/main/notebooks/nbgitpuller_processing_visualization.ipynb"><code>datahub-usage-analysis</code> repository</a>.</p></li>
+<li><p><strong>Update Latest BigQuery Table</strong>: Update the notebook to use the newly created BigQuery table. Example query from Summer 24:</p></li>
 </ol>
-</section>
-<section id="datahub-deployment-changes" class="level3">
-<h3 class="anchored" data-anchor-id="datahub-deployment-changes">DataHub deployment changes</h3>
-<ol type="1">
-<li>Switch to using Google Cloud SQL, which provides hosted and managed MySQL database</li>
-<li>Perform regular and tested backups of the database</li>
-<li>Start writing an operational FAQ for things to do and not do</li>
-<li>Setup better monitoring and paging systems</li>
-<li>Document escalation procedures explicitly</li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">query</span> <span class="op">=</span> <span class="ot">"""</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> `ucb<span class="op">-</span>datahub<span class="op">-</span><span class="fl">2018.</span>datahub_su24.stderr_<span class="op">*</span>`</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="4" type="1">
+<li><strong>Collect Data</strong>: Execute the notebook to process and visualize the collected log data, generating insights related to course using DataHub during a specific timeframe.</li>
 </ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1038,6 +948,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../tasks/semester-start-end-tasks.html" class="pagination-link" aria-label="DataHub Semester Start and End Tasks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">DataHub Semester Start and End Tasks</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../policy/create_policy.html" class="pagination-link" aria-label="Process to publish policy proposals">
+        <span class="nav-page-text">Process to publish policy proposals</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
