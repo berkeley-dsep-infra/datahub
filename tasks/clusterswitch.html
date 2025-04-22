@@ -508,6 +508,7 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> https://github.com/cert-manager/cert-manager/releases/download/<span class="va">${cert</span><span class="op">-</span>manager-version<span class="va">}</span>/cert-manager.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Change the corresponding entry in <code>support/requirements.yaml</code> to <code>$cert-manager-version</code> and commit the changes (do not push).</p></li>
 </ol>
+<p>If you experience errors with certs being issued, this page has some really useful basic troubleshooting steps that likely will uncover most problems: <a href="https://cert-manager.io/docs/troubleshooting/acme/" class="uri">https://cert-manager.io/docs/troubleshooting/acme/</a></p>
 </section>
 <section id="create-the-node-placeholder-k8s-namespace" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-node-placeholder-k8s-namespace">Create the node-placeholder k8s namespace</h2>
