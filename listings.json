@@ -1,13 +1,16 @@
 [
   {
-    "listing": "/admins/index.html",
+    "listing": "/hubs.html",
     "items": [
-      "/admins/pre-reqs.html",
-      "/admins/structure.html",
-      "/admins/cicd-github-actions.html",
-      "/admins/cluster-config.html",
-      "/admins/credentials.html",
-      "/admins/storage.html"
+      "/hubs/data100.html",
+      "/hubs/data102.html",
+      "/hubs/edx.html",
+      "/hubs/datahub.html",
+      "/hubs/nature.html",
+      "/hubs/prob140.html",
+      "/hubs/r.html",
+      "/hubs/stat159.html",
+      "/hubs/stat20.html"
     ]
   },
   {
@@ -35,17 +38,14 @@
     ]
   },
   {
-    "listing": "/hubs.html",
+    "listing": "/admins/index.html",
     "items": [
-      "/hubs/data100.html",
-      "/hubs/data102.html",
-      "/hubs/edx.html",
-      "/hubs/datahub.html",
-      "/hubs/nature.html",
-      "/hubs/prob140.html",
-      "/hubs/r.html",
-      "/hubs/stat159.html",
-      "/hubs/stat20.html"
+      "/admins/pre-reqs.html",
+      "/admins/structure.html",
+      "/admins/cicd-github-actions.html",
+      "/admins/cluster-config.html",
+      "/admins/credentials.html",
+      "/admins/storage.html"
     ]
   }
 ]
