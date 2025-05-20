@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Update the Image</title>
+<title>Syncing JupyterHub Users to CalGroups (Grouper)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +20,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../tasks/user-images/new-packages.html" rel="next">
-<link href="../../tasks/user-images/new-image.html" rel="prev">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f6f35c75a6b65f895174de919236d394.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../policy/create_policy.html" rel="next">
+<link href="../tasks/gcp-bigquery-sink.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f6f35c75a6b65f895174de919236d394.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,10 +115,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../datahub.svg" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../datahub.svg" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DataHub</span>
     </a>
   </div>
@@ -94,15 +129,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../admins/pre-reqs.html" aria-current="page"> 
+    <a class="nav-link active" href="../admins/pre-reqs.html" aria-current="page"> 
 <span class="menu-text">Architecture and contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tasks/documentation.html"> 
+    <a class="nav-link" href="../tasks/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../policy/create_policy.html"> 
+    <a class="nav-link" href="../policy/create_policy.html"> 
 <span class="menu-text">Policy</span></a>
   </li>  
 </ul>
@@ -117,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/new-image.html">User Images</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/update-image.html">Update the Image</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/grouper-sync.html">Syncing JupyterHub Users to CalGroups (Grouper)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -131,13 +166,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
@@ -152,37 +187,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
+  <a href="../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-requisites</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../admins/structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Repository Structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
+  <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Integration and Deployment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kubernetes Cluster Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/credentials.html" class="sidebar-item-text sidebar-link">
+  <a href="../admins/credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Credentials</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../admins/storage.html" class="sidebar-item-text sidebar-link">
+  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User home directory storage</span></a>
   </div>
 </li>
@@ -199,82 +234,82 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/documentation.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/dns.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/dns.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update DNS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/core-pool.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/core-pool.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/new-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/new-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Hub Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">User Images</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/new-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/user-images/new-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Single User Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/update-image.html" class="sidebar-item-text sidebar-link active">
+  <a href="../tasks/user-images/update-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update the Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/new-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/user-images/new-packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Testing and Upgrading New Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/repo2docker-local.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/user-images/repo2docker-local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Test User Images Locally</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/user-images/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Managing multiple user image repos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/transition-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/user-images/transition-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/user-images/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/user-images/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
@@ -282,73 +317,73 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/course-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/course-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/calendar-scaler.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/calendar-scaler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calendar Node Pool Autoscaler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prometheus and Grafana</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/remove-users-orm.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/remove-users-orm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub ORM Maintenance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/delete-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/delete-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Delete or spin down a Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/clusterswitch.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/clusterswitch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Switching over a hub to a new cluster</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/github-token.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/github-token.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create Finely Grained Access Token</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Google Sheets from DataHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/cheatsheet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operations Cheatsheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/semester-start-end-tasks.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/semester-start-end-tasks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DataHub Semester Start and End Tasks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/gcp-bigquery-sink.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/gcp-bigquery-sink.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Collecting Course Information from GCP Logs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tasks/grouper-sync.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/grouper-sync.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Syncing JupyterHub Users to CalGroups (Grouper)</span></a>
   </div>
 </li>
@@ -365,25 +400,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../policy/create_policy.html" class="sidebar-item-text sidebar-link">
+  <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Process to publish policy proposals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for creating a new hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for deploying to the main Datahub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../policy/principles.html" class="sidebar-item-text sidebar-link">
+  <a href="../policy/principles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Principles to be considered while creating new policies</span></a>
   </div>
 </li>
@@ -391,7 +426,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../incidents/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Incident Reports</span></a>
   </div>
 </li>
@@ -400,15 +435,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#syncing-jupyterhub-users-to-calgroups-grouper" id="toc-syncing-jupyterhub-users-to-calgroups-grouper" class="nav-link active" data-scroll-target="#syncing-jupyterhub-users-to-calgroups-grouper">Syncing JupyterHub Users to CalGroups (Grouper)</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#configuration-for-hub-admins" id="toc-configuration-for-hub-admins" class="nav-link" data-scroll-target="#configuration-for-hub-admins">Configuration for Hub Admins</a>
+  <ul class="collapse">
+  <li><a href="#required-configuration-variables" id="toc-required-configuration-variables" class="nav-link" data-scroll-target="#required-configuration-variables">Required Configuration Variables</a></li>
+  <li><a href="#required-jupyterhub-role-and-scopes" id="toc-required-jupyterhub-role-and-scopes" class="nav-link" data-scroll-target="#required-jupyterhub-role-and-scopes">Required JupyterHub Role and Scopes</a></li>
+  </ul></li>
+  <li><a href="#how-and-when-the-script-runs" id="toc-how-and-when-the-script-runs" class="nav-link" data-scroll-target="#how-and-when-the-script-runs">How and When the Script Runs</a></li>
+  <li><a href="#security-and-secrets" id="toc-security-and-secrets" class="nav-link" data-scroll-target="#security-and-secrets">Security and Secrets</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/new-image.html">User Images</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/update-image.html">Update the Image</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/grouper-sync.html">Syncing JupyterHub Users to CalGroups (Grouper)</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Update the Image</h1>
+<h1 class="title">Syncing JupyterHub Users to CalGroups (Grouper)</h1>
 </div>
 
 
@@ -425,20 +478,102 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Updating a user image involves forking the image’s git repository, making changes in your fork, and then making a pull request to the original repository. Here is the general outline:</p>
-<ol type="1">
-<li>Set up your git and development environment by following <a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/CONTRIBUTING.md">the instructions</a>.</li>
-<li>Fork the image repository.</li>
-<li>Create a new branch for this PR.</li>
-<li>Make a change in your fork of the image repo and commit it. This may involve modifying <a href="https://repo2docker.readthedocs.io/en/latest/configuration/index.html">repo2docker’s configuration files</a>. We typically prefer using <code>conda</code> packages, and <code>pip</code> only if necessary. Please pin to a specific version (no wildards, etc). Note that package versions for <code>conda</code> are specified using <code>=</code>, while in <code>pip</code> they are specified using <code>==</code>.</li>
-<li><a href="../../tasks/user-images/repo2docker-local.html">Test the changes locally</a> using <code>repo2docker</code>.</li>
-<li>Create a <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull request</a> to the repo in <code>berkeley-dsep-infra</code>. This will trigger a Github Action workflow that will test to see if the image builds successfully.</li>
-<li>If the build succeeds, someone with sufficient access (DataHub staff, or course staff with elevated privileges) can merge the PR. This will trigger another workflow that will build and push the image to the image registry. You can check on the progress of this workflow in your image repo’s <code>Actions</code> tab.</li>
-<li>When that process succeeds, another PR will be created for you in the berkeley-dsep-infra/datahub repo. This will configure the infrastructure to deploy the image’s new tag.</li>
-<li>Once the PR is reviewed and merged, a GitHub Action workflow will deploy the new image to the staging instance of the hub. You can watch the progress <a href="https://github.com/berkeley-dsep-infra/datahub/actions/workflows/deploy-hubs.yaml">here</a>.</li>
-</ol>
+<section id="syncing-jupyterhub-users-to-calgroups-grouper" class="level1">
+<h1>Syncing JupyterHub Users to CalGroups (Grouper)</h1>
+<p>This document describes how to configure and operate the <a href="https://github.com/berkeley-dsep-infra/jupyterhub_grouper_sync/">jupyterhub_grouper_sync</a> service, which synchronizes lists of users who have logged into our JupyterHubs into a campus Grouper instance (CalGroups).</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The <code>jupyterhub_grouper_sync</code> service is a JupyterHub-managed service that periodically syncs the list of users from a JupyterHub instance to a specified Grouper group. This is useful for maintaining up-to-date group membership in CalGroups based on actual hub logins.</p>
+</section>
+<section id="configuration-for-hub-admins" class="level2">
+<h2 class="anchored" data-anchor-id="configuration-for-hub-admins">Configuration for Hub Admins</h2>
+<p>The service is configured via traitlets, and can be set up using either command-line arguments or environment variables. The recommended approach is to configure it as a JupyterHub service in your hub’s configuration (e.g., in your <code>hubploy.yaml</code> or <code>config.yaml</code>), and to provide secrets via environment variables.</p>
+<section id="required-configuration-variables" class="level3">
+<h3 class="anchored" data-anchor-id="required-configuration-variables">Required Configuration Variables</h3>
+<p>You must specify the following configuration variables for the sync service:</p>
+<ul>
+<li><code>JUPYTERHUB_API_URL</code>: The URL of the JupyterHub API (e.g., <code>http://localhost:8081/hub/api</code>).</li>
+<li><code>JUPYTERHUB_API_TOKEN</code>: API token for authenticating with the JupyterHub API. This should be provided as a secret.</li>
+<li><code>GROUPER_BASE_URL</code>: The base URL of the Grouper REST API (e.g., <code>https://calgroups.berkeley.edu/gws/servicesRest/json/v2_2_100</code>).</li>
+<li><code>GROUPER_USER</code>: Username for authenticating with Grouper (service account).</li>
+<li><code>GROUPER_PASSWORD</code>: Password for Grouper authentication (should be stored as a secret).</li>
+<li><code>GROUPER_ID_PATH</code>: The Grouper group path to sync with (e.g., <code>edu:berkeley:app:datahub:datahub-users</code>).</li>
+</ul>
+<p>These can be set as environment variables in your hub deployment’s secrets file (e.g., <code>secrets.yaml</code>).</p>
+<section id="example-in-a-jupyterhub-service-definition" class="level4">
+<h4 class="anchored" data-anchor-id="example-in-a-jupyterhub-service-definition">Example (in a JupyterHub service definition)</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>c.JupyterHub.services <span class="op">=</span> [</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'name'</span>: <span class="st">"grouper-sync"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'command'</span>: [<span class="st">"grouper-sync"</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'environment'</span>: {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">'JUPYTERHUB_API_URL'</span>: <span class="st">'http://localhost:8081/hub/api'</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GROUPER_BASE_URL'</span>: <span class="st">'https://calgroups.berkeley.edu/gws/servicesRest/json/v2_2_100'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GROUPER_USER'</span>: <span class="st">'&lt;grouper user&gt;'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GROUPER_PASSWORD'</span>: <span class="st">'&lt;grouper password&gt;'</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GROUPER_ID_PATH'</span>: <span class="st">'edu:berkeley:app:datahub:datahub-users'</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>JUPYTERHUB_API_TOKEN</code> should be provided securely, for example via a Kubernetes secret or your deployment’s secrets management system.</p>
+</section>
+</section>
+<section id="required-jupyterhub-role-and-scopes" class="level3">
+<h3 class="anchored" data-anchor-id="required-jupyterhub-role-and-scopes">Required JupyterHub Role and Scopes</h3>
+<p>The service account running the sync must have the following JupyterHub scopes:</p>
+<ul>
+<li><code>list:users</code></li>
+<li><code>read:users</code></li>
+<li><code>admin:auth_state</code></li>
+</ul>
+<p>Example role assignment:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>c.JupyterHub.load_roles <span class="op">=</span> [</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"name"</span>: <span class="st">"grouper-sync"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"scopes"</span>: [</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"list:users"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"read:users"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"admin:auth_state"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        ],</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"services"</span>: [<span class="st">"grouper-sync"</span>],</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="how-and-when-the-script-runs" class="level2">
+<h2 class="anchored" data-anchor-id="how-and-when-the-script-runs">How and When the Script Runs</h2>
+<p>The sync service runs as a long-lived process managed by JupyterHub. It performs an initial sync immediately on startup, and then continues to sync at a regular interval (default: every hour, configurable via the <code>sync_every</code> parameter in seconds).</p>
+<ul>
+<li><strong>Startup:</strong> The sync runs once immediately when the service starts.</li>
+<li><strong>Periodic Sync:</strong> The service then syncs every <code>sync_every</code> seconds (default: 3600 seconds = 1 hour).</li>
+<li><strong>Manual Run:</strong> You can also run the script manually if needed for testing or troubleshooting.</li>
+</ul>
+</section>
+<section id="security-and-secrets" class="level2">
+<h2 class="anchored" data-anchor-id="security-and-secrets">Security and Secrets</h2>
+<ul>
+<li><strong>Passwords and tokens</strong> should always be stored in your deployment’s secrets (never in version control).</li>
+<li>The Grouper service account should have only the minimum permissions required.</li>
+</ul>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li>Check the logs of the <code>grouper-sync</code> service for errors or warnings.</li>
+<li>Ensure all required environment variables and secrets are set.</li>
+<li>Verify that the JupyterHub service account has the correct scopes.</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://github.com/berkeley-dsep-infra/jupyterhub_grouper_sync/">jupyterhub_grouper_sync GitHub repository</a></li>
+<li><a href="https://calnetweb.berkeley.edu/calnet-technologists/calgroups">CalGroups (Grouper) documentation</a></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -842,13 +977,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../tasks/user-images/new-image.html" class="pagination-link" aria-label="Create a New Single User Image">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Create a New Single User Image</span>
+      <a href="../tasks/gcp-bigquery-sink.html" class="pagination-link" aria-label="Collecting Course Information from GCP Logs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Collecting Course Information from GCP Logs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../tasks/user-images/new-packages.html" class="pagination-link" aria-label="Testing and Upgrading New Packages">
-        <span class="nav-page-text">Testing and Upgrading New Packages</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../policy/create_policy.html" class="pagination-link" aria-label="Process to publish policy proposals">
+        <span class="nav-page-text">Process to publish policy proposals</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
