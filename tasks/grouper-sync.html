@@ -440,19 +440,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#syncing-jupyterhub-users-to-calgroups-grouper" id="toc-syncing-jupyterhub-users-to-calgroups-grouper" class="nav-link active" data-scroll-target="#syncing-jupyterhub-users-to-calgroups-grouper">Syncing JupyterHub Users to CalGroups (Grouper)</a>
-  <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#configuration-for-hub-admins" id="toc-configuration-for-hub-admins" class="nav-link" data-scroll-target="#configuration-for-hub-admins">Configuration for Hub Admins</a>
   <ul class="collapse">
   <li><a href="#required-configuration-variables" id="toc-required-configuration-variables" class="nav-link" data-scroll-target="#required-configuration-variables">Required Configuration Variables</a></li>
+  <li><a href="#example-in-a-jupyterhub-service-definition" id="toc-example-in-a-jupyterhub-service-definition" class="nav-link" data-scroll-target="#example-in-a-jupyterhub-service-definition">Example (in a JupyterHub service definition)</a></li>
   <li><a href="#required-jupyterhub-role-and-scopes" id="toc-required-jupyterhub-role-and-scopes" class="nav-link" data-scroll-target="#required-jupyterhub-role-and-scopes">Required JupyterHub Role and Scopes</a></li>
   </ul></li>
   <li><a href="#how-and-when-the-script-runs" id="toc-how-and-when-the-script-runs" class="nav-link" data-scroll-target="#how-and-when-the-script-runs">How and When the Script Runs</a></li>
   <li><a href="#security-and-secrets" id="toc-security-and-secrets" class="nav-link" data-scroll-target="#security-and-secrets">Security and Secrets</a></li>
+  <li><a href="#google-groups-provisioning" id="toc-google-groups-provisioning" class="nav-link" data-scroll-target="#google-groups-provisioning">Google Groups Provisioning</a></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -478,8 +477,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="syncing-jupyterhub-users-to-calgroups-grouper" class="level1">
-<h1>Syncing JupyterHub Users to CalGroups (Grouper)</h1>
 <p>This document describes how to configure and operate the <a href="https://github.com/berkeley-dsep-infra/jupyterhub_grouper_sync/">jupyterhub_grouper_sync</a> service, which synchronizes lists of users who have logged into our JupyterHubs into a campus Grouper instance (CalGroups).</p>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
@@ -500,8 +497,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>GROUPER_ID_PATH</code>: The Grouper group path to sync with (e.g., <code>edu:berkeley:app:datahub:datahub-users</code>).</li>
 </ul>
 <p>These can be set as environment variables in your hub deployment’s secrets file (e.g., <code>secrets.yaml</code>).</p>
-<section id="example-in-a-jupyterhub-service-definition" class="level4">
-<h4 class="anchored" data-anchor-id="example-in-a-jupyterhub-service-definition">Example (in a JupyterHub service definition)</h4>
+</section>
+<section id="example-in-a-jupyterhub-service-definition" class="level3">
+<h3 class="anchored" data-anchor-id="example-in-a-jupyterhub-service-definition">Example (in a JupyterHub service definition)</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>c.JupyterHub.services <span class="op">=</span> [</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'name'</span>: <span class="st">"grouper-sync"</span>,</span>
@@ -516,7 +514,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>JUPYTERHUB_API_TOKEN</code> should be provided securely, for example via a Kubernetes secret or your deployment’s secrets management system.</p>
-</section>
 </section>
 <section id="required-jupyterhub-role-and-scopes" class="level3">
 <h3 class="anchored" data-anchor-id="required-jupyterhub-role-and-scopes">Required JupyterHub Role and Scopes</h3>
@@ -556,6 +553,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The Grouper service account should have only the minimum permissions required.</li>
 </ul>
 </section>
+<section id="google-groups-provisioning" class="level2">
+<h2 class="anchored" data-anchor-id="google-groups-provisioning">Google Groups Provisioning</h2>
+<p>The Grouper groups are configured to provision to Google Groups. We manually configure the following settings on the Google Groups:</p>
+<ul>
+<li>General &gt; Who can post &gt; Group managers</li>
+<li>General &gt; Who can view members &gt; Group managers</li>
+<li>Member privacy &gt; Who can view member email addresses &gt; Group managers</li>
+</ul>
+<p>If a Google Group is ever deprovisioned and then reprovisioned, or if a new Google Group is provisioned, these settings must be applied again through the Google Groups <em>Group settings</em>.</p>
+</section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
 <ul>
@@ -572,7 +579,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
