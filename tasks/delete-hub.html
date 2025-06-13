@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f6f35c75a6b65f895174de919236d394.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-fae42fd99d8db54ba37cbc861bae79c0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -491,20 +491,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Comment out the hub’s image repo entry (if applicable) in <code>scripts/user-image-management/repos.txt</code></li>
 <li>Comment out GitHub label action for this hub in <code>.github/labeler.yml</code></li>
 <li>Comment hub entries out of <code>datahub/node-placeholder/values.yaml</code></li>
+<li>Disable gcloud alerts for the hub.</li>
+</ol>
+<pre><code>python3 create_alerts.py --disable_alerts --namespaces &lt;namespace&gt;
+</code></pre>
+<ol start="9" type="1">
 <li>Delete k8s namespace:</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete namespace <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-staging <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="9" type="1">
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete namespace <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-staging <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="10" type="1">
 <li>Delete k8s node pool:</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools delete <span class="op">&lt;</span>hubname<span class="op">&gt;</span> --project <span class="st">"ucb-datahub-2018"</span> <span class="at">--cluster</span> <span class="st">"spring-2024"</span> <span class="at">--region</span> <span class="st">"us-central1"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="10" type="1">
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools delete <span class="op">&lt;</span>hubname<span class="op">&gt;</span> --project <span class="st">"ucb-datahub-2018"</span> <span class="at">--cluster</span> <span class="st">"spring-2024"</span> <span class="at">--region</span> <span class="st">"us-central1"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="11" type="1">
 <li>Delete filestore</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances delete <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore <span class="at">--zone</span> <span class="st">"us-central1-b"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="11" type="1">
-<li>Delete PV: <code>kubectl get pv --all-namespaces|grep &lt;hubname&gt;</code> to get the PV names, and then <code>kubectl delete pv &lt;pv names&gt;</code></li>
-<li>All done.</li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances delete <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore <span class="at">--zone</span> <span class="st">"us-central1-b"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="12" type="1">
+<li><p>Delete PV: <code>kubectl get pv --all-namespaces|grep &lt;hubname&gt;</code> to get the PV names, and then <code>kubectl delete pv &lt;pv names&gt;</code></p></li>
+<li><p>All done.</p></li>
 </ol>
 </section>
 <section id="archive-user-image" class="level2">

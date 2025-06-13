@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f6f35c75a6b65f895174de919236d394.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-fae42fd99d8db54ba37cbc861bae79c0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -455,6 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-placeholder-node-pool" id="toc-create-placeholder-node-pool" class="nav-link" data-scroll-target="#create-placeholder-node-pool">Create placeholder node pool</a></li>
   <li><a href="#commit-and-deploy-to-staging" id="toc-commit-and-deploy-to-staging" class="nav-link" data-scroll-target="#commit-and-deploy-to-staging">Commit and deploy to <code>staging</code></a></li>
   <li><a href="#commit-and-deploy-to-prod" id="toc-commit-and-deploy-to-prod" class="nav-link" data-scroll-target="#commit-and-deploy-to-prod">Commit and deploy to <code>prod</code></a></li>
+  <li><a href="#create-gcloud-uptime-alerts-for-the-new-hub" id="toc-create-gcloud-uptime-alerts-for-the-new-hub" class="nav-link" data-scroll-target="#create-gcloud-uptime-alerts-for-the-new-hub">Create gcloud uptime alerts for the new hub</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -712,6 +713,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="commit-and-deploy-to-prod" class="level3">
 <h3 class="anchored" data-anchor-id="commit-and-deploy-to-prod">Commit and deploy to <code>prod</code></h3>
 <p>Make a PR from the <code>staging</code> branch to the <code>prod</code> branch. When this PR is merged, it’ll deploy the production hub. It might take a few minutes for HTTPS to work, but after that you can log into it at <a href="https://" class="uri">https://</a>&lt;hub_name&gt;.datahub.berkeley.edu. Test it out and make sure things work as you think they should.</p>
+</section>
+<section id="create-gcloud-uptime-alerts-for-the-new-hub" class="level3">
+<h3 class="anchored" data-anchor-id="create-gcloud-uptime-alerts-for-the-new-hub">Create gcloud uptime alerts for the new hub</h3>
+<p>Run the create_alerts.py script in https://github.com/berkeley-dsep-infra/datahub/tree/staging/scripts/hub_alerts</p>
+<pre><code>python3 create_alerts.py --create --namespaces &lt;namespace&gt;
+</code></pre>
 
 
 </section>
