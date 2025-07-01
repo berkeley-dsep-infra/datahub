@@ -65,6 +65,17 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
+      course-staff-1544818:
+        ## Course: Data8 Bcourses ID: 1544818 End Date: 08/25/2025 
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7232 for more details.
+        description: Enable course staff to view and access servers.
+        scopes:
+          - admin-ui
+          - list:users!group=course::1544818
+          - admin:servers!group=course::1544818
+          - access:servers!group=course::1544818
+        groups:
+          - course::1544818::group::Admins
 
       ## Template for enabling elevated privileges, Data 8, Semester/Year
       #course-staff-N:
