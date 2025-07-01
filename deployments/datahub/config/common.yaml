@@ -205,3 +205,8 @@ jupyterhub:
 #       subPath: _shared/<year-semester>/courses/<course_id>
 #       # Set readOnly to true to restrict write permissions for students.
 #       readOnly: true
+      course::1234567:
+        ## Course Name: Data123 Bcourses ID: 1234567 End Date: 08/30/2025
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7234 for details.
+        mem_limit: 4G
+        mem_guarantee: 4G
