@@ -57,3 +57,10 @@ jupyterhub:
       # Give them more resources as linux desktop is primary used here
       guarantee: 2G
       limit: 4G
+  custom:
+    group_profiles:
+      course::1244567:
+        ## Course Name: Test123 Bcourses ID: 1244567 End Date: 08/20/2025
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7249 for details.
+        mem_limit: 4G
+        mem_guarantee: 4G
