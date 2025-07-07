@@ -63,6 +63,18 @@ jupyterhub:
         groups:
           - course::1545078::enrollment_type::teacher
           - course::1545078::enrollment_type::ta
+      course-staff-1544584:
+        ## Course: PH142 - Introduction to Probability and Statistics in Biology and Public Health Bcourses ID: 1544584 End Date: 08/20/2025 
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7257 for more details.
+        description: Enable course staff to view and access servers.
+        scopes:
+          - admin-ui
+          - list:users!group=course::1544584
+          - admin:servers!group=course::1544584
+          - access:servers!group=course::1544584
+        groups:
+          - course::1544584::enrollment_type::teacher
+          - course::1544584::enrollment_type::ta
 
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
