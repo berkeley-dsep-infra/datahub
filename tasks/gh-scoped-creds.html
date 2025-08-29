@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Continuous Integration and Deployment</title>
+<title>gh-scoped-creds</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../admins/cluster-config.html" rel="next">
-<link href="../admins/structure.html" rel="prev">
+<link href="../policy/create_policy.html" rel="next">
+<link href="../tasks/grouper-sync.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -69,9 +104,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -120,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Architecture and Contribution Overview</a></li><li class="breadcrumb-item"><a href="../admins/cicd-github-actions.html">Continuous Integration and Deployment</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/gh-scoped-creds.html">gh-scoped-creds</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -146,13 +178,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Architecture and Contribution Overview</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
@@ -167,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link active">
+  <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Integration and Deployment</span></a>
   </div>
 </li>
@@ -193,13 +225,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Common Administrator Tasks</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/documentation.html" class="sidebar-item-text sidebar-link">
@@ -357,7 +389,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/gh-scoped-creds.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/gh-scoped-creds.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">gh-scoped-creds</span></a>
   </div>
 </li>
@@ -414,24 +446,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#github-actions-architecture" id="toc-github-actions-architecture" class="nav-link" data-scroll-target="#github-actions-architecture">Github Actions Architecture</a>
-  <ul class="collapse">
-  <li><a href="#secrets-and-variables" id="toc-secrets-and-variables" class="nav-link" data-scroll-target="#secrets-and-variables">Secrets and Variables</a></li>
-  <li><a href="#single-user-server-image-modification-workflow" id="toc-single-user-server-image-modification-workflow" class="nav-link" data-scroll-target="#single-user-server-image-modification-workflow">Single user server image modification workflow</a></li>
-  <li><a href="#updating-the-datahub-repository" id="toc-updating-the-datahub-repository" class="nav-link" data-scroll-target="#updating-the-datahub-repository">Updating the datahub repository</a></li>
-  <li><a href="#documentations-workflow" id="toc-documentations-workflow" class="nav-link" data-scroll-target="#documentations-workflow">Documentation’s Workflow</a></li>
-  </ul></li>
-  <li><a href="#original-design-document" id="toc-original-design-document" class="nav-link" data-scroll-target="#original-design-document">Original Design Document</a></li>
+  <li><a href="#github-application" id="toc-github-application" class="nav-link active" data-scroll-target="#github-application">GitHub Application</a></li>
+  <li><a href="#user-workflow" id="toc-user-workflow" class="nav-link" data-scroll-target="#user-workflow">User Workflow</a></li>
+  <li><a href="#considerations" id="toc-considerations" class="nav-link" data-scroll-target="#considerations">Considerations</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#admin-checklist" id="toc-admin-checklist" class="nav-link" data-scroll-target="#admin-checklist">Admin checklist</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../admins/pre-reqs.html">Architecture and Contribution Overview</a></li><li class="breadcrumb-item"><a href="../admins/cicd-github-actions.html">Continuous Integration and Deployment</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/gh-scoped-creds.html">gh-scoped-creds</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Continuous Integration and Deployment</h1>
+<h1 class="title">gh-scoped-creds</h1>
 </div>
 
 
@@ -448,188 +476,64 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>DataHub’s continuous integration and deployment system uses both <a href="https://github.com/features/actions">Github Actions</a> and <a href="https://docs.github.com/en/actions/writing-workflows">workflows</a>.</p>
-<p>These workflows are stored in the DataHub repo in the <a href="https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows">.github/workflows/</a> directory.</p>
-<p>The basic order of operations is as follows:</p>
-<ol type="1">
-<li>A pull request is created in the datahub repo.</li>
-<li>The labeler workflow applies labels based on the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">file type and/or location</a>.</li>
-<li>When the pull request is merged to <code>staging</code>, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.</li>
-<li>When the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).</li>
-</ol>
-<p>The hubs are deployed via <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a>, which is our custom wrapper for <code>gcloud</code>, <code>sops</code> and <code>helm</code>.</p>
-</section>
-<section id="github-actions-architecture" class="level2">
-<h2 class="anchored" data-anchor-id="github-actions-architecture">Github Actions Architecture</h2>
-<section id="secrets-and-variables" class="level3">
-<h3 class="anchored" data-anchor-id="secrets-and-variables">Secrets and Variables</h3>
-<p>All of these workflows depend on a few Actions secrets and variables, with some at the organization level, and others at the repository level.</p>
-<section id="organization-secrets-and-variables" class="level4">
-<h4 class="anchored" data-anchor-id="organization-secrets-and-variables">Organization secrets and variables</h4>
-<p><a href="https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions">GitHub Actions settings</a> contain all of the organizational secrets and variables.</p>
-<section id="organization-secrets" class="level5">
-<h5 class="anchored" data-anchor-id="organization-secrets">Organization Secrets</h5>
-<dl>
-<dt>DATAHUB_CREATE_PR</dt>
-<dd>
-This secret is a fine-grained personal <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">access token</a>, and has the following permissions defined:
-</dd>
-</dl>
+<p><a href="https://github.com/jupyterhub/gh-scoped-creds">gh-scoped-creds</a> is a tool that enables users to securely access github repositories without exposing personal credentials within their DataHub accounts. It works when one provides it with a GitHub app’s information, when the GitHub app is installed into a resource owner (such as a github account or organization), and when the app is configured with privileges on the resource owner’s git repositories.</p>
+<p>The tool walks the user through a browser authentication flow, saves temporary credentials to a path in <code>/tmp</code>, and then alters <code>~/.gitconfig</code> so that git knows it must use those credentials.</p>
+<section id="github-application" class="level2">
+<h2 class="anchored" data-anchor-id="github-application">GitHub Application</h2>
+<p>We create the GitHub applications within the https://github.com/berkeley-dsep-infra organization. View the list starting at the <a href="https://github.com/organizations/berkeley-dsep-infra/settings/profile">organization settings</a> &gt; Developer settings &gt; <a href="https://github.com/organizations/berkeley-dsep-infra/settings/apps">GitHub Apps</a>.</p>
+<p>Each application, often named of the form <em>{deployment} Berkeley DataHub access</em>, has the following parameters:</p>
 <ul>
-<li>Select repositories (only berkeley-dsep-infra/datahub)</li>
-<li>Repository permissions: Contents (read/write), Metadata (read only), Pull requests (read/write)</li>
+<li><em>Client ID</em>: dynamically generated</li>
+<li><em>Public link</em>: dynamically generated</li>
 </ul>
-<p>When adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This PAT has an lifetime of 366 days, and should be rotated at the beginning of every maintenance window.</p>
-</div>
-</div>
-<dl>
-<dt>GAR_SECRET_KEY and GAR_SECRET_KEY_EDX</dt>
-<dd>
-These secrets are for the GCP IAM roles for each GCP project given <code>roles/storage.admin</code> permissions. This allows us to push the built images to the Artifact Registry.
-</dd>
-</dl>
-<p>When adding a new image repository in the berkeley-dsep-infra org, you must edit this secret and manually add this repository to the access list.</p>
-</section>
-<section id="organization-variables" class="level5">
-<h5 class="anchored" data-anchor-id="organization-variables">Organization Variables</h5>
-<dl>
-<dt>IMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME</dt>
-<dd>
-These are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.
-</dd>
-</dl>
-<section id="datahub-repository-secrets" class="level6">
-<h6 class="anchored" data-anchor-id="datahub-repository-secrets">DataHub repository secrets</h6>
-<dl>
-<dt>GCP_PROJECT_ID</dt>
-<dd>
-This is the name of our GCP project.
-</dd>
-<dt>GKE_KEY</dt>
-<dd>
-This key is used in the workflows that deploy the <code>support</code> and <code>node-placeholder</code> namespaces. It’s attached to the <code>hubploy</code> service account, and has the assigned roles of <code>roles/container.clusterViewer</code> and <code>roles/container.developer</code>.
-</dd>
-<dt>SOPS_KEY</dt>
-<dd>
-This key is used to decrypt our secrets using <code>sops</code>, and is attached to the <code>sopsaccount</code> service account and provides KMS access.
-</dd>
-</dl>
-</section>
-</section>
-<section id="user-image-repository-variables" class="level5">
-<h5 class="anchored" data-anchor-id="user-image-repository-variables">User Image Repository Variables</h5>
-<p>Each image repository contains two variables, which are used to identify the name of the hub, and the path within the Artifact Registry that it’s published to.</p>
-<dl>
-<dt>HUB</dt>
-<dd>
-The name of the hub, natch! <code>datahub</code>, <code>data100</code>, etc.
-</dd>
-<dt>IMAGE</dt>
-<dd>
-The path within the artifact registry: <code>ucb-datahub-2018/user-images/&lt;hubname&gt;-user-image</code>
-</dd>
-</dl>
-</section>
-</section>
-</section>
-<section id="single-user-server-image-modification-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="single-user-server-image-modification-workflow">Single user server image modification workflow</h3>
-<p>Each hub’s user image is located in the berkeley-dsep-infra’s organization. When a pull request is submitted, there are two workflows that run:</p>
-<ol type="1">
-<li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/yaml-lint.yaml">YAML lint</a></li>
-<li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/build-test-image.yaml">Build and test the image</a></li>
-</ol>
-<p>When both tests pass, and the pull request is merged in to the <code>main</code> branch, a third and final workflow is run:</p>
-<ol start="3" type="1">
-<li><a href="https://github.com/berkeley-dsep-infra/hub-user-image-template/blob/main/.github/workflows/build-push-create-pr.yaml">Build push and create PR</a></li>
-</ol>
-<p>This builds the image again, and when successful pushes it to our Google Artifact Registry and creates a pull request in the datahub repository with the updated image tag for that hub’s deployment.</p>
-</section>
-<section id="updating-the-datahub-repository" class="level3">
-<h3 class="anchored" data-anchor-id="updating-the-datahub-repository">Updating the datahub repository</h3>
-<section id="single-user-server-image-tag-updates" class="level4">
-<h4 class="anchored" data-anchor-id="single-user-server-image-tag-updates">Single user server image tag updates</h4>
-<p>When a pull request is opened to update one or more image tags for deployments, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml">labeler</a> will apply the <code>hub: &lt;hubname&gt;</code> label upon creation. When this pull request is merged, the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-hubs.yaml">deploy-hubs workflow</a> is triggered.</p>
-<p>This workflow will then grab the labels from the merged pull request, see if any hubs need to be deployed and if so, execute a <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/scripts/determine-hub-deployments.py">python script</a> that checks the environment variables within that workflow for hubs, and emits a list of what’s to be deployed.</p>
-<p>That list is iterated over, and <a href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a> is used to deploy only the flagged hubs.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">%% State diagram documentation at
-%% https://mermaid.js.org/syntax/stateDiagram.html
-
-stateDiagram-v2
-    image_repo: github.com/berkeley-dsep-infra/hubname-user-image
-    user_repo: github.com/username/hubname-user-image
-    image_test_build: Image is built and tested
-    image_push_build: Image is built and pushed to registry
-    pr_created: A pull request is automatically&lt;br/&gt;created in the Datahub repo
-    deploy_to_staging: Hub is deployed to staging
-    contributor_tests: The contributor logs into the&lt;br/&gt;staging hub and tests the image.
-    deploy_to_prod: Hub is deployed to prod
-
-    image_repo --&gt; user_repo: Contributor forks the image repo.
-    user_repo --&gt; image_repo: Contributor creates a PR.
-    image_repo --&gt; image_test_build
-    image_test_build --&gt; image_push_build: Test build passes and Datahub staff merge pull request
-    image_push_build --&gt; pr_created
-    pr_created --&gt; deploy_to_staging: Datahub staff review and merge to staging
-    deploy_to_staging --&gt; contributor_tests
-    contributor_tests --&gt; deploy_to_prod: Datahub staff create a PR to merge to prod
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="support-and-node-placeholder-charts" class="level4">
-<h4 class="anchored" data-anchor-id="support-and-node-placeholder-charts">Support and node-placeholder charts</h4>
-<p>Each of these deployments has their own workflow, which only runs on pushes to <code>staging</code>:</p>
+<p>These can be provided as <code>GH_SCOPED_CREDS_CLIENT_ID</code> and <code>GH_SCOPED_CREDS_APP_URL</code> respectively in the deployment’s configuration in <code>singleuser.extraEnv</code>. If they are not specified as environment variables, the user must provide them interactively to <code>gh-scoped-creds</code>.</p>
+<p>Each application also has the following settings:</p>
 <ul>
-<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml">deploy-support.yaml</a></li>
-<li><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/deploy-support.yaml">deploy-node-placeholder.yaml</a></li>
+<li><em>Homepage URL</em>: the URL of the datahub instance</li>
+<li><em>Enable Device Flow</em>: enabled</li>
 </ul>
-<p>If the correct labels are found, it will use the <strong>GKE_KEY</strong> secret to run <code>helm upgrade</code> for the necessary deployments.</p>
 </section>
-<section id="miscellaneous-workflows" class="level4">
-<h4 class="anchored" data-anchor-id="miscellaneous-workflows">Miscellaneous workflows</h4>
-<p>There are also a couple of other workflows in the datahub repository:</p>
-<dl>
-<dt><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/prevent-prod-merges.yml">prevent-prod-merges.yml</a></dt>
-<dd>
-This workflow will only allow us to merge to <code>prod</code> from <code>staging</code>.
-</dd>
-<dt><a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml">quarto-docs.yml</a></dt>
-<dd>
-This builds, renders and pushes our docs to Github Pages.
-</dd>
-</dl>
+<section id="user-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="user-workflow">User Workflow</h2>
+<p>Users can initiate the process within python via</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gh_scoped_creds</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>ghscopedcreds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively they can run <code>gh-scoped-creds</code> from the command-line.</p>
+<p>They will be instructed to visit a github link and provide a code. They will then be prompted to give the GitHub application access to one or more repositories in the user’s own account or in an organization.</p>
 </section>
+<section id="considerations" class="level2">
+<h2 class="anchored" data-anchor-id="considerations">Considerations</h2>
+<p>While the tool’s modifications are preserved in <code>~/.gitconfig</code>, the temporary credentials are written to <code>/tmp/</code>. As a result, the user must perform the workflow after each time they start a new server. They do not need to modify the repository access each time however.</p>
 </section>
-<section id="documentations-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="documentations-workflow">Documentation’s Workflow</h3>
-<p>This documentation is also <a href="../tasks/documentation.html#action">deployed by GitHub Actions</a>.</p>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><p>“No code shown / device flow failed” Confirm the GitHub App has “Device flow” enabled in its settings and that the Client ID provided to users (or set in <code>singleuser.extraEnv</code>) matches the app.</p></li>
+<li><p>“Git still asks for password” Verify ~/.gitconfig was updated and the credential helper path points to the temporary credentials file.</p></li>
+<li><p>“Permission denied for repo” — Confirm the GitHub App was installed on the target account/org and granted access to the specific repository or organization. Review the app’s permissions in GitHub and re-install if needed.</p></li>
+<li><p>“Temporary credentials missing after restart” — Remind users that credentials are written to <code>/tmp</code> inside their server pod and are lost when the server is stopped. They must re-run the device flow after a server restart.</p></li>
+<li><p>“Wrong Client ID / App URL provided interactively” — If users enter values manually, ensure they copy the exact Client ID and Public link from the GitHub App settings (avoid adding extra whitespace or quotes).</p></li>
+</ul>
 </section>
-</section>
-<section id="original-design-document" class="level2">
-<h2 class="anchored" data-anchor-id="original-design-document">Original Design Document</h2>
-<p><a href="https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing">Slides</a> describe the process in some more detail.</p>
+<section id="admin-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="admin-checklist">Admin checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">A GitHub App exists with:</label>
+<ul>
+<li>Homepage URL set to the DataHub instance.</li>
+<li>Device Flow enabled.</li>
+<li>Installed into the account/org and into the repos that require access.</li>
+</ul></li>
+<li><label><input type="checkbox">Record the App’s Client ID and Public link (App URL).</label></li>
+<li><label><input type="checkbox">Add the values into <code>singleuser.extraEnv</code> in the deployment configuration. Example entry:</label></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">singleuser</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">extraEnv</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">GH_SCOPED_CREDS_CLIENT_ID</span><span class="kw">:</span><span class="at"> </span><span class="st">"&lt;your-client-id&gt;"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">GH_SCOPED_CREDS_APP_URL</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://github.com/apps/&lt;your-app-slug&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox">Ensure singleuser container images include <code>git</code> and <code>gh-scoped-creds</code>.</label></li>
+</ul>
 
 
 </section>
@@ -1036,13 +940,13 @@ This builds, renders and pushes our docs to Github Pages.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../admins/structure.html" class="pagination-link" aria-label="Repository Structure">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Repository Structure</span>
+      <a href="../tasks/grouper-sync.html" class="pagination-link" aria-label="Syncing JupyterHub Users to CalGroups (Grouper)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Syncing JupyterHub Users to CalGroups (Grouper)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../admins/cluster-config.html" class="pagination-link" aria-label="Kubernetes Cluster Configuration">
-        <span class="nav-page-text">Kubernetes Cluster Configuration</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../policy/create_policy.html" class="pagination-link" aria-label="Process to publish policy proposals">
+        <span class="nav-page-text">Process to publish policy proposals</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
