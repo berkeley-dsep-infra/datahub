@@ -163,3 +163,10 @@ jupyterhub:
 #           subPath: _shared/2025-spring/courses/1541798
 #           # Set to true to restrict write access for students.
 #           readOnly: true
+  custom:
+    group_profiles:
+      course::1547854:
+        ## Course Name: Data C100 Bcourses ID: 1547854 End Date: 10/01/2025
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7521 for details.
+        mem_limit: 6G
+        mem_guarantee: 6G
