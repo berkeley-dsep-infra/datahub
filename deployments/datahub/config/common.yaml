@@ -281,3 +281,13 @@ jupyterhub:
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7554 for details.
         mem_limit: 4G
         mem_guarantee: 4G
+      course::https:
+        ## Course Name: Descriptive and Predictive Data Mining Bcourses ID: https End Date: 10/22/2025
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7563 for details.
+        mem_limit: 2G
+        mem_guarantee: 2G
+      course:://bcourses.berkeley.edu/courses/1546243:
+        ## Course Name: Descriptive and Predictive Data Mining Bcourses ID: //bcourses.berkeley.edu/courses/1546243 End Date: 10/22/2025
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7563 for details.
+        mem_limit: 2G
+        mem_guarantee: 2G
