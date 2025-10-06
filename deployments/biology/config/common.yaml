@@ -94,6 +94,9 @@ jupyterhub:
         mem_limit: 5G
         mem_guarantee: 5G
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/biology-user-image
+      tag: ee6766b2c326
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"

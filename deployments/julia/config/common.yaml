@@ -40,6 +40,9 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/julia-user-image
+      tag: dab9e7fae450
     extraFiles:
       # DH-305
       remove-exporters:

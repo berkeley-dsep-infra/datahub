@@ -64,6 +64,9 @@ jupyterhub:
       #    - course::bcoursesid::enrollment_type::ta
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/astro-user-image
+      tag: 039dbd8814b1
     extraFiles:
       # DH-305
       remove-exporters:

@@ -48,6 +48,9 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image
+      tag: 4efb67ce829b
     extraFiles:
       jupyter_server_config.json:
         mountPath: /usr/local/etc/jupyter/jupyter_server_config.json

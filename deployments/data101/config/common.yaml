@@ -130,6 +130,9 @@ jupyterhub:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data101-user-image
+      tag: 0c6d506093be
     extraFiles:
       # DH-305
       remove-exporters:

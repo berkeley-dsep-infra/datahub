@@ -77,6 +77,9 @@ jupyterhub:
     #        }
     #      )
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat159-user-image
+      tag: 2b87f5645c31
     defaultUrl: "/lab"
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac

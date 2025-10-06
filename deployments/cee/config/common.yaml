@@ -37,6 +37,9 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/cee-user-image
+      tag: 48a1d1b40af5
     extraFiles:
       # DH-216
       remove-exporters:

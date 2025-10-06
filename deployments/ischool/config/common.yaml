@@ -65,6 +65,9 @@ jupyterhub:
           - course::1524699::group::ischool-admins
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/ischool-user-image
+      tag: 128a41884d25
     extraFiles:
       # DH-305
       remove-exporters:

@@ -60,6 +60,9 @@ jupyterhub:
             subPath: _shared
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
+      tag: 347530ccab48
     extraFiles:
       # DH-544
       jupyter-lab-overrides:

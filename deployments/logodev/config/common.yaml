@@ -42,6 +42,9 @@ jupyterhub:
         c.JupyterHub.logo_file = '/srv/logos/dlab-logo-notebook.png'
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/logodev-user-image
+      tag: 729fb9dc9373
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"

@@ -50,6 +50,9 @@ jupyterhub:
           - course::1524699::group::all-admins
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
+      tag: f2a50e230a12
     extraFiles:
       # DH-544
       jupyter-lab-overrides:

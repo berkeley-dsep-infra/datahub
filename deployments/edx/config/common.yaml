@@ -49,6 +49,9 @@ jupyterhub:
           - aa0906461cd1bc30a2b9a362aa624e4f # kseniya usovich 88.2EX
           - 992f93f38524eec75eac7ad7103abcbe # kseniya usovich 88.3EX
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/data8x-scratch/user-images/edx-user-image
+      tag: c7d4b6bcc251
     networkPolicy:
       # We only allow outbound HTTP, HTTPS and DNS access
       enabled: true

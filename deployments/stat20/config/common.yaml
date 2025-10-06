@@ -74,6 +74,9 @@ jupyterhub:
           - course::1548266::enrollment_type::ta
 
   singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat20-user-image
+      tag: cabaa849a006
     extraFiles:
       # DH-216
       remove-exporters:
