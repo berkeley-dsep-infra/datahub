@@ -306,3 +306,203 @@ jupyterhub:
             mountPath: /home/jovyan/_shared/bcourses-1551764-readonly
             subPath: _shared/2026-spring/courses/1551764
             readOnly: true
+      course::1552431::enrollment_type::teacher:
+      ## Course Name: bcourses-1552431 Bcourses ID: 1552431 End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-1552431-readwrite
+            subPath: _shared/2026-spring/courses/1552431
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-1552431-readonly
+            subPath: _shared/2026-spring/courses/1552431
+            readOnly: true
+      course::1552431::enrollment_type::ta:
+      ## Course Name: bcourses-1552431 Bcourses ID: 1552431 End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-1552431-readwrite
+            subPath: _shared/2026-spring/courses/1552431
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-1552431-readonly
+            subPath: _shared/2026-spring/courses/1552431
+            readOnly: true
+      course::1552431::enrollment_type::observer:
+      ## Course Name: bcourses-1552431 Bcourses ID: 1552431 End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-1552431-readonly
+            subPath: _shared/2026-spring/courses/1552431
+            readOnly: true
+      course::1552431::enrollment_type::student:
+      ## Course Name: bcourses-1552431 Bcourses ID: 1552431 End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-1552431-readonly
+            subPath: _shared/2026-spring/courses/1552431
+            readOnly: true
+      course::-::enrollment_type::teacher:
+      ## Course Name: bcourses-- Bcourses ID: - End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses---readwrite
+            subPath: _shared/2026-spring/courses/-
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses---readonly
+            subPath: _shared/2026-spring/courses/-
+            readOnly: true
+      course::-::enrollment_type::ta:
+      ## Course Name: bcourses-- Bcourses ID: - End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses---readwrite
+            subPath: _shared/2026-spring/courses/-
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses---readonly
+            subPath: _shared/2026-spring/courses/-
+            readOnly: true
+      course::-::enrollment_type::observer:
+      ## Course Name: bcourses-- Bcourses ID: - End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses---readonly
+            subPath: _shared/2026-spring/courses/-
+            readOnly: true
+      course::-::enrollment_type::student:
+      ## Course Name: bcourses-- Bcourses ID: - End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses---readonly
+            subPath: _shared/2026-spring/courses/-
+            readOnly: true
+      course::Im::enrollment_type::teacher:
+      ## Course Name: bcourses-Im Bcourses ID: Im End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-Im-readwrite
+            subPath: _shared/2026-spring/courses/Im
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-Im-readonly
+            subPath: _shared/2026-spring/courses/Im
+            readOnly: true
+      course::Im::enrollment_type::ta:
+      ## Course Name: bcourses-Im Bcourses ID: Im End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-Im-readwrite
+            subPath: _shared/2026-spring/courses/Im
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-Im-readonly
+            subPath: _shared/2026-spring/courses/Im
+            readOnly: true
+      course::Im::enrollment_type::observer:
+      ## Course Name: bcourses-Im Bcourses ID: Im End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-Im-readonly
+            subPath: _shared/2026-spring/courses/Im
+            readOnly: true
+      course::Im::enrollment_type::student:
+      ## Course Name: bcourses-Im Bcourses ID: Im End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-Im-readonly
+            subPath: _shared/2026-spring/courses/Im
+            readOnly: true
+      course::not::enrollment_type::teacher:
+      ## Course Name: bcourses-not Bcourses ID: not End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-not-readwrite
+            subPath: _shared/2026-spring/courses/not
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-not-readonly
+            subPath: _shared/2026-spring/courses/not
+            readOnly: true
+      course::not::enrollment_type::ta:
+      ## Course Name: bcourses-not Bcourses ID: not End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-not-readwrite
+            subPath: _shared/2026-spring/courses/not
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-not-readonly
+            subPath: _shared/2026-spring/courses/not
+            readOnly: true
+      course::not::enrollment_type::observer:
+      ## Course Name: bcourses-not Bcourses ID: not End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-not-readonly
+            subPath: _shared/2026-spring/courses/not
+            readOnly: true
+      course::not::enrollment_type::student:
+      ## Course Name: bcourses-not Bcourses ID: not End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-not-readonly
+            subPath: _shared/2026-spring/courses/not
+            readOnly: true
+      course::sure::enrollment_type::teacher:
+      ## Course Name: bcourses-sure Bcourses ID: sure End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-sure-readwrite
+            subPath: _shared/2026-spring/courses/sure
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-sure-readonly
+            subPath: _shared/2026-spring/courses/sure
+            readOnly: true
+      course::sure::enrollment_type::ta:
+      ## Course Name: bcourses-sure Bcourses ID: sure End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-sure-readwrite
+            subPath: _shared/2026-spring/courses/sure
+            readOnly: false
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-sure-readonly
+            subPath: _shared/2026-spring/courses/sure
+            readOnly: true
+      course::sure::enrollment_type::observer:
+      ## Course Name: bcourses-sure Bcourses ID: sure End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-sure-readonly
+            subPath: _shared/2026-spring/courses/sure
+            readOnly: true
+      course::sure::enrollment_type::student:
+      ## Course Name: bcourses-sure Bcourses ID: sure End Date: 05/31/2026
+      ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7999 for details.
+        extraVolumeMounts:
+          - name: home
+            mountPath: /home/jovyan/_shared/bcourses-sure-readonly
+            subPath: _shared/2026-spring/courses/sure
+            readOnly: true
