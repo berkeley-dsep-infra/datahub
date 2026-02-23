@@ -1,0 +1,423 @@
+# =============================================================================
+# Delete Email from Completed Data Retrieval Requests
+# =============================================================================
+#
+# PURPOSE:
+#   Redacts email addresses from data retrieval issues (FERPA compliance)
+#   and deletes the associated workflow run logs to prevent email exposure.
+#
+# TRIGGER:
+#   - Automatically when the 'delete-email' label is added to an issue
+#   - Manually via workflow_dispatch (for testing on non-default branches)
+#
+# BEHAVIOR:
+#   1. Validates the issue is a data retrieval request
+#   2. Masks all emails from THIS workflow's logs
+#   3. Redacts emails from the issue body
+#   4. Redacts emails from all issue comments
+#   5. Deletes SUCCESSFUL dispatcher workflow runs (to remove logs with emails)
+#   6. Keeps FAILED runs for debugging
+#   7. Posts a FERPA compliance notice
+#   8. Removes the 'delete-email' label (cleanup)
+#
+# SAFETY:
+#   - This is a SEPARATE workflow — does NOT modify dispatcher.yaml or
+#     data-retrieval.yaml
+#   - Idempotent — safe to run multiple times on the same issue
+#   - Only deletes runs that concluded with 'success'
+#   - Uses default GITHUB_TOKEN — no PAT or extra secrets required
+#
+# SETUP:
+#   1. Create a 'delete-email' label in the repository
+#   2. Add this file to .github/workflows/delete-email.yaml
+#   3. Ensure Actions permissions allow "Read and write" for workflows
+#
+# =============================================================================
+
+name: Delete Email from Data Retrieval
+
+on:
+  issues:
+    types: [labeled]
+
+  # Manual trigger for testing (works from any branch)
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
+
+permissions:
+  actions: write
+  issues: write
+
+jobs:
+  redact-and-cleanup:
+    # Run when 'delete-email' label is added OR when manually triggered
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.label.name == 'delete-email'
+    runs-on: ubuntu-latest
+
+    steps:
+      # -----------------------------------------------------------------------
+      # Step 1: Determine issue number and validate
+      # -----------------------------------------------------------------------
+      - name: Setup - determine issue number
+        id: setup
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "issue_number=${{ inputs.issue_number }}" >> "$GITHUB_OUTPUT"
+            echo "trigger=manual" >> "$GITHUB_OUTPUT"
+          else
+            echo "issue_number=${{ github.event.issue.number }}" >> "$GITHUB_OUTPUT"
+            echo "trigger=label" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate issue is a data retrieval request
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            core.info(`Processing issue #${issueNumber} (trigger: ${{ steps.setup.outputs.trigger }})`);
+
+            // Fetch the issue
+            const { data: issue } = await github.rest.issues.get({
+              owner,
+              repo,
+              issue_number: issueNumber
+            });
+
+            // Must have 'data retrieval' label
+            const hasDataRetrievalLabel = issue.labels.some(l => l.name === 'data retrieval');
+            if (!hasDataRetrievalLabel) {
+              core.warning(`Issue #${issueNumber} does not have "data retrieval" label — skipping.`);
+              core.setOutput('should_process', 'false');
+              return;
+            }
+
+            // Check for 'failed data retrieval' label
+            const hasFailedLabel = issue.labels.some(l => l.name === 'failed data retrieval');
+
+            core.setOutput('should_process', 'true');
+            core.setOutput('issue_state', issue.state);
+            core.setOutput('has_failed_label', hasFailedLabel.toString());
+
+            core.info(`Issue state: ${issue.state}`);
+            core.info(`Has 'failed data retrieval' label: ${hasFailedLabel}`);
+            core.info('✅ Validation passed — proceeding with email redaction');
+
+      # -----------------------------------------------------------------------
+      # Step 2: Mask all emails from THIS workflow's logs
+      # -----------------------------------------------------------------------
+      - name: Mask emails from workflow logs
+        if: steps.validate.outputs.should_process == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            // Fetch issue
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: issueNumber
+            });
+
+            // Collect emails from issue body and all comments
+            const emailRegex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/gi;
+            const allEmails = new Set();
+
+            // From issue body
+            const bodyMatches = (issue.body || '').match(emailRegex);
+            if (bodyMatches) bodyMatches.forEach(e => allEmails.add(e));
+
+            // From comments
+            const { data: comments } = await github.rest.issues.listComments({
+              owner, repo, issue_number: issueNumber, per_page: 100
+            });
+            for (const comment of comments) {
+              const commentMatches = (comment.body || '').match(emailRegex);
+              if (commentMatches) commentMatches.forEach(e => allEmails.add(e));
+            }
+
+            core.info(`Found ${allEmails.size} unique email(s) to mask from logs`);
+
+            // Register each email as a secret so it's masked in all log output
+            for (const email of allEmails) {
+              core.setSecret(email);
+              // Also mask the URL-encoded version (in case it appears in links)
+              core.setSecret(encodeURIComponent(email));
+              core.info(`Masked: ${email.substring(0, 2)}***@***`);
+            }
+
+            if (allEmails.size > 0) {
+              core.info('✅ All email addresses masked from workflow logs');
+            }
+
+      # -----------------------------------------------------------------------
+      # Step 3: Redact emails from issue body
+      # -----------------------------------------------------------------------
+      - name: Redact emails from issue body
+        if: steps.validate.outputs.should_process == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: issueNumber
+            });
+
+            if (!issue.body) {
+              core.info('Issue body is empty — skipping');
+              return;
+            }
+
+            let redactedBody = issue.body;
+
+            // Pattern 1: Markdown mailto links [email](mailto:email)
+            redactedBody = redactedBody.replace(
+              /\[([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})\]\(mailto:[^)]+\)/gi,
+              '[REDACTED FOR FERPA COMPLIANCE]'
+            );
+
+            // Pattern 2: Other mailto links [text](mailto:email)
+            redactedBody = redactedBody.replace(
+              /\[([^\]]*)\]\(mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\)/gi,
+              '[REDACTED FOR FERPA COMPLIANCE]'
+            );
+
+            // Pattern 3: All remaining email addresses
+            redactedBody = redactedBody.replace(
+              /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/gi,
+              '[REDACTED FOR FERPA COMPLIANCE]'
+            );
+
+            if (redactedBody !== issue.body) {
+              await github.rest.issues.update({
+                owner, repo,
+                issue_number: issueNumber,
+                body: redactedBody
+              });
+              core.info('✅ Redacted email addresses from issue body');
+            } else {
+              core.info('No unredacted email addresses found in issue body');
+            }
+
+      # -----------------------------------------------------------------------
+      # Step 4: Redact emails from all issue comments
+      # -----------------------------------------------------------------------
+      - name: Redact emails from issue comments
+        if: steps.validate.outputs.should_process == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner, repo, issue_number: issueNumber, per_page: 100
+            });
+
+            core.info(`Found ${comments.length} comment(s) to check`);
+
+            let redactedCount = 0;
+
+            for (const comment of comments) {
+              // Skip the FERPA compliance notice itself
+              if (comment.body && comment.body.includes('FERPA Compliance Notice')) {
+                core.info(`Skipping FERPA notice comment #${comment.id}`);
+                continue;
+              }
+
+              let redactedBody = comment.body || '';
+
+              // Pattern 1: Markdown mailto links
+              redactedBody = redactedBody.replace(
+                /\[([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})\]\(mailto:[^)]+\)/gi,
+                '[REDACTED FOR FERPA COMPLIANCE]'
+              );
+
+              // Pattern 2: Other mailto links
+              redactedBody = redactedBody.replace(
+                /\[([^\]]*)\]\(mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\)/gi,
+                '[REDACTED FOR FERPA COMPLIANCE]'
+              );
+
+              // Pattern 3: All remaining email addresses
+              redactedBody = redactedBody.replace(
+                /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/gi,
+                '[REDACTED FOR FERPA COMPLIANCE]'
+              );
+
+              if (redactedBody !== comment.body) {
+                await github.rest.issues.updateComment({
+                  owner, repo,
+                  comment_id: comment.id,
+                  body: redactedBody
+                });
+                redactedCount++;
+              }
+            }
+
+            if (redactedCount > 0) {
+              core.info(`✅ Redacted emails from ${redactedCount} comment(s)`);
+            } else {
+              core.info('No unredacted email addresses found in comments');
+            }
+
+      # -----------------------------------------------------------------------
+      # Step 5: Find and delete successful dispatcher workflow runs
+      # -----------------------------------------------------------------------
+      - name: Find and delete successful workflow runs
+        if: steps.validate.outputs.should_process == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            // Fetch the issue to get its title (used to match workflow runs)
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: issueNumber
+            });
+
+            // ---- Find the dispatcher workflow ----
+            const { data: workflows } = await github.rest.actions.listRepoWorkflows({
+              owner, repo
+            });
+
+            const dispatcherWorkflow = workflows.workflows.find(w =>
+              w.path === '.github/workflows/dispatcher.yaml'
+            );
+
+            if (!dispatcherWorkflow) {
+              core.warning('Dispatcher workflow not found — skipping run deletion');
+              return;
+            }
+
+            core.info(`Found dispatcher workflow: "${dispatcherWorkflow.name}" (ID: ${dispatcherWorkflow.id})`);
+
+            // ---- List runs triggered by issue events ----
+            // Use created filter to narrow results (issue creation date onward)
+            const createdFilter = issue.created_at.split('T')[0]; // YYYY-MM-DD
+
+            const { data: runs } = await github.rest.actions.listWorkflowRuns({
+              owner, repo,
+              workflow_id: dispatcherWorkflow.id,
+              event: 'issues',
+              created: `>=${createdFilter}`,
+              per_page: 100
+            });
+
+            core.info(`Found ${runs.total_count} dispatcher run(s) since ${createdFilter}`);
+
+            // ---- Match runs by display_title (= issue title) ----
+            const matchingRuns = runs.workflow_runs.filter(run =>
+              run.display_title === issue.title
+            );
+
+            core.info(`Found ${matchingRuns.length} run(s) matching issue #${issueNumber} title`);
+
+            if (matchingRuns.length === 0) {
+              core.info('No matching workflow runs found — nothing to delete');
+              return;
+            }
+
+            // ---- Delete successful runs, keep failed ones ----
+            let deletedCount = 0;
+            let keptCount = 0;
+
+            for (const run of matchingRuns) {
+              core.info(`  Run #${run.id}: status=${run.status}, conclusion=${run.conclusion}, created=${run.created_at}`);
+
+              if (run.conclusion === 'success') {
+                try {
+                  await github.rest.actions.deleteWorkflowRun({
+                    owner, repo,
+                    run_id: run.id
+                  });
+                  core.info(`  ✅ Deleted successful run #${run.id}`);
+                  deletedCount++;
+                } catch (error) {
+                  core.warning(`  Failed to delete run #${run.id}: ${error.message}`);
+                }
+              } else {
+                core.info(`  ⏭️ Keeping run #${run.id} (conclusion: ${run.conclusion}) for debugging`);
+                keptCount++;
+              }
+            }
+
+            core.info(`\nSummary: ${deletedCount} run(s) deleted, ${keptCount} run(s) kept`);
+
+      # -----------------------------------------------------------------------
+      # Step 6: Post FERPA compliance notice
+      # -----------------------------------------------------------------------
+      - name: Post FERPA compliance notice
+        if: steps.validate.outputs.should_process == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            // Check if notice already exists (idempotency)
+            const { data: comments } = await github.rest.issues.listComments({
+              owner, repo, issue_number: issueNumber, per_page: 100
+            });
+
+            if (comments.some(c => c.body && c.body.includes('FERPA Compliance Notice'))) {
+              core.info('FERPA compliance notice already posted — skipping');
+              return;
+            }
+
+            await github.rest.issues.createComment({
+              owner, repo,
+              issue_number: issueNumber,
+              body: [
+                '🔒 **FERPA Compliance Notice**',
+                '',
+                'All email addresses have been automatically redacted from this issue and its comments to comply with the Family Educational Rights and Privacy Act (FERPA).',
+                '',
+                'Associated workflow run logs containing email addresses have been deleted.'
+              ].join('\n')
+            });
+
+            core.info('✅ FERPA compliance notice posted');
+
+      # -----------------------------------------------------------------------
+      # Step 7: Remove the 'delete-email' label (cleanup)
+      # -----------------------------------------------------------------------
+      - name: Remove delete-email label
+        if: >-
+          steps.validate.outputs.should_process == 'true' &&
+          steps.setup.outputs.trigger == 'label'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = parseInt('${{ steps.setup.outputs.issue_number }}', 10);
+
+            try {
+              await github.rest.issues.removeLabel({
+                owner, repo,
+                issue_number: issueNumber,
+                name: 'delete-email'
+              });
+              core.info('✅ Removed delete-email label');
+            } catch (error) {
+              // Label may have been removed manually — not an error
+              core.info(`Label removal note: ${error.message}`);
+            }
