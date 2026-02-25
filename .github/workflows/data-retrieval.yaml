@@ -236,11 +236,95 @@ jobs:
         run: |
           python3 .github/scripts/sign_url_and_send_emails.py
 
+      - name: Redact email IDs from issue description and comments
+        id: redact-emailid-issuedescription-comment
+        if: ${{ env.emailMatchesFolder == 'valid' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = ${{ github.event.issue.number }};
+
+            // Shared redaction function for efficiency
+            function redactEmails(text) {
+              if (!text) return text;
+              // Pattern 1: Markdown mailto links [email](mailto:email)
+              text = text.replace(
+                /\[([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})\]\(mailto:[^)]+\)/gi,
+                '[REDACTED FOR FERPA COMPLIANCE]'
+              );
+              // Pattern 2: Other mailto links [text](mailto:email)
+              text = text.replace(
+                /\[([^\]]*)\]\(mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\)/gi,
+                '[REDACTED FOR FERPA COMPLIANCE]'
+              );
+              // Pattern 3: All remaining email addresses
+              text = text.replace(
+                /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/gi,
+                '[REDACTED FOR FERPA COMPLIANCE]'
+              );
+              return text;
+            }
+
+            // --- Redact emails from issue body ---
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: issueNumber
+            });
+
+            if (issue.body) {
+              const redactedBody = redactEmails(issue.body);
+              if (redactedBody !== issue.body) {
+                await github.rest.issues.update({
+                  owner, repo,
+                  issue_number: issueNumber,
+                  body: redactedBody
+                });
+                core.info('Redacted email addresses from issue body');
+              } else {
+                core.info('No unredacted email addresses found in issue body');
+              }
+            } else {
+              core.info('Issue body is empty — skipping');
+            }
+
+            // --- Redact emails from all issue comments ---
+            const { data: comments } = await github.rest.issues.listComments({
+              owner, repo, issue_number: issueNumber, per_page: 100
+            });
+
+            core.info(`Found ${comments.length} comment(s) to check`);
+            let redactedCount = 0;
+
+            for (const comment of comments) {
+              if (comment.body && comment.body.includes('FERPA Compliance Notice')) {
+                core.info(`Skipping FERPA notice comment #${comment.id}`);
+                continue;
+              }
+
+              const redactedCommentBody = redactEmails(comment.body);
+              if (redactedCommentBody !== comment.body) {
+                await github.rest.issues.updateComment({
+                  owner, repo,
+                  comment_id: comment.id,
+                  body: redactedCommentBody
+                });
+                redactedCount++;
+              }
+            }
+
+            if (redactedCount > 0) {
+              core.info(`Redacted emails from ${redactedCount} comment(s)`);
+            } else {
+              core.info('No unredacted email addresses found in comments');
+            }
+
+
       - name: Post success comment and close the issue
         if: steps.run_send_email_python_script.outcome == 'success' 
         run: |
-          # Post a success comment on the issue
-          COMMENT_BODY='The requested resource has been sent to your provided email address. You have 7 days from when the email was received to retrieve your data. If you do not see the email, check for your spam box and look for an email sent from datahub-dataretrieval@berkeley.edu.'
+          # Post a success comment on the issue with information about email being redacted
+          COMMENT_BODY='The requested resource has been sent to your provided email address. You have 7 days from when the email was received to retrieve your data. If you do not see the email, check your spam folder and look for an email sent from datahub-dataretrieval@berkeley.edu. Note: Email addresses in this issue have been redacted for FERPA compliance.'
 
           ISSUE_NUMBER=${{ github.event.issue.number }}
           curl -s -X POST \
@@ -255,5 +339,3 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"state": "closed"}' \
             "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER" > /dev/null 2>&1
-
-          
