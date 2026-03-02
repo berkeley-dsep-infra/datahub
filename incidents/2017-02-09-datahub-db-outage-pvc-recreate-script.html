@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -67,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-66e556a9d8462fe4bc511fb2296c62cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1873dc008b3583adbc3f347b91c061ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,7 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -117,7 +118,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo">
+    <img src="../datahub.svg" alt="" class="navbar-logo light-content">
+    <img src="../datahub.svg" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DataHub</span>
@@ -452,11 +454,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div id="cell-0" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-1" class="cell" data-scrolled="true" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head pvcs.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head pvcs.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NAME,STATUS,VOLUME,CAPACITY,ACCESSMODES,AGE
 claim-redacted-205,Bound,pvc-5643aadf-ddb3-11e6-98ef-42010af000c3,10Gi,RWO,21d
@@ -471,12 +473,12 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </div>
 </div>
 <div id="cell-2" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame.from_csv(<span class="st">'pvcs.csv'</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame.from_csv(<span class="st">'pvcs.csv'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -497,7 +499,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-205</td>
+<th data-quarto-table-cell-role="th">claim-redacted-205</th>
 <td>Bound</td>
 <td>pvc-5643aadf-ddb3-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -505,7 +507,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>21d</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-1088</td>
+<th data-quarto-table-cell-role="th">claim-redacted-1088</th>
 <td>Bound</td>
 <td>pvc-bc68d752-ecba-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -513,7 +515,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>2d</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-389</td>
+<th data-quarto-table-cell-role="th">claim-redacted-389</th>
 <td>Bound</td>
 <td>pvc-5d67d43e-ddcb-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -521,7 +523,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>21d</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-119</td>
+<th data-quarto-table-cell-role="th">claim-redacted-119</th>
 <td>Bound</td>
 <td>pvc-73c5d644-ddb1-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -529,7 +531,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>21d</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-64</td>
+<th data-quarto-table-cell-role="th">claim-redacted-64</th>
 <td>Bound</td>
 <td>pvc-3c2345e4-dd9f-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -543,9 +545,9 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </div>
 </div>
 <div id="cell-3" class="cell" data-execution_count="152">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'username'</span>] <span class="op">=</span> np.array(df.index.<span class="bu">str</span>.extract(<span class="st">'</span><span class="er">\</span><span class="st">w+-([</span><span class="er">\</span><span class="st">w-]+)-</span><span class="er">\</span><span class="st">d+$'</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'username'</span>] <span class="op">=</span> np.array(df.index.<span class="bu">str</span>.extract(<span class="st">'</span><span class="er">\</span><span class="st">w+-([</span><span class="er">\</span><span class="st">w-]+)-</span><span class="er">\</span><span class="st">d+$'</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'id'</span>] <span class="op">=</span> np.array(df.index.<span class="bu">str</span>.extract(<span class="st">'</span><span class="er">\</span><span class="st">w+-</span><span class="er">\</span><span class="st">w+-(</span><span class="er">\</span><span class="st">d+)$'</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/Users/redacted/anaconda3/lib/python3.5/site-packages/ipykernel/__main__.py:1: FutureWarning: currently extract(expand=None) means expand=False (return Index/Series/DataFrame) but in a future version of pandas this will be changed to expand=True (return DataFrame)
   if __name__ == '__main__':
@@ -555,7 +557,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <div class="cell-output cell-output-display" data-execution_count="152">
 <div>
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -566,7 +568,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <th data-quarto-table-cell-role="th">AGE</th>
 <th data-quarto-table-cell-role="th">username</th>
 <th data-quarto-table-cell-role="th">id</th>
-<th></th>
+<td></td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">NAME</th>
@@ -577,12 +579,12 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
-<th></th>
+<td></td>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-205</td>
+<th data-quarto-table-cell-role="th">claim-redacted-205</th>
 <td>Bound</td>
 <td>pvc-5643aadf-ddb3-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -593,7 +595,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>205</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-1088</td>
+<th data-quarto-table-cell-role="th">claim-redacted-1088</th>
 <td>Bound</td>
 <td>pvc-bc68d752-ecba-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -604,7 +606,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td></td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-389</td>
+<th data-quarto-table-cell-role="th">claim-redacted-389</th>
 <td>Bound</td>
 <td>pvc-5d67d43e-ddcb-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -615,7 +617,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td></td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-119</td>
+<th data-quarto-table-cell-role="th">claim-redacted-119</th>
 <td>Bound</td>
 <td>pvc-73c5d644-ddb1-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -626,7 +628,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td></td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-64</td>
+<th data-quarto-table-cell-role="th">claim-redacted-64</th>
 <td>Bound</td>
 <td>pvc-3c2345e4-dd9f-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -643,11 +645,11 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </div>
 </div>
 <div id="cell-4" class="cell" data-execution_count="153">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="153">
 <div>
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -672,7 +674,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-562</td>
+<th data-quarto-table-cell-role="th">claim-redacted-562</th>
 <td>Bound</td>
 <td>pvc-4418d1d6-de0a-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -682,7 +684,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>562</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-400</td>
+<th data-quarto-table-cell-role="th">claim-redacted-400</th>
 <td>Bound</td>
 <td>pvc-2399fe54-ddcf-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -692,7 +694,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>400</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-946</td>
+<th data-quarto-table-cell-role="th">claim-redacted-946</th>
 <td>Bound</td>
 <td>pvc-294cb2c7-e35e-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -702,7 +704,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>946</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-900</td>
+<th data-quarto-table-cell-role="th">claim-redacted-900</th>
 <td>Bound</td>
 <td>pvc-f6859607-e1c0-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -712,7 +714,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>900</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">hub-db-dir</td>
+<th data-quarto-table-cell-role="th">hub-db-dir</th>
 <td>Bound</td>
 <td>pvc-ea8a0bef-dd44-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -728,13 +730,13 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </div>
 </div>
 <div id="cell-5" class="cell" data-scrolled="true" data-execution_count="159">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>valids <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">'AGE'</span>].<span class="bu">str</span>.contains(<span class="st">'m'</span>)].dropna()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>valids <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">'AGE'</span>].<span class="bu">str</span>.contains(<span class="st">'m'</span>)].dropna()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>valids <span class="op">=</span> valids[valids[<span class="st">'id'</span>] <span class="op">!=</span> <span class="st">'14'</span>]</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>valids.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>valids.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="159">
 <div>
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -759,7 +761,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-205</td>
+<th data-quarto-table-cell-role="th">claim-redacted-205</th>
 <td>Bound</td>
 <td>pvc-5643aadf-ddb3-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -769,7 +771,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>205</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-1088</td>
+<th data-quarto-table-cell-role="th">claim-redacted-1088</th>
 <td>Bound</td>
 <td>pvc-bc68d752-ecba-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -779,7 +781,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>1088</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-389</td>
+<th data-quarto-table-cell-role="th">claim-redacted-389</th>
 <td>Bound</td>
 <td>pvc-5d67d43e-ddcb-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -789,7 +791,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>389</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">claim-redacted-119</td>
+<th data-quarto-table-cell-role="th">claim-redacted-119</th>
 <td>Bound</td>
 <td>pvc-73c5d644-ddb1-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -799,7 +801,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 <td>119</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">claim-redacted-64</td>
+<th data-quarto-table-cell-role="th">claim-redacted-64</th>
 <td>Bound</td>
 <td>pvc-3c2345e4-dd9f-11e6-98ef-42010af000c3</td>
 <td>10Gi</td>
@@ -815,7 +817,7 @@ claim-redacted-954,Bound,pvc-5a0acdc5-e3ee-11e6-98ef-42010af000c3,10Gi,RWO,13d</
 </div>
 </div>
 <div id="cell-6" class="cell" data-execution_count="161">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>valids[<span class="st">'username'</span>].head().value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>valids[<span class="st">'username'</span>].head().value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="161">
 <pre><code>redacted              1
 redacted    1
@@ -826,7 +828,7 @@ Name: username, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-7" class="cell" data-execution_count="162">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>valids[<span class="st">'id'</span>].value_counts().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>valids[<span class="st">'id'</span>].value_counts().head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="162">
 <pre><code>400     1
 90      1
@@ -837,20 +839,20 @@ Name: id, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-8" class="cell" data-execution_count="163">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(valids[<span class="st">'id'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(valids[<span class="st">'id'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="163">
 <pre><code>1105</code></pre>
 </div>
 </div>
 <div id="cell-9" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">'jupyterhub.sqlite'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> conn.cursor()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> conn.cursor()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-10" class="cell" data-execution_count="94">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>c.execute(<span class="st">'PRAGMA TABLE_INFO(</span><span class="sc">{}</span><span class="st">)'</span>.<span class="bu">format</span>(<span class="st">'users'</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>c.execute(<span class="st">'PRAGMA TABLE_INFO(</span><span class="sc">{}</span><span class="st">)'</span>.<span class="bu">format</span>(<span class="st">'users'</span>))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>c.fetchall()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>c.fetchall()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="94">
 <pre><code>[(0, 'id', 'INTEGER', 1, None, 1),
  (1, 'name', 'VARCHAR(1023)', 0, None, 0),
@@ -863,9 +865,9 @@ Name: id, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-11" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>c.execute(<span class="st">'SELECT * FROM users LIMIT 20'</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>c.execute(<span class="st">'SELECT * FROM users LIMIT 20'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>current_users <span class="op">=</span> c.fetchall()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>current_users[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>current_users[:<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="66">
 <pre><code>[(1,
   'redacted',
@@ -886,8 +888,8 @@ Name: id, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-12" class="cell" data-execution_count="164">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>admins <span class="op">=</span> {user[<span class="dv">1</span>] <span class="cf">for</span> user <span class="kw">in</span> current_users <span class="cf">if</span> user[<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>}</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>admins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>admins <span class="op">=</span> {user[<span class="dv">1</span>] <span class="cf">for</span> user <span class="kw">in</span> current_users <span class="cf">if</span> user[<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>}</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>admins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="164">
 <pre><code>{'redacted',
  'redacted',
@@ -912,9 +914,9 @@ Name: id, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-13" class="cell" data-execution_count="73">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I just did this manually in the sqlite3 CLI</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I just did this manually in the sqlite3 CLI</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># c.execute('DROP FROM users where id &gt; -1')</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># c.fetchall()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># c.fetchall()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
@@ -928,7 +930,7 @@ Name: id, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-14" class="cell" data-execution_count="165">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itertools</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(</span>
@@ -942,7 +944,7 @@ Name: id, dtype: int64</code></pre>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    itertools.repeat(<span class="st">'NULL'</span>),</span>
 <span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    itertools.repeat(<span class="st">'NULL'</span>)</span>
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>records[:<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>records[:<span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="165">
 <pre><code>[(205,
   'redacted',
@@ -971,14 +973,14 @@ Name: id, dtype: int64</code></pre>
 </div>
 </div>
 <div id="cell-15" class="cell" data-execution_count="166">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I hate everything</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I hate everything</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> record_to_sql(record):</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"INSERT INTO users VALUES(</span><span class="sc">{}</span><span class="st">, '</span><span class="sc">{}</span><span class="st">', </span><span class="sc">{}</span><span class="st">, '</span><span class="sc">{}</span><span class="st">', '</span><span class="sc">{}</span><span class="st">', '</span><span class="sc">{}</span><span class="st">', </span><span class="sc">{}</span><span class="st">, </span><span class="sc">{}</span><span class="st">)"</span>.<span class="bu">format</span>(</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>record</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>sql_statements <span class="op">=</span> [record_to_sql(record) <span class="cf">for</span> record <span class="kw">in</span> records]</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>record_to_sql(records[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>record_to_sql(records[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="166">
 <pre><code>"INSERT INTO users VALUES(205, 'redacted', NULL, '0', '2017-02-09 09:07:03.936620', 'thisisadummycookiehopefullyitworks', NULL, NULL)"</code></pre>
 </div>
@@ -992,14 +994,14 @@ Name: id, dtype: int64</code></pre>
  (6, 'state', 'TEXT', 0, None, 0),
  (7, 'auth_state', 'TEXT', 0, None, 0)]</code></pre>
 <div id="cell-17" class="cell" data-execution_count="167">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> conn:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> conn:</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> conn.cursor()</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> statement <span class="kw">in</span> sql_statements:</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        c.execute(statement)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        c.execute(statement)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-18" class="cell" data-execution_count="173">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>c.execute(<span class="st">'SELECT * FROM users LIMIT 20'</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>c.fetchall()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>c.execute(<span class="st">'SELECT * FROM users LIMIT 20'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>c.fetchall()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="173">
 <pre><code>[(2,
   'redacted',
@@ -1218,13 +1220,14 @@ Name: id, dtype: int64</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

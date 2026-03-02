@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../tasks/delete-hub.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-66e556a9d8462fe4bc511fb2296c62cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1873dc008b3583adbc3f347b91c061ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,7 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo">
+    <img src="../datahub.svg" alt="" class="navbar-logo light-content">
+    <img src="../datahub.svg" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DataHub</span>
@@ -517,9 +519,9 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
 <ol type="1">
 <li><p>Create a new feature branch and update your helm dependencies: <code>helm dep up</code></p></li>
 <li><p>At this point, it’s usually wise to upgrade <code>cert-manager</code> to the latest version found in the chart repo. You can find this by running the following command:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cert-manager-version=</span><span class="va">$(</span><span class="ex">helm</span> show all <span class="at">-n</span> cert-manager jetstack/cert-manager <span class="kw">|</span> <span class="fu">grep</span> ^appVersion <span class="kw">|</span>  <span class="fu">awk</span> <span class="st">'{print $2}'</span><span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cert-manager-version=</span><span class="va">$(</span><span class="ex">helm</span> show all <span class="at">-n</span> cert-manager jetstack/cert-manager <span class="kw">|</span> <span class="fu">grep</span> ^appVersion <span class="kw">|</span>  <span class="fu">awk</span> <span class="st">'{print $2}'</span><span class="va">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Then, you can install the latest version of <code>cert-manager</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> https://github.com/cert-manager/cert-manager/releases/download/<span class="va">${cert</span><span class="op">-</span>manager-version<span class="va">}</span>/cert-manager.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> https://github.com/cert-manager/cert-manager/releases/download/<span class="va">${cert</span><span class="op">-</span>manager-version<span class="va">}</span>/cert-manager.yaml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Change the corresponding entry in <code>support/requirements.yaml</code> to <code>$cert-manager-version</code> and commit the changes (do not push).</p></li>
 </ol>
 <p>If you experience errors with certs being issued, this page has some really useful basic troubleshooting steps that likely will uncover most problems: <a href="https://cert-manager.io/docs/troubleshooting/acme/" class="uri">https://cert-manager.io/docs/troubleshooting/acme/</a></p>
@@ -527,7 +529,7 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
 <section id="create-the-node-placeholder-k8s-namespace" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-node-placeholder-k8s-namespace">Create the node-placeholder k8s namespace</h2>
 <p>The <a href="../tasks/calendar-scaler.html">calendar autoscaler</a> requires the <code>node-placeholder</code> namespace. Run the following command to create it:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create namespace node-placeholder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create namespace node-placeholder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it." class="level2">
 <h2 class="anchored" data-anchor-id="create-a-new-static-ip-and-switch-dns-to-point-our-new-deployment-at-it.">Create a new static IP and switch DNS to point our new deployment at it.</h2>
@@ -543,16 +545,16 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
 <h2 class="anchored" data-anchor-id="manually-deploy-the-support-and-prometheus-pools">Manually deploy the support and prometheus pools</h2>
 <p>First, update any node pools in the configs to point to the new cluster. Typically, this is just for the <code>ingress-nginx</code> controllers in <code>support/values.yaml</code>.</p>
 <p>Now we will manually deploy the <code>support</code> helm chart:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sops</span> <span class="at">-d</span> support/secrets.yaml <span class="op">&gt;</span> /tmp/secrets.yaml</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sops</span> <span class="at">-d</span> support/secrets.yaml <span class="op">&gt;</span> /tmp/secrets.yaml</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> install <span class="at">-f</span> support/values.yaml <span class="at">-f</span> /tmp/secrets.yaml <span class="dt">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-n</span> support support support/ <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--set</span> installCRDs=true <span class="at">--debug</span> <span class="at">--create-namespace</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--set</span> installCRDs=true <span class="at">--debug</span> <span class="at">--create-namespace</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Before continuing, confirm via the GCP console that the IP that was defined in step 1 is now <a href="https://console.cloud.google.com/networking/addresses/list?project=ucb-datahub-2018">bound to a forwarding rule</a>. You can further confirm by listing the services in the <a href="https://github.com/berkeley-dsep-infra/datahub/blob/staging/support/requirements.yaml">support chart</a> and making sure the ingress-controller is using the newly defined IP.</p>
 <p>One special thing to note: our <code>prometheus</code> instance uses a persistent volume that contains historical monitoring data. This is specified in <code>support/values.yaml</code>, under the <code>prometheus:</code> block:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">persistentVolume</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">persistentVolume</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 1000Gi</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">storageClass</span><span class="kw">:</span><span class="at"> ssd</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">existingClaim</span><span class="kw">:</span><span class="at"> prometheus-data-2024-05-15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">existingClaim</span><span class="kw">:</span><span class="at"> prometheus-data-2024-05-15</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="manually-deploy-a-hub-to-staging" class="level2">
 <h2 class="anchored" data-anchor-id="manually-deploy-a-hub-to-staging">Manually deploy a hub to staging</h2>
@@ -560,15 +562,15 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
 <p>First, check the hub’s configs for any node pools that need updating. Typically, this is just the core pool.</p>
 <p>Second, update <code>hubploy.yaml</code> for this hub and point it to the new cluster you’ve created.</p>
 <p>After this is done, add the changes to your feature branch (but don’t push). After that, deploy a hub manually:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hubploy</span> deploy dev hub staging</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hubploy</span> deploy dev hub staging</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When the deploy is done, visit that hub and confirm that things are working.</p>
 </section>
 <section id="manually-deploy-remaining-hubs-to-staging-and-prod" class="level2">
 <h2 class="anchored" data-anchor-id="manually-deploy-remaining-hubs-to-staging-and-prod">Manually deploy remaining hubs to staging and prod</h2>
 <p>Now, update the remaining hubs’ configs to point to the new node pools and <code>hubploy.yaml</code> to the cluster.</p>
 <p>Then use <code>hubploy</code> to deploy them to staging as with the previous step. The easiest way to do this is to have a list of hubs in a text file, and iterate over it with a <code>for</code> loop:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> hubs.txt<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">hubploy</span> deploy <span class="va">${x}</span> hub staging<span class="kw">;</span> <span class="cf">done</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> hubs.txt<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">hubploy</span> deploy <span class="va">${x}</span> hub prod<span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> hubs.txt<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">hubploy</span> deploy <span class="va">${x}</span> hub staging<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> hubs.txt<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">hubploy</span> deploy <span class="va">${x}</span> hub prod<span class="kw">;</span> <span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When done, add the modified configs to your feature branch (and again, don’t push yet).</p>
 </section>
 <section id="update-github-actions" class="level2">
@@ -592,7 +594,7 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
 <section id="deleting-the-old-cluster" class="level2">
 <h2 class="anchored" data-anchor-id="deleting-the-old-cluster">Deleting the old cluster</h2>
 <p>After waiting a reasonable period of time (a day or two just to be cautious) and after fetching the usage logs, you may delete the old cluster:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container clusters delete <span class="va">${OLDCLUSTER}</span> <span class="at">--region</span><span class="op">=</span>us-central1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container clusters delete <span class="va">${OLDCLUSTER}</span> <span class="at">--region</span><span class="op">=</span>us-central1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -649,13 +651,14 @@ http://z2jh.jupyter.org/en/latest/setup-helm.html
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

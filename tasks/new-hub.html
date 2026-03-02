@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../tasks/core-pool.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-66e556a9d8462fe4bc511fb2296c62cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1873dc008b3583adbc3f347b91c061ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,7 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo">
+    <img src="../datahub.svg" alt="" class="navbar-logo light-content">
+    <img src="../datahub.svg" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DataHub</span>
@@ -541,7 +543,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="creating-a-new-node-pool" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-new-node-pool">Creating a new node pool</h3>
 <p>Create the node pool:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create <span class="st">"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;"</span> <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> container node-pools create <span class="st">"user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;"</span> <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,nodepool-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--node-labels</span> hub.jupyter.org/pool-name=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-pool <span class="dt">\</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--machine-type</span> <span class="st">"n2-highmem-8"</span> <span class="dt">\</span></span>
@@ -553,17 +555,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--metadata</span> disable-legacy-endpoints=true <span class="dt">\</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scopes</span> <span class="st">"https://www.googleapis.com/auth/devstorage.read_only"</span>,<span class="st">"https://www.googleapis.com/auth/logging.write"</span>,<span class="st">"https://www.googleapis.com/auth/monitoring"</span>,<span class="st">"https://www.googleapis.com/auth/servicecontrol"</span>,<span class="st">"https://www.googleapis.com/auth/service.management.readonly"</span>,<span class="st">"https://www.googleapis.com/auth/trace.append"</span> <span class="dt">\</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--no-enable-autoupgrade</span> <span class="at">--enable-autorepair</span> <span class="dt">\</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--max-surge-upgrade</span> 1 <span class="at">--max-unavailable-upgrade</span> 0 <span class="at">--max-pods-per-node</span> <span class="st">"110"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--max-surge-upgrade</span> 1 <span class="at">--max-unavailable-upgrade</span> 0 <span class="at">--max-pods-per-node</span> <span class="st">"110"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="creating-a-new-filestore-instance" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-new-filestore-instance">Creating a new filestore instance</h3>
 <p>Before you create a new filestore instance, be sure you know the capacity required. The smallest amount you can allocate is 1T, but larger hubs may require more. Confer with the admins and people instructing the course and determine how much they think they will need.</p>
 <p>We can easily scale capacity up, but not down.</p>
 <p>From the command line, first fill in the instance name (<code>&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</code>) and <code>&lt;capacity&gt;</code>, and then execute the following command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances create <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-<span class="op">&lt;</span>YYYY-MM-DD<span class="op">&gt;</span> <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances create <span class="op">&lt;</span>hubname<span class="op">&gt;</span>-<span class="op">&lt;</span>YYYY-MM-DD<span class="op">&gt;</span> <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--zone</span> <span class="st">"us-central1-b"</span> <span class="at">--tier</span><span class="op">=</span><span class="st">"BASIC_HDD"</span> <span class="dt">\</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--file-share</span><span class="op">=</span>capacity=1TiB,name=shares <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--network</span><span class="op">=</span>name=default,connect-mode=DIRECT_PEERING</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--network</span><span class="op">=</span>name=default,connect-mode=DIRECT_PEERING</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Or, from the web console, click on the horizontal bar icon at the top left corner.</p>
 <ol type="1">
 <li>Access “Filestore” &gt; “Instances” and click on “Create Instance”.</li>
@@ -578,7 +580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>Your new (but empty) NFS filestore must be seeded with a pair of directories. We run a utility VM for NFS filestore management; follow the steps below to connect to this utility VM, mount your new filestore, and create &amp; configure the required directories.</p>
 <p>You can run the following command in gcloud terminal to log in to the NFS utility VM:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> compute ssh nfsserver-01 <span class="at">--zone</span><span class="op">=</span>us-central1-b <span class="at">--tunnel-through-iap</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> compute ssh nfsserver-01 <span class="at">--zone</span><span class="op">=</span>us-central1-b <span class="at">--tunnel-through-iap</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Alternatively, launch console.cloud.google.com &gt; Select <em>ucb-datahub-2018</em> as the project name.</p>
 <ol type="1">
 <li>Click on the three horizontal bar icon at the top left corner.</li>
@@ -586,21 +588,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Select “Open in browser window” option to access NFS server via GUI.</li>
 </ol>
 <p>Back in the NFS utility VM shell, mount the new share:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="op">&lt;</span>filestore share IP<span class="op">&gt;</span>:/shares /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mount</span> <span class="op">&lt;</span>filestore share IP<span class="op">&gt;</span>:/shares /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Create <code>staging</code> and <code>prod</code> directories owned by <code>1000:1000</code> under <code>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;</code>. The path <em>might</em> differ if your hub has special home directory storage needs. Consult admins if that’s the case. Here is the command to create the directory with appropriate permissions:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> <span class="at">-d</span> <span class="at">-o</span> 1000 <span class="at">-g</span> 1000 <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span> <span class="at">-d</span> <span class="at">-o</span> 1000 <span class="at">-g</span> 1000 <span class="dt">\</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/staging <span class="dt">\</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  /export/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>-filestore/<span class="op">&lt;</span>hubname<span class="op">&gt;</span>/prod</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check whether the directories have permissions similar to the below directories:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     45 Nov  3 20:33 a11y-filestore</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu     33 Jan  4  2022 astro-filestore</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">drwxr-xr-x</span> 4 ubuntu ubuntu  16384 Aug 16 18:45 biology-filestore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="create-the-hub-deployment-locally" class="level3">
 <h3 class="anchored" data-anchor-id="create-the-hub-deployment-locally">Create the hub deployment locally</h3>
 <p>In the <code>datahub/deployments</code> directory, run <code>cookiecutter</code>. This sets up the hub’s configuration directory:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cookiecutter</span> template/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cookiecutter</span> template/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl>
 <dt>The cookiecutter template will prompt you to provide the following information:</dt>
 <dd>
@@ -621,9 +623,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</h3>
 <p>If you have created a new filestore instance, you will now need to apply the <code>ROOT_SQUASH</code> settings. Please ensure that you’ve already created the hub’s root directory and both <code>staging</code> and <code>prod</code> directories, otherwise you will lose write access to the share. We also attach labels to a new filestore instance for tracking individual and full hub costs.</p>
 <p>Skip this step if you are using an existing/shared filestore.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances update <span class="op">&lt;</span>filestore-instance-name<span class="op">&gt;</span> --zone=us-central1-b  <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gcloud</span> filestore instances update <span class="op">&lt;</span>filestore-instance-name<span class="op">&gt;</span> --zone=us-central1-b  <span class="dt">\</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--update-labels</span><span class="op">=</span>hub=<span class="op">&lt;</span>hubname<span class="op">&gt;</span>,filestore-deployment=<span class="op">&lt;</span>hubname<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--flags-file</span><span class="op">=&lt;</span>hubname<span class="op">&gt;</span>/config/filestore/squash-flags.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--flags-file</span><span class="op">=&lt;</span>hubname<span class="op">&gt;</span>/config/filestore/squash-flags.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="authentication" class="level3">
 <h3 class="anchored" data-anchor-id="authentication">Authentication</h3>
@@ -640,8 +642,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="cicd-and-single-user-server-image">CI/CD and single-user server image</h3>
 <p>CI/CD is managed through Github Actions, and the relevant workflows are located in <code>.github/workflows/</code>. Deploying all hubs are managed via Pull Request Labels, which are applied automatically on PR creation.</p>
 <p>To ensure the new hub is deployed, all that needs to be done is add a new entry (alphabetically) in <code>.github/labeler.yml</code> under the <code># add hub-specific labels for deployment changes</code> stanza:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">"hub: &lt;hubname&gt;"</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">"deployments/&lt;hubname&gt;/**"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="hubs-using-a-custom-single-user-server-image" class="level4">
 <h4 class="anchored" data-anchor-id="hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</h4>
 <p>If this hub will be using its own image, then follow the <a href="https://docs.datahub.berkeley.edu/admins/howto/new-image.html">instructions here</a> to create the new image and repository. In this case, the image tag will be <code>PLACEHOLDER</code> and will be updated AFTER your PR to datahub is merged.</p>
@@ -654,9 +656,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="review-the-deployments-hubploy.yaml" class="level4">
 <h4 class="anchored" data-anchor-id="review-the-deployments-hubploy.yaml">Review the deployment’s <code>hubploy.yaml</code></h4>
 <p>Next, review <code>hubploy.yaml</code> inside your project directory to confirm that looks cromulent. An example from the <code>a11y</code> hub:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">images</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">images</span><span class="kw">:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">images</span><span class="kw">:</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image:&lt;image tag OR "PLACEHOLDER"&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image:&lt;image tag OR "PLACEHOLDER"&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="create-placeholder-node-pool" class="level3">
@@ -673,16 +675,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Subtract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.</p></li>
 <li><p>Add an entry for the new placeholder node config in <code>values.yaml</code>:</p></li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hub.jupyter.org/pool-name</span><span class="kw">:</span><span class="at"> data102-pool</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">requests</span><span class="kw">:</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For reference, here’s example output from collecting and calculating the values for <code>data102</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">60055600Ki%</span></span>
@@ -699,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="ex">prometheus-node-exporter</span></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room</span></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, <a href="../tasks/calendar-scaler.html">calendar events</a>. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.</p>
 </section>
 <section id="commit-and-deploy-to-staging" class="level3">
@@ -782,13 +784,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
