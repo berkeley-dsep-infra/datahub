@@ -333,6 +333,13 @@ jobs:
             -d "{\"body\": \"$COMMENT_BODY\"}" \
             "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments" > /dev/null 2>&1
           
+          # Add the "delete-email" label
+          curl -s -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"labels":["delete-email"]}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/labels" > /dev/null 2>&1
+
           # Close the issue
           curl -s -X PATCH \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
