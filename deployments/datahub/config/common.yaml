@@ -157,7 +157,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: b82c68dd2433
+      tag: d9e65e315160
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv23ct7Qx1mAotaIIYx9
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/berkeley-datahub-git-access

@@ -52,7 +52,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: b82c68dd2433
+      tag: d9e65e315160
     extraFiles:
       # DH-544
       jupyter-lab-overrides:
