@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Create a New Hub</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../tasks/core-pool.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1873dc008b3583adbc3f347b91c061ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-fdb72191082a1e99ba614a4de59b4f97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -670,38 +672,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li><p>Launch a server on https://<em>hubname</em>.datahub.berkeley.edu</p></li>
 <li><p>Get the node name (it will look something like <code>gke-spring-2024-user-datahub-2023-01-04-fc70ea5b-67zs</code>): <code>kubectl get nodes | grep *hubname* | awk '{print $1}'</code></p></li>
-<li><p>Get the total amount of memory allocatable to pods on this node and convert to bytes: <code>bash     kubectl get node &lt;nodename&gt; -o jsonpath='{.status.allocatable.memory}'</code></p></li>
-<li><p>Get the total memory used by non-user pods/containers on this node. We explicitly ignore <code>notebook</code> and <code>pause</code>. Convert to bytes and get the sum: <code>bash     kubectl get -A pod -l 'component!=user-placeholder' \       --field-selector spec.nodeName=&lt;nodename&gt; \       -o jsonpath='{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}' \       | egrep -v 'pause|notebook'</code></p></li>
+<li><p>Get the total amount of memory allocatable to pods on this node and convert to bytes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get node <span class="op">&lt;</span>nodename<span class="op">&gt;</span> -o jsonpath=<span class="st">'{.status.allocatable.memory}'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Get the total memory used by non-user pods/containers on this node. We explicitly ignore <code>notebook</code> and <code>pause</code>. Convert to bytes and get the sum:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--field-selector</span> spec.nodeName=<span class="op">&lt;</span>nodename<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Subtract the second number from the first, and then subtract another 277872640 bytes (256Mi) for “wiggle room”.</p></li>
 <li><p>Add an entry for the new placeholder node config in <code>values.yaml</code>:</p></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hub.jupyter.org/pool-name</span><span class="kw">:</span><span class="at"> data102-pool</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">requests</span><span class="kw">:</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data102</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hub.jupyter.org/pool-name</span><span class="kw">:</span><span class="at"> data102-pool</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">resources</span><span class="kw">:</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">requests</span><span class="kw">:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # Some value slightly lower than allocatable RAM on the node pool</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="dv">60929654784</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For reference, here’s example output from collecting and calculating the values for <code>data102</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">60055600Ki%</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="dt">\</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>-o jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span> <span class="co"># convert all values to bytes, sum them</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">calico-node</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit</span>       100Mi</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit-gke</span>   100Mi</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-metrics-agent</span>       60Mi</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ip-masq-agent</span>   16Mi</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="ex">kube-proxy</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="ex">prometheus-node-exporter</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get nodes <span class="kw">|</span> <span class="fu">grep</span> data102 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1}'</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-spring-2024-user-data102-2023-01-05-e02d4850-t478</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get node gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="at">-o</span> jsonpath=<span class="st">'{.status.allocatable.memory}'</span> <span class="co"># convert to bytes</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">60055600Ki%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ kubectl get <span class="at">-A</span> pod <span class="at">-l</span> <span class="st">'component!=user-placeholder'</span> <span class="dt">\</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>--field-selector spec.nodeName=gke-spring-2024-user-data102-2023-01-05-e02d4850-t478 <span class="dt">\</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>-o jsonpath=<span class="st">'{range .items[*].spec.containers[*]}{.name}{"\t"}{.resources.requests.memory}{"\n"}{end}'</span> <span class="dt">\</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="fu">egrep</span> <span class="at">-v</span> <span class="st">'pause|notebook'</span> <span class="co"># convert all values to bytes, sum them</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ex">calico-node</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit</span>       100Mi</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fluentbit-gke</span>   100Mi</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ex">gke-metrics-agent</span>       60Mi</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ip-masq-agent</span>   16Mi</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="ex">kube-proxy</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="ex">prometheus-node-exporter</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># subtract the sum of the second command's values from the first value, then subtract another 277872640 bytes for wiggle room</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">gcpdev</span><span class="kw">)</span> <span class="ex">➜</span>  ~ <span class="co"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Besides setting defaults, we can dynamically change the placeholder counts by either adding new, or editing existing, <a href="../tasks/calendar-scaler.html">calendar events</a>. This is useful for large courses which can have placeholder nodes set aside for predicatable periods of heavy ramp up.</p>
 </section>
 <section id="commit-and-deploy-to-staging" class="level3">

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Course Configuration</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../tasks/user-images/rebuild-postgres-image.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1873dc008b3583adbc3f347b91c061ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-fdb72191082a1e99ba614a4de59b4f97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -453,6 +455,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#assigning-scopes-to-roles" id="toc-assigning-scopes-to-roles" class="nav-link" data-scroll-target="#assigning-scopes-to-roles">Assigning Scopes to Roles</a></li>
   <li><a href="#defining-group-profiles" id="toc-defining-group-profiles" class="nav-link" data-scroll-target="#defining-group-profiles">Defining group profiles</a></li>
   <li><a href="#defining-user-profiles" id="toc-defining-user-profiles" class="nav-link" data-scroll-target="#defining-user-profiles">Defining user profiles</a></li>
+  <li><a href="#shared-directory" id="toc-shared-directory" class="nav-link" data-scroll-target="#shared-directory">Shared Directory</a>
+  <ul class="collapse">
+  <li><a href="#configuration-steps" id="toc-configuration-steps" class="nav-link" data-scroll-target="#configuration-steps">Configuration steps:</a></li>
+  </ul></li>
+  <li><a href="#shared-conda-environment-volume-mounts" id="toc-shared-conda-environment-volume-mounts" class="nav-link" data-scroll-target="#shared-conda-environment-volume-mounts">Shared Conda Environment Volume Mounts</a>
+  <ul class="collapse">
+  <li><a href="#configuration-steps-1" id="toc-configuration-steps-1" class="nav-link" data-scroll-target="#configuration-steps-1">Configuration steps:</a></li>
+  </ul></li>
   <li><a href="#housekeeping" id="toc-housekeeping" class="nav-link" data-scroll-target="#housekeeping">Housekeeping</a></li>
   </ul>
 </nav>
@@ -587,6 +597,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> user2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Add a comment which links to the github issue where the resources were requested. This helps us to cull old configuration during maintenance windows.</p></li>
 </ol>
+</section>
+<section id="shared-directory" class="level2">
+<h2 class="anchored" data-anchor-id="shared-directory">Shared Directory</h2>
+<p>Instructors often request shared directories for collaboration with TAs and students. The configuration below mounts course-specific directories:</p>
+<ul>
+<li><strong>Instructors and TAs</strong> see both:
+<ul>
+<li>A <strong>read-write</strong> directory</li>
+<li>A <strong>read-only</strong> directory</li>
+</ul></li>
+<li><strong>Students</strong> only see the <strong>read-only</strong> version.</li>
+</ul>
+<section id="configuration-steps" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-steps">Configuration steps:</h3>
+<ol type="1">
+<li><p>Edit <code>deployments/{deployment}/config/common.yaml</code>.</p></li>
+<li><p>Duplicate an existing stanza, or create a new one under <code>jupyterhub.custom.bcourses_shared</code> by inserting yaml of the form:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jupyterhub</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">bcourses_shared</span><span class="kw">:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">2025-fall</span><span class="kw">:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="st">"course::1234567"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="st">"course::1111111"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p>This will generate the following mounts:</p>
+<p>for teachers and TAs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /home/jovyan/_shared/bcourses-1234567-readwrite </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /home/jovyan/_shared/bcourses-1234567</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>for students</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> /home/jovyan/_shared/bcourses-1234567</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="shared-conda-environment-volume-mounts" class="level2">
+<h2 class="anchored" data-anchor-id="shared-conda-environment-volume-mounts">Shared Conda Environment Volume Mounts</h2>
+<p>Instructors may request shared Conda environments for installing custom packages.</p>
+<ul>
+<li><strong>Teachers and TAs</strong>: Have <strong>read-write</strong> access to the shared Conda environment.</li>
+<li><strong>Students</strong>: Have <strong>read-only</strong> access.</li>
+</ul>
+<section id="configuration-steps-1" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-steps-1">Configuration steps:</h3>
+<ol type="1">
+<li><p>Edit <code>deployments/{deployment}/config/common.yaml</code>.</p></li>
+<li><p>Duplicate an existing stanza, or create a new one under <code>jupyterhub.custom.conda_shared</code> by inserting yaml of the form:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jupyterhub</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">conda_shared</span><span class="kw">:</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">bcourse_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"course::1234567"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">staff_overrides</span><span class="kw">:</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 8G</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">mem_guarantee</span><span class="kw">:</span><span class="at"> 8G</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">bcourse_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"course::1111111"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">staff_overrides</span><span class="kw">:</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">mem_limit</span><span class="kw">:</span><span class="at"> 8G</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">mem_guarantee</span><span class="kw">:</span><span class="at"> 8G</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This will generate the following mount:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">  /srv/conda/envs/shared</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In addition, the memory guarantee and limit for teachers and TAs will be increased to 8 GB, if their current allocation is less than that.</p></li>
+</ol>
+</section>
 </section>
 <section id="housekeeping" class="level2">
 <h2 class="anchored" data-anchor-id="housekeeping">Housekeeping</h2>
