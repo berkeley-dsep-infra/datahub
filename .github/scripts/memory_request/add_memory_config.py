@@ -33,7 +33,7 @@ def insert_or_update_group_profile(yaml_path: Path, course_id: str, memory_reque
 
     course_key = f"course::{course_id}:"
     mem_limit_line = f"mem_limit: {memory_requested}G\n"
-    mem_guarantee_line = f"mem_guarantee: {memory_requested}G\n"
+    mem_guarantee_line = f"mem_guarantee: to be determined\n"
 
     jupyterhub_indent = None
     jupyterhub_start = None

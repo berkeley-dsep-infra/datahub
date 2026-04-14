@@ -214,16 +214,11 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 4096M
         mem_guarantee: 4096M
-      course::1546002:
-        ## Course Name: Data 6 Bcourses ID: 1546002 End Date: 08/14/2025
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7305 for details.
-        mem_limit: 2G
-        mem_guarantee: 2G
       course::1552265:
         ## Course Name: LEGALST 123 Data Prediction & Law Bcourses ID: 1552265 End Date: 05/16/2026
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7843 for details.
         mem_limit: 4G
-        mem_guarantee: 4G
+        mem_guarantee: 2G
       course::1552731:
         ## Course Name: Envecon 153 Bcourses ID: 1552731 End Date: End of Spring semester
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7898 for details.
@@ -233,12 +228,12 @@ jupyterhub:
         ## Course Name: Econ 148 Bcourses ID: 1551764 End Date: 05/01/2026
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7902 for details.
         mem_limit: 4G
-        mem_guarantee: 4G
+        mem_guarantee: 2G
       course::1550885:
         ## Course Name: DEMOG-130: Demography of Deaths, Diseases, and Disasters Bcourses ID: 1550885 End Date: May/8/2026
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8001 for details.
         mem_limit: 2G
-        mem_guarantee: 2G
+        mem_guarantee: 1G
 
     bcourses_shared:
       2026-spring:
