@@ -106,8 +106,6 @@ node-placeholder-scaler:
   - 'deployments/dlab/**'
 'hub: dev':
   - 'deployments/dev/**'
-'hub: edx':
-  - 'deployments/edx/**'
 'hub: eecs':
   - 'deployments/eecs/**'
 'hub: highschool':

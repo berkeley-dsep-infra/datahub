@@ -6,7 +6,6 @@ listing:
     - "hubs/datahub.qmd"
     - "hubs/data100.qmd"
     - "hubs/data102.qmd"
-    - "hubs/edx.qmd"
     - "hubs/nature.qmd"
     - "hubs/prob140.qmd"
     - "hubs/r.qmd"
