@@ -235,6 +235,11 @@ jupyterhub:
         mem_limit: 2G
         mem_guarantee: 1G
 
+      course::N/A:
+        ## Course Name: Annual Workshop on Formal Demography [workshop.datahub.berkeley.edu] Bcourses ID: N/A End Date: 06/08/2026
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8201 for details.
+        mem_limit: 4G
+        mem_guarantee: to be determined
     bcourses_shared:
       2026-spring:
         - "course::1551764"
