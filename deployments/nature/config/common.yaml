@@ -91,7 +91,7 @@ jupyterhub:
         default: true
         slug: "default-profile"   
         kubespawner_override: {
-          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:4efb67ce829b            
+          image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3            
         }
         profile_options:
           interface:
@@ -124,7 +124,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:4efb67ce829b
+                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -188,7 +188,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:4efb67ce829b
+                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -229,7 +229,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:4efb67ce829b
+                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -293,7 +293,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:4efb67ce829b
+                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -332,7 +332,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:4efb67ce829b
+                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
