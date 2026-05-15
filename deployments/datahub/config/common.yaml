@@ -219,11 +219,6 @@ jupyterhub:
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7843 for details.
         mem_limit: 4G
         mem_guarantee: 2G
-      course::1552731:
-        ## Course Name: Envecon 153 Bcourses ID: 1552731 End Date: End of Spring semester
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7898 for details.
-        mem_guarantee: 2G
-        mem_limit: 4G
       course::1551764:
         ## Course Name: Econ 148 Bcourses ID: 1551764 End Date: 05/01/2026
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7902 for details.
