@@ -52,11 +52,11 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: b82c68dd2433
+      tag: 7f6ed21913b9
     extraFiles:
       # DH-544
       jupyter-lab-overrides:
-        mountPath:  /srv/conda/share/jupyter/lab/settings/overrides.json
+        mountPath:  /srv/conda/envs/notebook/share/jupyter/lab/settings/overrides.json
         stringData:  |
           {
             "@jupyterlab/notebook-extension:tracker": {
@@ -95,7 +95,7 @@ jupyterhub:
       extraVolumeMounts:
         gitconfig:
           name: etc-gitconfig
-          mountPath: /srv/conda/etc/gitconfig
+          mountPath: /srv/conda/envs/notebook/etc/gitconfig
           subPath: gitconfig
           readOnly: true
         private-key:
@@ -123,13 +123,7 @@ jupyterhub:
         mem_limit: 2048M
         mem_guarantee: 2048M
       
-      course::1550624:
-        ## Course Name: Political Science 3 Bcourses ID: 1550624 End Date: 05/15/2026
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8150 for details.
-        mem_limit: 2G
-        mem_guarantee: 2G
-    
-    bcourses_shared:
-      2026-spring:
-        - "course::1552931"
-        - "course::1550624"
+    # bcourses_shared:
+      # 2026-spring:
+        # - "course::1552931"
+        # - "course::1550624"

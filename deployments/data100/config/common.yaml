@@ -58,18 +58,6 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
-      course-staff-1551658:
-        ## Course: Data C100 Bcourses ID: 1551658 End Date: 05/31/2025 
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7857 for more details.
-        description: Enable course staff to view and access servers.
-        scopes:
-          - admin-ui
-          - list:users!group=course::1551658
-          - admin:servers!group=course::1551658
-          - access:servers!group=course::1551658
-        groups:
-          - course::1551658::enrollment_type::teacher
-          - course::1551658::enrollment_type::ta
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data100-user-image
@@ -108,7 +96,7 @@ jupyterhub:
       guarantee: 2G
       limit: 4G
     
-  custom:
-    bcourses_shared:
-      2026-spring:
-        - "course::1551658"
+  # custom:
+    # bcourses_shared:
+      # 2026-spring:
+        # - "course::1551658"

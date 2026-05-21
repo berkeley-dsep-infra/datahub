@@ -67,42 +67,6 @@ jupyterhub:
         groups:
           - course::1545078::enrollment_type::teacher
           - course::1545078::enrollment_type::ta
-      course-staff-1551226:
-        ## Course: There are two related courses: Computational modeling of language, Computational linguistics Bcourses ID: 1551226 End Date: 06/01/2026 
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7822 for more details.
-        description: Enable course staff to view and access servers.
-        scopes:
-          - admin-ui
-          - list:users!group=course::1551226
-          - admin:servers!group=course::1551226
-          - access:servers!group=course::1551226
-        groups:
-          - course::1551226::enrollment_type::teacher
-          - course::1551226::enrollment_type::ta
-      course-staff-1551190:
-        ## Course: There are two related courses: Computational modeling of language, Computational linguistics Bcourses ID: 1551190 End Date: 06/01/2026 
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7822 for more details.
-        description: Enable course staff to view and access servers.
-        scopes:
-          - admin-ui
-          - list:users!group=course::1551190
-          - admin:servers!group=course::1551190
-          - access:servers!group=course::1551190
-        groups:
-          - course::1551190::enrollment_type::teacher
-          - course::1551190::enrollment_type::ta
-      course-staff-1551764:
-        ## Course: Econ 148 Bcourses ID: 1551764 End Date: 05/15/2026 
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7925 for more details.
-        description: Enable course staff to view and access servers.
-        scopes:
-          - admin-ui
-          - list:users!group=course::1551764
-          - admin:servers!group=course::1551764
-          - access:servers!group=course::1551764
-        groups:
-          - course::1551764::enrollment_type::teacher
-          - course::1551764::enrollment_type::ta
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     initContainers:
@@ -158,7 +122,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: b82c68dd2433
+      tag: 7f6ed21913b9
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv23ct7Qx1mAotaIIYx9
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/berkeley-datahub-git-access
@@ -179,7 +143,7 @@ jupyterhub:
       extraVolumeMounts:
         gitconfig:
           name: etc-gitconfig
-          mountPath: /srv/conda/etc/gitconfig
+          mountPath: /srv/conda/envs/notebook/etc/gitconfig
           subPath: gitconfig
           readOnly: true
         private-key:
@@ -206,7 +170,6 @@ jupyterhub:
       guarantee: 512M
       limit: 1G
 
-
   custom:
     group_profiles:
       # DataHub Infrastructure staff
@@ -214,27 +177,6 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 4096M
         mem_guarantee: 4096M
-      course::1552265:
-        ## Course Name: LEGALST 123 Data Prediction & Law Bcourses ID: 1552265 End Date: 05/16/2026
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7843 for details.
-        mem_limit: 4G
-        mem_guarantee: 2G
-      course::1552731:
-        ## Course Name: Envecon 153 Bcourses ID: 1552731 End Date: End of Spring semester
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7898 for details.
-        mem_guarantee: 2G
-        mem_limit: 4G
-      course::1551764:
-        ## Course Name: Econ 148 Bcourses ID: 1551764 End Date: 05/01/2026
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/7902 for details.
-        mem_limit: 4G
-        mem_guarantee: 2G
-      course::1550885:
-        ## Course Name: DEMOG-130: Demography of Deaths, Diseases, and Disasters Bcourses ID: 1550885 End Date: May/8/2026
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8001 for details.
-        mem_limit: 2G
-        mem_guarantee: 1G
-
-    bcourses_shared:
-      2026-spring:
-        - "course::1551764"
+    # bcourses_shared:
+      # 2026-spring:
+        # - "course::1551764"
