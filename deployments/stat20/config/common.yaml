@@ -17,6 +17,7 @@ jupyterhub:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
 
+
   hub:
     extraConfig:
       # Use 1x-<title> in `common.yaml` extraConfig values.
@@ -76,7 +77,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat20-user-image
-      tag: 668b865bb4bc
+      tag: 25f1ecbfa819
     extraFiles:
       # DH-216
       remove-exporters:
