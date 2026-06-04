@@ -102,7 +102,8 @@ nodePools:
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 207314055168
+        memory: 60929654784
+        # value for n2-highmem-32 memory: 207314055168
     replicas: 0
   data101:
     nodeSelector:
