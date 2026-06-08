@@ -26,10 +26,7 @@ jupyterhub:
       # 0x-<title> used in `values.yaml` - so config set here
       # will override config set in `values.yaml`
       11-working-dir: |
-        # Rocker based images have 'rstudio' as user $1000
-        # so let's stick to that, and use /home/${NB_USER}
-        # consistently.
-        c.KubeSpawner.working_dir = '/home/rstudio'
+        c.KubeSpawner.working_dir = '/home/jovyan'
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     config:
@@ -83,10 +80,7 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: ischool-pool
     storage:
-      # Rocker based images have 'rstudio' as user $1000
-      # so let's stick to that, and use /home/${NB_USER}
-      # consistently.
-      homeMountPath: /home/rstudio
+      homeMountPath: /home/jovyan
       type: static
       static:
         pvcName: home-nfs-v3
