@@ -27,10 +27,7 @@ jupyterhub:
       # 0x-<title> used in `values.yaml` - so config set here
       # will override config set in `values.yaml`
       11-working-dir: |
-        # Rocker based images have 'rstudio' as user id 1000
-        # so let's stick to that, and use /home/${NB_USER}
-        # consistently.
-        c.KubeSpawner.working_dir = '/home/rstudio'
+        c.KubeSpawner.working_dir = '/home/jovyan'
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     config:
@@ -77,7 +74,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat20-user-image
-      tag: 25f1ecbfa819
+      tag: 668b865bb4bc
     extraFiles:
       # DH-216
       remove-exporters:
@@ -96,7 +93,7 @@ jupyterhub:
       # Rocker based images have 'rstudio' as user $1000
       # so let's stick to that, and use /home/${NB_USER}
       # consistently.
-      homeMountPath: /home/rstudio
+      homeMountPath: /home/jovyan
       type: static
       static:
         pvcName: home-nfs-v3
