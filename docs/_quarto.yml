@@ -45,6 +45,7 @@ website:
           - tasks/rebuild-hub-image.qmd
           - section: "User Images"
             contents:
+              - tasks/user-images/manage-base-images.qmd
               - tasks/user-images/new-image.qmd
               - tasks/user-images/update-image.qmd
               - tasks/user-images/new-packages.qmd
