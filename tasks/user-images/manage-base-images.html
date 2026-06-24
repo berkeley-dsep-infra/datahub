@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Prometheus and Grafana</title>
+<title>Manage Base Images</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,25 +61,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../tasks/remove-users-orm.html" rel="next">
-<link href="../tasks/calendar-scaler.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-962fc54e7f26c99d62e000ee8decca55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../tasks/user-images/new-image.html" rel="next">
+<link href="../../tasks/rebuild-hub-image.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-962fc54e7f26c99d62e000ee8decca55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -118,11 +118,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../datahub.svg" alt="" class="navbar-logo light-content">
-    <img src="../datahub.svg" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../datahub.svg" alt="" class="navbar-logo light-content">
+    <img src="../../datahub.svg" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DataHub</span>
     </a>
   </div>
@@ -133,15 +133,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../admins/pre-reqs.html" aria-current="page"> 
+    <a class="nav-link active" href="../../admins/pre-reqs.html" aria-current="page"> 
 <span class="menu-text">Architecture and contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tasks/documentation.html"> 
+    <a class="nav-link" href="../../tasks/documentation.html"> 
 <span class="menu-text">Admin Tasks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../policy/create_policy.html"> 
+    <a class="nav-link" href="../../policy/create_policy.html"> 
 <span class="menu-text">Policy</span></a>
   </li>  
 </ul>
@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/prometheus-grafana.html">Prometheus and Grafana</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/manage-base-images.html">User Images</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/manage-base-images.html">Manage Base Images</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -170,13 +170,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub Deployments</span></a>
   </div>
 </li>
@@ -191,37 +191,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/pre-reqs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-requisites</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Repository Structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/cicd-github-actions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous Integration and Deployment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/cluster-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kubernetes Cluster Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/credentials.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Credentials</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../admins/storage.html" class="sidebar-item-text sidebar-link">
+  <a href="../../admins/storage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User home directory storage</span></a>
   </div>
 </li>
@@ -238,88 +238,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/documentation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/dns.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/dns.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update DNS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/core-pool.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/core-pool.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Core Node Pool Management</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/new-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/new-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/rebuild-hub-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Hub Docker Image</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">User Images</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/manage-base-images.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/manage-base-images.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Manage Base Images</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/new-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/new-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create a New Single User Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/update-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/update-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Update the Image</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/new-packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/new-packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Testing and Upgrading New Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/repo2docker-local.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/repo2docker-local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Test User Images Locally</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/managing-multiple-user-image-repos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Managing multiple user image repos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/transition-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/transition-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transition Single User Image to GitHub Actions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/user-images/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/user-images/rebuild-postgres-image.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customize the Per-User Postgres Docker Image</span></a>
   </div>
 </li>
@@ -327,79 +327,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/course-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/course-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/calendar-scaler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/calendar-scaler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calendar Node Pool Autoscaler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/prometheus-grafana.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../tasks/prometheus-grafana.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prometheus and Grafana</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/remove-users-orm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/remove-users-orm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub ORM Maintenance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/delete-hub.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/delete-hub.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Delete or spin down a Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/clusterswitch.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/clusterswitch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Switching over a hub to a new cluster</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/github-token.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/github-token.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Create Finely Grained Access Token</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/google-sheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reading Google Sheets from DataHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/cheatsheet.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/cheatsheet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operations Cheatsheet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/semester-start-end-tasks.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/semester-start-end-tasks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DataHub Semester Start and End Tasks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/gcp-bigquery-sink.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/gcp-bigquery-sink.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Collecting Course Information from GCP Logs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/grouper-sync.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/grouper-sync.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syncing JupyterHub Users to CalGroups (Grouper)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/gh-scoped-creds.html" class="sidebar-item-text sidebar-link">
+  <a href="../../tasks/gh-scoped-creds.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">gh-scoped-creds</span></a>
   </div>
 </li>
@@ -416,25 +416,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/create_policy.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/create_policy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Process to publish policy proposals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_create_hubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for creating a new hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/policy_deploy_mainhubs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Policy considerations for deploying to the main Datahub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../policy/principles.html" class="sidebar-item-text sidebar-link">
+  <a href="../../policy/principles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Principles to be considered while creating new policies</span></a>
   </div>
 </li>
@@ -442,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../incidents/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../incidents/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Incident Reports</span></a>
   </div>
 </li>
@@ -456,21 +456,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#accessing-the-prometheus-server" id="toc-accessing-the-prometheus-server" class="nav-link active" data-scroll-target="#accessing-the-prometheus-server">Accessing the Prometheus Server</a>
-  <ul class="collapse">
-  <li><a href="#using-the-standard-port" id="toc-using-the-standard-port" class="nav-link" data-scroll-target="#using-the-standard-port">Using the standard port</a></li>
-  <li><a href="#using-an-alternative-port" id="toc-using-an-alternative-port" class="nav-link" data-scroll-target="#using-an-alternative-port">Using an alternative port</a></li>
-  </ul></li>
-  <li><a href="#grafana" id="toc-grafana" class="nav-link" data-scroll-target="#grafana">Grafana</a></li>
+  <li><a href="#steps-for-the-base-python-image" id="toc-steps-for-the-base-python-image" class="nav-link active" data-scroll-target="#steps-for-the-base-python-image">Steps for the Base Python Image</a></li>
+  <li><a href="#steps-for-the-base-r-image" id="toc-steps-for-the-base-r-image" class="nav-link" data-scroll-target="#steps-for-the-base-r-image">Steps for the Base R Image</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/prometheus-grafana.html">Prometheus and Grafana</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/manage-base-images.html">User Images</a></li><li class="breadcrumb-item"><a href="../../tasks/user-images/manage-base-images.html">Manage Base Images</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Prometheus and Grafana</h1>
+<h1 class="title">Manage Base Images</h1>
 </div>
 
 
@@ -487,27 +483,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="accessing-the-prometheus-server" class="level1">
-<h1>Accessing the Prometheus Server</h1>
-<p>It can be useful to interact with the cluster’s prometheus server while developing dashboards in grafana. You will need to forward a local port to the prometheus server’s pod.</p>
-<section id="using-the-standard-port" class="level2">
-<h2 class="anchored" data-anchor-id="using-the-standard-port">Using the standard port</h2>
-<p>Listen on port 9090 locally, forwarding to the prometheus server’s port <code>9090</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> <span class="at">-n</span> support port-forward deployment/support-prometheus-server 9090</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then visit http://localhost:9090.</p>
+<p>We now use the base image workflow and admins manage the <a href="https://github.com/berkeley-dsep-infra/base-python-image/tree/main">base Python image</a> and the <a href="https://github.com/berkeley-dsep-infra/base-r-image">base R image</a>.</p>
+<section id="steps-for-the-base-python-image" class="level3">
+<h3 class="anchored" data-anchor-id="steps-for-the-base-python-image">Steps for the Base Python Image</h3>
+<section id="step-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-1">Step 1:</h4>
+<ul>
+<li>Admins make changes in apt.txt to manage system packages and environment.yaml to manage Conda and Pip packages.</li>
+<li>Once the PR is merged, the Github action for building the base image is triggered.</li>
+</ul>
 </section>
-<section id="using-an-alternative-port" class="level2">
-<h2 class="anchored" data-anchor-id="using-an-alternative-port">Using an alternative port</h2>
-<p>Listen on port 8000 locally, forwarding to the prometheus server’s port <code>9090</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> <span class="at">-n</span> support port-forward deployment/support-prometheus-server 8000:9090</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>then visit http://localhost:8000.</p>
+<section id="step-2" class="level4">
+<h4 class="anchored" data-anchor-id="step-2">Step 2:</h4>
+<ul>
+<li>In the Github logs, look for the new base image tag. Alternatively, you can navigate to the artifact registry on Google cloud console and find the tag for the latest image.</li>
+<li>Nagivate to a hub with the fancy profile configured (e.g.&nbsp;nature.datahub.berkeley.edu), and lauch a server with the newly built base image.</li>
+<li>Test the basic functionalities, including:
+<ol type="1">
+<li>Write a file in the terminal</li>
+<li>Open a notebook, write a notebook, run a notebook, and save a notebook.</li>
+</ol></li>
+<li>Test the recent changes, including:
+<ol type="1">
+<li>Versions (by running pip show &lt;package&gt;)</li>
+<li>New functionalities tied to a specific version</li>
+</ol></li>
+</ul>
+</section>
+<section id="step-3" class="level4">
+<h4 class="anchored" data-anchor-id="step-3">Step 3:</h4>
+<p>Once the base image is tested and everything looks good, manaully dispatch the “Trigger Downstream Builds” workflow in Github actions.</p>
+<ol type="1">
+<li><p>Which downstream group to build?</p>
+<p>Choose “base” if you want to build the downstream R base image. Choose “user” if you want to build the downstream hub specific user images.</p></li>
+<li><p>Base image name (e.g.&nbsp;ucb-datahub-2018/testing/base-python-image)</p>
+<p>Use the base image name you have obtained in step 2.</p></li>
+<li><p>Base image SHA/tag to propagate</p>
+<p>Use the base image tag you have obtained in step 2.</p></li>
+</ol>
 </section>
 </section>
-<section id="grafana" class="level1">
-<h1>Grafana</h1>
-<p>Our Grafana dashboards are at https://grafana.datahub.berkeley.edu. Upstream documentation is at https://jupyterhub-grafana.readthedocs.io/en/latest/index.html.</p>
+<section id="steps-for-the-base-r-image" class="level3">
+<h3 class="anchored" data-anchor-id="steps-for-the-base-r-image">Steps for the Base R Image</h3>
+<section id="step-1-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-1">Step 1:</h4>
+<ul>
+<li>Admins make changes in install.R to manage base R packages.</li>
+<li>Once the PR is merged, the Github action for building the base R image is triggered.</li>
+</ul>
+</section>
+<section id="step-2-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-1">Step 2:</h4>
+<ul>
+<li>In the Github logs, look for the new base image tag. Alternatively, you can navigate to the artifact registry on Google cloud console and find the tag for the latest image.</li>
+<li>Nagivate to a hub with the fancy profile configured (e.g.&nbsp;nature.datahub.berkeley.edu), and lauch a server with the newly built base image.</li>
+<li>Test the basic functionalities, including:
+<ol type="1">
+<li>Write a file in the terminal</li>
+<li>Open a notebook, write a notebook, run a notebook, and save a notebook.</li>
+</ol></li>
+<li>Test the recent changes, including:
+<ol type="1">
+<li>R Versions by running</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>()[, <span class="fu">c</span>(<span class="st">"Package"</span>, <span class="st">"Version"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>New functionalities tied to a specific version</li>
+</ol></li>
+</ul>
+</section>
+<section id="step-3-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-1">Step 3:</h4>
+<p>Once the base image is tested and everything looks good, manaully dispatch the “Trigger Downstream Builds” workflow in Github actions.</p>
+<ol type="1">
+<li><p>Which downstream group to build?</p>
+<p>Choose “user” to build the downstream hub specific user images.</p></li>
+<li><p>Base image name (e.g.&nbsp;ucb-datahub-2018/testing/base-r-image)</p>
+<p>Use the base image name you have obtained in step 2.</p></li>
+<li><p>Base image SHA/tag to propagate</p>
+<p>Use the base image tag you have obtained in step 2.</p></li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -913,13 +971,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../tasks/calendar-scaler.html" class="pagination-link" aria-label="Calendar Node Pool Autoscaler">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Calendar Node Pool Autoscaler</span>
+      <a href="../../tasks/rebuild-hub-image.html" class="pagination-link" aria-label="Customize the Hub Docker Image">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Customize the Hub Docker Image</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../tasks/remove-users-orm.html" class="pagination-link" aria-label="JupyterHub ORM Maintenance">
-        <span class="nav-page-text">JupyterHub ORM Maintenance</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../tasks/user-images/new-image.html" class="pagination-link" aria-label="Create a New Single User Image">
+        <span class="nav-page-text">Create a New Single User Image</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
