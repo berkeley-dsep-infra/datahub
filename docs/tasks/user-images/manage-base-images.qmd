@@ -1,0 +1,73 @@
+---
+title: Manage Base Images
+aliases:
+  - ../admins/howto/manage-base-images.html
+  - ../manage-base-images.html
+---
+
+We now use the base image workflow and admins manage the [base Python image](https://github.com/berkeley-dsep-infra/base-python-image/tree/main) and the [base R image](https://github.com/berkeley-dsep-infra/base-r-image).
+
+### Steps for the Base Python Image
+
+#### Step 1: 
+- Admins make changes in apt.txt to manage system packages and environment.yaml to manage Conda and Pip packages.
+- Once the PR is merged, the Github action for building the base image is triggered. 
+
+#### Step 2:
+- In the Github logs, look for the new base image tag. Alternatively, you can navigate to the artifact registry on Google cloud console and find the tag for the latest image. 
+- Nagivate to a hub with the fancy profile configured (e.g. nature.datahub.berkeley.edu), and lauch a server with the newly built base image.
+- Test the basic functionalities, including:
+  1. Write a file in the terminal
+  2. Open a notebook, write a notebook, run a notebook, and save a notebook.
+- Test the recent changes, including:
+  1. Versions (by running pip show \<package\>)
+  2. New functionalities tied to a specific version
+   
+#### Step 3:
+Once the base image is tested and everything looks good, manaully dispatch the "Trigger Downstream Builds" workflow in Github actions. 
+
+1. Which downstream group to build?
+   
+   Choose "base" if you want to build the downstream R base image.
+   Choose "user" if you want to build the downstream hub specific user images. 
+2. Base image name (e.g. ucb-datahub-2018/testing/base-python-image)
+   
+   Use the base image name you have obtained in step 2.
+3. Base image SHA/tag to propagate
+   
+   Use the base image tag you have obtained in step 2.
+
+
+### Steps for the Base R Image
+
+#### Step 1: 
+- Admins make changes in install.R to manage base R packages.
+- Once the PR is merged, the Github action for building the base R image is triggered. 
+
+#### Step 2:
+- In the Github logs, look for the new base image tag. Alternatively, you can navigate to the artifact registry on Google cloud console and find the tag for the latest image. 
+- Nagivate to a hub with the fancy profile configured (e.g. nature.datahub.berkeley.edu), and lauch a server with the newly built base image.
+- Test the basic functionalities, including:
+  1. Write a file in the terminal
+  2. Open a notebook, write a notebook, run a notebook, and save a notebook.
+- Test the recent changes, including:
+  1. R Versions by running 
+    ```R
+    installed.packages()[, c("Package", "Version")]
+    ```
+  2. New functionalities tied to a specific version
+   
+#### Step 3:
+Once the base image is tested and everything looks good, manaully dispatch the "Trigger Downstream Builds" workflow in Github actions. 
+
+1. Which downstream group to build?
+   
+   Choose "user" to build the downstream hub specific user images. 
+
+2. Base image name (e.g. ucb-datahub-2018/testing/base-r-image)
+   
+   Use the base image name you have obtained in step 2.
+3. Base image SHA/tag to propagate
+   
+   Use the base image tag you have obtained in step 2.
+
