@@ -140,8 +140,3 @@ jupyterhub:
       # 2026-spring:
         # - "course::1552931"
         # - "course::1550624"
-      course::1555635:
-        ## Course Name: 2026 Summer, SOCIOL N100 002 — Housing Precarity and Displacement: Racial and Gender Inequality in Gentrification and Eviction Bcourses ID: 1555635 End Date: 08/20/2026
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8335 for details.
-        mem_limit: 4G
-        mem_guarantee: to be determined
