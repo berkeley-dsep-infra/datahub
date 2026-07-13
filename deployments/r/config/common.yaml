@@ -123,6 +123,19 @@ jupyterhub:
         mem_limit: 2048M
         mem_guarantee: 2048M
       
+      # Course Name: 2026 Summer, SOCIOL N100 002 — Housing Precarity and Displacement
+      # Bcourses ID: 1555635 | End Date: 08/20/2026
+      # See issue https://github.com/berkeley-dsep-infra/datahub/issues/8335 for details.
+      course::1555635::enrollment_type::teacher:
+        mem_limit: 8G
+        mem_guarantee: 8G
+      course::1555635::enrollment_type::ta:
+        mem_limit: 8G
+        mem_guarantee: 8G
+      course::1555635::enrollment_type::student:
+        mem_limit: 4G
+        mem_guarantee: 4G
+
     # bcourses_shared:
       # 2026-spring:
         # - "course::1552931"
