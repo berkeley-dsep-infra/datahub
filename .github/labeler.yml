@@ -124,6 +124,8 @@ node-placeholder-scaler:
   - 'deployments/publichealth/**'
 'hub: r':
   - 'deployments/r/**'
+'hub: stat':
+  - 'deployments/stat/**'
 'hub: stat159':
   - 'deployments/stat159/**'
 'hub: stat20':
