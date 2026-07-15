@@ -1,0 +1,64 @@
+nfsPVC:
+  enabled: true
+  nfs:
+    serverIP: 10.240.85.114
+
+jupyterhub:
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
+
+  hub:
+    extraConfig:
+      11-working-dir: |
+        c.KubeSpawner.working_dir = '/home/jovyan'
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool-2024-05-08
+    loadRoles:
+      datahub-staff:
+        description: Enable admin for datahub staff
+        scopes:
+          - admin-ui
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
+        groups:
+          - course::1524699::group::all-admins
+
+  singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat20-user-image
+      tag: 668b865bb4bc
+    extraFiles:
+      remove-exporters:
+        mountPath: /etc/jupyter/jupyter_notebook_config.py
+        stringData: |
+          c.QtPDFExporter.enabled = False
+          c.QtPNGExporter.enabled = False
+          c.WebPDFExporter.enabled = False
+    extraEnv:
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+    defaultUrl: /lab
+    nodeSelector:
+      hub.jupyter.org/pool-name: stat20-pool
+    storage:
+      homeMountPath: /home/jovyan
+      type: static
+      static:
+        pvcName: home-nfs-v3
+        subPath: "{username}"
+    memory:
+      guarantee: 1024M
+      limit: 2048M

@@ -9,6 +9,7 @@ listing:
     - "hubs/nature.qmd"
     - "hubs/prob140.qmd"
     - "hubs/r.qmd"
+    - "hubs/stat.qmd"
     - "hubs/stat159.qmd"
     - "hubs/stat20.qmd"
 ---
