@@ -2,6 +2,5 @@ cluster:
   provider: gcloud
   gcloud:
     project: {{cookiecutter.project_name}}
-    service_key: gke-key.json
     cluster: {{cookiecutter.cluster_name}}
     zone: us-central1
