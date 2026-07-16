@@ -1,5 +1,10 @@
 name: Deploy support helm chart
 # use echo ${VAR##*: } to get the value of a variable that is a string with a colon in it
+
+permissions:
+  contents: read
+  id-token: write
+
 on:
   workflow_dispatch:
   push:
@@ -31,12 +36,13 @@ jobs:
             fi
           done
 
-      - name: Auth to gcloud
+      - name: Authenticate to Google Cloud
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GKE_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: ${{ secrets.HUBPLOY_SA }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
 
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
@@ -52,13 +58,18 @@ jobs:
           chmod 755 ${HOME}/bin/sops
           echo "${HOME}/bin" >> $GITHUB_PATH
 
-      - name: Store SOPS secret in a file
+      - name: Decrypt support secrets
         if: ${{ env.DEPLOY }}
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sops-key.json
         run: |
-          cat << EOF > ${HOME}/sops.key
+          cat > "$GOOGLE_APPLICATION_CREDENTIALS" <<'EOF'
           ${{ secrets.SOPS_KEY }}
           EOF
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
+      
+          sops -d -i support/secrets.yaml
+      
+          rm -f "$GOOGLE_APPLICATION_CREDENTIALS"
 
       - name: Install Helm
         if: ${{ env.DEPLOY }}
@@ -66,17 +77,13 @@ jobs:
           helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
           helm repo update
 
-      - name: Activate credentials for cluster
+      - name: Get GKE credentials
         if: ${{ env.DEPLOY }}
         run: |
-          sops -d -i deployments/datahub/secrets/gke-key.json
-          gcloud auth \
-            activate-service-account \
-            --key-file deployments/datahub/secrets/gke-key.json
-          gcloud container clusters \
-            --region=us-central1 --project=ucb-datahub-2018 \
-            get-credentials spring-2024
-
+          gcloud container clusters get-credentials spring-2024 \
+            --region=us-central1 \
+            --project=${{ secrets.GCP_PROJECT_ID }}
+      
       - name: Deploy support helm chart
         if: ${{ env.DEPLOY }}
         run: |
