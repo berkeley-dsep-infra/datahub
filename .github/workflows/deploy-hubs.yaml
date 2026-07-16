@@ -2,6 +2,11 @@
 # image for any or all hubs has has changed, and if so, deploy accordingly.
 #
 name: Deploy staging and prod hubs
+
+permissions:
+  contents: read
+  id-token: write
+
 on:
   workflow_dispatch:
   push:
@@ -58,6 +63,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Authenticate to Google Cloud
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: ${{ secrets.HUBPLOY_SA }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+      
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/setup-gcloud@v2
@@ -222,6 +235,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Authenticate to Google Cloud
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: ${{ secrets.HUBPLOY_SA }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
 
       - name: Install Google Cloud SDK
         if: ${{ env.DEPLOY }}
