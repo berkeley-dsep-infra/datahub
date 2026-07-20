@@ -248,7 +248,6 @@ bcourses.
 3. Add `<hub_name>.datahub.berkeley.edu/hub/oauth_callback` to the
    production hub client (id 10720000000000472)
 
-4. Copy gke-key.json from any other hub's secrets to the hub's secrets/
 
 Please create a new Jira ticket to set this up, and assign to Jonathan Felder. Contact the DataHub Service Lead or <bcourseshelp@berkeley.edu> if Jonathan is not available.
 
