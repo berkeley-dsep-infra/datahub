@@ -198,7 +198,7 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub staging
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py)
+          done < <(python .github/scripts/determine-hub-deployments.py --ignore cdss-discovery)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -283,4 +283,4 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub prod
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py)
+          done < <(python .github/scripts/determine-hub-deployments.py --ignore cdss-discovery)
