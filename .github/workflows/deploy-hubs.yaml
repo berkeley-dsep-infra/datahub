@@ -248,6 +248,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install SOPS
+        if: ${{ env.DEPLOY }}
+        run: |
+          mkdir -p ${HOME}/bin
+          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
+          chmod 755 ${HOME}/bin/sops
+          echo "${HOME}/bin" >> $GITHUB_PATH
+
+      - name: Install Helm
+        if: ${{ env.DEPLOY }}
+        run: |
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
       - name: Authenticate to Google Cloud
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/auth@v2
@@ -261,28 +275,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           install_components: 'gke-gcloud-auth-plugin'
-
-      - name: Install SOPS
-        if: ${{ env.DEPLOY }}
-        run: |
-          mkdir -p ${HOME}/bin
-          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
-          chmod 755 ${HOME}/bin/sops
-          echo "${HOME}/bin" >> $GITHUB_PATH
-
-      - name: Store SOPS secret in a file
-        if: ${{ env.DEPLOY }}
-        run: |
-          cat << EOF > ${HOME}/sops.key
-          ${{ secrets.SOPS_KEY }}
-          EOF
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
-
-      - name: Install Helm
-        if: ${{ env.DEPLOY }}
-        run: |
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
-            helm repo update
 
       - name: Deploy hubs to prod
         if: ${{ env.DEPLOY }}
