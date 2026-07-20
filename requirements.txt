@@ -1,7 +1,7 @@
 attrs==23.1.0
 chardet==5.2.0
 chartpress==2.2.0
-git+https://github.com/yijunge-ucb/hubploy.git@09146b6
+git+https://github.com/yijunge-ucb/hubploy.git@b146405
 myst-parser==4.0.0
 niquests==3.7.2
 pygithub==2.4.0
