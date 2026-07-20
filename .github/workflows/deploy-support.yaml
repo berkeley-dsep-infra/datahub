@@ -56,20 +56,7 @@ jobs:
           mkdir -p ${HOME}/bin
           curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
           chmod 755 ${HOME}/bin/sops
-          echo "${HOME}/bin" >> $GITHUB_PATH
-
-      - name: Decrypt support secrets
-        if: ${{ env.DEPLOY }}
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sops-key.json
-        run: |
-          cat > "$GOOGLE_APPLICATION_CREDENTIALS" <<'EOF'
-          ${{ secrets.SOPS_KEY }}
-          EOF
-      
-          sops -d -i support/secrets.yaml
-      
-          rm -f "$GOOGLE_APPLICATION_CREDENTIALS"
+          echo "${HOME}/bin" >> $GITHUB_PATH      
 
       - name: Install Helm
         if: ${{ env.DEPLOY }}
