@@ -67,12 +67,16 @@ jupyterhub:
     # deployments/stat/secrets/{staging,prod}.yaml, sops-encrypted, and are
     # deep-merged in at deploy time.
     extraFiles:
+      # mode 0440: the hub pod's fsGroup (1000) needs group-read, since the
+      # positron-verifier sidecar runs as a non-root uid/gid (see
+      # securityContext below) and can't read an owner-only (0400) file it
+      # doesn't own.
       positron-signing-key:
         mountPath: /etc/positron/signing-key.pem
-        mode: 0400
+        mode: 0440
       positron-license-lic:
         mountPath: /opt/positron-server/resources/activation/linux/x86_64/license.lic
-        mode: 0400
+        mode: 0440
 
     extraContainers:
       # jupyter-positron-verifier: holds the Positron signing key and mints
@@ -82,6 +86,19 @@ jupyterhub:
       # `chartpress --push` (see docs/tasks/positron.qmd).
       - name: positron-verifier
         image: us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:0.0.1-0.dev.git.9078.h7f5894d8
+        # extraContainers entries don't inherit the chart's own
+        # containerSecurityContext (that's only applied to the named `hub`
+        # container) -- only the pod-level podSecurityContext
+        # (runAsNonRoot: true, fsGroup: 1000). Without this, kubelet refuses
+        # to start the container since its image (python:3.11-slim) defaults
+        # to root. Match the hub container's own uid/gid (1000) like the
+        # mongo/gradebook extraContainers elsewhere in this repo do.
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
         ports:
           - containerPort: 10101
         env:
