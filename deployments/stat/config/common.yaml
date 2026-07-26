@@ -49,6 +49,64 @@ jupyterhub:
           - access:servers
         groups:
           - course::1524699::group::all-admins
+      positron-license-service:
+        description: Let the positron-verifier sidecar look up the requesting user
+        scopes:
+          - read:users
+        services:
+          - positron-license
+
+    # positron-license is served by the positron-verifier sidecar below
+    # (hub.extraContainers), not by a hub-managed command, so it's registered
+    # with only a `url` -- see docs/tasks/positron.qmd.
+    services:
+      positron-license:
+        url: "http://127.0.0.1:10101"
+
+    # Structure only -- the actual secret contents (stringData) live in
+    # deployments/stat/secrets/{staging,prod}.yaml, sops-encrypted, and are
+    # deep-merged in at deploy time.
+    extraFiles:
+      positron-signing-key:
+        mountPath: /etc/positron/signing-key.pem
+        mode: 0400
+      positron-license-lic:
+        mountPath: /opt/positron-server/resources/activation/linux/x86_64/license.lic
+        mode: 0400
+
+    extraContainers:
+      # jupyter-positron-verifier: holds the Positron signing key and mints
+      # short-lived per-session license tokens. Runs only in the stat hub's
+      # pod so the shared images/hub image stays untouched. Chartpress-built
+      # from images/positron-verifier; tag set by hand after
+      # `chartpress --push` (see docs/tasks/positron.qmd).
+      - name: positron-verifier
+        image: us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:0.0.1-0.dev.git.9078.h7f5894d8
+        ports:
+          - containerPort: 10101
+        env:
+          - name: POSITRON_MINTING_KEY_FILE
+            value: /etc/positron/signing-key.pem
+          - name: POSITRON_LICENSE_MANAGER_PATH
+            value: /opt/positron-server/resources/activation/linux/x86_64/license-manager
+          - name: PORT
+            value: "10101"
+        volumeMounts:
+          - name: files
+            subPath: positron-signing-key
+            mountPath: /etc/positron/signing-key.pem
+            readOnly: true
+          - name: files
+            subPath: positron-license-lic
+            mountPath: /opt/positron-server/resources/activation/linux/x86_64/license.lic
+            readOnly: true
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: 0.5
+          requests:
+            memory: 64Mi
+            cpu: 0.01
 
   singleuser:
     image:
@@ -63,6 +121,11 @@ jupyterhub:
           c.WebPDFExporter.enabled = False
     extraEnv:
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+      # jupyter-positron-server mints a fresh signed license from the
+      # positron-verifier sidecar (via the hub) at each session start,
+      # instead of reading a static license file -- see
+      # docs/tasks/positron.qmd.
+      POSITRON_LICENSE_MINTING_ENDPOINT: "http://hub:8081/services/positron-license/mint"
     defaultUrl: /lab
     nodeSelector:
       hub.jupyter.org/pool-name: stat20-pool
