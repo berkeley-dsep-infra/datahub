@@ -63,20 +63,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Authenticate to Google Cloud
-        if: ${{ env.DEPLOY }}
-        uses: google-github-actions/auth@v2
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
-          service_account: ${{ secrets.HUBPLOY_SA }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
-      
-      - name: Install Google Cloud SDK
-        if: ${{ env.DEPLOY }}
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          install_components: 'gke-gcloud-auth-plugin'
-
       - name: Install SOPS
         if: ${{ env.DEPLOY }}
         run: |
@@ -84,14 +70,6 @@ jobs:
           curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
           chmod 755 ${HOME}/bin/sops
           echo "${HOME}/bin" >> $GITHUB_PATH
-
-      - name: Store SOPS secret in a file
-        if: ${{ env.DEPLOY }}
-        run: |
-          cat << EOF > ${HOME}/sops.key
-          ${{ secrets.SOPS_KEY }}
-          EOF
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
       
       - name: Check for 'add shared directories' label and extract info
         id: check-add-shared-label
@@ -172,13 +150,47 @@ jobs:
             --command="sudo su - ubuntu -c '$REMOTE_CMD'"
           
           rm -f $HOME/gcloud-key.json
-          
+
       - name: Install Helm Chart
         if: ${{ env.DEPLOY }}
         run: |
             helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
             helm repo update
 
+      - name: Authenticate to Google Cloud
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: ${{ secrets.HUBPLOY_SA }}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+      
+      - name: Install Google Cloud SDK
+        if: ${{ env.DEPLOY }}
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
+  
+      - name: Debug ADC
+        run: |
+          python - <<'PY'
+          import google.auth
+          from google.auth.transport.requests import Request
+      
+          creds, project = google.auth.default(
+              scopes=["https://www.googleapis.com/auth/cloud-platform"]
+          )
+      
+          print("project:", project)
+          print("credentials:",
+                type(creds).__module__,
+                type(creds).__name__)
+      
+          creds.refresh(Request())
+      
+          print("refresh succeeded")
+          PY
+          
       - name: Deploy hubs to staging
         if: ${{ env.DEPLOY }}
         run: |
@@ -186,7 +198,7 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub staging
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py)
+          done < <(python .github/scripts/determine-hub-deployments.py --ignore cdss-discovery)
 
   deploy-hubs-to-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
@@ -236,6 +248,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install SOPS
+        if: ${{ env.DEPLOY }}
+        run: |
+          mkdir -p ${HOME}/bin
+          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
+          chmod 755 ${HOME}/bin/sops
+          echo "${HOME}/bin" >> $GITHUB_PATH
+
+      - name: Install Helm
+        if: ${{ env.DEPLOY }}
+        run: |
+            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+            helm repo update
+
       - name: Authenticate to Google Cloud
         if: ${{ env.DEPLOY }}
         uses: google-github-actions/auth@v2
@@ -250,28 +276,6 @@ jobs:
         with:
           install_components: 'gke-gcloud-auth-plugin'
 
-      - name: Install SOPS
-        if: ${{ env.DEPLOY }}
-        run: |
-          mkdir -p ${HOME}/bin
-          curl -sSL https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64 -o ${HOME}/bin/sops
-          chmod 755 ${HOME}/bin/sops
-          echo "${HOME}/bin" >> $GITHUB_PATH
-
-      - name: Store SOPS secret in a file
-        if: ${{ env.DEPLOY }}
-        run: |
-          cat << EOF > ${HOME}/sops.key
-          ${{ secrets.SOPS_KEY }}
-          EOF
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/sops.key" >> $GITHUB_ENV
-
-      - name: Install Helm
-        if: ${{ env.DEPLOY }}
-        run: |
-            helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
-            helm repo update
-
       - name: Deploy hubs to prod
         if: ${{ env.DEPLOY }}
         run: |
@@ -279,4 +283,4 @@ jobs:
             echo "Deploying single-user image and hub config to ${deployment}"
             hubploy --verbose deploy --timeout 30m ${deployment} hub prod
             echo
-          done < <(python .github/scripts/determine-hub-deployments.py)
+          done < <(python .github/scripts/determine-hub-deployments.py --ignore cdss-discovery)
