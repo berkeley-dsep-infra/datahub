@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2018-02-28">
 
-<title>A node hangs, causing a subset of users to report issues</title>
+<title>Positron IDE on stat.datahub.berkeley.edu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -27,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -37,6 +71,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../tasks/gh-scoped-creds.html" rel="next">
+<link href="../tasks/grouper-sync.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -123,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">A node hangs, causing a subset of users to report issues</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/positron.html">Positron IDE on stat.datahub.berkeley.edu</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -196,13 +232,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Common Administrator Tasks</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/documentation.html" class="sidebar-item-text sidebar-link">
@@ -366,7 +402,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/positron.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/positron.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Positron IDE on stat.datahub.berkeley.edu</span></a>
   </div>
 </li>
@@ -429,28 +465,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#timeline" id="toc-timeline" class="nav-link" data-scroll-target="#timeline">Timeline</a>
-  <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">2018-02-28 21:21</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">21:30</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">21:34</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">21:39</a></li>
-  </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#action-items" id="toc-action-items" class="nav-link" data-scroll-target="#action-items">Action items</a>
-  <ul class="collapse">
-  <li><a href="#process" id="toc-process" class="nav-link" data-scroll-target="#process">Process</a></li>
-  </ul></li>
+  <li><a href="#why-this-isnt-in-the-shared-hub-image" id="toc-why-this-isnt-in-the-shared-hub-image" class="nav-link active" data-scroll-target="#why-this-isnt-in-the-shared-hub-image">Why this isn’t in the shared Hub image</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a></li>
+  <li><a href="#where-things-live" id="toc-where-things-live" class="nav-link" data-scroll-target="#where-things-live">Where things live</a></li>
+  <li><a href="#rebuilding-and-deploying-the-verifier-sidecar-image" id="toc-rebuilding-and-deploying-the-verifier-sidecar-image" class="nav-link" data-scroll-target="#rebuilding-and-deploying-the-verifier-sidecar-image">Rebuilding and deploying the verifier sidecar image</a></li>
+  <li><a href="#rotating-the-license-or-signing-key" id="toc-rotating-the-license-or-signing-key" class="nav-link" data-scroll-target="#rotating-the-license-or-signing-key">Rotating the license or signing key</a></li>
+  <li><a href="#security-notes" id="toc-security-notes" class="nav-link" data-scroll-target="#security-notes">Security notes</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/documentation.html">Common Administrator Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/positron.html">Positron IDE on stat.datahub.berkeley.edu</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">A node hangs, causing a subset of users to report issues</h1>
+<h1 class="title">Positron IDE on stat.datahub.berkeley.edu</h1>
 </div>
 
 
@@ -458,12 +488,6 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 28, 2018</p>
-    </div>
-  </div>
   
     
   </div>
@@ -473,43 +497,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>On February 28, 2018, a handful of users reported on piazza that there servers wouldn’t start. It was determined that all problematic servers were running on the same node. After the node was cordoned and rebooted, the student servers were able to start properly.</p>
+<p><a href="https://github.com/posit-dev/positron">Positron</a> is available to users of <code>stat.datahub.berkeley.edu</code> via <a href="https://posit-dev.github.io/jupyter-positron-server/"><code>jupyter-positron-server</code></a>, a <a href="https://jupyter-server-proxy.readthedocs.io/">jupyter-server-proxy</a> extension. It requires an academic license from Posit (<code>academic-licenses@posit.co</code>), which is educational-use-only and enforced per-session by a privileged Hub-side “verifier” service.</p>
+<section id="why-this-isnt-in-the-shared-hub-image" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-isnt-in-the-shared-hub-image">Why this isn’t in the shared Hub image</h2>
+<p><code>jupyter-positron-verifier</code> (the verifier service) needs to hold the signing key and run somewhere the Hub can reach at all times. Installing it into <code>images/hub/Dockerfile</code> would put it in every hub on the cluster, since that image is shared. Instead, it runs as a <strong>sidecar container in the <code>stat</code> hub’s own pod only</strong>, added via <code>hub.extraContainers</code>, and is registered as an unmanaged JupyterHub service (<code>url</code> only, no <code>command</code>) so the Hub’s own Python environment never needs the package. Nothing about this touches any other deployment.</p>
 </section>
-<section id="timeline" class="level2">
-<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">2018-02-28 21:21</h3>
-<p>Three students report problems starting their server on piazza and a GSI links to the reports on slack. More reports come in by 21:27.</p>
-</section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">21:30</h3>
-<p>The infrastructure team is alerted to the problem. The command <code>kubectl --namespace=prod get pod -o wide | egrep -v -e prepull -e Running</code> shows that all non-running pods were scheduled on the same node. Most of the pods have an “Unknown” status while the rest are in “Terminating”. The oldest problematic pod is 29m.</p>
-</section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">21:34</h3>
-<p>The node k8s-pool1-19522833-9 is cordoned. It has a load of about 90 with no processes consuming much CPU. The node is rebooted via sysrq trigger. The hung pods remain stuck.</p>
-</section>
-<section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">21:39</h3>
-<p>When the node comes back online, kubectl reports no more hung pods. Students are able to start their servers.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>A problematic VM prevented nodes from launching pods. Once the VM was cordoned and rebooted, pods launch without trouble.</p>
-</section>
-<section id="action-items" class="level2">
-<h2 class="anchored" data-anchor-id="action-items">Action items</h2>
-<section id="process" class="level3">
-<h3 class="anchored" data-anchor-id="process">Process</h3>
+<section id="architecture" class="level2">
+<h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
+<pre><code>stat-user-image (single-user pod)
+  jupyter-positron-server   -- requests a license from the hub at session
+                                start, passes it to positron-server
+  positron-server           -- verifies the signed license and starts
+                                (no static license file is ever present here)
+
+stat hub pod
+  hub container              -- proxies /services/positron-license/* to the
+                                 sidecar; unaware of the secrets below
+  positron-verifier sidecar  -- holds signing-key.pem + license.lic, mints a
+                                 fresh signed license per session</code></pre>
+<p>Token flow, adapted from the <a href="https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/get_started.qmd#how-it-works">upstream get_started guide</a>:</p>
 <ol type="1">
-<li>Monitor the cluster for non-running pods and send an alert if the count exceeds a threshold or if the non-running pods are clustered on the same node(s).</li>
+<li><code>jupyter-positron-server</code> calls <code>POSITRON_LICENSE_MINTING_ENDPOINT</code> (<code>http://proxy-public/services/positron-license/mint</code>), authenticated with its <code>JUPYTERHUB_API_TOKEN</code>.</li>
+<li>CHP (<code>proxy-public</code>), per the route JupyterHub registered for the <code>positron-license</code> service, reverse-proxies that request to the <code>positron-verifier</code> sidecar via the hub Service’s <code>positron-verifier</code> port (<code>hub:10101</code>, from <code>hub.service.extraPorts</code>).</li>
+<li>The sidecar verifies the user, checks entitlement via <code>license-manager</code> (reading <code>license.lic</code>), and returns a signed, session-bound license.</li>
+<li><code>jupyter-positron-server</code> starts <code>positron-server</code> with that license.</li>
 </ol>
-
-
 </section>
+<section id="where-things-live" class="level2">
+<h2 class="anchored" data-anchor-id="where-things-live">Where things live</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>positron-server</code> binary + <code>jupyter-positron-server</code></td>
+<td><code>images/stat-user-image</code> (Dockerfile, environment.yml)</td>
+</tr>
+<tr class="even">
+<td><code>jupyter-positron-verifier</code> sidecar image</td>
+<td><code>images/positron-verifier/Dockerfile</code> (chartpress-managed)</td>
+</tr>
+<tr class="odd">
+<td>Sidecar wiring, <code>hub.services</code>, <code>hub.loadRoles</code>, <code>hub.extraFiles</code> structure</td>
+<td><code>deployments/stat/config/common.yaml</code></td>
+</tr>
+<tr class="even">
+<td>Actual <code>license.lic</code> / <code>signing-key.pem</code> contents</td>
+<td><code>deployments/stat/secrets/{staging,prod}.yaml</code> (sops/GCP-KMS encrypted)</td>
+</tr>
+</tbody>
+</table>
+<p>The single-user image never carries a copy of the license file – only the Hub-pod sidecar does, and only as a mounted secret, never baked into the image.</p>
+</section>
+<section id="rebuilding-and-deploying-the-verifier-sidecar-image" class="level2">
+<h2 class="anchored" data-anchor-id="rebuilding-and-deploying-the-verifier-sidecar-image">Rebuilding and deploying the verifier sidecar image</h2>
+<p><code>images/positron-verifier</code> is chartpress-managed but, like <code>images/postgres</code> (see <a href="../tasks/user-images/rebuild-postgres-image.html">Customize the Per-User Postgres Docker Image</a>), it’s only used by one deployment, so chartpress can’t auto-write its tag into any <code>values.yaml</code>.</p>
+<ol type="1">
+<li>Modify <code>images/positron-verifier/Dockerfile</code> (e.g.&nbsp;to bump the Positron Server release) and make a git commit.</li>
+<li>From the <code>datahub</code> repo root – the same directory as <code>chartpress.yaml</code>, <em>not</em> from inside <code>images/positron-verifier</code> – on a PC run <code>chartpress --push</code>; on a Mac run <code>chartpress --push --builder docker-buildx --platform linux/amd64</code>. There’s no per-image flag, so this also builds/pushes <code>hub</code>, <code>postgres</code>, and <code>node-placeholder-scaler</code>; chartpress normally skips images that already exist unchanged, but if it does rebuild them (e.g. after a fresh checkout with no local Docker cache, or a chartpress version/config mismatch with CI), it will also rewrite <code>hub/values.yaml</code>, <code>hub/Chart.yaml</code>, <code>node-placeholder/values.yaml</code>, and <code>node-placeholder/Chart.yaml</code> – those bump the shared Hub image for <em>every</em> deployment, not just <code>stat</code>. Check <code>git status</code>/<code>git diff</code> afterward and <code>git checkout</code> those four files back if you didn’t mean to touch them; the freshly-pushed <code>hub</code>/<code>node-placeholder-scaler</code> images are harmless left unreferenced in the registry.</li>
+<li>Note the <code>positron-verifier</code> image name + tag chartpress prints, and put it in <code>deployments/stat/config/common.yaml</code> under <code>jupyterhub.hub.extraContainers</code> (the <code>positron-verifier</code> entry’s <code>image:</code>).</li>
+<li>Commit the new tag and deploy as normal.</li>
+</ol>
+<p>The same tag also needs to exist on first setup – <code>common.yaml</code> ships with <code>us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:PLACEHOLDER</code> until step 2 has been run at least once.</p>
+</section>
+<section id="rotating-the-license-or-signing-key" class="level2">
+<h2 class="anchored" data-anchor-id="rotating-the-license-or-signing-key">Rotating the license or signing key</h2>
+<p>When Posit issues a new <code>license.lic</code> or <code>signing-key.pem</code> (e.g.&nbsp;renewal, compromise, license upgrade):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sops</span> <span class="at">-d</span> deployments/stat/secrets/prod.yaml <span class="op">&gt;</span> /tmp/prod.dec.yaml</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># edit /tmp/prod.dec.yaml: update</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   jupyterhub.hub.extraFiles.positron-license-lic.stringData</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   jupyterhub.hub.extraFiles.positron-signing-key.stringData</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /tmp/prod.dec.yaml deployments/stat/secrets/prod.yaml</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">sops</span> <span class="at">-e</span> <span class="at">-i</span> deployments/stat/secrets/prod.yaml</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">shred</span> <span class="at">-u</span> /tmp/prod.dec.yaml   <span class="co"># or `rm -P`/`rm -f` if shred isn't available</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Repeat for <code>staging.yaml</code>. Never leave the decrypted file at the target path without immediately re-running <code>sops -e -i</code> on it, and never commit before that step – <code>git diff</code> should only ever show <code>ENC[...]</code> changes for these files.</p>
+</section>
+<section id="security-notes" class="level2">
+<h2 class="anchored" data-anchor-id="security-notes">Security notes</h2>
+<ul>
+<li><code>signing-key.pem</code> never leaves the Hub pod – it’s mounted only into the <code>positron-verifier</code> sidecar container, not the single-user image.</li>
+<li><code>license.lic</code> is likewise only mounted into the sidecar; the minting-endpoint flow means single-user sessions never need a static copy.</li>
+<li>Both secrets are sops-encrypted at rest via the same GCP KMS key used for every other deployment’s secrets (<code>.sops.yaml</code>).</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://posit-dev.github.io/jupyter-positron-server/">jupyter-positron-server documentation</a></li>
+<li><a href="https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/get_started.qmd">Get Started guide</a></li>
+<li><a href="https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/deployment.qmd">Deployment templates</a></li>
+<li><a href="https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/configuration.qmd">Configuration reference</a></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -913,6 +1001,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../tasks/grouper-sync.html" class="pagination-link" aria-label="Syncing JupyterHub Users to CalGroups (Grouper)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Syncing JupyterHub Users to CalGroups (Grouper)</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../tasks/gh-scoped-creds.html" class="pagination-link" aria-label="gh-scoped-creds">
+        <span class="nav-page-text">gh-scoped-creds</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
