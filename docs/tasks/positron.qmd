@@ -1,0 +1,134 @@
+---
+title: "Positron IDE on stat.datahub.berkeley.edu"
+---
+
+[Positron](https://github.com/posit-dev/positron) is available to users of
+`stat.datahub.berkeley.edu` via
+[`jupyter-positron-server`](https://posit-dev.github.io/jupyter-positron-server/),
+a [jupyter-server-proxy](https://jupyter-server-proxy.readthedocs.io/)
+extension. It requires an academic license from Posit
+(`academic-licenses@posit.co`), which is educational-use-only and enforced
+per-session by a privileged Hub-side "verifier" service.
+
+## Why this isn't in the shared Hub image
+
+`jupyter-positron-verifier` (the verifier service) needs to hold the
+signing key and run somewhere the Hub can reach at all times. Installing it
+into `images/hub/Dockerfile` would put it in every hub on the cluster, since
+that image is shared. Instead, it runs as a **sidecar container in the
+`stat` hub's own pod only**, added via `hub.extraContainers`, and is
+registered as an unmanaged JupyterHub service (`url` only, no `command`) so
+the Hub's own Python environment never needs the package. Nothing about
+this touches any other deployment.
+
+## Architecture
+
+```
+stat-user-image (single-user pod)
+  jupyter-positron-server   -- requests a license from the hub at session
+                                start, passes it to positron-server
+  positron-server           -- verifies the signed license and starts
+                                (no static license file is ever present here)
+
+stat hub pod
+  hub container              -- proxies /services/positron-license/* to the
+                                 sidecar; unaware of the secrets below
+  positron-verifier sidecar  -- holds signing-key.pem + license.lic, mints a
+                                 fresh signed license per session
+```
+
+Token flow, adapted from the
+[upstream get_started guide](https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/get_started.qmd#how-it-works):
+
+1. `jupyter-positron-server` calls `POSITRON_LICENSE_MINTING_ENDPOINT`
+   (`http://proxy-public/services/positron-license/mint`), authenticated
+   with its `JUPYTERHUB_API_TOKEN`.
+2. CHP (`proxy-public`), per the route JupyterHub registered for the
+   `positron-license` service, reverse-proxies that request to the
+   `positron-verifier` sidecar via the hub Service's `positron-verifier`
+   port (`hub:10101`, from `hub.service.extraPorts`).
+3. The sidecar verifies the user, checks entitlement via `license-manager`
+   (reading `license.lic`), and returns a signed, session-bound license.
+4. `jupyter-positron-server` starts `positron-server` with that license.
+
+## Where things live
+
+| Component | Location |
+|---|---|
+| `positron-server` binary + `jupyter-positron-server` | `images/stat-user-image` (Dockerfile, environment.yml) |
+| `jupyter-positron-verifier` sidecar image | `images/positron-verifier/Dockerfile` (chartpress-managed) |
+| Sidecar wiring, `hub.services`, `hub.loadRoles`, `hub.extraFiles` structure | `deployments/stat/config/common.yaml` |
+| Actual `license.lic` / `signing-key.pem` contents | `deployments/stat/secrets/{staging,prod}.yaml` (sops/GCP-KMS encrypted) |
+
+The single-user image never carries a copy of the license file -- only the
+Hub-pod sidecar does, and only as a mounted secret, never baked into the
+image.
+
+## Rebuilding and deploying the verifier sidecar image
+
+`images/positron-verifier` is chartpress-managed but, like `images/postgres`
+(see [Customize the Per-User Postgres Docker
+Image](user-images/rebuild-postgres-image.qmd)), it's only used by one
+deployment, so chartpress can't auto-write its tag into any `values.yaml`.
+
+1. Modify `images/positron-verifier/Dockerfile` (e.g. to bump the Positron
+   Server release) and make a git commit.
+2. From the `datahub` repo root -- the same directory as `chartpress.yaml`,
+   *not* from inside `images/positron-verifier` -- on a PC run
+   `chartpress --push`; on a Mac run
+   `chartpress --push --builder docker-buildx --platform linux/amd64`.
+   There's no per-image flag, so this also builds/pushes `hub`,
+   `postgres`, and `node-placeholder-scaler`; chartpress normally skips
+   images that already exist unchanged, but if it does rebuild them (e.g.
+   after a fresh checkout with no local Docker cache, or a chartpress
+   version/config mismatch with CI), it will also rewrite
+   `hub/values.yaml`, `hub/Chart.yaml`, `node-placeholder/values.yaml`, and
+   `node-placeholder/Chart.yaml` -- those bump the shared Hub image for
+   *every* deployment, not just `stat`. Check `git status`/`git diff`
+   afterward and `git checkout` those four files back if you didn't mean to
+   touch them; the freshly-pushed `hub`/`node-placeholder-scaler` images
+   are harmless left unreferenced in the registry.
+3. Note the `positron-verifier` image name + tag chartpress prints, and put
+   it in `deployments/stat/config/common.yaml` under
+   `jupyterhub.hub.extraContainers` (the `positron-verifier` entry's `image:`).
+4. Commit the new tag and deploy as normal.
+
+The same tag also needs to exist on first setup -- `common.yaml` ships with
+`us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:PLACEHOLDER`
+until step 2 has been run at least once.
+
+## Rotating the license or signing key
+
+When Posit issues a new `license.lic` or `signing-key.pem` (e.g. renewal,
+compromise, license upgrade):
+
+```bash
+sops -d deployments/stat/secrets/prod.yaml > /tmp/prod.dec.yaml
+# edit /tmp/prod.dec.yaml: update
+#   jupyterhub.hub.extraFiles.positron-license-lic.stringData
+#   jupyterhub.hub.extraFiles.positron-signing-key.stringData
+cp /tmp/prod.dec.yaml deployments/stat/secrets/prod.yaml
+sops -e -i deployments/stat/secrets/prod.yaml
+shred -u /tmp/prod.dec.yaml   # or `rm -P`/`rm -f` if shred isn't available
+```
+
+Repeat for `staging.yaml`. Never leave the decrypted file at the target path
+without immediately re-running `sops -e -i` on it, and never commit before
+that step -- `git diff` should only ever show `ENC[...]` changes for these
+files.
+
+## Security notes
+
+- `signing-key.pem` never leaves the Hub pod -- it's mounted only into the
+  `positron-verifier` sidecar container, not the single-user image.
+- `license.lic` is likewise only mounted into the sidecar; the
+  minting-endpoint flow means single-user sessions never need a static copy.
+- Both secrets are sops-encrypted at rest via the same GCP KMS key used for
+  every other deployment's secrets (`.sops.yaml`).
+
+## References
+
+- [jupyter-positron-server documentation](https://posit-dev.github.io/jupyter-positron-server/)
+- [Get Started guide](https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/get_started.qmd)
+- [Deployment templates](https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/deployment.qmd)
+- [Configuration reference](https://github.com/posit-dev/jupyter-positron-server/blob/main/docs/configuration.qmd)

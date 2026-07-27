@@ -16,8 +16,41 @@ jupyterhub:
     chp:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
+      # Lets CHP reach the positron-verifier sidecar's port on the hub pod
+      # -- see docs/tasks/positron.qmd.
+      networkPolicy:
+        egress:
+          - to:
+              - podSelector:
+                  matchLabels:
+                    app: jupyterhub
+                    component: hub
+            ports:
+              - port: 10101
 
   hub:
+    # Exposes the positron-verifier sidecar's port through the hub Service,
+    # for CHP to reach it -- see docs/tasks/positron.qmd.
+    service:
+      extraPorts:
+        - name: positron-verifier
+          port: 10101
+          targetPort: 10101
+    # Lets CHP reach the positron-verifier sidecar's port -- see
+    # docs/tasks/positron.qmd.
+    networkPolicy:
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: proxy
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: hub
+          ports:
+            - port: 10101
     extraConfig:
       11-working-dir: |
         c.KubeSpawner.working_dir = '/home/jovyan'
@@ -35,6 +68,8 @@ jupyterhub:
           #- "course::1555278"
           # DataHub staff
           - "course::1524699::group::all-admins"
+          # Stat instructors
+          - "course::1524699::group::stat-instructors"
 
     loadRoles:
       datahub-staff:
@@ -50,10 +85,113 @@ jupyterhub:
         groups:
           - course::1524699::group::all-admins
 
+      # stat instructors
+      stat-instructors:
+        description: Enable stat instructors to view and access all servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users
+          - admin:servers
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::stat-instructors
+
+      positron-license-service:
+        description: Let the positron-verifier sidecar look up the requesting user
+        scopes:
+          - read:users
+        services:
+          - positron-license
+
+    # positron-license is served by the positron-verifier sidecar below
+    # (hub.extraContainers), not by a hub-managed command, so it's registered
+    # with only a `url` -- see docs/tasks/positron.qmd. CHP runs in its own
+    # pod, so the url is the hub Service's DNS name and the sidecar's port
+    # (exposed via service.extraPorts below).
+    services:
+      positron-license:
+        url: "http://hub:10101"
+
+    # Structure only -- the actual secret contents (stringData) live in
+    # deployments/stat/secrets/{staging,prod}.yaml, sops-encrypted, and are
+    # deep-merged in at deploy time.
+    extraFiles:
+      # mode 0440: the hub pod's fsGroup (1000) needs group-read, since the
+      # positron-verifier sidecar runs as a non-root uid/gid (see
+      # securityContext below) and can't read an owner-only (0400) file it
+      # doesn't own.
+      positron-signing-key:
+        mountPath: /etc/positron/signing-key.pem
+        mode: 0440
+      positron-license-lic:
+        mountPath: /opt/positron-server/resources/activation/linux/x86_64/license.lic
+        mode: 0440
+
+    extraContainers:
+      # jupyter-positron-verifier: holds the Positron signing key and mints
+      # short-lived per-session license tokens. Runs only in the stat hub's
+      # pod so the shared images/hub image stays untouched. Chartpress-built
+      # from images/positron-verifier; tag set by hand after
+      # `chartpress --push` (see docs/tasks/positron.qmd).
+      - name: positron-verifier
+        image: us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:0.0.1-0.dev.git.9078.h7f5894d8
+        # extraContainers entries don't inherit the chart's own
+        # containerSecurityContext (that's only applied to the named `hub`
+        # container) -- only the pod-level podSecurityContext
+        # (runAsNonRoot: true, fsGroup: 1000). Without this, kubelet refuses
+        # to start the container since its image (python:3.11-slim) defaults
+        # to root. Match the hub container's own uid/gid (1000) like the
+        # mongo/gradebook extraContainers elsewhere in this repo do.
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+        ports:
+          - containerPort: 10101
+        env:
+          - name: POSITRON_MINTING_KEY_FILE
+            value: /etc/positron/signing-key.pem
+          - name: POSITRON_LICENSE_MANAGER_PATH
+            value: /opt/positron-server/resources/activation/linux/x86_64/license-manager
+          - name: PORT
+            value: "10101"
+          # Used to validate incoming tokens against the Hub. Unmanaged
+          # services (url only, no command) don't get these injected
+          # automatically the way hub-spawned services do -- see
+          # docs/tasks/positron.qmd. localhost works since this container
+          # shares the hub pod's network namespace.
+          - name: JUPYTERHUB_API_URL
+            value: http://localhost:8081/hub/api
+          - name: JUPYTERHUB_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: hub
+                key: hub.services.positron-license.apiToken
+        volumeMounts:
+          - name: files
+            subPath: positron-signing-key
+            mountPath: /etc/positron/signing-key.pem
+            readOnly: true
+          - name: files
+            subPath: positron-license-lic
+            mountPath: /opt/positron-server/resources/activation/linux/x86_64/license.lic
+            readOnly: true
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: 0.5
+          requests:
+            memory: 64Mi
+            cpu: 0.01
+
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat-user-image
-      tag: d4a7d28f55ca
+      tag: 9dcc7567e22b
     extraFiles:
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
@@ -63,6 +201,12 @@ jupyterhub:
           c.WebPDFExporter.enabled = False
     extraEnv:
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+      # jupyter-positron-server mints a fresh signed license from the
+      # positron-verifier sidecar at each session start, instead of
+      # reading a static license file -- see docs/tasks/positron.qmd.
+      # proxy-public (CHP) reverse-proxies /services/* to the sidecar per
+      # JupyterHub's registered routes.
+      POSITRON_LICENSE_MINTING_ENDPOINT: "http://proxy-public/services/positron-license/mint"
     defaultUrl: /lab
     nodeSelector:
       hub.jupyter.org/pool-name: stat20-pool

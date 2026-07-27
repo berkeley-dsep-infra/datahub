@@ -9,6 +9,11 @@ charts:
       # There's no way to tell Chartpress to do that now, since it overwrites values.yaml
       # So we need to manually set this, after running chartpress --push
         valuesPath: {}
+      positron-verifier:
+      # Used only by deployments/stat/config/common.yaml's hub.extraContainers.
+      # Same situation as postgres above: manually set the tag after
+      # `chartpress --push`. See docs/tasks/positron.qmd.
+        valuesPath: {}
   - name: node-placeholder
     imagePrefix: us-central1-docker.pkg.dev/ucb-datahub-2018/core/
     images:

@@ -66,7 +66,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/astro-user-image
-      tag: faff5688efbd
+      tag: ae250ca59bbb
     extraFiles:
       # DH-305
       remove-exporters:
