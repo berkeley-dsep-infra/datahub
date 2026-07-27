@@ -16,8 +16,41 @@ jupyterhub:
     chp:
       nodeSelector:
         hub.jupyter.org/pool-name: core-pool-2024-05-08
+      # Lets CHP reach the positron-verifier sidecar's port on the hub pod
+      # -- see docs/tasks/positron.qmd.
+      networkPolicy:
+        egress:
+          - to:
+              - podSelector:
+                  matchLabels:
+                    app: jupyterhub
+                    component: hub
+            ports:
+              - port: 10101
 
   hub:
+    # Exposes the positron-verifier sidecar's port through the hub Service,
+    # for CHP to reach it -- see docs/tasks/positron.qmd.
+    service:
+      extraPorts:
+        - name: positron-verifier
+          port: 10101
+          targetPort: 10101
+    # Lets CHP reach the positron-verifier sidecar's port -- see
+    # docs/tasks/positron.qmd.
+    networkPolicy:
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: proxy
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: hub
+          ports:
+            - port: 10101
     extraConfig:
       11-working-dir: |
         c.KubeSpawner.working_dir = '/home/jovyan'
@@ -74,10 +107,12 @@ jupyterhub:
 
     # positron-license is served by the positron-verifier sidecar below
     # (hub.extraContainers), not by a hub-managed command, so it's registered
-    # with only a `url` -- see docs/tasks/positron.qmd.
+    # with only a `url` -- see docs/tasks/positron.qmd. CHP runs in its own
+    # pod, so the url is the hub Service's DNS name and the sidecar's port
+    # (exposed via service.extraPorts below).
     services:
       positron-license:
-        url: "http://127.0.0.1:10101"
+        url: "http://hub:10101"
 
     # Structure only -- the actual secret contents (stringData) live in
     # deployments/stat/secrets/{staging,prod}.yaml, sops-encrypted, and are
@@ -124,6 +159,18 @@ jupyterhub:
             value: /opt/positron-server/resources/activation/linux/x86_64/license-manager
           - name: PORT
             value: "10101"
+          # Used to validate incoming tokens against the Hub. Unmanaged
+          # services (url only, no command) don't get these injected
+          # automatically the way hub-spawned services do -- see
+          # docs/tasks/positron.qmd. localhost works since this container
+          # shares the hub pod's network namespace.
+          - name: JUPYTERHUB_API_URL
+            value: http://localhost:8081/hub/api
+          - name: JUPYTERHUB_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: hub
+                key: hub.services.positron-license.apiToken
         volumeMounts:
           - name: files
             subPath: positron-signing-key
@@ -155,10 +202,11 @@ jupyterhub:
     extraEnv:
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
       # jupyter-positron-server mints a fresh signed license from the
-      # positron-verifier sidecar (via the hub) at each session start,
-      # instead of reading a static license file -- see
-      # docs/tasks/positron.qmd.
-      POSITRON_LICENSE_MINTING_ENDPOINT: "http://hub:8081/services/positron-license/mint"
+      # positron-verifier sidecar at each session start, instead of
+      # reading a static license file -- see docs/tasks/positron.qmd.
+      # proxy-public (CHP) reverse-proxies /services/* to the sidecar per
+      # JupyterHub's registered routes.
+      POSITRON_LICENSE_MINTING_ENDPOINT: "http://proxy-public/services/positron-license/mint"
     defaultUrl: /lab
     nodeSelector:
       hub.jupyter.org/pool-name: stat20-pool

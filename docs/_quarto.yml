@@ -65,6 +65,7 @@ website:
           - tasks/semester-start-end-tasks.qmd
           - tasks/gcp-bigquery-sink.qmd
           - tasks/grouper-sync.qmd
+          - tasks/positron.qmd
           - tasks/gh-scoped-creds.qmd
       - section: "Policy"
         contents:
