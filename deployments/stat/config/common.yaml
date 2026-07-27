@@ -35,6 +35,8 @@ jupyterhub:
           #- "course::1555278"
           # DataHub staff
           - "course::1524699::group::all-admins"
+          # Stat instructors
+          - "course::1524699::group::stat-instructors"
 
     loadRoles:
       datahub-staff:
@@ -49,6 +51,20 @@ jupyterhub:
           - access:servers
         groups:
           - course::1524699::group::all-admins
+
+      # stat instructors
+      stat-instructors:
+        description: Enable stat instructors to view and access all servers.
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - list:users
+          - admin:servers
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::stat-instructors
+
       positron-license-service:
         description: Let the positron-verifier sidecar look up the requesting user
         scopes:
