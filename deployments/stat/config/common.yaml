@@ -136,7 +136,7 @@ jupyterhub:
       # from images/positron-verifier; tag set by hand after
       # `chartpress --push` (see docs/tasks/positron.qmd).
       - name: positron-verifier
-        image: us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:0.0.1-0.dev.git.9078.h7f5894d8
+        image: us-central1-docker.pkg.dev/ucb-datahub-2018/core/positron-verifier:0.0.1-0.dev.git.11184.h808069e6
         # extraContainers entries don't inherit the chart's own
         # containerSecurityContext (that's only applied to the named `hub`
         # container) -- only the pod-level podSecurityContext
@@ -191,7 +191,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat-user-image
-      tag: 9dcc7567e22b
+      tag: e0178f18e273
     extraFiles:
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
