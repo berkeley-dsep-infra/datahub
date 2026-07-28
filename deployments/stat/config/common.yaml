@@ -191,7 +191,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat-user-image
-      tag: 9dcc7567e22b
+      tag: e0178f18e273
     extraFiles:
       remove-exporters:
         mountPath: /etc/jupyter/jupyter_notebook_config.py
