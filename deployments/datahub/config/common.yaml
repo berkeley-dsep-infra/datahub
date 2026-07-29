@@ -180,3 +180,8 @@ jupyterhub:
     # bcourses_shared:
       # 2026-spring:
         # - "course::1551764"
+      course::1555821:
+        ## Course Name: CYPLAN101 Bcourses ID: 1555821 End Date: 12/09/2026
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8370 for details.
+        mem_limit: 3G
+        mem_guarantee: to be determined
