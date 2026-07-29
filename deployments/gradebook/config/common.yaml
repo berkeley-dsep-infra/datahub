@@ -53,7 +53,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: 0f037027b2a5
+      tag: 20a510d14fd5
     defaultUrl: /gradebook
     # Run the gradebook/gradebook container in the user pod
     # https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner.KubeSpawner.extra_containers
