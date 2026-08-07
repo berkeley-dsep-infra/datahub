@@ -39,7 +39,7 @@ jupyterhub:
           # Stat 20, Summer 2026; https://bcourses.berkeley.edu/courses/1555278
           - "course::1555278"
           # Stat 20, Fall 2026; https://bcourses.berkeley.edu/courses/1557153
-          - "course::1555278"
+          - "course::1557153"
           # DataHub staff
           - "course::1524699::group::all-admins"
 
