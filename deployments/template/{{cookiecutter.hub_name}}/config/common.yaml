@@ -39,7 +39,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: 155d3215483a
+      tag: 7d3ec12b1cb1
     extraFiles:
       # DH-216
       remove-exporters:
