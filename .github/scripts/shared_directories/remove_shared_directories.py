@@ -3,142 +3,148 @@ import re
 from pathlib import Path
 
 
-def remove_group_profile(yaml_path: Path, course_id: str, course_name: str):
+def is_comment_or_blank(line):
+    return not line.strip() or line.lstrip().startswith("#")
+
+
+def remove_courses(yaml_path: Path, course_ids: list):
+    """
+    Removes entries for the given bCourses IDs from every semester under
+    jupyterhub.custom.bcourses_shared, e.g.:
+
+        jupyterhub:
+          custom:
+            bcourses_shared:
+              2025-fall:
+                - "course::1234567"
+                - "course::1111111"
+
+    Cleans up empty semester/bcourses_shared/custom blocks afterwards.
+    """
     with yaml_path.open("r") as f:
         lines = f.readlines()
 
-    # Indents
     jupyterhub_indent = 0
     custom_indent = jupyterhub_indent + 2
-    group_profiles_indent = custom_indent + 2
-    course_indent = group_profiles_indent + 2
+    bcourses_indent = custom_indent + 2
+    semester_indent = bcourses_indent + 2
 
-    course_key_prefix = f"course::{course_id}::enrollment_type::"
+    def find_block_end(start, indent):
+        for i in range(start + 1, len(lines)):
+            if is_comment_or_blank(lines[i]):
+                continue
+            line_indent = len(lines[i]) - len(lines[i].lstrip())
+            if line_indent <= indent:
+                return i
+        return len(lines)
 
-    jupyterhub_start = None
-    custom_start = None
-    group_profiles_start = None
-    group_profiles_end = None
-
-    def is_comment_or_blank(line):
-        return not line.strip() or line.lstrip().startswith("#")
+    def find_child(start, end, key, indent):
+        for i in range(start + 1, end):
+            if is_comment_or_blank(lines[i]):
+                continue
+            stripped = lines[i].lstrip()
+            line_indent = len(lines[i]) - len(stripped)
+            if line_indent == indent and stripped.startswith(f"{key}:"):
+                return i
+        return None
 
     # Step 1: Locate jupyterhub:
+    jupyterhub_start = None
     for i, line in enumerate(lines):
         if is_comment_or_blank(line):
             continue
-        if line.lstrip().startswith("jupyterhub:"):
+        if line.lstrip().startswith("jupyterhub:") and (len(line) - len(line.lstrip())) == jupyterhub_indent:
             jupyterhub_start = i
-            jupyterhub_indent = len(line) - len(line.lstrip())
             break
     if jupyterhub_start is None:
         print("No 'jupyterhub:' block found. Nothing to remove.")
         return
+    jupyterhub_end = find_block_end(jupyterhub_start, jupyterhub_indent)
 
     # Step 2: Locate custom:
-    for i in range(jupyterhub_start + 1, len(lines)):
-        line = lines[i]
-        if is_comment_or_blank(line):
-            continue
-        indent = len(line) - len(line.lstrip())
-        if line.lstrip().startswith("custom:") and indent == custom_indent:
-            custom_start = i
-            break
-        if indent <= jupyterhub_indent:
-            break
+    custom_start = find_child(jupyterhub_start, jupyterhub_end, "custom", custom_indent)
     if custom_start is None:
         print("No 'custom:' block found. Nothing to remove.")
         return
+    custom_end = find_block_end(custom_start, custom_indent)
 
-    # Step 3: Locate group_profiles:
-    for i in range(custom_start + 1, len(lines)):
-        line = lines[i]
-        if is_comment_or_blank(line):
-            continue
-        indent = len(line) - len(line.lstrip())
-        if line.lstrip().startswith("group_profiles:") and indent == group_profiles_indent:
-            group_profiles_start = i
-            break
-        if indent <= custom_indent:
-            break
-    if group_profiles_start is None:
-        print("No 'group_profiles:' block found. Nothing to remove.")
+    # Step 3: Locate bcourses_shared:
+    bcourses_start = find_child(custom_start, custom_end, "bcourses_shared", bcourses_indent)
+    if bcourses_start is None:
+        print("No 'bcourses_shared:' block found. Nothing to remove.")
         return
+    bcourses_end = find_block_end(bcourses_start, bcourses_indent)
 
-    # Step 4: Find end of group_profiles block
-    for i in range(group_profiles_start + 1, len(lines)):
-        if is_comment_or_blank(lines[i]):
-            continue
-        indent = len(lines[i]) - len(lines[i].lstrip())
-        if indent <= group_profiles_indent:
-            group_profiles_end = i
-            break
-    else:
-        group_profiles_end = len(lines)
+    course_keys = {f"course::{cid}" for cid in course_ids}
 
-    # Step 5: Remove matching course blocks
-    remaining_lines = []
-    i = group_profiles_start + 1
+    # Step 4: Walk each semester block and drop matching course entries
     removed_any = False
-
-    while i < group_profiles_end:
+    new_bcourses_lines = []
+    i = bcourses_start + 1
+    while i < bcourses_end:
         line = lines[i]
         if is_comment_or_blank(line):
-            remaining_lines.append(line)
+            new_bcourses_lines.append(line)
             i += 1
             continue
 
         stripped = line.lstrip()
         indent = len(line) - len(stripped)
 
-        if indent == course_indent and stripped.startswith(course_key_prefix):
-            # Skip this block
+        if indent == semester_indent and re.match(r"^[^\s:]+:\s*$", stripped):
+            semester_key_pos = len(new_bcourses_lines)
+            new_bcourses_lines.append(line)
             j = i + 1
-            while j < group_profiles_end:
+            while j < bcourses_end:
                 if is_comment_or_blank(lines[j]):
+                    new_bcourses_lines.append(lines[j])
                     j += 1
                     continue
-                next_indent = len(lines[j]) - len(lines[j].lstrip())
-                if next_indent <= course_indent:
+                item_indent = len(lines[j]) - len(lines[j].lstrip())
+                if item_indent <= semester_indent:
                     break
+                item_value = lines[j].strip()
+                if item_value.startswith("-") and item_value[1:].strip().strip('"').strip("'") in course_keys:
+                    removed_any = True
+                    j += 1
+                    continue
+                new_bcourses_lines.append(lines[j])
                 j += 1
+
+            has_items = any(
+                not is_comment_or_blank(l) and (len(l) - len(l.lstrip())) > semester_indent
+                for l in new_bcourses_lines[semester_key_pos + 1:]
+            )
+            if not has_items:
+                del new_bcourses_lines[semester_key_pos]
+
             i = j
-            removed_any = True
         else:
-            remaining_lines.append(line)
+            new_bcourses_lines.append(line)
             i += 1
 
     if not removed_any:
-        print(f"No matching group profile entries for course::{course_id} found.")
+        print(f"No matching bcourses_shared entries found for: {', '.join(course_ids)}")
         return
 
-    # Step 6: Rebuild the file
-    lines = lines[:group_profiles_start + 1] + remaining_lines + lines[group_profiles_end:]
+    lines = lines[:bcourses_start + 1] + new_bcourses_lines + lines[bcourses_end:]
+    bcourses_end = bcourses_start + 1 + len(new_bcourses_lines)
 
-    # Step 7: Check if group_profiles is now empty (ignoring comments)
+    # Step 5: Remove bcourses_shared: if it's now empty
     has_content = any(
-        not is_comment_or_blank(line) and (len(line) - len(line.lstrip())) > group_profiles_indent
-        for line in remaining_lines
+        not is_comment_or_blank(l) and (len(l) - len(l.lstrip())) > bcourses_indent
+        for l in lines[bcourses_start + 1:bcourses_end]
     )
     if not has_content:
-        del lines[group_profiles_start]  # remove group_profiles:
-        print("Removed empty 'group_profiles:' section.")
+        del lines[bcourses_start]
+        bcourses_end -= 1
+        custom_end -= 1
+        print("Removed empty 'bcourses_shared:' section.")
 
-        # Step 8: Check if custom is now empty (ignoring comments)
-        custom_end = None
-        for i in range(custom_start + 1, len(lines)):
-            if is_comment_or_blank(lines[i]):
-                continue
-            indent = len(lines[i]) - len(lines[i].lstrip())
-            if indent <= custom_indent:
-                custom_end = i
-                break
-        else:
-            custom_end = len(lines)
-
+        # Step 6: Remove custom: if it's now empty
         custom_has_content = any(
-            not is_comment_or_blank(line) and (len(line) - len(line.lstrip())) > custom_indent
-            for line in lines[custom_start + 1:custom_end]
+            not is_comment_or_blank(l) and (len(l) - len(l.lstrip())) > custom_indent
+            for l in lines[custom_start + 1:custom_end]
         )
         if not custom_has_content:
             del lines[custom_start]
@@ -148,9 +154,7 @@ def remove_group_profile(yaml_path: Path, course_id: str, course_name: str):
     with yaml_path.open("w") as f:
         f.writelines(lines)
 
-    print(f"Removed group profile for course::{course_id}")
-
-
+    print(f"Removed bcourses_shared entries for: {', '.join(course_ids)}")
 
 
 def main():
@@ -166,15 +170,13 @@ def main():
 
     if not yaml_path.exists():
         raise FileNotFoundError(f"Config file not found: {yaml_path}")
-    
-    for c_id in re.split(r"[,\s:;]+", course_id):
-        if c_id:  # skip empty strings
-            c_name = "bcourses-" + c_id.strip()
-            remove_group_profile(yaml_path, c_id, c_name)
+
+    course_ids = [c.strip() for c in re.split(r"[,\s:;]+", course_id) if c.strip()]
+    if not course_ids:
+        raise ValueError("No valid bCourses IDs found in course_id")
+
+    remove_courses(yaml_path, course_ids)
 
 
 if __name__ == "__main__":
     main()
-
-
-
