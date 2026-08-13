@@ -190,3 +190,6 @@ jupyterhub:
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8387 for details.
         mem_limit: 4G
         mem_guarantee: 2G
+    bcourses_shared:
+      2026-fall:
+        - "course::1555939"
