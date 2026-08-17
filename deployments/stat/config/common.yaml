@@ -207,6 +207,9 @@ jupyterhub:
       # proxy-public (CHP) reverse-proxies /services/* to the sidecar per
       # JupyterHub's registered routes.
       POSITRON_LICENSE_MINTING_ENDPOINT: "http://proxy-public/services/positron-license/mint"
+      # Same GitHub App as datahub/dev
+      GH_SCOPED_CREDS_CLIENT_ID: Iv23ct7Qx1mAotaIIYx9
+      GH_SCOPED_CREDS_APP_URL: https://github.com/apps/berkeley-datahub-git-access
     defaultUrl: /lab
     nodeSelector:
       hub.jupyter.org/pool-name: stat20-pool
