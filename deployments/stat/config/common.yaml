@@ -70,6 +70,8 @@ jupyterhub:
           - "course::1524699::group::all-admins"
           # Stat instructors
           - "course::1524699::group::stat-instructors"
+          # Paciorek workshop, summer 2026
+          - "course::1557720"
 
     loadRoles:
       datahub-staff:
