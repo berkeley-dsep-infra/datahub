@@ -25,12 +25,12 @@ jupyterhub:
       OAuthenticator:
         allow_all: False
         allowed_groups:
-          # Data 102, Spring 2025
-          # https://bcourses.berkeley.edu/courses/1542061
-          - "course::1542061"
           # Data 102, Fall 2025
           # https://bcourses.berkeley.edu/courses/1547495
           - "course::1547495"
+          # Data 102, Fall 2026
+          # https://bcourses.berkeley.edu/courses/1557697
+          - "course::1557697"
           # DataHub staff
           - "course::1524699::group::all-admins"
     loadRoles:
