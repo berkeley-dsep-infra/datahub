@@ -177,10 +177,9 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 4096M
         mem_guarantee: 4096M
-      bcourses_shared:
-        2026-spring:
-        # MBA 247, Fall 26, https://github.com/berkeley-dsep-infra/datahub/issues/8397
-         - "course::1555939"
+    # bcourses_shared:
+      # 2026-spring:
+        # - "course::1551764"
       course::1555821:
         ## Course Name: CYPLAN101 Bcourses ID: 1555821 End Date: 12/09/2026
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8370 for details.
