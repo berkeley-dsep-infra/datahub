@@ -31,6 +31,9 @@ jupyterhub:
           # Data 140, Spring 2026
           # https://bcourses.berkeley.edu/courses/1552336
           - "course::1552336"
+          # Data 140, Fall 2026
+          # https://bcourses.berkeley.edu/courses/1558059
+          - "course::1558059"
           # DataHub staff
           - "course::1524699::group::all-admins"
     loadRoles:
@@ -77,4 +80,3 @@ jupyterhub:
     memory:
       guarantee: 512M
       limit: 1G
-
