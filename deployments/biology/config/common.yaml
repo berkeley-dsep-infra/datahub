@@ -65,6 +65,11 @@ jupyterhub:
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
 
+      course::1557888:
+        ## Course Name: Fall 2026, MCELLBI 201B Bcourses ID: 1557888 End Date: 12/18/2026
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8428 for details.
+        mem_limit: 5G
+        mem_guarantee: 5G
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/biology-user-image
