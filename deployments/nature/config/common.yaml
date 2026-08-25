@@ -63,7 +63,7 @@ jupyterhub:
           c.QtPNGExporter.enabled = False
           c.WebPDFExporter.embed_images = True
       jupyter-lab-overrides:
-        mountPath: /srv/conda/envs/notebook/share/jupyter/lab/settings/overrides.json
+        mountPath: /opt/venv/share/jupyter/lab/settings/overrides.json
         data:
           "@jupyterlab/notebook-extension:tracker":
             scrollPastEnd: false
@@ -73,7 +73,6 @@ jupyterhub:
       GH_SCOPED_CREDS_CLIENT_ID: Iv23liGBW8jtMBP0inyw
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/uc-berkeley-nature-hub-git-access
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-      JUPYTER_PATH: "/srv/conda/envs/shared-1546503/share/jupyter"
     nodeSelector:
       hub.jupyter.org/pool-name: nature-pool
     storage:
@@ -91,7 +90,7 @@ jupyterhub:
         default: true
         slug: "default-profile"   
         kubespawner_override: {
-          image: "us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3"
+          image: "ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784"
         }
         profile_options:
           interface:
@@ -124,7 +123,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -188,7 +187,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -229,7 +228,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -293,7 +292,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -332,7 +331,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/nature-user-image:e8a8cfb91ec3
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -379,9 +378,3 @@ jupyterhub:
                 kubespawner_override:
                   default_url: "/lab"
   
-  custom:
-    conda_shared:
-      - bcourse_group: "course::1546503"
-        staff_overrides:
-          mem_limit: 8G
-          mem_guarantee: 8G
