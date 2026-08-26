@@ -74,7 +74,7 @@ jupyterhub:
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/uc-berkeley-nature-hub-git-access
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
-      hub.jupyter.org/pool-name: nature-pool
+      hub.jupyter.org/pool-name: datahub-pool
     storage:
       type: static
       static:
@@ -110,10 +110,10 @@ jupyterhub:
 
       - display_name: "Profile for ESPM-288 Instructors and TAs"
         description: "This profile is for the instructors and TAs in ESPM-288."
-        slug: "course-1551740-instructors-tas"
+        slug: "course-1558023-instructors-tas"
         allowed_groups:
-          - course::1551740::enrollment_type::teacher
-          - course::1551740::enrollment_type::ta
+          - course::1558023::enrollment_type::teacher
+          - course::1558023::enrollment_type::ta
           - course::1524699
         profile_options:
           image:
@@ -174,10 +174,10 @@ jupyterhub:
 
       - display_name: "Profile for ESPM-288 Students and Observers"
         description: "This profile is for the students in ESPM-288."
-        slug: "course-1551740-students"
+        slug: "course-1558023-students"
         allowed_groups:
-          - course::1551740::enrollment_type::student
-          - course::1551740::enrollment_type::observer
+          - course::1558023::enrollment_type::student
+          - course::1558023::enrollment_type::observer
           - course::1524699
         profile_options:
           image:
@@ -215,10 +215,10 @@ jupyterhub:
 
       - display_name: "Profile for CSOL-208 Instructors and TAs"
         description: "This profile is for the instructors and TAs in CSOL-208."
-        slug: "course-1551739-instructors-tas"
+        slug: "course-1558101-instructors-tas"
         allowed_groups:
-          - course::1551739::enrollment_type::teacher
-          - course::1551739::enrollment_type::ta
+          - course::1558101::enrollment_type::teacher
+          - course::1558101::enrollment_type::ta
           - course::1524699
         profile_options:
           image:
@@ -279,10 +279,10 @@ jupyterhub:
 
       - display_name: "Profile for CSOL-208 Students and Observers"
         description: "This profile is for the students in CSOL-208."
-        slug: "course-1551739-students"
+        slug: "course-1558101-students"
         allowed_groups:
-          - course::1551739::enrollment_type::student
-          - course::1551739::enrollment_type::observer
+          - course::1558101::enrollment_type::student
+          - course::1558101::enrollment_type::observer
           - course::1524699
         profile_options:
           image:
