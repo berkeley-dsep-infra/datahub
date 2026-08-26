@@ -74,7 +74,7 @@ jupyterhub:
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/uc-berkeley-nature-hub-git-access
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
-      hub.jupyter.org/pool-name: datahub-pool
+      hub.jupyter.org/pool-name: publichealth-pool
     storage:
       type: static
       static:
