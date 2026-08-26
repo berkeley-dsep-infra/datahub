@@ -123,7 +123,7 @@ jupyterhub:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     nodeSelector:
-      hub.jupyter.org/pool-name: data8-pool
+      hub.jupyter.org/pool-name: stat20-pool
     defaultUrl: /tree
     storage:
       type: static
