@@ -65,6 +65,9 @@ jupyterhub:
             mountPath: /home/jovyan/shared-readwrite
             subPath: _shared
 
+    bcourses_shared:
+      2026-fall:
+        - "course::1557888"
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/biology-user-image
