@@ -60,8 +60,6 @@ jupyterhub:
       OAuthenticator:
         allow_all: False
         allowed_groups:
-          # Stat 20, Fall 2025; https://bcourses.berkeley.edu/courses/1548266
-          #- "course::1548266"
           # Stat 20, Spring 2026; https://bcourses.berkeley.edu/courses/1551619
           #- "course::1551619"
           # Stat 20, Summer 2026; https://bcourses.berkeley.edu/courses/1555278
@@ -72,6 +70,8 @@ jupyterhub:
           - "course::1524699::group::stat-instructors"
           # Paciorek workshop, summer 2026
           - "course::1557720"
+          # Stat 133, Fall 2026; https://bcourses.berkeley.edu/courses/1557931
+          - "course::1557931"
 
     loadRoles:
       datahub-staff:
