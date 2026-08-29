@@ -619,6 +619,18 @@ jupyterhub:
               self.volumes[volume["name"]] = volume
               self.log.warning(f"added volume: {volume}")
 
+          def overrides_from_properties(self, properties, prefix='kubespawner_override.'):
+            """
+            Build kubespawner_override dictionary from group properties that
+            have a known prefix.
+            """
+            prefix_len = len(prefix)
+            overrides = {}
+            for k in properties:
+              if k.startswith(prefix):
+                overrides[k[prefix_len:]] = properties[k]
+            return overrides
+
           async def start(self):
             # delay if testing, see
             # https://github.com/berkeley-dsep-infra/datahub/issues/4237
@@ -660,6 +672,10 @@ jupyterhub:
               if group.name in group_profiles:
                 self.log.warning(f'using group profile for {group.name}')
                 self.apply_override(group_profiles.get(group.name))
+              # Apply overrides from group properties. We may set these in the
+              # jupyterhub UI.
+              properties_overrides = self.overrides_from_properties(group.properties)
+              self.apply_override(properties_overrides)
 
             # custom.admin
             # This applies overrides for those who have self.user.admin set.
