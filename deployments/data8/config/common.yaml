@@ -86,18 +86,6 @@ jupyterhub:
         groups:
           - course::1544818::enrollment_type::teacher
           - course::1544818::enrollment_type::ta
-      course-staff-1555312:
-        ## Course: DataC8 Bcourses ID: 1555312 End Date: 05/20/2028 
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8329 for more details.
-        description: Enable course staff to view and access servers.
-        scopes:
-          - admin-ui
-          - list:users!group=course::1555312
-          - admin:servers!group=course::1555312
-          - access:servers!group=course::1555312
-        groups:
-          - course::1555312::enrollment_type::teacher
-          - course::1555312::enrollment_type::ta
       course-staff-1557859:
         ## Course: Data C8 Bcourses ID: 1557859 End Date: 12/31/2026 
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8441 for more details.
