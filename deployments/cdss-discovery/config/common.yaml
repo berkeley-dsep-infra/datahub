@@ -46,7 +46,7 @@ jupyterhub:
   hub:
     image:
       name: gitlab-registry.nrp-nautilus.io/ryanlovett/datahub-nrp-hub-image
-      tag: "69193871"
+      tag: "f5f16fd2"
     # Nautilus uses rook-ceph-block for hub db storage.
     db:
       type: sqlite-pvc
