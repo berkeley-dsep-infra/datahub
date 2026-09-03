@@ -36,7 +36,14 @@ def main(args):
             if k.startswith("GITHUB_PR_LABEL_HUB_")
         ]
 
-        hubs = [x for x in hub_labels if x not in args.ignore]
+        # Skip any label whose deployment directory no longer exists. This can
+        # happen when one delete a deployment, including its directory and its
+        # labeler.yml entry.
+        hubs = [
+            x
+            for x in hub_labels
+            if x not in args.ignore and os.path.isdir(os.path.join(args.deployments, x))
+        ]
 
     hubs.sort()
     for h in hubs:
