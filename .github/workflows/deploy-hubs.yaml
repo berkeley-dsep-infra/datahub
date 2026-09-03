@@ -170,26 +170,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           install_components: 'gke-gcloud-auth-plugin'
-  
-      - name: Debug ADC
-        run: |
-          python - <<'PY'
-          import google.auth
-          from google.auth.transport.requests import Request
-      
-          creds, project = google.auth.default(
-              scopes=["https://www.googleapis.com/auth/cloud-platform"]
-          )
-      
-          print("project:", project)
-          print("credentials:",
-                type(creds).__module__,
-                type(creds).__name__)
-      
-          creds.refresh(Request())
-      
-          print("refresh succeeded")
-          PY
+
           
       - name: Deploy hubs to staging
         if: ${{ env.DEPLOY }}
