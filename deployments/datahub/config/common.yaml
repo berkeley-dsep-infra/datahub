@@ -203,5 +203,3 @@ jupyterhub:
     bcourses_shared:
       2026-fall:
         - "course::1555939"
-        - "course::1557334"
-        - "course::1559494"
