@@ -155,3 +155,7 @@ jupyterhub:
       # 2025-fall:
         # - "course::1524699"
         # - "course::1546508"
+    bcourses_shared:
+      2026-fall:
+        - "course::1557334"
+        - "course::1559494"
