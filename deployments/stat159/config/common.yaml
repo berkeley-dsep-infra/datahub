@@ -28,7 +28,11 @@ jupyterhub:
           # https://bcourses.berkeley.edu/courses/1546508
           - "course::1546508"
           # Stat 159, Fall 2026
+          # https://bcourses.berkeley.edu/courses/1557334
           - "course::1557334"
+          # Stat 259, Fall 2026
+          # https://bcourses.berkeley.edu/courses/1559494
+          - "course::1559494"
           # DataHub staff
           - "course::1524699::group::all-admins"
     loadRoles:
