@@ -110,7 +110,7 @@ jupyterhub:
       OLLAMA_HOST: "0.0.0.0:11434"
       OLLAMA_DEBUG: "1"
     nodeSelector:
-      hub.jupyter.org/pool-name: small-courses-pool
+      hub.jupyter.org/pool-name: datahub-pool
     storage:
       type: static
       static:
