@@ -49,6 +49,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
+      course-staff-1557697:
+        ## Course: DATA 102 Bcourses ID: 1557697 End Date: 12/15/2026 
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8505 for more details.
+        description: Enable course staff to view and access servers.
+        scopes:
+          - admin-ui
+          - list:users!group=course::1557697
+          - admin:servers!group=course::1557697
+          - access:servers!group=course::1557697
+        groups:
+          - course::1557697::enrollment_type::teacher
+          - course::1557697::enrollment_type::ta
       ## Data 102, Spring 2024, #xyz
       #course-staff-N:
       #  description: Enable course staff to view and access servers.
