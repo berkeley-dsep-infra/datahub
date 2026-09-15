@@ -64,7 +64,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/a11y-user-image
-      tag: 178fb22d6a82
+      tag: b39b064547c9
     extraFiles:
       # DH-544
       jupyter-lab-overrides:
@@ -110,7 +110,7 @@ jupyterhub:
       OLLAMA_HOST: "0.0.0.0:11434"
       OLLAMA_DEBUG: "1"
     nodeSelector:
-      hub.jupyter.org/pool-name: small-courses-pool
+      hub.jupyter.org/pool-name: datahub-pool
     storage:
       type: static
       static:
