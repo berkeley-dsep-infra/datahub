@@ -77,8 +77,29 @@ jupyterhub:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     defaultUrl: /lab
-    nodeSelector:
-      hub.jupyter.org/pool-name: ischool-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - prob140-pool
+                - publichealth-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
     storage:
       homeMountPath: /home/jovyan
       type: static

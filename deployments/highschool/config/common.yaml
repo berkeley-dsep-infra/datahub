@@ -31,18 +31,18 @@ jupyterhub:
       GoogleOAuthenticator:
         login_service: "School ID"
         hosted_domain:
-        - berkeley.edu
-        # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
-        - achieveprogram.org
-        # For BLDAP program
-        - lbl.gov
-        # moved admin users to protected directory
-        - ausdk12.org
-        - amethodschools.org
-        - wccschools.org
-        - madison.k12.wi.us
-        - student.tdsb.on.ca
-        - sfhs.com
+          - berkeley.edu
+          # See https://github.com/berkeley-dsep-infra/datahub/issues/1529
+          - achieveprogram.org
+          # For BLDAP program
+          - lbl.gov
+          # moved admin users to protected directory
+          - ausdk12.org
+          - amethodschools.org
+          - wccschools.org
+          - madison.k12.wi.us
+          - student.tdsb.on.ca
+          - sfhs.com
 
   singleuser:
     image:
@@ -51,8 +51,29 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: small-courses-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - small-courses-pool
+                - data102-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data102-pool
     storage:
       type: static
       static:

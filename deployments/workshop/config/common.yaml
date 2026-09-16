@@ -12,8 +12,6 @@ jupyterhub:
     # Cull after 30min of inactivity
     every: 300
     timeout: 1800
-    # No pods over 12h long, no workshop is gonna be more than that :)
-    maxAge: 43200
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -56,9 +54,37 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      # Co-locate with datahub, since workshop shares its image
-      hub.jupyter.org/pool-name: datahub-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - small-courses-pool
+                - data101-pool
+                - datahub-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data101-pool
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
     storage:
       type: static
       static:
