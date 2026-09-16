@@ -105,8 +105,29 @@ jupyterhub:
         mountPath: /srv/conda/envs/notebook/etc/github/github-app-private-key.pem
         # data in secret file
 
-    nodeSelector:
-      hub.jupyter.org/pool-name: biology-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - prob140-pool
+                - publichealth-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
     storage:
       type: static
       static:

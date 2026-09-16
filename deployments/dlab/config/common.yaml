@@ -78,8 +78,29 @@ jupyterhub:
           Sys.setenv(GH_SCOPED_CREDS_CLIENT_ID = "Iv1.9b3b48abeb673056")
           Sys.setenv(GH_SCOPED_CREDS_APP_URL = "https://github.com/apps/dlab-berkeley-datahub-access")
         mode: 0644
-    nodeSelector:
-      hub.jupyter.org/pool-name: dlab-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - prob140-pool
+                - publichealth-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
     storage:
       type: static
       static:

@@ -23,4 +23,29 @@ roleRef:
   kind: Role
   name: {{ include "node-placeholder-scaler.fullname" . }}
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "node-placeholder-scaler.fullname" . }}-node-reader
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "node-placeholder-scaler.fullname" . }}-node-reader-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "node-placeholder-scaler.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "node-placeholder-scaler.fullname" . }}-node-reader
+  apiGroup: rbac.authorization.k8s.io
 {{- end}}

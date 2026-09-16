@@ -86,8 +86,29 @@ jupyterhub:
             useHttpPath = true
       git-credential-helper-private-key:
         mountPath: /etc/github/github-app-private-key.pem
-    nodeSelector:
-      hub.jupyter.org/pool-name: eecs-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - prob140-pool
+                - publichealth-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
     storage:
       type: static
       static:
