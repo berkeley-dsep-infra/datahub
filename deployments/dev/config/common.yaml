@@ -160,8 +160,29 @@ jupyterhub:
             - name: home
               mountPath: /home/jovyan
               subPath: "{username}/1524699"
-    nodeSelector:
-      hub.jupyter.org/pool-name: dev-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - small-courses-pool
+                - data102-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data102-pool
     storage:
       type: static
       static:

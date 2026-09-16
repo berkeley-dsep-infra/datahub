@@ -82,8 +82,29 @@ jupyterhub:
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
     defaultUrl: /rstudio
 
-    nodeSelector:
-      hub.jupyter.org/pool-name: publichealth-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - publichealth-pool
+                - prob140-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-pool
     storage:
       homeMountPath: /home/jovyan
       type: static

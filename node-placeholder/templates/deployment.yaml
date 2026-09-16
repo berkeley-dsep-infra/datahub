@@ -38,6 +38,13 @@ spec:
           args:
             - --config-file=/etc/scaler/config.yaml
             - --placeholder-template-file=/etc/scaler/placeholder-template.yaml
+            - --namespace={{ .Release.Namespace }}
+            - --node-pool-selector-key={{ .Values.nodePoolSelectorKey | default "hub.jupyter.org/pool-name" }}
+            - --placeholder-pod-label-selector={{ .Values.placeholderPodLabelSelector | default "app=node-placeholder-scaler,component=placeholder" }}
+            - --cpu-threshold={{ .Values.cpuThreshold | default 0.2 }}
+            - --memory-threshold={{ .Values.memoryThreshold | default 0.2 }}
+            - --strategy={{ .Values.scalingStrategy | default "balanced" }}
+            - --node-grace-period={{ .Values.nodeGracePeriod | default "600" }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:

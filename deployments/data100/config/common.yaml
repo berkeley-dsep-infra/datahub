@@ -97,8 +97,45 @@ jupyterhub:
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: data100-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data100-pool
+                - datahub-pool
+                - stat20-pool
+                - r-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-pool
+        - weight: 25
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-pool
     storage:
       type: static
       static:
