@@ -129,7 +129,9 @@ jupyterhub:
               operator: In
               values:
                 - data8-pool
+                - data8-n2-pool
                 - publichealth-pool
+                - publichealth-n2-pool
       preferred:
         - weight: 100
           preference:
@@ -138,6 +140,13 @@ jupyterhub:
                 operator: In
                 values:
                   - data8-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-n2-pool
         - weight: 75
           preference:
             matchExpressions:
@@ -145,6 +154,13 @@ jupyterhub:
                 operator: In
                 values:
                   - publichealth-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-n2-pool
     defaultUrl: /tree
     storage:
       type: static

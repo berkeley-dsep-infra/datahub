@@ -214,8 +214,11 @@ jupyterhub:
               operator: In
               values:
                 - data101-pool
+                - data101-n2-pool
                 - small-courses-pool
                 - datahub-pool
+                - small-courses-n2-pool
+                - datahub-n2-pool
       preferred:
         - weight: 100
           preference:
@@ -224,6 +227,13 @@ jupyterhub:
                 operator: In
                 values:
                   - data101-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data101-n2-pool
         - weight: 75
           preference:
             matchExpressions:
@@ -231,6 +241,13 @@ jupyterhub:
                 operator: In
                 values:
                   - small-courses-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-n2-pool
         - weight: 50
           preference:
             matchExpressions:
@@ -238,6 +255,13 @@ jupyterhub:
                 operator: In
                 values:
                   - datahub-pool
+        - weight: 40
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
     defaultUrl: /lab
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.

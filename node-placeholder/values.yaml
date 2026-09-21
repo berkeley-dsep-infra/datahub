@@ -4,7 +4,7 @@ image:
   repository: us-central1-docker.pkg.dev/ucb-datahub-2018/core/node-placeholder-scaler
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.1"
+  tag: "v1.2"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -81,8 +81,29 @@ grafana:
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
 nodePools:
   data100:
-    nodeSelector:
-      hub.jupyter.org/pool-name: data100-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data100-pool
+                - data100-n2d-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-n2d-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
@@ -90,72 +111,261 @@ nodePools:
         # value for n2-highmem-32 memory: 207314055168
     replicas: 0
   data101:
-    nodeSelector:
-      hub.jupyter.org/pool-name: data101-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data101-pool
+                - data101-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data101-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data101-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   data102:
-    nodeSelector:
-      hub.jupyter.org/pool-name: data102-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data102-pool
+                - data102-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data102-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data102-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   data8:
-    nodeSelector:
-      hub.jupyter.org/pool-name: data8-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data8-pool
+                - data8-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   datahub:
-    nodeSelector:
-      hub.jupyter.org/pool-name: datahub-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - datahub-pool
+                - datahub-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   prob140:
-    nodeSelector:
-      hub.jupyter.org/pool-name: prob140-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - prob140-pool
+                - prob140-n2d-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-n2d-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   publichealth:
-    nodeSelector:
-      hub.jupyter.org/pool-name: publichealth-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - publichealth-pool
+                - publichealth-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   stat20:
-    nodeSelector:
-      hub.jupyter.org/pool-name: stat20-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - stat20-pool
+                - stat20-n2d-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-n2d-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   r:
-    nodeSelector:
-      hub.jupyter.org/pool-name: r-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - r-pool
+                - r-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
         memory: 60929654784
     replicas: 0
   small-courses:
-    nodeSelector:
-      hub.jupyter.org/pool-name: small-courses-pool
+    nodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - small-courses-pool
+                - small-courses-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-n2-pool
     resources:
       requests:
         # Some value slightly lower than allocatable RAM on the nodepool
