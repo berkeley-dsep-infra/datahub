@@ -85,8 +85,17 @@ jupyterhub:
               values:
                 - prob140-pool
                 - publichealth-pool
+                - prob140-n2d-pool
+                - publichealth-n2-pool
       preferred:
         - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - prob140-n2d-pool
+        - weight: 90
           preference:
             matchExpressions:
               - key: hub.jupyter.org/pool-name
@@ -100,6 +109,13 @@ jupyterhub:
                 operator: In
                 values:
                   - publichealth-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-n2-pool
     storage:
       homeMountPath: /home/jovyan
       type: static
