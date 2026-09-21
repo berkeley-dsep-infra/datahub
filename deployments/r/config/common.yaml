@@ -87,9 +87,13 @@ jupyterhub:
               operator: In
               values:
                 - r-pool
+                - r-n2-pool
                 - data100-pool
                 - datahub-pool
                 - stat20-pool
+                - data100-n2d-pool
+                - datahub-n2-pool
+                - stat20-n2d-pool
       preferred:
         - weight: 100
           preference:
@@ -98,7 +102,21 @@ jupyterhub:
                 operator: In
                 values:
                   - r-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-n2-pool
         - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-n2d-pool
+        - weight: 65
           preference:
             matchExpressions:
               - key: hub.jupyter.org/pool-name
@@ -112,7 +130,21 @@ jupyterhub:
                 operator: In
                 values:
                   - datahub-pool
+        - weight: 40
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
         - weight: 25
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-n2d-pool
+        - weight: 15
           preference:
             matchExpressions:
               - key: hub.jupyter.org/pool-name

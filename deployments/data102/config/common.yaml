@@ -88,7 +88,9 @@ jupyterhub:
               operator: In
               values:
                 - data102-pool
+                - data102-n2-pool
                 - small-courses-pool
+                - small-courses-n2-pool
       preferred:
         - weight: 100
           preference:
@@ -97,6 +99,13 @@ jupyterhub:
                 operator: In
                 values:
                   - data102-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data102-n2-pool
         - weight: 75
           preference:
             matchExpressions:
@@ -104,6 +113,13 @@ jupyterhub:
                 operator: In
                 values:
                   - small-courses-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-n2-pool
     storage:
       type: static
       static:
