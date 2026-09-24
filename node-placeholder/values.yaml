@@ -77,7 +77,6 @@ grafana:
 # The node placeholder pod should be 'big' enough that it needs to be kicked out to get even a single
 # user pod on the node - but not so big that it can't run on a node where other system pods are running!
 #
-# So we should make the memory be output of (2) - output of (3), with maybe another 256Mi wiggle room
 # FIXME: LET US MAKE THIS INTO A SCRIPT!
 nodePools:
   data100:
@@ -106,9 +105,7 @@ nodePools:
                   - data100-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
-        # value for n2-highmem-32 memory: 207314055168
+        memory: 57982058496
     replicas: 0
   data101:
     nodeAffinity:
@@ -136,8 +133,7 @@ nodePools:
                   - data101-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   data102:
     nodeAffinity:
@@ -165,8 +161,7 @@ nodePools:
                   - data102-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   data8:
     nodeAffinity:
@@ -194,8 +189,7 @@ nodePools:
                   - data8-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   datahub:
     nodeAffinity:
@@ -223,8 +217,7 @@ nodePools:
                   - datahub-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   prob140:
     nodeAffinity:
@@ -252,8 +245,7 @@ nodePools:
                   - prob140-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   publichealth:
     nodeAffinity:
@@ -281,8 +273,7 @@ nodePools:
                   - publichealth-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   stat20:
     nodeAffinity:
@@ -310,8 +301,7 @@ nodePools:
                   - stat20-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   r:
     nodeAffinity:
@@ -339,8 +329,7 @@ nodePools:
                   - r-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
   small-courses:
     nodeAffinity:
@@ -368,6 +357,5 @@ nodePools:
                   - small-courses-n2-pool
     resources:
       requests:
-        # Some value slightly lower than allocatable RAM on the nodepool
-        memory: 60929654784
+        memory: 57982058496
     replicas: 0
