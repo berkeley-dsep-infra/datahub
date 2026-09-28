@@ -49,7 +49,7 @@ priorityClass:
 tolerations:
 
 calendarUrl:
-  https://calendar.google.com/calendar/ical/c_s47m3m1nuj3s81187k3b2b5s5o%40group.calendar.google.com/public/basic.ics
+  https://calendar.google.com/calendar/ical/c_d0bba298a6d4d118920de2bf0a3db6b044af0dbaf86039f872e3dcb003aef61f%40group.calendar.google.com/public/basic.ics
 
 nodePoolSelectorKey: hub.jupyter.org/pool-name
 placeholderPodLabelSelector: "app=node-placeholder-scaler,component=placeholder"
