@@ -46,7 +46,7 @@ jupyterhub:
   hub:
     image:
       name: gitlab-registry.nrp-nautilus.io/ryanlovett/datahub-nrp-hub-image
-      tag: "69193871"
+      tag: "f5f16fd2"
     # Nautilus uses rook-ceph-block for hub db storage.
     db:
       type: sqlite-pvc
@@ -76,10 +76,10 @@ jupyterhub:
       OAuthenticator:
         allow_all: False
         allowed_groups:
+          # CDSS Discovery 2026 Fall
+          - "course::1557896"
           # CDSS Discovery 2026 Spring
           - "course::1552431"
-          # CDSS Discovery 2025 Fall
-          - "course::1549326"
           ## CDSS Discovery Partners
           - "course::1549362"
           # DataHub staff

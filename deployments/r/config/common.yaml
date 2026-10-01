@@ -52,7 +52,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: 6a0062e26fee
+      tag: ba837297536b
     extraFiles:
       # DH-544
       jupyter-lab-overrides:
@@ -80,8 +80,77 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: r-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - r-pool
+                - r-n2-pool
+                - data100-pool
+                - datahub-pool
+                - stat20-pool
+                - data100-n2d-pool
+                - datahub-n2-pool
+                - stat20-n2d-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-n2-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-n2d-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-pool
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
+        - weight: 40
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
+        - weight: 25
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-n2d-pool
+        - weight: 15
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-pool
     storage:
       type: static
       static:
@@ -123,19 +192,6 @@ jupyterhub:
         mem_limit: 2048M
         mem_guarantee: 2048M
       
-      # Course Name: 2026 Summer, SOCIOL N100 002 — Housing Precarity and Displacement
-      # Bcourses ID: 1555635 | End Date: 08/20/2026
-      # See issue https://github.com/berkeley-dsep-infra/datahub/issues/8335 for details.
-      course::1555635::enrollment_type::teacher:
-        mem_limit: 8G
-        mem_guarantee: 8G
-      course::1555635::enrollment_type::ta:
-        mem_limit: 8G
-        mem_guarantee: 8G
-      course::1555635::enrollment_type::student:
-        mem_limit: 4G
-        mem_guarantee: 4G
-
     # bcourses_shared:
       # 2026-spring:
         # - "course::1552931"

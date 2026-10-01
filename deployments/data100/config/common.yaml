@@ -58,6 +58,18 @@ jupyterhub:
         # this role will be assigned to...
         groups:
           - course::1524699::group::all-admins
+      course-staff-1557790:
+        ## Course: Data C100 Bcourses ID: 1557790 End Date: 12/31/2026 
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8439 for more details.
+        description: Enable course staff to view and access servers.
+        scopes:
+          - admin-ui
+          - list:users!group=course::1557790
+          - admin:servers!group=course::1557790
+          - access:servers!group=course::1557790
+        groups:
+          - course::1557790::enrollment_type::teacher
+          - course::1557790::enrollment_type::ta
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data100-user-image
@@ -85,8 +97,77 @@ jupyterhub:
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/data100-berkeley-datahub-access
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: data100-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data100-pool
+                - data100-n2d-pool
+                - datahub-pool
+                - stat20-pool
+                - r-pool
+                - datahub-n2-pool
+                - stat20-n2d-pool
+                - r-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-n2d-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-n2d-pool
+        - weight: 40
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-pool
+        - weight: 25
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-pool
+        - weight: 15
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-n2-pool
     storage:
       type: static
       static:

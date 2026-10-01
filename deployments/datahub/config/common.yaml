@@ -122,14 +122,83 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: 6a0062e26fee
+      tag: ba837297536b
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv23ct7Qx1mAotaIIYx9
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/berkeley-datahub-git-access
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: datahub-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - datahub-pool
+                - datahub-n2-pool
+                - data100-pool
+                - stat20-pool
+                - r-pool
+                - data100-n2d-pool
+                - stat20-n2d-pool
+                - r-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-n2d-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data100-pool
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-n2d-pool
+        - weight: 40
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - stat20-pool
+        - weight: 25
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-pool
+        - weight: 15
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - r-n2-pool
     storage:
       type: static
       static:
@@ -189,6 +258,16 @@ jupyterhub:
         ## Course Name: Principles of Synthetic Biology Bcourses ID: 1557313 End Date: 12/19/2026
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8387 for details.
         mem_limit: 4G
+        mem_guarantee: 2G
+      course::1558989:
+        ## Course Name: DEMOG-130: Demography of Deaths, Diseases, and Disasters Bcourses ID: 1558989 End Date: 12/18/2026
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8472 for details.
+        mem_limit: 2G
+        mem_guarantee: 2G        
+      course::1555939:
+        ## Course Name: MBA-247: Descriptive and Predictive Data Mining Bcourses ID: 1555939 End Date: 10/28/2026
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8474 for details.
+        mem_limit: 2G
         mem_guarantee: 2G
     bcourses_shared:
       2026-fall:

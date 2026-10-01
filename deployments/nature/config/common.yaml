@@ -73,8 +73,45 @@ jupyterhub:
       GH_SCOPED_CREDS_CLIENT_ID: Iv23liGBW8jtMBP0inyw
       GH_SCOPED_CREDS_APP_URL: https://github.com/apps/uc-berkeley-nature-hub-git-access
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: nature-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - publichealth-pool
+                - data8-pool
+                - publichealth-n2-pool
+                - data8-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-n2-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-n2-pool
     storage:
       type: static
       static:
@@ -90,7 +127,7 @@ jupyterhub:
         default: true
         slug: "default-profile"   
         kubespawner_override: {
-          image: "ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784"
+          image: "ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331"
         }
         profile_options:
           interface:
@@ -110,10 +147,10 @@ jupyterhub:
 
       - display_name: "Profile for ESPM-288 Instructors and TAs"
         description: "This profile is for the instructors and TAs in ESPM-288."
-        slug: "course-1551740-instructors-tas"
+        slug: "course-1558023-instructors-tas"
         allowed_groups:
-          - course::1551740::enrollment_type::teacher
-          - course::1551740::enrollment_type::ta
+          - course::1558023::enrollment_type::teacher
+          - course::1558023::enrollment_type::ta
           - course::1524699
         profile_options:
           image:
@@ -123,7 +160,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -174,10 +211,10 @@ jupyterhub:
 
       - display_name: "Profile for ESPM-288 Students and Observers"
         description: "This profile is for the students in ESPM-288."
-        slug: "course-1551740-students"
+        slug: "course-1558023-students"
         allowed_groups:
-          - course::1551740::enrollment_type::student
-          - course::1551740::enrollment_type::observer
+          - course::1558023::enrollment_type::student
+          - course::1558023::enrollment_type::observer
           - course::1524699
         profile_options:
           image:
@@ -187,7 +224,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -215,10 +252,10 @@ jupyterhub:
 
       - display_name: "Profile for CSOL-208 Instructors and TAs"
         description: "This profile is for the instructors and TAs in CSOL-208."
-        slug: "course-1551739-instructors-tas"
+        slug: "course-1558101-instructors-tas"
         allowed_groups:
-          - course::1551739::enrollment_type::teacher
-          - course::1551739::enrollment_type::ta
+          - course::1558101::enrollment_type::teacher
+          - course::1558101::enrollment_type::ta
           - course::1524699
         profile_options:
           image:
@@ -228,7 +265,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -279,10 +316,10 @@ jupyterhub:
 
       - display_name: "Profile for CSOL-208 Students and Observers"
         description: "This profile is for the students in CSOL-208."
-        slug: "course-1551739-students"
+        slug: "course-1558101-students"
         allowed_groups:
-          - course::1551739::enrollment_type::student
-          - course::1551739::enrollment_type::observer
+          - course::1558101::enrollment_type::student
+          - course::1558101::enrollment_type::observer
           - course::1524699
         profile_options:
           image:
@@ -292,7 +329,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -331,7 +368,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:4fa3a2a78fb77adbeb4f323c51e63c68552da6b8aba94333e1989f7d2a0cc784
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"

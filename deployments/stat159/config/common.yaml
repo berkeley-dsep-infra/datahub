@@ -27,6 +27,12 @@ jupyterhub:
           # Stat 159, Fall 2025
           # https://bcourses.berkeley.edu/courses/1546508
           - "course::1546508"
+          # Stat 159, Fall 2026
+          # https://bcourses.berkeley.edu/courses/1557334
+          - "course::1557334"
+          # Stat 259, Fall 2026
+          # https://bcourses.berkeley.edu/courses/1559494
+          - "course::1559494"
           # DataHub staff
           - "course::1524699::group::all-admins"
     loadRoles:
@@ -79,7 +85,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/stat159-user-image
-      tag: ffe2da9558b1
+      tag: 9568d00bec16
     defaultUrl: "/lab"
     extraEnv:
       GH_SCOPED_CREDS_CLIENT_ID: Iv1.28ac6d8f60ed35ac
@@ -128,15 +134,68 @@ jupyterhub:
       #    # it uses WAL mode of sqlite, and that is completely unsupported on NFS
       #    BaseFileIdManager: &server_config_base_file_id_manager
       #      db_path: /tmp/file_id_manager.db
-    nodeSelector:
-      hub.jupyter.org/pool-name: stat159-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - small-courses-pool
+                - small-courses-n2-pool
+                - data101-pool
+                - datahub-pool
+                - data101-n2-pool
+                - datahub-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - small-courses-n2-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data101-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data101-n2-pool
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-pool
+        - weight: 40
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - datahub-n2-pool
     storage:
       type: static
       static:
         pvcName: home-nfs-v3
         subPath: "{username}"
     memory:
-      guarantee: 8G
+      guarantee: 1G
       limit: 8G
 
   custom:    
@@ -149,3 +208,7 @@ jupyterhub:
       # 2025-fall:
         # - "course::1524699"
         # - "course::1546508"
+    bcourses_shared:
+      2026-fall:
+        - "course::1557334"
+        - "course::1559494"

@@ -88,7 +88,6 @@ def hub_to_filestore_mapping(hub_name: str) -> str:
         "stat20": "stat20-filestore",
         "nature": "small-courses-filestore",
         "dev": "small-courses-filestore",
-        "gradebook": "small-courses-filestore",
         "highschool": "small-courses-filestore",
         "logodev": "small-courses-filestore",
     }

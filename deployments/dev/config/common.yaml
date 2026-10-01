@@ -135,7 +135,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
-      tag: 6a0062e26fee
+      tag: ba837297536b
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
@@ -161,7 +161,7 @@ jupyterhub:
               mountPath: /home/jovyan
               subPath: "{username}/1524699"
     nodeSelector:
-      hub.jupyter.org/pool-name: dev-pool
+      hub.jupyter.org/pool-name: user-testing-pool
     storage:
       type: static
       static:
