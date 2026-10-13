@@ -2,8 +2,6 @@ name: Data Retrieval Request
 description: Retrieve my old files stored in my Datahub account. This request is no way related to retrieving files stored in Github repositories.  These requests will be processed within 5-10 business days.
 title: "Request my old files stored in Datahub"
 labels: ["support", "data retrieval"]
-assignees:
-  - balajialg
 body:
   - type: markdown
     attributes:

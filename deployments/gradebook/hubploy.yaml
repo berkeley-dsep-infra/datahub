@@ -1,6 +1,0 @@
-cluster:
-  provider: gcloud
-  gcloud:
-    project: ucb-datahub-2018
-    cluster: spring-2024
-    zone: us-central1

@@ -6,6 +6,9 @@ nfsPVC:
     enabled: true
     
 jupyterhub:
+  cull:
+    # Kill servers 8h after they start, regardless of activity.
+    maxAge: 28800
   prePuller:
     hook:
       pullOnlyOnChanges: true

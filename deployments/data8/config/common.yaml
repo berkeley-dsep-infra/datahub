@@ -86,22 +86,22 @@ jupyterhub:
         groups:
           - course::1544818::enrollment_type::teacher
           - course::1544818::enrollment_type::ta
-      course-staff-1555312:
-        ## Course: DataC8 Bcourses ID: 1555312 End Date: 05/20/2028 
-        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8329 for more details.
+      course-staff-1557859:
+        ## Course: Data C8 Bcourses ID: 1557859 End Date: 12/31/2026 
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8441 for more details.
         description: Enable course staff to view and access servers.
         scopes:
           - admin-ui
-          - list:users!group=course::1555312
-          - admin:servers!group=course::1555312
-          - access:servers!group=course::1555312
+          - list:users!group=course::1557859
+          - admin:servers!group=course::1557859
+          - access:servers!group=course::1557859
         groups:
-          - course::1555312::enrollment_type::teacher
-          - course::1555312::enrollment_type::ta
+          - course::1557859::enrollment_type::teacher
+          - course::1557859::enrollment_type::ta
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/data8-user-image
-      tag: 69b9ff2cd5cb
+      tag: 096a1bbf79dc
     extraFiles:
       # DH-596
       jupyter-lab-overrides:
@@ -122,8 +122,45 @@ jupyterhub:
     extraEnv:
       # Unset NotebookApp from hub/values. Necessary for recent lab versions.
       JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
-    nodeSelector:
-      hub.jupyter.org/pool-name: data8-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - data8-pool
+                - data8-n2-pool
+                - publichealth-pool
+                - publichealth-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - data8-n2-pool
+        - weight: 75
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-pool
+        - weight: 65
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - publichealth-n2-pool
     defaultUrl: /tree
     storage:
       type: static
