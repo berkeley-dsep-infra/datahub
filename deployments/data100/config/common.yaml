@@ -181,3 +181,7 @@ jupyterhub:
     # bcourses_shared:
       # 2026-spring:
         # - "course::1551658"
+  custom:
+    bcourses_shared:
+      2026-fall:
+        - "course::1557790"
