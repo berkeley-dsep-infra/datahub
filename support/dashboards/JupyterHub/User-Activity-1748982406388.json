@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -32,14 +32,13 @@
       },
       "id": 1,
       "panels": [],
-      "repeat": "PROMETHEUS_DS",
-      "title": "Activity ($PROMETHEUS_DS)",
+      "title": "Active Users",
       "type": "row"
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
       },
       "description": "Number of running user servers at any given time.\n\nNote that a single user could have multiple servers running if the\nJupyterHub is configured with `c.JupyterHub.allow_named_servers = True`.\n",
       "fieldConfig": {
@@ -132,8 +131,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
       },
       "description": "Number of unique users who were active within the preceding period.\n",
       "fieldConfig": {
@@ -226,8 +225,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
       },
       "description": "Number of unique users who were active within the preceding period.\n",
       "fieldConfig": {
@@ -320,8 +319,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
       },
       "description": "Number of unique users who were active within the preceding period.\n",
       "fieldConfig": {
@@ -411,6 +410,290 @@
       ],
       "title": "Monthly Active Users",
       "type": "timeseries"
+    },
+    {
+      "id": 13,
+      "type": "row",
+      "title": "Server Launching",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Server Launches",
+      "description": "Number of user server spawns by hub and outcome, per time step. Filter with the Hub and Launch status selectors.\n",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "custom": {
+            "stacking": {
+              "mode": "none"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum by (namespace, status) (\n  clamp_min(\n    jupyterhub_server_spawn_duration_seconds_count{namespace=~\"$hub\", status=~\"$status\"}\n    - jupyterhub_server_spawn_duration_seconds_count{namespace=~\"$hub\", status=~\"$status\"} offset $__interval,\n    0\n  )\n)",
+          "legendFormat": "{{namespace}} {{status}}",
+          "refId": "A",
+          "interval": "1m"
+        }
+      ]
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "points",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 12,
+      "interval": "5m",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "histogram_quantile(0.99, sum(rate(jupyterhub_server_spawn_duration_seconds_bucket{app=\"jupyterhub\", namespace=~\"$hub\", status=\"success\"}[$__rate_interval])) by (le, namespace))",
+          "legendFormat": "{{namespace}} 99th percentile",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "histogram_quantile(0.5, sum(rate(jupyterhub_server_spawn_duration_seconds_bucket{app=\"jupyterhub\", namespace=~\"$hub\", status=\"success\"}[$__rate_interval])) by (le, namespace))",
+          "legendFormat": "{{namespace}} 50th percentile",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.2, sum(rate(jupyterhub_server_spawn_duration_seconds_bucket{app=\"jupyterhub\", namespace=~\"$hub\", status=\"success\"}[$__rate_interval])) by (le, namespace))",
+          "hide": false,
+          "legendFormat": "{{namespace}} 20th percentile",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Server Start Times",
+      "type": "timeseries",
+      "description": "Time taken to start user servers, per hub selected in the Hub selector.\n\nOnly successful spawns are included. Failed spawns usually run until the 600s timeout and would drag the percentiles towards it; see Server Launches filtered by status for those.\n"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 14,
+      "panels": [],
+      "title": "User Pods",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
+      },
+      "description": "Pods not in the Running phase, per hub and phase. Filter with the Hub and Pod phase selectors. A hub only gets a line while it has such pods.\n\nSucceeded is left out of the Pod phase selector by default: user servers pass through it briefly whenever they are stopped, so it is normal. Select it to see those.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum by (namespace, phase) (\n  kube_pod_status_phase{phase!=\"Running\", phase=~\"$pod_phase\", namespace=~\"$hub\"} == 1\n)\n",
+          "legendFormat": "{{namespace}} {{phase}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Non Running Pods",
+      "type": "timeseries"
     }
   ],
   "refresh": "",
@@ -424,12 +707,12 @@
       {
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": "prometheus",
+          "value": "prometheus"
         },
         "hide": 1,
-        "includeAll": true,
-        "multi": true,
+        "includeAll": false,
+        "multi": false,
         "name": "PROMETHEUS_DS",
         "options": [],
         "query": "prometheus",
@@ -437,6 +720,33 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(jupyterhub_running_servers, namespace)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "hub",
+        "options": [],
+        "query": {
+          "query": "label_values(jupyterhub_running_servers, namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       },
       {
         "allValue": ".*",
@@ -449,20 +759,55 @@
           "type": "prometheus",
           "uid": "${PROMETHEUS_DS}"
         },
-        "definition": "label_values(kube_namespace_status_phase,namespace)",
+        "definition": "label_values(jupyterhub_server_spawn_duration_seconds_count, status)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
-        "name": "hub",
-        "options": [],
+        "name": "status",
+        "label": "Launch status",
         "query": {
-          "query": "label_values(kube_namespace_status_phase,namespace)",
+          "query": "label_values(jupyterhub_server_spawn_duration_seconds_count, status)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "Failed",
+            "Pending",
+            "Unknown"
+          ],
+          "value": [
+            "Failed",
+            "Pending",
+            "Unknown"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(kube_pod_status_phase, phase)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "pod_phase",
+        "label": "Pod phase",
+        "query": {
+          "query": "label_values(kube_pod_status_phase, phase)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "/^(?!Running$).*/",
+        "skipUrlSync": false,
+        "sort": 1,
         "type": "query"
       }
     ]
@@ -474,7 +819,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Activity",
-  "uid": "a0e303b37e4ee971",
+  "uid": "user-activity",
   "version": 3,
   "weekStart": ""
 }

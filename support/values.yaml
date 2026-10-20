@@ -107,12 +107,36 @@ prometheus:
       size: 1000Gi
       storageClass: ssd
       existingClaim: prometheus-data-2024-05-15
-    retention: 180d
+    retention: 365d
     strategy:
       # Can't really do rolling update, we have a persistent disk attached
       type: Recreate
     service:
       type: ClusterIP
+
+  serverFiles:
+    recording_rules.yml:
+      groups:
+        - name: jupyterhub-user-pods
+          rules:
+            - record: jupyterhub:user_pod_cpu_usage_cores:rate5m
+              expr: |
+                sum by (namespace, pod) (
+                  max by (namespace, pod, container) (
+                    rate(container_cpu_usage_seconds_total{container!="", container!="POD", pod=~"jupyter-.*"}[5m])
+                  )
+                )
+                * on (namespace, pod) group_left()
+                  group by (namespace, pod) (kube_pod_labels{label_app="jupyterhub", label_component="singleuser-server"})
+            - record: jupyterhub:user_pod_memory_working_set_bytes:sum
+              expr: |
+                sum by (namespace, pod) (
+                  max by (namespace, pod, container) (
+                    container_memory_working_set_bytes{container!="", container!="POD", pod=~"jupyter-.*"}
+                  )
+                )
+                * on (namespace, pod) group_left()
+                  group by (namespace, pod) (kube_pod_labels{label_app="jupyterhub", label_component="singleuser-server"})
 
 grafana:
   assertNoLeakedSecrets: false
@@ -192,16 +216,627 @@ grafana:
       apiVersion: 1
       datasources:
         - name: prometheus
+          uid: P1809F7CD0C75ACF3
           orgId: 1
           type: prometheus
           url: http://support-prometheus-server
           access: proxy
           isDefault: true
           editable: true
+          jsonData:
+            timeInterval: 1m
         - name: yesoreyeram-infinity-datasource
           type: yesoreyeram-infinity-datasource
           isDefault: false
           editable: true
+
+  alerting:
+    rules.yaml:
+      apiVersion: 1
+      groups:
+        - orgId: 1
+          name: cluster-health
+          folder: Cluster
+          interval: 1m
+          rules:
+            - uid: unscheduled-user-pods
+              title: Pods unschedulable
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      count by (namespace) (
+                        (kube_pod_status_phase{phase="Pending", namespace!="node-placeholder"} == 1)
+                        * on (namespace, pod) group_left() max by (namespace, pod) (kube_pod_info{node=""})
+                        unless on (namespace, pod) kube_pod_labels{label_component=~"placeholder|user-placeholder"}
+                      )
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 15m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: '{{ "{{" }} $values.A }} pod(s) in {{ "{{" }} $labels.namespace }} unschedulable for 15m'
+                description: >-
+                  Users can't start servers. Usually the node pool is at its autoscaler
+                  max, a quota is exhausted, or a nodeSelector matches no pool. Check
+                  `kubectl -n <namespace> describe pod` events.
+
+            - uid: core-oom-kill
+              title: OOM kill on core node
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      increase(node_vmstat_oom_kill[10m])
+                      * on (node) group_left(label_hub_jupyter_org_pool_name)
+                        group by (node, label_hub_jupyter_org_pool_name) (
+                          kube_node_labels{label_hub_jupyter_org_pool_name=~"core-pool.*|support-pool|prometheus-pool"}
+                        )
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 0s
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: 'OOM kill on {{ "{{" }} $labels.node }} ({{ "{{" }} $labels.label_hub_jupyter_org_pool_name }})'
+                description: >-
+                  A process was OOM-killed on a node running shared services. User-pool
+                  OOM kills are deliberately not alerted on, since they are routine.
+
+            - uid: node-memory-high
+              title: Node memory above 90%
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)
+                      * on (node) group_left(label_hub_jupyter_org_pool_name)
+                        group by (node, label_hub_jupyter_org_pool_name) (kube_node_labels)
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0.9]}
+              for: 10m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'Memory on {{ "{{" }} $labels.node }} ({{ "{{" }} $labels.label_hub_jupyter_org_pool_name }}) above 90% for 10m'
+
+            - uid: node-load-high
+              title: Node load per core above 2
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      node_load5 / on (node) count by (node) (node_cpu_seconds_total{mode="idle"})
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [2]}
+              for: 15m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'Load per core on {{ "{{" }} $labels.node }} above 2 for 15m'
+                description: >-
+                  Sustained load without matching CPU usage usually means processes
+                  blocked on IO, most often NFS.
+
+            - uid: core-cpu-high
+              title: Core node CPU above 90%
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      (
+                        sum by (node) (rate(node_cpu_seconds_total{mode!="idle"}[5m]))
+                        / count by (node) (node_cpu_seconds_total{mode="idle"})
+                      )
+                      * on (node) group_left(label_hub_jupyter_org_pool_name)
+                        group by (node, label_hub_jupyter_org_pool_name) (
+                          kube_node_labels{label_hub_jupyter_org_pool_name=~"core-pool.*|support-pool|prometheus-pool"}
+                        )
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0.9]}
+              for: 30m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'CPU on {{ "{{" }} $labels.node }} ({{ "{{" }} $labels.label_hub_jupyter_org_pool_name }}) above 90% for 30m'
+
+            - uid: node-not-ready
+              title: Node NotReady
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      kube_node_status_condition{condition="Ready", status="true"} == 0
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: lt, params: [1]}
+              for: 10m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: 'Node {{ "{{" }} $labels.node }} NotReady for 10m'
+
+        - orgId: 1
+          name: hub-activity
+          folder: JupyterHub
+          interval: 1m
+          rules:
+            - uid: hub-down-prod
+              title: Hub down (prod)
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 3600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      max by (namespace) (max_over_time(up{job="kubernetes-service-endpoints", service="hub", namespace=~".*-prod"}[1h]))
+                      unless on (namespace)
+                      max by (namespace) (up{job="kubernetes-service-endpoints", service="hub", namespace=~".*-prod"} == 1)
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 5m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: 'Hub {{ "{{" }} $labels.namespace }} down for 5m'
+                description: >-
+                  Prometheus can't scrape the hub, or its pod isn't ready. Users of this
+                  hub can't log in or start servers. Deploys take the hub down for about
+                  30s, well under the 5m pending period.
+
+            - uid: hub-down-staging
+              title: Hub down (staging and other)
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 3600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      max by (namespace) (max_over_time(up{job="kubernetes-service-endpoints", service="hub", namespace!~".*-prod"}[1h]))
+                      unless on (namespace)
+                      max by (namespace) (up{job="kubernetes-service-endpoints", service="hub", namespace!~".*-prod"} == 1)
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 5m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'Hub {{ "{{" }} $labels.namespace }} down for 5m'
+
+            - uid: spawn-failures
+              title: Server spawn failures
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 900, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      round(sum by (namespace) (increase(jupyterhub_server_spawn_duration_seconds_count{status="failure"}[15m])))
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [2]}
+              for: 0s
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: '{{ "{{" }} $values.A }} failed spawns on {{ "{{" }} $labels.namespace }} in 15m'
+                description: >-
+                  Check the hub logs for "did not start in 600 seconds" (pods stuck pulling
+                  images on a new node) or "didn't respond in 30 seconds" (overloaded node).
+
+            - uid: slow-server-starts
+              title: Slow server starts
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 900, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      histogram_quantile(0.9, sum by (namespace, le) (rate(jupyterhub_server_spawn_duration_seconds_bucket{status="success"}[15m])))
+                      and on (namespace)
+                      sum by (namespace) (increase(jupyterhub_server_spawn_duration_seconds_count{status="success"}[15m])) >= 5
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [300]}
+              for: 15m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'p90 server start on {{ "{{" }} $labels.namespace }} above 5m for 15m'
+                description: >-
+                  Usually new nodes still pulling images, often in a fallback pool shared
+                  with other hubs.
+
+            - uid: spawn-limits-hit
+              title: Spawn limits hit
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 900, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      round(sum by (namespace, status) (increase(jupyterhub_server_spawn_duration_seconds_count{status=~"throttled|too-many-users"}[15m])))
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 0s
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'Spawns rejected on {{ "{{" }} $labels.namespace }} ({{ "{{" }} $labels.status }})'
+                description: >-
+                  JupyterHub turned users away because of concurrent_spawn_limit (throttled)
+                  or active_server_limit (too-many-users).
+
+        - orgId: 1
+          name: hub-proxy
+          folder: JupyterHub
+          interval: 1m
+          rules:
+            - uid: hub-restarted
+              title: Hub restarted
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 900, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      round(sum by (namespace) (increase(kube_pod_container_status_restarts_total{pod=~"hub-.*", container="hub"}[15m])))
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 0s
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: 'Hub {{ "{{" }} $labels.namespace }} restarted {{ "{{" }} $values.A }} time(s) in 15m'
+                description: >-
+                  Usually JupyterHub exiting on purpose after 5 consecutive failed spawns
+                  ("Aborting due to 5 consecutive spawn failures" in the hub log), which
+                  drops every in-progress spawn. Look for the spawn failures behind it.
+
+            - uid: hub-db-disk-low
+              title: Hub DB disk below 10% free
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: &hubDbFree |
+                      min by (namespace) (
+                        kubelet_volume_stats_available_bytes{persistentvolumeclaim="hub-db-dir"}
+                        / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="hub-db-dir"}
+                      )
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: lt, params: [0.1]}
+              for: 10m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: 'Hub DB disk on {{ "{{" }} $labels.namespace }} below 10% free'
+                description: >-
+                  The hub's sqlite database lives on the hub-db-dir PVC. If it fills up the
+                  hub can't write state and stops working. Resize the PVC.
+
+            - uid: hub-db-disk-critical
+              title: Hub DB disk below 5% free
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: *hubDbFree
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: lt, params: [0.05]}
+              for: 10m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: critical
+              annotations:
+                summary: 'Hub DB disk on {{ "{{" }} $labels.namespace }} below 5% free'
+
+            - uid: hub-proxy-memory-high
+              title: Hub or proxy memory above 90% of limit
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      max by (namespace, container) (container_memory_working_set_bytes{pod=~"hub-.*|proxy-.*", container=~"hub|chp"})
+                      / max by (namespace, container) (kube_pod_container_resource_limits{resource="memory", pod=~"hub-.*|proxy-.*", container=~"hub|chp"})
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0.9]}
+              for: 10m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: '{{ "{{" }} $labels.container }} on {{ "{{" }} $labels.namespace }} above 90% of its memory limit for 10m'
+
+            - uid: hub-proxy-cpu-high
+              title: Hub or proxy CPU above 0.9 cores
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      sum by (namespace, container) (rate(container_cpu_usage_seconds_total{pod=~"hub-.*|proxy-.*", container=~"hub|chp"}[5m]))
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0.9]}
+              for: 10m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: '{{ "{{" }} $labels.container }} on {{ "{{" }} $labels.namespace }} above 0.9 cores for 10m'
+                description: >-
+                  A saturated event loop makes logins, spawns and proxied requests slow for
+                  everyone on this hub.
+
+        - orgId: 1
+          name: user-pods
+          folder: JupyterHub
+          interval: 1m
+          rules:
+            - uid: user-pod-outlived-max-age
+              title: User pods older than the 8h culler limit
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      count by (namespace) (
+                        time() - max by (namespace, pod) (kube_pod_created{pod=~"jupyter-.*"}) > 9 * 3600
+                      )
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0]}
+              for: 30m
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: '{{ "{{" }} $values.A }} user pod(s) on {{ "{{" }} $labels.namespace }} older than 9h'
+                description: >-
+                  The idle culler should stop every server 8h after it starts (cull.maxAge).
+                  Check the idle culler (it runs as a service inside the hub pod) in the hub
+                  logs, and whether the hub still knows about these pods. The culler works
+                  through the hub API, so pods the hub has lost track of aren't culled.
+
+            - uid: user-pod-cpu-at-limit
+              title: User pod at its CPU limit for 3h
+              condition: B
+              data:
+                - refId: A
+                  relativeTimeRange: {from: 3600, to: 0}
+                  datasourceUid: P1809F7CD0C75ACF3
+                  model:
+                    refId: A
+                    instant: true
+                    expr: |
+                      sum by (namespace, pod) (rate(container_cpu_usage_seconds_total{pod=~"jupyter-.*", container="notebook"}[1h]))
+                      / sum by (namespace, pod) (kube_pod_container_resource_limits{pod=~"jupyter-.*", container="notebook", resource="cpu"})
+                - refId: B
+                  datasourceUid: __expr__
+                  model:
+                    refId: B
+                    type: threshold
+                    expression: A
+                    conditions:
+                      - evaluator: {type: gt, params: [0.9]}
+              for: 2h
+              noDataState: OK
+              execErrState: Error
+              labels:
+                severity: warning
+              annotations:
+                summary: '{{ "{{" }} $labels.pod }} on {{ "{{" }} $labels.namespace }} above 90% of its CPU limit for about 3h'
+                description: >-
+                  Look at the pod in User Diagnostics (Hub and User pod selectors) and at its
+                  processes before contacting the user.
+
+    policies.yaml:
+      apiVersion: 1
+      policies:
+        - orgId: 1
+          receiver: slack-datahub-alerts
+          group_by: [grafana_folder, alertname]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 4h
 
 prometheus-statsd-exporter:
   nodeSelector:
