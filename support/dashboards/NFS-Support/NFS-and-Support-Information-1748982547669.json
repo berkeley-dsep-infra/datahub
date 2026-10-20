@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -716,7 +716,8 @@
             "fillOpacity": 10,
             "lineInterpolation": "stepAfter"
           },
-          "min": 0
+          "min": 0,
+          "unit": "suffix: cores"
         },
         "overrides": []
       },
@@ -919,7 +920,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "NFS and Support Information",
-  "uid": "224dc604fadc52b9",
+  "uid": "nfs-support-information",
   "version": 2,
   "weekStart": ""
 }

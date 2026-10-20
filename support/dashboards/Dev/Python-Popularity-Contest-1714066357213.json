@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 21,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -163,7 +163,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Python Popularity Contest",
-  "uid": "1EJ3WNi7z",
+  "uid": "python-popularity-contest",
   "version": 5,
   "weekStart": ""
 }
