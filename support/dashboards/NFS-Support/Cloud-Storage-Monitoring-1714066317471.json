@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 13,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -915,7 +915,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Cloud Storage Monitoring",
-  "uid": "0Xx3Zao4z",
+  "uid": "cloud-storage-monitoring",
   "version": 2,
   "weekStart": ""
 }

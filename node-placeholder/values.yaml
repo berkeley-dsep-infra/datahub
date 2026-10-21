@@ -1,4 +1,5 @@
 replicaCount: 1
+scalingStrategy: mem
 
 image:
   repository: us-central1-docker.pkg.dev/ucb-datahub-2018/core/node-placeholder-scaler
