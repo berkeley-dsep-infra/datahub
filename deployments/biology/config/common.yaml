@@ -84,6 +84,7 @@ jupyterhub:
     bcourses_shared:
       2026-fall:
         - "course::1557888"
+        - "course::1557629"
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/biology-user-image
