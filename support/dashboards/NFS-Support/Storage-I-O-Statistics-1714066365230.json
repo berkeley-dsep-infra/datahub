@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11801,
   "graphTooltip": 0,
-  "id": 23,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -951,7 +951,7 @@
   },
   "timezone": "browser",
   "title": "Storage I/O Statistics",
-  "uid": "RzrUuuQZk",
+  "uid": "storage-io-statistics",
   "version": 3,
   "weekStart": ""
 }

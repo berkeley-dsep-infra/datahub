@@ -18,85 +18,91 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "id": 11,
+      "type": "row",
+      "title": "Distribution across user pods",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
       "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
+        "type": "datasource",
+        "uid": "-- Mixed --"
       },
-      "description": "Distribution of usage/request ratio. ",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
           "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
             }
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "unit": "suffix: cores"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
+        "h": 10,
+        "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
       },
-      "id": 8,
+      "id": 12,
+      "interval": "600s",
       "options": {
+        "calculate": true,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size",
+            "value": "600s"
+          }
+        },
+        "cellGap": 1,
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Viridis",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "min": 0,
+          "reverse": false,
+          "unit": "suffix: cores"
         }
       },
       "pluginVersion": "9.5.5",
@@ -104,144 +110,227 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
+            "uid": "$PROMETHEUS_DS"
           },
-          "editorMode": "code",
-          "expr": "label_replace(\n  count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) < 0.25\n  ),\n  \"bucket\", \"<0.25\", \"\", \"\"\n)",
-          "legendFormat": "__auto",
-          "range": true,
+          "expr": "sum(\n  # exclude name=\"\" because the same container can be reported\n  # with both no name and `name=k8s_...`,\n  # in which case sum() by (pod) reports double the actual metric\n  irate(container_cpu_usage_seconds_total{name!=\"\"}[5m])\n  * on (namespace, pod) group_left(container) \n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (label_component, pod, namespace)\n) by (pod)\n",
+          "intervalFactor": 1,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "label_replace(\n  count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) < 0.5\n  ) and count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) >= 0.25\n  ),\n  \"bucket\", \"0.25 - 0.5\", \"\", \"\"\n)",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "label_replace(\n  count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) < 0.75\n  ) and count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) >= 0.5\n  ),\n  \"bucket\", \"0.5 - 0.75\", \"\", \"\"\n)",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "label_replace(\n  count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) < 1\n  ) and count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) >= 0.75\n  ),\n  \"bucket\", \"0.75 - 1.0\", \"\", \"\"\n)",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "label_replace(\n  count(\n    sum(\n      container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n      * on (namespace, pod) group_left(container)\n      group(\n        kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n      ) by (pod, namespace)\n    ) by (pod, namespace)\n    / \n    sum(\n      kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n    ) by (pod, namespace) >= 1\n  ),\n  \"bucket\", \">1.0\", \"\", \"\"\n)\n",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "E"
         }
       ],
-      "title": "Memory Usage / Request Ratio Distribution",
-      "type": "timeseries"
+      "title": "User CPU usage distribution",
+      "type": "heatmap"
     },
     {
       "datasource": {
         "type": "datasource",
         "uid": "-- Mixed --"
       },
-      "description": "\n95 Percentile Memory Usage Across Notebook Containers",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
           "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
             }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "MiB"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 8,
-        "y": 0
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 1
       },
-      "id": 1,
+      "id": 13,
+      "interval": "600s",
       "options": {
+        "calculate": true,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size",
+            "value": "600s"
+          }
+        },
+        "cellGap": 1,
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Viridis",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
         },
         "tooltip": {
-          "mode": "multi",
-          "sort": "none"
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "min": 0,
+          "reverse": false,
+          "unit": "bytes"
         }
+      },
+      "pluginVersion": "9.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum(\n  # exclude name=\"\" because the same container can be reported\n  # with both no name and `name=k8s_...`,\n  # in which case sum() by (pod) reports double the actual metric\n  container_memory_working_set_bytes{name!=\"\"}\n  * on (namespace, pod) group_left(container) \n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (label_component, pod, namespace)\n) by (pod)\n",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "User memory usage distribution",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "id": 23,
+      "interval": "600s",
+      "options": {
+        "calculate": true,
+        "calculation": {
+          "xBuckets": {
+            "mode": "size",
+            "value": "600s"
+          }
+        },
+        "cellGap": 1,
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Viridis",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "min": 0,
+          "reverse": false,
+          "unit": "s"
+        }
+      },
+      "pluginVersion": "9.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "(\n  time()\n  - (\n    kube_pod_created\n    * on (namespace, pod)  \n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (label_component, pod, namespace)\n  )\n)\n",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "User active age distribution",
+      "type": "heatmap"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Anomalous user pods",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "User pods running now that are older than 8 hours. Filter by hub with the Hub selector or the Hub column.\n",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "s",
+          "custom": {
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 28,
+      "options": {
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Age"
+          }
+        ]
       },
       "pluginVersion": "v10.4.0",
       "targets": [
@@ -250,94 +339,65 @@
             "type": "prometheus",
             "uid": "$PROMETHEUS_DS"
           },
-          "editorMode": "code",
-          "expr": "quantile(0.95, avg_over_time(avg by (pod) (container_memory_usage_bytes{namespace=~\"$hub\", container!=\"\", container!=\"mongo\", container!=\"postgres\", pod=~\"jupyter-.*\", cloud_google_com_gke_nodepool=~\"user-.*\"})[15m:])) / 1024 / 1024\n",
-          "legendFormat": "{{ pod }} - ({{ namespace }})",
-          "range": true,
-          "refId": "A"
+          "expr": "(\n  time() - (kube_pod_created * on (namespace, pod)  \n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (label_component, pod, namespace))\n)  > (8 * 60 * 60) # 8 hours is our threshold\n",
+          "instant": true,
+          "refId": "A",
+          "format": "table"
         }
       ],
-      "title": "95 Percentile Memory Usage Across Notebook Containers",
-      "type": "timeseries"
+      "title": "Very old user pods",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "namespace": 0,
+              "pod": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "namespace": "Hub",
+              "pod": "User pod",
+              "Value": "Age"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
         "type": "datasource",
         "uid": "-- Mixed --"
       },
-      "description": "\n95 Percentile CPU Usage Across Notebook Containers",
+      "description": "User pods whose CPU use went above 0.5 cores at any point in the selected time range, with their peak value. Filter by hub with the Hub selector or the Hub column.\n",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
           "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "Cores"
+          "unit": "suffix: cores",
+          "custom": {
+            "filterable": true
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 0
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 22
       },
-      "id": 10,
+      "id": 29,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Peak CPU (cores)"
+          }
+        ]
       },
       "pluginVersion": "v10.4.0",
       "targets": [
@@ -346,15 +406,114 @@
             "type": "prometheus",
             "uid": "$PROMETHEUS_DS"
           },
-          "editorMode": "code",
-          "expr": "quantile(0.95, avg_over_time(avg by (pod) (rate(container_cpu_usage_seconds_total{namespace=~\"$hub\", container!=\"\", container!=\"mongo\", container!=\"postgres\", pod=~\"jupyter-.*\", cloud_google_com_gke_nodepool=~\"user-.*\"}[5m]))[15m:])) \n\n",
-          "legendFormat": "{{ pod }} - ({{ namespace }})",
-          "range": true,
-          "refId": "A"
+          "expr": "max by (namespace, pod) (\n  max_over_time(jupyterhub:user_pod_cpu_usage_cores:rate5m{namespace=~\"$hub\", pod=~\"$user_pod\"}[$__range])\n) > 0.5\n",
+          "instant": true,
+          "refId": "A",
+          "format": "table"
         }
       ],
-      "title": "95 Percentile CPU Usage Across Notebook Containers",
-      "type": "timeseries"
+      "title": "User Pods with high CPU usage (>0.5)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "namespace": 0,
+              "pod": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "namespace": "Hub",
+              "pod": "User pod",
+              "Value": "Peak CPU (cores)"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "User pods whose memory use reached more than 80% of their memory limit at any point in the selected time range, with the peak share. Once they hit their memory limit, user kernels will start dying. Filter by hub with the Hub selector or the Hub column.\n",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "percentunit",
+          "custom": {
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "id": 30,
+      "options": {
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Peak % of memory limit"
+          }
+        ]
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "max by (namespace, pod) (\n  max_over_time(jupyterhub:user_pod_memory_working_set_bytes:sum{namespace=~\"$hub\", pod=~\"$user_pod\"}[$__range])\n)\n/\nsum by (namespace, pod) (\n  max_over_time(kube_pod_container_resource_limits{resource=\"memory\", namespace=~\"$hub\", pod=~\"$user_pod\"}[$__range])\n)\n> 0.8\n",
+          "instant": true,
+          "refId": "A",
+          "format": "table"
+        }
+      ],
+      "title": "User pods with high memory usage (>80% of limit)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "namespace": 0,
+              "pod": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "namespace": "Hub",
+              "pod": "User pod",
+              "Value": "Peak % of memory limit"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "id": 17,
+      "type": "row",
+      "title": "Per-pod Memory Usage",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 42
+      }
     },
     {
       "datasource": {
@@ -420,7 +579,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 43
       },
       "id": 9,
       "options": {
@@ -442,7 +601,7 @@
             "type": "prometheus",
             "uid": "$PROMETHEUS_DS"
           },
-          "expr": "sum(\n  # exclude name=\"\" because the same container can be reported\n  # with both no name and `name=k8s_...`,\n  # in which case sum() by (pod) reports double the actual metric\n  container_memory_working_set_bytes{name!=\"\", instance=~\"$instance\"}\n  * on (namespace, pod) group_left(container)\n  group(\n      kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n",
+          "expr": "sum(\n  # exclude name=\"\" because the same container can be reported\n  # with both no name and `name=k8s_...`,\n  # in which case sum() by (pod) reports double the actual metric\n  container_memory_working_set_bytes{name!=\"\"}\n  * on (namespace, pod) group_left(container)\n  group(\n      kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n",
           "legendFormat": "{{ pod }} - ({{ namespace }})",
           "refId": "A"
         }
@@ -513,7 +672,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 55
       },
       "id": 6,
       "options": {
@@ -536,13 +695,13 @@
             "uid": "$PROMETHEUS_DS"
           },
           "editorMode": "code",
-          "expr": "sum(\n  container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n  * on (namespace, pod) group_left(container)\n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n/ sum(\n  kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n) by (pod, namespace) \n\n\n",
+          "expr": "sum(\n  container_memory_working_set_bytes{name!=\"\"}\n  * on (namespace, pod) group_left(container)\n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n/ sum(\n  kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\"}\n) by (pod, namespace) \n\n\n",
           "legendFormat": "{{ pod }} - ({{ namespace }})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Usage/Request Ratio",
+      "title": "Memory Usage/Request Ratio",
       "type": "timeseries"
     },
     {
@@ -608,7 +767,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 67
       },
       "id": 7,
       "options": {
@@ -631,14 +790,27 @@
             "uid": "$PROMETHEUS_DS"
           },
           "editorMode": "code",
-          "expr": "sum(\n  container_memory_working_set_bytes{name!=\"\", instance=~\".*\"}\n  * on (namespace, pod) group_left(container)\n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\".*\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n/ sum(\n  kube_pod_container_resource_limits{resource=\"memory\", namespace=~\"$hub\", node=~\".*\"}\n) by (pod, namespace) \n\n\n",
+          "expr": "sum(\n  container_memory_working_set_bytes{name!=\"\"}\n  * on (namespace, pod) group_left(container)\n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n/ sum(\n  kube_pod_container_resource_limits{resource=\"memory\", namespace=~\"$hub\"}\n) by (pod, namespace) \n\n\n",
           "legendFormat": "{{ pod }} - ({{ namespace }})",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Usage/Limit Ratio",
+      "title": "Memory Usage/Limit Ratio",
       "type": "timeseries"
+    },
+    {
+      "id": 26,
+      "type": "row",
+      "title": "Per-pod CPU Usage",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 79
+      }
     },
     {
       "datasource": {
@@ -695,7 +867,7 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "suffix: cores"
         },
         "overrides": []
       },
@@ -703,7 +875,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 80
       },
       "id": 2,
       "options": {
@@ -725,7 +897,7 @@
             "type": "prometheus",
             "uid": "$PROMETHEUS_DS"
           },
-          "expr": "sum(\n  # exclude name=\"\" because the same container can be reported\n  # with both no name and `name=k8s_...`,\n  # in which case sum() by (pod) reports double the actual metric\n  irate(container_cpu_usage_seconds_total{name!=\"\", instance=~\"$instance\"}[5m])\n  * on (namespace, pod) group_left(container)\n  group(\n      kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n",
+          "expr": "sum(\n  # exclude name=\"\" because the same container can be reported\n  # with both no name and `name=k8s_...`,\n  # in which case sum() by (pod) reports double the actual metric\n  irate(container_cpu_usage_seconds_total{name!=\"\"}[5m])\n  * on (namespace, pod) group_left(container)\n  group(\n      kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n",
           "legendFormat": "{{ pod }} - ({{ namespace }})",
           "refId": "A"
         }
@@ -738,218 +910,7 @@
         "type": "datasource",
         "uid": "-- Mixed --"
       },
-      "description": "Per user home directory size, when using a shared home directory.\n\nRequires https://github.com/yuvipanda/prometheus-dirsize-exporter to\nbe set up.\n\nSimilar to server pod names, user names will be *encoded* here\nusing the escapism python library (https://github.com/minrk/escapism).\nYou can unencode them with the following python snippet:\n\nfrom escapism import unescape\nunescape('<escaped-username>', '-')\n",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 24,
-        "x": 0,
-        "y": 55
-      },
-      "id": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "v10.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$PROMETHEUS_DS"
-          },
-          "expr": "max(\n  dirsize_total_size_bytes{namespace=\"$hub\"}\n) by (directory, namespace)\n",
-          "legendFormat": "{{ directory }} - ({{ namespace }})",
-          "refId": "A"
-        }
-      ],
-      "title": "Home Directory Usage (on shared home directories)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
-      },
-      "description": "Per-user per-server memory Requests\n",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "jupyter-balajialwar - (a11y-prod)"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 24,
-        "x": 0,
-        "y": 67
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "v10.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$PROMETHEUS_DS"
-          },
-          "expr": "sum(\n  kube_pod_container_resource_requests{resource=\"memory\", namespace=~\"$hub\", node=~\"$instance\"}\n) by (pod, namespace)\n",
-          "legendFormat": "{{ pod }} - ({{ namespace }})",
-          "refId": "A"
-        }
-      ],
-      "title": "Memory Requests",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
-      },
-      "description": "Per-user per-server CPU Requests\n",
+      "description": "CPU used by each user pod as a fraction of its CPU request.\n",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1007,9 +968,9 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 92
       },
-      "id": 5,
+      "id": 24,
       "options": {
         "legend": {
           "calcs": [],
@@ -1029,12 +990,109 @@
             "type": "prometheus",
             "uid": "$PROMETHEUS_DS"
           },
-          "expr": "sum(\n  kube_pod_container_resource_requests{resource=\"cpu\", namespace=~\"$hub\", node=~\"$instance\"}\n) by (pod, namespace)\n",
+          "editorMode": "code",
+          "expr": "sum(\n  irate(container_cpu_usage_seconds_total{name!=\"\"}[5m])\n  * on (namespace, pod) group_left(container)\n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n/ sum(\n  kube_pod_container_resource_requests{resource=\"cpu\", namespace=~\"$hub\"}\n) by (pod, namespace) \n\n\n",
           "legendFormat": "{{ pod }} - ({{ namespace }})",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "CPU Requests",
+      "title": "CPU Usage/Request Ratio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "CPU used by each user pod as a fraction of its CPU limit.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 104
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "editorMode": "code",
+          "expr": "sum(\n  irate(container_cpu_usage_seconds_total{name!=\"\"}[5m])\n  * on (namespace, pod) group_left(container)\n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (pod, namespace)\n) by (pod, namespace)\n/ sum(\n  kube_pod_container_resource_limits{resource=\"cpu\", namespace=~\"$hub\"}\n) by (pod, namespace) \n\n\n",
+          "legendFormat": "{{ pod }} - ({{ namespace }})",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Usage/Limit Ratio",
       "type": "timeseries"
     }
   ],
@@ -1064,7 +1122,7 @@
         "type": "datasource"
       },
       {
-        "allValue": ".*",
+        "allValue": null,
         "current": {
           "selected": false,
           "text": "All",
@@ -1074,14 +1132,14 @@
           "type": "prometheus",
           "uid": "${PROMETHEUS_DS}"
         },
-        "definition": "label_values(kube_namespace_status_phase,namespace)",
+        "definition": "label_values(jupyterhub_running_servers, namespace)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "hub",
         "options": [],
         "query": {
-          "query": "label_values(kube_namespace_status_phase,namespace)",
+          "query": "label_values(jupyterhub_running_servers, namespace)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -1113,30 +1171,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
-      },
-      {
-        "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${PROMETHEUS_DS}"
-        },
-        "definition": "",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "instance",
-        "options": [],
-        "query": "label_values(kube_node_info, node)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
       }
     ]
   },
@@ -1147,7 +1181,8 @@
   "timepicker": {},
   "timezone": "",
   "title": "User Diagnostics Dashboard",
-  "uid": "48def00b161d9dcd",
+  "uid": "user-diagnostics",
   "version": 9,
-  "weekStart": ""
+  "weekStart": "",
+  "description": "Single-user server CPU and memory usage across all user pods and per pod, pod age and outlier pods. Non-running pods are in 'Activity'; home directory sizes are in 'Home Directory Usage Dashboard'."
 }
