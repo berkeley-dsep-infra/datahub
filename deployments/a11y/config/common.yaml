@@ -109,8 +109,29 @@ jupyterhub:
       OLLAMA_ORIGINS: "*"
       OLLAMA_HOST: "0.0.0.0:11434"
       OLLAMA_DEBUG: "1"
-    nodeSelector:
-      hub.jupyter.org/pool-name: user-testing-pool
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - user-testing-pool
+                - user-testing-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - user-testing-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - user-testing-n2-pool
     storage:
       type: static
       static:
