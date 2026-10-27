@@ -70,7 +70,7 @@ jupyterhub:
   singleuser:
     image:
       name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/prob140-user-image
-      tag: 490c12d0c7a9
+      tag: e6d0a956f166
     extraFiles:
       # DH-305
       remove-exporters:
