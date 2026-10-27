@@ -127,7 +127,7 @@ jupyterhub:
         default: true
         slug: "default-profile"   
         kubespawner_override: {
-          image: "ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331"
+          image: "ghcr.io/rocker-org/ml-spatial@sha256:d35fa0207d5ebdafa3c4705db0e119b3b9df2566fe683a88ab92562ac4c977dc"
         }
         profile_options:
           interface:
@@ -160,7 +160,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:d35fa0207d5ebdafa3c4705db0e119b3b9df2566fe683a88ab92562ac4c977dc
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -224,7 +224,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:d35fa0207d5ebdafa3c4705db0e119b3b9df2566fe683a88ab92562ac4c977dc
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -267,7 +267,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:d35fa0207d5ebdafa3c4705db0e119b3b9df2566fe683a88ab92562ac4c977dc
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -333,7 +333,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:d35fa0207d5ebdafa3c4705db0e119b3b9df2566fe683a88ab92562ac4c977dc
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
@@ -372,7 +372,7 @@ jupyterhub:
               nature:
                 display_name: "Nature Image"
                 kubespawner_override:
-                  image: ghcr.io/rocker-org/ml-spatial@sha256:54c0006ad6f033cf922551fce3533fb09220e731318ed2da8c1481df12377331
+                  image: ghcr.io/rocker-org/ml-spatial@sha256:d35fa0207d5ebdafa3c4705db0e119b3b9df2566fe683a88ab92562ac4c977dc
             unlisted_choice:
               enabled: true
               display_name: "Publicly Accessible Custom Image (e.g. quay.io/my-project/my-image:tag)"
