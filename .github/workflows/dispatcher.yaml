@@ -19,6 +19,7 @@ jobs:
     secrets:
       DATA_RETRIEVAL_SA: ${{ secrets.DATA_RETRIEVAL_SA }}
       TOKEN_PICKLE: ${{ secrets.TOKEN_PICKLE }}
+      PRIVATE_KEY_SECRET: ${{ secrets.PRIVATE_KEY_SECRET }}
 
   dispatch-add-admin-config:
     if: contains(toJson(github.event.issue.labels), 'add admin config')

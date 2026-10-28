@@ -7,6 +7,8 @@ body:
     attributes:
       value: |
         Please follow the sections in the template and provide us the information required to retrieve your files!
+
+        For your privacy, your email address and folder link will be removed from this issue once it is processed, and the issue will be moved to a private repository.
   - type: textarea
     attributes:
       label: Your UC Berkeley Email Address
