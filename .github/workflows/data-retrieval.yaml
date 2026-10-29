@@ -112,14 +112,6 @@ jobs:
                   labels: ['failed data retrieval']
                 });
 
-                // Close the issue
-                await github.rest.issues.update({
-                  owner: repo.owner,
-                  repo: repo.repo,
-                  issue_number: issueNumber,
-                  state: "closed"
-                });
-
                 return; // Exit early since there's no valid folder link
               }
 
@@ -150,14 +142,6 @@ jobs:
                   repo: repo.repo,
                   issue_number: issueNumber,
                   labels: ['failed data retrieval']
-                });
-
-                // Close the issue
-                await github.rest.issues.update({
-                  owner: repo.owner,
-                  repo: repo.repo,
-                  issue_number: issueNumber,
-                  state: "closed"
                 });
 
                 return; // Exit early since there's no valid email
@@ -202,13 +186,6 @@ jobs:
               -H "Content-Type: application/json" \
               -d '{"labels":["failed data retrieval"]}' \
               "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/labels" > /dev/null 2>&1
-
-            # Close the issue
-            curl -s -X PATCH \
-              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              -H "Content-Type: application/json" \
-              -d '{"state": "closed"}' \
-              "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER" > /dev/null 2>&1
           else
             echo "Environment variable is valid, continuing."
           fi
@@ -230,7 +207,7 @@ jobs:
         run: |
           python3 .github/scripts/sign_url_and_send_emails.py
 
-      - name: Post success comment and close the issue
+      - name: Post success comment
         if: steps.run_send_email_python_script.outcome == 'success'
         run: |
           # Post a success comment on the issue
@@ -242,13 +219,6 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"body\": \"$COMMENT_BODY\"}" \
             "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments" > /dev/null 2>&1
-
-          # Close the issue
-          curl -s -X PATCH \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"state": "closed"}' \
-            "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER" > /dev/null 2>&1
 
       - name: Redact email and folder link from the issue body
         if: always()
@@ -273,6 +243,7 @@ jobs:
           repositories: ${{ github.event.repository.name }},datahub-data-retrieval
 
       - name: Transfer the issue to the private repository
+        id: transfer
         if: always() && steps.app-token.outcome == 'success'
         uses: actions/github-script@v7
         with:
@@ -284,8 +255,36 @@ jobs:
             );
             const result = await github.graphql(
               `mutation($issueId: ID!, $repositoryId: ID!) {
-                transferIssue(input: {issueId: $issueId, repositoryId: $repositoryId}) { issue { number } }
+                transferIssue(input: {issueId: $issueId, repositoryId: $repositoryId}) { issue { id number } }
               }`,
               { issueId: context.payload.issue.node_id, repositoryId: repository.id }
             );
+            core.setOutput("issue_id", result.transferIssue.issue.id);
             console.log(`Transferred to datahub-data-retrieval#${result.transferIssue.issue.number}`);
+
+      - name: Close the issue in the private repository
+        if: always() && steps.transfer.outcome == 'success' && steps.run_send_email_python_script.outcome == 'success'
+        uses: actions/github-script@v7
+        env:
+          ISSUE_ID: ${{ steps.transfer.outputs.issue_id }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            await github.graphql(
+              `mutation($issueId: ID!) {
+                closeIssue(input: {issueId: $issueId, stateReason: COMPLETED}) { issue { number } }
+              }`,
+              { issueId: process.env.ISSUE_ID }
+            );
+
+      - name: Close the issue in this repository if the transfer failed
+        if: always() && steps.transfer.outcome != 'success' && steps.run_send_email_python_script.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
