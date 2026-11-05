@@ -1,0 +1,14 @@
+jupyterhub:
+  ingress:
+    enabled: true
+    hosts:
+      - archive.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - archive.datahub.berkeley.edu
+  hub:
+    db:
+      pvc:
+        # This also holds logs
+        storage: 4Gi

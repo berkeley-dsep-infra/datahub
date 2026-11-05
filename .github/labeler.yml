@@ -84,6 +84,8 @@ node-placeholder-scaler:
 # add hub-specific labels for deployment changes
 'hub: a11y':
   - 'deployments/a11y/**'
+'hub: archive':
+  - 'deployments/archive/**'
 'hub: astro':
   - 'deployments/astro/**'
 'hub: biology':
@@ -114,8 +116,6 @@ node-placeholder-scaler:
   - 'deployments/ischool/**'
 'hub: julia':
   - 'deployments/julia/**'
-'hub: logodev':
-  - 'deployments/logodev/**'
 'hub: nature':
   - 'deployments/nature/**'
 'hub: prob140':

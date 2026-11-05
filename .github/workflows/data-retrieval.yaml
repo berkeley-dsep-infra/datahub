@@ -63,6 +63,7 @@ jobs:
               // Define patterns for the link and email
               const linkPattern = /gs:\/\/[^\s]+\.tar\.gz/g;  // Ensure global flag `g`
               const emailPattern = /([a-zA-Z0-9._%+-]+@berkeley\.edu)(?=\b|\))/;
+              const anyEmailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
 
               // Extract all matching folder links
               let folderLinks = [];
@@ -70,6 +71,18 @@ jobs:
               while ((match = linkPattern.exec(issueBody)) !== null) {
                 folderLinks.push(match[0]); // Extract full link
               }
+
+              const emailMatch = issueBody.match(emailPattern);
+              const anyEmailMatch = issueBody.match(anyEmailPattern);
+              const contactEmail = emailMatch ? emailMatch[1].trim() : (anyEmailMatch ? anyEmailMatch[0] : "");
+              if (contactEmail) {
+                core.setSecret(contactEmail);
+                core.exportVariable("CONTACT_EMAIL", contactEmail);
+              }
+
+              const moveNotice = contactEmail
+                ? "We have also emailed these instructions to you. For your privacy, this issue will now be moved to a private repository, and you will not be able to access it after that."
+                : "For your privacy, this issue will be moved to a private repository in 3 days, and you will not be able to access it after that.";
 
               if (folderLinks.length > 0) {
                 // Mask the links in all later log output of this job
@@ -82,6 +95,7 @@ jobs:
               } else {
                 console.log("No valid folder link found. Leaving a comment and closing the issue.");
                 core.setOutput("folder_found", "false");
+                core.setOutput("failure_type", "no_link");
 
                 // Leave a comment on the issue
                 await github.rest.issues.createComment({
@@ -101,7 +115,7 @@ jobs:
                         4. **Fill in your Berkeley email address and submit the GitHub issue.**
                         If you no longer have access to the hub where WHERE-ARE-MY-FILES.txt is stored or if you lost access to bcourse, please contact datahub-dataretrieval@berkeley.edu.
 
-                        For your privacy, this issue will now be moved to a private repository.`
+                        ${moveNotice}`
                 });
 
                 // Add the "failed data retrieval" label
@@ -116,24 +130,22 @@ jobs:
               }
 
               // Extract email
-              const emailMatch = issueBody.match(emailPattern);
               if (emailMatch && emailMatch[1]) {
                 email = emailMatch[1].trim();
-                // Mask the email in all later log output of this job
-                core.setSecret(email);
                 console.log("Found email.");
                 core.exportVariable("RECEIVER_EMAIL", email);
                 core.setOutput("email_found", "true");
               } else {
                 console.log("No valid email found. Leaving a comment and closing the issue.");
                 core.setOutput("email_found", "false");
+                core.setOutput("failure_type", "no_email");
 
                 // Leave a comment for missing email
                 await github.rest.issues.createComment({
                   owner: repo.owner,
                   repo: repo.repo,
                   issue_number: issueNumber,
-                  body: "**Missing Email Address.**\n\nPlease provide your UC Berkeley email address and resubmit your request.\n\nFor your privacy, this issue will now be moved to a private repository."
+                  body: `**Missing Email Address.**\n\nPlease provide your UC Berkeley email address and resubmit your request.\n\n${moveNotice}`
                 });
 
                 // Add the "failed data retrieval" label
@@ -151,10 +163,10 @@ jobs:
             await run().catch(error => console.error("Error:", error));
 
       - name: Checkout repository
-        if: steps.extract_link.outputs.folder_found == 'true' && steps.extract_link.outputs.email_found == 'true'
+        if: env.CONTACT_EMAIL != ''
         uses: actions/checkout@v2
       - name: Set up Python environment
-        if: steps.extract_link.outputs.folder_found == 'true' && steps.extract_link.outputs.email_found == 'true'
+        if: env.CONTACT_EMAIL != ''
         uses: actions/setup-python@v2
         with:
           python-version: '3.11'
@@ -172,7 +184,7 @@ jobs:
             echo "Some of the links to the requested resources do not match the owner of the provided email. Please double check your email and the paths to the requested resources, and submit a new Github issue with correct information."
 
             # Post a comment on the issue
-            COMMENT_BODY='Some of the links to the requested resources do not match the owner of the provided email. Please double check your email and the paths to the requested resources, and submit a new Github issue with correct information. For your privacy, this issue will now be moved to a private repository.'
+            COMMENT_BODY='Some of the links to the requested resources do not match the owner of the provided email. Please double check your email and the paths to the requested resources, and submit a new Github issue with correct information. We have also emailed this to you. For your privacy, this issue will now be moved to a private repository, and you will not be able to access it after that.'
             ISSUE_NUMBER=${{ github.event.issue.number }}
             curl -s -X POST \
               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -191,7 +203,7 @@ jobs:
           fi
 
       - name: Install Google Cloud SDK and Python Client Libraries
-        if: ${{ env.emailMatchesFolder == 'valid' }}
+        if: env.CONTACT_EMAIL != ''
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
@@ -211,7 +223,7 @@ jobs:
         if: steps.run_send_email_python_script.outcome == 'success'
         run: |
           # Post a success comment on the issue
-          COMMENT_BODY='The requested resource has been sent to your provided email address. You have 7 days from when the email was received to retrieve your data. If you do not see the email, check for your spam box and look for an email sent from datahub-dataretrieval@berkeley.edu. For your privacy, this issue will now be moved to a private repository.'
+          COMMENT_BODY='The requested resource has been sent to your provided email address. You have 7 days from when the email was received to retrieve your data. If you do not see the email, check for your spam box and look for an email sent from datahub-dataretrieval@berkeley.edu. For your privacy, this issue will now be moved to a private repository, and you will not be able to access it after that.'
 
           ISSUE_NUMBER=${{ github.event.issue.number }}
           curl -s -X POST \
@@ -219,6 +231,57 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"body\": \"$COMMENT_BODY\"}" \
             "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments" > /dev/null 2>&1
+
+      - name: Determine the outcome of the request
+        id: outcome
+        if: always()
+        env:
+          EXTRACT_FAILURE: ${{ steps.extract_link.outputs.failure_type }}
+          SEND_OUTCOME: ${{ steps.run_send_email_python_script.outcome }}
+        run: |
+          if [ -n "$EXTRACT_FAILURE" ]; then
+            FAILURE_TYPE="$EXTRACT_FAILURE"
+          elif [ "${{ env.emailMatchesFolder }}" == "invalid" ]; then
+            FAILURE_TYPE="mismatch"
+          elif [ "$SEND_OUTCOME" == "success" ]; then
+            FAILURE_TYPE=""
+          else
+            FAILURE_TYPE="send_error"
+          fi
+          echo "Failure type: ${FAILURE_TYPE:-none}"
+          echo "failure_type=$FAILURE_TYPE" >> $GITHUB_OUTPUT
+
+      - name: Email feedback for a failed request
+        id: feedback_email
+        if: always() && steps.outcome.outputs.failure_type != '' && env.CONTACT_EMAIL != ''
+        env:
+          FAILURE_TYPE: ${{ steps.outcome.outputs.failure_type }}
+          TOKEN_PICKLE: ${{ secrets.TOKEN_PICKLE }}
+        run: |
+          python3 .github/scripts/send_feedback_email.py
+
+      - name: Comment on a request that could not be completed
+        if: always() && steps.outcome.outputs.failure_type == 'send_error'
+        uses: actions/github-script@v7
+        env:
+          FEEDBACK_EMAILED: ${{ steps.feedback_email.outcome == 'success' }}
+        with:
+          script: |
+            const moveNotice = process.env.FEEDBACK_EMAILED === "true"
+              ? "We have also emailed this to you. For your privacy, this issue will now be moved to a private repository, and you will not be able to access it after that."
+              : "For your privacy, this issue will be moved to a private repository in 3 days, and you will not be able to access it after that.";
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `We could not complete your request automatically. Please contact datahub-dataretrieval@berkeley.edu for help.\n\n${moveNotice}`
+            });
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['failed data retrieval']
+            });
 
       - name: Redact email and folder link from the issue body
         if: always()
@@ -232,8 +295,21 @@ jobs:
               body: "_Contents removed for privacy._"
             });
 
+      - name: Defer the transfer if the requester could not be emailed
+        id: defer
+        if: always() && steps.outcome.outputs.failure_type != '' && steps.feedback_email.outcome != 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['pending transfer']
+            });
+
       - name: Generate GitHub App token
-        if: always()
+        if: always() && steps.defer.outcome == 'skipped'
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
@@ -244,7 +320,7 @@ jobs:
 
       - name: Transfer the issue to the private repository
         id: transfer
-        if: always() && steps.app-token.outcome == 'success'
+        if: always() && steps.defer.outcome == 'skipped' && steps.app-token.outcome == 'success'
         uses: actions/github-script@v7
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -262,8 +338,8 @@ jobs:
             core.setOutput("issue_id", result.transferIssue.issue.id);
             console.log(`Transferred to datahub-data-retrieval#${result.transferIssue.issue.number}`);
 
-      - name: Close the issue in the private repository
-        if: always() && steps.transfer.outcome == 'success' && steps.run_send_email_python_script.outcome == 'success'
+      - name: Close the issue in the private repository if the request succeeded
+        if: always() && steps.transfer.outcome == 'success' && steps.outcome.outputs.failure_type == ''
         uses: actions/github-script@v7
         env:
           ISSUE_ID: ${{ steps.transfer.outputs.issue_id }}
@@ -277,8 +353,8 @@ jobs:
               { issueId: process.env.ISSUE_ID }
             );
 
-      - name: Close the issue in this repository if the transfer failed
-        if: always() && steps.transfer.outcome != 'success' && steps.run_send_email_python_script.outcome == 'success'
+      - name: Close the issue in this repository if the request succeeded but the transfer failed
+        if: always() && steps.transfer.outcome != 'success' && steps.outcome.outputs.failure_type == ''
         uses: actions/github-script@v7
         with:
           script: |
