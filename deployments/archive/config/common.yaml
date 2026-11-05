@@ -1,0 +1,154 @@
+nfsPVC:
+  enabled: false
+
+jupyterhub:
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+  prePuller:
+    continuous:
+      enabled: false
+    hook:
+      enabled: false
+
+  scheduling:
+    userScheduler:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
+  proxy:
+    chp:
+      nodeSelector:
+        hub.jupyter.org/pool-name: core-pool-2024-05-08
+      networkPolicy:
+        egress:
+          - to:
+              - podSelector:
+                  matchLabels:
+                    app: jupyterhub
+                    component: hub
+            ports:
+              - port: 10101
+                protocol: TCP
+
+  hub:
+    nodeSelector:
+      hub.jupyter.org/pool-name: core-pool-2024-05-08
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/testing/hub
+      tag: 'data-0.0.1'
+    consecutiveFailureLimit: 0
+    config:
+      JupyterHub:
+        default_url: /services/data-retrieval/
+    extraConfig:
+      10-noServers: |
+        from tornado import web
+
+        def refuse_server(spawner):
+            message = "This hub is designated for data retrieval only; launching JupyterLab servers is not permitted."
+            error = web.HTTPError(403, message)
+            error.jupyterhub_message = message
+            raise error
+
+        c.KubeSpawner.pre_spawn_hook = refuse_server
+    services:
+      data-retrieval:
+        url: http://hub:10101
+        command: ["data-retrieval"]
+        oauth_no_confirm: true
+        display: true
+        environment:
+          JUPYTERHUB_API_URL: http://localhost:8081/hub/api
+    service:
+      extraPorts:
+        - name: data-retrieval
+          port: 10101
+          targetPort: 10101
+    networkPolicy:
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  name: support
+              podSelector:
+                matchLabels:
+                  app: prometheus
+                  component: server
+          ports:
+            - port: http
+              protocol: TCP
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: proxy
+            - podSelector:
+                matchLabels:
+                  app: jupyterhub
+                  component: hub
+          ports:
+            - port: 10101
+              protocol: TCP
+    loadRoles:
+      # datahub staff
+      datahub-staff:
+        description: Enable admin for datahub staff
+        # this role provides permissions to...
+        scopes:
+          - admin-ui
+          - admin:groups
+          - admin:users
+          - admin:servers
+          - read:roles
+          - read:hub
+          - access:servers
+        # this role will be assigned to...
+        groups:
+          - course::1524699::group::all-admins
+
+  singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/user-images/datahub-user-image
+      tag: 88aeea8be0ba
+    extraEnv:
+      # Unset NotebookApp from hub/values. Necessary for recent lab versions.
+      JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+            - key: hub.jupyter.org/pool-name
+              operator: In
+              values:
+                - user-testing-pool
+                - user-testing-n2-pool
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - user-testing-pool
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: hub.jupyter.org/pool-name
+                operator: In
+                values:
+                  - user-testing-n2-pool
+    storage:
+      type: none
+      extraVolumes:
+        - name: home
+          emptyDir:
+            sizeLimit: 1Gi
+      extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+    memory:
+      guarantee: 256M
+      limit: 512M
+    cpu:
+      guarantee: 0.05
+      limit: 0.5
