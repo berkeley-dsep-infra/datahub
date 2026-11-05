@@ -1,0 +1,12 @@
+jupyterhub:
+  scheduling:
+    userScheduler:
+      replicas: 1
+  ingress:
+    enabled: true
+    hosts:
+      - archive-staging.datahub.berkeley.edu
+    tls:
+      - secretName: tls-cert
+        hosts:
+          - archive-staging.datahub.berkeley.edu

@@ -89,7 +89,6 @@ def hub_to_filestore_mapping(hub_name: str) -> str:
         "nature": "small-courses-filestore",
         "dev": "small-courses-filestore",
         "highschool": "small-courses-filestore",
-        "logodev": "small-courses-filestore",
     }
     return mapping.get(hub_name, "")
 
