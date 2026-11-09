@@ -301,3 +301,6 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 4G
         mem_guarantee: 2G
+    bcourses_shared:
+      2026-fall:
+        - "course::1557891"
