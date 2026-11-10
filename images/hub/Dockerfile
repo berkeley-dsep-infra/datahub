@@ -7,7 +7,10 @@ USER root
 RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/canvasoauthenticator@d66662a
 RUN python3 -m pip install --no-cache jupyterhub-ltiauthenticator==1.6.2
 RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/jupyterhub_grouper_sync.git@410300d
-RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/data-retrieval-service.git@1d2e963
+
+# add the following line if adding the data retrieval service
+# RUN python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/data-retrieval-service.git@4109f9b
+
 RUN python3 -m pip install --no-cache jupyterhub-fancy-profiles==0.6.0
 
 # DH-806

@@ -35,8 +35,8 @@ jupyterhub:
     nodeSelector:
       hub.jupyter.org/pool-name: core-pool-2024-05-08
     image:
-      name: us-central1-docker.pkg.dev/ucb-datahub-2018/testing/hub
-      tag: 'data-0.0.1'
+      name: us-central1-docker.pkg.dev/ucb-datahub-2018/core/archive-hub
+      tag: '4109f9b'
     consecutiveFailureLimit: 0
     config:
       JupyterHub:
