@@ -153,3 +153,8 @@ jupyterhub:
       course::1524699::group::all-admins:
         mem_limit: 2G
         mem_guarantee: 2G
+      course::1557081:
+        ## Course Name: PHW251B Bcourses ID: 1557081 End Date: 12/31/26
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8634 for details.
+        mem_limit: 4G
+        mem_guarantee: 4G
