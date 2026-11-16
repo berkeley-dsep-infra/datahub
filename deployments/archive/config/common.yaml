@@ -39,6 +39,11 @@ jupyterhub:
       tag: '4109f9b'
     consecutiveFailureLimit: 0
     config:
+      OAuthenticator:
+        allow_all: False
+        allowed_groups:
+          # DataHub staff
+          - "course::1524699::group::all-admins"
       JupyterHub:
         default_url: /services/data-retrieval/
     extraConfig:
