@@ -29,6 +29,7 @@ ingress-nginx:
       # Possibly related to temporary kernel connectivity issues from websocket failures
       proxy-read-timeout: "7200"
       proxy-send-timeout: "7200"
+      use-http2: "false"
     # Best effort guess on resource needs
     # We overprovision a little - issues here cause a full cluster outage
     nodeSelector:
