@@ -274,6 +274,11 @@ jupyterhub:
         ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8474 for details.
         mem_limit: 2G
         mem_guarantee: 2G
+      course::1556987:
+        ## Course Name: Introductory Applied Econometrics Bcourses ID: 1556987 End Date: 12/16/2026
+        ## See issue https://github.com/berkeley-dsep-infra/datahub/issues/8643 for details.
+        mem_limit: 2G
+        mem_guarantee: 2G
     bcourses_shared:
       2026-fall:
         - "course::1555939"
