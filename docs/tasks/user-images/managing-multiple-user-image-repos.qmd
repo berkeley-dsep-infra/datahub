@@ -16,7 +16,7 @@ For this, we have a tool named [manage-repos](https://github.com/berkeley-dsep-i
 `manage-repos` uses a config file with a list of all of the git remotes for the
 image repos ([repos.txt](https://github.com/berkeley-dsep-infra/datahub/blob/staging/scripts/user-image-management/repos.txt))
 and will allow you to perform basic git operations (sync/rebase, clone, branch
-management and pushing).
+management, pushing and PR creation/merging).
 
 The script "assumes" that you have all of your user images in their own
 sub-folder (in my case, `$HOME/src/images/...`).
@@ -367,4 +367,16 @@ After staging, push everything to a remote:
 
 ```
 manage-repos -d ~/src/images -c /path/to/repos.txt push -b test-branch
+```
+
+Once everything is pushed, create a pull request for the recent push:
+
+```
+manage-repos -d ~/src/images -c /path/to/repos.txt pr -t "Pull request title" -b "This is the body text of the PR.\\nYou can double-scape the newline to add breaks" -g <github user>
+```
+
+And merging:
+
+```
+manage-repos -d ~/src/images -c /path/to/repos.txt merge -d -s merge
 ```
