@@ -234,10 +234,13 @@ grafana:
   alerting:
     rules.yaml:
       apiVersion: 1
+      deleteRules:
+        - orgId: 1
+          uid: hub-down-staging
       groups:
         - orgId: 1
           name: cluster-health
-          folder: Cluster
+          folder: Cluster-Dashboards
           interval: 1m
           rules:
             - uid: unscheduled-user-pods
@@ -252,8 +255,8 @@ grafana:
                     instant: true
                     expr: |
                       count by (namespace) (
-                        (kube_pod_status_phase{phase="Pending", namespace!="node-placeholder"} == 1)
-                        * on (namespace, pod) group_left() max by (namespace, pod) (kube_pod_info{node=""})
+                        (kube_pod_status_phase{phase="Pending", namespace=~".*-prod"} == 1)
+                        * on (namespace, pod, uid) group_left() max by (namespace, pod, uid) (kube_pod_info{node=""})
                         unless on (namespace, pod) kube_pod_labels{label_component=~"placeholder|user-placeholder"}
                       )
                 - refId: B
@@ -266,7 +269,7 @@ grafana:
                       - evaluator: {type: gt, params: [0]}
               for: 15m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -302,7 +305,7 @@ grafana:
                       - evaluator: {type: gt, params: [0]}
               for: 0s
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -335,7 +338,7 @@ grafana:
                       - evaluator: {type: gt, params: [0.9]}
               for: 10m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -363,7 +366,7 @@ grafana:
                       - evaluator: {type: gt, params: [2]}
               for: 15m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -401,7 +404,7 @@ grafana:
                       - evaluator: {type: gt, params: [0.9]}
               for: 30m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -429,7 +432,7 @@ grafana:
                       - evaluator: {type: lt, params: [1]}
               for: 10m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -437,7 +440,7 @@ grafana:
 
         - orgId: 1
           name: hub-activity
-          folder: JupyterHub
+          folder: JupyterHub-Dashboards
           interval: 1m
           rules:
             - uid: hub-down-prod
@@ -451,7 +454,7 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      max by (namespace) (max_over_time(up{job="kubernetes-service-endpoints", service="hub", namespace=~".*-prod"}[1h]))
+                      max by (namespace) (count_over_time(up{job="kubernetes-service-endpoints", service="hub", namespace=~".*-prod"}[1h]))
                       unless on (namespace)
                       max by (namespace) (up{job="kubernetes-service-endpoints", service="hub", namespace=~".*-prod"} == 1)
                 - refId: B
@@ -464,7 +467,7 @@ grafana:
                       - evaluator: {type: gt, params: [0]}
               for: 5m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -473,36 +476,6 @@ grafana:
                   Prometheus can't scrape the hub, or its pod isn't ready. Users of this
                   hub can't log in or start servers. Deploys take the hub down for about
                   30s, well under the 5m pending period.
-
-            - uid: hub-down-staging
-              title: Hub down (staging and other)
-              condition: B
-              data:
-                - refId: A
-                  relativeTimeRange: {from: 3600, to: 0}
-                  datasourceUid: P1809F7CD0C75ACF3
-                  model:
-                    refId: A
-                    instant: true
-                    expr: |
-                      max by (namespace) (max_over_time(up{job="kubernetes-service-endpoints", service="hub", namespace!~".*-prod"}[1h]))
-                      unless on (namespace)
-                      max by (namespace) (up{job="kubernetes-service-endpoints", service="hub", namespace!~".*-prod"} == 1)
-                - refId: B
-                  datasourceUid: __expr__
-                  model:
-                    refId: B
-                    type: threshold
-                    expression: A
-                    conditions:
-                      - evaluator: {type: gt, params: [0]}
-              for: 5m
-              noDataState: OK
-              execErrState: Error
-              labels:
-                severity: warning
-              annotations:
-                summary: 'Hub {{ "{{" }} $labels.namespace }} down for 5m'
 
             - uid: spawn-failures
               title: Server spawn failures
@@ -515,7 +488,7 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      round(sum by (namespace) (increase(jupyterhub_server_spawn_duration_seconds_count{status="failure"}[15m])))
+                      round(sum by (namespace) (increase(jupyterhub_server_spawn_duration_seconds_count{namespace=~".*-prod", status="failure"}[15m])))
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -526,7 +499,7 @@ grafana:
                       - evaluator: {type: gt, params: [2]}
               for: 0s
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -546,9 +519,9 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      histogram_quantile(0.9, sum by (namespace, le) (rate(jupyterhub_server_spawn_duration_seconds_bucket{status="success"}[15m])))
+                      histogram_quantile(0.9, sum by (namespace, le) (rate(jupyterhub_server_spawn_duration_seconds_bucket{namespace=~".*-prod", status="success"}[15m])))
                       and on (namespace)
-                      sum by (namespace) (increase(jupyterhub_server_spawn_duration_seconds_count{status="success"}[15m])) >= 5
+                      sum by (namespace) (increase(jupyterhub_server_spawn_duration_seconds_count{namespace=~".*-prod", status="success"}[15m])) >= 5
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -559,7 +532,7 @@ grafana:
                       - evaluator: {type: gt, params: [300]}
               for: 15m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -579,7 +552,7 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      round(sum by (namespace, status) (increase(jupyterhub_server_spawn_duration_seconds_count{status=~"throttled|too-many-users"}[15m])))
+                      round(sum by (namespace, status) (increase(jupyterhub_server_spawn_duration_seconds_count{namespace=~".*-prod", status=~"throttled|too-many-users"}[15m])))
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -590,7 +563,7 @@ grafana:
                       - evaluator: {type: gt, params: [0]}
               for: 0s
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -601,7 +574,7 @@ grafana:
 
         - orgId: 1
           name: hub-proxy
-          folder: JupyterHub
+          folder: JupyterHub-Dashboards
           interval: 1m
           rules:
             - uid: hub-restarted
@@ -615,7 +588,7 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      round(sum by (namespace) (increase(kube_pod_container_status_restarts_total{pod=~"hub-.*", container="hub"}[15m])))
+                      round(sum by (namespace) (increase(kube_pod_container_status_restarts_total{namespace=~".*-prod", pod=~"hub-.*", container="hub"}[15m])))
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -626,7 +599,7 @@ grafana:
                       - evaluator: {type: gt, params: [0]}
               for: 0s
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -648,8 +621,8 @@ grafana:
                     instant: true
                     expr: &hubDbFree |
                       min by (namespace) (
-                        kubelet_volume_stats_available_bytes{persistentvolumeclaim="hub-db-dir"}
-                        / kubelet_volume_stats_capacity_bytes{persistentvolumeclaim="hub-db-dir"}
+                        kubelet_volume_stats_available_bytes{namespace=~".*-prod", persistentvolumeclaim="hub-db-dir"}
+                        / kubelet_volume_stats_capacity_bytes{namespace=~".*-prod", persistentvolumeclaim="hub-db-dir"}
                       )
                 - refId: B
                   datasourceUid: __expr__
@@ -661,7 +634,7 @@ grafana:
                       - evaluator: {type: lt, params: [0.1]}
               for: 10m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -691,7 +664,7 @@ grafana:
                       - evaluator: {type: lt, params: [0.05]}
               for: 10m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: critical
               annotations:
@@ -708,8 +681,8 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      max by (namespace, container) (container_memory_working_set_bytes{pod=~"hub-.*|proxy-.*", container=~"hub|chp"})
-                      / max by (namespace, container) (kube_pod_container_resource_limits{resource="memory", pod=~"hub-.*|proxy-.*", container=~"hub|chp"})
+                      max by (namespace, container) (container_memory_working_set_bytes{namespace=~".*-prod", pod=~"hub-.*|proxy-.*", container=~"hub|chp"})
+                      / max by (namespace, container) (kube_pod_container_resource_limits{namespace=~".*-prod", resource="memory", pod=~"hub-.*|proxy-.*", container=~"hub|chp"})
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -720,7 +693,7 @@ grafana:
                       - evaluator: {type: gt, params: [0.9]}
               for: 10m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -737,7 +710,7 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      sum by (namespace, container) (rate(container_cpu_usage_seconds_total{pod=~"hub-.*|proxy-.*", container=~"hub|chp"}[5m]))
+                      sum by (namespace, container) (rate(container_cpu_usage_seconds_total{namespace=~".*-prod", pod=~"hub-.*|proxy-.*", container=~"hub|chp"}[5m]))
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -748,7 +721,7 @@ grafana:
                       - evaluator: {type: gt, params: [0.9]}
               for: 10m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -759,7 +732,7 @@ grafana:
 
         - orgId: 1
           name: user-pods
-          folder: JupyterHub
+          folder: JupyterHub-Dashboards
           interval: 1m
           rules:
             - uid: user-pod-outlived-max-age
@@ -774,7 +747,7 @@ grafana:
                     instant: true
                     expr: |
                       count by (namespace) (
-                        time() - max by (namespace, pod) (kube_pod_created{pod=~"jupyter-.*"}) > 9 * 3600
+                        time() - max by (namespace, pod) (kube_pod_created{namespace=~".*-prod", pod=~"jupyter-.*"}) > 9 * 3600
                       )
                 - refId: B
                   datasourceUid: __expr__
@@ -786,7 +759,7 @@ grafana:
                       - evaluator: {type: gt, params: [0]}
               for: 30m
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
@@ -808,8 +781,8 @@ grafana:
                     refId: A
                     instant: true
                     expr: |
-                      sum by (namespace, pod) (rate(container_cpu_usage_seconds_total{pod=~"jupyter-.*", container="notebook"}[1h]))
-                      / sum by (namespace, pod) (kube_pod_container_resource_limits{pod=~"jupyter-.*", container="notebook", resource="cpu"})
+                      sum by (namespace, pod) (rate(container_cpu_usage_seconds_total{namespace=~".*-prod", pod=~"jupyter-.*", container="notebook"}[1h]))
+                      / sum by (namespace, pod) (kube_pod_container_resource_limits{namespace=~".*-prod", pod=~"jupyter-.*", container="notebook", resource="cpu"})
                 - refId: B
                   datasourceUid: __expr__
                   model:
@@ -820,14 +793,14 @@ grafana:
                       - evaluator: {type: gt, params: [0.9]}
               for: 2h
               noDataState: OK
-              execErrState: Error
+              execErrState: KeepLast
               labels:
                 severity: warning
               annotations:
                 summary: '{{ "{{" }} $labels.pod }} on {{ "{{" }} $labels.namespace }} above 90% of its CPU limit for about 3h'
                 description: >-
-                  Look at the pod in User Diagnostics (Hub and User pod selectors) and at its
-                  processes before contacting the user.
+                  Look at the pod in Per-pod CPU and Memory Usage (1d) (hub and user pod
+                  selectors) and at its processes before contacting the user.
 
     policies.yaml:
       apiVersion: 1

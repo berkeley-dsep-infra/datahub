@@ -1,0 +1,479 @@
+{
+  "uid": "abnormal-user-pods-7d",
+  "title": "Abnormal User Pods (7d)",
+  "tags": [
+    "abnormal-user-pods-by-range",
+    "jupyterhub",
+    "jupyterhub-by-range"
+  ],
+  "editable": true,
+  "graphTooltip": 1,
+  "schemaVersion": 38,
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timezone": "America/Los_Angeles",
+  "refresh": "",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "prometheus",
+          "value": "prometheus"
+        },
+        "hide": 1,
+        "includeAll": false,
+        "multi": false,
+        "name": "PROMETHEUS_DS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(jupyterhub_running_servers, namespace)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "hub",
+        "options": [],
+        "query": {
+          "query": "label_values(jupyterhub_running_servers, namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "Failed",
+            "Pending",
+            "Unknown"
+          ],
+          "value": [
+            "Failed",
+            "Pending",
+            "Unknown"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(kube_pod_status_phase, phase)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "pod_phase",
+        "label": "Pod phase",
+        "query": {
+          "query": "label_values(kube_pod_status_phase, phase)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "/^(?!Running$).*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "user_pod",
+        "options": [],
+        "query": "label_values(kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\"}, pod)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "row",
+      "title": "Anomalous user pods",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "User pods running now that are older than 8 hours. Filter by hub with the Hub selector or the Hub column.\n",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "s",
+          "custom": {
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Age"
+          }
+        ]
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "(\n  time() - (kube_pod_created * on (namespace, pod)  \n  group(\n    kube_pod_labels{label_app=\"jupyterhub\", label_component=\"singleuser-server\", namespace=~\"$hub\", pod=~\"$user_pod\"}\n  ) by (label_component, pod, namespace))\n)  > (8 * 60 * 60) # 8 hours is our threshold\n",
+          "instant": true,
+          "refId": "A",
+          "format": "table"
+        }
+      ],
+      "title": "Very old user pods",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "namespace": 0,
+              "pod": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "namespace": "Hub",
+              "pod": "User pod",
+              "Value": "Age"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "User pods whose CPU use went above 0.5 cores at any point in the selected time range, with their peak value. Filter by hub with the Hub selector or the Hub column.\n",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "suffix: cores",
+          "custom": {
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Peak CPU (cores)"
+          }
+        ]
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "max by (namespace, pod) (\n  max_over_time(jupyterhub:user_pod_cpu_usage_cores:rate5m{namespace=~\"$hub\", pod=~\"$user_pod\"}[$__range])\n) > 0.5\n",
+          "instant": true,
+          "refId": "A",
+          "format": "table"
+        }
+      ],
+      "title": "User Pods with high CPU usage (>0.5)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "namespace": 0,
+              "pod": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "namespace": "Hub",
+              "pod": "User pod",
+              "Value": "Peak CPU (cores)"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "User pods whose memory use reached more than 80% of their memory limit at any point in the selected time range, with the peak share. Once they hit their memory limit, user kernels will start dying. Filter by hub with the Hub selector or the Hub column.\n",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "percentunit",
+          "custom": {
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "id": 4,
+      "options": {
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Peak % of memory limit"
+          }
+        ]
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "max by (namespace, pod) (\n  max_over_time(jupyterhub:user_pod_memory_working_set_bytes:sum{namespace=~\"$hub\", pod=~\"$user_pod\"}[$__range])\n)\n/\nsum by (namespace, pod) (\n  max_over_time(kube_pod_container_resource_limits{resource=\"memory\", namespace=~\"$hub\", pod=~\"$user_pod\"}[$__range])\n)\n> 0.8\n",
+          "instant": true,
+          "refId": "A",
+          "format": "table"
+        }
+      ],
+      "title": "User pods with high memory usage (>80% of limit)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "namespace": 0,
+              "pod": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "namespace": "Hub",
+              "pod": "User pod",
+              "Value": "Peak % of memory limit"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "id": 5,
+      "type": "row",
+      "title": "Non-running user pods",
+      "collapsed": true,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "description": "Pods not in the Running phase, per hub and phase. Filter with the Hub and Pod phase selectors. A hub only gets a line while it has such pods.\n\nSucceeded is left out of the Pod phase selector by default: user servers pass through it briefly whenever they are stopped, so it is normal. Select it to see those.\n",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 22
+          },
+          "id": 6,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "v10.4.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$PROMETHEUS_DS"
+              },
+              "expr": "sum by (namespace, phase) (\n  kube_pod_status_phase{phase!=\"Running\", phase=~\"$pod_phase\", namespace=~\"$hub\"} == 1\n)\n",
+              "legendFormat": "{{namespace}} {{phase}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Non Running Pods",
+          "type": "timeseries"
+        }
+      ],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      }
+    }
+  ],
+  "id": null,
+  "version": 1,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": false,
+      "tags": [
+        "jupyterhub-by-range"
+      ],
+      "targetBlank": false,
+      "title": "All JupyterHub dashboards",
+      "type": "dashboards"
+    }
+  ]
+}
