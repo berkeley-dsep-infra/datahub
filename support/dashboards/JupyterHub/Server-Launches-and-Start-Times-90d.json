@@ -1,0 +1,318 @@
+{
+  "uid": "server-launches-start-times-90d",
+  "title": "Server Launches and Start Times (90d)",
+  "tags": [
+    "activity-by-range",
+    "jupyterhub",
+    "jupyterhub-by-range"
+  ],
+  "editable": true,
+  "graphTooltip": 1,
+  "schemaVersion": 38,
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timezone": "America/Los_Angeles",
+  "refresh": "",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "prometheus",
+          "value": "prometheus"
+        },
+        "hide": 1,
+        "includeAll": false,
+        "multi": false,
+        "name": "PROMETHEUS_DS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(jupyterhub_running_servers, namespace)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "hub",
+        "options": [],
+        "query": {
+          "query": "label_values(jupyterhub_running_servers, namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(jupyterhub_server_spawn_duration_seconds_count, status)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "status",
+        "label": "Launch status",
+        "query": {
+          "query": "label_values(jupyterhub_server_spawn_duration_seconds_count, status)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "row",
+      "title": "Server Launching",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Server Launches",
+      "description": "Number of user server spawns by hub and outcome, per time step. Filter with the Hub and Launch status selectors.\n",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "custom": {
+            "stacking": {
+              "mode": "none"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum by (namespace, status) (\n  clamp_min(\n    jupyterhub_server_spawn_duration_seconds_count{namespace=~\"$hub\", status=~\"$status\"}\n    - jupyterhub_server_spawn_duration_seconds_count{namespace=~\"$hub\", status=~\"$status\"} offset $__interval,\n    0\n  )\n)",
+          "legendFormat": "{{namespace}} {{status}}",
+          "refId": "A",
+          "interval": "1m"
+        }
+      ]
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$PROMETHEUS_DS"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "points",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 3,
+      "interval": "5m",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "histogram_quantile(0.99, sum(rate(jupyterhub_server_spawn_duration_seconds_bucket{app=\"jupyterhub\", namespace=~\"$hub\", status=\"success\"}[$__rate_interval])) by (le, namespace))",
+          "legendFormat": "{{namespace}} 99th percentile",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "histogram_quantile(0.5, sum(rate(jupyterhub_server_spawn_duration_seconds_bucket{app=\"jupyterhub\", namespace=~\"$hub\", status=\"success\"}[$__rate_interval])) by (le, namespace))",
+          "legendFormat": "{{namespace}} 50th percentile",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.2, sum(rate(jupyterhub_server_spawn_duration_seconds_bucket{app=\"jupyterhub\", namespace=~\"$hub\", status=\"success\"}[$__rate_interval])) by (le, namespace))",
+          "hide": false,
+          "legendFormat": "{{namespace}} 20th percentile",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Server Start Times",
+      "type": "timeseries",
+      "description": "Time taken to start user servers, per hub selected in the Hub selector.\n\nOnly successful spawns are included. Failed spawns usually run until the 600s timeout and would drag the percentiles towards it; see Server Launches filtered by status for those.\n"
+    }
+  ],
+  "id": null,
+  "version": 1,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": false,
+      "tags": [
+        "activity-by-range"
+      ],
+      "targetBlank": false,
+      "title": "Same topic, other ranges",
+      "type": "dashboards"
+    },
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": false,
+      "tags": [
+        "jupyterhub-by-range"
+      ],
+      "targetBlank": false,
+      "title": "All JupyterHub dashboards",
+      "type": "dashboards"
+    }
+  ]
+}

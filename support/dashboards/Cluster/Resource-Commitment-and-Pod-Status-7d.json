@@ -1,0 +1,645 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": false,
+      "tags": [
+        "cluster-information-by-range"
+      ],
+      "targetBlank": false,
+      "title": "Cluster: other ranges",
+      "type": "dashboards"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "id": 1,
+      "type": "row",
+      "title": "Resource Commitment",
+      "collapsed": false,
+      "panels": [],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "% of each node guaranteed to pods on it\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum(\n  # Get individual container cpu requests\n  kube_pod_container_resource_requests{resource=\"cpu\"}\n  # Add node pool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n  and on (namespace, pod) (kube_pod_status_phase{phase=~\"Running|Pending\"} == 1)\n  and on (namespace, pod) kube_pod_labels{label_component!~\"placeholder|user-placeholder\"}\n) by (node, label_cloud_google_com_gke_nodepool)\n/\nsum(\n  # Total allocatable CPU on a node\n  kube_node_status_allocatable{resource=\"cpu\"}\n  # Add nodepool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n) by (node, label_cloud_google_com_gke_nodepool)\n",
+          "legendFormat": "{{label_cloud_google_com_gke_nodepool}}/{{node}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Node CPU Commit %",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "% of each node guaranteed to pods on it.\n\nWhen this hits 100%, the autoscaler will spawn a new node and the scheduler will stop\nputting pods on the old node.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum(\n  # Get individual container memory requests\n  kube_pod_container_resource_requests{resource=\"memory\"}\n  # Add node pool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n  and on (namespace, pod) (kube_pod_status_phase{phase=~\"Running|Pending\"} == 1)\n  and on (namespace, pod) kube_pod_labels{label_component!~\"placeholder|user-placeholder\"}\n) by (node, label_cloud_google_com_gke_nodepool)\n/\nsum(\n  # Total allocatable memory on a node\n  kube_node_status_allocatable{resource=\"memory\"}\n  # Add nodepool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n) by (node, label_cloud_google_com_gke_nodepool)\n",
+          "legendFormat": "{{label_cloud_google_com_gke_nodepool}}/{{node}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Node Memory Commit %",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "% of CPU in each node pool guaranteed to user workloads.\n\nMost commonly, JupyterHub workloads are *memory bound*, not CPU bound. So this is\nnot a particularly helpful graph.\n\nCommon shapes this visualization may take:\n1. If this is *consistently high* but shaped differently than your memory commitment\n  graph, consider changing your CPU requirements.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum(\n  # Get individual container memory requests\n  kube_pod_container_resource_requests{resource=\"cpu\"}\n  # Add node pool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n  and on (namespace, pod) (kube_pod_status_phase{phase=~\"Running|Pending\"} == 1)\n  and on (namespace, pod) kube_pod_labels{label_component!~\"placeholder|user-placeholder\"}\n) by (label_cloud_google_com_gke_nodepool)\n/\nsum(\n  # Total allocatable CPU on a node\n  kube_node_status_allocatable{resource=\"cpu\"}\n  # Add nodepool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n) by (label_cloud_google_com_gke_nodepool)\n",
+          "legendFormat": "{{label_cloud_google_com_gke_nodepool}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Node Pool CPU commitment %",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "% of memory in each node pool guaranteed to user workloads.\n\nCommon shapes this visualization may take:\n1. If this is consistently low (<50%), you are paying for cloud compute that you do not\n  need. Consider reducing the size of your nodes, or increasing the amount of\n  memory guaranteed to your users. Some variability based on time of day is to be expected.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$PROMETHEUS_DS"
+          },
+          "expr": "sum(\n  # Get individual container memory requests\n  kube_pod_container_resource_requests{resource=\"memory\"}\n  # Add node pool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n  and on (namespace, pod) (kube_pod_status_phase{phase=~\"Running|Pending\"} == 1)\n  and on (namespace, pod) kube_pod_labels{label_component!~\"placeholder|user-placeholder\"}\n) by (label_cloud_google_com_gke_nodepool)\n/\nsum(\n  # Total allocatable memory on a node\n  kube_node_status_allocatable{resource=\"memory\"}\n  # Add nodepool name as label\n  * on(node) group_left(label_cloud_google_com_gke_nodepool)\n  # group aggregator ensures that node names are unique per\n  # pool.\n  group(\n    kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"}\n  ) by (node, label_cloud_google_com_gke_nodepool)\n) by (label_cloud_google_com_gke_nodepool)\n",
+          "legendFormat": "{{label_cloud_google_com_gke_nodepool}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Node Pool Memory commitment %",
+      "type": "timeseries"
+    },
+    {
+      "id": 6,
+      "type": "row",
+      "title": "Pod Status",
+      "collapsed": true,
+      "panels": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "-- Mixed --"
+          },
+          "description": "Pods in states other than 'Running', per node pool of the node they are scheduled on.\n\nPending pods that have not been scheduled to a node yet are shown as 'unscheduled'.\nUnscheduled placeholder pods are shown separately in grey: they are evicted to make room for users and wait for the autoscaler by design, so long grey bars are normal. Unscheduled user pods are what the 'Pods unschedulable' alert watches.\nFilter with the Node pool and Pod status selectors.\n",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "drawStyle": "bars",
+                "fillOpacity": 80,
+                "lineWidth": 1,
+                "barAlignment": 0,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "axisSoftMin": 0
+              },
+              "decimals": 0,
+              "min": 0,
+              "unit": "short",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "^unscheduled placeholder.*"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#8e8e8e",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 30
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 22
+          },
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$PROMETHEUS_DS"
+              },
+              "expr": "sum by (label_cloud_google_com_gke_nodepool, phase) (\n  (kube_pod_status_phase{phase!=\"Running\", phase=~\"$status\"} == 1)\n  * on (namespace, pod, uid) group_left(node) topk by (namespace, pod, uid) (1, kube_pod_info{node!=\"\"})\n  * on (node) group_left(label_cloud_google_com_gke_nodepool) group by (node, label_cloud_google_com_gke_nodepool) (kube_node_labels{label_cloud_google_com_gke_nodepool=~\"$nodepool\"})\n)\n",
+              "legendFormat": "{{label_cloud_google_com_gke_nodepool}} {{phase}}",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$PROMETHEUS_DS"
+              },
+              "expr": "sum by (phase) (\n  (kube_pod_status_phase{phase!=\"Running\", phase=~\"$status\"} == 1)\n  * on (namespace, pod) group_left() max by (namespace, pod) (kube_pod_info{node=\"\"})\n  unless on (namespace, pod) kube_pod_labels{label_component=~\"placeholder|user-placeholder\"}\n)\n",
+              "legendFormat": "unscheduled {{phase}}",
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$PROMETHEUS_DS"
+              },
+              "expr": "sum by (phase) (\n  (kube_pod_status_phase{phase!=\"Running\", phase=~\"$status\"} == 1)\n  * on (namespace, pod) group_left() max by (namespace, pod) (kube_pod_info{node=\"\"})\n  and on (namespace, pod) kube_pod_labels{label_component=~\"placeholder|user-placeholder\"}\n)\n",
+              "legendFormat": "unscheduled placeholder {{phase}}",
+              "refId": "C"
+            }
+          ],
+          "title": "Pods not in Running state (by node pool)",
+          "type": "timeseries"
+        }
+      ],
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      }
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [
+    "cluster-information-by-range",
+    "jupyterhub",
+    "kubernetes"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "prometheus",
+          "value": "prometheus"
+        },
+        "hide": 1,
+        "includeAll": false,
+        "multi": false,
+        "name": "PROMETHEUS_DS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(kube_node_labels, label_cloud_google_com_gke_nodepool)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "nodepool",
+        "label": "Node pool",
+        "query": {
+          "query": "label_values(kube_node_labels, label_cloud_google_com_gke_nodepool)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${PROMETHEUS_DS}"
+        },
+        "definition": "label_values(kube_pod_status_phase, phase)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "status",
+        "label": "Pod status",
+        "query": {
+          "query": "label_values(kube_pod_status_phase, phase)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "/^(?!Running$).*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "America/Los_Angeles",
+  "title": "Resource Commitment and Pod Status (7d)",
+  "uid": "resource-commitment-pod-status-7d",
+  "version": 1,
+  "weekStart": "",
+  "id": null
+}
